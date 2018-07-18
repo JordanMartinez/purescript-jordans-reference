@@ -22,9 +22,9 @@ instance toIntBoolean :: ToInt Boolean where
 -- Add a Type Class constraint to a function
 constrainedFunction :: forall a. TypeClass a => a -> String
 
--- data List a
---   = Nil
---   | Cons a List
+data List a
+  = Nil
+  | Cons a List
 
 stringList_to_intList :: ToInt a => List a => List Int
 stringList_to_intList Nil = Nil
