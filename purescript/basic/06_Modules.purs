@@ -1,6 +1,7 @@
 module ModuleName
   -- things that can be imported by others
   ( function  -- via "import ModuleName (function)""
+  , (>**==**>) -- via "import ModuleName ((>**==**>))"
   , DataName -- via "import ModuleName (dataName)"
 
   -- exports a type, but not its constructors
@@ -21,6 +22,8 @@ import Module
 import Module.SubModule.SubSubModule
 -- imports functions from the module
 import ModuleFunctions (function1, function2, function3)
+-- imports function alias from a module
+import ModuleFunctionAliases ((/=), (===), (>>**>>))
 -- imports type class from the module
 import ModuleTypeClass (class TypeClass)
 -- alias to the module
@@ -50,6 +53,11 @@ data TypeNameAndOneConstructor
 
 function :: String -> String
 function x = x
+
+functionWithAlias :: String -> String
+function x = x
+
+infix 4 functionWithAlias as >**==**>
 
 class TypeClass a where
   typeClassFunctionName :: a -> String
