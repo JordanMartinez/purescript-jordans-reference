@@ -11,12 +11,6 @@ data ProductType a b
   | ProductConstructor2 b
   | ProductConstructorN a b
 
-data TypeWithPhantomType a phantom
-  = Constructor1 a
-  | Constructor2 a
-  | Constructor3
-  -- type 'phantom' is never used in constructors
-
 -- Generic Algebraic Data Type
 data GADT a b c {- non-monadic types -} f g h m {- monadic types -}
   = Constructor1 a b f  -- use a mixture of the generic types

@@ -1,16 +1,16 @@
--- Work in progress!
+class Functor f where
+  map :: forall a b. (a -> b) -> f a -> f b
 
-dollar :: (a -> b) -> a -> b
-dollar f a = f a
+infixl 4 map as <$>
 
-infix precendence dollar as $
+mapFlipped :: forall f a b. Functor f => f a -> (a -> b) -> f b
+infixl 1 mapFlipped as <#>
 
-print (5 + 5) == print $ 5 + 5
+void :: forall f a. Functor f => f a -> f Unit
 
-class Functor a where
-  map :: f a -> (a -> b) -> f b
+voidRight :: forall f a b. Functor f => a -> f b -> f a
+infixl 4 voidRight as <$
 
-infix precedence map as <$>
 
 class Apply a where
   ap :: f (a -> b) -> f a -> f b
