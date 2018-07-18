@@ -20,7 +20,10 @@ instance debugBoolean :: Debug Boolean where
 debug true = "true"
 debug (2 > 5) = "false"
 
+-- Add a constraint to a function
+contrainedFunction :: forall a. TypeClass a => a -> String
 
+contrainedFunction2 :: forall a b. TypeClass1 a => TypeClass2 b => a -> b
 
 -- Type class relationships
 
