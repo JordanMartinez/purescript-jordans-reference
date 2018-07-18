@@ -63,7 +63,7 @@ data Style = Normal | Bold | Italic
 
 -- new smart constructor
 style :: Style -> Attribute
-style = attribute0 "style"
+style = attribute "style"
 
 -- This gets rid of our runtime issues, but it makes things less readable
 -- as we have now lost the "key := value" syntax.
