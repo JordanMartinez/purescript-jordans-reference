@@ -1,3 +1,4 @@
+-- Note: Functor is in Data module, not Control module
 class Functor f where
   map :: forall a b. (a -> b) -> f a -> f b
 
