@@ -1,12 +1,11 @@
 module ModuleName
   -- things that can be imported by others
-  ( function  -- via "import ModuleName (function)""
-  , (>**==**>) -- via "import ModuleName ((>**==**>))"
-  , DataName -- via "import ModuleName (dataName)"
+  ( function
+  , functionWithAlias, (>**==**>)
+  
+  , DataNameButNotConstructors
 
-  -- exports a type, but not its constructors
-  , TypeName -- via import ModuleName (TypeName)
-
+  , TypeNameButNotConstructors
   , TypeNameWithAllConstructors(..)
   , TypeNameAndOneConstructor(Constructor1B)
 
@@ -39,9 +38,9 @@ import HelperDatatypesModule as UsefulModules
 
 import TotalModule (DataOrTypeAliasName, functionName, class TypeClassName)
 
-data DataName = Data
+data DataNameButNotConstructors = Data
 
-type TypeName = Int
+type TypeNameButNotConstructors = Int
 
 data TypeNameWithAllConstructors
   = Constructor1A
