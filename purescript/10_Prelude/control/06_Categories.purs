@@ -1,3 +1,8 @@
+-- This gets into category theory. Rather than fully explaining that
+-- We'll concretize these abstract ideas into functions to better understand
+-- them. This helps one learn the concepts but without understanding their
+-- full power.
+
 class Semigroupoid a where
   compose :: forall b c d. a c d   -> a b c    -> a b d
      -- In other words... (c -> d) -> (b -> c) -> (b -> d)
