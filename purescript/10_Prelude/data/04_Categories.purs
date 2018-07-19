@@ -2,6 +2,7 @@ class Semigroupoid a where
   compose :: forall b c d. a c d   -> a b c    -> a b d
      -- In other words... (c -> d) -> (b -> c) -> (b -> d)
      -- but generalized to things other than functions
+     -- (replace "(_ -> _)" with '(a _ _)' in the above context)
 
 composeFlipped :: Signature -> Excluded
 
