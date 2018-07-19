@@ -1,22 +1,32 @@
-data SingleDataType_NoArgs = Constructor
-data SingleDataType_WithArgs = Constructor Argument
+-- Syntax
+data InterfaceLikeType
+  = ImplementationConstructorWithNoArgs
+  | ImplementationConstructorWithArgs Type1 Type2 Type3
+  | ImplementationConstructorWithRecursiveArg InterfaceLikeType
 
+-- two basic types
 data SumType
   = SumConstructor1
   | SumConstructor2
   | SumConstructorN
+
+-- example
+-- an enum-like type that only has 3 different implementations
+data Fruit
+  = Apple
+  | Banana
+  | Orange
 
 data ProductType a b
   = ProductConstructor1 a
   | ProductConstructor2 b
   | ProductConstructorN a b
 
--- Generic Algebraic Data Type
-data GADT a b c {- non-monadic types -} f g h m {- monadic types -}
-  = Constructor1 a b f  -- use a mixture of the generic types
-  | Constructor2 f g    -- only of one kind
-  | ConstructorN h      -- only one
-  | ConstructorZ        -- or none at all
+-- example
+-- a type that's either the a (wrapped in Left) or b (wrapped in Right)
+data Either a b
+  = Left a
+  | Right b
 
 type TypeAliasNameForCompileTime = RunTimeType {-
 type Age = Int
