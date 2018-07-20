@@ -17,3 +17,7 @@ Since Purescript uses very fine-grained modules, its hard to know which librarie
 Some packages that worked for older versions of Purescript have been deprecated over time.
 
 [This repo](https://github.com/purescript-deprecated) stores the list
+
+## Purescript Cookbook
+
+[The Purescript Cookbook](http://codingstruggles.com/ps-cookbook/) aims to demonstrate a few simple concepts
