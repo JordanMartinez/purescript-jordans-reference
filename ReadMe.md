@@ -10,3 +10,8 @@ Follow the instructions from [this blog post](https://qiita.com/kimagure/items/5
 
 [See the index](https://github.com/passy/awesome-purescript)
 
+## Deprecated packages
+
+Some packages that worked for older versions of Purescript have been deprecated over time.
+
+[This repo](https://github.com/purescript-deprecated) stores the list
