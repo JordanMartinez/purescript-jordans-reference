@@ -11,5 +11,5 @@ class HeytingAlgebra a where
 infixr 3 conj as &&
 infixr 2 disj as ||
 
+-- Adds additional law on top of HeytingAlgebra
 class (HeytingAlgebra a) <= BooleanAlgebra a where
--- TODO
