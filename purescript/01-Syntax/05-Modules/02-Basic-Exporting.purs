@@ -61,3 +61,6 @@ data ExportDataType3_AndSomeOfItsConstructors
 data ExportDataType3_AndAllOfItsConstructors
   = Constructor3A
   | Constructor3B
+
+-- TODO: export kinds and add this to full syntax
+data ValueLevel_to_TypeLevelType ( typelevel :: CustomKind)
