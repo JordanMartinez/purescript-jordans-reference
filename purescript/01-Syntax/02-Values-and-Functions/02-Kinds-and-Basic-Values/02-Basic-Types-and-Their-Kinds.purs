@@ -21,7 +21,7 @@ data Char :: Type -- doesn't support astral plane characters (code points > 0xFF
 data String :: Type
 "literal string syntax" -- String -- *
 
--- Syntax sugar
+-- Syntax sugar for Strings
 "Ignore newline characters \
 \in strings using slashes"
 
