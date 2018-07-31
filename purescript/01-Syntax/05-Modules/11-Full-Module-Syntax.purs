@@ -32,6 +32,15 @@ module ModuleName
   , ExportDataType3_AndSomeOfItsConstructors(Constructor3A, Constructor3B)
 
   , ExportDataType3_AndAllOfItsConstructors(..) -- syntax sugar for 'all constructors'
+
+  -- Type aliases can also be exported but must be preceded by 'type'
+  , type ExportedTypeAlias
+
+  -- Data type alias
+  , (<|_|>)
+
+  -- Type alias
+  , type (<_|_>)
   ) where
 
 -- imports go here
@@ -107,3 +116,13 @@ data ExportDataType3_AndSomeOfItsConstructors
 data ExportDataType3_AndAllOfItsConstructors
   = Constructor3A
   | Constructor3B
+
+type ExportedTypeAlias = Int
+
+data ExportedDataType4_InfixNotation = Constructor4
+
+infixr 4 ExportedDataType4_InfixNotation as <|_|>
+
+type ExportedTypeAlias_InfixNotation = String
+
+infixr 4 type ExportedTypeAlias_InfixNotation as <_|_>
