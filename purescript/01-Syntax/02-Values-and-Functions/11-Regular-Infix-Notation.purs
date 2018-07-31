@@ -3,7 +3,7 @@ two_arg_function x y | x < 0 = (x + 1) * (y + 14)
                      | otherwise = y + x
 
 -- infix notation available via backticks
-1 `two_arg_function` 2
+1 `two_arg_function` "b"
 -- becomes two_arg_function 1 2
 
 -- Some types given here to make things easier...
@@ -29,29 +29,29 @@ infix  4 type TypeAlias as :$>
 -- Each type of infix will be shown by reducing it to its final call
 
 -- make depth small (like a tree)
-infix 0 functionName as alias
-{-  1 alias 2  alias  3 alias 4
-== (1 alias 2) alias (3 alias 4))
-== (alias 1 2) alias (alias 3 4))
-== functionName (functionName 1 2) (functionName 3 4)  -- desugared
+infix 0 concatString as alias
+{-  "a" alias "b"  alias  "c" alias "d"
+== ("a" alias "b") alias ("c" alias "d"))
+== (alias "a" "b") alias (alias "c" "d"))
+== concatString (concatString "a" "b") (concatString "c" "d")  -- desugared
 -}
 
-infixl 9 functionName as |>>|
-{-    1 |>>| 2 |>>| 3   |>>| 4
-==   (1 |>>| 2) |>>| 3  |>>| 4
-==  ((1 |>>| 2) |>>| 3) |>>| 4
-== |>>| ((1 |>>| 2) |>>| 3) 4
-== |>>| (|>>| (1 |>>| 2) 3) 4
-== |>>| (|>>| (|>>| 1 2) 3) 4
-== functionName (functionName (functionName 1 2) 3) 4
+infixl 9 concatString as |>>|
+{-    "a" |>>| "b"  |>>| "c"  |>>| "d"
+==   ("a" |>>| "b") |>>| "c"  |>>| "d"
+==  (("a" |>>| "b") |>>| "c") |>>| "d"
+== |>>| (("a" |>>| "b") |>>| "c") "d"
+== |>>| (|>>| ("a" |>>| "b") "c") "d"
+== |>>| (|>>| (|>>| "a" "b") "c") "d"
+== concatString (concatString (concatString "a" "b") "c") "d"
 -}
 
-infixr 7 functionName as |<<|
-{- 1 |<<|  2 |<<|  3 |<<| 4
-== 1 |<<|  2 |<<| (3 |<<| 4)
-== 1 |<<| (2 |<<| (3 |<<| 4))
-== |<<| 1 (2 |<<| (3 |<<| 4))
-== |<<| 1 (|<<| 2 (3 |<<| 4))
-== |<<| 1 (|<<| 2 (|<<| 3 4))
-== functionName 1 (functionName 2 (functionName 3 4))
+infixr 7 concatString as |<<|
+{- "a" |<<|  "b" |<<|  "c" |<<| "d"
+== "a" |<<|  "b" |<<| ("c" |<<| "d")
+== "a" |<<| ("b" |<<| ("c" |<<| "d"))
+== |<<| "a" ("b" |<<| ("c" |<<| "d"))
+== |<<| "a" (|<<| "b" ("c" |<<| "d"))
+== |<<| "a" (|<<| "b" (|<<| "c" "d"))
+== concatString "a" (concatString "b" (concatString "c" "d"))
 -}
