@@ -1,3 +1,6 @@
+-- This file simply shows the syntax for how to define
+-- values and types
+
 -- A zero-arg function cannot exist in FP programming*
 -- Thus, it counts as a static value
 valueName :: ValueType
