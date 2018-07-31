@@ -1,6 +1,0 @@
--- Original credit: @paf31 / @kritzcreek
--- Link: https://github.com/paf31/24-days-of-purescript-2016/blob/master/23.markdown
--- Changes made: use meta-language to explain newtype class derivation syntax
---
--- Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
---   https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US
