@@ -48,8 +48,10 @@ data Function :: ParameterType -> ReturnType -> ConcreteType-}
 -- Special kinds for language features
 
 -- "# Type" is a special kind used to indicate that there will be an
--- N-sized number of types that are known at compile time. We'll see why later.
+-- N-sized number of types that are known at compile time.
 data Record :: # Type -> Type
+-- For example... (The Record type will be explained later.)
+type UnorderedNamedCollection = { field1 :: String, field2 :: (Int -> String) }
 
 -- "Symbol" is a special kind used for type-level strings. These will be explained later.
 data SProxy (string :: Symbol)
