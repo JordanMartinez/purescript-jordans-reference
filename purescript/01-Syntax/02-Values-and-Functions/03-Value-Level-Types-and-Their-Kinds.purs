@@ -3,6 +3,7 @@ Due to some of its language features, Purescript defines 'kinds' in a few ways.
 We'll start basic and build from there.
 
 A kind of "*" is represented using "Type"
+Think of it as "kind Type"
 -}
 data Number :: Type -- double-precision float number
 1.0
@@ -53,5 +54,5 @@ data Record :: # Type -> Type
 -- For example... (The Record type will be explained later.)
 type UnorderedNamedCollection = { field1 :: String, field2 :: (Int -> String) }
 
--- "Symbol" is a special kind used for type-level strings. These will be explained later.
-data SProxy (string :: Symbol)
+-- Special kinds for type-level programming are not shown here.
+-- They will explained much later in their own folder
