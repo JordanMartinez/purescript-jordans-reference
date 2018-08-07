@@ -1,20 +1,28 @@
 -- To get the "import RootModule.SubModule.SubModule" syntax
-module ModuleName
+module Syntax.Module.ExportingModules
   ( module M
   ) where
 
--- We can use module alises to export multiple modules conveniently
+-- We can use module alises to export multiple things
+-- (e.g. types, constructors, functions, values)
+-- from multiple modules conveniently
 
+-- re-exports everything from Module1 and Module2
 import Module1 as M
 import Module2 as M
-import Module3 as M
-import Module4.SubModule1 as M
 
+-- re-exports only a value from M
+import Module3 (anInt3) as M
+import Module4.SubModule1 (someFunction) as M
 
-module Module1 where
+{-
+This enables the syntax:
+import Syntax.Module.ExportingModules (anInt, anInt2, anInt3, someFunction)
 
-module Module2 where
+-- or we can use module aliases
+import Syntax.Module.ExportingModules as EM
 
-module Module3 where
-
-module Module4.SubModule1 where
+-- in code
+EM.anInt
+EM.someFunction
+-}

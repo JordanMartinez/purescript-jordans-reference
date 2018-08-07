@@ -1,4 +1,4 @@
-module FullModuleSyntax
+module Syntax.Module.FullExample
   -- exports go here by just writing the name
   ( value
 
@@ -12,9 +12,6 @@ module FullModuleSyntax
   -- when exporting modules, you must precede the module name with
   -- the keyword 'module'
   , module ExportedModule
-
-  -- Re-export imported modules easily in one line
-  , module M
 
   -- The type is exported, but no one can create an instance of it
   -- outside of this module
@@ -31,22 +28,24 @@ module FullModuleSyntax
   --  can only be created inside this module.
   , ExportDataType3_AndSomeOfItsConstructors(Constructor3A, Constructor3B)
 
-  , ExportDataType3_AndAllOfItsConstructors(..) -- syntax sugar for 'all constructors'
+  , ExportDataType4_AndAllOfItsConstructors(..) -- syntax sugar for 'all constructors'
 
-  -- Type aliases can also be exported but must be preceded by 'type'
-  , type ExportedTypeAlias
+  -- Type aliases can also be exported
+  , ExportedTypeAlias
 
-  -- Data type alias
-  , (<|_|>)
+  -- When type aliases are aliased using infix notation, one must export
+  -- both the type alias, and the infix notation where 'type' must precede
+  -- the infix notation
+  , ExportedTypeAlias_InfixNotation, type (<|<>|>)
 
-  -- Type alias
-  , type (<_|_>)
+  -- Data constructor alias; exporting the alias requires you
+  -- to also export the constructor it aliases
+  , ExportedDataType4_InfixNotation(Infix_Constructor), (<||||>)
+
+  , module M
   ) where
 
 -- imports go here
-import Prelude
-
-import ExportedModule
 
 -- imports just the module
 import Module
@@ -58,7 +57,7 @@ import Module.SubModule.SubSubModule
 import ModuleValues (value1, value2)
 
 -- imports functions from a module
-import ModuleFunctions (function1, function2, function3)
+import ModuleFunctions (function1, function2)
 
 -- imports function alias from a module
 import ModuleFunctionAliases ((/=), (===), (>>**>>))
@@ -67,40 +66,51 @@ import ModuleFunctionAliases ((/=), (===), (>>**>>))
 import ModuleTypeClass (class TypeClass)
 
 -- import a type but none of its constructors
-import ModuleDataKeyword (DataType)
+import ModuleDataType (DataType)
 
 -- import a type and one of its constructors
-import ModuleDataKeyword (DataType(Constructor1))
+import ModuleDataType (DataType(Constructor1))
 
 -- import a type and some of its constructors
-import ModuleDataKeyword (DataType(Constructor1, Constructor2))
+import ModuleDataType (DataType(Constructor1, Constructor2))
 
 -- import a type and all of its constructors
-import ModuleDataKeyword (DataType(..))
+import ModuleDataType (DataType(..))
 
--- import a module and give it an alias
-import ModlueAlias as Alias
+-- resolve name conflicts using "hiding" keyword
+import ModuleF1 (sameFunctionName1)
+import ModuleF2 hiding (sameFunctionName1)
 
--- Handle naming conflicts
-import ModuleSameName (function1)
-import ModuleSameName hiding (function1)
+-- resolve name conflicts using module aliases
+import ModuleF1 as M1
+import ModuleF2 as M2
 
--- Use type aliases to re-export all these modules in one line
-import Module1 as M
-import Module2 as M
-import Module3 as M
-import Module4.SubModule1 as M
+import Module1 (anInt) as M
+import Module2 (anInt2) as M
+import Module3 (anInt3) as M
+import Module4.SubModule1 (someFunction) as M
+
+import Prelude
+
+import ExportedModule
 
 value :: Int
 value = 3
 
-function :: forall a b. a -> b
--- implementation
+function :: String -> String
+function x = x
 
 infix 4 function as >@>>>
 
 class TypeClass a where
   tcFunction :: a -> a -> a
+
+-- now 'sameFunctionName1' refers to ModuleF1's function, not ModuleF2's function
+myFunction1 :: Int -> Int
+myFunction1 a = sameFunctionName1 a
+
+myFunction2 :: Int -> Int
+myFunction2 a = M1.sameFunctionName1 (M2.sameFunctionName1 a)
 
 data ExportDataType1_ButNotItsConstructors = Constructor1A
 
@@ -113,16 +123,17 @@ data ExportDataType3_AndSomeOfItsConstructors
   | Constructor3B
   | Constructor3C
 
-data ExportDataType3_AndAllOfItsConstructors
-  = Constructor3A
-  | Constructor3B
+data ExportDataType4_AndAllOfItsConstructors
+  = Constructor4A
+  | Constructor4B
+  | Constructor4C
 
 type ExportedTypeAlias = Int
 
-data ExportedDataType4_InfixNotation = Constructor4
+data ExportedDataType4_InfixNotation = Infix_Constructor Int Int
 
-infixr 4 ExportedDataType4_InfixNotation as <|_|>
+infixr 4 Infix_Constructor as <||||>
 
 type ExportedTypeAlias_InfixNotation = String
 
-infixr 4 type ExportedTypeAlias_InfixNotation as <_|_>
+infixr 4 type ExportedTypeAlias_InfixNotation as <|<>|>

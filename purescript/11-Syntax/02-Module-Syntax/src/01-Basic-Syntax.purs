@@ -1,4 +1,4 @@
-module ModuleName (exportedFunction) where
+module Syntax.Module.Basic (exportedFunction) where
 
 -- imports (by convention) appear at the top
 import Prelude

@@ -1,4 +1,4 @@
-module ModuleName
+module Syntax.Module.Exporting
   -- exports go here by just writing the name
   ( value
 
@@ -28,20 +28,25 @@ module ModuleName
   --  can only be created inside this module.
   , ExportDataType3_AndSomeOfItsConstructors(Constructor3A, Constructor3B)
 
-  , ExportDataType3_AndAllOfItsConstructors(..) -- syntax sugar for 'all constructors'
+  , ExportDataType4_AndAllOfItsConstructors(..) -- syntax sugar for 'all constructors'
 
-  -- Type aliases can also be exported but must be preceded by 'type'
-  -- , type ExportedTypeAlias
+  -- Type aliases can also be exported
+  , ExportedTypeAlias
 
-  -- Data type alias
-  , (<||||>)
+  -- When type aliases are aliased using infix notation, one must export
+  -- both the type alias, and the infix notation where 'type' must precede
+  -- the infix notation
+  , ExportedTypeAlias_InfixNotation, type (<|<>|>)
 
-  -- Type alias
-  , type (<|<>|>)
+  -- Data constructor alias; exporting the alias requires you
+  -- to also export the constructor it aliases
+  , ExportedDataType4_InfixNotation(Infix_Constructor), (<||||>)
   ) where
 
 -- imports go here
 import Prelude
+
+import ExportedModule
 
 {- commented out since it doesn't actually exist here..
 import ExportedModule -}
@@ -49,8 +54,8 @@ import ExportedModule -}
 value :: Int
 value = 3
 
-function :: forall a b. a -> b
--- implementation
+function :: String -> String
+function x = x
 
 infix 4 function as >@>>>
 
@@ -68,19 +73,20 @@ data ExportDataType3_AndSomeOfItsConstructors
   | Constructor3B
   | Constructor3C
 
-data ExportDataType3_AndAllOfItsConstructors
-  = Constructor3A
-  | Constructor3B
+data ExportDataType4_AndAllOfItsConstructors
+  = Constructor4A
+  | Constructor4B
+  | Constructor4C
 
 type ExportedTypeAlias = Int
 
-data ExportedDataType4_InfixNotation = Constructor4
+data ExportedDataType4_InfixNotation = Infix_Constructor Int Int
 
-infixr 4 ExportedDataType4_InfixNotation as <||||>
+infixr 4 Infix_Constructor as <||||>
 
 type ExportedTypeAlias_InfixNotation = String
 
 infixr 4 type ExportedTypeAlias_InfixNotation as <|<>|>
 
 -- TODO: export kinds and add this to full syntax
-data ValueLevel_to_TypeLevelType ( typelevel :: CustomKind)
+-- data ValueLevel_to_TypeLevelType ( typelevel :: CustomKind)
