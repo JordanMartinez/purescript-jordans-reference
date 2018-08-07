@@ -27,7 +27,8 @@ infix/infixl/infixr precedence function/constructor as symbolicAlias
 infix/infixl/infixr precedence type TypeName as symbolicAlias
 
 ... where 'precedence' is a number (0..9)
-    and 'symbolicAlias' is a sequence of non-alphanumeric character(s)
+    and 'symbolicAlias' is a sequence of symbolic character(s)
+      (i.e. cannot use alphanumeric characters, nor an underscore character)
 -}
 
 -- Example
