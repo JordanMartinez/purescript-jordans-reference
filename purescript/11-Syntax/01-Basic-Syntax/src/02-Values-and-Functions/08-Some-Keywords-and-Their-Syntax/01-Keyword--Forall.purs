@@ -32,6 +32,11 @@ genericFunction2 a b c = a
 then I will return a value of type 'a'
 -}
 
+-- Another way to write 'forall' in a much more consie manner is
+-- via Unicode syntax: "∀"
+forAllUnicodeStyle :: ∀ a. a -> a
+forAllUnicodeStyle a = a
+
 
 -- Sometimes, we'll see multiple instances of 'forall' in the same type signature.
 -- In such cases, the parenthesis determine 'who' gets to determine what
