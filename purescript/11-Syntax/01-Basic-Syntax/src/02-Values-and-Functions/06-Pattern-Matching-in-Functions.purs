@@ -42,7 +42,7 @@ f patternMatch = bodyToRunIfPatternWasMatched
           are literal values
 
 -- Example
-    
+
 f the pattern match     = description of what was matched -}
 f (Inner 0)             = "an instance of type Inner whose value is 0"
 f (Inner int)           = "an instance of type Inner, binding its value to 'int' \
@@ -52,10 +52,13 @@ f (Outer (Inner int))   = "an instance of type Outer, whose Inner value is bound
 f object@(AnInt 4)      = "an instance of type AnInt whose value is '4', \
                           \binding the entire object to the `object` name for \
                           \usage in function body"
--- This example makes use of "guards" via "|"
-f (AnInt x) | x == 3    = "bind value to name 'x'. \
-                          \Then: if x is 3, do..."
-            | x == 5    =       "else if x is 5, do..."
+-- This example makes use of regular "guards" via "|"
+f (AnInt x) | x == 3         = "bind value to name 'x'. \
+                               \Then: if x is 3, do..."
+            | x == 5         =  "else if x is 5, do..."
+            -- "pattern guards"
+            | (Box 2) <- g x =  "else call g(x) and if it returns Box 2, do..."
+        --  | (Box y) <- g x =  "else call g(x) and bind Box's value to 'y', then do..."
             | otherwise =       "else, do..."
 f _                     = "ignores input and matches everything; \
                           \acts as a default / catch all case"
@@ -75,3 +78,11 @@ arrayPatterns array@[1, 2] = "an array of two values, 1 and 2, that is bound to 
 arrayPatterns [-1, _ ]     = "an array of two values, '-1' and another value that \
                              \will not be used in the body of this function."
 arrayPatterns _            = "catchall for arrays. This is needed to make this file compile"
+
+
+-- necesasry for this to compile
+data Box a = Box a
+
+g :: Int -> Box Int
+g 1 = Box 2
+g _ = Box 0
