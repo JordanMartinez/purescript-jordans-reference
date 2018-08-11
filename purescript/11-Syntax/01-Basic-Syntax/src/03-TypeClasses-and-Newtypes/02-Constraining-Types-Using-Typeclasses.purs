@@ -38,12 +38,11 @@ class Show_ a where -- this is the same signature for Show found in Prelude
 
 -- Problem:
 -- Say we have a data type called "Box" that just contains a value:
-data Box a = Box a
+data Boxx a = Boxx a
 
 -- If we want to implement the `Show` typeclass for it, we are limited to this:
--- Warning: does not compile since "Box" by itself is of kind (* -> *) and we need kind (*)
--- instance boxShow1 :: Show Box where
---   show box = "Box(<unknown value>)"
+instance boxShow1 :: Show (Boxx a) where
+  show (Boxx _) = "Box(<unknown value>)"
 
 {-
 We would like to also show the 'a' value stored in Box. How do we do that?
@@ -53,6 +52,7 @@ We would like to also show the 'a' value stored in Box. How do we do that?
 instance someTypeInstance :: (TypeClass1 a) => {- (TypeClassN a) => -} TypeClass1 (IntanceType a) where
   function1 _ = "body"
 
+data Box a = Box a
 {- example: Read the following as:
 "I can 'show' a Box only if the type stored in the Box can also be shown."
 -}
