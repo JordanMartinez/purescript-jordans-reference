@@ -1,4 +1,6 @@
--- not accurate but gets the idea across
+-- This code does not compile, but syntax highlighting works on it.
+
+-- This is not an exact copy of the code, but accurate enough to get the idea across
 
 -- type with no instances
 -- useful for proving that a type can never exist

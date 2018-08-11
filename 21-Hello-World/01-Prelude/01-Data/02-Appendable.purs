@@ -1,10 +1,18 @@
+-- This code does not compile, but syntax highlighting works on it.
+
 class Semigroup a where
   append :: a -> a -> a
 
 infixr 5 append as <>
 
+instance intSemiGroup :: SemiGroup Int where
+  append = (+)
+
 class SemiGroup a <= Monoid a where
   mempty :: a
+
+instance intMonoid :: Monoid Int where
+  mempty = 0
 
 class Semiring a where
   add :: a -> a -> a

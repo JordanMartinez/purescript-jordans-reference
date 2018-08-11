@@ -1,3 +1,4 @@
+-- This code does not compile, but syntax highlighting works on it.
 const :: forall a b. a -> b -> a
 const x _ = x
 
