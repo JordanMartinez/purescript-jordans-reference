@@ -11,7 +11,11 @@ data InterfaceLikeType {- generic types -} aType bType {- and so on... -}
   | ImplementationConstructor_GenericArgs aType bType
   | ImplementationConstructor_MixOfArgs Type_ (A -> B) bType (InterfaceLikeType aType bType)
 
--- two basic types (though more 'advanced' ones also exist)
+-- This kind of syntax enables Algebraic Data Types (ADTs)
+-- For an explanation on how 'data types' can be 'algebraic,' see this video:
+-- https://youtu.be/Up7LcbGZFuo?t=19m8s
+
+-- the sum type
 data SumType
   = SumConstructor1
   | SumConstructor2
@@ -24,16 +28,18 @@ data Fruit
   | Banana
   | Orange
 
+-- It's called a 'sum' type because if the argument passed to a function
+-- is a sum type, the possible arguments passed to that function are the sum
+-- of all of its constructors. In the case of Fruit, there are 3 possible
+-- arguments to a function that takes a type of Fruit as its argument.
+
 data ProductType a b
   = ProductConstructor1 a
   | ProductConstructor2 b
 
 -- example
 -- a type that's either the a (wrapped in Left) or b (wrapped in Right)
-data Either a b
-  = Left a
-  | Right b
-
+data Tuple a b = Both a b
 
 -- Necessary for this to compile
 data Type1
