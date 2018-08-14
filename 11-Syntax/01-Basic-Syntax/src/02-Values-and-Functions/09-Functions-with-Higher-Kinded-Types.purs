@@ -90,7 +90,7 @@ type the `hkt` is:
   Type_With_HKT Box Int
 -}
 
-data Type_with_2_HKT hkt1 hkt2 a = Type_With_HKT_Constructor (hkt1 a) (hkt2 a)
+data Type_with_2_HKT hkt1 hkt2 a = Type_With_2_HKT_Constructor (hkt1 a) (hkt2 a)
 -- Type_with_2_HKT Array Array a
 -- Type_with_2_HKT Array Box a
 -- Type_with_2_HKT Box Array a
