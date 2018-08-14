@@ -8,23 +8,23 @@
 /.purs*
 /.psa*
 
-/purescript/11-Syntax/01-Basic-Syntax/.psc-package/
-/purescript/11-Syntax/01-Basic-Syntax/.psc*
-/purescript/11-Syntax/01-Basic-Syntax/.purs*
-/purescript/11-Syntax/01-Basic-Syntax/.psa*
-/purescript/11-Syntax/01-Basic-Syntax/output/
-/purescript/11-Syntax/01-Basic-Syntax/.pulp-cache/
+/11-Syntax/01-Basic-Syntax/.psc-package/
+/11-Syntax/01-Basic-Syntax/.psc*
+/11-Syntax/01-Basic-Syntax/.purs*
+/11-Syntax/01-Basic-Syntax/.psa*
+/11-Syntax/01-Basic-Syntax/output/
+/11-Syntax/01-Basic-Syntax/.pulp-cache/
 
-/purescript/11-Syntax/02-Module-Syntax/.psc-package/
-/purescript/11-Syntax/02-Module-Syntax/.psc*
-/purescript/11-Syntax/02-Module-Syntax/.purs*
-/purescript/11-Syntax/02-Module-Syntax/.psa*
-/purescript/11-Syntax/02-Module-Syntax/output/
-/purescript/11-Syntax/02-Module-Syntax/.pulp-cache/
+/11-Syntax/02-Module-Syntax/.psc-package/
+/11-Syntax/02-Module-Syntax/.psc*
+/11-Syntax/02-Module-Syntax/.purs*
+/11-Syntax/02-Module-Syntax/.psa*
+/11-Syntax/02-Module-Syntax/output/
+/11-Syntax/02-Module-Syntax/.pulp-cache/
 
-/purescript/11-Syntax/03-Type-Level-Programming-Syntax/.psc-package/
-/purescript/11-Syntax/03-Type-Level-Programming-Syntax/.psc*
-/purescript/11-Syntax/03-Type-Level-Programming-Syntax/.purs*
-/purescript/11-Syntax/03-Type-Level-Programming-Syntax/.psa*
-/purescript/11-Syntax/03-Type-Level-Programming-Syntax/output/
-/purescript/11-Syntax/03-Type-Level-Programming-Syntax/.pulp-cache/
+/11-Syntax/03-Type-Level-Programming-Syntax/.psc-package/
+/11-Syntax/03-Type-Level-Programming-Syntax/.psc*
+/11-Syntax/03-Type-Level-Programming-Syntax/.purs*
+/11-Syntax/03-Type-Level-Programming-Syntax/.psa*
+/11-Syntax/03-Type-Level-Programming-Syntax/output/
+/11-Syntax/03-Type-Level-Programming-Syntax/.pulp-cache/
