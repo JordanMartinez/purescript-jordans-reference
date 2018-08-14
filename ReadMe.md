@@ -24,10 +24,8 @@ Since the license of this project is still being determined, I will not currentl
 ## Learning Purescript using this project
 
 - Git clone this repo
-- To build this project and insure it compiles, run `pulp --psc-package build --src-path "purescript" `
-- Read the pages in order, including folders (i.e. a depth-first graph search).
-    - In other words, starting in `purescript/11-Syntax/src/`, one should read the `00-Comments.purs` file first, then the `01-Data-and-Types.purs` file, then read all the files inside the folder, `02-Values-and-Functions` in their order. (If a topic was deemed too long in content to put into one file, the topic was turned into a folder that has a file for each subtopic.)
-
+- Read through the folders in their order (e.g. a depth-first graph search)
+- Compile the code where possible, either before or after you experiment
 
 ## Setting up Purescript for the first time
 
