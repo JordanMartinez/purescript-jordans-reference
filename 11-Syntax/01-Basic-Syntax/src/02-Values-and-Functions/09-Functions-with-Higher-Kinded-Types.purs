@@ -4,9 +4,9 @@ import Prelude
 
 -- == Review ==
 data Box a = Box a
--- `Box a` is a higher-kinded type. In other words, it has a kind of `* -> *`,
--- not `*` like Int. It still needs a type to be specified before it is fully
--- concrete.
+-- `Box a` is a higher-kinded type (HKT). In other words,
+-- it has a kind of `* -> *`, not `*` like Int. It still needs a type to be
+-- specified before it is fully concrete.
 
 -- we can define a function when the 'a' of Box is known (Int in this case)...
 add1 :: Box Int -> Box Int
@@ -19,22 +19,26 @@ modify (Box a) function = Box (function a)
 -- However, how might one write a function that works on all of
 -- the four types below? In other words, how would we define a function
 -- when we know we will have a higher-kinded type like `Box`,but
--- we don't know the exact type?
+-- we don't know the exact type of that Box-like type?
 
 data Box1 a = Box1 a
 data Box2 a = Box2 a
 data Box3 a = Box3 a
 data Box4 a = Box4 a
 
--- The following function shows the syntax to follow. When using
---   higher-kinded types, convention is to start with `f` and continue down
---   the alphabet for each higher-kinded type thereafter (e.g. `g`, `h`, etc.).
--- I think the convention of using 'f' has something to do with a typeclass
---   called Functor.
-hktFunction :: forall f a. f a -> f a
-hktFunction boxN = boxN
+-- The following function shows the syntax to follow.
+hktFunction0 :: forall f a. f a -> f a
+hktFunction0 boxN = boxN
 -- One should understand `f a` as "f is a higher-kinded type that needs
 -- one type, `a`, specified before it can be a concrete instance".
+
+-- When using higher-kinded types, convention is to start with `f` and continue
+--   down the alphabet for each higher-kinded type thereafter
+--   (e.g. `g`, `h`, etc.).
+-- I think the convention of using 'f' has something to do with a typeclass
+--   called Functor.
+hktFunction1 :: forall f g h a. f a -> g a -> h a -> h a
+hktFunction1 _ _ hOfA = hOfA
 
 -- If the higher-kinded type we want to include in our function takes more than
 -- one type, we just add the extra types beyond it
@@ -49,10 +53,10 @@ hktFunction2 f_abcd = f_abcd
 -- We can also specify specific types in the function:
 hktFunction3 :: forall f a b c. f a b c Int -> f a b c Int
 hktFunction3 f_abc_Int = f_abc_Int
--- Read "f a b c d" as "F is a higher-kinded type that takes
--- 4 types, 'a', 'b', 'c', and 'd', all of which need to be specified
--- before 'f' can be a concrete type of kind `*`. `d` must be specified
--- to the 'Int' type for the compiler to accept calling this function with 'F'"
+-- Read "f a b c Int" as "F is a higher-kinded type that takes
+-- 4 types, 'a', 'b', 'c', and 'd'. 'd' has already been specified to 'Int',
+-- but the others have yet to be specified. The compiler will complain if
+-- one passes in an 'F' whose fourth type is not an Int.
 
 -- Returning to our previous question...
 boxFunction :: forall f a. f a -> (f a -> a) -> (a -> a) -> (a -> f a) -> f a
@@ -76,3 +80,18 @@ The following code would compile
 
 -- Keep in mind that any type that follows a 'forall' keyword could be
 -- a higher-kinded type
+
+-- Higher kinded types can also occur in data declarations:
+data Type_with_HKT hkt a = Type_With_HKT_Constructor (hkt a)
+{-
+Thus we could have multiple instances of this specific type, depending on what
+type the `hkt` is:
+  Type_With_HKT Array Int
+  Type_With_HKT Box Int
+-}
+
+data Type_with_2_HKT hkt1 hkt2 a = Type_With_HKT_Constructor (hkt1 a) (hkt2 a)
+-- Type_with_2_HKT Array Array a
+-- Type_with_2_HKT Array Box a
+-- Type_with_2_HKT Box Array a
+-- Type_with_2_HKT Box Box a
