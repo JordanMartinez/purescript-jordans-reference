@@ -34,19 +34,49 @@ mapFlipped :: forall f a b. Functor f => f a        -> (a -> b) -> f b
 flap       :: forall f a b. Functor f => f (a -> b) -> a        -> f b
 ```
 
-## Implementing a type class with multiple functions
+## Tricks for Implementing a Type Class Instance
 
-Keep in mind that when implementing a type class with two or more functions, one does not necessarily need to define every function. Sometimes, a function can be defined using another function. Take, for example, the `Eq` type class:
+Keep in mind that when implementing a type class, one does not necessarily need to implement its function. There are usually two ways to do this.
+
+First, this option can arise when a type class defines two or more functions. Sometimes, a function in a type class can be defined using another function from that same type class. Take, for example, the `Eq` type class:
 ```purescript
 class Eq a where
   eq :: a -> a -> Boolean
 
   notEq :: a -> a -> Boolean
+```
+Granted, an `Eq` instance can be derived by the compiler. However, assuming this wasn't the case, there are two ways we could implement it:
+1. We could implement only `eq` and implement `notEq` by inverting `eq`'s result.
+2. We could implement only `notEq` and implement `eq` by inverting `notEq`'s result
 
--- (1) We could implement only `eq` and implement `notEq`
---        by inverting `eq`'s result
--- (2) We could implement only `notEq` and implement `eq`
---        by inverting `notEq`'s result
+Second, sometimes, a function in a type class can be defined using a function from a completely different type class. Take, for example, the `Ord` type class:
+```purescript
+data Ordering
+  = LT
+  | EQ
+  | GT
+
+class (Eq a) <= Ord a where
+  compare :: a -> a -> Ordering
+```
+If we implement `compare`, we can also implement `eq`:
+```purescript
+data ColoredBox
+  = RedBox
+  | GreenBox
+
+instance ordColoredBox :: Ord ColoredBox where
+  compare RedBox GreenBox = LT
+  compare GreenBox RedBox = GT
+  compare _ _ = EQ {- which expands to...
+  compare RedBox RedBox = EQ
+  compare GreenBox GreenBox = EQ
+  -}
+
+instance eqColoredBox :: Eq ColoredBox where
+  eq a b = (compare a b) == EQ
+
+  notEq a b = (compare a b) /= EQ
 ```
 
 ## Prelude - Type Class Relationships
