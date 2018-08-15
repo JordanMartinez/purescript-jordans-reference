@@ -2,9 +2,10 @@
 
 -- This is not an exact copy of the code, but accurate enough to get the idea across
 
--- type with no instances
+-- a type with no instances
 -- useful for proving that a type can never exist
-newtype Void = -- nothing, as this type has no instances
+-- or a computation path can never occur
+newtype Void = Void Void
 
 -- needed when one needs to refer to void
 absurd :: forall a. Void -> a
