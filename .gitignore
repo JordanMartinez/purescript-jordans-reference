@@ -22,6 +22,14 @@
 /11-Syntax/02-Module-Syntax/output/
 /11-Syntax/02-Module-Syntax/.pulp-cache/
 
+/11-Syntax/03-Foreign-Function-Interface-Syntax/.psc-package/
+/11-Syntax/03-Foreign-Function-Interface-Syntax/.psci*
+/11-Syntax/03-Foreign-Function-Interface-Syntax/.psc-0*
+/11-Syntax/03-Foreign-Function-Interface-Syntax/.purs*
+/11-Syntax/03-Foreign-Function-Interface-Syntax/.psa*
+/11-Syntax/03-Foreign-Function-Interface-Syntax/output/
+/11-Syntax/03-Foreign-Function-Interface-Syntax/.pulp-cache/
+
 /11-Syntax/03-Type-Level-Programming-Syntax/.psc-package/
 /11-Syntax/03-Type-Level-Programming-Syntax/.psc*
 /11-Syntax/03-Type-Level-Programming-Syntax/.purs*
