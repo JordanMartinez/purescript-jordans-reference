@@ -1,14 +1,23 @@
 -- This is the infamous "Hello World" app in Purescript.
-module HelloNumber where
+module HelloDoNotation where
 
 import Prelude
 import Effect (Effect)
+import Effect.Console (log)
 
--- new imports
+-- A refresher on 'do-notation'
 
--- logShow :: forall a. Show a => a -> Effect Unit
--- logShow arg = log $ show arg
-import Effect.Console (logShow)
+-- This chain of functions via log
+main' :: Effect Unit
+main' = (log "This is outputted first") >>= (\_ ->
+          (log "This is outputted second") >>= (\_ ->
+            log "This is outputted third"
+          )
+       )
 
+-- can become more readable using sugar syntax (do-notation):
 main :: Effect Unit
-main = logShow 5
+main = do
+  log "This is outputted first"
+  log "This is outputted second"
+  log "This is outputted third"
