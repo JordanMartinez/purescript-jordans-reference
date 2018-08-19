@@ -7,6 +7,5 @@ Since the `psc-package.json` file does not allow me to explain what each depened
 | [purescript-effect](https://pursuit.purescript.org/packages/purescript-effect/2.0.0) | `Effect` | Provides the `Effect` type itself.
 | [purescript-console](https://pursuit.purescript.org/packages/purescript-console/4.1.0) | `Effect.Console` | Provides bindings to the Console
 | [purescript-random](https://pursuit.purescript.org/packages/purescript-random/4.0.0) | `Effect.Random` | Type used to create random values
-| [purescript-refs](https://pursuit.purescript.org/packages/purescript-refs/4.1.0/docs/Effect.Ref) | `Effect.Ref` | Global mutable state. (Note: for local mutable state, use [ST](https://pursuit.purescript.org/packages/purescript-st/4.0.0))
 | [purescript-now](https://pursuit.purescript.org/packages/purescript-now/4.0.0/docs/Effect.Now) | `Effect.Now` | Get current Date/Time from machine. (Note: see the [date-time](https://pursuit.purescript.org/packages/purescript-datetime/4.0.0) repo for additional related functions)
 | [purescript-js-timers](https://pursuit.purescript.org/packages/purescript-js-timers/4.0.1) | `Effect.Timer` | Bindings to low-level JS API: `set/clearTimeout` and `set/clearInterval`

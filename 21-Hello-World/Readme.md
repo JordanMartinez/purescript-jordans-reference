@@ -1,15 +1,31 @@
 # Hello World
 
-This folder will document everything necessary to create a simple "hello world" program in Purescript, along with tests. It will cover the following libraries:
-- Prelude
-- Quick Check
-- Quick spec
-- Effect
-- Console
+This folder will document everything necessary to create a simple console-based program in Purescript. It will explain:
+- The foundations of FP programming
+- The Prelude library (including Functor, Apply, Applicative, Bind, and Monad explanations)
+- A simple "Hello World" program
+- Local Mutable State vs Global Mutable State
+- How to handle Errors/Exceptions, the FP way
+- How to test code
+- How to benchmark / profile code
+- How to structure an application (putting it all together)
+
+In pursuing these goals, it will overview the following libraries:
+- Basic
+    - Prelude
+    - Effect
+    - Console
+- Testing
+    - Quick Check
+    - Quick Spec
+- Benchmarking
+    - Benchotron
 
 ## Other Learning Resources
 
-Besides ths repo, we have a few choices in terms of understanding functional programming. Since Purescript is heavily inspired by and very similar to Haskell, most of these refer to Haskell learning resources. Note: these are not necessarily "either x or y or z" choices but could be "X supplemented by Y with a little bit of Z").
+Besides ths repo, we have a few choices in terms of understanding functional programming.
+
+Since Purescript is heavily inspired by and very similar to Haskell, most of these refer to Haskell learning resources. Note: these are not necessarily "either x or y or z" choices but could be "X supplemented by Y with a little bit of Z").
 
 | Action | Pros | Cons |
 | --- | --- | --- |
@@ -19,3 +35,5 @@ Besides ths repo, we have a few choices in terms of understanding functional pro
 | Read and do the exercises from [The Haskell Book](http://haskellbook.com/) | The "standard" for teaching Haskell and FP concepts in general: good explanations; good exercises; teaches "programming in the small" | Costs money; costs time; the exercises will stretch you
 | Read and do the exercises from [Haskell Cookbook](https://leanpub.com/haskellcookbook), and then its follow up book [Haskell Cookbook 2](https://leanpub.com/haskellcookbook2) | Free/Cheap; simpler than the Haskell book; gets to ideas faster; teaches "programming in the large" | May be harder for a new beginner (I haven't read it yet)
 | Watch the Intro to FP course on edX.org [here](https://www.edx.org/course/introduction-functional-programming-delftx-fp101x-0) | Free (or paid) | (Haven't done it so I don't know)
+
+There's also Justin Woo's Read the Docs (RTD) resource: https://purescript-resources.readthedocs.io/en/latest/index.html
