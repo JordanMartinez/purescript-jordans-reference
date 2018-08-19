@@ -6,8 +6,8 @@ Functional Programming utilizes functions to create programs and focuses on sepa
 
 Pure functions have 3 properties, but the third (marked with `*`) is expanded to show its full weight:
 
-| | Pure | Pure Example | Impure | Impure Example
-| - | - | - |
+|     | Pure | Pure Example | Impure | Impure Example |
+| --- | ---- | ------------ | ------ | -------------- |
 | Given an input, will it always return some output? | Always <br> (Total Functions) | `n + m` | Sometimes <br> (Partial Functions) | `4 / 0 == undefined`
 | Given the same input, will it always return the same output? | Always <br> (Deterministic Functions) | `1 + 1` always equals `2` | Sometimes <br> (Non-Deterministic Functions) | `random.nextInt()`
 | *Does it interact with the real world? | Never |  | Sometimes | `file.getText()` |

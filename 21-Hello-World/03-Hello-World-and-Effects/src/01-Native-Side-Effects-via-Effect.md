@@ -23,7 +23,7 @@ PureScript's [`purescript-effect`](https://pursuit.purescript.org/packages/pures
 None of the above examples can be pure code and yet they are necessary for any practical computations. As a reminder, the following table shows the difference between pure and impure code:
 
 | | Pure | Pure Example | Impure | Impure Example
-| - | - | - |
+| - | - | - | - | - |
 | Given an input, will it always return some output? | Always <br> (Total Functions) | `n + m` | Sometimes <br> (Partial Functions) | `4 / 0 == undefined`
 | Given the same input, will it always return the same output? | Always <br> (Deterministic Functions) | `1 + 1` always equals `2` | Sometimes <br> (Non-Deterministic Functions) | `random.nextInt()`
 | *Does it interact with the real world? | Never |  | Sometimes | `file.getText()` |

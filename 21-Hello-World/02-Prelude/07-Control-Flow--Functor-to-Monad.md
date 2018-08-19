@@ -33,7 +33,7 @@ instance Functor List where
 ## Functor, Apply, Applicative, Bind, Monad
 
 | Typeclass | "Plain English" | Function | Infix | Laws | Usage
-| -- | -- | -- | -- | -- |
+| -- | -- | -- | -- | -- | -- |
 | [Functor](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Functor) | Mappable | `map :: forall a b. (a -> b) -> f a -> f b` | `<$>` <br> (Left 4) | <ul><li>identity: `map (\x -> x) fa == fa`</li><li>composition: `map (f <<< g) = map f <<< map g`</li></ul> | Given a box-like type, `f`, with a value(s) of some type, `a`, change the `a` to `b` without changing the box-like type itself. |
 | [Apply](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Apply) | Boxed Mappable | `apply :: forall a b. f (a -> b) -> f a -> f b` | `<*>` <br> (Left 4) | <ul><li>Associative composition: `(<<<) <$> f <*> g <*> h == f <*> (g <*> h)`</li></ul> | Given a box-like type, `f`, with value(s) of some type, `a`, change the `a` to `b` without changing the box-like type itself. |
 | [Applicative](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Applicative) | Liftable <br> Parallel Computation | `pure :: forall a. a -> f a` |  | <ul><li>identity: `(pure (\x -> x) <*> v == v)`</li><li>composition: `pure (<<<) <*> f <*> g <*> h == f <*> (g <*> h)`</li><li>Homomorphism: `(pure f) <*> (pure x) == pure (f x)`</li><li>interchange: `u <*> (pure y) == (pure (_ $ y)) <*> u`</li></ul> | Put a value into a box <br> Run code in parallel |
@@ -70,15 +70,15 @@ Another way to think about the laws for Monad are:
 (>=>) :: Monad m => (a -> m b) -> (b -> m c) -> a -> m c
 (aToMB >=> bToMC) a = aToMB a >>= (\b -> bToMC b)
 
-{- and Monad could be defined by these laws:
-(function >>> id) a == function a -- Functor's identity law -}
+-- and Monad could be defined by these laws:
+(function >>> id) a == function a -- Functor's identity law
  aToMB    >=> pure  == aToMB
 
 -- and its inverse
 (id   >>> f) a == f a
  pure >=> f    == f
 
-{- and function composition :
+-- and function composition
 f >>> (g >>> h) == (f >>> g) >>> h -}
 f >=> (g >=> h) == (f >=> g) >=> h
 ```

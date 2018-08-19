@@ -67,7 +67,7 @@ function { fst: "hello", snd: "world", unrelatedField: 0 } -- open record
 --    the first argument would work, but not the second one.
 ```
 
-Keep in mind that records **can be but does not necessarily have to be** open. If we changed the above function's type signature to remove the `r`, it would restrict its arguments to a type of Record that is equivalent to a Tuple, but just in the Record type:
+Keep in mind that records **can be but do not necessarily have to be** open. If we changed the above function's type signature to remove the `r`, it would restrict its arguments to a type of Record that is equivalent to a Tuple, but just in the Record type:
 ```purescript
 closed :: { fst :: String, snd :: String } -> String
 closed record = record.fst <> record.snd
