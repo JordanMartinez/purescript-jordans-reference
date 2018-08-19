@@ -28,3 +28,10 @@
 /11-Syntax/03-Type-Level-Programming-Syntax/.psa*
 /11-Syntax/03-Type-Level-Programming-Syntax/output/
 /11-Syntax/03-Type-Level-Programming-Syntax/.pulp-cache/
+
+/21-Hello-World/03-Hello-World-and-Effects/.psc-package/
+/21-Hello-World/03-Hello-World-and-Effects/.psc*
+/21-Hello-World/03-Hello-World-and-Effects/.psa*
+/21-Hello-World/03-Hello-World-and-Effects/output
+/21-Hello-World/03-Hello-World-and-Effects/.pulp-cache
+/21-Hello-World/03-Hello-World-and-Effects/dist
