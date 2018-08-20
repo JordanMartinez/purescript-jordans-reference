@@ -78,12 +78,12 @@ import ModuleDataType (DataType(Constructor1, Constructor2))
 import ModuleDataType (DataType(..))
 
 -- resolve name conflicts using "hiding" keyword
-import ModuleF1 (sameFunctionName1)
-import ModuleF2 hiding (sameFunctionName1)
+import ModuleNameClash1 (sameFunctionName1)
+import ModuleNameClash2 hiding (sameFunctionName1)
 
 -- resolve name conflicts using module aliases
-import ModuleF1 as M1
-import ModuleF2 as M2
+import ModuleNameClash1 as M1
+import ModuleNameClash2 as M2
 
 import Module1 (anInt) as M
 import Module2 (anInt2) as M

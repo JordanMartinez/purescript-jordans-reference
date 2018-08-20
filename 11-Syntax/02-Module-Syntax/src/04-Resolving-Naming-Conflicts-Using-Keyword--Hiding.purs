@@ -2,16 +2,17 @@
 -- may be the same name as a function in another module
 
 -- for example
--- module ModuleF1 (sameFunctionName1) where -- ...
--- module ModuleF2 (sameFunctionName1) where -- ...
+-- module ModuleNameClash1 (sameFunctionName1) where -- ...
+-- module ModuleNameClash2 (sameFunctionName1) where -- ...
 
 -- In this file, how do we use both of them?
 -- We can use the 'hiding' keyword
 module Syntax.Module.ResolvingNamingConflicts.ViaHiding where
 
-import ModuleF1 (sameFunctionName1)
-import ModuleF2 hiding (sameFunctionName1)
+import ModuleNameClash1 (sameFunctionName1)
+import ModuleNameClash2 hiding (sameFunctionName1)
 
--- now 'sameFunctionName1' refers to ModuleF1's function, not ModuleF2's function
+-- now 'sameFunctionName1' refers to ModuleNameClash1's function,
+-- not ModuleNameClash2's function
 myFunction1 :: Int -> Int
 myFunction1 a = sameFunctionName1 a

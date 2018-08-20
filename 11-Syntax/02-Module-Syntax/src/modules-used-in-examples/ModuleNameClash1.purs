@@ -1,4 +1,4 @@
-module ModuleF1 (sameFunctionName1, SameDataName(..)) where
+module ModuleNameClash1 (sameFunctionName1, SameDataName(..)) where
 
 import Prelude
 
