@@ -25,3 +25,7 @@ There is also an Excel file ([Type-Class-Functions.xlsx](./Type-Class-Functions.
 | Arg 2 | f a | a
 | ...   | ... | ... |
 | Arg N | ... | ... |
+
+## Laws
+
+TODO
