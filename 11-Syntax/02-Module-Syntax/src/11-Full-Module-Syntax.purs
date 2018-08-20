@@ -112,6 +112,10 @@ myFunction1 a = sameFunctionName1 a
 myFunction2 :: Int -> Int
 myFunction2 a = M1.sameFunctionName1 (M2.sameFunctionName1 a)
 
+dataDifferences :: M1.SameDataName -> M2.SameDataName -> String
+dataDifferences M1.Constructor M2.Constructor = "code works despite name clash"
+
+
 data ExportDataType1_ButNotItsConstructors = Constructor1A
 
 data ExportDataType2_AndOneOfItsConstructors
