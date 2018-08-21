@@ -1,6 +1,6 @@
 # Dependency Managers
 
-### Why doesn't Purescript use `npm`?
+## Why doesn't Purescript use `npm`?
 
 The following provides a much shorter explanation of [this article](https://harry.garrood.me/blog/purescript-why-bower/)
 
@@ -14,7 +14,7 @@ Long answer:
 
 However, `bower` isn't the only package manager one can use. `psc-package` is also used throughout the community.
 
-### Which dependency manager should I use: Bower or PSC-Package?
+## Which dependency manager should I use: Bower or PSC-Package?
 
 One can refer to each with a "crude name" that summarizes them:
 - Typical package manager (Bower)
