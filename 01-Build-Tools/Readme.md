@@ -54,56 +54,99 @@ Otherwise, read through the SVG file:
 
 ![build-tools-cli-options](./Build-Tools-CLI-Options.svg)
 
-## Build commands
+## A new project from start to finish:
 
-[See Pulp's ReadMe](https://github.com/purescript-contrib/pulp)
+The below example assumes that one is installing packages only from the default package set maintained by Justin Woo [here](https://github.com/purescript/package-sets), and not creating their own custom package set.
+```bash
+#### Create the project: one of two ways: ####
 
-- Create a new project:
-    - Bower - `pulp init projectName`
-    - PSC Package `pulp init --psc-package projectName`
-- Launch the REPL: `pulp repl`
-- Build project:
-    - When developing: `pulp --watch build --to fileName.js` (add `--psc-package` after `pulp` to use that DM
-    - When producing: `pulp build --to fileName.js`
-- Run project: `pulp run -- command-line-arg1 command-line-argN`
-- Test project: `pulp test` or `pulp --watch test`
-- Build docs:
-    - Exclude Dependencies: `pulp docs`
-    - Include Dependencies: `pulp docs [--with-dependencies]`
-    - Change outputted format: `pulp docs -- --format html`
-- Bundle project:
-    - When developing: `pulp --watch browserify --to fileName.js`
-    - When producing: `pulp browserify --optimize --to fileName.js`
+# 1) (not recommended) Via pulp to get the default package set based on
+# the system's installed PureScript compiler version (purs).
+pulp --psc-package init projectName
 
-### A new project (using Bower): from start to finish:
-````bash
-# create project
-pulp init projectName
+# 2) (recommended) Via psc-package to get a more recent package set version
+psc-package init --set psc-0.12.0-20180819 --source https://github.com/purescript/package-sets.git
+# The resulting psc-package.json file will have `untitled` in its
+# 'name' field. Open the file and change that.
+nano psc-package.json
 
-# after setting up its dependencies
-npm install
-bower install
+#### Install dependencies: one of two ways: ####
 
-# now start developing
+# To see which packages are already installed...
+psc-package dependencies
 
-# TODO: immediate feedback (not sure if this is correct yet...)
-pulp --watch build --to development/fileName.js
+# To see which packages are available in your package set...
+psc-package available
 
-# add a new dependency
-bower install --save [dependency]
+# 1) Via psc-package install
+psc-package install package # remember to omit the 'purescript-' prefix
+# Note: only one package can be installed at a time using this approach
+psc-package install onlyOnePackage
+psc-package install onlyOnePackage
+psc-package install onlyOnePackage
 
-# update all dependencies
-bower update
+# 2) Via manual file modification and the below command:
+# Open `psc-package.json`, add dependencies in `deps`, save file. Then run
+psc-package install
 
-# build project
-pulp browserify --optimize --to production/fileName.js
+#### Writing code ####
+
+# Open the REPL to play with a few ideas or run simple tests
+psc-package repl        # via psc-package
+pulp --psc-package repl # via pulp
+
+# Automatically re-build project whenever a source file is changed/saved
+pulp --watch --before 'clear' --psc-package build
+
+# Automatically re-test project whenever a source/test file is changed/saved
+pulp --watch --before 'clear' --psc-package test
+
+# Build a developer version
+pulp --psc-package browserify --to dist/fileName.js # if program
+pulp --psc-package browserify --no-main-check --to dist/fileName.js # if library
+
+# Run the program
+pulp --psc-package run -- arg1PassedToProgram arg2PassedToProgram
+
+#### Publishing the package for the first time ####
+
+# Build the docs
+pulp --psc-package docs -- --format html
+# Then read over them to insure there aren't any formatting issues or typos
+
+# Making a production build via Browserify
+# If building a program...
+pulp --psc-package browserify --optimise --to dist/fileName.js
+# If building a library
+pulp --psc-package browserify --no-main-check --optimise --to dist/fileName.js
+
+# Set the initial version
+pulp version v0.1.0
+
+# Publish the version
+pulp --psc-package publish
+
+#### Publishing a new version ####
+
+# Build and check the docs
+pulp --psc-package docs -- --format html
+
+# Make a production build again
+# If building a program...
+pulp --psc-package browserify --optimise --to dist/fileName.js
+# If building a library
+pulp --psc-package browserify --no-main-check --optimise --to dist/fileName.js
 
 # bump project version
-pulp version [major | minor | patch]
+pulp version major
+pulp version minor
+pulp version patch
+# or specify a version
+pulp version v1.5.0
 
-# publish it to Github, register it on Bower's registry, upload docs to Pursuit
-pulp publish
-````
+# publish it
+pulp --psc-package publish
+```
 
 ## Other Helpful Links
 
