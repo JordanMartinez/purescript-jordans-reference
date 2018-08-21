@@ -4,7 +4,7 @@ This folder accomplishes the following:
 
 - [x] Explain the various tools used throughout the ecosystem and their usages/differences:
     - [x] Document the differences between `Bower` and `psc-package` dependency managers
-    - [ ] Document the difference between `pulp` and `purs-loader` build tools
+    - [x] Document the difference between `pulp` and `purs-loader` build tools
 - [x] Document the CLI options for the most popular tools (e.g. purs, pulp, psc-package, etc.)
 - [x] Document a typical workflow from project start to finish (creation, fast-feedback development, initial publishing, 'bump' publishing)
 
