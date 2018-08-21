@@ -21,9 +21,17 @@ Feel free to open a new issue for:
 
 Since the license of this project is still being determined, I will not currently accept pull requests. I do hope to receive PRs in the future after the license has been determined. Feel free to open an issue to start a discussion on this topic.
 
-## Learning Purescript using this project
+## Learning Purescript
+
+### Getting Additional Help
+
+- Register for the Purescript ML forum [here](https://purescript-users.ml/)
+- Register for an account on the Functional Programming Slack group [here](https://functionalprogramming.slack.com/) and add yourself to all of these channels:`#purescript-beginner`, `#purescript`, `#categoryTheory` (optional), `#haskell` (optional), `#haskell-beginner` (optional).
+
+### Using this project
 
 - Git clone this repo
+- Install Purescript `0.12.0` via the below instructions
 - Read through the folders in their order (e.g. a depth-first graph search)
 - Compile the code where possible, either before or after you experiment
 
