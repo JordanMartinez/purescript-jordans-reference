@@ -100,7 +100,7 @@
       <text x="16.875" xml:space="preserve" y="470.1543" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Registered Package</text>
       <path fill="none" d="M614.5312 402 L614.5312 192 L76.5 192 L76.5 357.5415" clip-path="url(#clipPath2)"/>
       <path d="M76.5 365.5415 L81.5 353.5415 L76.5 356.5415 L71.5 353.5415 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="391.1659" xml:space="preserve" y="166.1543" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">3. Publish package to Bower registry</text>
+      <text x="376.2919" y="166.1543" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" font-weight="bold" xml:space="preserve">4. Publish package to Bower registry</text>
       <path fill="none" d="M143.125 417 L404.4717 417" clip-path="url(#clipPath2)"/>
       <path d="M412.4717 417 L400.4717 412 L403.4717 417 L400.4717 422 Z" clip-path="url(#clipPath2)" stroke="none"/>
       <text x="172.207" y="443.2012" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none" font-weight="bold" xml:space="preserve">2. Bower finds where </text>
