@@ -973,20 +973,6 @@
 </node>
 </node>
 <node TEXT="Production options" ID="ID_584736778" CREATED="1534811026485" MODIFIED="1534811145332">
-<node TEXT="[-O|--optimise]" ID="ID_1420986256" CREATED="1534807989753" MODIFIED="1534808254593"><richcontent TYPE="DETAILS">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Perform dead-code elimination
-    </p>
-  </body>
-</html>
-</richcontent>
-</node>
 <node TEXT="[--skip-entry-point]" ID="ID_848919852" CREATED="1534808005142" MODIFIED="1534808295207"><richcontent TYPE="DETAILS">
 
 <html>
@@ -1010,20 +996,6 @@
   <body>
     <p>
       Generate source maps
-    </p>
-  </body>
-</html>
-</richcontent>
-</node>
-<node TEXT="[-t|--to &lt;string&gt;]" ID="ID_1679909178" CREATED="1534808028671" MODIFIED="1534808362099"><richcontent TYPE="DETAILS">
-
-<html>
-  <head>
-    
-  </head>
-  <body>
-    <p>
-      Name of output file (stdout if not specified)
     </p>
   </body>
 </html>
@@ -1168,6 +1140,41 @@
 </html>
 </richcontent>
 </node>
+<node TEXT="[-O|--optimise]" ID="ID_1326554183" CREATED="1534807989753" MODIFIED="1534808254593"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Perform dead-code elimination
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[-t|--to &lt;string&gt;]" ID="ID_499510703" CREATED="1534808028671" MODIFIED="1534884526371"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Name of output file (stdout if not specified)
+    </p>
+    <p>
+      
+    </p>
+    <p>
+      <b>Note: unlike `build`, the presence of '--to' DOES NOT IMPLY '--optimise'</b>
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
 </node>
 <node TEXT="(shared)" ID="ID_1689618410" CREATED="1534812025000" MODIFIED="1534812026428">
 <node TEXT="Output Path, Main, Check Main Type, No Check Main, No PSA options" ID="ID_1682274405" CREATED="1534811913627" MODIFIED="1534812358324"/>
@@ -1214,6 +1221,41 @@
     </p>
   </body>
 </html>
+</richcontent>
+</node>
+<node TEXT="[-O|--optimise]" ID="ID_362431641" CREATED="1534807989753" MODIFIED="1534808254593"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Perform dead-code elimination
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[-t|--to &lt;string&gt;]" ID="ID_33686364" CREATED="1534808028671" MODIFIED="1534884549151"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Name of output file (stdout if not specified)
+    </p>
+    <p>
+      
+    </p>
+    <p>
+      <b>Note: unlike `browserify`, the presence of '--to' DOES IMPLY '--optimise'</b>
+    </p>
+  </body>
+</html>
+
 </richcontent>
 </node>
 </node>
