@@ -3,7 +3,7 @@
 <node TEXT="Purescript Build Tools" FOLDED="false" ID="ID_61115281" CREATED="1534805902352" MODIFIED="1534805907447" STYLE="oval">
 <font SIZE="18"/>
 <hook NAME="MapStyle" zoom="1.003">
-    <properties edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff" fit_to_viewport="false"/>
+    <properties fit_to_viewport="false" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
 
 <map_styles>
 <stylenode LOCALIZED_TEXT="styles.root_node" STYLE="oval" UNIFORM_SHAPE="true" VGAP_QUANTITY="24.0 pt">
@@ -83,7 +83,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="FILE" ID="ID_1379265469" CREATED="1534806010982" MODIFIED="1534806164541"><richcontent TYPE="DETAILS">
 
@@ -97,7 +96,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[-o|--output ARG]" ID="ID_1270047589" CREATED="1534806024423" MODIFIED="1534807171067"><richcontent TYPE="DETAILS">
 
@@ -195,7 +193,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[FILE]" ID="ID_630179378" CREATED="1534806257995" MODIFIED="1534807207893"><richcontent TYPE="DETAILS">
 
@@ -209,7 +206,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[-o|--output ARG]" ID="ID_451418455" CREATED="1534806274681" MODIFIED="1534807220653"><richcontent TYPE="DETAILS">
 
@@ -339,7 +335,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[--format FORMAT]" ID="ID_612963931" CREATED="1534806459277" MODIFIED="1534807285069"><richcontent TYPE="DETAILS">
 
@@ -371,7 +366,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[FILE]" ID="ID_479153258" CREATED="1534806471647" MODIFIED="1534807293383"><richcontent TYPE="DETAILS">
 
@@ -385,7 +379,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[--docgen ARG]" ID="ID_1324116931" CREATED="1534806546068" MODIFIED="1534807295909"><richcontent TYPE="DETAILS">
 
@@ -411,7 +404,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -436,7 +428,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[FILE]" ID="ID_1434530557" CREATED="1534806744259" MODIFIED="1534807322067"><richcontent TYPE="DETAILS">
 
@@ -450,7 +441,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[-o|--output ARG]" ID="ID_856960479" CREATED="1534806752082" MODIFIED="1534807324470"><richcontent TYPE="DETAILS">
 
@@ -464,7 +454,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -481,7 +470,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="server" ID="ID_1464254713" CREATED="1534806790357" MODIFIED="1534806805932"><richcontent TYPE="DETAILS">
 
@@ -495,7 +483,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[-d|--directory ARG]" ID="ID_691105537" CREATED="1534806832525" MODIFIED="1534806838726"/>
 <node TEXT="[Source GLOBS...]" ID="ID_188708337" CREATED="1534806839252" MODIFIED="1534806844294"/>
@@ -527,7 +514,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="[--editor-mode]" ID="ID_1266087837" CREATED="1534806866507" MODIFIED="1534806871004"/>
@@ -544,7 +530,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[-p|--port ARG]" ID="ID_1473278408" CREATED="1534806916246" MODIFIED="1534806922252"/>
 </node>
@@ -561,7 +546,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="--manifest FILE" ID="ID_1568468039" CREATED="1534806935229" MODIFIED="1534806967078"><richcontent TYPE="DETAILS">
 
@@ -575,7 +559,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="--resolutions FILE" ID="ID_715463517" CREATED="1534806942547" MODIFIED="1534806970825"><richcontent TYPE="DETAILS">
 
@@ -589,7 +572,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[--dry-run]" ID="ID_1375760927" CREATED="1534806946300" MODIFIED="1534806979764"><richcontent TYPE="DETAILS">
 
@@ -603,7 +585,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -621,7 +602,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[FILES]" ID="ID_1449087626" CREATED="1534807000802" MODIFIED="1534807087306"><richcontent TYPE="DETAILS">
 
@@ -635,7 +615,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="One of the following" ID="ID_1615790523" CREATED="1534807005397" MODIFIED="1534807018724">
 <node TEXT="-p|--port ARG" ID="ID_257959462" CREATED="1534807019195" MODIFIED="1534807373079"><richcontent TYPE="DETAILS">
@@ -650,7 +629,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="--node-path FILE" ID="ID_833550514" CREATED="1534807026978" MODIFIED="1534807371046"><richcontent TYPE="DETAILS">
@@ -665,7 +643,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[--node-opts OPTS]" ID="ID_1124360381" CREATED="1534807063749" MODIFIED="1534807124430"><richcontent TYPE="DETAILS">
 
@@ -679,7 +656,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -718,7 +694,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="(pre/post processors)" ID="ID_1932450462" CREATED="1534807741695" MODIFIED="1534807773497">
@@ -734,7 +709,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="--then &lt;string&gt;" ID="ID_1394686660" CREATED="1534807593152" MODIFIED="1534807653793"><richcontent TYPE="DETAILS">
@@ -749,7 +723,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="--else &lt;string&gt;" ID="ID_1263818984" CREATED="1534807583806" MODIFIED="1534807687104"><richcontent TYPE="DETAILS">
@@ -764,7 +737,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -782,7 +754,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="-b|--bower-file &lt;file&gt;" ID="ID_746557360" CREATED="1534807783086" MODIFIED="1534808700166"><richcontent TYPE="DETAILS">
@@ -797,7 +768,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="(no args)" ID="ID_711470821" CREATED="1534812987983" MODIFIED="1534813031703"><richcontent TYPE="DETAILS">
@@ -812,7 +782,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -829,7 +798,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -845,7 +813,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1137,7 +1104,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="(unique)" ID="ID_1084974110" CREATED="1534812028093" MODIFIED="1534812030553">
 <node TEXT="[--force]" ID="ID_558681061" CREATED="1534807937058" MODIFIED="1534808177628"><richcontent TYPE="DETAILS">
@@ -1152,7 +1118,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="[--skip-compile]" ID="ID_1577140068" CREATED="1534808001047" MODIFIED="1534808286030"><richcontent TYPE="DETAILS">
@@ -1173,7 +1138,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="[--standalone &lt;string&gt;]" ID="ID_763214558" CREATED="1534808017337" MODIFIED="1534808325526"><richcontent TYPE="DETAILS">
@@ -1188,7 +1152,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="[--transform &lt;string&gt;]" ID="ID_634606218" CREATED="1534808037350" MODIFIED="1534808387902"><richcontent TYPE="DETAILS">
@@ -1203,7 +1166,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1238,7 +1200,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="(unique)" ID="ID_58898277" CREATED="1534812039029" MODIFIED="1534812040841">
 <node TEXT="[--modules &lt;string&gt;]" ID="ID_981369655" CREATED="1534808439890" MODIFIED="1534808456478"><richcontent TYPE="DETAILS">
@@ -1253,7 +1214,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1288,7 +1248,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="(unique)" ID="ID_396343500" CREATED="1534812048517" MODIFIED="1534812050043">
 <node TEXT="[-d|--with-dependencies]" ID="ID_611311426" CREATED="1534808626026" MODIFIED="1534808786440"><richcontent TYPE="DETAILS">
@@ -1303,7 +1262,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="[-t|--with-tests]" ID="ID_306606702" CREATED="1534808774730" MODIFIED="1534808782071"><richcontent TYPE="DETAILS">
@@ -1318,7 +1276,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1350,7 +1307,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="--force" ID="ID_467418807" CREATED="1534808814658" MODIFIED="1534808828379"><richcontent TYPE="DETAILS">
 
@@ -1364,7 +1320,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="--with-eff" ID="ID_1711953756" CREATED="1534808816390" MODIFIED="1534808876464"><richcontent TYPE="DETAILS">
@@ -1379,7 +1334,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="--with-effect" ID="ID_1998720037" CREATED="1534808818488" MODIFIED="1534808866010"><richcontent TYPE="DETAILS">
@@ -1394,7 +1348,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1420,7 +1373,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="" ID="ID_1289189541" CREATED="1534812681845" MODIFIED="1534812681849">
@@ -1445,7 +1397,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="--no-push" ID="ID_555972774" CREATED="1534809039256" MODIFIED="1534809054056"><richcontent TYPE="DETAILS">
 
@@ -1459,7 +1410,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="--push-to &lt;string&gt;" ID="ID_1291936539" CREATED="1534809054258" MODIFIED="1534809072750"><richcontent TYPE="DETAILS">
@@ -1480,7 +1430,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1506,7 +1455,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="Dependency Path option" ID="ID_1154886142" CREATED="1534811824891" MODIFIED="1534812411771"/>
 <node TEXT="Include additional directories option" ID="ID_20748393" CREATED="1534811829235" MODIFIED="1534812457658"/>
@@ -1534,7 +1482,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="Output Path, Main, Check Main Type, No Check Main, No PSA options" ID="ID_570956085" CREATED="1534811913627" MODIFIED="1534812369578"/>
 <node TEXT="Dependency Path option" ID="ID_512815844" CREATED="1534811824891" MODIFIED="1534812408270"/>
@@ -1565,7 +1512,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="(unique)" ID="ID_847192368" CREATED="1534811980555" MODIFIED="1534811982933">
 <node TEXT="[--host &lt;string&gt;]" ID="ID_501394550" CREATED="1534809301763" MODIFIED="1534809320688"><richcontent TYPE="DETAILS">
@@ -1586,7 +1532,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="[-p|--port &lt;int&gt;]" ID="ID_623922418" CREATED="1534809340794" MODIFIED="1534809373883"><richcontent TYPE="DETAILS">
@@ -1607,7 +1552,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="[-q|--quiet]" ID="ID_1451021800" CREATED="1534809376999" MODIFIED="1534809391544"><richcontent TYPE="DETAILS">
@@ -1622,7 +1566,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1666,7 +1609,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1700,7 +1642,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="(no arg)" ID="ID_794277737" CREATED="1534812196470" MODIFIED="1534812202774"><richcontent TYPE="DETAILS">
@@ -1715,7 +1656,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1746,7 +1686,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="0.3.2" ID="ID_612455662" CREATED="1534809633847" MODIFIED="1534809635270">
 <node TEXT="--version" ID="ID_1204703786" CREATED="1534809640161" MODIFIED="1534809641582"/>
@@ -1764,7 +1703,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[--set ARG]" ID="ID_1489025385" CREATED="1534809795427" MODIFIED="1534809806931"><richcontent TYPE="DETAILS">
 
@@ -1778,7 +1716,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="[--source ARG]" ID="ID_1094241477" CREATED="1534809798553" MODIFIED="1534809813620"><richcontent TYPE="DETAILS">
@@ -1793,7 +1730,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1809,7 +1745,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="install" ID="ID_1022416290" CREATED="1534809665264" MODIFIED="1534809887840">
@@ -1826,7 +1761,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="(no argument)" ID="ID_1299288363" CREATED="1534809880451" MODIFIED="1534809924163"><richcontent TYPE="DETAILS">
@@ -1841,7 +1775,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1858,7 +1791,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[-d|--only-dependencies]" ID="ID_951361945" CREATED="1534809937518" MODIFIED="1534809994709"><richcontent TYPE="DETAILS">
 
@@ -1872,7 +1804,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="[`purs compile` -options]" ID="ID_1072254975" CREATED="1534809946477" MODIFIED="1534809982543"><richcontent TYPE="DETAILS">
@@ -1896,7 +1827,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1912,7 +1842,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[-d|--only-dependencies]" ID="ID_1059625859" CREATED="1534809937518" MODIFIED="1534810037816"><richcontent TYPE="DETAILS">
 
@@ -1926,7 +1855,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="[`purs repl` -options]" ID="ID_1027993163" CREATED="1534809946477" MODIFIED="1534810052472"><richcontent TYPE="DETAILS">
@@ -1950,7 +1878,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1966,7 +1893,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="(no args)" ID="ID_1508672068" CREATED="1534810158153" MODIFIED="1534810160062"/>
 </node>
@@ -1982,7 +1908,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="(no args)" ID="ID_1229946141" CREATED="1534810173176" MODIFIED="1534810174874"/>
 </node>
@@ -1998,7 +1923,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[-s|--sort]" ID="ID_844086614" CREATED="1534810202964" MODIFIED="1534810213729"><richcontent TYPE="DETAILS">
 
@@ -2012,7 +1936,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -2028,7 +1951,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[--apply]" ID="ID_238053146" CREATED="1534810234422" MODIFIED="1534810242965"><richcontent TYPE="DETAILS">
 
@@ -2042,7 +1964,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="[--apply-breaking]" ID="ID_1718168056" CREATED="1534810244227" MODIFIED="1534810251555"><richcontent TYPE="DETAILS">
@@ -2057,7 +1978,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -2075,7 +1995,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="--after ARG" ID="ID_204088771" CREATED="1534810353207" MODIFIED="1534810367171"><richcontent TYPE="DETAILS">
@@ -2090,7 +2009,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="(no args)" ID="ID_1042673306" CREATED="1534810367860" MODIFIED="1534810377015"><richcontent TYPE="DETAILS">
@@ -2105,7 +2023,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -2122,10 +2039,9 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
-<node TEXT="format" ID="ID_1366443369" CREATED="1534809676770" MODIFIED="1534810604117"><richcontent TYPE="DETAILS">
+<node TEXT="format" ID="ID_1366443369" CREATED="1534809676770" MODIFIED="1534882575852"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
@@ -2133,7 +2049,7 @@
   </head>
   <body>
     <p>
-      Format the &quot;psc-package.json&quot; file for consistency
+      Format the &quot;packages.json&quot; file for consistency
     </p>
   </body>
 </html>
@@ -2155,7 +2071,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
