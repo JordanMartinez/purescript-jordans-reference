@@ -28,4 +28,6 @@ The following seem to be deprecated or no longer used:
 | gulp-purescript | Gulp-based Build Tool | No longer used? Last updated 1 year ago... | https://github.com/purescript-contrib/gulp-purescript |
 | Purify | -- | Deprecated in light of psc-package | -- |
 
+For this repo, we will be using `pulp` for our build tool and `psc-package` for our dependency manager.
+
 From here, one should read through the rest of this folder's Markdown files in numerical order.
