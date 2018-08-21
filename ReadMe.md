@@ -39,7 +39,30 @@ Since the license of this project is still being determined, I will not currentl
 
 ## Setting up Purescript for the first time
 
-Follow the instructions from [this blog post](https://qiita.com/kimagure/items/570e6f2bbce5b4724564), which is more up-to-date than the current Purescript by Example book.
+### Installation
+
+The [Purescript By Example book](https://leanpub.com/purescript/) demonstrates how to set up one's environment for PureScript `0.11.x`. Since its release, `0.12.0` has been released, which introduced major breaking changes. Fortunately, Justin Woo explains how to set up one's environment for the `0.12.0` release [in his blog post here](https://qiita.com/kimagure/items/570e6f2bbce5b4724564). If you want to understand why you should do these commands, read his article. If you just want to get things set up ASAP, follow the below summary of that article's instructions:
+1. Install Node 8 or greater: https://nodejs.org/en/download/
+2. Set your npm prefix: `npm set prefix ~/.npm`
+3. Set your PATH: `export PATH="$HOME/.npm/bin:$PATH"`
+4. Install Purescript, pulp, and psc-package: `npm i -g purescript@0.12.0 pulp psc-package`
+
+The following commands should now work:
+```bash
+purs --version
+pulp --version
+psc-pacakge
+```
+### Setting up your editor
+
+The following are instructions for setting up the Atom editor. For Emacs, Vi, or Visual Studio, [consult Justin Woo's post on the matter](https://qiita.com/kimagure/items/570e6f2bbce5b4724564#install-some-editor-plugins) and [the respective page in the documentation repo](https://github.com/purescript/documentation/blob/master/ecosystem/Editor-and-tool-support.md#emacs)
+
+Atom setup instructions:
+1. Install Atom: `sudo apt-get install atom`
+2. Launch Atom and install the following packages:
+    - ide-purescript
+    - atom-ide-ui
+    - language-purescript
 
 ## Helpful Links
 
