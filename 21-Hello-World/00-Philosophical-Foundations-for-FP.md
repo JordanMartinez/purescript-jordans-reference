@@ -50,11 +50,7 @@ In FP languages, one writes loops using recursion, pattern-matching, and tail-ca
 ```purescript
 factorial :: Int -> Int
 factorial 0 = 0
-factorial x = factorial' 1 x
-
-factorial' :: Int -> Int -> Int
-factorial' total 0 = total
-factorial' total count = total * (factorial count (count - 1))
+factorial x = x * (factorial (x - 1))
 ```
 
 ## Execution vs Description and Interpretation
@@ -67,6 +63,11 @@ executeCode = 3
 -------------------------------
 
 -- FP languages
+data Unit = Unit
+
+unit :: Unit
+unit = Unit
+
 type ComputationThatReturns a = (Unit -> a))
 
 describeCode :: ComputationThatReturns Int
