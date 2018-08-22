@@ -1,8 +1,4 @@
 {-
-WARNING! This syntax will only make sense if one understands Applicative
-from Prelude and the `map`/`<$>`, `apply`/`<*>`, and `pure` functions.
-Come back to this file once you understand them.
-
 WARNING! This notation will currently cause the doc-generation to fail.
 See this issue for more details until the bug is fixed:
 https://github.com/purescript/purescript/issues/3414
