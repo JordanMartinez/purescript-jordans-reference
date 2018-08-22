@@ -9,8 +9,8 @@ which doesn't tell you anything, it'll say:
 functionName :: ParameterType -> ReturnType
 ```
 
-The files should be read in numerical order using a depth-first search. See the `src/` file in each folder (e.g. 01-Basic-Syntax) for the actual documentation on the syntax.
+In each folder listed here, go to its `src/` folder to continue reading the documentation.
 
-If you want to play around with the syntax, you can compile the code by typing `pulp --psc-package build` inside each folder that has a `psc-package.json` file.
+If you want to play around with the syntax, start the REPL using `pulp repl` or run the command, `pulp --psc-package --watch build`, inside a folder that has a `psc-package.json` file. It will recompile the source files in the folder containing the JSON file each time they are saved, enabling fast feedback loops.
 
 Note: The "Type-Level-Programming-Syntax" folder is still a WIP.
