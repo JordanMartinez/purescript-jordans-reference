@@ -86,6 +86,8 @@ This was taken from [this slide in this YouTube video](https://youtu.be/EoJ9xnzG
 
 ## Do notation
 
+At this point, you should look back at the Syntax folder to read through the file on `do notation`.
+
 Be aware of where the parenthesis appear when using `m a >>= aToMB >>= bToMC` by reading the section called "Do notation" in [this article](https://sras.me/haskell/miscellaneous-enlightenments.html). Below provides a summary of what it says:
 ```purescript
 data Maybe a = Nothing | Just a
