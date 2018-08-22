@@ -7,8 +7,11 @@ import Prelude
 
 -- A zero-arg function cannot exist in FP programming*
 -- Thus, it counts as a static value
-valueName :: ValueType
-valueName = "literal value or the result of some function call"
+literal_value :: ValueType
+literal_value = "literal value"
+
+result_of_function :: ValueType
+result_of_function = show 4 -- "4"
 
 one_arg_function :: ParameterType -> ReturnType
 one_arg_function argument = bodyThatReturnsType
@@ -30,12 +33,24 @@ function_using_inline_syntax = (\x -> x + 4)
 function_that_takes_a_function :: Int -> (Int -> String) -> String
 function_that_takes_a_function i f = f i
 
--- example
-example_of_f_taking_an_f :: String
-example_of_f_taking_an_f =
+                                           {- function -}
+function_that_returns_a_function :: Int -> (Int -> Int)
+function_that_returns_a_function x = (\y -> y + x)
+
+-- Note: a "higher order function" either takes a function as an argument
+-- or returns a function
+
+-- examples
+takes_a_function :: String
+takes_a_function =
   function_that_takes_a_function 3 (\x -> show x)
   -- show: converts Int to String
   -- outputs: "3"
+
+returns_a_function :: Int
+returns_a_function =
+  (function_that_returns_a_function 4) 10
+  -- outputs: 14 (\10 -> 10 + 4)
 
 -- necessary to make this file compile
 
