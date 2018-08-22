@@ -4,7 +4,7 @@ import Prelude
 
 {-
 WARNING: THe following code requires understanding what
-a Monad is and the `bind`/>>= function. Come back to this
+a Monad is and the `bind`/`>>=` function. Come back to this
  only after you understand those two functions.
 
 In imperative programming, one often writes some sequential code like:
