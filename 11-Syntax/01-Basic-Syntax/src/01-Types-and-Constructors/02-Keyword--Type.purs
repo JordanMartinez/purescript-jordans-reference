@@ -3,10 +3,7 @@ module Keyword.Type where
 import Prelude
 
 -- Syntax
-type TypeAliasForCompileTime = RunTimeType {-
-type Age = Int
-type ComplexFunction = Int -> (forall a b. a -> (forall c. c -> b) -> b)
--}
+type TypeAliasForCompileTime = RunTimeType
 
 -- examples
 type Age = Int
