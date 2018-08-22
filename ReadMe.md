@@ -9,7 +9,7 @@ This repo is my way of trying to use the [Feynman Technique](https://medium.com/
 - 31-Design Patterns - commonly-used patterns to solve problems in FP languages
 - 41-Ecosystem - a better overview of the libraries in Purescript (categorized by tags)
 
-See [issues marked with the 'Roadmap' label](https://github.com/JordanMartinez/purescript-jordans-reference/issues?q=is%3Aopen+is%3Aissue+label%3ARoadmap) for a deeper understanding of this project's current direction/goals.
+See [issues marked with the 'Roadmap' label](https://github.com/JordanMartinez/purescript-jordans-reference/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3ARoadmap) for a deeper understanding of this project's current direction/goals.
 
 ## Guidelines for this project
 
