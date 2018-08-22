@@ -18,8 +18,14 @@ class ToString a where
 -- So, we can extend it with another type class that adds a law on how
 -- long the String can be before it's too long.
 
-class (ToString a) <= ToString_50CharLimit a -- no where keyword here!
+class (ToString a) <= ToString_50CharLimit a -- no "where" keyword here!
   -- no function or value here!
+
+-- Assuming we've already written the `ToString` instance,
+-- to create an instance for the above type class, we'd write:
+instance int50CharLimit :: ToString_50CharLimit Int -- no "where" keyword!
+-- This instance means the developer who wrote it asserts that
+-- the given type, Int, satisfies the given law.
 
 {-
 A developer making a library that specifies such a type as this has
@@ -64,3 +70,8 @@ instance unwrapInt :: Unwrap Int where
 
 useBoxable :: forall a. (Boxable a) => a -> a
 useBoxable a = (unwrapFromBox <<< wrapIntoBox) a
+
+-- Necessary to compile
+
+instance intToString :: ToString Int where
+  toString = show
