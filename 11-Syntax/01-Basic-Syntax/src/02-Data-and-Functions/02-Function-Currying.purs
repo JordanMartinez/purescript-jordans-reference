@@ -1,7 +1,5 @@
 module Syntax.Function.Currying where
 
-import Prelude
-
 -- Remember this function?
 one_arg_function_syntax_sugar :: ParameterType -> ReturnType
 one_arg_function_syntax_sugar argument = bodyThatReturnsType
@@ -39,6 +37,7 @@ two_arg_function = function (ParameterType1) -> {
 }
 -}
 
+type ParameterType = String
 type ParameterType1 = String
 type ParameterType2 = String
 type ReturnType = String
