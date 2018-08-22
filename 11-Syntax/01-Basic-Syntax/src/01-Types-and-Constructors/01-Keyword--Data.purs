@@ -22,24 +22,16 @@ data SumType
   | SumConstructorN
 
 -- example
--- an enum-like type that only has 3 different implementations
 data Fruit
   = Apple
   | Banana
   | Orange
 
--- It's called a 'sum' type because if the argument passed to a function
--- is a sum type, the possible arguments passed to that function are the sum
--- of all of its constructors. In the case of Fruit, there are 3 possible
--- arguments to a function that takes a type of Fruit as its argument.
-
-data ProductType a b
-  = ProductConstructor1 a
-  | ProductConstructor2 b
+-- the product type
+data ProductType a b = ProductConstructor a b
 
 -- example
--- a type that's either the a (wrapped in Left) or b (wrapped in Right)
-data Tuple a b = Both a b
+data IntAndString = IAndS Int String
 
 -- Necessary for this to compile
 data Type1
