@@ -19,7 +19,7 @@ flip twoArgFunction secondArg firstArg = twoArgFunction firstArg secondArg
 apply :: (a -> b) -> a -> b
 apply function arg = function arg
 
-infix 0 apply as ($)
+infix 0 apply as $
 
 -- example
 print (5 + 5) == print $ 5 + 5
@@ -28,7 +28,7 @@ print (5 + 5) == print $ 5 + 5
 applyFlipped :: forall a b. a -> (a -> b) -> b
 applyFlipped = flip apply
 
-infxl 1 applyFlipped as (#)
+infxl 1 applyFlipped as #
 
 -- apply a function with the given arg totalTimes
 applyN :: forall a. (a -> a) -> Int -> a -> a
