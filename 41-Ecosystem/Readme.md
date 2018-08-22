@@ -6,3 +6,7 @@ This folder will do 2 things:
 - Map out the type classes' relationships.
 
 Since this repo is meant for my learning (with your benefit), it will center around my coding interests (and not yours, unfortunately).
+
+[This is a GitHub search](https://github.com/search?utf8=%E2%9C%93&q=language%3APureScript+pushed%3A%3E2018-05-21+language%3APureScript&type=Repositories&ref=advsearch&l=PureScript&l=) of all the libraries on Github that
+- are written in Purescript
+- were `git push`ed after the `0.12.0` release
