@@ -5,16 +5,17 @@
 When we talk about side-effects, we are referring to two possible meanings. The first are "non-native" side-effects that use techniques like monoids, monads, applicatives, and arrows. The second are "native side-effects", which are effects provided by the RunTime System (RTS) and which can't be emulated by pure functions.
 
 Some examples of native effects are:
-- Node + Browser:
-    - Console IO
+- Shared
     - Random number generation
     - Exceptions
     - Reading/writing mutable state
+    - Writing/reading to/from local storage
+- Node only:
+    - Console IO
 - Browser only:
     - DOM manipulation
     - XMLHttpRequest / AJAX calls
     - Interacting with a websocket
-    - Writing/reading to/from local storage
 
 PureScript's [`purescript-effect`](https://pursuit.purescript.org/packages/purescript-effect/) package defines a monad called `Effect`, which is used to handle native effects. The goal of the `Effect` monad is to provide a typed API for effectful computations, while at the same time generating efficient Javascript.
 
@@ -34,6 +35,11 @@ None of the above examples can be pure code and yet they are necessary for any p
 
 The following code is not necessarily how `Effect` is implemented, but it does help one quickly understand it by analogy:
 ```purescript
+data Unit = Unit
+
+unit :: Unit
+unit = Unit
+
 -- | A computation that will only be run when passed in a `unit`
 type PendingComputation a = (Unit -> a)
 
@@ -54,8 +60,10 @@ The whole idea of `Effect` is to use `unsafePerformEffect` as little as possible
 The entry point into each program written in Purescript is the `main` function. It's type signature must be: `main :: Effect Unit`.
 
 The following explanation is not what happens in practice, but understanding it this way will help one understand the concepts it represents:
-> When one writes `pulp --psc-package build`, one could say that, conceptually, pulp will compile `unsafePerformEffect main` into Javascript and the resulting Javascript is what gets run by the RunTime System (RTS) when the program is executed.
+> When one writes `pulp --psc-package build`, one could say that, conceptually, pulp will compile `unsafePerformEffect main` into Javascript and the resulting Javascript is what gets run by the RunTime System (RTS) when the program is executed.^^
 
 In other words, the RunTime System is (ideally) the only entity that ever calls `unsafePerformEffect`. When it does, `main` is its argument.
 
 One might still call `unsafePerformEffect` in otherwise pure code in situations where they know what they are doing. In other words, they know the pros & cons, costs & benefits of doing so, and are willing to pay for those costs to acheive their benefits.
+
+^^ `pulp --psc-package build` or `pulp --psc-package browserify` both, by default, add in the necessary code to automatically execute `main`. To remove this, one needs to pass the flag `--skip-entry-point` to these commands.
