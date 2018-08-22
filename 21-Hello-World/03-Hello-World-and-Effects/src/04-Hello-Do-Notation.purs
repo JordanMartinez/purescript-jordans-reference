@@ -13,7 +13,7 @@ main' = (log "This is outputted first") >>= (\_ ->
           (log "This is outputted second") >>= (\_ ->
             log "This is outputted third"
           )
-       )
+        )
 
 -- can become more readable using sugar syntax (do-notation):
 main :: Effect Unit
