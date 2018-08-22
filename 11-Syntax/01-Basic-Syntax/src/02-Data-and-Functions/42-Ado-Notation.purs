@@ -1,5 +1,11 @@
 module Syntax.Notation.Ado where
 
+{-
+WARNING! This syntax will only make sense if one understands Applicative
+from Prelude and the map/<$>, apply/<*>, and pure functions.
+Come back to this file once you understand that.
+-}
+
 import Prelude -- hiding ((<$>), (<*>), Functor, Apply, Applicative)
 
 data Box a = Box a
