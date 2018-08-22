@@ -1,12 +1,17 @@
-# Reducible
+# Appendable
 
-These type classes often take two instances of a given type and 'reduce' them down into one instance. Sometimes, this is by "appending" the two together, but what "appending" means depends on the context and the type.
+These type classes often take two instances of a given type and 'appending' them into one instance. In other words:
+```purescript
+append :: forall a. a -> a -> a
+append a1 a2 = --definition
+```
+The definition of "appending" depends on the context and the type. One could also think of these type classes as "reducing" two instances of the same type down into one instance of the same type.
 
-One example is String. Two String instances can be 'reduced' into one by 'appending' them together: `"hello " + "world"`
+One example is String. Two String instances can be 'appended/reduced' into one instance by concatting them together: `"hello " + "world"`
 
-Another example is Boolean. Two Boolean instances can be 'reduced' into one instance by 'appending' them together using `&&` or `||`.
+Another example is Boolean. Two Boolean instances can be 'appended/reduced' into one instance via `&&` or `||`.
 
-A third examlpe is Int. Two instances of `Int` can be 'reduced' down into one instance. How? One could add them `1 + 1` or multiple them `2 * 2`, or subtract one from another `3 - 1` or divide one from another `4 / 2`. Semigroup and Monoid handle appending (e.g. addition/multiplication) whereas Semiring and its sub type classes handle subtraction and division.
+A third examlpe is Int. Two instances of `Int` can be 'appended/reduced' into one instance. How? One could add them `1 + 1` or multiple them `2 * 2`, or subtract one from another `3 - 1` or divide one from another `4 / 2`. Semigroup and Monoid handle addition/multiplication whereas Semiring and its sub type classes handle subtraction and division.
 
 ## Semigroup and Monoid
 
