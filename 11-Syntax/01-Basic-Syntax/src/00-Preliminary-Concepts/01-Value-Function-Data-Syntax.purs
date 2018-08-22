@@ -2,30 +2,11 @@ module Syntax.Meta where
 
 import Prelude
 
--- This file simply shows the syntax for how to define
--- values, functions, and basic data types. It gives
--- enough context for the `Kind` explanation next.
-
--- A zero-arg function cannot exist in FP programming*
--- Thus, it counts as a static value
-valueName :: ValueType
-valueName = "literal value or the result of some function call"
+-- This file simply shows enough syntax so that the
+-- explanation on Kinds (next) makes sense.
 
 one_arg_function :: ParameterType -> ReturnType
 one_arg_function argument = bodyThatReturnsType
-
--- * function :: Unit -> ReturnType is as close as one can get to a
--- zero-arg function in functional programming. Unit will be explained later
--- in the "Hello World" folder.
-
-two_arg_function :: ParameterType1 -> ParameterType2 -> ReturnType
-two_arg_function argument1 argument2 = bodyThatReturnsType
-
-n_arg_function :: ParameterType1 -> {- ... ParameterTypeN -> ... -} ReturnType
-n_arg_function arg1 {- arg2 arg3 ... argN -} = bodyThatReturnsType
-
-function_using_inline_syntax :: (Int -> Int)
-function_using_inline_syntax = (\x -> x + 4)
 
 -- Declares a type that is used in a function's type signatures
 -- and its implementations.
