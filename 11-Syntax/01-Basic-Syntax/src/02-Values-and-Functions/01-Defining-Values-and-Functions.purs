@@ -10,15 +10,15 @@ import Prelude
 literal_value :: ValueType
 literal_value = "literal value"
 
+-- * function :: Unit -> ReturnType is as close as one can get to a
+-- zero-arg function in functional programming. Unit will be explained later
+-- in the "Hello World" folder.
+
 result_of_function :: ValueType
 result_of_function = show 4 -- "4"
 
 one_arg_function :: ParameterType -> ReturnType
 one_arg_function argument = bodyThatReturnsType
-
--- * function :: Unit -> ReturnType is as close as one can get to a
--- zero-arg function in functional programming. Unit will be explained later
--- in the "Hello World" folder.
 
 two_arg_function :: ParameterType1 -> ParameterType2 -> ReturnType
 two_arg_function argument1 argument2 = bodyThatReturnsType
