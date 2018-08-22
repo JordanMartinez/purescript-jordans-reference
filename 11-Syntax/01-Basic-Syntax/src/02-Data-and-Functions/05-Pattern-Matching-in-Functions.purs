@@ -10,23 +10,49 @@ data Fruit
   | Cherry
   | Tomato -- because why not!?
 
--- Basic pattern matching: If the argument is _ then return _
-mkString :: Fruit -> String
-mkString Apple = "apple"
-mkString Orange = "orange"
-mkString Banana = "banana"
-mkString Cherry = "cherry"
-mkString Tomato = "tomato"
+-- Pattern Matching: Basic idea and order of matching
+mkString :: Fruit -> String {-
+         if the arg is _ = then return _ -}
+mkString Apple           = "apple"{-
+    else if the arg is _ = then return _ -}
+mkString Orange          = "orange"{-
+    else if the arg is _ = then return _ -}
+mkString Banana          = "banana"{-
+    else if the arg is _ = then return _ -}
+mkString Cherry          = "cherry"{-
+    else if the arg is _ = then return _ -}
+mkString Tomato          = "tomato"
 
--- Now for a more complex example that shows the real power of pattern matching:
+-- The above pattern match is "exhaustive" because there are no other
+-- Fruit instances against which one could match.
 
+-- Pattern Matching: Literal values and catching all values
+
+literalValue :: String -> String
+literalValue "this string"        = "this value"
+literalValue "a different string" = "this other value"
+literalValue "some other string"  = "5"
+literalValue _                    = "ignore input and return default value"
+
+-- syntax sugar for pattern-matching literal arrays
+array :: Array Int -> String
+array []           = "an empty array"
+array [0]          = "an array with one value that is 0"
+array [0, 1]       = "an array with two values, 0 and 1"
+array [0, 1, a, b] = "an array with four values, starting with 0 and 1 \
+                       \ and binding the third and fouth to names 'a' and 'b'"
+array [-1, _ ]     = "an array of two values, '-1' and another value that \
+                       \ will not be used in the body of this function."
+array _            = "catchall for arrays. This is needed to make this \
+                       \ example compile"
+
+
+-- Pattern Matching: Unwrapping Data Constructors
 data A_Type
   = AnInt Int
   | Outer A_Type
   | Inner Int
 
--- Syntax
--- Note: "forall" will be explained in Keyword--Forall.purs
 f :: A_Type -> String {-
 -- Syntax
 f patternMatch = bodyToRunIfPatternWasMatched
@@ -52,37 +78,75 @@ f (Outer (Inner int))   = "an instance of type Outer, whose Inner value is bound
 f object@(AnInt 4)      = "an instance of type AnInt whose value is '4', \
                           \binding the entire object to the `object` name for \
                           \usage in function body"
--- This example makes use of regular "guards" via "|"
-f (AnInt x) | x == 3         = "bind value to name 'x'. \
-                               \Then: if x is 3, do..."
-            | x == 5         =  "else if x is 5, do..."
-            -- "pattern guards"
-            | (Box 2) <- g x =  "else call g(x) and if it returns Box 2, do..."
-        --  | (Box y) <- g x =  "else call g(x) and bind Box's value to 'y', then do..."
-            | otherwise =       "else, do..."
 f _                     = "ignores input and matches everything; \
                           \acts as a default / catch all case"
 
-orderOfMatching :: String -> Int
-orderOfMatching "hello"     = 0 -- if string was 'hello'
-orderOfMatching "something" = 4 -- if previous case did not match and string was 'something'
-orderOfMatching _           = 9 -- if all prior cases did not match and we don't care about the argument
+-- Pattern Matching: Regular Guards
+g :: Int -> Int -> String {-
+g x y | condition1  = return this if condition1 is true
+      | condition2  = return this if condition2 is true
+      | ...         = ...
+      | conditionN  = return this if conditionN is true
+      | otherwise   = default case-}
+g x y | x + y == 0 = "x == -y"
+      | x - y == 0 = "x == y"
+      | x * y == 0 = "x == 0 || y == 0"
+      | otherwise = "some other value"
 
-arrayPatterns :: Array Int -> String
-arrayPatterns []           = "an empty array"
-arrayPatterns [0]          = "an array with one value that is 0"
-arrayPatterns [0, 1]       = "an array with two values, 0 and 1"
-arrayPatterns [0, 1, a, b] = "an array with four values, starting with 0 and 1 \
-                             \and binding the third and fouth to names 'a' and 'b'"
-arrayPatterns array@[1, 2] = "an array of two values, 1 and 2, that is bound to the 'array' name"
-arrayPatterns [-1, _ ]     = "an array of two values, '-1' and another value that \
-                             \will not be used in the body of this function."
-arrayPatterns _            = "catchall for arrays. This is needed to make this file compile"
+-- Pattern Matching: Single and Multiple Guards
+h :: Int -> Int -> String
+h x y | x == 4 && y == 5 = "body" {-
+      | condition1, condition2 = body -}
+      | x == 4, y == 6   = "body" {-
+      ... or when using syntax sugar...
+      | condition1
+      , condition2 = body -}
+      | x == 3
+      , y == 2           = "body2"
 
+-- It's wise to separate mulitple guards with a blank line for readability.
+      | otherwise        = "default"
 
--- necesasry for this to compile
+-- Pattern Matching: Single Pattern Guard
+j :: Int -> String {-
+j x | returnedValue <- function arg1 arg2 argN = body if match occurs -}
+j x | (Box 2) <- toBox x = "Calling toBox x returned a Box with 2 inside of it"
+    | (Box y) <- toBox x = concat "The 'y' value was: " (toString y)
+
+-- Pattern Matching: Multiple Pattern Guards
+p :: Int -> Int -> String {-
+p x y | returnedValue1 <- functionCall1, returnedValue2 <- functionCall2 = body -}
+p x y | (Box 2) <- toBox x, (Box 3) <- toBox (x - 1) = "without syntax sugar" {-
+      ... or for easier reading, there is sugar syntax:
+p x y | returnedValue1 <- functionCall1
+      , returnedValue2 <- functionCall2 = body -}
+      | (Box a) <- toBox x
+      , (Box b) <- toBox (x * 2) = "with syntax sugar"
+      | otherwise = "some other value"
+
+-- Different guards can be mixed:
+q :: Int -> Int -> String
+q x y | x == 3                   = "3"
+      | x == 5, y == 5           = "5"
+      | (Box 2) <- toBox x       = "2?"
+
+      | (Box 2) <- toBox x
+      , y == 4                   = "curious, no?"
+
+      | (Box a) <- toBox x
+      , (Box b) <- toBox (y * 2) = "something?"
+
+      | otherwise                = "catch-all"
+
+-- necessary for this to compile
 data Box a = Box a
 
-g :: Int -> Box Int
-g 1 = Box 2
-g _ = Box 0
+toBox :: Int -> Box Int
+toBox 1 = Box 2
+toBox _ = Box 0
+
+concat :: String -> String -> String
+concat left right = left <> right
+
+toString :: forall a. Show a => a -> String
+toString = show
