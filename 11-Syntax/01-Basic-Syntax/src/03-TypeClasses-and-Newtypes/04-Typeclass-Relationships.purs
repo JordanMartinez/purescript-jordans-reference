@@ -38,6 +38,10 @@ test2 :: Boolean
 test2 =
   (plusFive false) == 5
 
+-- A type class can also extend multiple typeclasses:
+
+class (SuperTypeClass1 a, SuperTypeClass2 a {-, ... -}) <= TheTypeClass a where
+  function :: a -> a
 
 -- necessary to make file compile
 type ReturnType = String
@@ -48,3 +52,9 @@ class SuperTypeClass a where
 
 instance supertypeclassTheTypeInstance :: SuperTypeClass TheType where
   fn _ = "body"
+
+class SuperTypeClass1 a where
+  fn1 :: a -> String
+
+class SuperTypeClass2 a where
+  fn2 :: a -> String
