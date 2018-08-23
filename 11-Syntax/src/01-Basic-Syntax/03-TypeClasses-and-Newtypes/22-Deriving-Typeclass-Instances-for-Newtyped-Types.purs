@@ -3,7 +3,7 @@ module Syntax.Deriving.Newtype where
 import Prelude
 
 -- needed for 2nd approach
-import Data.Newtype (class Newtype, wrap, unwrap)
+import Data.Newtype (class Newtype)
 
 -- License applies to a portion of this document --> Start
 

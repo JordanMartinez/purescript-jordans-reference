@@ -1,6 +1,6 @@
-module Module1 (anInt) where
+module Module1 (anInt1) where
 
 import Prelude
 
-anInt :: Int -> Int
-anInt x = x+5
+anInt1 :: Int -> Int
+anInt1 x = x+5

@@ -1,7 +1,5 @@
 module Syntax.Record where
 
-import Prelude
-
 -- Think of records as a unordered named TupleN
 type RecordType = { field1 :: String
                   , fieldN :: Int

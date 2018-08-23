@@ -1,7 +1,5 @@
 module Keyword.Forall where
 
-import Prelude
-
 {-
 When using generic data types in functions, such as the one below...
 genericFunction0 :: a -> a

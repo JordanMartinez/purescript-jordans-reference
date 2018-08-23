@@ -1,7 +1,5 @@
 module Keyword.Type where
 
-import Prelude
-
 -- Syntax
 type TypeAliasForCompileTime = RunTimeType
 

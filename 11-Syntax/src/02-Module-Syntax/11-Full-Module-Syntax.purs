@@ -85,7 +85,8 @@ import ModuleNameClash2 hiding (sameFunctionName1)
 import ModuleNameClash1 as M1
 import ModuleNameClash2 as M2
 
-import Module1 (anInt) as M
+-- Re-export modules
+import Module1 (anInt1) as M
 import Module2 (anInt2) as M
 import Module3 (anInt3) as M
 import Module4.SubModule1 (someFunction) as M
@@ -93,6 +94,10 @@ import Module4.SubModule1 (someFunction) as M
 import Prelude
 
 import ExportedModule
+
+-- To prevent warnings from being emitted during compilation
+-- the above imports have to either be used here or
+-- re-exported (explained later in this folder).
 
 value :: Int
 value = 3

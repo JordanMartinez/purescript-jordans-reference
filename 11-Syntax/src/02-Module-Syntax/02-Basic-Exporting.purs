@@ -44,8 +44,6 @@ module Syntax.Module.Exporting
   ) where
 
 -- imports go here
-import Prelude
-
 import ExportedModule
 
 {- commented out since it doesn't actually exist here..

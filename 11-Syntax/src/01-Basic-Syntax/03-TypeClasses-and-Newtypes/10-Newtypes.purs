@@ -5,8 +5,8 @@ import Prelude
 -- Given the following code:
 data Box a = Box a
 
-class Show a where
-  show :: a -> String
+class Show_ a where
+  show_ :: a -> String
 
 instance boxShow :: (Show a) => Show (Box a) where
   show (Box a) = "Box(" <> show a <> ")"

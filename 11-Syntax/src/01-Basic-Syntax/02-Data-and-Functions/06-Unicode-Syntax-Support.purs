@@ -1,7 +1,5 @@
 module Syntax.Unicode where
 
-import Prelude
-
 -- Unicode sytax is supported
 
 -- Original credit: @paf31

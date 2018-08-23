@@ -30,7 +30,6 @@ function1 expression =
     "patternMatch2" -> bodyOfFunction
     x | length x == 4 -> bodyOfFunction    -- guards are also allowed here
       | length x == 5 -> bodyOfFunction
-      | otherwise -> bodyOfFunction
     _ -> bodyOfFunction -- catch all
 
 

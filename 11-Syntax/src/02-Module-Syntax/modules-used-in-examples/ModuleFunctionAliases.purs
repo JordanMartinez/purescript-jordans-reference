@@ -2,8 +2,6 @@ module ModuleFunctionAliases
   (function, (/=), (===), (>>**>>))
   where
 
-import Prelude
-
 function :: String -> String
 function x = "some value"
 

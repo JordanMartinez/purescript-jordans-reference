@@ -1,7 +1,5 @@
 module Keyword.IfThenElse where
 
-import Prelude
-
 -- There's support for if-then-else statements
 test1 :: Boolean -> String
 test1 condition = if condition then "true path" else "false path"

@@ -1,7 +1,5 @@
 module Syntax.Notation.Infix.Extended where
 
-import Prelude
-
 -- Original credit: @paf31
 -- Link: https://github.com/paf31/24-days-of-purescript-2016/blob/master/1.markdown
 -- Changes made: use meta-language to explain syntax of extended infix notation

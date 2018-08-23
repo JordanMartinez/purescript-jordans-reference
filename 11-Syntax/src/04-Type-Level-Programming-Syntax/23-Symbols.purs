@@ -1,7 +1,5 @@
 module Syntax.TypeLevel.Symbol where
 
-import Prelude
-
 
 {-
 Original credit: @LiamGoodacre

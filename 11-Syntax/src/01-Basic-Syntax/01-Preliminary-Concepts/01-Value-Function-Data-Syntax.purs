@@ -1,7 +1,5 @@
 module Syntax.Meta where
 
-import Prelude
-
 -- This file simply shows enough syntax so that the
 -- explanation on Kinds (next) makes sense.
 

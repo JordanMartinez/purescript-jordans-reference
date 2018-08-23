@@ -16,7 +16,7 @@ data List a = Nil | Cons a (List a)
 data Box a = Box a
 
 -- Some types given here to make things easier...
-type TypeAlias = forall a b. List a -> Box a
+type TypeAlias = forall a b. List a -> Box b
 data DataType = Constructor Int Int
 
 {-
