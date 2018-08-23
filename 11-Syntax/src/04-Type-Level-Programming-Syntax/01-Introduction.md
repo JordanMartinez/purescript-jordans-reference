@@ -26,10 +26,10 @@ Programming usually refers to writing code at the source-level to run a program 
 
 Let's explain a problem that occurs at the runtime that can be fixed with type-level programming.
 
-An Array is a very fast data structure, but it's problematic because we never know the exact size of it. In other words, functions that operate on Array where its length/size is important are "partial functions."
-An example is getting the first element in an Array. If it's empty, the function can only throw an error. If it has at least one element, it can return that element. This is why we have to use the Partial type class in Purescript. It's also why many functional languages use the "List a" type because the "Nil" constructor makes all of their functions total and type-safe.
+An `Array` is a very fast data structure, but it's problematic because we never know the exact size of it. In other words, functions that operate on `Array` where its length/size is important are "partial functions."
+An example is getting the first element in an `Array`. If it's empty, the function can only throw an error. If it has at least one element, it can return that element. This is why we have to use the `Partial` type class in Purescript. It's also why many functional languages use the "List a" type because the "Nil" constructor makes all of their functions total and type-safe.
 
-However, what if we could modify the type of Array, so that it included the size of that array at the compile-time? If we could, we could then use the type-checker to insure that the "firstElement" function described above only receives arguments of the made-up type "NonEmptyArray". It would guarantee that an array function is total because it can only take a specific Array type that works.
+However, what if we could modify the type of `Array`, so that it included the size of that array at the compile-time? If we could, we could then use the type-checker to insure that the "firstElement" function described above only receives arguments of the made-up type `NonEmptyArray`. It would guarantee that an array function is total because it can only take a specific `Array` type that works.
 
 Stated differently, "Type-Level Programming" allows us to add additional information to our types to guarantee correct code via the type-checker.
 
