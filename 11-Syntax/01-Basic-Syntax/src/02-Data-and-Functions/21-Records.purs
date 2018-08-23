@@ -5,7 +5,9 @@ type RecordType = { field1 :: String
                   , fieldN :: Int
                   , function :: String -> String }
 --    which desugars to
--- data RecordType = Record { field1 :: String, fieldN :: Int, function :: String -> String }
+type RecordType_Desugared = Record ( field1 :: String
+                                   , fieldN :: Int
+                                   , function :: (String -> String) )
 
 -- Need to unwrap the Record to get to the underlying fields/functions
 getField1 :: RecordType -> String
