@@ -21,14 +21,13 @@ module Syntax.ModuleName where
 --   It, too, can be ignored.
 import Prelude
 
--- And the thing that the file is documenting usually goes here.
+-- The thing that the file is documenting usually goes here.
 --    Don't ignore this stuff.
 data Box a = Box a
 
 -- Sometimes the comment "necessary to compile" will appear.
 -- It makes the meta-language compileable. Ignore everything underneath it
---   as you read through
--- the files.
+--   as you read through the files.
 
 -- necessary to compile
 type SomeTypeName = String
