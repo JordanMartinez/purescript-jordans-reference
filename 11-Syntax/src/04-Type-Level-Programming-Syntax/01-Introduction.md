@@ -37,6 +37,7 @@ There are a few libraries in Purescript that add support for type-level programm
 
 | Name | Usage |
 | - | - |
+| [prim](https://pursuit.purescript.org/builtins/docs/Prim) | TODO 
 | [purescript-prelude](https://pursuit.purescript.org/packages/purescript-prelude/) | TODO
 | [purescript-proxy](https://pursuit.purescript.org/packages/purescript-proxy/) | TODO
 | [purescript-typelevel-equality](https://pursuit.purescript.org/packages/purescript-type-equality/) | Type equality constraints
