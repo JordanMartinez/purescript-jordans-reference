@@ -34,8 +34,14 @@ However, what if we could modify the type of `Array`, so that it included the si
 Stated differently, "Type-Level Programming" allows us to add additional information to our types to guarantee correct code via the type-checker.
 
 There are a few libraries in Purescript that add support for type-level programming:
-- purescript-prelude (Type-level Strings via Symbol)
-- purescript-typelevel (Type-level Natural numbers and Booleans)
-- purescript-typelevel-equality
-- purescript-trout (Type-Level Routing),
-    which is used in purescript-hypertrout, a full-fledged web server)
+
+| Name | Usage |
+| - | - |
+| [purescript-prelude](https://pursuit.purescript.org/packages/purescript-prelude/) | TODO
+| [purescript-proxy](https://pursuit.purescript.org/packages/purescript-proxy/) | TODO
+| [purescript-typelevel-equality](https://pursuit.purescript.org/packages/purescript-type-equality/) | Type equality constraints
+| [purescript-typelevel-prelude](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/) | Types and Kinds for basic type-level programming
+| [purescript-typelevel-eval](https://pursuit.purescript.org/packages/purescript-typelevel-eval/) | Higher-order functional programming in the type system
+
+Real-World examples
+- [purescript-trout](https://github.com/owickstrom/purescript-hypertrout) -  Type-Level Routing. Used in [purescript-hypertrout](https://github.com/owickstrom/purescript-hypertrout).
