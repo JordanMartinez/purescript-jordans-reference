@@ -33,8 +33,6 @@ data Box a = Box a
 type SomeTypeName = String
 ```
 
-In each folder listed here, go to its `src/` folder to continue reading the documentation.
-
-If you want to play around with the syntax, start the REPL using `pulp repl` or run the command, `pulp --psc-package --watch build`, inside a folder that has a `psc-package.json` file. The latter command will recompile the source files in the folder containing the JSON file each time they are saved, enabling fast feedback loops.
+If you want to play around with the syntax, start the REPL using `pulp repl` or run the command, `pulp --psc-package --watch build`. The latter command will recompile the source files in all of these folders each time they are saved, enabling fast feedback loops.
 
 Note: The "Type-Level-Programming-Syntax" folder is still a WIP.
