@@ -33,6 +33,11 @@ data Box a = Box a
 type SomeTypeName = String
 ```
 
-If you want to play around with the syntax, start the REPL using `pulp repl` or run the command, `pulp --psc-package --watch build`. The latter command will recompile the source files in all of these folders each time they are saved, enabling fast feedback loops.
+If you want to play around with the syntax, use this table for reference
+
+| Command | Usage |
+| - | - |
+| `pulp repl` | Play with &lt;10 lines of syntax |
+| `pulp --psc-package --watch build` | Test out 10+ lines of syntax<br>Saving a file will re-compile project |
 
 Note: The "Type-Level-Programming-Syntax" folder is still a WIP.
