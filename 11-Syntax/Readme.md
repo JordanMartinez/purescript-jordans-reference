@@ -33,7 +33,10 @@ data Box a = Box a
 type SomeTypeName = String
 ```
 
-If you want to play around with the syntax, use this table for reference. **Note: These commands must be run when in a directory that has a `psc-package.json` file. Otherwise, they won't work.**
+If you want to play around with the syntax, follow these instructions:
+1. Go to a directory that has a `psc-package.json` file (otherwise, the rest of these commands won't work)
+2. Install the dependencies: `psc-package install`
+3. Start a REPL or build the files with watching (refer to the table below)
 
 | Command | Usage |
 | - | - |
