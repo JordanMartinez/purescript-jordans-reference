@@ -17,7 +17,7 @@ As a result, most files will appear like so:
 --   It can be ignored.
 module Syntax.ModuleName where
 
--- The Prelude module will usually be imported
+-- The Prelude module might be imported
 --   It, too, can be ignored.
 import Prelude
 
