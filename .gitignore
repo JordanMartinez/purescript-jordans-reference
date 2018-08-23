@@ -8,22 +8,8 @@
 /.purs*
 /.psa*
 
-/11-Syntax/.psc-package/
-/11-Syntax/.psci*
-/11-Syntax/.psa*
-/11-Syntax/output/
-/11-Syntax/.pulp-cache/
-
-/21-Hello-World/03-Hello-World-and-Effects/.psc-package/
-/21-Hello-World/03-Hello-World-and-Effects/.psa*
-/21-Hello-World/03-Hello-World-and-Effects/.psci*
-/21-Hello-World/03-Hello-World-and-Effects/output
-/21-Hello-World/03-Hello-World-and-Effects/.pulp-cache
-/21-Hello-World/03-Hello-World-and-Effects/dist
-
-/21-Hello-World/04-Mutable-State--Global-vs-Local/.psc-package/
-/21-Hello-World/04-Mutable-State--Global-vs-Local/.psa*
-/21-Hello-World/04-Mutable-State--Global-vs-Local/.psci*
-/21-Hello-World/04-Mutable-State--Global-vs-Local/output
-/21-Hello-World/04-Mutable-State--Global-vs-Local/.pulp-cache
-/21-Hello-World/04-Mutable-State--Global-vs-Local/dist
+/**/.psc-package/
+/**/.psci*
+/**/.psa*
+/**/output/
+/**/.pulp-cache/
