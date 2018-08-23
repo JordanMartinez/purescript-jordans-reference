@@ -32,17 +32,3 @@ An example is getting the first element in an `Array`. If it's empty, the functi
 However, what if we could modify the type of `Array`, so that it included the size of that array at the compile-time? If we could, we could then use the type-checker to insure that the "firstElement" function described above only receives arguments of the made-up type `NonEmptyArray`. It would guarantee that an array function is total because it can only take a specific `Array` type that works.
 
 Stated differently, "Type-Level Programming" allows us to add additional information to our types to guarantee correct code via the type-checker.
-
-There are a few libraries in Purescript that add support for type-level programming:
-
-| Name | Usage |
-| - | - |
-| [prim](https://pursuit.purescript.org/builtins/docs/Prim) | TODO 
-| [purescript-prelude](https://pursuit.purescript.org/packages/purescript-prelude/) | TODO
-| [purescript-proxy](https://pursuit.purescript.org/packages/purescript-proxy/) | TODO
-| [purescript-typelevel-equality](https://pursuit.purescript.org/packages/purescript-type-equality/) | Type equality constraints
-| [purescript-typelevel-prelude](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/) | Types and Kinds for basic type-level programming
-| [purescript-typelevel-eval](https://pursuit.purescript.org/packages/purescript-typelevel-eval/) | Higher-order functional programming in the type system
-
-Real-World examples
-- [purescript-trout](https://github.com/owickstrom/purescript-hypertrout) -  Type-Level Routing. Used in [purescript-hypertrout](https://github.com/owickstrom/purescript-hypertrout).
