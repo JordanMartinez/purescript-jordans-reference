@@ -12,6 +12,9 @@ pulp --psc-package init projectName
 
 # 2) (recommended) Via psc-package to get a more recent package set version
 psc-package init --set psc-0.12.0-20180819 --source https://github.com/purescript/package-sets.git
+# For different versions of package sets, see:
+#    https://github.com/purescript/package-sets/releases
+
 # The resulting psc-package.json file will have `untitled` in its
 # 'name' field. Open the file and change that.
 nano psc-package.json
