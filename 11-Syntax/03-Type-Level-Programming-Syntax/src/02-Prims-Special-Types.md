@@ -21,6 +21,15 @@ Recall from earlier:
 | (a -> b)<br>Function a b | Type -> Type -> Type | Higher-Kinded Type (by 2)<br>Two types need to be defined before the type can be instantiated
 | { key: value }<br>{ key1: value1, key2:value2 } | # Type | n number of types known at compile time
 
+## Type-Level Programming Flow
+
+When using this kind of programming, there are 2-3 stages:
+- Creation - creating an instance of a type-level type
+- Usage
+    - modifying that instance during compile-time
+    - constraining types, so that impossible states/code fail with a compiler error
+    - turning the type-level instance into a value-level instance (reification)
+
 ## Syntax Pattern: Value-Level vs Type-Level
 
 To map a value-level entity to a type-level entity, refer to this mapping:
@@ -47,14 +56,18 @@ data DataConstructor2 :: TypeLevelType
 - `ValueType` becomes `ValueKind`
 - `<literal value>` becomes `data ValueProxy (name :: ValueKind) = ValueProxy`
 ```purescript
-value :: String
+type ValueType = String
+value :: ValueType
 value = "string"
 
 --- becomes ---
 
-kind StringKind
+kind ValueKind
 
-data ValueProxy (s :: StringKind) = ValueProxy
+data ValueProxy (s :: ValueKind) = ValueProxy
+-- Note: by convention, "ValueProxy" is usually shortened to
+-- the first letter of the type (e.g. "V") followed by the word, "Proxy".
+-- In real code, one would usually see "VProxy" instead of "ValueProxy"
 ```
 
 ## Prim's Type-Level Kinds and Functions
@@ -85,6 +98,28 @@ Here's a comparison chart to help one grasp Type-Level concepts:
 | Value-Level | # Type | `{}`<br>`{ keyName :: ValueType }`<br>`{ k1 :: ValueType1, k2 :: ValueType2}`
 | Type-Level | RowList | `Nil`<br>`Cons "keyName" ValueType Nil`<br>`Cons "k1" ValueType1 (Cons "k2" ValueType2 Nil)`
 
+## Summary
+
+Assuming one understands `List a`:
+```purescript
+data List a
+  = Nil
+  | Cons a (List a)
+
+intList_Empty     == Nil
+intList_OneValue  == Cons 1 Nil
+intList_TwoValues == Cons 1 (Cons 2 Nil)
+```
+
+| Name | Level | Kind (docs) | Proxy (docs) | Creation
+| - | - | -: | - | - |
+| String | Value-Level| [Type](https://pursuit.purescript.org/builtins/docs/Prim#k:Type) |  | `"string"`
+| String | Type-Level | [Symbol](https://pursuit.purescript.org/builtins/docs/Prim#k:Symbol) | [SProxy](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Symbol#t:SProxy) | `SProxy ("string" :: Symbol)`
+| Row<br>(Record) | Value-Level | [# Type -> Type](https://pursuit.purescript.org/builtins/docs/Prim#t:Record) | | `type MyType = { key1 :: ValueType }`<br>(`type MyType = Record (key1 :: ValueType)`)
+| Row<br>(Record) | Type-Level | # Type<br>No docs | [RProxy](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Type.Data.Row#t:RProxy) | `RProxy ( { key1 :: ValueType } :: # Type )`
+| List (a :: (# Type -> Type))<br><br>(List (a :: Record)) | Value-Level | (# Type -> Type) -> Type<br><br>[Type -> Type](https://pursuit.purescript.org/packages/purescript-lists/5.2.0/docs/Data.List.Types#t:List) |  | `intList_Empty`<br>(or its counterparts above)
+| RowList | Type-Level | [RowList](https://pursuit.purescript.org/builtins/docs/Prim.RowList#k:RowList) | [Nil](https://pursuit.purescript.org/builtins/docs/Prim.RowList#t:Nil)<br>[Cons :: Symbol -> Type -> RowList -> RowList](https://pursuit.purescript.org/builtins/docs/Prim.RowList#t:Cons) | `Nil`<br>`Cons ("key" :: Symobl) ValueType Nil` |
+ [RLProxy](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Type.Data.RowList#t:RLProxy) | RLProxy (rowlist :: RowList)
 
 Symbol = a type-level String of kind *
 -}
