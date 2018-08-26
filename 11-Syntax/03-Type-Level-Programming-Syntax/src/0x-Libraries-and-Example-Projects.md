@@ -12,5 +12,9 @@ There are a few libraries in Purescript that add support for type-level programm
 | [purescript-typelevel](https://pursuit.purescript.org/packages/purescript-typelevel/) | Type-level Natural Numbers and Booleans with their common operations
 | [purescript-typelevel-eval](https://pursuit.purescript.org/packages/purescript-typelevel-eval/) | Higher-order functional programming in the type system
 
-Real-World examples
+# Real-World examples
+
 - [purescript-trout](https://github.com/owickstrom/purescript-hypertrout) -  Type-Level Routing. Used in [purescript-hypertrout](https://github.com/owickstrom/purescript-hypertrout).
+- [purescript-kushikatsu](https://github.com/justinwoo/purescript-kushikatsu) - Simple type-level routing
+- [purescript-alphasucc](https://pursuit.purescript.org/packages/purescript-alphasucc/0.1.0) - Succ/Pred for alphabet chars
+- [purescript-tanghulu](https://github.com/justinwoo/purescript-tanghulu) - natural numbers using "." in Symbol
