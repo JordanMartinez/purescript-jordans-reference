@@ -42,3 +42,7 @@ elemAtIndex index array = -- implementation
 elemAtIndex 3 (IndexedArray 3 ["a", "b", "c", "d"]) -- "d"
 elemAtIndex 0 (IndexedArray Empty []) -- compiler error!
 ```
+
+## Pre-reqs for the rest of this folder
+
+To understand this folder's contents, you should read and be quite familiar with Type-Level Syntax. If you haven't already done so, go read through that folder's contents.

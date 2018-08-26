@@ -1,5 +1,20 @@
 # An Overview of Terms and Concepts
 
+## Comparison
+
+In programming, there are usually two terms we use to describe "when" a problem/bug/error can occur:
+- Compile-time: Turns source code into machine code. Compiler errors occur due to types not aligning.
+- Runtime: Executes machine code. Runtime errors occur due to instances of types not working as expected/verified by the compiler (e.g. you expected a `String` at runtime but got `null`).
+
+## Definition
+
+| Term | Definition | "Runtime"
+| - | - | - |
+| Value-Level Programming | Writing source code that gets executed during runtime | Node / Browser
+| Type-Level Programming | Writing source code that gets executed during compile-time | Type Checker / Type Class Constraint Solver^
+
+^ First heard of this from @natefaubion when he mentioned it in the #purescript Slack channel
+
 ## What Are Types and Functions?
 
 ### Types Reexamined
