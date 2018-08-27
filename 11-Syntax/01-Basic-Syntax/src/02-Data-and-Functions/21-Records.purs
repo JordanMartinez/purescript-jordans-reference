@@ -10,16 +10,15 @@ type RecordType_Desugared = Record ( field1 :: String
                                    , function :: (String -> String)
                                    )
 
--- Need to unwrap the Record to get to the underlying fields/functions
-getField1 :: RecordType -> String
-getField1 obj = obj.field1
+getField :: RecordType -> String
+getField obj = obj.field1
 
 createRec :: RecordType
 createRec = { field1: "value", fieldN: 1, function: (\x -> x) }
 
 -- We can update a record using syntax sugar:
-setField1 :: RecordType -> String -> RecordType
-setField1 rec string = rec { field1 = string }
+setField :: RecordType -> String -> RecordType
+setField rec string = rec { field1 = string }
 
 -- Same inferences using inline functions:
 --    \field1 field2 -> rec { field1: field1, field2: field2 }
