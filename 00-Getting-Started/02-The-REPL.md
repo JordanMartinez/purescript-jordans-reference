@@ -24,7 +24,7 @@ psc-package init --set psc-0.12.0-20180819 --source https://github.com/purescrip
 ```
 Install the psci-support package using this command: `psc-package install psci-support`
 
-Create the `.purs-repl` file that imports Prelude when the REPL starts:
+Create the `.purs-repl` file that imports `Prelude` when the REPL starts:
 `echo "import Prelude" > .purs-repl`
 
 You should now have a folder structure like the following:
