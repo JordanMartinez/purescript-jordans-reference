@@ -29,9 +29,9 @@ Create the `.purs-repl` file that imports Prelude when the REPL starts:
 
 You should now have a folder structure like the following:
 ```
-playground
-  \.psc-package
-  \.psci-modules
+playground\
+  .psc-package\
+  .psci-modules\
   .purs-repl
   psc-package.json
 ```
