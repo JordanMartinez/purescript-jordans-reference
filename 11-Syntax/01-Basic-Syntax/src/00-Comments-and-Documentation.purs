@@ -10,5 +10,10 @@ Anything between the bracket-dash syntax is regarded as a multi-line comment
 
 {- It can also be used to add a comment in-between stuff -}
 
--- | This is documentation, not a single-line comment.
--- | Anything past the "-- |" syntax is regarded as documentation
+-- | This is a single-line documentation
+
+-- | This
+-- | is
+-- | a
+-- | multi-line
+-- | documentation block, not a comment.
