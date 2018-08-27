@@ -1,4 +1,4 @@
-module Syntax.Record where
+module Syntax.Record.Basic where
 
 -- Think of records as a unordered named TupleN
 type RecordType = { field1 :: String
