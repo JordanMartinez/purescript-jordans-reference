@@ -43,6 +43,10 @@ module Syntax.Module.FullExample
   , ExportedDataType4_InfixNotation(Infix_Constructor), (<||||>)
 
   , module M
+
+  -- Kinds require the `kind` keyword to precede them
+  , kind ExportedKind
+  , ExportedKindInstance
   ) where
 
 -- imports go here
@@ -90,6 +94,9 @@ import Module1 (anInt1) as M
 import Module2 (anInt2) as M
 import Module3 (anInt3) as M
 import Module4.SubModule1 (someFunction) as M
+
+-- import a kind and its instance
+import ModuleKind (kind ImportedKind, ImportedKindInstance)
 
 import Prelude
 
@@ -146,3 +153,7 @@ infixr 4 Infix_Constructor as <||||>
 type ExportedTypeAlias_InfixNotation = String
 
 infixr 4 type ExportedTypeAlias_InfixNotation as <|<>|>
+
+foreign import kind ExportedKind
+
+foreign import data ExportedKindInstance :: ExportedKind

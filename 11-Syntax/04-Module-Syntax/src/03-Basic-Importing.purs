@@ -30,6 +30,9 @@ import ModuleDataType (DataType(Constructor1, Constructor2))
 -- import a type and all of its constructors
 import ModuleDataType (DataType(..))
 
+-- import a kind and its instance
+import ModuleKind (kind ImportedKind, ImportedKindInstance)
+
 -- To prevent warnings from being emitted during compilation
 -- the above imports have to either be used here or
--- re-exported (explained later in this folder). 
+-- re-exported (explained later in this folder).

@@ -41,6 +41,10 @@ module Syntax.Module.Exporting
   -- Data constructor alias; exporting the alias requires you
   -- to also export the constructor it aliases
   , ExportedDataType4_InfixNotation(Infix_Constructor), (<||||>)
+
+  -- Kinds require the `kind` keyword to precede them
+  , kind ExportedKind
+  , ExportedKindInstance
   ) where
 
 -- imports go here
@@ -86,5 +90,6 @@ type ExportedTypeAlias_InfixNotation = String
 
 infixr 4 type ExportedTypeAlias_InfixNotation as <|<>|>
 
--- TODO: export kinds and add this to full syntax
--- data ValueLevel_to_TypeLevelType ( typelevel :: CustomKind)
+foreign import kind ExportedKind
+
+foreign import data ExportedKindInstance :: ExportedKind
