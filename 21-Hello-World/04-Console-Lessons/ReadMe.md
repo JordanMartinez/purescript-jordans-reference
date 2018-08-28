@@ -16,6 +16,18 @@ In the process, we'll also explain some basic data types along the way:
 
 At times, we'll hide some types/functions from you, so that you can focus on learning rather than explaining why/how something works. If you are curious to look at it later, the helper code can be found in the "Helper-Code" folder.
 
+## Running The Lessons
+
+You should **NOT** use the REPL for these lessons.
+
+Rather, you should use pulp to run them using this syntax:
+```bash
+# Syntax
+pulp --psc-package run --main ModuleName
+# Example for "OverviewAPI"...
+pulp --psc-package run --main ConsoleLessons.OverviewAPI
+```
+
 When compiling these examples, you will likely see a warning like below. This is supposed to happen, so don't be alarmed:
 ```
 Warning found:
