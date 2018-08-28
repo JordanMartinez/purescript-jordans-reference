@@ -4,15 +4,17 @@ After one introduces the "Hello World" app in a language tutorial/textbook, they
 
 In this folder, we'll continue teaching some FP concepts, such as:
 - Error Handling
-- State
 - Custom Type Warnings/Failures
+- State
 - Testing
 - Benchmarking
+- Application Structuring
 
 In the process, we'll also explain some basic data types along the way:
   - `Maybe a`
   - `Either a b`
-  -
+
+At times, we'll hide some types/functions from you, so that you can focus on learning rather than explaining why/how something works. If you are curious to look at it later, the helper code can be found in the "Helper-Code" folder.
 
 When compiling these examples, you will likely see a warning like below. This is supposed to happen, so don't be alarmed:
 ```
@@ -32,5 +34,3 @@ in value declaration warnInstance
 See https://github.com/purescript/documentation/blob/master/errors/UserDefinedWarning.md for more information,
 or to contribute content related to this warning.
 ```
-
-At times, we'll hide some types/functions from you, so that you can focus on learning rather than explaining why/how something works. If you are curious to look at it later, the helper code can be found in the "Helper-Code" folder.

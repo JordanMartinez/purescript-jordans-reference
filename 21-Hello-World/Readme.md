@@ -3,9 +3,10 @@
 This folder will document everything necessary to create a simple console-based program in Purescript. It will explain:
 - The foundations of FP programming
 - The Prelude library (including Functor, Apply, Applicative, Bind, and Monad explanations)
-- A simple "Hello World" program
-- Local Mutable State vs Global Mutable State
+- A simple "Hello World" program and other Effects
 - How to handle Errors/Exceptions, the FP way
+- Custom Compiler Warnings/Errors
+- The difference between Local Mutable State vs Global Mutable State
 - How to test code
 - How to benchmark / profile code
 - How to structure an application (putting it all together)
@@ -13,8 +14,19 @@ This folder will document everything necessary to create a simple console-based 
 In pursuing these goals, it will overview the following libraries:
 - Basic
     - Prelude
+    - Partial
+- Effects
     - Effect
     - Console
+    - Random
+    - Node ReadLine
+    - Aff
+- Data Types
+    - Maybe
+    - Either
+- State
+    - ST
+    - Refs
 - Testing
     - Quick Check
     - Quick Spec
@@ -23,7 +35,7 @@ In pursuing these goals, it will overview the following libraries:
 
 ## Other Learning Resources
 
-Besides ths repo, we have a few choices in terms of understanding functional programming.
+Besides this repo, we have a few choices in terms of understanding functional programming.
 
 Since Purescript is heavily inspired by and very similar to Haskell, most of these refer to Haskell learning resources. Note: these are not necessarily "either x or y or z" choices but could be "X supplemented by Y with a little bit of Z").
 
