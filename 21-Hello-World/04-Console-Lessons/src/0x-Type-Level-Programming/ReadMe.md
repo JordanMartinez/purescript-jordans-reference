@@ -1,12 +1,14 @@
-# Introduction
+# Type-Level Programming
 
-## Comparison
+## Introduction
+
+### Comparison
 
 In programming, there are usually two terms we use to describe "when" a problem/bug/error can occur:
 - Compile-time: Turns source code into machine code. Compiler errors occur due to types not aligning.
-- Runtime: Executes machine code. Runtime errors occur due to instances of types not working as expected/verified by the compiler (e.g. you expected a `String` at runtime but got `null`).
+- Runtime: Executes machine code. Runtime errors occur due to instances of types not working as verified by the compiler (e.g. you expected an instance of `String` at runtime but got `null`).
 
-## Definition
+### Definition
 
 | Term | Definition | "Runtime"
 | - | - | - |
@@ -15,7 +17,9 @@ In programming, there are usually two terms we use to describe "when" a problem/
 
 ^ First heard of this from @natefaubion when he mentioned it in the #purescript Slack channel
 
-## An Example Problem
+### Example
+
+#### A Problem
 
 [Taken from this SO answer (last paragraph)](https://stackoverflow.com/a/24481747), type-level programming can be used to:
 > restrict certain behavior at the value-level, manage resource finalization, or store more information about data-structures.
@@ -31,6 +35,8 @@ elemAtIndex idx [] = Partial.crash "cannot get " <> show idx <> "th element of a
 elemAtIndex index fullArray = unsafePartial $ unsafeIndex fullArray index
 ```
 
+#### A  Solution
+
 However, what if we could modify the type of `Array`, so that it included the size of that array at compile-time? Then, the type-checker could insure that the "elemAtIndex" function described above only receives correct arguments (i.e. specific types) that make the function "total," meaning the function will always return a valid output and never throw an error. If it receives an invalid argument, it results in a compiler error.
 
 ```purescript
@@ -42,7 +48,3 @@ elemAtIndex index array = -- implementation
 elemAtIndex 3 (IndexedArray 3 ["a", "b", "c", "d"]) -- "d"
 elemAtIndex 0 (IndexedArray Empty []) -- compiler error!
 ```
-
-## Pre-reqs for the rest of this folder
-
-To understand this folder's contents, you should read and be quite familiar with Type-Level Syntax. If you haven't already done so, go read through that folder's contents.

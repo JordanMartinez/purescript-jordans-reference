@@ -1,10 +1,6 @@
-# Prim Special Submodules
+# Prim's Other Submodules
 
-Every Purescript project imports the [Prim](https://pursuit.purescript.org/builtins/docs/Prim) package by default. This module defines `kind Type` and the types for `Int`, `Array`, and `Function` as well as syntax for writing literal values (e.g. `"a string"`, `5`, etc.).
-
-## Prim's Kinds
-
-In addition, the Prim module has sub modules that are not imported by default. Within these modules, Prim defines a few more things for type-level programming.
+In addition to Custom Type Errors, the Prim module has sub modules that are not imported by default. Within these modules, Prim defines a few more things for type-level programming.
 
 In the below table, **"ValueTypeN" was abbreviated to VTN**
 
