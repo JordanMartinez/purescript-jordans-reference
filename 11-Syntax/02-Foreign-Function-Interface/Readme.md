@@ -16,3 +16,5 @@ Until then, see [Justin Woo's RTD explanation](https://purescript-resources.read
 You should also look at the Purescript and Javascript source code for Effect.Uncurried:
 - [Purescript](https://github.com/purescript/purescript-effect/blob/v2.0.0/src/Effect/Uncurried.purs#L139)
 - [Javascript](https://github.com/purescript/purescript-effect/blob/v2.0.0/src/Effect/Uncurried.js#L1)
+
+Lastly, there may be some cases where you need to write FFI with `Effect`, but `Effect` isn't the best type to use. In such cases, take a look at the [Aff's FFI](https://pursuit.purescript.org/packages/purescript-aff/5.0.2/docs/Effect.Aff.Compat):
