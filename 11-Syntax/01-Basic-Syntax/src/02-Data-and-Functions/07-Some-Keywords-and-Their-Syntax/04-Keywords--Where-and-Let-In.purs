@@ -2,6 +2,8 @@ module Keyword.WhereAndLetIn where
 
 import Prelude
 
+import Syntax.TypeLevel.Functions.SingleArgSyntax (function)
+
 data Box a = Box a
 {-
 The 'where' keyword enables us to break large functions
@@ -58,6 +60,15 @@ letInFunction2 expression1 expression2 =
   in
     somethingThatUses (binding1 <> binding2)
 
+letInFunction3 :: String -> String
+letInFunction3 value =
+  let
+    function "firstMatch"  = bodyOfPatternMatch
+    function "secondMatch" = bodyOfPatternMatch
+    function catchAll      = bodyOfPatternMatch
+  in
+    function value
+
 {-
 See the indentation rules to correctly indent your where clause
    in the context of the containing function and how far to indent your
@@ -85,3 +96,6 @@ patternMatchGuardWithWhere x | x == 0 = stringValue
 -- necessary to make this file compile:
 somethingThatUses :: String -> String
 somethingThatUses x = x
+
+bodyOfPatternMatch :: String
+bodyOfPatternMatch = "body of pattern match"
