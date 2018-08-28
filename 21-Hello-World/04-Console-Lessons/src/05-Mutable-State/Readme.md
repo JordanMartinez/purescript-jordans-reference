@@ -1,8 +1,11 @@
 # Mutable State: Global vs Local
 
 There are two types of mutable state"
-- "global" - can be modified by anyone that has a reference to the variable
-- "local" - can be modified only in a specific scope.
+| | Global | Local |
+| - | - | - |
+| Creatable in... | Anywhere | Local scope
+| Readable from... | Anywhere that has its reference | Local Scope
+| Writable to... | Anywhere that has its reference | Local Scope
 
 Using Java as an example...
 ```java
@@ -16,13 +19,17 @@ public class StateExample {
     return localState.length();
   }
 
-  public static void example() {
-    GLOBAL_STATE = "changed to something else!"
+  public static void example1() {
+    // change global state
+    GLOBAL_STATE = "first change!"
     // localState changed, but we can't change
     //   it outside of it's scope
     function();
   }
+
+  public static void example2() {
+    // change global state again
+    GLOBAL_STATE = "second change!"
+  }
 }
 ```
-
-Look at the `src/` directory for examples on their API.

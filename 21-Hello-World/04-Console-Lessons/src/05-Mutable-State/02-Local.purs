@@ -1,8 +1,9 @@
-module LocalMutableState where
+module ConsoleLessons.MutableState.Local where
 
 import Prelude
 import Effect (Effect)
 import Effect.Console (log)
+import Debug.Trace (traceM)
 
 -- new import
 import Control.Monad.ST as ST
@@ -23,22 +24,22 @@ main = do
 
     box <- STRef.new 0
     x0 <- STRef.read box
-    -- log $ "x0 should be 0: " <> show x0
+    traceM $ "x0 should be 0: " <> show x0
 
     _ <- STRef.write 5 box
     x1 <- STRef.read box
-    -- log $ "x1 should be 5: " <> show x1
+    traceM $ "x1 should be 5: " <> show x1
 
-    -- log $ "STRef.modify_ doesn't exist; so skipping x2"
+    traceM $ "STRef.modify_ doesn't exist; so skipping x2"
 
     newState <- STRef.modify (\oldState -> oldState + 1) box
     x3 <- STRef.read box
-    -- log $ "x3 should be 7: " <> show x3 <> " | newState should be 7: " <> show newState
+    traceM $ "x3 should be 7: " <> show x3 <> " | newState should be 7: " <> show newState
 
     value <- STRef.modify' (\oldState -> { state: oldState * 10, value: 30 }) box
     x4 <- STRef.read box
-    -- log $ "value should be 30: " <> show value
-    -- log $ "x4 should be 70: " <> show x4
+    traceM $ "value should be 30: " <> show value
+    traceM $ "x4 should be 70: " <> show x4
 
     let loop 0 = STRef.read box
         loop n = do
@@ -46,4 +47,5 @@ main = do
           loop (n - 1)
 
     loop 20
+
   log "Attempting to access box here will result in a compiler error"

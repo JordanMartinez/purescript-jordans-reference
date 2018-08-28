@@ -1,8 +1,8 @@
-# Lifting Effects via MonadEffect
+# Monad Natural Transformers
 
-Before we can continue further, we need to review a concept, see the problem it creates, and determine its solution.
+Before we can continue further, we need to review a concept, see the problem it creates, and show both possible solutions.
 
-## Reducing a Monad chain into its final value
+## Reducing a Monad Chain into Its Final Value
 
 Let's say we have two monads, `Box1` and `Box2` that have the same implementations for their `Bind` type class instances:
 ```purescript
@@ -19,7 +19,7 @@ instance b2 :: Bind Box2 where
   bind :: forall a b. Box2 a -> (a -> Box2 b) -> Box2 b
   bind               (Box2 a)   f              = f a
 ```
-Due to the above implementations (for Box1), we can write something like this using do notation...
+Due to the above implementation for `Box1`, we can write something like this using do notation...
 ```purescript
 computation :: Box1 Int -> Box1 Unit
 computation boxWithInt = do
@@ -110,30 +110,32 @@ endingBox = bind (Box2 6) (b2_Int -> pure (4 + b2_Int))
 -- Compiler Error: actual type, `Box2`, isn't the expected type, `Box1`
 ```
 
-## The Solution
+## The Production-Code Solution
 
 We use a type class that follows this idea:
 ```purescript
-class LiftSourceIntoTargetMonad sourceMonad targetMonad where
-  liftSourceMonad :: forall a. sourceMonad a -> targetMonad a
+class LiftSourceIntoTargetMonad sourceMonad targetMonad where {-
+  liftSourceMonad :: forall a. sourceMonad a -> targetMonad a -}
+  liftSourceMonad ::           sourceMonad   ~> targetMonad
 
 -- Note: instances of this idea might be much more complicated than this one
-instance box2_into_box1 :: LiftSourceIntoTargetMonad Box2 Box1 where
-  liftSourceMonad :: forall a. Box2 a -> Box1 a
+instance box2_into_box1 :: LiftSourceIntoTargetMonad Box2 Box1 where {-
+  liftSourceMonad :: forall a. Box2 a -> Box1 a                      -}
+  liftSourceMonad ::           Box2   ~> Box1
   liftSourceMonad (Box2 a) = Box1 a
 ```
 This enables something like the following. It can be pasted into the REPL and one can try it out by calling `doBind`:
 ```purescript
-import Prelude -- for the (+) operator
+import Prelude -- for the (+) and (~>) function aliases
 
 data Box1 a = Box1 a
 data Box2 a = Box2 a
 
 class LiftSourceIntoTargetMonad sourceMonad targetMonad where
-  liftSourceMonad :: forall a. sourceMonad a -> targetMonad a
+  liftSourceMonad :: sourceMonad ~> targetMonad
 
 instance box2_to_box1 :: LiftSourceIntoTargetMonad Box2 Box1 where
-  liftSourceMonad :: forall a. Box2 a -> Box1 a
+  liftSourceMonad :: Box2 ~> Box1
   liftSourceMonad (Box2 a) = Box1 a
 
 class Bind_ m where
@@ -149,11 +151,12 @@ bindAttempt :: Box1 Int
 bindAttempt =  doBind (Box1 4) (\four -> doBind (liftSourceMonad (Box2 6)) (\six -> Box1 (four + six)))
 ```
 
-## MonadEffect
+## The Developer-Code Solution
 
-Rather than using `LiftSourceIntoTargetMonad Effect MyMonad`, we just use [MonadEffect](https://pursuit.purescript.org/packages/purescript-effect/2.0.0/docs/Effect.Class#v:liftEffect):
+Another way way to get around this is to a package that can be easily abused by new programmers.
 
-```purescript
-class (Monad m) <= MonadEffect m where
-  liftEffect :: forall a. Effect a -> m a
-```
+The purpose of this package is for debugging and possibly prototyping as you write FP code. We'll be using it here to help us learn things. If any of its functions ever appear in production code, slap yourself, for you might as well write OO code instead.
+
+This package's functions are also the reason why we talked about Custom Type Errors, as the comiler will notify you when you use them, so that you can remove all such instances before you push out production code.
+
+This solution (covered next) is called [Debug.Trace](https://pursuit.purescript.org/packages/purescript-debug/4.0.0/docs/Debug.Trace)
