@@ -12,7 +12,6 @@ We've linked to an article below that explains these abstract notions in a clear
 | `Applicative` (type class) | `Apply` (type class) |
 | `Array`/`[]` (syntax sugar for `List a`) | `List a` |
 | `map` (Array function) | see [the implementation in Purescript](#lists-map-function-in-purescript) |
-| `->` (syntax sugar for `Function`) | `Function` |
 | `IO ()` | `Effect Unit`, which will be explained/used in a later part of this folder |
 
 Here's the link to the article:
