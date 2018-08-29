@@ -7,7 +7,8 @@ The following file documents the Prim module. This module is imported
 by default into every Purescript file (unless one hides it using Module aliases,
 which are described in the Module Syntax folder).
 
-See the full documenation here: https://pursuit.purescript.org/builtins/docs/Prim
+See the full documenation here:
+https://pursuit.purescript.org/builtins/docs/Prim
 
 Purescript has a number of different 'kinds'; thus, it uses different
 syntax to refer to them. We'll start with the basic and go from there.
