@@ -27,11 +27,11 @@ inst = KProxy
 -- The class name is usually "Is[KindName]"
 class IsKindName (a :: KindName) where
   -- and the reflect function is usually "reflect[KindName]"
-  reflectKind :: KProxy a -> Value_Level_Type
+  reflectKindName :: KProxy a -> Value_Level_Type
 
 -- NANS
 instance reflectInstance :: IsKindName Instance where
-  reflectKind _ = "value-level instance"
+  reflectKindName _ = "value-level instance"
 
 -- NANS
 class IsKindName a <= ConstrainedToKindName a
