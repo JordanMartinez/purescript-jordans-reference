@@ -7,6 +7,8 @@ The following is not an exact copy of the code, but accurate enough to get the i
 A type with no instances that is useful for proving that a type can never exist or a computation path can never occur
 
 ```purescript
+-- Data.Void (Void, absurd)
+
 newtype Void = Void Void
 
 -- needed when one needs to refer to void
@@ -28,6 +30,8 @@ function Right i = i
 
 A type with 1 instance, Unit, though most will see it used via `unit`. It usually indicates a "side effect", mutation, or impure code.
 ```purescript
+-- Data.Unit (Unit, unit)
+
 data Unit = Unit
 
 unit :: Unit
@@ -46,6 +50,8 @@ thunk a = (\_ -> a)
 Takes an `a` out of some `Box`-like type and puts it into another `Box`-like type
 
 ```purescript
+-- Data.NaturalTransformation (NaturalTransformation, (~>))
+
 -- Given this code
 data Box1 a = Box1 a
 data Box2 a = Box2 a
