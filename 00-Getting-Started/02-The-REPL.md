@@ -49,7 +49,9 @@ Once the above three requirements have been met, you can start the REPL using on
 In general, there are five things you can do in the REPL:
 
 1. See the result of an expression by typing it into the REPL (e.g. `3 + 3`) and hitting `Enter`.
-2. Define a binding to some variable or function using the `binding = <expression>` syntax: (e.g. `x = 3` or `function = (\x -> x + 1)`).
+2. Define a binding to some variable or function using the `binding = <expression>` syntax. For example...
+    - `x = 3`
+    - `function = (\x -> x + 1)`
 3. Input multi-line expressions using the `:paste` command (followed by `CTRL+D`)
 4. Use other commands to explore a module's functions, types, and kinds
 5. Use other commands to interact with the REPL's current state (e.g. clearing out bindings and/or imported modules, showing which modules have been imported, etc.)
