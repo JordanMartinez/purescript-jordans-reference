@@ -165,4 +165,4 @@ The REPL will then parse and all of the code, enabling you to use it from that p
 
 The REPL does not currently support tab-completion. This command shows the options one might use.
 
-For example, one could type `:complete a`/`:c a` to show what are all of the usuable functions that with `a`.
+For example, one could type `:complete a`/`:c a` to show what are all of the usuable functions that start with `a`.
