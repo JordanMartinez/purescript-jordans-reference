@@ -3,7 +3,7 @@
 This code...
 ```purescript
 function :: Int -> String
-function x = show x
+function x = "an integer value!"
 ```
 ... translates to, "I cannot give you a concrete value (String) until you give me an Int value"
 
