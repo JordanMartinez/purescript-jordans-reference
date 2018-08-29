@@ -11,22 +11,24 @@ In order to start the REPL, there are three requirements:
 
 Follow these instructions to create a new `psc-package.json` file:
 ```bash
-# Make a new directory
+# 1. Make a new directory
 mkdir playground
-# enter it
+# 2. Enter it
 cd playground
 
 # Note: the following commands will be explained more in the
 #   "Build-Tools" folder
 
-# Create a new psc-package.json file using psc-package
+# 3. Create a new psc-package.json file using psc-package
 psc-package init --set psc-0.12.0-20180819 --source https://github.com/purescript/package-sets.git
+
+# 4. Install the psci-support package using this command:
+psc-package install psci-support
+
+# 5. Create the `.purs-repl` file that
+# imports `Prelude` when the REPL starts:
+echo "import Prelude" > .purs-repl
 ```
-Install the psci-support package using this command: `psc-package install psci-support`
-
-Create the `.purs-repl` file that imports `Prelude` when the REPL starts:
-`echo "import Prelude" > .purs-repl`
-
 You should now have a folder structure like the following:
 ```
 playground\
