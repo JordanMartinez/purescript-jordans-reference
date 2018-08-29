@@ -1,9 +1,13 @@
 Original credit: @paf31 / @kritzcreek
+
 Link: https://github.com/paf31/24-days-of-purescript-2016/blob/master/23.markdown
-Changes made: use meta-language to explain syntax and give a very simple example
+
+Changes made:
+- use meta-language to explain syntax and give a very simple example
+
 Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US
-
+<hr>
 Sometimes, when writing code, we sort of know what we should write
 but not all of what we should write.
 
