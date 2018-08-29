@@ -32,8 +32,8 @@ infix/infixl/infixr precedence type TypeName as symbolicAlias
 -}
 
 -- Example
-infixl 4 two_arg_function as >>  -- 1 >o_o> 2
-infix  2 Constructor as ?->         -- 1 ?-> 2
+infixl 4 two_arg_function as >>
+infix  2 Constructor as ?->
 infix  4 type TypeAlias as :$>
 
 -- Infix is all about where to put the parenthesis as indicated by precedence:
