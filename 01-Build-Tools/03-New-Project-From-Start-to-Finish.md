@@ -6,17 +6,27 @@ The below example uses `psc-package` as its dependency manager. It assumes that 
 
 One of two ways
 ```bash
-# 1) (not recommended) Via pulp to get the default package set based on
-# the system's installed PureScript compiler version (purs).
+# 1) Via pulp
+#
+# This gets the default package set based on
+# the system's installed PureScript compiler version (purs)
+# which usually does not include as many packages as
+# the latest package set. Thus, this approach is not recommended.
 pulp --psc-package init projectName
 
-# 2) (recommended) Via psc-package to get a more recent package set version
-psc-package init --set psc-0.12.0-20180819 --source https://github.com/purescript/package-sets.git
-# For different versions of package sets, see:
+# 2a) Via psc-package
+#
+# This lets you specify which package set to use
+# which should be the latest version of the
+# default package set. This is the recommended approach.
+# (See the latest release here):
 #    https://github.com/purescript/package-sets/releases
+psc-package init --set psc-0.12.0-20180819 --source https://github.com/purescript/package-sets.git
 
-# The resulting psc-package.json file will have `untitled` in its
-# 'name' field. Open the file and change that.
+# 2b) Open the below file and change the 'name' field to your project's name.
+#
+# The resulting psc-package.json file from Option 2 will have `untitled`
+# in its 'name' field since it doesn't know what your project's name is.
 nano psc-package.json
 ```
 ## Install dependencies
@@ -31,13 +41,16 @@ psc-package available
 
 # 1) Via psc-package install
 psc-package install package # remember to omit the 'purescript-' prefix
+
 # Note: only one package can be installed at a time using this approach
 psc-package install onlyOnePackage
 psc-package install onlyOnePackage
 psc-package install onlyOnePackage
 
 # 2) Via manual file modification and the below command:
-# Open `psc-package.json`, add dependencies in `deps`, save file. Then run
+#   a) Open `psc-package.json`, add dependencies in `deps`, save file
+#
+#   b) Then run this command to make psc-package aware of them.
 psc-package install
 ```
 
@@ -69,15 +82,17 @@ pulp --psc-package docs -- --format html
 # Then read over them to insure there aren't any formatting issues or typos
 
 # Make a production build via Browserify
-# If building a program...
+#   If building a program...
 pulp --psc-package browserify --optimise --to dist/fileName.js
-# If building a library
+#   If building a library
 pulp --psc-package browserify --no-main-check --optimise --to dist/fileName.js
 
 # Set the initial version
 pulp version v0.1.0
 
 # Publish the version
+# Warning: Psc-Package cannot be used to publish libraries to Pursuit
+# Perhaps this will change in the future...
 pulp --psc-package publish
 ```
 
@@ -88,9 +103,9 @@ pulp --psc-package publish
 pulp --psc-package docs -- --format html
 
 # Make a production build
-# If building a program...
+#   If building a program...
 pulp --psc-package browserify --optimise --to dist/fileName.js
-# If building a library
+#   If building a library
 pulp --psc-package browserify --no-main-check --optimise --to dist/fileName.js
 
 # bump project version
@@ -101,5 +116,7 @@ pulp version patch
 pulp version v1.5.0
 
 # publish it
+# Warning: Psc-Package cannot be used to publish libraries to Pursuit
+# Perhaps this will change in the future...
 pulp --psc-package publish
 ```
