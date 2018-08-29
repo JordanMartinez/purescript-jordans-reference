@@ -55,7 +55,7 @@ data Box a = Box a
 data Type_with_Nested_Types
   = SingleBox Int
   | NestedBox1 (Box Int)
-  | NestedBox2 (Box (Box Int))
+  | NestedBox2 (Box (Box Int)) -- outer Box's "a" is "(Box Int)"
 
 
 data Type_with_Higher_Kinded_Generic_Type higherKindedBy1 a
