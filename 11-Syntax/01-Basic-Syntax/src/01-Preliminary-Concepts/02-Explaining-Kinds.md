@@ -15,7 +15,7 @@ data Box a = Box a
 
 ## What are Kinds?
 
-Kinds = "How many more types do I need defined before I have a 'concrete' type?"^^
+> Kinds = "How many more types do I need defined before I have a 'concrete' type?"^^
 
 ^^ This is a "working definition." There's more to it than that when one considers type-level programming, but for now, this will suffice."
 
