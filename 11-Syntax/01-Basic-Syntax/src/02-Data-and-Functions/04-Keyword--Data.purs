@@ -79,11 +79,16 @@ data Type_with_no_implementation -- no equals sign followed by right-hand-side
 data Recursive_Type
   = No_Recursion_Here
   | Recursion_Here Recursive_Type
+-- Recursion_Here (Recursion_Here (No_Recursion_Here))
 
-data Recursive_type_with_generic_types a b
-  = No_Recursion_Here2
-  | Recursion_Here2 (Recursive_type_with_generic_types a b)
-
+data Recursive_type_with_generic_type a
+  = End_Recursion_Here
+  | Recursion_Here__Store_A a (Recursive_type_with_generic_type a)
+{-
+Recursion_Here__Store_A "first"
+  (Recursion_Here__Store_A "second"
+    (End_Recursion_Here)
+-}
 ------------------------------------------
 
 -- Full Syntax
