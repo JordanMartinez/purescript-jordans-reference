@@ -75,7 +75,6 @@ And using the table from earlier...
 | Int | Type | Concrete value
 | Box a | Type -> Type | Higher-Kinded Type (by 1)<br>One type needs to be defined before the type can be instantiated
 | (a -> b)<br>Function a b | Type -> Type -> Type | Higher-Kinded Type (by 2)<br>Two types need to be defined before the type can be instantiated
-| ( key :: ValueType )<br>( key1 :: ValueType1, ..., keyN :: ValueTypeN) | # Type | n number of types known at compile time
 
 This definition sufficed when we were learning only value-level programming. In reality, it's more like this:
 
