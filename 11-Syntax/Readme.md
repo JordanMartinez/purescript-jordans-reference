@@ -39,6 +39,6 @@ If you want to play around with the syntax, follow these instructions:
 3. Start a REPL or build the files with watching (refer to the table below)
 
 | Command | Ideal Usage | Other Comments
-| - | - |
+| - | - | - |
 | `pulp repl` | Play with &lt;10 lines of syntax | Edit `.purs-repl` and add `import ModuleName` to automatically import that module whenver you run this command
 | `pulp --psc-package --watch build` | Test out 10+ lines of syntax | Saving a file after running this command will re-compile the project |
