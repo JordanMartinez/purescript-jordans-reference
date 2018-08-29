@@ -91,8 +91,8 @@ We can now modify the definition to account for this new understanding:
 Type-Level programming has 2-3 stages:
 - Creation
     - Define a type-level instance by declaring a literal value
-    - **Reification** - converting a value-level (i.e. runtime value) instance into a type-level instance via a Proxy type
+    - **Reification** - convert a value-level (i.e. runtime value) instance into a type-level instance via a `Proxy` type
 - (optional) Modify that instance during compile-time
 - Terminal
     - Constrain types, so that an impossible state/code fails with a compiler error
-    - **Reflection** - convert a type-level instance into a value-level instance
+    - **Reflection** - convert a type-level instance stored in a `Proxy` type into a value-level instance
