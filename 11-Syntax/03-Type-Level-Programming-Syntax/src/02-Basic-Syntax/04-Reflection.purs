@@ -69,9 +69,10 @@ instance isTrue_True :: IsTrue True where
 else instance isTrue_catchall :: IsTrue a where
   isTrue _ = false
 
--- Using instance chains here is more important if we had
--- a lot more type-level instances than just 2,
--- such as `FruitKind` from before.
+-- Using instance chains here is more convenient if we had
+-- a lot more type-level instances than just 2. In some cases,
+-- it is needed in cases where a type-level type can have an
+-- infinite number of instances, such as a type-level String
 
 -- Open a REPL, import this module, and then run this code:
 --    reflectBoolean trueK
