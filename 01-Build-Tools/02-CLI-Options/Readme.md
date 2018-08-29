@@ -7,7 +7,7 @@ It's easier to read through the CLI's documentation by reading them in a mind-ma
 
 Download [Freeplane](https://www.freeplane.org/) to read through the documenation in a mind-map format
 
-![build-tools](./Purescript-Build-Tools.mm)
+![Purescript-Build-Tools.mm](./Purescript-Build-Tools.mm)
 
 Otherwise, read through the SVG file:
 
