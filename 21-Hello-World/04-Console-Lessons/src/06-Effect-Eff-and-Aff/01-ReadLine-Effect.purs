@@ -16,6 +16,8 @@ import Node.ReadLine ( Interface
                      , createConsoleInterface, noCompletion
                      , question, close)
 
+
+type UseAnswer = (String -> Effect Unit)
 -- | This function moves `question`'s last arg to the front to make it
 -- | easier to read. Otherwise, `interface` appears awkwardly at the end:
 -- |    `question message (\answer ->
