@@ -29,5 +29,18 @@ instance box2Show :: (Show a) => Show (Box2 (Box a)) where
 
 -- Or, to add more context to a type...
 newtype Name = Name String
+newtype Age = Age Int
+newtype Relationships = Relationships (List People)
+
+-- Assuming all three above have a Show instance:
+--
+-- printPerson :: Name -> Age -> Relationships -> String
+-- printPerson (Name n) (Age i) (Relationships l) =
+--    "Name: " <> n <> ", Age: " <> show i <> ", Relationships: " <> show l
+
+-- needed to compile
 
 type WhichOnlyTakesOneArgument_TheWrappedType = String
+
+data List a
+data People
