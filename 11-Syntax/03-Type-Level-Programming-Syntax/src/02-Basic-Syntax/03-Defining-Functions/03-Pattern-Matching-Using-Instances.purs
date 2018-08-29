@@ -31,7 +31,6 @@ foreign import data OutputInstance2 :: OutputKind
 foreign import data OutputInstance3 :: OutputKind
 
 class TypeLevelFunction (input :: InputKind) (output :: OutputKind) | input -> output
-
 instance firstPatternMatch  :: TypeLevelFunction InputInstance1 OutputInstance1
 instance secondPatternMatch :: TypeLevelFunction InputInstance2 OutputInstance2
 instance thirdPatternMatch  :: TypeLevelFunction InputInstance3 OutputInstance3
