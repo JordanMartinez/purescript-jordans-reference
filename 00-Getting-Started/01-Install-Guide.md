@@ -17,11 +17,11 @@ The [Purescript By Example book](https://leanpub.com/purescript/) demonstrates h
 3. Set your PATH: `export PATH="$HOME/.npm/bin:$PATH"`
 4. Install Purescript, pulp, and psc-package: `npm i -g purescript@0.12.0 pulp psc-package`
 
-The following commands should now work:
+The following commands should now work (the versions beside them are the versions I used when writing this project):
 ```bash
-purs --version
-pulp --version
-psc-pacakge --version
+purs --version        # 0.12.0
+pulp --version        # 12.3.0
+psc-pacakge --version # 0.3.2
 ```
 ### Setting up your editor
 
