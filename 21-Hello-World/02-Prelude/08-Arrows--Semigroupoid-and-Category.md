@@ -17,13 +17,13 @@ composition :: forall f a b c. f b c -> f a b -> f a c
 composition :: forall a b c d. a c d -> a b c -> a b d
 
 -- We'll put them side by side for easier reading:
-composition :: forall a b c.   (b -> c)     -> (a -> b)     -> (a -> c)
+composition :: forall a b c.           (b -> c) ->         (a -> b) ->         (a -> c)
 
-composition :: forall a b c.   Function b c -> Function a b -> Function a c
+composition :: forall a b c.   Function b    c  -> Function a    b  -> Function a    c
 
-composition :: forall f a b c. f b c        -> f a b        -> f a c
+composition :: forall f a b c. f        b    c  -> f        a    b  -> f        a    c
 
-composition :: forall a b c d. a c d        -> a b c        -> a b d
+composition :: forall a b c d. a        c    d  -> a        b    c  -> a        b    d
 
 -- We've now just defined the function `compose` for Semigroupoid:
 
@@ -31,13 +31,13 @@ class Semigroupoid a where
   compose :: forall b c d. a c d -> a b c -> a b d
 
 -- Doing the same for identity is trivial:
-identity :: forall a.   a -> a
+identity :: forall a.            a -> a
 
-identity :: forall a.   Function a a
+identity :: forall a.   Function a    a
 
-identity :: forall f a. f a a
+identity :: forall f a. f        a    a
 
-identity :: forall a b. a b b
+identity :: forall a b. a        b    b
 
 class (Semigroupoid a) <= Category a where
   -- we'll use 't' instead of 'b'
