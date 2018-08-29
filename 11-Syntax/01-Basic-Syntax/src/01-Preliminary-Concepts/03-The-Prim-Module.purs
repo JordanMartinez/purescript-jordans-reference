@@ -55,13 +55,18 @@ literal_string_syntax = "literal string value"
 -- Syntax sugar for Strings
 slashy_string_syntax :: String
 slashy_string_syntax =
-  "Ignore newline characters \
-  \in strings using slashes\
-            \regardless of indentation\
+  "Enables multi-line strings that \
+  \use slashes \
+            \regardless of indentation \
 
-    \and regardless of vertical space between them\
+    \and regardless of vertical space between them \
 
     \(though you can't put comments in that blank vertical space)"
+    {-
+    "This will fail \
+    -- oh look a comment that breaks this!
+    \to compile."
+    -}
 
 triple_quote_string_syntax :: String
 triple_quote_string_syntax = """
