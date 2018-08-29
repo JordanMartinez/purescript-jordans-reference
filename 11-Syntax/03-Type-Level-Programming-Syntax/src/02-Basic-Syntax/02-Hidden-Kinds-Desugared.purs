@@ -29,8 +29,8 @@ data ValueLevel_to_ValueLevel_Function (input :: Type) (output :: Type)
 
 -- instead of what we need:
 foreign import kind Kind
-data TypeLevel_to_ValueLevel_Function_ (input :: Kind) (output :: Type)
-data ValueLevel_to_TypeLevel_Function_ (input :: Type) (output :: Kind)
+data TypeLevel_to_ValueLevel_Function (input :: Kind) (output :: Type)
+data ValueLevel_to_TypeLevel_Function (input :: Type) (output :: Kind)
 
 -- To fix this, we use a Proxy type,
 --    a value-level type that wraps a kind:
