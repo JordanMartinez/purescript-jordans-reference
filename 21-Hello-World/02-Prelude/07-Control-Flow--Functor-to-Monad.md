@@ -186,20 +186,22 @@ main :: Unit
 main = unit
 ```
 
-## Do notation
+## Do Notation
 
-At this point, you should look back at the Syntax folder to read through the file on `do notation`. You should also become familiar with the `ado notation` (Applicative Do).
+At this point, you should look back at the `Syntax/Prelude-Syntax` folder to read through the file on `Do Notation`. You should also become familiar with the `Ado Notation` (Applicative Do).
 
-Be aware of where the parenthesis appear when using `m a >>= aToMB >>= bToMC` by reading the section called "Do notation" in [this article](https://sras.me/haskell/miscellaneous-enlightenments.html). Below provides a summary of what it says:
+Be aware of where the parenthesis appear when using `m a >>= aToMB >>= bToMC`. Below provides a summary of the section called "Do notation" in [this article](https://sras.me/haskell/miscellaneous-enlightenments.html):
 ```purescript
-data Maybe a = Nothing | Just a
+data Maybe a
+  = Nothing
+  | Just a
 
 instance b :: Bind Maybe where
   bind (Just a) f = f a
   bind Nothing f = Nothing
 
 half :: Int -> Maybe Int
-half x | x % 2 == 0 = x / 2
+half x | x % 2 == 0 = Just (x / 2)
        | otherwise = Nothing
 
 -- This statement
