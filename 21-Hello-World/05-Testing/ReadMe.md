@@ -28,13 +28,13 @@ This folder will place both source and test code in the `test` folder to prevent
 ## Libraries Used
 
 This folder will cover testing using three libraries. Nested bullet points indicate other libraries into which one should investigate:
-- [Spec](https://pursuit.purescript.org/packages/purescript-spec/3.0.0) - Unit Testing / Test Suites
+- [Spec](https://pursuit.purescript.org/packages/purescript-spec/3.0.0) - Unit Testing / Test Suites (works but doesn't seem to be active anymore...)
     - [spec-discovery](https://pursuit.purescript.org/packages/purescript-spec-discovery/2.0.0)
     - [spec-xunit](https://github.com/owickstrom/purescript-spec-reporter-xunit/tree/master/docs)
     - [spec-mocha](https://pursuit.purescript.org/packages/purescript-spec-mocha/3.0.0)
     - [spec-quickcheck](https://pursuit.purescript.org/packages/purescript-spec-quickcheck/3.0.0)
 - [Quick Check](https://pursuit.purescript.org/packages/purescript-quickcheck/5.0.0) - Property Testing
-- [Quick Check Laws](https://pursuit.purescript.org/packages/purescript-quickcheck-laws/4.0.0) - Property Testing for the Prelude type classes
+- [Quick Check Laws](https://pursuit.purescript.org/packages/purescript-quickcheck-laws/4.0.0) - Property Testing for the core type classes
 
 ## Running the Tests
 
