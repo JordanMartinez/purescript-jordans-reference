@@ -14,11 +14,11 @@ module Syntax.InfixNotation.Extended where
 -- a `function1` b
 
 -- Given a function with this signature...
-function2 :: forall a b c. a -> b -> c -> String
+function2 :: String -> String -> String -> String
 function2 first second third = "result"
 
--- extended infix syntax
--- second `function2 first` third
+example :: String
+example = "second" `function2 "first"` "third"
 
 -- This can be useful for combining function if it reads well
 --    list1 `combineUsing concat` list2
