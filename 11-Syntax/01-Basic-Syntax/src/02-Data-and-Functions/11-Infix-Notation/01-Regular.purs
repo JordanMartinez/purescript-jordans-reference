@@ -1,4 +1,4 @@
-module Syntax.Notation.Infix.Regular where
+module Syntax.InfixNotation.Regular where
 
 import Prelude
 
