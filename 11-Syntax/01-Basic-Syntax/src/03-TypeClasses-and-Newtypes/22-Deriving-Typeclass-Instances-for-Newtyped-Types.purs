@@ -63,14 +63,7 @@ newtype EmailAddress3 = EmailAddress3 String
 -- no need to indicate what "_" is since compiler can figure it out
 derive instance newtypeEmailAddress :: Newtype EmailAddress3 _
 
--- Other functions that Newtype provides:
--- - over / overF
---   (similar to Functor's map but polymorphic on its return type)
--- - under/ underF
---   (takes a value, raises it into a Newtype context,
---    applies a function that takes a newtype argument,
---    and unwraps the resulting value)
--- - collect
--- - traverse
-
+-- Newtype provides other useful functions.
+-- To see the full list, look at the package's docs:
+-- https://pursuit.purescript.org/packages/purescript-newtype/3.0.0/docs/Data.Newtype
 -- <--- End
