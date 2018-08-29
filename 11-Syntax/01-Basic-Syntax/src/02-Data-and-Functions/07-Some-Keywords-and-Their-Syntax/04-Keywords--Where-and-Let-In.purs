@@ -42,7 +42,7 @@ whereFunction1 arg1 arg2 =
 
 {-
 The 'let...in' syntax does the same thing as 'where' but it defines things
-  before the main function that uses the smaller functions (or values): -}
+  before they get used in an expression: -}
 letInFunction1 :: String -> String
 letInFunction1 expression =
   let
@@ -58,6 +58,7 @@ letInFunction2 expression1 expression2 =
   in
     somethingThatUses (binding1 <> binding2)
 
+-- One can also define functions
 letInFunction3 :: String -> String
 letInFunction3 value =
   let
