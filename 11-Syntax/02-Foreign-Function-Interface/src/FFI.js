@@ -1,11 +1,6 @@
 // don't forget to add this line here!
 "use strict";
 
-/*
-A common error is forgetting the "." between
-"exports" and "value/functionName"
-*/
-
 exports.basicValue = 4.0;
 
 exports.basicCurriedFunction = function(number) {
