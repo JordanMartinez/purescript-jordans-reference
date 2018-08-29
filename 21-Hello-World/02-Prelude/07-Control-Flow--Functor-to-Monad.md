@@ -68,7 +68,7 @@ Another way to think about the laws for Monad are:
 (aToMB >=> bToMC) a = aToMB a >>= (\b -> bToMC b)
 
 -- and Monad could be defined by these laws:
-(function >>> id) a == function a -- Functor's identity law
+(function >>> id) a == function a -- Function's identity law
  aToMB    >=> pure  == aToMB
 
 -- and its inverse
