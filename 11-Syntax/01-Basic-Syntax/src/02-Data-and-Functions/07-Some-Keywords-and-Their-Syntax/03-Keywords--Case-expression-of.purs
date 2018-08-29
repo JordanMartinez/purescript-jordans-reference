@@ -32,10 +32,12 @@ function1 expression =
       | length x == 5 -> bodyOfFunction
     _ -> bodyOfFunction -- catch all
 
-
 -- If 'expression' is the next argument in a function, we could decide
 -- to not bind to name (e.g. 'a') and instead use function abbreviation
 -- using the underscore syntax:
+
+data Data = Constructor1 | Constructor2 | Constructor3 | ConstructorN
+
 function2 :: Data -> String
 function2 = case _ of
   Constructor1 -> bodyOfFunction
@@ -75,5 +77,3 @@ length _ = 4
 
 bodyOfFunction :: String
 bodyOfFunction = "body of function"
-
-data Data = Constructor1 | Constructor2 | Constructor3 | ConstructorN
