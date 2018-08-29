@@ -72,14 +72,15 @@ instance matchApple :: SomeClass AppleK where
   someFunction _ = "an apple!"
 else instance matchAllOtherFruit :: SomeClass a where
   someFunction _  = "something else!"
+
 {-
+As of this writing, Purescript does not support all of the features
+described in the paper below (i.e. backtracking), but it does work
+for simpler use cases like above
+
 Here's the related Purescript issue:
 https://github.com/purescript/purescript/issues/2315
 
 See the original paper here:
 http://homepages.inf.ed.ac.uk/jmorri14/pubs/morris-icfp2010-instances.pdf
-
-As of this writing, Purescript does not support all of the features
-described in the paper (i.e. backtracking), but it does work
-for simpler use cases like above
 -}
