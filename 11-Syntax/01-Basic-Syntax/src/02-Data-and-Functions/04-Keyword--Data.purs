@@ -64,7 +64,8 @@ data Type_with_Higher_Kinded_Generic_Type higherKindedBy1 a
 
 data Type_with_Higher_Kinded_Generic_Type2 higherKindedBy2 a b
   = MyConstructor2 (higherKindedBy2 a b)
-  | OtherC2 (higherKindedBy2 Int b)
+  | OtherCInt (higherKindedBy2 Int b)
+  | OtherCIntString (higherKindedBy2 Int String)
 
 
 data Type_whose_implementations_ignore_generic_type ignoredType
