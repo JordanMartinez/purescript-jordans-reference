@@ -1,4 +1,4 @@
-module ReadLine.CleanerInterface
+module Node.ReadLine.CleanerInterface
   ( createUseCloseInterface
   , question
   , log
@@ -9,7 +9,6 @@ import Effect (Effect)
 import Effect.Class (liftEffect)
 import Effect.Console as Console
 import Effect.Aff (Aff, runAff_, makeAff)
-import Effect.Aff.Class (liftAff)
 import Data.Either (Either(Right))
 import Node.ReadLine ( Interface
                      , createConsoleInterface, noCompletion
@@ -26,7 +25,7 @@ createUseCloseInterface useIF = do
 
 question :: String -> Interface -> Aff String
 question message interface = do
-  liftAff $ makeAff go
+  makeAff go
   where
     go handler = NR.question message (handler <<< Right) interface $> mempty
 

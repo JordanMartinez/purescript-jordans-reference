@@ -4,7 +4,7 @@ import Prelude
 import Effect (Effect)
 
 -- new imports
-import ReadLine.CleanerInterface (
+import Node.ReadLine.CleanerInterface (
     -- handles all the code you don't understand yet
     -- so that you can read from and write to the console
       createUseCloseInterface

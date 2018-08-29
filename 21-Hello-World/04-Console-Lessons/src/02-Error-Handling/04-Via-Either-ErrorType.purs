@@ -5,7 +5,7 @@ import Effect (Effect)
 import Effect.Aff (Aff)
 import Data.Either (Either(..))
 import Node.ReadLine (Interface)
-import ReadLine.CleanerInterface (createUseCloseInterface, question, log)
+import Node.ReadLine.CleanerInterface (createUseCloseInterface, question, log)
 
 {-
 The previous file demonstrates how to use Either for error handling.

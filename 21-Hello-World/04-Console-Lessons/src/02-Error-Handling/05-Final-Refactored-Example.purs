@@ -6,7 +6,7 @@ import Effect.Aff (Aff)
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
 import Node.ReadLine (Interface)
-import ReadLine.CleanerInterface (createUseCloseInterface, question, log)
+import Node.ReadLine.CleanerInterface (createUseCloseInterface, question, log)
 
 -- (DivisionPosition, TextInputerror and DivisionError are at the bottom
 -- of the file since we've already seen them and they aren't our current focus.)

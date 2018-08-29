@@ -4,7 +4,7 @@ import Prelude
 import Effect (Effect)
 import Effect.Aff (Aff)
 import Node.ReadLine (Interface)
-import ReadLine.CleanerInterface (createUseCloseInterface, question, log)
+import Node.ReadLine.CleanerInterface (createUseCloseInterface, question, log)
 
 {-
 A total function is a function that ALWAYS outputs a value
