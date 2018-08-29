@@ -42,7 +42,7 @@ module Syntax.Module.FullExample
   -- to also export the constructor it aliases
   , ExportedDataType4_InfixNotation(Infix_Constructor), (<||||>)
 
-  , module M
+  , module Exports
 
   -- Kinds require the `kind` keyword to precede them
   , kind ExportedKind
@@ -90,10 +90,10 @@ import ModuleNameClash1 as M1
 import ModuleNameClash2 as M2
 
 -- Re-export modules
-import Module1 (anInt1) as M
-import Module2 (anInt2) as M
-import Module3 (anInt3) as M
-import Module4.SubModule1 (someFunction) as M
+import Module1 (anInt1) as Exports
+import Module2 (anInt2) as Exports
+import Module3 (anInt3) as Exports
+import Module4.SubModule1 (someFunction) as Exports
 
 -- import a kind and its instance
 import ModuleKind (kind ImportedKind, ImportedKindInstance)
