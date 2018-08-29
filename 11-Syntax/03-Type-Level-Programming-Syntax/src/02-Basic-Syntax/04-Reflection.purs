@@ -51,6 +51,24 @@ instance trueTL_VL :: IsBooleanKind True where
 instance falseTL_VL :: IsBooleanKind False where
   reflectBoolean _  = false
 
+
+-- We can also use instance chains here to distinguish
+-- one from another
+
+class IsTrue (a :: BooleanKind) where
+  isTrue :: BooleanProxy a -> Boolean
+
+instance isTrue_True :: IsTrue True where
+  isTrue _ = true
+else instance isTrue_catchall :: IsTrue a where
+  isTrue _ = false
+
+-- Using instance chains here is more important if we had
+-- a lot more type-level instances than just 2,
+-- such as `FruitKind` from before.
+
 -- Open a REPL, import this module, and then run this code:
 --    reflectBoolean trueK
 --    reflectBoolean falseK
+--    isTrue trueK
+--    isTrue falseK

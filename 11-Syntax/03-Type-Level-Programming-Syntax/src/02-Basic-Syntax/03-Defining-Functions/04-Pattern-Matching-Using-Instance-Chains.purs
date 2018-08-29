@@ -59,21 +59,6 @@ which is the same as writing...
 -}
 
 {-
-Note: isntance chains also work for the following situation
-if we had more instances of a type-level type:
--}
-
-data FruitProxy (a :: FruitKind) = FruitProxyInstance
-
-class SomeClass (a :: FruitKind) where
-  someFunction :: FruitProxy a -> String
-
-instance matchApple :: SomeClass AppleK where
-  someFunction _ = "an apple!"
-else instance matchAllOtherFruit :: SomeClass a where
-  someFunction _  = "something else!"
-
-{-
 As of this writing, Purescript does not support all of the features
 described in the paper below (i.e. backtracking), but it does work
 for simpler use cases like above
