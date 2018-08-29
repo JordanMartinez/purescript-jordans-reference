@@ -54,7 +54,7 @@ array _            = "catchall for arrays. This is needed to make this \
 -- Pattern Matching: Unwrapping Data Constructors
 data A_Type
   = AnInt Int
-  | Outer A_Type
+  | Outer A_Type -- recursive type!
   | Inner Int
 
 f :: A_Type -> String {-
