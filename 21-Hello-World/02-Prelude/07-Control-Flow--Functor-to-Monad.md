@@ -108,7 +108,7 @@ const five = 1 + four
 const five_string = toString(five); // or whatever the function called
 print(five_string); // print the String to the console, which returns nothing
 ```
-... into PureScript. To evaluate this, we will reduce the functions by replacing the left-hand side of the `=` sign (the function's call signature) with the right-hand side of the `=` sign (the function's implementation / body). In the following snippet of code, you will need to scroll to the right, so that the a previous reduction aligns with the next reduction:
+... into PureScript. To evaluate this, we will reduce the functions by replacing the left-hand side (LHS) of the `=` sign (the function's call signature) with the right-hand side (RHS) of the `=` sign (the function's implementation / body). In the following snippet of code, you will need to scroll to the right, so that the a previous reduction aligns with the next reduction. **Note: Read through this and practice writing it out multiple times until you get sick of it as this is at the heart of FP programming! Failure to understand this == Failure to write FP code.** Here's the code:
 ```purescript
 unsafePerform :: forall a. Box a
 unsafePerform (Box a) = a
