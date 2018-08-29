@@ -2,9 +2,9 @@ module ConsoleLessons.ErrorHandling.ViaMaybe where
 
 import Prelude
 import Effect (Effect)
-import Effect.Aff (Aff)
 import Node.ReadLine (Interface)
 import Node.ReadLine.CleanerInterface (createUseCloseInterface, question, log)
+import ConsoleLessons.ErrorHandling.DivisionTemplate (showResult, askUserForNumerator, askUserForDenominator)
 
 {-
 We can often turn our partial functions into total functions
@@ -38,41 +38,16 @@ safeDivision _ 0 = Nothing -- x / 0
 safeDivision x y = Just (x / y)
 
 main :: Effect Unit
-main = createUseCloseInterface (\interface -> do
+main = createUseCloseInterface (\interface ->
+  do
     log "This program demonstrates how to handle errors using `Maybe a`.\n\
         \Recall that the notation is: 'numerator / denominator'\
         \\n"
 
-    calculateDivision interface
-  )
-  where
-  calculateDivision :: Interface -> Aff Unit
-  calculateDivision interface = do
-    log $ "Enter two integers between 0 and 9... (invalid entry will be \
-          \turned into the number '" <> show defaultValue <> "')\n"
-    num   <- mapToValidInt <$> question "Numerator:   " interface
-    denom <- mapToValidInt <$> question "Denominator: " interface
+    num <- askUserForNumerator
+    denom <- askUserForDenominator
+    
     case safeDivision num denom of
       Just result -> log $ showResult num denom result
       Nothing -> log "You divided by zero!"
-
-  defaultValue :: Int
-  defaultValue = 10
-
-  mapToValidInt :: String -> Int
-  mapToValidInt = case _ of
-    "0" -> 0
-    "1" -> 1
-    "2" -> 2
-    "3" -> 3
-    "4" -> 4
-    "5" -> 5
-    "6" -> 6
-    "7" -> 7
-    "8" -> 8
-    "9" -> 9
-    _ -> defaultValue
-
-showResult :: Int -> Int -> Int -> String
-showResult numerator denominator result =
-  (show numerator) <> " / " <> (show denominator) <> " == " <> (show result)
+  )
