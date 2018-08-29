@@ -7,10 +7,10 @@ data InputType2 = InputInstance2
 data OutputType = OutputInstance
 
 foreign import kind InputKind1
-foreign import data InputInstanceK1 :: InputKind
+foreign import data InputInstanceK1 :: InputKind1
 
 foreign import kind InputKind2
-foreign import data InputInstanceK2 :: InputKind
+foreign import data InputInstanceK2 :: InputKind2
 
 foreign import kind OutputKind
 foreign import data OutputInstanceK :: OutputKind
