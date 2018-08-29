@@ -77,7 +77,7 @@ f the pattern match     = description of what was matched -}
 f (Inner 0)             = "an instance of type Inner whose value is 0"
 f (Inner int)           = "an instance of type Inner, binding its value to 'int' \
                           \name for usage in function body"
-f (Outer (Inner int))   = "an instance of type Outer, whose Inner value is bound\
+f (Outer (Inner int))   = "an instance of type Outer, whose Inner value is bound \
                           \to `int` name for usage in function body"
 f object@(AnInt 4)      = "an instance of type AnInt whose value is '4', \
                           \binding the entire object to the `object` name for \
