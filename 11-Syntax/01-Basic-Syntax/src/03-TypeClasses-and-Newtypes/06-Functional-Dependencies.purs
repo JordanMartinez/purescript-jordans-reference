@@ -1,12 +1,12 @@
 module Syntax.Typeclass.MultiParameters.FunctionalDependencies where
 
 {-
+Sometimes in multi-parameter type classes, there is a relationship
+between the types. In such cases, we call them 'functional dependencies'.
+
 This paper (section 2.1.2) quickly explains why we need functional dependencies:
 http://homepages.inf.ed.ac.uk/jmorri14/pubs/morris-icfp2010-instances.pdf
 In short, it prevents nonsensical code that is otherwise type-safe.
-
-Sometimes in multi-parameter type classes, there is a relationship
-between the types. In such cases, we call them 'functional dependencies'.
 
 Syntax:
   Read
