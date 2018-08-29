@@ -13,14 +13,18 @@ data Fruit
 -- Pattern Matching: Basic idea and order of matching
 mkString :: Fruit -> String {-
          if the arg is _ = then return _ -}
-mkString Apple           = "apple"{-
-    else if the arg is _ = then return _ -}
-mkString Orange          = "orange"{-
-    else if the arg is _ = then return _ -}
-mkString Banana          = "banana"{-
-    else if the arg is _ = then return _ -}
-mkString Cherry          = "cherry"{-
-    else if the arg is _ = then return _ -}
+mkString Apple           = "apple"
+
+{-  else if the arg is _ = then return _ -}
+mkString Orange          = "orange"
+
+{-  else if the arg is _ = then return _ -}
+mkString Banana          = "banana"
+
+{-  else if the arg is _ = then return _ -}
+mkString Cherry          = "cherry"
+
+{-  else if the arg is _ = then return _ -}
 mkString Tomato          = "tomato"
 
 -- The above pattern match is "exhaustive" because there are no other
@@ -29,10 +33,10 @@ mkString Tomato          = "tomato"
 -- Pattern Matching: Literal values and catching all values
 
 literalValue :: String -> String
-literalValue "this string"        = "this value"
-literalValue "a different string" = "this other value"
-literalValue "some other string"  = "5"
-literalValue _                    = "ignore input and return default value"
+literalValue "a" = "Return this string if arg is 'a'"
+literalValue "b" = "Return this string if arg is 'b'"
+literalValue "c" = "Return this string if arg is 'c'"
+literalValue _   = "ignore input and return this default value"
 
 -- syntax sugar for pattern-matching literal arrays
 array :: Array Int -> String
