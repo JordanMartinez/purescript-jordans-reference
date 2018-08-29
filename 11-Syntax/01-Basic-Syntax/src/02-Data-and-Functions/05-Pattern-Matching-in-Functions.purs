@@ -99,14 +99,16 @@ g x y | x + y == 0 = "x == -y"
 
 -- Pattern Matching: Single and Multiple Guards
 h :: Int -> Int -> String
-h x y | x == 4 && y == 5 = "body" {-
-      | condition1, condition2 = body -}
-      | x == 4, y == 6   = "body" {-
-      ... or when using syntax sugar...
+h x y | x == 4 && y == 5 = "body"
+
+   -- | condition1, condition2 = body
+      | x == 4, y == 6   = "body"
+
+  {-  ... or when using syntax sugar...
       | condition1
       , condition2 = body -}
       | x == 3
-      , y == 2           = "body2"
+      , y == 2           = "body"
 
 -- It's wise to separate mulitple guards with a blank line for readability.
       | otherwise        = "default"
@@ -120,12 +122,14 @@ j x | (Box 2) <- toBox x = "Calling toBox x returned a Box with 2 inside of it"
 -- Pattern Matching: Multiple Pattern Guards
 p :: Int -> Int -> String {-
 p x y | returnedValue1 <- functionCall1, returnedValue2 <- functionCall2 = body -}
-p x y | (Box 2) <- toBox x, (Box 3) <- toBox (x - 1) = "without syntax sugar" {-
-      ... or for easier reading, there is sugar syntax:
+p x y | (Box 2) <- toBox x, (Box 3) <- toBox (x - 1) = "without syntax sugar"
+
+ {-   ... or for easier reading, there is sugar syntax:
 p x y | returnedValue1 <- functionCall1
       , returnedValue2 <- functionCall2 = body -}
       | (Box a) <- toBox x
       , (Box b) <- toBox (x * 2) = "with syntax sugar"
+
       | otherwise = "some other value"
 
 -- Different guards can be mixed:
