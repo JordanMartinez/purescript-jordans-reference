@@ -14,8 +14,8 @@ literal_value = "literal value"
 -- zero-arg function in functional programming. Unit will be explained later
 -- in the "Hello World" folder.
 
-result_of_function :: ValueType
-result_of_function = show 4 -- "4"
+result_of_function :: Int
+result_of_function = 4 + 5 -- 9
 
 one_arg_function :: ParameterType -> ReturnType
 one_arg_function argument = bodyThatReturnsType
