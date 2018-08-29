@@ -91,7 +91,7 @@ data Maybe a = Nothing | Just a
 
 instance b :: Bind Maybe where
   bind (Just a) f = f a
-  bind Nothing f = nothing
+  bind Nothing f = Nothing
 
 half :: Int -> Maybe Int
 half x | x % 2 == 0 = x / 2
