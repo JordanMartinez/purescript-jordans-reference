@@ -2,7 +2,7 @@ module Syntax.Record.RowPolymorphism where
 
 import Prelude
 
--- We can also use literal records in our function type signatures. These are called Rows:
+-- We can also use literal records in our function type signatures:
 useName1 :: { name :: String } -> String
 useName1 { name: theName } = theName
 
