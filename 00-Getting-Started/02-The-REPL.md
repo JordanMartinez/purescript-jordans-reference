@@ -40,9 +40,9 @@ playground\
 
 ## Starting the REPL
 
-Once the above three requirements have been met, you can start the REPL using one of two commands. Use the one that's easiest to remember:
+Once the above three requirements have been met, you can start the REPL using one of two commands:
 - `psc-package repl`
-- `pulp repl`
+- `pulp repl` (this project will use this command)
 
 ## Using the REPL
 
