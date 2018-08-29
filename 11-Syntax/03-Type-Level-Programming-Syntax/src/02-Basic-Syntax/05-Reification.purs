@@ -80,11 +80,14 @@ One might ask,
               -> (BooleanProxy b -> r)
               -> r
 
-We cannot let `reifyBool` determine what `b` is because "function" is actually
-two different functions. The below functions are too simple to
-demonstrate why this may be useful, but imagine an entire chain of
-type-level programming before the value potentially gets reflected back as a
-value-level instance:
+I'm not yet entirely sure how to answer that yet. However, this is what
+I currently think:
+
+  We cannot let `reifyBool` determine what `b` is because "function" is actually
+  two different functions. The below functions are too simple to
+  demonstrate why this may be useful, but imagine an entire chain of
+  type-level programming before the value potentially gets reflected back as a
+  value-level instance:
 
   - if the Boolean is true, we could use the function
 
