@@ -31,12 +31,12 @@ Since the license of this project is still being determined, I will not currentl
 - Use these rules to read through the folders' contents in the correct order:
     - **Read a folder's "ReadMe.md" file first (if it exists).** It may provide additional info for how to read a folder's contents.
     - **Read a folder's files or subfolders in numerical order.** For example, read things in the order they appear below:
-    - 00-Getting-Started/ReadMe.md
-    - 00-Getting-Started/01-Install-Guide.md
-    - 00-Getting-Started/... (the rest of the folder's contents)
-    - 11-Syntax/ReadMe.md
-    - 11-Syntax/01-Basic-Syntax/src/00-Comments-and-Documentation.purs
-    - 11-Syntax/01-Basic-Syntax/src/01-Types-and-Constructors/01-Keyword--Data.purs
-    - 11-Syntax/01-Basic-Syntax/src/01-Types-and-Constructors/02-Keyword--Type.purs
-    - 11-Syntax/01-Basic-Syntax/src/02-Values-and-Functions/... (the rest of the folder's contents)
+        - 00-Getting-Started/ReadMe.md
+        - 00-Getting-Started/01-Install-Guide.md
+        - 00-Getting-Started/... (the rest of the folder's contents)
+        - 11-Syntax/ReadMe.md
+        - 11-Syntax/01-Basic-Syntax/src/00-Comments-and-Documentation.purs
+        - 11-Syntax/01-Basic-Syntax/src/01-Types-and-Constructors/01-Keyword--Data.purs
+        - 11-Syntax/01-Basic-Syntax/src/01-Types-and-Constructors/02-Keyword--Type.purs
+        - 11-Syntax/01-Basic-Syntax/src/02-Values-and-Functions/... (the rest of the folder's contents)
 - Compile the code where possible, either before or after you experiment
