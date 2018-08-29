@@ -28,25 +28,27 @@ createRec = { field1: "value", fieldN: 1, function: (\x -> x) }
 setField :: RecordType -> String -> RecordType
 setField rec string = rec { field1 = string }
 
--- Same inferences using inline functions:
+-- Some syntax for inline functions:
+
 --    \field1 field2 -> rec { field1: field1, field2: field2 }
--- is the same as
---    rec { field1: _ , field2: _ }
+-- ... is the same as ...
+--                      rec { field1: _     , field2: _      }
 
--- \rec field1 {- fieldN -} -> rec { field1: field1 {- , fieldN: fieldN -} }
--- is the same as
-                            -- _   { field1: _ ,    {- , fieldN: _ -}      }
-
-
+--    \rec field1 {- fieldN -} -> rec { field1: field1 {- , fieldN: fieldN -} }
+-- ... is the same as ...
+--                                _   { field1: _      {- , fieldN: _      -} }
 
 type NestedRecordType = { person :: { skills :: { name :: String } } }
 
 nestedRecordUpdate :: String -> NestedRecordType -> NestedRecordType
 nestedRecordUpdate name p = p { person { skills { name = "newName" } } }
 
-{- Syntax reminder:
-update single field using copy syntax, use "field = value":
+{-
+Syntax reminder:
+
+"field = value" - update the field
   record { field = newValue }
-create record, use "field: value":
-  { field: value }
+
+"field : value" - create the record's field
+  { field: initialValue }
 -}
