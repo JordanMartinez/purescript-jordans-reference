@@ -34,9 +34,11 @@ Since the license of this project is still being determined, I will not currentl
         - 00-Getting-Started/ReadMe.md
         - 00-Getting-Started/01-Install-Guide.md
         - 00-Getting-Started/... (the rest of the folder's contents)
+        - 01-Build-Tools/... (the folder's contents)
         - 11-Syntax/ReadMe.md
         - 11-Syntax/01-Basic-Syntax/src/00-Comments-and-Documentation.purs
-        - 11-Syntax/01-Basic-Syntax/src/01-Types-and-Constructors/01-Keyword--Data.purs
-        - 11-Syntax/01-Basic-Syntax/src/01-Types-and-Constructors/02-Keyword--Type.purs
-        - 11-Syntax/01-Basic-Syntax/src/02-Values-and-Functions/... (the rest of the folder's contents)
+        - 11-Syntax/01-Basic-Syntax/src/01-Preliminary-Concepts/01-Value-Function-Data-Syntax.purs
+        - 11-Syntax/01-Basic-Syntax/src/01-Preliminary-Concepts/02-Explainng-Kinds.md
+        - 11-Syntax/01-Basic-Syntax/src/01-Preliminary-Concepts/03-The-Prim-Module.purs
+        - 11-Syntax/01-Basic-Syntax/src/02-Data-and-Functions/... (the rest of the folder's content)
 - Compile the code where possible, either before or after you experiment
