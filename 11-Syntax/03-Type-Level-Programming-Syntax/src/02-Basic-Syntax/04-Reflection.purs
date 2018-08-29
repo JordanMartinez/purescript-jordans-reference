@@ -36,6 +36,10 @@ foreign import data True :: BooleanKind
 foreign import data False :: BooleanKind
 data BooleanProxy (a :: BooleanKind) = BProxyInstance
 
+{-
+Read trueK and falseK as:
+  trueK  = (BProxyInstance :: BProxy True) - an instance of type "BProxy True"
+  falseK = (BProxyInstance :: BProxy False) - an instance of type "BProxy False" -}
 trueK :: BooleanProxy True
 trueK = BProxyInstance
 
