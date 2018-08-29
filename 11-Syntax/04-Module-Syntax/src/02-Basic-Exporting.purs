@@ -50,9 +50,6 @@ module Syntax.Module.Exporting
 -- imports go here
 import ExportedModule
 
-{- commented out since it doesn't actually exist here..
-import ExportedModule -}
-
 value :: Int
 value = 3
 
