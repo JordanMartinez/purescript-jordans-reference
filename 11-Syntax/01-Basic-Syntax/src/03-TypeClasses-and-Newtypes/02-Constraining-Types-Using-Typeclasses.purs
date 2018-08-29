@@ -6,7 +6,7 @@ import Prelude
 -- enables usage of the corresponding type class' function in that context:
 
 -- Syntax: Adding constraints on Function's type signature
-function :: TypeClass1 Type1 => TypeClass2 Type2 => {- and so on -} Param1 -> ReturnType
+function :: TypeClass1 Type1 => TypeClass2 Type2 => {- and so on -} Type1 -> ReturnType
 function arg = "return result"
 
 -- example
@@ -41,7 +41,7 @@ class Show_ a where -- this is the same signature for Show found in Prelude
 data Boxx a = Boxx a
 
 -- If we want to implement the `Show` typeclass for it, we are limited to this:
-instance boxShow1 :: Show (Boxx a) where
+instance boxxShow :: Show (Boxx a) where
   show (Boxx _) = "Box(<unknown value>)"
 
 {-
@@ -49,7 +49,8 @@ We would like to also show the 'a' value stored in Box. How do we do that?
   By constraining our types in the Box to also have a Show instance: -}
 
 -- Syntax
-instance someTypeInstance :: (TypeClass1 a) => {- (TypeClassN a) => -} TypeClass1 (IntanceType a) where
+instance syntax :: (TypeClass1 a) => {-
+                   (TypeClassN a) => -} TypeClass1 (IntanceType a) where
   function1 _ = "body"
 
 data Box a = Box a
@@ -73,12 +74,12 @@ class TypeClass1 a where
   function1 :: a -> String
 
 instance typeclass1 :: TypeClass1 String where
-  function1 x = x
+  function1 a = a
 
-class TypeClass2 a where
-  function2 :: a -> String
+class TypeClass2 a
 
-data Param1
+instance typeclass2 :: TypeClass2 String
+
 type Type1 = String
 type Type2 = String
 type ReturnType = String
