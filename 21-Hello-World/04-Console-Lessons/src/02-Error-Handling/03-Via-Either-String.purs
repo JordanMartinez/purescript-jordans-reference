@@ -17,48 +17,14 @@ data Either_ a b  -- a type that is either 'a' or 'b'
   | Right_ b        -- the 'b' / success type
 
 {-
-Returning to our previous example, let's focus on the `mapToInt` function.
-
-mapToValidInt :: String -> Int
-mapToValidInt = case _ of
-  "0" -> 0
-  ...
-  "9" -> 9
-  _   -> 10
-
-What if we wanted to tell the user why the input was invalid?
-We could map the user's input (String) into an `Either a Int` where the 'a'
-is a String that says what is wrong with the user's input.
+In this next example, we'll use a different way to notify the user
+that the user attempted to divide by zero. Rather than returning `Nothing`
+for the "divide by zero" error, we'll return a String with the error message.
 -}
 
-mapToValidInt :: String -> Either String Int
-mapToValidInt = case _ of
-  "0" -> Right 0
-  "1" -> Right 1
-  "2" -> Right 2
-  "3" -> Right 3
-  "4" -> Right 4
-  "5" -> Right 5
-  "6" -> Right 6
-  "7" -> Right 7
-  "8" -> Right 8
-  "9" -> Right 9
-  _ -> Left "Error: User inputted text that was not an integer between 0 and 9"
-
-{-
-This means we'll need to update the type signature of `safeDivision` to accept
-`Either String Int` as its argument.
-
-To make it easier to print to the screen in the `calculateDivision` function,
-we'll also change `safeDivision`'s output type to `String`
-and return the error message or the result of the division.
--}
-
-safeDivision :: Either String Int -> Either String Int -> String
-safeDivision (Left invalidNum) _ = "Numerator " <> invalidNum
-safeDivision _ (Left invalidDenom) = "Denominator " <> invalidDenom
-safeDivision (Right _) (Right 0) = "Error: Attempted to divide by zero!"
-safeDivision (Right x) (Right y) = showResult x y (x / y)
+safeDivision :: Int -> Int -> Either String Int
+safeDivision _ 0 = Left "Error: Attempted to divide by zero!"
+safeDivision x y = Right (x / y)
 
 main :: Effect Unit
 main = createUseCloseInterface (\interface -> do
@@ -76,7 +42,26 @@ main = createUseCloseInterface (\interface -> do
           \turned into an error message and printed to the console)\n"
     numerator <- mapToValidInt <$> question "Numerator:   " interface
     denominator <- mapToValidInt <$> question "Denominator: " interface
-    log $ safeDivision numerator denominator
+    case safeDivision numerator denominator of
+      Left error -> log error
+      Right result -> log $ showResult numerator denominator result
+
+  defaultValue :: Int
+  defaultValue = 10
+
+  mapToValidInt :: String -> Int
+  mapToValidInt = case _ of
+    "0" -> 0
+    "1" -> 1
+    "2" -> 2
+    "3" -> 3
+    "4" -> 4
+    "5" -> 5
+    "6" -> 6
+    "7" -> 7
+    "8" -> 8
+    "9" -> 9
+    _ -> defaultValue
 
 showResult :: Int -> Int -> Int -> String
 showResult numerator denominator result =
