@@ -5,7 +5,7 @@ This folder contains compileable Purescript syntax using meta-language (a langua
 f :: String -> Int
 ```
 which doesn't tell you anything, it'll say:
-```purescipt
+```purescript
 functionName :: ParameterType -> ReturnType
 ```
 
