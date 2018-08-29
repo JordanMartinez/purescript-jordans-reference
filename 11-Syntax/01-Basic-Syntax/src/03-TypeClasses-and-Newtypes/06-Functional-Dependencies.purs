@@ -36,6 +36,9 @@ instance unwrapBox :: Unwrap (Box a) a where
 class ManyTypesDetermineAnotherType a b c | a b {- n -} -> c  where
   functionName2 :: a b -> c
 
+class OneTypeDeterminesManyTypes a b c | a -> b c where
+  functionName3 :: a -> b c
+
 -- If multiple FDs exist, use this syntax:
-class ManyFDRelationships a b c | a {-n -} -> b, b -> c where
-  functionName3 :: a -> b -> c
+class ManyFDRelationships a b c | a -> b, b -> c where
+  functionName4 :: a -> b -> c
