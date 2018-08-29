@@ -21,20 +21,19 @@ add _ _ = Zero
 ε = 0.001
 
 {-
-Using unicode syntax, one could use different characters:
+Using unicode syntax, instead of using a combination of characters,
+one could use a single character to save space:
 
-→ instead of ->
-← instead of <-
-⇒ instead of =>
-⇐ instead of <=
-∷ instead of ::
+| Instead of...  | -> | <- | => | <= | ::
+|----------------+----+----+----+----+----
+| you can use... | →  | ←  | ⇒  | ⇐  | ∷
 
-This can make things unreadable, but sometimes it makes things more readable:
+Using Unicode syntax can make things unreadable, but sometimes it makes things more readable:
 - https://github.com/paf31/purescript-isomorphisms/blob/f1a9e59f831cc3150dd9bc7aa66b2661df250ebe/src/Data/Iso.purs#L22
 - https://github.com/paf31/purescript-pairing/blob/837638470c58df3971fe2e56395d65f391c9ba00/src/Data/Functor/Pairing.purs#L43
 
 Yes, this does enable emoiji operators. See this library for an example of
-why you might want and might not want to use that syntax:
+why you might and might not want to use that syntax:
 - https://pursuit.purescript.org/packages/purescript-prelewd/0.1.0
 
 -}
