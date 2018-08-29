@@ -20,8 +20,8 @@ data Fruit
   = Apple
   | Orange
   | Banana
-  | Cherry
   | Blueberry
+  | Cherry
 
 data ZeroOrOne = Zero | One
 
@@ -51,11 +51,11 @@ else instance catchAll :: FruitToInt a OneK
 {-
 which is the same as writing...
 
-  instance appleMatch :: FruitToInt AppleK ZeroK
-
-  instance orangeMatch :: FruitToInt OrangeK OneK
-
-  instance bananaMatch :: FruitToInt BananaK OneK
+  instance appleMatch     :: FruitToInt AppleK     ZeroK
+  instance orangeMatch    :: FruitToInt OrangeK    OneK
+  instance bananaMatch    :: FruitToInt BananaK    OneK
+  instance blueberryMatch :: FruitToInt BlueBerryK OneK
+  instance cherryMatch    :: FruitToInt CherrK     OneK
 -}
 
 {-
