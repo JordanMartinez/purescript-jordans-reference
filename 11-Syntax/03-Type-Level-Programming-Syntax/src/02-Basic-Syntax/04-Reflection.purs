@@ -50,10 +50,12 @@ class IsBooleanKind (a :: BooleanKind) where
   reflectBoolean :: BooleanProxy a -> Boolean
 
 instance trueTL_VL :: IsBooleanKind True where
-  reflectBoolean _  = true
+-- reflectBoolean (BProxyInstance :: BProxy True) = true
+   reflectBoolean _                               = true
 
 instance falseTL_VL :: IsBooleanKind False where
-  reflectBoolean _  = false
+-- reflectBoolean (BProxyInstance :: BProxy False) = false
+   reflectBoolean _                                = false
 
 
 -- We can also use instance chains here to distinguish
