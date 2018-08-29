@@ -52,6 +52,7 @@ instance falseBoolean :: IsBooleanKind False where
 -- We can reify a boolean by
 --   - defining a type class that constrains a type
 --       to only have kind "BooleanKind"
+--   - declaring a single and only instance of that type class 
 --   - define a callback function that recives the corresponding
 --       type-level instance as its only argument
 --       (where we do type-level programming):
