@@ -21,7 +21,7 @@ The following commands should now work:
 ```bash
 purs --version
 pulp --version
-psc-pacakge
+psc-pacakge --version
 ```
 ### Setting up your editor
 
