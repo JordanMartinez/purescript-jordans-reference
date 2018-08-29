@@ -26,7 +26,7 @@ data Box a = Box a
 | 2 | Higher-Kinded Type (by 2) | `Type -> Type -> Type` | `* -> * -> *`
 | n | Higher-Kinded Type (by n) | `... Type ... -> Type` | `... * ... -> *`
 
-^^ These columns are right-aligned to show that the last Type/`*` is the "concrete" type. Also, the `... Type ... -> Type` (and its Haskell equivalent) syntax is not real syntax but merely conveys the recursive idea in an n-kinded type. The other three (0 - 2) are real syntax.
+^^ These columns are right-aligned to show that the last `Type`/`*` is the "concrete" type. Also, the `... Type ... -> Type` (and its Haskell equivalent) syntax is not real syntax but merely conveys the recursive idea in an n-kinded type. The other three (0 - 2) are real syntax.
 
 ## Concrete Types
 
@@ -101,4 +101,4 @@ higherKindedBy1L_useB b = Right b
 higherKindedBy1L_ignoreBoth :: a -> b -> Either Int b
 higherKindedBy1L_ignoreBoth a b = Left 3
 ```
-`Either a b` has kind `Type -> Type -> Type` because it cannot become a concrete type until both 'a' and 'b' types are defined, even if only constructing one of its instances whose generic type is known.
+`Either a b` has kind `Type -> Type -> Type` because it cannot become a concrete type until both `a` and `b` types are defined, even if only constructing one of its instances whose generic type is known.
