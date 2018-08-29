@@ -6,7 +6,7 @@ module Syntax.TypeLevel.Reification where
 ignoreMe :: String
 ignoreMe =
     -- we can write something like this...
-    boolean_to_string_function a_boolean_value_determined_at_runtime
+    boolean_to_string_function   a_boolean_value_determined_at_runtime
 
 {-
 This function does not know which instance of the Boolean type
