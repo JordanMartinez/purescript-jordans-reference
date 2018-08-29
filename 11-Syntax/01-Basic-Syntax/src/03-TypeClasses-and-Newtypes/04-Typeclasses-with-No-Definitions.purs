@@ -81,7 +81,7 @@ instance unwrapInt :: Unwrap Int where
 instance boxableInt :: Boxable Int
 
 useBoxable :: forall a. (Boxable a) => a -> a
-useBoxable a = (unwrapFromBox <<< wrapIntoBox) a
+useBoxable a = unwrapFromBox (wrapIntoBox a)
 
 -- Necessary to compile
 
