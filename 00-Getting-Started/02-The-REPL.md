@@ -83,13 +83,10 @@ Exits the REPL, returning control to your shell.
 
 ### Reload
 
-Once you have defined a value or function, its definition is bound to that binding:
+You can only define a binding once. Defining it again with a different expression will output an error
 ```purescript
-x = 5
-```
-Using these bindings to refer to something else will output an error:
-```purescript
-x = 6
+x = 5 -- first time
+x = 6 -- second time raises error
 -- REPL's outputs error: "Multiple value declarations exist for x."
 ```
 You need to clear the `x` binding name to be able to reuse it for other bindings.
@@ -105,11 +102,15 @@ Ideally, you could just clear the second function's binding and rewrite it. Unfo
 2. define a new binding for the correct implementation:
 ```purescript
 -- 1st option
+add1 = (\x -> x + 1)
+times2 = (\x -> x * 3) -- Whoops! "3" should be "2"
 :reload
 add1 = (\x -> x + 1) -- define the "add1" binding again
-times2 = (\x -> x * 2) -- define it again but with the correct implmentation.
+times2 = (\x -> x * 2) -- define "times2" again but with correct implmentation.
 
 -- 2nd option
+add1 = (\x -> x + 1)
+times2 = (\x -> x * 3) -- Whoops! "3" should be "2"
 times2_fix = (\x -> x * 2) -- define new function with correct implementation
 ```
 
