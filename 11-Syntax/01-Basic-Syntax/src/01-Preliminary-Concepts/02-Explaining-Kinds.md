@@ -24,7 +24,7 @@ data Box a = Box a
 | 0 | Concrete Type             | `                Type` | `          *`
 | 1 | Higher-Kinded Type (by 1) | `        Type -> Type` | `     * -> *`
 | 2 | Higher-Kinded Type (by 2) | `Type -> Type -> Type` | `* -> * -> *`
-| n | Higher-Kinded Type (by n) | `... Type ... -> Type` | `.. * .... *`
+| n | Higher-Kinded Type (by n) | `... Type ... -> Type` | `... * ... -> *`
 
 ^^ These columns are right-aligned to show that the last Type/`*` is the "concrete" type. Also, the `... Type ... -> Type` (and its Haskell equivalent) syntax is not real syntax but merely conveys the recursive idea in an n-kinded type. The other three (0 - 2) are real syntax.
 
