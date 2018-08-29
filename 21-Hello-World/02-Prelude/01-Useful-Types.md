@@ -73,7 +73,7 @@ type NaturalTransformation f g = forall a. f a -> g a
 
 infixr 4 NaturalTransformation as ~>
 
-box1_to_box2 :: Box1 ~> Box2 {- much less noisy than
+box1_to_box2 ::           Box1   ~> Box2 {- much less noisy than
 box1_to_box2 :: forall a. Box1 a -> Box2 a -}
-box1_to_box2 (Box1 a) = Box2 a
+box1_to_box2             (Box1 a) = Box2 a
 ```
