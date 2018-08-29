@@ -1,14 +1,22 @@
 module Syntax.Record.Basic where
 
+-- Records have a different kind than "Type".
+
+-- "# Type" stands for "Row". It is a special kind used to indicate that
+-- there will be an N-sized number of types that are known at compile time.
+data Record_ -- # Type -> Type
+
 -- Think of records as a unordered named TupleN
 type RecordType = { field1 :: String
+               -- , ...
                   , fieldN :: Int
                   , function :: String -> String }
 --    which desugars to
 type RecordType_Desugared = Record ( field1 :: String
+                                -- , ...
                                    , fieldN :: Int
                                    , function :: (String -> String)
-                                   )
+                                   ) -- "( fieldN :: TypeN )" is a Row
 
 getField :: RecordType -> String
 getField obj = obj.field1

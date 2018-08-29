@@ -10,16 +10,17 @@ which are described in the Module Syntax folder).
 See the full documenation here:
 https://pursuit.purescript.org/builtins/docs/Prim
 
-Purescript has a number of different 'kinds'; thus, it uses different
-syntax to refer to them. We'll start with the basic and go from there.
+This file will document all the types that have
+"kind Type" or "kind *" in Haskell. Don't be too concerned about understanding
+them for now.
 
 Note: To prevent conflicts between the real code and this compileable file,
 we're appending underscores to the types. Remove the underscore to get the
 real thing in Purescript.
 
 In other words
-Purescript:   data Number  :: Type
-This example: data Number_ -- Type
+Purescript:   data DataType  :: Kind
+This example: data DataType_ -- Kind
 -}
 data Number_ -- Type -- double-precision float number
 
@@ -98,17 +99,3 @@ function_no_syntax_sugar = (\x -> x + 4)
 
 function_with_syntax_sugar :: (Int -> Int)
 function_with_syntax_sugar = (\x -> x + 4)
-
--- Special "Kind" syntax for language features
-
--- "# Type" is a special kind used to indicate that there will be an
--- N-sized number of types that are known at compile time.
-data Record_ -- # Type -> Type
-
--- For example...
-type UnorderedNamedCollection = { field1 :: String, field2 :: (Int -> String) }
-
--- The Record kind will be examined and explained later.
-
--- Special kinds for type-level programming are not shown here.
--- They will explained in the Type-Level-Programming-Syntax folder
