@@ -52,7 +52,7 @@ instance falseBoolean :: IsBooleanKind False where
 -- We can reify a boolean by
 --   - defining a type class that constrains a type
 --       to only have kind "BooleanKind"
---   - declaring a single and only instance of that type class 
+--   - declaring a single and only instance of that type class
 --   - define a callback function that recives the corresponding
 --       type-level instance as its only argument
 --       (where we do type-level programming):
@@ -71,13 +71,14 @@ reifyBool true  function = function trueK
 reifyBool false function = function falseK
 
 {-
-One might ask, "Why not move the `forall b` part to the `forall returnType` part
-of the function's type signature, so that it reads...
+One might ask,
+    "Why not move the `forall b` part to the `forall returnType` part
+    of the function's type signature, so that it reads...
 
-  reifyBool :: forall b r. BooleanKindConstraint b =>
-               Boolean
-            -> (BooleanProxy b -> r)
-            -> r
+    reifyBool :: forall b r. BooleanKindConstraint b =>
+                 Boolean
+              -> (BooleanProxy b -> r)
+              -> r
 
 We cannot let `reifyBool` determine what `b` is because "function" is actually
 two different functions. The below functions are too simple to
