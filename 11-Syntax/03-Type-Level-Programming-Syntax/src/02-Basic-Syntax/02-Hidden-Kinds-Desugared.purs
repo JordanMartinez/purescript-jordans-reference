@@ -6,8 +6,8 @@ data MyType_Kind_Hidden aType
 
 class MyClass_Kind_Hidden aType
 
--- By using (aType :: Kind) syntax, we can show the desugared forms
--- that reveal the kind of `aType`
+-- By using (aType :: Kind) syntax, we can dessugar the syntax
+-- to reveal the kind of `aType`
 
 data MyType_Kind_Shown (aType :: Type)
 
