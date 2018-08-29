@@ -17,7 +17,7 @@ This folder accomplishes the following:
 | bower | Dependency Manager | -- | https://bower.io/ |
 | psc-package | Dependency Manager | -- | https://github.com/purescript/psc-package |
 | pulp | Build Tool | | Front-end to `purs`. Builds & publishes projects | https://github.com/purescript-contrib/pulp |
-| pscid | `pulp --watch build` on steroids | Seems to be a more recent version of `psc-pane` and uses `psa` | https://github.com/kRITZCREEK/pscid
+| pscid | `pulp --watch build` on steroids | Seems to be a more recent version of `psc-pane` (see below) and uses `psa` | https://github.com/kRITZCREEK/pscid
 | psa | Pretty, flexible error/warning frontend for `purs` | -- | https://github.com/natefaubion/purescript-psa
 
 The following seem to be deprecated or no longer used:
@@ -29,5 +29,3 @@ The following seem to be deprecated or no longer used:
 | Purify | -- | Deprecated in light of psc-package | -- |
 
 For this repo, we will be using `pulp` for our build tool and `psc-package` for our dependency manager.
-
-From here, one should read through the rest of this folder's Markdown files in numerical order.
