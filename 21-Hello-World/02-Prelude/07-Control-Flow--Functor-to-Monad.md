@@ -56,9 +56,7 @@ instance a2 :: Applicative Box where
 instance b :: Bind Box where
   bind (Box a) f = f a
 
--- no need to implement a Monad instance as
--- the compiler will infer that it is possible
--- since Bind and Applicative have been defined
+instance m :: Monad Box
 ```
 
 ## Monad laws re-examined
