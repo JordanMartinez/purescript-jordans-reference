@@ -81,6 +81,111 @@ f >=> (g >=> h) == (f >=> g) >=> h
 ```
 This was taken from [this slide in this YouTube video](https://youtu.be/EoJ9xnzG76M?t=7m9s)
 
+## How does the Computer Execute FP Programs?
+
+Or "What does sequential computation look like using Monads"
+
+Using this type and Bind instance...
+```purescript
+data Box a = Box a
+
+-- Remember:
+--
+--    function arg == arg # function
+--
+-- We're using this notation to keep the argument on the left side
+-- rather than on the right side where it normally goes because
+-- the function will have a long body that makes it harder to understand.
+
+instance b :: Bind Box where
+  bind :: forall a b. Box a -> (a -> Box b) -> Box b
+  bind (Box a) f = a # f
+```
+... we will translate this Javascript file...
+```javascript
+const four = 4
+const five = 1 + four
+const five_string = toString(five); // or whatever the function called
+print(five_string); // print the String to the console, which returns nothing
+```
+... into PureScript. To evaluate this, we will reduce the functions by replacing the left-hand side of the `=` sign (the function's call signature) with the right-hand side of the `=` sign (the function's implementation / body). In the following snippet of code, you will need to scroll to the right, so that the a previous reduction aligns with the next reduction:
+```purescript
+unsafePerform :: forall a. Box a
+unsafePerform (Box a) = a
+
+-- Compute what the final Box value is
+-- and then call `unsafePerform` on the final Box
+main :: Unit
+main = unsafePerform $
+  (Box 4) >>= (\four -> Box (1 + four) >>= (\five -> Box (show five) >>= (\five_string -> print five_string)))
+
+-- Step 1: De-infix the first '>>=' alias back to bind
+  bind (Box 4)  (\four -> Box (1 + four) >>= (\five -> Box (show five) >>= (\five_string -> print five_string)))
+
+-- Step 2: Look up Box's bind implementation...
+--   ...and replace the left-hand side with the right-hand side
+            4 # (\four -> Box (1 + four) >>= (\five -> Box (show five) >>= (\five_string -> print five_string)))
+
+            -- Step 3: Apply the arg to the function (i.e. replace "four" with 4)
+                (\4    -> Box (1 + 4   ) >>= (\five -> Box (show five) >>= (\five_string -> print five_string)))
+
+                -- Step 4: Reduce the function to its body
+                          Box (1 + 4   ) >>= (\five -> Box (show five) >>= (\five_string -> print five_string))
+
+                          -- Step 5: Reduce the argument in "Box (1 + 4)" to "Box 5"
+                          Box (5       ) >>= (\five -> Box (show five) >>= (\five_string -> print five_string))
+
+                          -- Step 6: Remove the parenthesis
+                          Box  5         >>= (\five -> Box (show five) >>= (\five_string -> print five_string))
+
+                          -- Step 7: Remove the extra whitespace and push right
+                                   Box 5 >>= (\five -> Box (show five) >>= (\five_string -> print five_string))
+
+                                   -- Step 8: Repeat Steps 1-7 for the next ">>="
+                                   bind (Box 5)  (\five -> Box (show five) >>= (\five_string -> print five_string))
+
+                                             5 # (\five -> Box (show five) >>= (\five_string -> print five_string))
+
+                                                 (\5    -> Box (show 5   ) >>= (\five_string -> print five_string))
+
+                                                           Box (show 5   ) >>= (\five_string -> print five_string)
+
+                                                           Box ("5"      ) >>= (\five_string -> print five_string)
+
+                                                           Box  "5"        >>= (\five_string -> print five_string)
+
+                                                                   Box "5" >>= (\five_string -> print five_string)
+
+                                                                   -- Step 8: Repeat Steps 1-6 for the next ">>="
+                                                                   bind (Box "5")  (\five_string -> print five_string)
+
+                                                                             "5" # (\five_string -> print five_string)
+
+                                                                                   (\"5"         -> print "5")
+
+                                                                                                    print "5"
+
+                                                                  -- Step 9: Look up `print`'s definition
+                                                                  --
+                                                                  --   print :: forall a. a -> Box Unit
+                                                                  --   print a =
+                                                                  --      -- Assume that 'a' is printed to the console
+                                                                  --      Box unit
+                                                                  --
+                                                                  -- ... and replace the LHS with RHS
+
+                                                                                                     Box unit
+
+                                                                  -- Step 10a: Shift everything to the left again
+-- 10b) ... and re-expose the 'main' function:
+main :: Unit
+main = unsafePerform (Box unit)
+
+-- Step 11: call `unsafePerform`
+main :: Unit
+main = unit
+```
+
 ## Do notation
 
 At this point, you should look back at the Syntax folder to read through the file on `do notation`. You should also become familiar with the `ado notation` (Applicative Do).
@@ -103,8 +208,8 @@ half x | x % 2 == 0 = x / 2
 (Just 128) >>= (\original -> half original >>= half >>= half ) == Just 16
 -- which can be better understood as
 (Just 128) >>= aToMB == Just 16
--- since the latter >>= calls are nested inside of the first one, as in
--- "Only continue if the previous `bind` call was successful."
+-- since the latter ">>=" calls are nested inside of the first one, as in
+-- "Only continue if the previous `bind`/`>>=` call was successful."
 
 -- Similarly
 Nothing    >>= half >>= half >>= half == Nothing
@@ -113,8 +218,11 @@ Nothing    >>= (\value -> half value >>= half >>= half) == Nothing
 -- which can be better understood as
 Nothing    >>= aToMB == Nothing
 -- and, looking at the instance of Bind above, reduces to Nothing
+--
+-- bind instance has this definition:
+-- bind Nothing aToMB = Nothing
 
--- Thus
+-- Thus, given this function...
 half3Times :: Maybe Int -> Maybe Int
 half3Times maybeI = do
   original <- maybeI
@@ -122,5 +230,6 @@ half3Times maybeI = do
   second <- half first      --  | a -> m b
   third <- half second      --  |
   pure third                -- ===
--- doesn't actually run when passed Nothing as its argument
+-- ... passing in `Nothing` doesn't compute anything
+half3Times Nothing == Nothing
 ```
