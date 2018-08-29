@@ -2,8 +2,6 @@ module Keyword.WhereAndLetIn where
 
 import Prelude
 
-import Syntax.TypeLevel.Functions.SingleArgSyntax (function)
-
 data Box a = Box a
 {-
 The 'where' keyword enables us to break large functions
