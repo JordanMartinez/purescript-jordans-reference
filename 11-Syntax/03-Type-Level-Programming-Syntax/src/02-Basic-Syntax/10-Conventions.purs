@@ -29,7 +29,6 @@ class IsKindName (a :: KindName) where
   -- and the reflect function is usually "reflect[KindName]"
   reflectKindName :: KProxy a -> Value_Level_Type
 
--- NANS
 instance reflectInstance :: IsKindName Instance where
   reflectKindName _ = "value-level instance"
 
