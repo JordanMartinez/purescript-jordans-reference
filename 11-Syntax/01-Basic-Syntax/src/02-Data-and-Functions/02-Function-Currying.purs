@@ -37,6 +37,8 @@ two_arg_function = function (ParameterType1) -> {
 }
 -}
 
+-- necessary to compile
+
 type ParameterType = String
 type ParameterType1 = String
 type ParameterType2 = String
