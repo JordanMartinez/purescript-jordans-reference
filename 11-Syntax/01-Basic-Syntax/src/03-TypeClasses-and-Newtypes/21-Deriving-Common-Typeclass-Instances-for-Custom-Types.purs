@@ -65,11 +65,13 @@ First, because Int and String
   both have an Eq and Ord instance. If one of these did not,
   then the compiler would not know how to create them.
 
-Second, because we can only derive typeclasses from a few
+Second, because we can only derive typeclasses for a few
   type classes:
   - Data.Eq (from `purescript-prelude`)
   - Data.Ord (from `purescript-prelude`)
   - Data.Functor (from `purescript-prelude`)
+
+(These type classes can also be derived but they use a different syntax):
   - Data.Newtype (from `purescript-newtype`)
   - Data.Generic.Rep (from `purescript-generics-rep`)
 -}
