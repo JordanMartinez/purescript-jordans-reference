@@ -22,7 +22,11 @@ One can refer to each with a "crude name" that summarizes them:
 
 Those names, plus these flowcharts, will help one get an overview of how they work:
 
+### Bower Flowchart
+
 ![Bower-flowchart](./bower-flowchart.svg)
+
+### Psc-Package Flowchart 
 
 ![psc-package-flowchart](./psc-package-flowchart.svg)
 
