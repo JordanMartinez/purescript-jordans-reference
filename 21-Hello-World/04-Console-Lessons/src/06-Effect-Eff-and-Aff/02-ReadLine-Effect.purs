@@ -1,4 +1,4 @@
-module ConsoleLessons.ReadLine.EffectMonad where
+module ConsoleLessons.ReadLine.Effect where
 
 import Prelude
 import Effect (Effect)
@@ -12,19 +12,16 @@ Look through the code and then run it to see what happens.
 -}
 
 -- new imports
-import Node.ReadLine ( Interface, noCompletion
-                     , createConsoleInterface
+import Node.ReadLine ( Interface
+                     , createConsoleInterface, noCompletion
                      , question, close)
-
-type QuestionPrompt = String
-type UseAnswer = (String -> Effect Unit)
 
 -- | This function moves `question`'s last arg to the front to make it
 -- | easier to read. Otherwise, `interface` appears awkwardly at the end:
 -- |    `question message (\answer ->
 -- |      -- do something with answer
 -- |      ) interface`
-question' :: Interface -> QuestionPrompt -> UseAnswer -> Effect Unit
+question' :: Interface -> String -> UseAnswer -> Effect Unit
 question' iface message useAnswer = question message useAnswer iface
 
 main :: Effect Unit
