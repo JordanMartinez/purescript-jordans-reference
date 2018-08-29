@@ -44,12 +44,12 @@ Besides this repo, we have a few choices in terms of understanding functional pr
 
 ### Purescript
 
-- [Purescript By Example](https://leanpub.com/purescript/read#) - Outdated since it covers Purescript `0.11.7` and not `0.12.0`. Be wary of any references to these [deprecated packages](https://github.com/purescript-deprecated) and read through the ReadMe in `Console-Lessons/Effect-Eff-and-Aff` to understand how to translate the no-longer-used `Eff` type to `Effect` type.
+- [Purescript By Example](https://leanpub.com/purescript/read#) - Outdated since it covers Purescript `0.11.7` and not `0.12.0`, but still a helpful resource. Be wary of any references to these [deprecated packages](https://github.com/purescript-deprecated) and read through the ReadMe in `Console-Lessons/Effect-Eff-and-Aff` to understand how to translate the no-longer-used `Eff` type to `Effect` type.
 - [Purescript Resources](https://purescript-resources.readthedocs.io/en/latest/index.html) - Justin Woo's Read the Docs (RTD) work
 
 ### Haskell
 
-Since Purescript is heavily inspired by and very similar to Haskell, one can learn a lot about Purescript by learning from these Haskell learning resources. Note: the Haskell names and type classes do not always correspond to the Purescript versions. 
+Since Purescript is heavily inspired by and very similar to Haskell, one can learn a lot about Purescript by learning from these Haskell learning resources. Note: the Haskell names and type classes do not always correspond to the Purescript versions.
 
 | Action | Pros | Cons |
 | --- | --- | --- |
