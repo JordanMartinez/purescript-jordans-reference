@@ -40,12 +40,15 @@ forAllUnicodeStyle a = a
 -- In such cases, the parenthesis determine 'who' gets to determine what
 -- a given type is. For example, who gets to determine what type 'b' is
 -- in the following functions?
-genericFunction3 :: (forall b. b -> String) -> String
-genericFunction3 functionArg = "body"
+whoDeterminesB1 :: (forall b. b -> String) -> String
+whoDeterminesB1 functionArg = "body"
 
-genericFunction4 :: forall b. (b -> String) -> String
-genericFunction4 functionArg = "body"
+whoDeterminesB2 :: forall b. (b -> String) -> String
+whoDeterminesB2 functionArg = "body"
 
--- In genericFunction3, functionArg gets to determine what the type of 'b' is.
--- However, genericFunction4 gets to determine what the type of 'b' type
---   is in `functionArg`.
+-- Here's the answers:
+b1_answer__Not_Me :: (forall b. b -> String) -> String
+b1_answer__Not_Me i_do = "body"
+
+b2_answer__I_Do :: forall b. (b -> String) -> String
+b2_answer__I_Do not_me = "body"
