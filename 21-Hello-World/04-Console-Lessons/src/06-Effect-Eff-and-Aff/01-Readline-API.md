@@ -6,9 +6,6 @@ Node's ReadLine API docs are [here](https://nodejs.org/api/readline.html). Howev
 foreign import data Interface :: Type
 
 -- | A function which performs tab completion.
--- |
--- | This function takes the partial command as input, and returns a collection of
--- | completions, as well as the matched portion of the input string.
 type Completer
   = String
   -> Effect
