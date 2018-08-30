@@ -53,9 +53,9 @@ true
 
 ### Composition
 
-(For now, understand that `f <<< g` means `(\a -> f (g a))`)
+(Remember, `g <<< f` means `(\a -> g (f a))`)
 
-Definition: `map (f <<< g) = (map f) <<< (map g)`
+Definition: `map (g <<< f) = (map g) <<< (map f)`
 
 ```purescript
 -- # Reduce left side of the law #
