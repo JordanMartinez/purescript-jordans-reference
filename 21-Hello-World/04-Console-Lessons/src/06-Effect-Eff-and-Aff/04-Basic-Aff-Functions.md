@@ -67,7 +67,7 @@ affInstance = makeAff go
 ```
 Since the implementation will need to return an `Effect Canceler`, we can do one of two things:
 1. Lift a canceller into `Effect` via `pure`. This is pointless because then our `Aff` wouldn't do anything.
-2. Create an `Effect a` and use `voidLeft` (`$>`) with `nonCanceler`
+2. Create an `Effect a` and use Functor's dervied function, `voidLeft` (`$>`), with `nonCanceler`
 
 ```purescript
 -- for a refresher on voidLeft
