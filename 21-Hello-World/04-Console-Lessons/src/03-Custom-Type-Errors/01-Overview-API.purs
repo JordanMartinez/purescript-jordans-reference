@@ -3,16 +3,17 @@ module ConsoleLessons.CustomTypeErrors.OverviewAPI where
 {-
 # Prim Special Submodules
 
-Every Purescript project imports the
-[Prim](https://pursuit.purescript.org/builtins/docs/Prim)
-package by default. This module defines `kind Type` and the types
+Every Purescript project imports the Prim module by default:
+https://pursuit.purescript.org/builtins/docs/Prim
+
+This module defines `kind Type` and the types
 for `Int`, `Array`, and `Function`.
 
-In addition, the Prim module has sub modules that are not imported by default.
-Within these modules, Prim defines a few more things for defining your
-own custom type warnings/errors.
+In addition, the Prim module has sub module called "TypeError"
+that is not imported by default. Within it, Prim defines a few
+things for writing your own custom type warnings/errors.
 
-Similar to what we did inthe Syntax folder, we'll show the
+Similar to what we did in the Syntax folder, we'll show the
 value-level definitions of these type-level types, instances, and functions
 -}
 
