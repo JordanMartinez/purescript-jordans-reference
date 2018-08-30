@@ -4,7 +4,7 @@ Spec is useful for unit testing. Fortunately, the author already has a very clea
 
 The Examples folder has two kinds of tests:
 - Self-Contained - shows most of the functions in a single file. Its various instances show what the different reporters look like when a test gets run.
-- Modulated - shows how one might create a single library-wide spec by combinding other specs. See the `Runner` file for the main entry point.
+- Modulated - shows how one might create a single library-wide spec by combining other specs. See the `Runner` file for the main entry point.
 
 # Test Instructions
 
