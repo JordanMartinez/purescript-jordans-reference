@@ -47,9 +47,14 @@ TODO: prove the above law using `Box` (a lot of work, so ignoring for now...)
 - Do two computations, but only return...
     - the first: `applyFirst` / `<*`
     - the second: `applySecond` / `*>`
+- `liftN` is explained below:
+
+### LiftN Notation
 
 Let's rename that `Functor`'s `map` function to `lift1`:
 ```purescript
+{-
+map   (\oneArg -> doStuffWith oneArg) (Box 4) -}
 lift1 (\oneArg -> doStuffWith oneArg) (Box 4)
 ```
 This function can only take one arg. What if want to take two args? We should call it `lift2`:
