@@ -2,7 +2,7 @@ module TimeoutAndInterval where
 
 import Prelude
 import Effect (Effect)
-import Effect.Console (log, logShow)
+import Effect.Console (log)
 
 -- new import
 import Effect.Timer as T
