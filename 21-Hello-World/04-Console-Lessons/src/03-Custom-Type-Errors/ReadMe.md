@@ -2,7 +2,7 @@
 
 ## Pre-reqs for This Folder
 
-To understand this folder's contents, you should read and be quite familiar with Type-Level Syntax. If you haven't already done so, go read through that folder's contents.
+To understand this folder's contents, you should read and be somewhat familiar with Type-Level Syntax. If you haven't already done so, go read through that folder's contents.
 
 ## Scope of This Folder
 
