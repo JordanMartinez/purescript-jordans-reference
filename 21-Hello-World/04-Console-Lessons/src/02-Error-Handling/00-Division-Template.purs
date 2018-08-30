@@ -40,16 +40,16 @@ defaultValue :: Int
 defaultValue = 0
 
 
-askUserForNumerator :: Interface -> Aff Unit
+askUserForNumerator :: Interface -> Aff Int
 askUserForNumerator interface = askUserForInt "Numerator: " interface
 
-askUserForDenominator :: Interface -> Aff Unit
+askUserForDenominator :: Interface -> Aff Int
 askUserForDenominator interface = askUserForInt "Denominator: " interface
 
-askUserForInt :: String -> Interface -> Aff Unit
+askUserForInt :: String -> Interface -> Aff Int
 askUserForInt message interface = do
-  log $ "Enter an integer between 0 and 9... (invalid entry will be \
-        \turned into '" <> show defaultValue <> "')\n"
+  log $ ("Enter an integer between 0 and 9... (invalid entry will be \
+        \turned into '" <> show defaultValue <> "')\n")
   i <- mapToValidInt <$> question message interface
   log $ "Value received: " <> show i <> "\n"
 
