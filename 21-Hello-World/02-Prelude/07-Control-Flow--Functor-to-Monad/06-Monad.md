@@ -38,18 +38,20 @@ instance monad :: Monad Box
 
 Taken from [this slide in this YouTube video](https://youtu.be/EoJ9xnzG76M?t=7m9s), here's an "unofficial" but clearer way to understand the laws for Monad by comparing them to a Function:
 ```purescript
--- given a function whose type signature is...
+-- Recall: `identity a == (\x -> x) a`
+
+-- Given a function whose type signature is...
 (>=>) :: Monad m => (a -> m b) -> (b -> m c) -> a -> m c
 (aToMB >=> bToMC) a = (aToMB a) >>= (\b -> bToMC b)
 
--- Monad could be defined by these laws:
+-- ... Monad could be defined by these laws:
 -- 1a. Function's identity law
-(function    >>> (\x -> x)) a == function a
- aToMB       >=> pure         == aToMB
+(function >>> identity) a == function a
+ aToMB    >=> pure        == aToMB
 
 -- 1b. its inverse
-((\a -> a)   >>> f) a         == f a
- pure        >=> f            == f
+(identity >>> f)        a == f a
+ pure     >=> f           == f
 
 -- 2. Function Composition
 f >>> (g >>> h) == (f >>> g) >>> h
@@ -85,7 +87,7 @@ Definition: `apply = ap` (where `ap` is a derived function)
 
 ## Derived Functions
 
-- Define an instance of `Applicative`, `Bind`, and `Monad`...
+- Define an instance of `Applicative`, `Bind`, and `Monad` and...
     - you get a `Functor` implementation for free!: `liftM1`
     - you get an `Apply` implementation for free!: `ap`
 - Do a computation...
