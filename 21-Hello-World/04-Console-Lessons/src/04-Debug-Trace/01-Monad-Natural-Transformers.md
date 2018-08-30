@@ -157,6 +157,6 @@ Another way way to get around this is use to a package that can be easily abused
 
 The purpose of this package is for debugging and possibly prototyping as you write FP code. We'll be using it here to help us learn things. If any of its functions ever appear in production code, slap yourself, for you might as well write OO code instead.
 
-This package's functions are also the reason why we talked about Custom Type Errors, as the comiler will notify you when you use them, so that you can remove all such instances before you push out production code.
+This package's functions are also the reason why we talked about Custom Type Errors, as the compiler will notify you when you use them, so that you can remove all such instances before you push out production code.
 
 This solution (covered next) is called [Debug.Trace](https://pursuit.purescript.org/packages/purescript-debug/4.0.0/docs/Debug.Trace)
