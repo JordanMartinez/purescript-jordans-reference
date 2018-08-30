@@ -6,9 +6,6 @@ In this folder, we'll continue teaching some FP concepts, such as:
 - Error Handling
 - Custom Type Warnings/Failures
 - State
-- Testing
-- Benchmarking
-- Application Structuring
 
 In the process, we'll also explain some basic data types along the way:
   - `Maybe a`
