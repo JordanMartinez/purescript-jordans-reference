@@ -104,7 +104,7 @@ effectBox raRF =
   question message (\userInput -> raRF (Right userInput)) interface
                               -- (raRF <<< Right) -- less verbose; same thing
 ```
-Putting it all together, we get:
+Putting it all together and excluding the required arguments, we get:
 ```purescript
 affInstance :: Aff String
 affInstance = makeAff go
@@ -114,4 +114,12 @@ affInstance = makeAff go
 
   effectBox :: (Either Error a -> Effect Unit) -> Effect Unit
   effectBox raRF = question message (raRF <<< Right) interface
+```
+Cleaning it up and including the arguments, we get:
+```purescript
+affQuestion :: String -> Interface -> Aff String
+affQuestion mesage interface = makeAff go
+  where
+  go :: (Either Error a -> Effect Unit) -> Effect Canceler
+  go raRF = question message (raRF <<< Right) interface
 ```
