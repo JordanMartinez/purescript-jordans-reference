@@ -21,11 +21,13 @@ Write: "Getting Started/Install Guide.md"
 
 For example:
 <hr>
+```
 Section:
 Issue Type:
 Folder/File(s):
   - Getting Started/Install Guide.md
   - Getting Started/The REPL.md
+```
 
 ## Body
 
