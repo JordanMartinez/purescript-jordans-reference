@@ -14,6 +14,6 @@ The `Aff` monad was introduced and in use before this decision was made. Thus,  
 
 If one is curious about `Eff`, read through [the related section](https://leanpub.com/purescript/read#leanpub-auto-the-eff-monad-1) in the "Purescript by Example" book as it won't be covered here.
 
-Since `Effect` has already been explained. our focus will be on `Aff` and its relation and usage with `Effect`. In this folder, we'll peel back the covers of `Node.ReadLine.CleanerInterface` and cover more of `Aff`.
+Since `Effect` has already been explained, our focus will be on `Aff` and its relation and usage with `Effect`. In this folder, we'll peel back the covers of `Node.ReadLine.CleanerInterface` and cover more of `Aff`.
 
 However, `Aff` will not be covered in its full complexity.
