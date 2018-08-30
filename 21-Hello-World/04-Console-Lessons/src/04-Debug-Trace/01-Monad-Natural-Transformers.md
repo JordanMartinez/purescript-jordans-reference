@@ -153,7 +153,7 @@ bindAttempt =  doBind (Box1 4) (\four -> doBind (liftSourceMonad (Box2 6)) (\six
 
 ## The Developer-Code Solution
 
-Another way way to get around this is to a package that can be easily abused by new programmers.
+Another way way to get around this is use to a package that can be easily abused by new programmers.
 
 The purpose of this package is for debugging and possibly prototyping as you write FP code. We'll be using it here to help us learn things. If any of its functions ever appear in production code, slap yourself, for you might as well write OO code instead.
 
