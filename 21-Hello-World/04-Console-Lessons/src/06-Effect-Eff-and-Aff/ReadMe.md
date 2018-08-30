@@ -8,7 +8,7 @@ In short, the decision was made to drop `Eff`'s "extensible effects". Presumably
 
 (You can read more about the decision making process [here](https://purescript-resources.readthedocs.io/en/latest/eff-to-effect.html).)
 
-One can use either `Effect` or `Eff` for their native effect monad. The `Aff` monad was introduced and in use before this decision was made. Thus,  history explains the naming behind `Aff`: if `Eff` was for synchronous **eff**ects, then `Aff` is for **a**sychronous e**ff**ects.
+The `Aff` monad was introduced and in use before this decision was made. Thus,  history explains the naming behind `Aff`: if `Eff` was for synchronous **eff**ects, then `Aff` is for **a**sychronous e**ff**ects.
 
 ## Scope of This Folder
 
