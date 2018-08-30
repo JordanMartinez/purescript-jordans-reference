@@ -1,5 +1,10 @@
 # Ecosystem
 
+This folder is still a work-in-progress!
+
+See [the related issues](https://github.com/JordanMartinez/purescript-jordans-reference/issues?q=is%3Aissue+is%3Aopen+label%3AEcosystem) regarding this folder for a more up-to-date understanding.
+
+
 This folder will do 3 things:
 - Document 'library stacks': libraries that are often used together to solve some problem.
 - Organize Purescript libraries by tag (e.g. Bindings, Typeclasses, UI, data types, etc.)
