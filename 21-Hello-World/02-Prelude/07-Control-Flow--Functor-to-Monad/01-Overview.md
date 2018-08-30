@@ -1,4 +1,4 @@
-# Control Flow
+# Overview
 
 There are type classes that control the flow of the program (e.g. whether the program should do X and then Y or should do X and Y at the same time).
 
@@ -216,6 +216,7 @@ half x | x % 2 == 0 = Just (x / 2)
 (Just 128) >>= aToMB == Just 16
 -- since the latter ">>=" calls are nested inside of the first one, as in
 -- "Only continue if the previous `bind`/`>>=` call was successful."
+
 
 -- Similarly
 Nothing    >>= half >>= half >>= half == Nothing
