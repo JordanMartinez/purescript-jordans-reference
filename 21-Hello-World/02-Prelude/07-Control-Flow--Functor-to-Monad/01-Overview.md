@@ -31,13 +31,15 @@ instance Functor List where
 
 ## Functor, Apply, Applicative, Bind, Monad
 
+These will be covered at a slower and clearer pace in the upcoming files. This is just an overview of them.
+
 | Typeclass | "Plain English" | Function | Infix | Laws | Usage
 | -- | -- | -- | -- | -- | -- |
-| [Functor](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Functor) | Mappable | `map :: forall a b. (a -> b) -> f a -> f b` | `<$>` <br> (Left 4) | <ul><li>identity: `map (\x -> x) fa == fa`</li><li>composition: `map (f <<< g) = map f <<< map g`</li></ul> | Given a box-like type, `f`, with a value(s) of some type, `a`, use the provided function to change the `a` to `b` without changing the box-like type itself. |
+| [Functor](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Functor) | Mappable | `map :: forall a b. (a -> b) -> f a -> f b` | `<$>` <br> (Left 4) | <ul><li>identity: `map (\x -> x) fa == fa`</li><li>composition: `map (f <<< g) = map f <<< map g`</li></ul> | Change a value, `a`, that's currently stored in some box-like type, `f`, using a function, `(a -> b)` |
 | [Apply](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Apply) | Boxed Mappable | `apply :: forall a b. f (a -> b) -> f a -> f b` | `<*>` <br> (Left 4) | <ul><li>Associative composition: `(<<<) <$> f <*> g <*> h == f <*> (g <*> h)`</li></ul> | Same as `Functor` except the function is now inside of the same box-like type. |
 | [Applicative](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Applicative) | Liftable <hr> Parallel Computation | `pure :: forall a. a -> f a` |  | <ul><li>identity: `(pure (\x -> x) <*> v == v)`</li><li>composition: `pure (<<<) <*> f <*> g <*> h == f <*> (g <*> h)`</li><li>Homomorphism: `(pure f) <*> (pure x) == pure (f x)`</li><li>interchange: `u <*> (pure y) == (pure (_ $ y)) <*> u`</li></ul> | Put a value into a box <hr> Run code in parallel |
-| [Bind](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Bind) | Chainable | `bind :: forall m a b. m a -> (a -> m b) -> m b` | `>>=` <br> (Left 1)| Associativity: `(x >>= f) >>= g == x >>= (\x' -> f x' >>= g)` | Given an instance of a box-like type, `m`, that contains a value, `a`, extract the `a` from `m`, and create a new `m` instance that stores a new value, `b`. <br> Take `f a` and compute it via `bind`/`>>=` to produce a value, `a`. Then, use `a` to describe (but not run) a new computation, `m b`. When `m b` is computed (via a later `bind`/`>>=`), it will return `b`. |
-| [Monad](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Monad) | Sequential Computation | | | | The data structure used to run FP programs by executing code line-by-line, function-by-function, etc. |
+| [Bind](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Bind) | Sequential Computation | `bind :: forall m a b. m a -> (a -> m b) -> m b` | `>>=` <br> (Left 1)| Associativity: `(x >>= f) >>= g == x >>= (\x' -> f x' >>= g)` | Given an instance of a box-like type, `m`, that contains a value, `a`, extract the `a` from `m`, and create a new `m` instance that stores a new value, `b`. <br> Take `f a` and compute it via `bind`/`>>=` to produce a value, `a`. Then, use `a` to describe (but not run) a new computation, `m b`. When `m b` is computed (via a later `bind`/`>>=`), it will return `b`. |
+| [Monad](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Monad) | FP Program | | | <ul><li>Left Identity: `pure x >>= f = f x`</li><li>Right Identity: `x >>= pure = x`</li><li>Applicative Superclass: `apply = ap`</li></ul> | The data structure used to run FP programs by executing code line-by-line, function-by-function, etc. |
 
 ## Simplest Monad Implementation
 
@@ -45,202 +47,24 @@ instance Functor List where
 data Box a = Box a
 
 instance f :: Functor Box where
-  map f (Box a) = Box (f a)
+  map        f  (Box a) = Box (f a)
 
 instance a1 :: Apply Box where
   apply (Box f) (Box a) = Box (f a)
 
+instance b :: Bind Box where
+  bind  (Box a) f       = f a
+
 instance a2 :: Applicative Box where
   pure a = Box a
-
-instance b :: Bind Box where
-  bind (Box a) f = f a
 
 instance m :: Monad Box
 ```
 
-## Monad laws re-examined
+## Function Reduction
 
-Another way to think about the laws for Monad are:
+In these files, we will "evaluate" functions by replacing the left-hand side (LHS) of the `=` sign (the function's call signature) with the right-hand side (RHS) of the `=` sign (the function's implementation / body). In other words...
 ```purescript
--- given a function whose type signature is...
-(>=>) :: Monad m => (a -> m b) -> (b -> m c) -> a -> m c
-(aToMB >=> bToMC) a = aToMB a >>= (\b -> bToMC b)
-
--- and Monad could be defined by these laws:
-(function >>> id) a == function a -- Function's identity law
- aToMB    >=> pure  == aToMB
-
--- and its inverse
-(id   >>> f) a == f a
- pure >=> f    == f
-
--- and function composition
-f >>> (g >>> h) == (f >>> g) >>> h -}
-f >=> (g >=> h) == (f >=> g) >=> h
+someFunction arg1 arg2 arg3 = bodyOfFunction
+| call signature (LHS)    | = | body (RHS) |
 ```
-This was taken from [this slide in this YouTube video](https://youtu.be/EoJ9xnzG76M?t=7m9s)
-
-## How does the Computer Execute FP Programs?
-
-Or "What does sequential computation look like using Monads"
-
-Using this type and Bind instance...
-```purescript
-data Box a = Box a
-
--- Remember:
---
---    function arg == arg # function
---
--- We're using this notation to keep the argument on the left side
--- rather than on the right side where it normally goes because
--- the function will have a long body that makes it harder to understand.
-
-instance b :: Bind Box where
-  bind :: forall a b. Box a -> (a -> Box b) -> Box b
-  bind (Box a) f = a # f
-```
-... we will translate this Javascript file...
-```javascript
-const four = 4
-const five = 1 + four
-const five_string = toString(five); // or whatever the function called
-print(five_string); // print the String to the console, which returns nothing
-```
-... into PureScript. To evaluate this, we will reduce the functions by replacing the left-hand side (LHS) of the `=` sign (the function's call signature) with the right-hand side (RHS) of the `=` sign (the function's implementation / body). In the following snippet of code, you will need to scroll to the right, so that the a previous reduction aligns with the next reduction. **Note: Read through this and practice writing it out multiple times until you get sick of it as this is at the heart of FP programming! Failure to understand this == Failure to write FP code.** Here's the code:
-```purescript
-unsafePerformEffect :: forall a. Box a -> a
-unsafePerformEffect (Box a) = a
-
--- Compute what the final Box value is in `main`
--- and then call `unsafePerformEffect` on the final Box
-runProgram :: Unit
-runProgram = unsafePerformEffect main
-
-main :: Box Unit
-main =
-  (Box 4) >>= (\four -> Box (1 + four) >>= (\five -> Box (show five) >>= (\five_string -> print five_string)))
-
--- Step 1: De-infix the first '>>=' alias back to bind
-  bind (Box 4)  (\four -> Box (1 + four) >>= (\five -> Box (show five) >>= (\five_string -> print five_string)))
-
--- Step 2: Look up Box's bind implementation...
---   ...and replace the left-hand side with the right-hand side
-            4 # (\four -> Box (1 + four) >>= (\five -> Box (show five) >>= (\five_string -> print five_string)))
-
-            -- Step 3: Apply the arg to the function (i.e. replace "four" with 4)
-                (\4    -> Box (1 + 4   ) >>= (\five -> Box (show five) >>= (\five_string -> print five_string)))
-
-                -- Step 4: Reduce the function to its body
-                          Box (1 + 4   ) >>= (\five -> Box (show five) >>= (\five_string -> print five_string))
-
-                          -- Step 5: Reduce the argument in "Box (1 + 4)" to "Box 5"
-                          Box (5       ) >>= (\five -> Box (show five) >>= (\five_string -> print five_string))
-
-                          -- Step 6: Remove the parenthesis
-                          Box  5         >>= (\five -> Box (show five) >>= (\five_string -> print five_string))
-
-                          -- Step 7: Remove the extra whitespace and push right
-                                   Box 5 >>= (\five -> Box (show five) >>= (\five_string -> print five_string))
-
-                                   -- Step 8: Repeat Steps 1-7 for the next ">>="
-                                   bind (Box 5)  (\five -> Box (show five) >>= (\five_string -> print five_string))
-
-                                             5 # (\five -> Box (show five) >>= (\five_string -> print five_string))
-
-                                                 (\5    -> Box (show 5   ) >>= (\five_string -> print five_string))
-
-                                                           Box (show 5   ) >>= (\five_string -> print five_string)
-
-                                                           Box ("5"      ) >>= (\five_string -> print five_string)
-
-                                                           Box  "5"        >>= (\five_string -> print five_string)
-
-                                                                   Box "5" >>= (\five_string -> print five_string)
-
-                                                                   -- Step 8: Repeat Steps 1-6 for the next ">>="
-                                                                   bind (Box "5")  (\five_string -> print five_string)
-
-                                                                             "5" # (\five_string -> print five_string)
-
-                                                                                   (\"5"         -> print "5")
-
-                                                                                                    print "5"
-
-                                                                  -- Step 9: Look up `print`'s definition
-                                                                  --
-                                                                  --   print :: forall a. a -> Box Unit
-                                                                  --   print a =
-                                                                  --      -- Assume that 'a' is printed to the console
-                                                                  --      Box unit
-                                                                  --
-                                                                  -- ... and replace the LHS with RHS
-
-                                                                                                     Box unit
-
-                                                                  -- Step 10a: Shift everything to the left again
--- 10b) ... and re-expose the 'main' function:
-main :: Unit
-main = Box unit -- after all the earlier computations...
-
--- Step 12: call `unsafePerformEffect` to get the final Box's value
-runProgram :: Unit
-runProgram = unsafePerformEffect (Box unit)
--- becomes
-runProgram :: Unit
-runProgram = unit
-```
-
-## Parenthesis in Nested Bind Expressions
-
-Be aware of where the parenthesis appear when using multiple bind expressions (e.g. `m a >>= aToMB >>= bToMC`). Below provides a summary of the section called "Do notation" in [this article](https://sras.me/haskell/miscellaneous-enlightenments.html):
-```purescript
-data Maybe a
-  = Nothing
-  | Just a
-
-instance b :: Bind Maybe where
-  bind (Just a) f = f a
-  bind Nothing f = Nothing
-
-half :: Int -> Maybe Int
-half x | x % 2 == 0 = Just (x / 2)
-       | otherwise = Nothing
-
--- This statement
-(Just 128) >>= half >>= half >>= half == Just 16
--- desugars first to
-(Just 128) >>= (\original -> half original >>= half >>= half ) == Just 16
--- which can be better understood as
-(Just 128) >>= aToMB == Just 16
--- since the latter ">>=" calls are nested inside of the first one, as in
--- "Only continue if the previous `bind`/`>>=` call was successful."
-
-
--- Similarly
-Nothing    >>= half >>= half >>= half == Nothing
--- desguars first to
-Nothing    >>= (\value -> half value >>= half >>= half) == Nothing
--- which can be better understood as
-Nothing    >>= aToMB == Nothing
--- and, looking at the instance of Bind above, reduces to Nothing
---
--- bind instance has this definition:
--- bind Nothing aToMB = Nothing
-
--- Thus, given this function...
-half3Times :: Maybe Int -> Maybe Int
-half3Times maybeI = do
-  original <- maybeI
-  first <- half original    -- ===
-  second <- half first      --  | a -> m b
-  third <- half second      --  |
-  pure third                -- ===
--- ... passing in `Nothing` doesn't compute anything
-half3Times Nothing == Nothing
-```
-
-## Do Notation
-
-At this point, you should look back at the `Syntax/Prelude-Syntax` folder to read through the file on `Do Notation`. You should also become familiar with the `Ado Notation` (Applicative Do).
