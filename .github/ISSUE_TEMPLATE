@@ -1,0 +1,19 @@
+## Context
+
+1. Indicate the affected Folder
+
+Getting Started
+Build Tools
+Syntax
+Design Pattern
+
+2. Indicate what kind of issue this is
+
+Bug = a problem that needs to be corrected
+Enhancement = a new idea that can be documented/filed
+ToResearch = a link you want me to investigate
+
+3. The file you are referring to using non-numerical-ordering names
+
+Instead of: "00-Getting-Started/01-Install-Guide.md"
+Write: "Getting Started/Install Guide.md"

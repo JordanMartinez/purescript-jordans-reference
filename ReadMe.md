@@ -27,6 +27,8 @@ Feel free to open a new issue for:
 - Corrections for any mistakes I've made
 - Improvements to anything I've written thus far
 
+**I have written an ISSUE_TEMPLATE file. When you open a new issue, there will be content there that tells you how to write a good, clear issue. Please, follow those instructions!**
+
 ### Learning Purescript Using This Project
 
 - Git clone this repo
