@@ -5,7 +5,6 @@ import Effect (Effect)
 import Node.ReadLine.CleanerInterface (createUseCloseInterface, log)
 import ConsoleLessons.ErrorHandling.DivisionTemplate (showResult, askUserForNumerator, askUserForDenominator)
 
-import Debug.Trace (traceM)
 {-
 A total function is a function that ALWAYS outputs a value
 for every input it can receive
