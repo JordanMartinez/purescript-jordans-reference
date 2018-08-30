@@ -86,6 +86,23 @@ This definition sufficed when we were learning only value-level programming. In 
 We can now modify the definition to account for this new understanding:
 > Kinds = "How many more type-level types do I need defined before I have a 'concrete' type-level type? Also, `kind Type` is a type-level type that indicates a value-level type.
 
+### Summary of Inferred Kinds
+
+Returning to a table we showed previously, we'll add the header that we removed (all caps) when we first displayed the table and include `Record`/`Row`.
+
+| TYPE-LEVEL EXPRESSION | Inferred kind |
+|-|-:|
+|`Unit`|`Type`|
+|`Array Boolean`|`Type`|
+|`Array`|`Type -> Type`|
+|`Either Int String` | `Type`|
+|`Either Int` | `Type -> Type`|
+|`Either` | `Type -> Type -> Type`|
+|`Record (foo :: Int)`|`Type`|
+|`Record`|`# Type -> Type`|
+|`(foo :: Int)`|`# Type`|
+|...|...|
+
 ## Type-Level Programming Flow
 
 Type-Level programming has 2-3 stages:
