@@ -36,8 +36,8 @@ runAff_ (\either -> case either of
 We could make the code somewhat easier by using `Data.Either (either)`
 ```purescript
 runAff_ (either
-          (\error -> log $ show error )   -- left instance
-          (\a -> {- usage or cleanup -} ) -- right instance
+          (\error -> log $ show error   ) -- Left instance
+          (\a -> {- usage or cleanup -} ) -- Right instance
   )
   affInstance
 ```
