@@ -38,4 +38,4 @@ This folder will cover testing using three libraries. Nested bullet points indic
 
 ## Running the Tests
 
-TODO
+See each folder for instructions
