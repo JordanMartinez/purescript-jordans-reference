@@ -1,10 +1,50 @@
 # Arrows
 
-When we see the below two laws for functions, they make sense:
-- composition: `(f <<< g) a == f(g(a))`
-- identity: `identity a == (\x -> x) a == a`
+## Cleaner Function Notation
 
-If we were to turn the `composition` law into a function, it would appear as below:
+Let's say I have two functions:
+```purescript
+(\x -> x + 1)
+(\y -> y * 10)
+```
+
+If we want to apply an argument to the first and pass its output into the second, we would have to write something ugly-looking:
+```purescript
+(\x -> (\y -> y * 10) (x + 1) )
+```
+
+What we mean is something like this
+```purescript
+f = (\x -> x + 1)
+g = (\y -> y * 10)
+
+expression = (\arg -> f (g arg))
+```
+
+We have just defined function composition, which can be written in such a way to reduce "noise:"
+```purescript
+(\a -> f (g a)) == (f <<< g)
+```
+
+Moreover, sometimes we want a function that returns the input:
+```purescript
+(\x -> x)
+(\x -> x) 4 == 4
+```
+We call this function, `identity`:
+```purescript
+(\x -> x) == identity
+
+identity 4 == 4
+```
+
+## Generalizing to More Types
+
+When we see the below two laws for functions, they make sense:
+- composition: `(\a -> f (g a)) == (f <<< g)`
+- identity: `a == (\x -> x) == identity a`
+
+If we were to turn the `composition` law into a function, it would appear with the type signature below:
 ```purescript
 composition :: forall a b c. (b -> c)     -> (a -> b)     -> (a -> c)
 -- However, "->" is just sugar syntax for Function:
