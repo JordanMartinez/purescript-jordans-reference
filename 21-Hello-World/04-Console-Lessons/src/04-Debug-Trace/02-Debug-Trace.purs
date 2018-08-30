@@ -32,11 +32,12 @@ main = do
   log $ show $ printMessageThenRunComputation "before computation" (\_ -> 10)
 
   log "Right now we are inside of the Effect monad context, \
-      \which means we can NOT use the `log` function here."
+      \which means we CAN use the `log` function here."
   value <- runBox do
+
     four <- boxed4
     -- now we are inside of the Box monad context,
-    -- which means we cannot use `log` here since
+    -- which means we CANNOT use `log` here since
     -- it returns `Effect Unit`, not `Box Unit`
 
     -- Instead, we'll use traceM
