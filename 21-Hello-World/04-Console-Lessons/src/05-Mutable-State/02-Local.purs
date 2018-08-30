@@ -1,3 +1,6 @@
+-- When you compile this file, it will output compiler warnings due to
+-- usage of `Debug.Trace (traceM)`. If you wish to remove that noise,
+-- comment out every usage of `traceM` in this file.
 module ConsoleLessons.MutableState.Local where
 
 import Prelude

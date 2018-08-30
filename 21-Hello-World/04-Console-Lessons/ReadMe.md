@@ -25,7 +25,7 @@ pulp --psc-package run --main ModuleName
 pulp --psc-package run --main ConsoleLessons.OverviewAPI
 ```
 
-When compiling these examples, you will likely see a warning like below. This is supposed to happen, so don't be alarmed:
+When compiling these examples, you will likely see a warning like below:
 ```
 Warning found:
 in module ConsoleLessons.CustomTypeErrors.TypeClassInstances
@@ -43,3 +43,4 @@ in value declaration warnInstance
 See https://github.com/purescript/documentation/blob/master/errors/UserDefinedWarning.md for more information,
 or to contribute content related to this warning.
 ```
+This is supposed to happen, so don't be alarmed. When we hit that part of our lessons, we'll tell you how to remove the warnings so you can get rid of the "compiler noise."
