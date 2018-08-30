@@ -101,4 +101,4 @@ higherKindedBy1L_useB b = Right b
 higherKindedBy1L_ignoreBoth :: a -> b -> Either Int b
 higherKindedBy1L_ignoreBoth a b = Left 3
 ```
-`Either a b` has kind `Type -> Type -> Type` because it cannot become a concrete type until both `a` and `b` types are defined, even if only constructing one of its instances whose generic type is known.
+`Either` (where the `a` and `b` are not yet specified) has kind `Type -> Type -> Type` because it cannot become a concrete type until both `a` and `b` types are defined, even if only constructing one of its instances whose generic type is known.
