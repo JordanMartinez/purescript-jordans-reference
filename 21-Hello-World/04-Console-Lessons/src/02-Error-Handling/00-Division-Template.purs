@@ -10,10 +10,9 @@ module ConsoleLessons.ErrorHandling.DivisionTemplate
   ) where
 
 import Prelude
-import Effect (Effect)
 import Effect.Aff (Aff)
 import Node.ReadLine (Interface)
-import Node.ReadLine.CleanerInterface (createUseCloseInterface, question, log)
+import Node.ReadLine.CleanerInterface (question, log)
 
 
 -- | Prints "numerator / denominator == result"
