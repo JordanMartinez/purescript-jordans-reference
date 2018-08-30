@@ -14,13 +14,13 @@ main = do
   log "We will run some modifications on some local state\
       \ and then try to modify it out of scope."
   log $ show $ ST.run do
-    -- only code inside of this block can modify `box`
+    -- only code inside of this block can access and modify `box`
 
     -- Note: since we're inside of a different monadic context
-    --   we can't log values to the screen.
-    --   bind :: forall m a b. m a -> (a -> m b) -> m b
-    --    i.e. the monad type cannot change
-    --   log = Effect monad; ST = ST monad; so bind doesn't work between them
+    --   we can't log values to the screen using `log` like normal.
+    -- Furthermore, `ST/STRef` does not have an instance for
+    -- MonadEffect (covered later).
+    -- Thus, we'll use `traceM` instead for its debugging purposes
 
     box <- STRef.new 0
     x0 <- STRef.read box
