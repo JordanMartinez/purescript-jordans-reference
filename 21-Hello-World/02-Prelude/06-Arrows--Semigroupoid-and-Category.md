@@ -1,5 +1,7 @@
 # Arrows
 
+We'll explain this idea before `Control Flow`-related type classes so that you understand a notation we'll use in them.
+
 ## Cleaner Function Notation
 
 Let's say I have two functions:
@@ -18,52 +20,59 @@ What we mean is something like this
 f = (\x -> x + 1)
 g = (\y -> y * 10)
 
-expression = (\arg -> f (g arg))
+expression = (\arg -> g (f arg))
 ```
 
 We have just defined function composition, which can be written in such a way to reduce "noise:"
 ```purescript
-(\a -> f (g a)) == (f <<< g)
+-- The arrow determines where the output goes
+(\a -> g (f a)) == (g <<< f)
+(\a -> g (f a)) == (f >>> g)
 ```
 
 Moreover, sometimes we want a function that returns the input:
 ```purescript
 (\x -> x)
+-- so that we can use it like...
 (\x -> x) 4 == 4
 ```
 We call this function, `identity`:
 ```purescript
 (\x -> x) == identity
-
+-- same thing
 identity 4 == 4
 ```
 
 ## Generalizing to More Types
 
-When we see the below two laws for functions, they make sense:
-- composition: `(\a -> f (g a)) == (f <<< g)`
-- identity: `a == (\x -> x) == identity a`
+To summarize...
 
-If we were to turn the `composition` law into a function, it would appear with the type signature below:
+| Name | Meaning | Shortcut |
+| - | - | - |
+| Compose | `(\a -> g (f a))` | `(g <<< f)`
+| ComposeFlipped | `(\a -> g (f a))` | `(f >>> g)`
+| Identity | `(\x -> x) a` | `identity a`
+
+If we were to turn `compose` into a function, it would appear with the type signature below:
 ```purescript
-composition :: forall a b c. (b -> c)     -> (a -> b)     -> (a -> c)
+compose :: forall a b c. (b -> c)     -> (a -> b)     -> (a -> c)
 -- However, "->" is just sugar syntax for Function:
-composition :: forall a b c. Function b c -> Function a c -> Function a c
+compose :: forall a b c. Function b c -> Function a c -> Function a c
 -- Notice that Function appears to be just another data structure.
 -- If it works for that data structure, why not generalize it for any data structure?
-composition :: forall f a b c. f b c -> f a b -> f a c
+compose :: forall f a b c. f b c -> f a b -> f a c
 
 -- Let's rename our generics, so that it starts with `a` rather than `f`:
-composition :: forall a b c d. a c d -> a b c -> a b d
+compose :: forall a b c d. a c d -> a b c -> a b d
 
--- We'll put them side by side for easier reading:
-composition :: forall a b c.           (b -> c) ->         (a -> b) ->         (a -> c)
+-- We'll line up the types for easier reading:
+compose :: forall a b c.           (b -> c) ->         (a -> b) ->         (a -> c)
 
-composition :: forall a b c.   Function b    c  -> Function a    b  -> Function a    c
+compose :: forall a b c.   Function b    c  -> Function a    b  -> Function a    c
 
-composition :: forall f a b c. f        b    c  -> f        a    b  -> f        a    c
+compose :: forall f a b c. f        b    c  -> f        a    b  -> f        a    c
 
-composition :: forall a b c d. a        c    d  -> a        b    c  -> a        b    d
+compose :: forall a b c d. a        c    d  -> a        b    c  -> a        b    d
 
 -- We've now just defined the function `compose` for Semigroupoid:
 
@@ -85,5 +94,7 @@ class (Semigroupoid a) <= Category a where
 ```
 
 Here's the docs. You likely won't be using these that often (unless perhaps you're designing a library), but it's good to know of them:
-- [Semigroupoid](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Semigroupoid#t:Semigroupoid) generalizes composition
+- [Semigroupoid](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Semigroupoid#t:Semigroupoid) generalizes compose
 - [Category](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Category) generalizes identity
+
+You will see `g <<< g` or its flipped version `g >>> f` a lot and we'll use it in the upcoming files.
