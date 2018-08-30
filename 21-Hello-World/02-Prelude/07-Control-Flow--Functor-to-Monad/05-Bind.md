@@ -19,7 +19,9 @@ Long:
 
 See its docs: [Bind](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Bind)
 
-Below, we'll show two instances for `Bind`: 1) a flipped version of bind that shows how it relates to `Functor` and `Apply` and 2) the correct version:
+Below, we'll show two instances for `Bind`:
+1. A flipped version of bind that shows how it relates to `Functor` and `Apply`
+2. The correct version:
 
 ```purescript
 -- in real definition, 'f' (functor) is really 'm' (monad)
