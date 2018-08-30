@@ -1,6 +1,7 @@
 # Mutable State: Global vs Local
 
-There are two types of mutable state"
+There are two types of mutable state:
+
 | | Global | Local |
 | - | - | - |
 | Creatable in... | Anywhere | Local scope
