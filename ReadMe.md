@@ -43,4 +43,6 @@ Since the license of this project is still being determined, I will not currentl
         - 11-Syntax/01-Basic-Syntax/src/02-Data-and-Functions/... (the rest of the folder's content)
 - Compile the code where possible, either before or after you experiment
 
+If a file or folder name has `x` in the numerical part of its name (e.g. `0x-File-or-Folder-Name`, `9x-File-or-Folder-Name`), it means I am still deciding where it should appear in the numerical order (and it is likely still a work in progress).
+
 Lastly, when referring to folders/files, we'll omit the numerical ordering (since the final order is still being determined). So, rather than `00-Getting-Started`, you'll see `Getting Started` folder. Rather than `00-Getting-Started/01-Install-Guide.md`, you'll see `Getting-Started/Install-Guide.md`
