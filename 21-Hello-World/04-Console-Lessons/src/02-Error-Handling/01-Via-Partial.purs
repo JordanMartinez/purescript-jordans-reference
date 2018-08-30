@@ -5,6 +5,7 @@ import Effect (Effect)
 import Node.ReadLine.CleanerInterface (createUseCloseInterface, log)
 import ConsoleLessons.ErrorHandling.DivisionTemplate (showResult, askUserForNumerator, askUserForDenominator)
 
+import Debug.Trace (traceM)
 {-
 A total function is a function that ALWAYS outputs a value
 for every input it can receive
@@ -44,8 +45,8 @@ main = createUseCloseInterface (\interface ->
         \Recall that the notation is: 'numerator / denominator'\
         \\n"
 
-    num <- askUserForNumerator
-    denom <- askUserForDenominator
+    num <- askUserForNumerator interface
+    denom <- askUserForDenominator interface
 
     -- to call a Partial function, we need to precede it with `unsafePartial`
     log $ unsafePartial $ unsafeDivision num denom

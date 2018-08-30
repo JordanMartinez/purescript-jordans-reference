@@ -43,8 +43,8 @@ main = createUseCloseInterface (\interface ->
         \Recall that the notation is: 'numerator / denominator'\
         \\n"
 
-    num <- askUserForNumerator
-    denom <- askUserForDenominator
+    num <- askUserForNumerator interface
+    denom <- askUserForDenominator interface
 
     case safeDivision num denom of
       Just result -> log $ showResult num denom result
