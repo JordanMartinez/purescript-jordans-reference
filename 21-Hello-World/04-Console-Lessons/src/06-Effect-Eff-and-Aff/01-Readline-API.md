@@ -1,6 +1,6 @@
 # Node ReadLine API
 
-Node's ReadLine API docs are [here](https://nodejs.org/api/readline.html). However, in this folder, we've only used the following Purescript bindings of the API (The Pursuit docs are outdated and for an earlier release, so look at the [source code](https://github.com/purescript-node/purescript-node-readline/blob/master/src/Node/ReadLine.purs) to see all of what is supported. Some functions below had their 'foreign import' part removed to shorten the type signature):
+Node's ReadLine API docs are [here](https://nodejs.org/api/readline.html). However, in this folder, we've only used the following Purescript bindings of the API (The Pursuit docs are outdated and for an earlier release, so look at the [source code](https://github.com/purescript-node/purescript-node-readline/blob/master/src/Node/ReadLine.purs) to see all of what is supported. Some of the functions below had their 'foreign import' part removed to shorten the type signature):
 ```purescript
 foreign import data Interface :: Type
 
