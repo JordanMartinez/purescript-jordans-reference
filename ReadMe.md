@@ -11,6 +11,10 @@ This repo is my way of trying to use the [Feynman Technique](https://medium.com/
 
 See [issues marked with the 'Roadmap' label](https://github.com/JordanMartinez/purescript-jordans-reference/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3ARoadmap) for a deeper understanding of this project's current direction/goals.
 
+## License
+
+Unless stated otherwise in a specific folder or file, this project is licensed under the `Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license`: [(Human-readable version)](https://creativecommons.org/licenses/by-nc-sa/4.0/), [(Actual License)](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
+
 ## Guidelines for this project
 
 ### Contributing
@@ -21,11 +25,7 @@ Feel free to open a new issue for:
 - corrections for any mistakes I've made
 - improvements to anything I've written thus far
 
-### License
-
-Since the license of this project is still being determined, I will not currently accept pull requests. I do hope to receive PRs in the future after the license has been determined. Feel free to open an issue to start a discussion on this topic.
-
-## Learning Purescript Using This Project
+### Learning Purescript Using This Project
 
 - Git clone this repo
 - Use these rules to read through the folders' contents in the correct order:
