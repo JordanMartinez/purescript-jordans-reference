@@ -11,8 +11,8 @@ import Node.ReadLine ( Interface
 import Data.Either (Either(..))
 
 -- new imports
--- This will lift the `Effect` monad into another monad context (e.g. Aff),
--- enabling us to use `log` from Effect.
+-- This will lift the `Effect` monad into another monad context (i.e. Aff),
+-- enabling us to use `log` from Effect in an `Aff` monad context.
 import Effect.Class (liftEffect)
 
 import Effect.Aff (Aff, runAff_, makeAff, nonCanceler)
