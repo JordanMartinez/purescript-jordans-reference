@@ -71,6 +71,9 @@ Since the implementation will need to return an `Effect Canceler`, we can do one
 
 ```purescript
 -- for a refresher on voidLeft
+(Box 1) voidLeft "2" == (Box 1) $> 2 == (Box 2)
+
+-- alias is: "$>"
 voidLeft :: forall f a b. Functor f => f a -> b -> f b
 voidLeft box b = (\_ -> b) <$> box
 
