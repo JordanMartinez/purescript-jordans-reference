@@ -49,11 +49,13 @@ makeAff :: forall a. ((Either Error a -> Effect Unit) -> Effect Canceler) -> Aff
 
 Breaking this down, `makeAff` takes only one argument. However, the argument is a bit quirky since it takes a function as its argument. We should read it as...
 
->   Given a function
->     that returns an `Effect Canceler`
->     by using the function `runAff_` requires
->       (i.e. `(Either Error a -> Effect Unit)`),
-> output an `Aff a`
+```
+  Given a function
+    that returns an `Effect Canceler`
+    by using the function `runAff_` requires
+      (i.e. `(Either Error a -> Effect Unit)`),
+output an `Aff a`
+```
 
 To create this type signature, we'll write something like this:
 ```purescript
