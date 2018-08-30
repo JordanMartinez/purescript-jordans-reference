@@ -130,7 +130,7 @@ runProgram :: Unit
 runProgram = unit
 ```
 
-Now go read the code snippet above again and write it out! 
+Now go read the code snippet above again and write it out!
 
 ## Parenthesis in Nested Bind Expressions
 
@@ -181,6 +181,8 @@ half3Times maybeI = do
 half3Times Nothing == Nothing
 ```
 
-## Do Notation
+## Do and Ado Notation
 
-At this point, you should look back at the `Syntax/Prelude-Syntax` folder to read through the file on `Do Notation`. You should also become familiar with the `Ado Notation` (Applicative Do).
+At this point, you should look back at the `Syntax/Prelude-Syntax` folder to read through the file on...
+- `Do Notation`: requres understanding the above code snippet and `Applicative`'s `pure` function
+- `Ado Notation` (Applicative Do): requires understanding the `function <$> boxedArg1 <*> boxedArg2` (Apply's derived function: lift2) and `pure`.
