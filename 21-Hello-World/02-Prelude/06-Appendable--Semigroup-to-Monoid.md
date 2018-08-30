@@ -30,7 +30,7 @@ Since the documentation for these type classes are clear, we will redirect you t
 - [Semigroup](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Semigroup).
     - When one wants to reduce two values down to one by ignoring the second value and taking the first value, one can use [First](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Semigroup.First)
     - Or vice versa (ignore first, take second), via [Last](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Semigroup.Last)
-- [Monoid](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Eq)
+- [Monoid](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid)
     - Monoid has some special classes here, but since they require explaining type classes that we aren't ready to explain yet, they will be postponed until later.
 
 
