@@ -42,7 +42,7 @@ main = do
 
     -- Instead, we'll use traceM
 
-    -- Note: Using "traceM" without there being an empty monad instance
+    -- Note: Using "traceM" without there being a monad instance
     -- for Box causes this code to fail to compile. I'm not sure why...
     traceM ("Four is: " <> show four)
 
@@ -51,7 +51,7 @@ main = do
   log $ "Value is: " <> show value
 
 -- Box's type class instances
-instance monad :: Monad Box -- empty instance needed for some reason!
+instance monad :: Monad Box -- instance needed for some reason!
 
 instance functor :: Functor Box where
   map f (Box a) = Box (f a)
