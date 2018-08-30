@@ -1,5 +1,7 @@
 # Type-Level Programming
 
+This folder is still a work in progress!
+
 ## Introduction
 
 ### Comparison
