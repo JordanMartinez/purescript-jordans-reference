@@ -7,6 +7,7 @@ There are two types of mutable state:
 | Creatable in... | Anywhere | Local scope
 | Readable from... | Anywhere that has its reference | Local Scope
 | Writable to... | Anywhere that has its reference | Local Scope
+| Destroyed when... | Program Exits? | Exit Local Scope
 
 Using Java as an example...
 ```java
