@@ -6,6 +6,7 @@ import Node.ReadLine (Interface)
 import Node.ReadLine.CleanerInterface (createUseCloseInterface, log)
 import ConsoleLessons.ErrorHandling.DivisionTemplate (showResult, askUserForNumerator, askUserForDenominator)
 
+import Data.Either (Either(..))
 {-
 The previous file demonstrates how to use "Either String a" for error handling.
 The problem with this approach is that error type isn't type-safe.
@@ -44,5 +45,5 @@ main = createUseCloseInterface (\interface ->
 
     case safeDivision num denom of
       Left error -> log $ show error
-      Right result -> log $ showResult numerator denominator result
+      Right result -> log $ showResult num denom result
   )

@@ -39,5 +39,5 @@ main = createUseCloseInterface (\interface ->
 
     case safeDivision num denom of
       Left errorMessage -> log errorMessage
-      Right result -> log $ showResult numerator denominator result
+      Right result -> log $ showResult num denom result
   )
