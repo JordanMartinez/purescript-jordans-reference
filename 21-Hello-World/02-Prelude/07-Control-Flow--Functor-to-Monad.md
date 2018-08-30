@@ -39,7 +39,7 @@ instance Functor List where
 | [Bind](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Bind) | Chainable | `bind :: forall m a b. m a -> (a -> m b) -> m b` | `>>=` <br> (Left 1)| Associativity: `(x >>= f) >>= g == x >>= (\x' -> f x' >>= g)` | Given an instance of a box-like type, `m`, that contains a value, `a`, extract the `a` from `m`, and create a new `m` instance that stores a new value, `b`. <br> Take `f a` and compute it via `bind`/`>>=` to produce a value, `a`. Then, use `a` to describe (but not run) a new computation, `m b`. When `m b` is computed (via a later `bind`/`>>=`), it will return `b`. |
 | [Monad](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Monad) | Sequential Computation | | | | The data structure used to run FP programs by executing code line-by-line, function-by-function, etc. |
 
-## Simplest Useless Monad Implementation
+## Simplest Monad Implementation
 
 ```purescript
 data Box a = Box a
