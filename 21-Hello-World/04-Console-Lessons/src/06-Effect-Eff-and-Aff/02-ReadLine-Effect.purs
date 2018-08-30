@@ -32,14 +32,14 @@ main :: Effect Unit
 main = do
   log "\n\n" -- separate pulp output from program output
 
-  interface <- createAndConfigureInterface
+  interface <- createInterface
   useInterface interface
   closeInterface interface
 
   where
 
-  createAndConfigureInterface :: Effect Interface
-  createAndConfigureInterface = do
+  createInterface :: Effect Interface
+  createInterface = do
     log "Creating interface..."
     interface <- createConsoleInterface noCompletion
     log "Created!\n"
@@ -61,7 +61,7 @@ main = do
 {-
 One might expect the last part of this program to output the following:
 
-   ... create and configure interface output ...
+   ... create interface output ...
 
    Requesting user input...
    Type something here: [user types 'something']
@@ -73,7 +73,7 @@ One might expect the last part of this program to output the following:
 
 In reality, it outputs this:
 
-   ... create and configure interface output ...
+   ... create interface output ...
 
    Requesting user input...
    Type something here: Now closing interface
