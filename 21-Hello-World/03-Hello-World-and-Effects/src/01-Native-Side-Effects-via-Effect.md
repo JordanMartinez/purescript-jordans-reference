@@ -66,4 +66,4 @@ In other words, the RunTime System is (ideally) the only entity that ever calls 
 
 One might still call `unsafePerformEffect` in otherwise pure code in situations where they know what they are doing. In other words, they know the pros & cons, costs & benefits of doing so, and are willing to pay for those costs to acheive their benefits.
 
-^^ `pulp --psc-package build` or `pulp --psc-package browserify` both, by default, add in the necessary code to automatically execute `main`. To remove this, one needs to pass the flag `--skip-entry-point` to these commands.
+^^ `pulp --psc-package build` or `pulp --psc-package browserify` both, by default, add in the necessary code to automatically execute `main`. To remove this (like when building a library), one needs to pass the flag `--skip-entry-point` to these commands.
