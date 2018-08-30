@@ -110,13 +110,16 @@ print(five_string); // print the String to the console, which returns nothing
 ```
 ... into PureScript. To evaluate this, we will reduce the functions by replacing the left-hand side (LHS) of the `=` sign (the function's call signature) with the right-hand side (RHS) of the `=` sign (the function's implementation / body). In the following snippet of code, you will need to scroll to the right, so that the a previous reduction aligns with the next reduction. **Note: Read through this and practice writing it out multiple times until you get sick of it as this is at the heart of FP programming! Failure to understand this == Failure to write FP code.** Here's the code:
 ```purescript
-unsafePerform :: forall a. Box a
-unsafePerform (Box a) = a
+unsafePerformEffect :: forall a. Box a -> a
+unsafePerformEffect (Box a) = a
 
--- Compute what the final Box value is
--- and then call `unsafePerform` on the final Box
-main :: Unit
-main = unsafePerform $
+-- Compute what the final Box value is in `main`
+-- and then call `unsafePerformEffect` on the final Box
+runProgram :: Unit
+runProgram = unsafePerformEffect main
+
+main :: Box Unit
+main =
   (Box 4) >>= (\four -> Box (1 + four) >>= (\five -> Box (show five) >>= (\five_string -> print five_string)))
 
 -- Step 1: De-infix the first '>>=' alias back to bind
@@ -179,11 +182,14 @@ main = unsafePerform $
                                                                   -- Step 10a: Shift everything to the left again
 -- 10b) ... and re-expose the 'main' function:
 main :: Unit
-main = unsafePerform (Box unit)
+main = Box unit -- after all the earlier computations...
 
--- Step 11: call `unsafePerform`
-main :: Unit
-main = unit
+-- Step 12: call `unsafePerformEffect` to get the final Box's value
+runProgram :: Unit
+runProgram = unsafePerformEffect (Box unit)
+-- becomes
+runProgram :: Unit
+runProgram = unit
 ```
 
 ## Do Notation
