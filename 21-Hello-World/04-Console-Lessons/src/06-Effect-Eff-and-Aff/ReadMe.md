@@ -4,7 +4,7 @@
 
 Before the `0.12.0` release, the `Effect` monad used to be called `Eff`.
 
-In short, the decision was made to drop `Eff`'s "extensible effects". Presumably, to prevent code breakage, `Eff` and package location in imports was unchanged. Rather, it can now be found in the  [purescript-eff](https://pursuit.purescript.org/packages/purescript-eff/3.2.1) package.
+In short, the decision was made to drop `Eff`'s "extensible effects". Presumably, to prevent code breakage, `Eff` and package location in imports was unchanged. Rather, it can now be found in the  [purescript-eff](https://pursuit.purescript.org/packages/purescript-eff/3.2.1) package. Its replacement was called `Effect`.
 
 (You can read more about the decision making process [here](https://purescript-resources.readthedocs.io/en/latest/eff-to-effect.html).)
 
