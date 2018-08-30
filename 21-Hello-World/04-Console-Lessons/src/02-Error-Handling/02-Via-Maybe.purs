@@ -2,8 +2,7 @@ module ConsoleLessons.ErrorHandling.ViaMaybe where
 
 import Prelude
 import Effect (Effect)
-import Node.ReadLine (Interface)
-import Node.ReadLine.CleanerInterface (createUseCloseInterface, question, log)
+import Node.ReadLine.CleanerInterface (createUseCloseInterface, log)
 import ConsoleLessons.ErrorHandling.DivisionTemplate (showResult, askUserForNumerator, askUserForDenominator)
 
 {-
@@ -46,7 +45,7 @@ main = createUseCloseInterface (\interface ->
 
     num <- askUserForNumerator
     denom <- askUserForDenominator
-    
+
     case safeDivision num denom of
       Just result -> log $ showResult num denom result
       Nothing -> log "You divided by zero!"

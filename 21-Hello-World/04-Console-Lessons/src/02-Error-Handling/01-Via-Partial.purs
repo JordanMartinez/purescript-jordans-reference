@@ -2,8 +2,7 @@ module ConsoleLessons.ErrorHandling.ViaPartial where
 
 import Prelude
 import Effect (Effect)
-import Node.ReadLine (Interface)
-import Node.ReadLine.CleanerInterface (createUseCloseInterface, question, log)
+import Node.ReadLine.CleanerInterface (createUseCloseInterface, log)
 import ConsoleLessons.ErrorHandling.DivisionTemplate (showResult, askUserForNumerator, askUserForDenominator)
 
 {-
