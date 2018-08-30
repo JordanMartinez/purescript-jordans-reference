@@ -130,6 +130,8 @@ runProgram :: Unit
 runProgram = unit
 ```
 
+Now go read the code snippet above again and write it out! 
+
 ## Parenthesis in Nested Bind Expressions
 
 Be aware of where the parenthesis appear when using multiple bind expressions (e.g. `m a >>= aToMB >>= bToMC`). Below provides a summary of the section called "Do notation" in [this article](https://sras.me/haskell/miscellaneous-enlightenments.html):
