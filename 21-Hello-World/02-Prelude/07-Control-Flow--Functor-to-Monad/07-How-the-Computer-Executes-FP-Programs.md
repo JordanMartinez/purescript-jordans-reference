@@ -2,14 +2,20 @@
 
 Or "What does sequential computation look like using Monads"
 
-Below, we'll be defining a long chain of functions. Since functions usually place their argument on the right of the body like this `(\x -> body) actualArgument`, we'll be putting it on the left using `#`: `actualArgument # (\x -> body)`. In other words...
+Below, we'll be defining a long chain of nested functions. Since functions usually place their argument on the right of the body like this...
+```
+(\x -> body) actualArgument
+```
+... we'll be putting it on the left using `#`
+```
+actualArgument # (\x -> body)
+```
+In other words...
 ```purescript
 function      arg == arg # function
 (\x -> x + 1) arg == arg # (\x -> x + 1)
 ```
-We're using this notation to keep the argument on the left side
-rather than on the right side where it normally goes because
-the function will have a long body that makes it harder to understand.
+This will help the upcoming examples be much clearer and more understandable.
 
 Using this type and its instance...
 ```purescript
