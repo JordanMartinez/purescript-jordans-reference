@@ -2,7 +2,7 @@
 
 ## Aff Overview
 
-Before showing what you the equivalent version of our program using Aff, let's first overview some of its concepts, so that it's easier to understand the upcoming code.
+Before showing what you the equivalent version of our program using `Aff`, let's first overview some of its concepts, so that it's easier to understand the upcoming code.
 
 `Aff` as an effect monad must support the following features to be truly asynchronous:
 - handles errors that may arise during its computation
@@ -11,13 +11,13 @@ Before showing what you the equivalent version of our program using Aff, let's f
 
 To model both errors and output, we can use either `Maybe a` or `Either a b`. Since the error might be important for some parties, `Maybe a` can't be used. Rather, we'll use `Either Error outputType`.
 
-Handling errors and output implies a function. Aff uses the type signature, `Either errorType outputType -> Effect Unit`, for that.
+Handling errors and output implies a function. `Aff` uses the type signature, `Either errorType outputType -> Effect Unit`, for that.
 
 Lastly, cancelling implies what to do when the computation is no longer needed. Since our present interests do not require cancellation, we can use a no-op Canceler: `nonCanceler`
 
 ## Functions We Will Use
 
-For our purposes, we need an `Aff` to run inside of an `Effect` monad context. In other words, we need some function that takes an `Aff` and returns an `Effect a`. If one looks through Aff's docs, the only one that does this is `runAff_`:
+For our purposes, we need an `Aff` to run inside of an `Effect` monad context. In other words, we need some function that takes an `Aff` and returns an `Effect a`. If one looks through `Aff`'s docs, the only one that does this is `runAff_`:
 ```purescript
 runAff_ :: forall a. (Either Error a -> Effect Unit) -> Aff a -> Effect Unit
 ```
