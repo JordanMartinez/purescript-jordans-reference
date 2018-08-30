@@ -40,17 +40,12 @@ useInterface interface = do
   answer <- question' "Type something here: " interface
   liftEffect $ log $ "You typed: '" <> answer <> "'\n"
 
+-- This is `affQuestion` from earlier
 question' :: String -> Interface -> Aff String
 question' message interface = makeAff go
   where
-    -- Type signatures are commented out,
-    --    so that I don't have to import these types
-
     -- go :: (Either Error a -> Effect Unit) -> Effect Canceler
-    go runAffFunction = (effectBox runAffFunction) $> nonCanceler
-
-    -- effectBox :: (Either Error a -> Effect Unit) -> Effect Unit
-    effectBox raRF = question message (raRF <<< Right) interface
+    go raRF = question message (raRF <<< Right) interface $> nonCanceler
 
 
 main :: Effect Unit
@@ -65,7 +60,6 @@ runProgram :: Interface -> Effect Unit
 runProgram interface = {-
   runAff_ :: forall a. (Either Error a -> Effect Unit) -> Aff a -> Effect Unit -}
   runAff_
-    -- whether an error occurred or we got the output,
-    -- just close the interface
+    -- Ignore any errors and output and just close the interface
     (\_ -> closeInterface interface)
     (useInterface interface)
