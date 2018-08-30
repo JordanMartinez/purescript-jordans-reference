@@ -192,11 +192,9 @@ runProgram :: Unit
 runProgram = unit
 ```
 
-## Do Notation
+## Parenthesis in Nested Bind Expressions
 
-At this point, you should look back at the `Syntax/Prelude-Syntax` folder to read through the file on `Do Notation`. You should also become familiar with the `Ado Notation` (Applicative Do).
-
-Be aware of where the parenthesis appear when using `m a >>= aToMB >>= bToMC`. Below provides a summary of the section called "Do notation" in [this article](https://sras.me/haskell/miscellaneous-enlightenments.html):
+Be aware of where the parenthesis appear when using multiple bind expressions (e.g. `m a >>= aToMB >>= bToMC`). Below provides a summary of the section called "Do notation" in [this article](https://sras.me/haskell/miscellaneous-enlightenments.html):
 ```purescript
 data Maybe a
   = Nothing
@@ -241,3 +239,7 @@ half3Times maybeI = do
 -- ... passing in `Nothing` doesn't compute anything
 half3Times Nothing == Nothing
 ```
+
+## Do Notation
+
+At this point, you should look back at the `Syntax/Prelude-Syntax` folder to read through the file on `Do Notation`. You should also become familiar with the `Ado Notation` (Applicative Do).
