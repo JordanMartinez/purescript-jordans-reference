@@ -20,10 +20,10 @@ Unless stated otherwise in a specific folder or file, this project is licensed u
 ### Contributing
 
 Feel free to open a new issue for:
-- clarification on something you don't understand. If I don't know it yet and I'm interested, it'll force me to learn it
-- a link to something you'd like me to research more. If I'm interested or see the value, I'll look into it and try to document it or explain the idea in a clear way
-- corrections for any mistakes I've made
-- improvements to anything I've written thus far
+- Clarification on something you don't understand. If I don't know it yet and I'm interested, it'll force me to learn it
+- A link to something you'd like me to research more. If I'm interested or see the value, I'll look into it and try to document it or explain the idea in a clear way
+- Corrections for any mistakes I've made
+- Improvements to anything I've written thus far
 
 ### Learning Purescript Using This Project
 
@@ -42,6 +42,8 @@ Feel free to open a new issue for:
         - 11-Syntax/01-Basic-Syntax/src/01-Preliminary-Concepts/03-The-Prim-Module.purs
         - 11-Syntax/01-Basic-Syntax/src/02-Data-and-Functions/... (the rest of the folder's content)
 - Compile the code where possible, either before or after you experiment
+
+### File or Folder Name Meanings
 
 If a file or folder name has `x` in the numerical part of its name (e.g. `0x-File-or-Folder-Name`, `9x-File-or-Folder-Name`), it means I am still deciding where it should appear in the numerical order (and it is likely still a work in progress).
 
