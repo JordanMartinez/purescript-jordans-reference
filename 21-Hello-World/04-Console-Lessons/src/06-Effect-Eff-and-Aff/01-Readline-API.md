@@ -23,7 +23,7 @@ createConsoleInterface compl = -- implementation
 
 -- | Writes a message to the output and adds a listener to the
 -- | interface that invokes the callback function when an
--- | event occurs.
+-- | event occurs (i.e. user inputs some text).
 question :: String -> (String -> Effect Unit) -> Interface -> Effect Unit
 question message handleUserInput interface = -- implementation
 
