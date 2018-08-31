@@ -33,3 +33,12 @@ Atom setup instructions:
     - ide-purescript
     - atom-ide-ui
     - language-purescript
+3. Configure `ide-purescript`
+
+The Atom package, `ide-purescript`, is configured to `Bower`, but we'll be using `psc-package` as our dependency manager for this project. Follow these instructions
+1. Open Atom's settings dialog (`CTRL+,`)
+2. Click on the `Packages` tab
+3. Search for `ide-purescript`
+4. Click on the `Settings` button in the entry that appears
+5. Check the `Add psc-package sources` checkbox
+6. Change the `build command` to: `pulp --psc-package build -- --json-errors`
