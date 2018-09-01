@@ -3,11 +3,13 @@
   "set": "psc-0.12.0-20180828",
   "source": "https://github.com/purescript/package-sets.git",
   "depends": [
+    "exceptions",
+    "console",
+    "strings",
     "quickcheck-laws",
     "quickcheck",
     "spec",
     "psci-support",
-    "console",
     "effect",
     "prelude"
   ]
