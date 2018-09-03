@@ -1,4 +1,4 @@
-module Syntax.QuickCheck where
+module Test.QuickCheckSyntax where
 
 import Prelude
 
