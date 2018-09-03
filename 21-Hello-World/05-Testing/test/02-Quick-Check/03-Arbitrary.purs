@@ -24,6 +24,8 @@ import Test.QuickCheck.Arbitrary (class Arbitrary, arbitrary)
 class Arbitrary_ a where
   arbitrary_ :: Gen a
 
+-- For example, given this code...
+
 data Fruit
   = Apple
   | Banana
@@ -32,7 +34,7 @@ data Fruit
 instance fruitArb :: Arbitrary Fruit where
   arbitrary = elements $ Apple :| [Banana, Orange]
 
--- ... so that the below (useless) code would compile
+-- ... the below (useless) code would compile
 -- main :: Effect Unit
 -- main = quickCheck (\(fruit :: Fruit) -> true)
 
