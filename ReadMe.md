@@ -31,6 +31,10 @@ Feel free to open a new issue for:
 
 ### Learning Purescript Using This Project
 
+
+- Read through these links about learning:
+    - [How to teach yourself to learn](https://jvns.ca/blog/2018/09/01/learning-skills-you-can-practice/)
+    - Asking good questions: [short read](https://jvns.ca/blog/good-questions/) and [long read](http://www.catb.org/~esr/faqs/smart-questions.html)
 - Git clone this repo
 - Use these rules to read through the folders' contents in the correct order:
     - **Read a folder's "ReadMe.md" file first (if it exists).** It may provide additional info for how to read a folder's contents.
