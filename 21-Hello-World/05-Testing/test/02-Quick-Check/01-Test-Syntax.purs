@@ -45,14 +45,22 @@ randomly-generated data.
   -- What is the type of `a` ? Answer: any instance of Eq
   quickCheck (\a -> a == a)
 
-To fix this, we could use (argName :: Type) syntax...
--}
-noisySyntax :: Effect Unit
-noisySyntax = quickCheck (\(i :: Int) -> true)
+To fix this, we could use one of two things:                        -}
+-- 1. (argName :: Type) syntax
+noisySyntax1 :: Effect Unit
+noisySyntax1 = quickCheck (\(i :: Int) -> true)
+
+noisySyntax2 :: Effect Unit
+noisySyntax2 = quickCheck (\i -> (\_ -> true) (i :: Int))
+
+-- 2. Use a function that specifies its type
+intOnlyFunction :: Int -> Boolean
+intOnlyFunction _ = true
+
+functionThatSpecifiesType :: Effect Unit
+functionThatSpecifiesType = quickCheck (\i -> intOnlyFunction i)
 {-
-           Or quickCheck (\i -> (i :: Int) -- test body )
-           Or use a function that only accepts the `Int` type
-...but it adds "noise" to the syntax.
+Each adds "noise" to the syntax.
 
 So, the below functions specify what the type is. When you read
 these functions in actual tests, remove the "_type" suffix:
