@@ -11,6 +11,8 @@ This repo is my way of trying to use the [Feynman Technique](https://medium.com/
 
 See [issues marked with the 'Roadmap' label](https://github.com/JordanMartinez/purescript-jordans-reference/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3ARoadmap) for a deeper understanding of this project's current direction/goals.
 
+Also, see the [Meta-labeled issues](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Meta) for issues related to the project as a whole.
+
 ## License
 
 Unless stated otherwise in a specific folder or file, this project is licensed under the `Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license`: [(Human-readable version)](https://creativecommons.org/licenses/by-nc-sa/4.0/), [(Actual License)](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
