@@ -2,12 +2,21 @@ module Benchmarking.Syntax.Benchotron where
 
 import Prelude
 import Effect (Effect)
+import Test.QuickCheck.Arbitrary (arbitrary)
+import Test.QuickCheck.Gen (vectorOf)
+
+-- needed to run the benchmark
 import Data.Foldable (foldMap, foldr)
 import Data.Monoid.Additive (Additive(..))
 import Data.Newtype (ala)
-import Test.QuickCheck.Arbitrary (arbitrary)
-import Test.QuickCheck.Gen (vectorOf)
+
+-- new imports
 import Benchotron.Core (Benchmark, benchFn, mkBenchmark)
+
+-- This module includes other `benchmarkToX` functions (e.g. benchmarkToFile)
+-- However, there's no reason to directly use them. `runSuite`
+-- uses them and provides the best interface to run
+-- multiple benchmarks in one command
 import Benchotron.UI.Console (runSuite)
 
 main :: Effect Unit
