@@ -67,6 +67,9 @@ checkBox =
 main :: Effect Unit
 main = do
   checkBox
+
+  -- Fruit's type, arbitrary, and instances appear after
+  -- the section including Box's instances 
   checkFruit
 
 -- Box's instances
@@ -95,7 +98,7 @@ instance applicative :: Applicative Box where
 
 instance monad :: Monad Box
 
--- CheckOtherLaws type and instances
+-- Fruit's type, arbitrary, and instances
 
 data Fruit = Apple | Orange
 
