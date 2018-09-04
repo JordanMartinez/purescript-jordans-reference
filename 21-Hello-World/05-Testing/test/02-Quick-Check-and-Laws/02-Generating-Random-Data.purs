@@ -132,12 +132,3 @@ printData explanation generator = do
   result <- randomSample generator
   void $ for result (\item -> log $ show item)
   log "=== Finished\n"
-
-{-
-Goals:
-- explain the various Gen combinators
-- from simple to complex
-
-- Explain why one uses `Arbitrary` and the problems it creates
-  (overlapping instances)
--}
