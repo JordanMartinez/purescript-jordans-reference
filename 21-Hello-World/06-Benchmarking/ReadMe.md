@@ -3,11 +3,18 @@
 Purescript has a few benchmarking libraries:
 
 | Name | Status | Comments |
-| [purescript-benchotron](https://pursuit.purescript.org/packages/purescript-benchotron/7.0.0) | Up-to-date | Uses QuickCheck<br>Output results only in Node<br>Output is full ASCII table with percentage values<br>Can print graphs |
+| - | - | - |
+| [purescript-benchotron](https://pursuit.purescript.org/packages/purescript-benchotron/7.0.0) | Up-to-date | Uses QuickCheck<br>Output results only in Node<br>Results are viewable only via graphs |
 | [purescript-minibench](https://pursuit.purescript.org/packages/purescript-minibench/2.0.0/docs/Performance.Minibench) | Up-to-date | Provides quick estimates but not very accurate benchmarks
-| [purescript-benchmark](https://pursuit.purescript.org/packages/purescript-benchmark/0.1.0) | Outdated (PS `0.11.7`) | Doesn't require QuickCheck<br>Outputs results in Node and Browser
+| [purescript-benchmark](https://pursuit.purescript.org/packages/purescript-benchmark/0.1.0) | Outdated (PS `0.11.7`) | Doesn't require QuickCheck<br>Outputs results in Node and Browser<br>Output is full ASCII table with percentage values
 
 In this folder, we'll be covering `benchotron` because it works for `0.12.0` and has finer accuracy than `minibench` and includes graphs.
+
+This benchotron graph...
+
+![benchmark results](./benchmark-results/file-name-for-output.svg)
+
+... was the result of [this somewhat unreadable output](./benchmark-results/file-name-for-output.json)
 
 ## Compilation Instructions
 
@@ -45,6 +52,17 @@ cp packages.json .psc-package/custom-set--psc-0.12.0-20180828/packages.json
 ```
 5. Update the `/home/user/path-to-containing-folder/` part of the file path in the `source` field to the purescript-reference folder on your local computer
 6. Save the `psc-package.json` file
-7. Run psc-package verify (and wait as it builds): `psc-package verify`
+7. Verify the packages (and wait as it builds): `psc-package verify`
 
 You can now use `benchotron` via psc-package.
+
+## Generating benchmark results
+
+1. Run the below command
+```bash
+pulp --psc-package run --src-path "benchmark" -m Benchma
+rking.Syntax.Benchotron
+```
+2. It will output a file in the freshly-created `tmp` directory
+3. Upload the outputted file to [this link](http://harry.garrood.me/purescript-benchotron-svg-renderer/)
+4. Download the graph as an SVG or PNG
