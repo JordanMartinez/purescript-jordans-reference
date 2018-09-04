@@ -26,15 +26,15 @@ This benchotron graph...
 npm install benchmark
 ```
 
-Since `benchotron` is not in the default package set (yet), you'll need to create your own local custom package set (I guess this gives us an excuse to practice that). Follow these instructions:
+Since `benchotron` is not in the default package set (yet), you'll need to create your own local custom package set. Fortunately, I've done most of the tedious work for you. Follow these instructions:
 ```bash
 # 1. Make the necessary directory
 mkdir -p .psc-package/custom-set--psc-0.12.0-20180828
 # 2. Copy the packages.json file into the folder
 cp packages.json .psc-package/custom-set--psc-0.12.0-20180828/packages.json
 ```
-3. Create a file called `Benchmarking/psc-package.json`.
-4. Copy the following JSON into `psc-package.json` file and save it:
+3. Create a file called `psc-package.json` in the folder, `Hello World/Benchmarking`.
+4. Copy the following JSON into `psc-package.json` file:
 ```json
 {
   "name": "includes-benchotron",
@@ -52,7 +52,7 @@ cp packages.json .psc-package/custom-set--psc-0.12.0-20180828/packages.json
 ```
 5. Update the `/home/user/path-to-containing-folder/` part of the file path in the `source` field to the purescript-reference folder on your local computer
 6. Save the `psc-package.json` file
-7. Verify the packages (and wait as it builds): `psc-package verify`
+7. Install the packages (no need to verify them): `psc-package install`
 
 You can now use `benchotron` via psc-package.
 
