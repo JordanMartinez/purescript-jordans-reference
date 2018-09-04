@@ -8,7 +8,7 @@ import ConsoleLessons.ErrorHandling.DivisionTemplate (showResult, askUserForNume
 import Data.Either (Either(..))
 {-
 The previous file demonstrates how to use "Either String a" for error handling.
-The problem with this approach is that error type isn't type-safe.
+The problem with this approach is that the error type isn't type-safe.
 In other words, why use Strings when we could define our own error types?
 
 Creating our own error types has these benefits:

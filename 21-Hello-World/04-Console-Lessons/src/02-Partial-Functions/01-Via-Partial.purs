@@ -5,22 +5,6 @@ import Effect (Effect)
 import Node.ReadLine.CleanerInterface (createUseCloseInterface, log)
 import ConsoleLessons.ErrorHandling.DivisionTemplate (showResult, askUserForNumerator, askUserForDenominator)
 
-{-
-A total function is a function that ALWAYS outputs a value
-for every input it can receive
-
-A partial function is a function that SOMETIMES outputs a value
-for every input it can receive. In other words, sometimes
-it cannot return a value when given specific arguments.
-In such situations, it usually returns `null` or throws an Error/Exception.
-
-A good example is division:
-
-  | Expression | Outputs
-  -----------------------------
-  | 5 / 1      | Valid value
-  | x / 0      | ???
--}
 -- new imports
 -- Used when a function cannot return a valid value
 import Partial (crash)
