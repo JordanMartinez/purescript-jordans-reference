@@ -15,7 +15,7 @@ Here's a comparison table between the three:
 | Supports "statistical" testing | No | Yes | No
 | Can generate functions<br><br>Supports monadic tests | Yes | Yes | No
 
-Besides the table above, here's a few more differences between QuickCheck (QC) and StrongCheck (SC):
-- SC includes a few out-of-box newtypes for generating some typical data (e.g. AlphaNumString, Negative/NonZero/Positive Int, DateTime) whereas QC does not
-- QC provides assertion operators that include standard output messages (e.g. `==?` and `/=?`)
-- QC's `Gen` type and combinators are used in Benchotron, the Purescript benchmarking library (covered next)
+According to @garyb, one of the core contributors to Purescript:
+> Originally StrongCheck (SC) was fully stack safe where there were some cases that QuickCheck (QC) was not, but QC is now too. I wouldn't use SC now unless I needed `smallCheck` (exhaustive testing) or `statCheck` (statistical testing) as it is significantly slower, to the point of it being annoying on some tests
+
+Lastly, QuickCheck's `Gen` type and combinators are used in `Benchotron`, the Purescript benchmarking library (covered next)
