@@ -22,7 +22,7 @@ import Test.QuickCheck.Laws.Data as Data
 -- necessary to compile
 import Type.Proxy (Proxy(..), Proxy2(..))
 
--- Give a type...
+-- Given a type...
 -- (e.g. our Box type from before)
 data Box a = Box a
 
@@ -69,7 +69,7 @@ main = do
   checkBox
 
   -- Fruit's type, arbitrary, and instances appear after
-  -- the section including Box's instances 
+  -- the section including Box's instances
   checkFruit
 
 -- Box's instances
