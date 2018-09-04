@@ -18,3 +18,4 @@ Here's a comparison table between the three:
 Besides the table above, here's a few more differences between QuickCheck (QC) and StrongCheck (SC):
 - SC includes a few out-of-box newtypes for generating some typical data (e.g. AlphaNumString, Negative/NonZero/Positive Int, DateTime) whereas QC does not
 - QC provides assertion operators that include standard output messages (e.g. `==?` and `/=?`)
+- QC's `Gen` type and combinators are used in Benchotron, the Purescript benchmarking library (covered next)
