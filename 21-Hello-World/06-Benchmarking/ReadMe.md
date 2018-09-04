@@ -60,8 +60,7 @@ You can now use `benchotron` via psc-package.
 
 1. Run the below command
 ```bash
-pulp --psc-package run --src-path "benchmark" -m Benchma
-rking.Syntax.Benchotron
+pulp --psc-package run --src-path "benchmark" -m Benchmarking.Syntax.Benchotron
 ```
 2. It will output a file in the freshly-created `tmp` directory
 3. Upload the outputted file to [this link](http://harry.garrood.me/purescript-benchotron-svg-renderer/)
