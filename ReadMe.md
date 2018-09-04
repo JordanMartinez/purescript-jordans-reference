@@ -11,6 +11,8 @@ This repo is my way of trying to use the [Feynman Technique](https://medium.com/
 
 See [issues marked with the 'Roadmap' label](https://github.com/JordanMartinez/purescript-jordans-reference/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3ARoadmap) for a deeper understanding of this project's current direction/goals.
 
+Also, see the [Meta-labeled issues](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Meta) for issues related to the project as a whole.
+
 ## License
 
 Unless stated otherwise in a specific folder or file, this project is licensed under the `Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license`: [(Human-readable version)](https://creativecommons.org/licenses/by-nc-sa/4.0/), [(Actual License)](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
@@ -31,6 +33,10 @@ Feel free to open a new issue for:
 
 ### Learning Purescript Using This Project
 
+
+- Read through these links about learning:
+    - [How to teach yourself to learn](https://jvns.ca/blog/2018/09/01/learning-skills-you-can-practice/)
+    - Asking good questions: [short read](https://jvns.ca/blog/good-questions/) and [long read](http://www.catb.org/~esr/faqs/smart-questions.html)
 - Git clone this repo
 - Use these rules to read through the folders' contents in the correct order:
     - **Read a folder's "ReadMe.md" file first (if it exists).** It may provide additional info for how to read a folder's contents.

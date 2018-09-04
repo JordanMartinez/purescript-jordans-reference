@@ -34,7 +34,7 @@ This folder will cover testing using three libraries. Nested bullet points indic
     - [spec-mocha](https://pursuit.purescript.org/packages/purescript-spec-mocha/3.0.0)
     - [spec-quickcheck](https://pursuit.purescript.org/packages/purescript-spec-quickcheck/3.0.0)
 - [Quick Check](https://pursuit.purescript.org/packages/purescript-quickcheck/5.0.0) - Property Testing
-- [Quick Check Laws](https://pursuit.purescript.org/packages/purescript-quickcheck-laws/4.0.0) - Property Testing for the core type classes
+- [Quick Check Laws](https://pursuit.purescript.org/packages/purescript-quickcheck-laws/4.0.0) - Property Testing for the core type classes via type-level programming
 
 ## Running the Tests
 

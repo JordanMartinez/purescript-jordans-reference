@@ -14,3 +14,10 @@
 /**/output/
 /**/.pulp-cache/
 /**/dist/
+/**/node_modules/
+/**/package-lock.json
+
+# For the benchmarking folder
+/**/tmp/
+# Since Benchotron is not yet in the default package set
+/**/*Benchmarking/psc-package.json
