@@ -11,7 +11,7 @@ Data types that store one or more instances of a given type.
 
 | Package | Type name | "Plain English" name |
 | - | - | - | - | - |
-| [purescript-arrays](https://pursuit.purescript.org/packages/purescript-arrays/5.0.0/docs/Data.Array) | `Array a` | Immutable strict size-NOT-known-at-compile-time array
+| [purescript-arrays](https://pursuit.purescript.org/packages/purescript-arrays/5.0.0/docs/Data.Array)<br>(Utils library) | `Array a` | Immutable strict size-NOT-known-at-compile-time array
 
 | Usage | Instances & their Usage
 | - | -
