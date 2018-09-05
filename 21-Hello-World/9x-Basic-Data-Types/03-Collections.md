@@ -2,7 +2,11 @@
 
 Data types that store one or more instances of a given type.
 
-## Array
+## Array (Mutable)
+
+https://pursuit.purescript.org/packages/purescript-arrays/5.0.0/docs/Data.Array.ST
+
+## Array (Immutable)
 
 ```purescript
 []  -- empty array
@@ -88,6 +92,10 @@ infixr 6 cons as :
 | Recursive-friendly, not-best-performant list type | <ul><li>`Nil` - Indicates the end of a List in pattern matching</li><li>`Cons a (List a)` - stores one value of the list (head) and the tail, either the rest of the list (another `Cons`) or the end of the list (`Nil`).</li></ul>
 | A "type class wrapper type" | Easily implement instances for some type classes by wrapping a type in `List` |
 
+## List (Known Size)
+
+https://pursuit.purescript.org/packages/purescript-safelist/2.0.0/docs/Data.List.Safe
+
 ## NonEmpty
 
 To guarantee that a box-like type cannot be empty, we wrap it with a type.
@@ -105,7 +113,7 @@ infixr 5 NonEmpty as :|
 | - | - | - | - | - |
 | [purescript-nonempty](https://pursuit.purescript.org/packages/purescript-nonempty/5.0.0/docs/Data.NonEmpty) | `NonEmpty box a` | Wrapper type that guarantees that at least one instance of `a` exists
 
-## Map
+## Map (Ord-based)
 
 ```purescript
 data Map key value = -- implementation
@@ -117,7 +125,17 @@ data Map key value = -- implementation
 
 https://pursuit.purescript.org/packages/purescript-ordered-collections/1.0.0/docs/Data.Set
 
-## Set
+## Map (Hash-based)
+
+https://pursuit.purescript.org/packages/purescript-unordered-collections/1.3.0
+
+## Vault (Key-Type-based; outdated)
+
+https://pursuit.purescript.org/packages/purescript-vault/0.1.0
+
+A map-like structure that uses differently-typed keys to get their corresponding value (same type as the key)
+
+## Set (Ord-based)
 
 ```purescript
 newtype Set a = -- implementation
@@ -126,6 +144,10 @@ newtype Set a = -- implementation
 | Package | Type name | "Plain English" name |
 | - | - | - | - | - |
 | [purescript-ordered-collections](https://pursuit.purescript.org/packages/purescript-ordered-collections/1.0.0/docs/Data.Set) | `Set a` | Balanced 2-3 Tree Set
+
+## Set (Hash-based)
+
+https://pursuit.purescript.org/packages/purescript-unordered-collections/1.3.0/docs/Data.HashSet
 
 ## Finger Tree
 
@@ -147,6 +169,14 @@ data FingerTree measurement a = -- implementation
 ## Heap (outdated)
 
 https://pursuit.purescript.org/packages/purescript-heap/0.1.0
+
+## Queues
+
+https://pursuit.purescript.org/packages/purescript-catenable-lists/5.0.0
+
+## Priority Queue (outdated)
+
+https://pursuit.purescript.org/packages/purescript-pqueue/1.0.0
 
 ## Rose or Multi-Way Tree (outdated)
 
