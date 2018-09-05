@@ -4,11 +4,11 @@ This folder documents both additional 'primitive' data types and their utils lib
 
 ## Miscellaneous but Important
 
-## Identity
+### Identity
 
 https://pursuit.purescript.org/packages/purescript-identity/4.0.0/docs/Data.Identity
 
-## Globals
+### Globals
 
 https://pursuit.purescript.org/packages/purescript-globals/4.0.0/docs/Global
 
