@@ -76,6 +76,8 @@ pulp --psc-package run -- arg1PassedToProgram arg2PassedToProgram
 ```
 ### Publish the Package for the First Time
 
+See this [help page for authors](https://pursuit.purescript.org/help/authors) on Pursuit. Its instructions are more authoritative than what follows.
+
 ```bash
 # Build the docs
 pulp --psc-package docs -- --format html
