@@ -1,4 +1,4 @@
-# Basic Data Types
+# Data Types
 
 Purescript modulates many things. This makes code reusage better, but makes it harder for new learners to find the things they need, especially if they don't already know what they are looking for.
 
