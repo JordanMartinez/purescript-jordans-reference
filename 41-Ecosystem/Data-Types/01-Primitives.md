@@ -44,9 +44,10 @@ https://pursuit.purescript.org/packages/purescript-decimals/4.0.0/docs/Data.Deci
 
 ## Strings
 
-- https://pursuit.purescript.org/packages/purescript-bytestrings/6.0.0
 - https://pursuit.purescript.org/packages/purescript-strings/4.0.0 (char, string, and regex)
-- https://pursuit.purescript.org/packages/purescript-stringutils/0.0.8
+- https://pursuit.purescript.org/packages/purescript-stringutils/0.0.8 (includes some additional functions not in `purescript-strings`; also contains many deprecated functions)
+
+- https://pursuit.purescript.org/packages/purescript-bytestrings/6.0.0
 - https://pursuit.purescript.org/packages/purescript-fuzzy/0.2.1/docs/Data.Fuzzy
 
 ## Binary (Outdated)
