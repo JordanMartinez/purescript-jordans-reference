@@ -185,3 +185,7 @@ https://pursuit.purescript.org/packages/purescript-tree/1.3.2/docs/Data.Tree
 ## Trie (outdated)
 
 https://pursuit.purescript.org/packages/purescript-trie/0.0.2
+
+# Graphs
+
+https://pursuit.purescript.org/packages/purescript-graphs/4.0.0/docs/Data.Graph
