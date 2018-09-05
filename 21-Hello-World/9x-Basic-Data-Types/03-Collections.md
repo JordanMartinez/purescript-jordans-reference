@@ -143,3 +143,15 @@ data FingerTree measurement a = -- implementation
 - [Seq](https://pursuit.purescript.org/packages/purescript-sequences/1.0.3/docs/Data.Sequence)
 - [NonEmptySeq](https://pursuit.purescript.org/packages/purescript-sequences/1.0.3/docs/Data.Sequence.NonEmpty)
 - [OrderedSeq](https://pursuit.purescript.org/packages/purescript-sequences/1.0.3/docs/Data.Sequence.Ordered)
+
+## Heap (outdated)
+
+https://pursuit.purescript.org/packages/purescript-heap/0.1.0
+
+## Rose or Multi-Way Tree (outdated)
+
+https://pursuit.purescript.org/packages/purescript-tree/1.3.2/docs/Data.Tree
+
+## Trie (outdated)
+
+https://pursuit.purescript.org/packages/purescript-trie/0.0.2
