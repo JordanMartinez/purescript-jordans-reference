@@ -125,6 +125,19 @@ data Either a b
 | - | - |
 | Used to indicate one type among many types | See docs |
 
+### These
+
+```purescript
+data These a b
+  = This a      -- Left  a
+  | That b      -- Right b
+  | Both a b    -- Tuple a b
+```
+
+| Package | Type name | "Plain English" name |
+| - | - | - |
+| [purescript-these](https://pursuit.purescript.org/packages/purescript-these/4.0.0) | `These a b` | Same as `Either a (Either b (Tuple a b))`
+
 ## Concluding Thoughts
 
 **Performance-wise**, it's generally better to use `Record` instead of `Tuple`, and it's definitely better to use `Record` instead of a nested `Tuple`.
