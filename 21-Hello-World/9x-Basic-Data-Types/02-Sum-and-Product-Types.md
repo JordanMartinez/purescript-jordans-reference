@@ -67,6 +67,64 @@ closed { fst: "hello", snd: "world" } -- compiles
 closed { fst: "hello", snd: "world", unrelatedField: 0 } -- compiler error
 ```
 
+## The Types
+
+### Tuple
+
+```purescript
+data Tuple a b = Tuple a b
+```
+
+| Package | Type name | "Plain English" name |
+| - | - | - |
+| [purescript-tuples](https://pursuit.purescript.org/packages/purescript-tuples/5.0.0) | `Tuple a b` | 2-value Box
+
+| Usage | Instances & their Usage |
+| - | - |
+| Stores two ordered unnamed values of the same/different types.<br>Can be used to return or pass in multiple unnamed values from or into a function. | `Tuple a b` |
+
+### Record
+
+```purescript
+forall r. { a :: A, b :: B, {- ... -} | r } -- open record
+          { a :: A, b :: B, {- ... -}     } -- closed record
+```
+
+| Package | Type name | "Plain English" name |
+| - | - | - |
+| [prim](https://pursuit.purescript.org/builtins/docs/Prim#t:Record) | `{ field :: ValueType }` | an N-value Box
+
+| Usage | Instances & their Usage |
+| - | - |
+| Stores N ordered named values of the same/different types.<br>Can be used to return or pass in multiple unnamed values from or into a function. | `{ field :: ValueType }` |
+
+### Either
+
+```purescript
+data Either a b
+  = Left a
+  | Right b
+```
+
+| Package | Type name | "Plain English" name |
+| - | - | - |
+| [purescript-either](https://pursuit.purescript.org/packages/purescript-either/4.0.0) | `Either a b` | Choice of 2 types
+
+| Usage | Instances & their Usage
+| - | - |
+| Used to indicate one type or a second type | <ul><li>`Left a` - an instance of `a`</li><li>`Right b` - an instance of `b`</li></ul>
+| Error handing (when we care about the error) | <ul><li>`Left a` - the error type that is returned when a computation fails</li><li>`Right b` - the output type when a computation succeeds</li></ul>
+
+### Variant
+
+| Package | Type name | "Plain English" name |
+| - | - | - |
+| [purescript-variant](https://pursuit.purescript.org/packages/purescript-variant/5.0.0) | `Variant (a :: A, b :: B)` | Choice of N types
+
+| Usage | Instances & their Usage
+| - | - |
+| Used to indicate one type among many types | See docs |
+
 ## Concluding Thoughts
 
 **Performance-wise**, it's generally better to use `Record` instead of `Tuple`, and it's definitely better to use `Record` instead of a nested `Tuple`.
