@@ -11,12 +11,30 @@ Data types that store one or more instances of a given type.
 
 | Package | Type name | "Plain English" name |
 | - | - | - | - | - |
-| [purescript-arrays](https://pursuit.purescript.org/packages/purescript-arrays/5.0.0/docs/Data.Array) | `Array a` | Immutable strict array
+| [purescript-arrays](https://pursuit.purescript.org/packages/purescript-arrays/5.0.0/docs/Data.Array) | `Array a` | Immutable strict size-NOT-known-at-compile-time array
 
 | Usage | Instances & their Usage
 | - | -
 | Recursive-resistant, great-performant list type | --
 | A "type class wrapper type" | Easily implement instances for some type classes by wrapping a type in `Array` |
+
+## Vec
+
+```purescript
+newtype Vec s a = -- implementation
+
+empty :: -- TypeLevel Programming
+
+cons :: -- TypeLevel Programming
+
+infixr 5 cons as +>
+
+1 +> 2 +> empty -- [1, 2]
+```
+
+| Package | Type name | "Plain English" name |
+| - | - | - |
+| [purescript-sized-vectors](https://pursuit.purescript.org/packages/purescript-sized-vectors/3.1.0/docs/Data.Vec) | `Vec s a` | Immutable strict size-known-at-compile-time array
 
 ## List (Strict)
 
