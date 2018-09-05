@@ -20,6 +20,10 @@ https://pursuit.purescript.org/packages/purescript-versions/5.0.0/docs/Data.Vers
 
 https://pursuit.purescript.org/packages/purescript-datetime/4.0.0
 
+## Date Time
+
+https://pursuit.purescript.org/packages/purescript-js-date/6.0.0
+
 ## Media Types
 
 https://pursuit.purescript.org/packages/purescript-media-types/4.0.1

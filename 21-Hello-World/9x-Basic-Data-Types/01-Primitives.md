@@ -49,10 +49,6 @@ https://pursuit.purescript.org/packages/purescript-decimals/4.0.0/docs/Data.Deci
 - https://pursuit.purescript.org/packages/purescript-stringutils/0.0.8
 - https://pursuit.purescript.org/packages/purescript-fuzzy/0.2.1/docs/Data.Fuzzy
 
-## Date Time
-
-https://pursuit.purescript.org/packages/purescript-js-date/6.0.0
-
 ## Binary (Outdated)
 
 https://pursuit.purescript.org/packages/purescript-binary/0.2.9
