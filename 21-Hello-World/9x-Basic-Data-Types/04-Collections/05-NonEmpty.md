@@ -1,8 +1,4 @@
-# Collections
-
-Data types that store one or more instances of a given type.
-
-## NonEmpty
+# NonEmpty
 
 To guarantee that a box-like type cannot be empty, we wrap it with a type.
 
