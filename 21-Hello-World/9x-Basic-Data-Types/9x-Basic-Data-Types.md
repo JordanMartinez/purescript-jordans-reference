@@ -2,7 +2,6 @@
 
 | Package | Type name | "Plain English" name | Usage | Instances & their Usage
 | - | - | - | - | - |
-| [purescript-maybe](https://pursuit.purescript.org/packages/purescript-maybe/4.0.0) | `Maybe a` | A full or empty box | Used to indicate an optional value; used for simple error-handling; replaces `null` in most OO languages | <ul><li>`Nothing` - An empty box that indicates there was no such value or an error occurred</li><li>`Just a` - A full box with an `a` value stored inside. Indicates success in computation or that an optioanl value was present.</li></ul>
 | [purescript-list](https://pursuit.purescript.org/packages/purescript-lists/5.0.0) | `List a` | Immutable singly-linked list | Stores multiple values of the same type | <ul><li>`Nil` - Indicates the end of a List in pattern matching</li><li>`Cons a (List a)` - stores one value of the list and either the rest of the list (another `Cons`) or the end of the list (`Nil`).</li></ul>
 
 ## A note on Tuple and Either
