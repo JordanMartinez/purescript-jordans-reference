@@ -1,9 +1,5 @@
 # Basic Data Types
 
-Purescript modulates many things. This makes code reusage better, but makes it harder for new learners to find the things they need, especially if they don't already know what they are looking for.
-
-So, before we can get started with Prelude, here are a few common FP data structures that need to be understood as they are used everywhere:
-
 | Package | Type name | "Plain English" name | Usage | Instances & their Usage
 | - | - | - | - | - |
 | [purescript-maybe](https://pursuit.purescript.org/packages/purescript-maybe/4.0.0) | `Maybe a` | A full or empty box | Used to indicate an optional value; used for simple error-handling; replaces `null` in most OO languages | <ul><li>`Nothing` - An empty box that indicates there was no such value or an error occurred</li><li>`Just a` - A full box with an `a` value stored inside. Indicates success in computation or that an optioanl value was present.</li></ul>
