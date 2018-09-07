@@ -1,6 +1,55 @@
 # Looking at OO for a Pattern
 
-We'll look at two examples of OO code to help us understand it's equivalent in FP code. The first will be using random number generators and the second will use stacks
+We'll look at three examples of OO code to help us understand it's equivalent in FP code. 
+
+## Incrementing an Integer
+
+Given this code:
+```javascript
+a = 0;
+x = a++;
+y = a++;
+z = a++;
+// which we'll rewrite to use a function that receives an argument
+a = 0;
+x = getAndIncrement(a);
+y = getAndIncrement(a);
+z = getAndIncrement(a);
+```
+`getAndIncrement` is an example of an impure function because it does not return the same value each time it is called. Moreover, `a`'s value changes over time, so that `a /= 0` at the end of our program. How might we write the same thing using pure functions? We'll demonstrate a few attempts and explain their problems before showing the final working solution
+
+```javascript
+// we'll make the function pure
+// and call it "add1"
+a = 0;
+x = add1(a);
+y = add1(a);
+z = add1(a);
+
+// Values end states are:
+a == 0
+x == y == z == 1
+```
+The problem is `add1` receives the wrong state as an argument. If we pass the returned state from our previous call into the next call, we can resolve this problem:
+```javascript
+a = 0;
+x = add1(x);
+y = add1(y);
+z = add1(z);
+
+// Values end states are:
+a == 0
+x == 1
+y == 2
+z == 3
+```
+At this point, we could do state manipulation using a recursive function...
+```purescript
+runNTimes :: forall a. Int -> (a -> a) -> a
+runNTimes 0 _ output = output
+runNTimes count func arg = runNTimes (count - 1) func (func arg)
+```
+... but state manipulation is more complicated than that. While this idea may work for a simple state manipulation like an integer, it does not work for larger data structures as the next two examples will show.
 
 ## Random Number Generators
 
