@@ -128,10 +128,19 @@ f = StateT (\sY -> (g sY) >>= func2)
     g = (\sZ -> Identity ((\initialState -> Tuple value1 state2) sZ))
     func2 = (\(Tuple value1 sY) -> let (StateT h) = func value1 in h sY)
     func = (\value1 -> StateT (\sA -> Identity ((\state2 -> Tuple value2 state3) sA)))
+```
 
--- We now have our final function and are ready to apply its first argument
+#### Calling RunStateT
 
--- Now call "runState" with "f" and some initial state
+We now have our final function and are ready to apply its first argument
+```purescript
+finalFunction = StateT (\sY -> (g sY) >>= func2)
+    where
+    g = (\sZ -> Identity ((\initialState -> Tuple value1 state2) sZ))
+    func2 = (\(Tuple value1 sY) -> let (StateT h) = func value1 in h sY)
+    func = (\value1 -> StateT (\sA -> Identity ((\state2 -> Tuple value2 state3) sA)))
+
+-- Now call "runState" with "finalFunction" and some initial state
 -- where 'm' is Identity
 runStateT :: forall s m a. StateFunction s m a -> s -> m (Tuple a s)
 runStateT (StateT f) initS = f initS
