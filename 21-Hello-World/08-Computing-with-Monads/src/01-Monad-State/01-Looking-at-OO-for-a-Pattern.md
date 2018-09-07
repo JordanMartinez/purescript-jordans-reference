@@ -1,6 +1,6 @@
 # Looking at OO for a Pattern
 
-We'll look at three examples of OO code to help us understand it's equivalent in FP code. 
+We'll look at three examples of OO code to help us understand it's equivalent in FP code.
 
 ## Incrementing an Integer
 
@@ -58,19 +58,24 @@ Given this code:
 x = random.nextInt
 y = random.nextInt
 z = random.nextInt
+
+// rewritten to use function arg syntax
+x = nextInt(random);
+y = nextInt(random);
+z = nextInt(random);
 ```
 `nextInt` is an impure function because it does not return the same value each time it is called. How might we write the same thing using pure functions? We'll demonstrate a few attempts and explain their problems before showing the final working solution
 ```javascript
 // Assume that  `nextInt` is now pure...
-x = random.nextInt
-y = random.nextInt
+x = nextInt(random);
+y = nextInt(random);
 // ... then 'x' ALWAYS equals 'y'
 // A random number can sometimes be the same one as before,
 // but this shouldn't always be true
 
 // To make `x /= y`, we need a new `random` instance, something like:
-x = random1.nextInt
-y = random2.nextInt
+x = nextInt(random1);
+y = nextInt(random2);
 ```
 However, this creates a problem: for a function that needs to use N random numbers, I need to create N random numbers before passing them into that function. If that exact number is not known at compile-time, then I can't define or use such a function.
 ```purescript
@@ -84,8 +89,8 @@ The solution is to make `nextInt` return two things via the `Tuple a b` type
 - the random int value
 - a new instance of `random`
 ```javascript
-(Tuple x random2) = random1.nextInt
-(Tuple y random3) = random2.nextInt
+(Tuple x random2) = nextInt(random1);
+(Tuple y random3) = nextInt(random2);
 ```
 
 ## Popping Stacks
@@ -97,22 +102,27 @@ We'll explain this idea once more using a different context: Stacks. In OO, we c
 x = stack.pop // x == 1
 y = stack.pop // y == 2
 z = stack.pop // z == 3
+
+// rewritten using "function arg" syntax
+x = pop(stack);
+y = pop(stack);
+z = pop(stack);
 ```
 
 `pop` is an impure function as calling it will not return the same value each time it is called. How might we write the same thing using pure functions?
 ```javascript
 // Assume that  `nextInt` is now pure...
-x = stack.pop
-y = stack.pop
+x = pop(stack);
+y = pop(stack);
 // ... we just popped the same value twice off of the stack
 // so that 'x' is always the same value/object as 'y'
 // In other words
-stack.pop == x == y == 1
+pop(stack) == x == y == 1
 
 // To make `y` == 2, we need a version of `stack` that will return `2`
 // as its next value to `pop`. In other words, something like...
-x = originalStack.pop
-y = originalStack_withoutX.pop
+x = pop(originalStack);
+y = pop(originalStack_withoutX);
 ```
 Similar to the random number generator issue from before, what do I do if I need multiple values from the stack in a function?
 
@@ -128,28 +138,28 @@ The solution is to make `pop` return two things via the `Tuple a b` type:
 - the popped value
 - a new version of `stack` without the popped value
 ```javascript
-(Tuple x originalStack_withoutX)    = originalStack.pop
-(Tuple y originalStack_withoutXorY) = originalStack_withoutX.pop
+(Tuple x originalStack_withoutX)    = pop(originalStack);
+(Tuple y originalStack_withoutXorY) = pop(originalStack_withoutX);
 ```
 
 ## Identifying the Pattern
 
 Here's the solution we came up with:
 ```javascript
-(Tuple x random2) = random1.nextInt
-(Tuple y random3) = random2.nextInt
+(Tuple x random2) = randomInt(random1);
+(Tuple y random3) = randomInt(random2);
 
-(Tuple x originalStack_withoutX)    = originalStack.pop
-(Tuple y originalStack_withoutXorY) = originalStack_withoutX.pop
+(Tuple x originalStack_withoutX)    = pop(originalStack);
+(Tuple y originalStack_withoutXorY) = pop(originalStack_withoutX);
 
 // and generalizing it to a pattern, we get
-(Tuple value1,  instance2        ) = instance1.stateManipulation
-(Tuple value2,  instance3        ) = instance2.stateManipulation
-(Tuple value3,  instance4        ) = instance3.stateManipulation
+(Tuple value1,  instance2        ) = stateManipulation(instance1);
+(Tuple value2,  instance3        ) = stateManipulation(instance2);
+(Tuple value3,  instance4        ) = stateManipulation(instance3);
 // ...
-(Tuple value_N, instance_N_plus_1) = instanceN.stateManipulation
+(Tuple value_N, instance_N_plus_1) = stateManipulation(instanceN);
 ```
 Turning this into Purescript syntax, we get:
 ```purescript
-not_yet_named_function :: forall state value. (state -> Tuple value state)
+state_manipulation_function :: forall state value. (state -> Tuple value state)
 ```

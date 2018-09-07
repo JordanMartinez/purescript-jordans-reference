@@ -2,22 +2,22 @@
 
 Here's the solution we came up with:
 ```javascript
-(Tuple x random2) = random1.nextInt
-(Tuple y random3) = random2.nextInt
+(Tuple x random2) = randomInt(random1);
+(Tuple y random3) = randomInt(random2);
 
-(Tuple x originalStack_withoutX)    = originalStack.pop
-(Tuple y originalStack_withoutXorY) = originalStack_withoutX.pop
+(Tuple x originalStack_withoutX)    = pop(originalStack);
+(Tuple y originalStack_withoutXorY) = pop(originalStack_withoutX);
 
 // and generalizing it to a pattern, we get
-(Tuple value1,  instance2        ) = instance1.stateManipulation
-(Tuple value2,  instance3        ) = instance2.stateManipulation
-(Tuple value3,  instance4        ) = instance3.stateManipulation
+(Tuple value1,  instance2        ) = stateManipulation(instance1);
+(Tuple value2,  instance3        ) = stateManipulation(instance2);
+(Tuple value3,  instance4        ) = stateManipulation(instance3);
 // ...
-(Tuple value_N, instance_N_plus_1) = instanceN.stateManipulation
+(Tuple value_N, instance_N_plus_1) = stateManipulation(instanceN);
 ```
 Turning this into Purescript syntax, we get:
 ```purescript
-not_yet_named_function :: forall state value. (state -> Tuple value state)
+state_manipulation_function :: forall state value. (state -> Tuple value state)
 ```
 
 ## Syntax Familiarity
