@@ -112,8 +112,8 @@ instance functor :: (Monad monad) => Functor (StateFunction state monad) where
 
         let mappedValue = f value1
 
-        -- this is the `m` type's pure, not StateFunction's pure because
-        -- `StateFunction` must return a monad type other than itself
+        -- this is the `monad` type's pure, not StateFunction's pure because
+        -- `StateFunction` must return a "monad (Tuple valueType stateType)"
         in pure $ Tuple mappedValue state2
       )
     )
