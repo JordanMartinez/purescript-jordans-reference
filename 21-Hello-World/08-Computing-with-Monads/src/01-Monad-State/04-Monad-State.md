@@ -219,27 +219,6 @@ runStateT = Identity (Tuple value2 initS)
 runStateT :: forall s m a. m (Tuple a s)
 runStateT = Identity (Tuple value2 initS)
 ```
-Great! So, how do we use it now? See this snippet:
-```purescript
-unwrap :: forall a. Identity a -> a
-unwrap (Identity a) = a
-
-runState :: forall s a. StateT s Identity a -> s -> Tuple a s
-runState (StateT f) initS = unwrap $ runStateT f initS
-
--- recalling our previous graph reduction from above...
---   replace "runStateT f initS" with its result
-runState :: forall s a. StateT s Identity a -> s -> Tuple a s
-runState (StateT f) initS = unwrap $ Identity (Tuple value2 initS)
-
--- replace "unwrap" LHS with RHS
-runState :: forall s a. StateT s Identity a -> s -> Tuple a s
-runState (StateT f) initS = Tuple value2 initS
-
--- Success!
-runState :: forall s a. Tuple a s
-runState = Tuple value2 initS
-```
 
 ## Derived Functions
 
@@ -304,7 +283,7 @@ Returning to our previous example, `crazyFunction` was implemented like so:
     - the function returns `Tuple value2 state3`
 4. Return `addStringLengthTo`'s output: `Tuple value2 nextState3`
 
-With our solution, we would now write:
+With `MonadState`, we would now write:
 ```purescript
 crazyFunction :: State Int String
 crazyFunction = do
@@ -320,6 +299,16 @@ main =
     Tuple theString theInt -> do
       log $ "theString was: " <> theString  -- "3"
       log $ "theInt was: " <> show theInt   -- 8
+
+unwrap :: forall a. Identity a -> a
+unwrap (Identity a) = a
+
+runState :: forall s a. StateT s Identity a -> s -> Tuple a s
+runState (StateT f) initialState =
+  unwrap $ runStateT f initialState
+
+runStateT :: forall s m a. StateT s m a -> s -> m Tuple a s
+runStateT (StateT f) initialState = f initialState
 ```
 
 ## Laws
