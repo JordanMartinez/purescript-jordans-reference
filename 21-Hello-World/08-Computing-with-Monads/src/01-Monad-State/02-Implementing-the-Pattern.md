@@ -30,7 +30,7 @@ type Value = String
 initialState :: State
 initialState = 0
 
-add1 :: (State -> Tuple String      Int)
+add1 :: (State -> Tuple String Int)
 add1 oldState   =
   let theNextState = oldState + 1
   in Tuple (show theNextState) theNextState
@@ -60,7 +60,7 @@ type State = Int
 type Value = String
 type Count = Int
 
-add1 :: (State -> Tuple String      Int)
+add1 :: (State -> Tuple String Int)
 add1 oldState   =
   let theNextState = oldState + 1
   in Tuple (show theNextState) theNextState
@@ -236,7 +236,7 @@ Now let's implement it for `Identity`:
 ```purescript
 class (Monad m) <= StateLike s m | m -> s where
   stateLike :: forall a
-             .  (s ->   Tuple a s )
+             .  (s ->    Tuple a s )
              -> (s -> m (Tuple a s))
 
 instance name :: StateLike s Identity where
@@ -246,7 +246,7 @@ Great! Everything works now! Here's a working example:
 ```purescript
 class (Monad m) <= StateLike s m | m -> s where
   stateLike :: forall a
-             .  (s ->   Tuple a s )
+             .  (s ->    Tuple a s )
              -> (s -> m (Tuple a s))
 
 instance name :: StateLike s Identity where
