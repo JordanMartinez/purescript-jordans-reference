@@ -69,7 +69,7 @@ class (Monad m) <= StateLike s m | m -> s where
 
 -- and now we can remove the `?` in the instance head,
 --    (the "StateLike s (StateFunction s m)" part of the instance),
--- and let it be defined by `stateLike` via "forall"
+-- and let it's `a` type be defined by `stateLike` via "forall"
 instance name :: (Monad m) => StateLike s (StateFunction s m) where
   stateLike :: forall a. (s -> Tuple a s) -> StateFunction s m a
   stateLike f = StateFunction (\s -> pure $ f s)
