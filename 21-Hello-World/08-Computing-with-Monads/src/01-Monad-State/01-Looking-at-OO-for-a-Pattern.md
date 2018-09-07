@@ -84,6 +84,10 @@ The solution is to make `nextInt` return two things via the `Tuple a b` type
 (Tuple x random2) = nextInt(random1);
 (Tuple y random3) = nextInt(random2);
 ```
+where `Tuple a b` is just a box that holds two instances of the same/different types:
+```purescript
+data Tuple a b = Tuple a b
+```
 ## Popping Stacks
 
 We'll explain this idea once more using a different context: Stacks. In OO, we can write the following code:
