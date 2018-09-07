@@ -320,6 +320,8 @@ runStateT :: forall s m a. StateT s m a -> s -> m Tuple a s
 runStateT (StateT f) initialState = f initialState
 ```
 
-## Laws
+## Laws and Miscellaneous Functions
 
 For the laws, see [MonadState's docs](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.State.Class#t:MonadState)
+
+Also see [StateT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.State.Trans#v:runStateT)/[State](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.State#v:runState)'s functions for how to handle its output in various ways
