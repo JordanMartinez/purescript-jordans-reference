@@ -178,7 +178,7 @@ crazyFunction state1 = do                                                   {-
   Tuple value    state        <- (\s -> pure $ function s) state
   Tuple value    state        <- (someFunction function) state
                                                                             -}
-  Tuple value1      state2      <- (someFunction increaseByOne) state1
+  Tuple value1      state2      <- (someFunction add1) state1
   (someFunction (\s -> addStringLengthTo value1 s) state2
 
 main :: Effect Unit
@@ -186,7 +186,7 @@ main =
   case (unwrapBox $ crazyFunction 0) of
     Tuple theString theInt -> do
       log $ "theString was: " <> theString  -- "2"
-      log $ "theInt was: " <> show theInt   -- 7
+      log $ "theInt was: " <> show theInt   --  2
 ```
 
 ## The `Identity` Monad
@@ -279,13 +279,13 @@ addStringLengthTo value state =
 
 crazyFunction :: Int -> Box (Tuple Int Int)
 crazyFunction state1 = do
-  Tuple string state2 <- (someFunction increaseByOne) state1
+  Tuple string state2 <- (someFunction add1) state1
   (someFunction (s -> addStringLengthTo string s)) state2
 
 main :: Effect Unit
 main =
   case (runSomeeFunction crazyFunction unwrapBox 0) of
     Tuple theString theInt -> do
-      log $ "theString was: " <> theString  -- "3"
-      log $ "theInt was: " <> show theInt   -- 8
+      log $ "theString was: " <> theString  -- "2"
+      log $ "theInt was: " <> show theInt   -- 2
 ```
