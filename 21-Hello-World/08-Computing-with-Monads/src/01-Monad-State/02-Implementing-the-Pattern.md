@@ -86,7 +86,7 @@ type Stack a = Array a
 type State = Int
 type Value = String
 
--- This code isn't type check!
+-- This code doesn't type check!
 -- It exists for teaching purposes only!
 runUsingFunctions :: Stack (State -> Tuple Value State) -> State -> Tuple Value State
 runUsingFunctions [last] state = last state
