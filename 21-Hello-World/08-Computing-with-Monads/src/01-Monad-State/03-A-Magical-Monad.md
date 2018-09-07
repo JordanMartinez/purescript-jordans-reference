@@ -16,7 +16,7 @@ data Tree  a = -- implementation
 
 So, what if we could define `StateLike` in such a way that, by defining only one instance for a magical type, we've also implemented it for all other `Monad` types? Crazy, I know! But it's possible! Let's take another look at `stateLike`'s type signature as it reveals an important clue:
 ```purescript
-                                                   |      Hmm....     |
+                                                -- |      Hmm....     |
 stateLike :: forall a. (s -> Tuple a s) ->         (s -> m (Tuple a s))
 
 -- Desguar the "->" to see its type
