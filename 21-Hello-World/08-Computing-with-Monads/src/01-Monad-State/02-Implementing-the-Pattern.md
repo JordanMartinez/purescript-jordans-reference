@@ -240,7 +240,7 @@ Now let's implement it for `Identity`:
 ```purescript
 class (Monad m) <= StateLike s m | m -> s where
   stateLike :: forall a
-             .  (s ->    Tuple a s )
+             .  (s -> Tuple a s )
              -> (s -> m (Tuple a s))
 
 instance name :: StateLike s Identity where
@@ -250,7 +250,7 @@ Great! Everything works now! Here's a working example:
 ```purescript
 class (Monad m) <= StateLike s m | m -> s where
   stateLike :: forall a
-             .  (s ->    Tuple a s )
+             .  (s -> Tuple a s )
              -> (s -> m (Tuple a s))
 
 instance name :: StateLike s Identity where
