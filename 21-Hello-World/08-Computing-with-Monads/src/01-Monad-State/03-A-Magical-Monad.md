@@ -33,7 +33,7 @@ class (Monad m) <= StateLike s m | m -> s where
 -- The `?` acts as a place holder for our theory
 instance name :: (Monad m) => StateLike s (Function s (m (Tuple ? s))) where
   stateLike :: forall a. (s -> Tuple a s) -> (s -> m (Tuple a s))
-  stateLike f = (\s -> pure $ f s)
+  stateLike f = (\s -> pure $ f s) -- pure is the `m`'s pure
 ```
 The above instance has a two problems:
 1. It won't compile because of that `?` placeholder.
