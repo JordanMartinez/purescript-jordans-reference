@@ -6,10 +6,10 @@ It's time to reveal the real names of the types we've defined:
 | - | - |
 | `class (Monad m) <= StateLike s m` | `class (Monad m) <= MonadState s m` |
 | `stateLike` | `state`
-| `StateFunction s m a`<br>`m` is undefind | `StateT s m a`
-| `StateFunction s m a`<br>`m` is `Identity` | `State s   a`
-| `runStateLike`<br>`m` is undefind | `runStateT`
-| `runStateLike`<br>`m` is `Identity` | `runState`
+| `StateFunction s m a` | `StateT s m a`
+| `StateFunction s Identity a` | `State s   a`
+| `runStateLike`<br>(`m` is undefind) | `runStateT`
+| `runStateLike`<br>(`m` is `Identity`) | `runState`
 
 The `T` in `StateT` stands for "Transformer": it can transform any monad (e.g. a Stack type) into a State Monad that exposes state manipulating computations.
 
