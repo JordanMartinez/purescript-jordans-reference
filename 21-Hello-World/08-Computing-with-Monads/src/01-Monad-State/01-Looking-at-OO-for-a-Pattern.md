@@ -1,8 +1,8 @@
-## OO State Reexamined
+# Looking at OO for a Pattern
 
 We'll look at two examples of OO code to help us understand it's equivalent in FP code. The first will be using random number generators and the second will use stacks
 
-### Random Number Generators
+## Random Number Generators
 
 Given this code:
 ```javascript
@@ -39,7 +39,7 @@ The solution is to make `nextInt` return two things via the `Tuple a b` type
 (Tuple y random3) = random2.nextInt
 ```
 
-### Popping Stacks
+## Popping Stacks
 
 We'll explain this idea once more using a different context: Stacks. In OO, we can write the following code:
 ```javascript
@@ -83,7 +83,7 @@ The solution is to make `pop` return two things via the `Tuple a b` type:
 (Tuple y originalStack_withoutXorY) = originalStack_withoutX.pop
 ```
 
-### Identifying the Pattern
+## Identifying the Pattern
 
 Here's the solution we came up with:
 ```javascript
