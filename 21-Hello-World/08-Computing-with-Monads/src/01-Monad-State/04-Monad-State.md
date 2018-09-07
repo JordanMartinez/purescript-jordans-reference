@@ -17,7 +17,7 @@ The `T` in `StateT` stands for "Transformer": it can transform any monad (e.g. a
 
 Because the `StateT`/`StateFunction` is a Monad, we can write code via do notation. However, reading through its `do notation` is strange at first. As you read through this next code snippet, you might wonder two things:
 1. How does `StateT` produce a value type instead of a Tuple type?
-2. How can we still use the `state` as an argument in `state` since we never pass it into the function?"
+2. How can we still use the `nextState` as an argument in the `state` function since we never pass it into the function?"
 ```purescript
                   -- StateT StateType Identity ValueType
 state_do_notation :: State  StateType          ValueType
