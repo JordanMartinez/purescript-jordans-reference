@@ -195,10 +195,13 @@ However, we have a problem.... `Box` is a literal runtime Box. So, using it here
 
 Since we have a "placeholder" function called `identity`, let's reuse this name for our compile-time-only type:
 ```purescript
+-- placeholder for a function!
 identity :: forall a. a -> a
 identity x = x
 
 data    Box      a = Box      a -- runtime type!
+
+-- placeholder for a monad!
 newtype Identity a = Identity a -- compile-time-ONLY type!
 ```
 
