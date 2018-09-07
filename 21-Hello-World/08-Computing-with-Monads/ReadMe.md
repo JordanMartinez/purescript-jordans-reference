@@ -44,8 +44,16 @@ If `bind`/`>>=` insures sequential computation, what kinds of functions could we
 
 | When we want `bind` to... | ... we expect to use functions named something like ... | ... which are best abstracted together in a type class called...
 | - | - | - |
-| manipulate state | <ul><li>`getState`</li><li>`setState`</li><li>`modifyState` (get and then set)</li></ul> | [`MonadState`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.State.Class#t:MonadState), which provides functions for manipulating state.
-| sequentially log things to a Logger | <ul><li>`logToFile`</li><li>`logToConsole`</li></ul> | [`MonadTell` and `MonadWriter`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Writer.Class#t:MonadTell), which provides functions for sequentially logging info to a Logger
-| Get the value of some settings/config | <ul><li>`getSettingValue`</li><li>`getConfigValue`</li><li>`getConfigValueFromFile`</li></ul> | [`MonadAsk` and `MonadReader`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Class#t:MonadAsk), which provide read-only functions for getting such values
+| Produce for later usage a read-only value that may change between different program runs<br>(e.g. "settings" values; dependency injection) | <ul><li>`getSettingValue`</li><li>`getConfigValueFromFile`</li><li>`getNumberOfPlayersInGame`</li></ul> | [`MonadAsk`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Class#t:MonadAsk)
+| Modify the state of a data structure<br>(e.g. changing the nth value in a list)| <ul><li>`pop stack`</li><li>`replaceAt index tree`</li><li>`(_ + 1)`</li></ul> | [`MonadState`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.State.Class#t:MonadState)
+| Use a Semigroup to combine a function's additional non-output data | [see this SO answer](https://stackoverflow.com/a/27651976) | [`MonadTell`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Writer.Class#t:MonadTell)
+| Stop computation because of an unforeseeable error<br>(e.g. "business logic error") | -- | [`MonadThrow`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Error.Class#t:MonadThrow)
+| Stop "callback hell"<br>(e.g. [de-invert inversion of control](http://www.thev.net/PaulLiu/invert-inversion.html)) |-- | [`MonadCont`](invert inversion of control)
+
+| When we want to extend the functionality of... | with the ability to... | ... we can use its extension type class called...
+| - | - | - |
+| MonadAsk | Modify the read-only value for one computation<br>(e.g. `increaseFontSizeFor getFontSize displayPage`) | [`MonadReader`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Class#t:MonadReader)
+| MonadTell | TODO | [`MonadWriter`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Writer.Class#t:MonadWriter)
+| MonadThrow | Catch and handle the error that was thrown<br>(e.g. log debug output to see why business logic was wrong) | [`MonadError`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Error.Class#t:MonadError)
 
 These type classes will be explained and used in code.
