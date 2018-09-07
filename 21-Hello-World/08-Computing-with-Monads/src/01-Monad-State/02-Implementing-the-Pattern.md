@@ -204,7 +204,9 @@ newtype Identity a = Identity a -- compile-time-ONLY type!
 
 ### Abstracting the Concept into a Type Class
 
-This solves one problem, but we still have another problem. We cannot use `someFunction` globally. For now, it must be defined in a file to use it in that file. This implies that we need to convert it into a type class so we can expose its function using a type class constraint. Let's attempt to define it and call the type class `StateLike`. It's function, `stateLike`, should be the same as `someFunction`'s type signature:
+The above solution works. However, we want to use `someFunction` for numerous state manipulating functions. If we later define a `Stack` type class, it would be helpful to to implement `Stack`'s type class instances by using  `someFunction` in their definition.
+
+This implies that we need to convert `someFunction` into a type class so we can use `someFunction` in another function via a type class constraint. Let's attempt to define it and call the type class `StateLike`. It's function, `stateLike`, should be the same as `someFunction`'s type signature:
 ```purescript
 someFunction :: forall state monad value
               . Monad monad
