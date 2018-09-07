@@ -177,8 +177,7 @@ crazyFunction state1 = do                                                   {-
   Tuple value    state        <- pure $ function state
   Tuple value    state        <- (\s -> pure $ function s) state
   Tuple value    state        <- (someFunction function) state
-
-  Tuple typeValue s_typeValue <-                                            -}
+                                                                            -}
   Tuple value1      state2      <- (someFunction increaseByOne) state1
   (someFunction (\s -> addStringLengthTo value1 s) state2
 
