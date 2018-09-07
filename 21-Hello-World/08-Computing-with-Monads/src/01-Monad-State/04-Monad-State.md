@@ -288,22 +288,25 @@ sideBySideComparison = do
   pure "string"
 ```
 
-Returning to our previous example, we wanted to implement `crazyFunction`:
-1. Take some `initialState` value as input
-2. Pass that value into `increaseByOne :: Int -> Tuple Int Int`, which returns `Tuple value nextState`
-4. Pass `nextState` into `timesTwoToString :: Int -> Tuple String Int`, which returns `Tuple value2 nextState2`
-5. Return `timesTwoToString`'s output: `Tuple value2 nextState2`
+Returning to our previous example, `crazyFunction` was implemented like so:
+1. Take some `initialState` value
+2. Pass that value into `add1 :: State -> Tuple Int Int`, which returns `Tuple value1 state2`
+3. Pass `value` and `state2` into `addValue1StringLengthTo :: Int -> Int -> Tuple String Int` where
+    - `value` will be converted into a `String`, called `valueAsString`
+    - the length of `valueAsString` will be added to `state2`, which produces `state3`
+    - `state3` is converted into a `String`, called `value2`
+    - the function returns `Tuple value2 state3`
+4. Return `addStringLengthTo`'s output: `Tuple value2 nextState3`
 
 With our solution, we would now write:
 ```purescript
 crazyFunction :: State Int String
 crazyFunction = do
-  modify_ (_ + 1)                    -- state is now   1
-  value2_int <- modify (\s -> s * 2) -- state is now   3
-  value2_string <- gets show         -- state is still 3
-  modify (_ + 5)                     -- state is now   8
+  value1 <- modify (_ + 1)
+  modify_ (_ + (length $ show value1))
+  value2 <- gets show
 
-  pure value2_string
+  pure value2
 
 main :: Effect Unit
 main =
