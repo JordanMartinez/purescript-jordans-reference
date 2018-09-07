@@ -11,9 +11,13 @@ It's time to reveal the real names of the types we've defined:
 | `runStateLike`<br>`m` is undefind | `runStateT`
 | `runStateLike`<br>`m` is `Identity` | `runState`
 
+The `T` in `StateT` stands for "Transformer": it can transform any monad (e.g. a Stack type) into a State Monad that exposes state manipulating computations.
+
 ## Reading MonadState's Do Notation
 
-Because the `StateT`/`StateFunction` is a Monad, we can write code via do notation. However, reading through its `do notation` is strange at first. As you read through this next code snippet, **you will probably wonder, "But if `bind`/`>>=` produces an instance of the `value` type and not the `Tuple` type, how can we still use `state` as an argument since we never pass it into the function?"**:
+Because the `StateT`/`StateFunction` is a Monad, we can write code via do notation. However, reading through its `do notation` is strange at first. As you read through this next code snippet, you might wonder two things:
+1. How does `StateT` produce a value type instead of a Tuple type?
+2. How can we still use the `state` as an argument in `state` since we never pass it into the function?"
 ```purescript
                   -- StateT StateType Identity ValueType
 state_do_notation :: State  StateType          ValueType
@@ -26,9 +30,11 @@ state_do_notation = do
     value3 <- state (\state3       -> Tuple value3 state4)
     state (\state4 -> Tuple value4 state5)
 ```
-You wondered how it's possible to still use `state` as an argument since we never pass it into the function. This only appears confusing at first because you are forgetting that `state` returns a `StateT` instance. Recall that `StateT` is a Monad (i.e. `m a`) who's `a` is the `a` in `Tuple a s`. So, when we call `bind` on it, it returns that `a`.
+To answer the questions above:
+1. Recall that `StateT` is a Monad (i.e. `m a`) whose `a` is the `a` in `Tuple a s`. So, when we call `bind` on it, it returns that `a`, not the `Tuple a s`.
+2. `StateT` is a function, not a `Box`-like type. So, its `bind` works very differently than `Box`'s bind. `state2` reappears in the next function's argument because of how `StateT` implements `bind`.
 
-If you don't care to see how it's possible for the `state2` to reappear in the following line as the next function's argument (warning: the next section is 200 LOC), then [jump to the next section](#derived-functions) where we talk about `MonadState`'s derived functions.
+If you don't care to see how the above Answer 2 is possible (warning: the next section is 200 lines), then [jump to the next section](#derived-functions) where we talk about `MonadState`'s derived functions.
 
 Otherwise, this next section will reduce a `StateT`'s do notation into its final result.
 
