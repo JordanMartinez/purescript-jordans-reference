@@ -80,7 +80,7 @@ runNTimes count add1_ nextState =
 
 This works but only because it's so simple. Let's say we want to call `add1` on the first state, then call `times2` on the second state, and then return the output of calling `add1` on the third state. How would we update our code to do that?
 
-We could try to specify a stack of functions (using an array or some other stack-like data structure) that are used to recursively evaluate the next state outputted by the previous function. Below is not a working example of how one would write that, but merely demonstrates the heart behind it:
+We could try to specify a stack of functions (using an array or some other stack-like data structure) that are used to recursively evaluate the next state outputted by the previous function. Below is **not** a working example of how one would write that, but merely demonstrates the heart behind it:
 ```purescript
 type Stack a = Array a
 type State = Int
