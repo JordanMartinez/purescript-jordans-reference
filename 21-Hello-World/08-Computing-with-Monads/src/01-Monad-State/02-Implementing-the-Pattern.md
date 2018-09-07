@@ -206,7 +206,7 @@ newtype Identity a = Identity a -- compile-time-ONLY type!
 
 The above solution works. However, we want to use `someFunction` for numerous state manipulating functions. If we later define a `Stack` type class, it would be helpful to to implement `Stack`'s type class instances by using  `someFunction` in their definition.
 
-This implies that we need to convert `someFunction` into a type class so we can use `someFunction` in another function via a type class constraint. Let's attempt to define it and call the type class `StateLike`. It's function, `stateLike`, should be the same as `someFunction`'s type signature:
+This implies that we need to convert `someFunction` into a type class so we can use `someFunction` in another function via a type class constraint. Let's attempt to define it and call the type class `StateLike`. Its function, `stateLike`, should be the same as `someFunction`'s type signature:
 ```purescript
 someFunction :: forall state monad value
               . Monad monad
