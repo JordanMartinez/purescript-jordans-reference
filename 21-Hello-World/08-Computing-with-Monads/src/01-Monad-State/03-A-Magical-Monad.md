@@ -1,11 +1,22 @@
 # A Magical Monad
 
-At this point, we could stop and be satisfied. However, our above definition does not align with Purescript's definition. Why? Because this approach requires every `Monad` to implement `StateLike`. At this point, we only need `Identity` to implement this type class. However, later, we will want others to implement it, too.
+Despite getting our code to work for a simple manipulation, we're not done yet. Why? Because of two reasons:
+1. Less importantly, this approach requires writing `Tuple value state <- computation` syntax
+2. More importantly, this approach requires every `Monad` to implement `StateLike`.
+
+At this point, we only need `Identity` to implement this type class. However, if we want to do state manipulation on a data structure...
+```purescript
+data Array a = -- implementation
+data List  a = -- implementation
+data Tree  a = -- implementation
+```
+we will need to implement it for each one.
 
 ## Implementing StateLike for Every Monad
 
 So, what if we could define `StateLike` in such a way that, by defining only one instance for a magical type, we've also implemented it for all other `Monad` types? Crazy, I know! But it's possible! Let's take another look at `stateLike`'s type signature as it reveals an important clue:
 ```purescript
+                                                   |      Hmm....     |
 stateLike :: forall a. (s -> Tuple a s) ->         (s -> m (Tuple a s))
 
 -- Desguar the "->" to see its type
@@ -29,7 +40,7 @@ The above instance has a two problems:
 2. A `Monad` has kind `Type -> Type` whereas a `Function` has kind `Type -> Type -> Type`.
 
 How do we resolve both? For the second problem, we can make `Function`'s kind one less by specifying either the input type or the output type:
-- `Function Int a`/`(Int -> a)` has kind `Type -> Type` (Haskell's approach)
+- `Function Int a`/`(Int -> a)` has kind `Type -> Type`
 - `Function a Int`/`(a -> Int)` has kind `Type -> Type`
 
 In other words, we need to turn `Function` into a completely new type (limiting our options to either `data` or `newtype`) and it should only exist at compile time to reduce runtime overhead (i.e. `newtype`). Using a newtyped version of `Function`, we can specify either types:
@@ -46,7 +57,7 @@ specifiesInput :: forall a. TypedFunction Int b -- Kind: Type -> Type
 
 specifiesOutput :: forall a. TypedFunction a Int  -- Kind: Type -> Type
 ```
-Specializing this idea to our case, we need our function, called `StateFunction`, to newtype the function: `(state -> monad (Tuple value state))`:
+Specializing this idea to our case, we need our function, called `StateFunction`, to newtype the function, `(state -> monad (Tuple value state))`:
 ```purescript
 newtype StateFunction stateType monadType valueType =
   StateFunction (stateType -> monadType (Tuple valueType stateType))
@@ -56,14 +67,14 @@ class (Monad m) <= StateLike s m | m -> s where
              .  (s ->   Tuple a s )
              -> (s -> m (Tuple a s))
 
--- and now we can remove the `?` in the instance head
---    (the "StateLike s (StateFunction s m)" part of the instance)
+-- and now we can remove the `?` in the instance head,
+--    (the "StateLike s (StateFunction s m)" part of the instance),
 -- and let it be defined by `stateLike` via "forall"
 instance name :: (Monad m) => StateLike s (StateFunction s m) where
   stateLike :: forall a. (s -> Tuple a s) -> StateFunction s m a
   stateLike f = StateFunction (\s -> pure $ f s)
 ```
-However, the above code will not compile. Instead of returning a function, `(s -> m (Tuple a s))`, we are now returning a `StateFunction knownStateType knownMonadType arbitraryType`, which is a Monad. In other words, the return type has the type `forall a. Monad m => m a`. If we update our `StateLike` type class to return `m a`, we get what's actually written in Purescript, just using different names:
+However, the above code will not compile. Instead of returning a function, `(s -> m (Tuple a s))`, we are now returning a `StateFunction knownStateType knownMonadType arbitraryType`, which is a Monad. In other words, the return type has the type `forall a. m a`. If we update our `StateLike` type class to return `m a`, we get what's actually written in Purescript, just using different names:
 ```purescript
 class (Monad m) <= StateLike s m | m -> s where
   stateLike :: forall a. (s -> Tuple a s) -> m a
@@ -78,7 +89,7 @@ instance onlyInstance :: (Monad m) => StateLike s (StateFunction s m) where
 
 ## Proving that StateFunction is a Monad
 
-Great! Now comes the next part: how can a `StateFunction` be a Monad? A Monad is a type that has instances for the Functor, Apply, Applicative, and Bind type classes. These type classes, as we saw earlier, only specify the type signatures of their functions and the laws any implementations must satisfy. As long as our implementations for `StateFunction` satisfy those laws, we can call `StateFunction` a monad.
+Great! Now comes the next part: how can a `StateFunction` be a Monad? A Monad is a type that has instances for the Functor, Apply, Applicative, and Bind type classes. These type classes, as we saw earlier, only specify the type signatures of their functions and the laws any implementations must satisfy. As long as our implementations for `StateFunction` can satisfy those laws, we can call `StateFunction` a monad.
 
 Is it possible? Suprisingly, yes, but only if we use pattern matching to expose nested types!
 ```purescript
@@ -145,4 +156,4 @@ instance bind :: (Monad monad) => Bind (StateFunction state monad) where
 instance monad :: (Monad m) => Monad (StateFunction state monad)
 ```
 
-Just to make it very clear, since `StateFunction` provides an instance for `StateLike` that satisfies its type requirements, every other Monad type also satisfies its requirements.
+At the top of this file, we hinted that our magical type, `StateFunction`, could improve the `Tuple value state <- computation` syntax. This will be explained further in the next file.
