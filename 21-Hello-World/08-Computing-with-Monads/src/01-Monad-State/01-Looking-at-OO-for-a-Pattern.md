@@ -33,9 +33,9 @@ x == y == z == 1
 The problem is `add1` receives the wrong state as an argument. If we pass the returned state from our previous call into the next call, we can resolve this problem:
 ```javascript
 a = 0;
-x = add1(x);
-y = add1(y);
-z = add1(z);
+x = add1(a);
+y = add1(x);
+z = add1(y);
 
 // Values end states are:
 a == 0
