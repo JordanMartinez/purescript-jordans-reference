@@ -52,7 +52,7 @@ Knowing that we have more complicated state manipulation ahead of us (e.g. Stack
 2. Extract the `nextState` part of the Tuple
 3. Pass `nextState` it into another `add1` call
 4. Loop a few times
-3. Return `nextStateAsString` as the final output.
+5. Pass the last state into `add` and return its output: `Tuple stateAsString state`.
 
 In code, this looks like:
 ```purescript
