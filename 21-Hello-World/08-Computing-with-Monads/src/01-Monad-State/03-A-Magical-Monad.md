@@ -10,7 +10,7 @@ data Array a = -- implementation
 data List  a = -- implementation
 data Tree  a = -- implementation
 ```
-we will need to implement it for each one.
+... we will need to implement an instance of `StateLike` for each one.
 
 ## Implementing StateLike for Every Monad
 
