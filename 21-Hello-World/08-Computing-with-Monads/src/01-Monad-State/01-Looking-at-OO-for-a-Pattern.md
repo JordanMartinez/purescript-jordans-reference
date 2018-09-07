@@ -77,14 +77,6 @@ y = nextInt(random);
 x = nextInt(random1);
 y = nextInt(random2);
 ```
-However, this creates a problem: for a function that needs to use N random numbers, I need to create N random numbers before passing them into that function. If that exact number is not known at compile-time, then I can't define or use such a function.
-```purescript
-use_1_random_number :: RandomInt -> Result
-
-use_2_random_number :: RandomInt -> RandomInt -> Result
-
-use_N_random_number :: -- um.....
-```
 The solution is to make `nextInt` return two things via the `Tuple a b` type
 - the random int value
 - a new instance of `random`
@@ -92,7 +84,6 @@ The solution is to make `nextInt` return two things via the `Tuple a b` type
 (Tuple x random2) = nextInt(random1);
 (Tuple y random3) = nextInt(random2);
 ```
-
 ## Popping Stacks
 
 We'll explain this idea once more using a different context: Stacks. In OO, we can write the following code:
@@ -123,16 +114,6 @@ pop(stack) == x == y == 1
 // as its next value to `pop`. In other words, something like...
 x = pop(originalStack);
 y = pop(originalStack_withoutX);
-```
-Similar to the random number generator issue from before, what do I do if I need multiple values from the stack in a function?
-
-One might try to deconstruct the Stack into its values and pass those values into a function that uses them. However, we still can't write a function that takes N values from a Stack
-```purescript
-uses_first_stack_value :: StackValue1 -> Result
-
-uses_first_two_stack_values :: StackValue1 -> StackValue2 -> Result
-
-uses_first_N_stack_values :: -- um.....
 ```
 The solution is to make `pop` return two things via the `Tuple a b` type:
 - the popped value
