@@ -118,7 +118,7 @@ The following function, `crazyFunction`, demonstrates both of these problems wit
     - the function returns `Tuple value2 state3`
 4. Return `addStringLengthTo`'s output: `Tuple value2 nextState3`
 
-To write `crazyFunction`, we need something more like sequential computation, which implies `bind`/`>>=`. However, `bind` requires a Monad to work. With those two clues, we need a function whose type signature looks something like this:
+To write `crazyFunction`, we need something more like sequential computation, which implies `bind`/`>>=`. However, `bind` requires a Monad to work. With these clues, we need a function whose type signature looks something like this:
 ```purescript
 someFunction :: forall state monad value
               . Monad monad
