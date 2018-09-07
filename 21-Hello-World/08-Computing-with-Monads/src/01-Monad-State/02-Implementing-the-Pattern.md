@@ -100,7 +100,7 @@ runUsingFunctions [first, second, last] state =
 ```
 Conceptually, there are two problems with the above code.
 1. If we change the value type for one function so that it's different from all other function in the stack (e.g. `toNumber :: Int -> Tuple Number Int`), the above code will no longer compile.
-2. What if one function uses the state AND a value produced by a previous function.
+2. We cannot use a function that receives the next state AND value(s) produced by previous function(s) as its arguments.
 
 As an example for the second point, how could we use these two functions in the same state manipulation workflow:
 ```purescript
