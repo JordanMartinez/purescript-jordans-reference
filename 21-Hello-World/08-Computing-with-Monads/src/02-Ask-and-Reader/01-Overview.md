@@ -1,4 +1,6 @@
-# Monad Reader
+# Overview
+
+## Monad Reader
 
 `MonadAsk` is used to expose a read-only value to a monadic context. It is very similar to and actually a bit simpler than `MonadState`:
 ```purescript
@@ -98,4 +100,4 @@ To see how `ReaderT` implements its instances
 
 Also see the functions in [ReaderT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Trans#t:ReaderT)/[Reader](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader#t:Reader) for how to handle the output of a reader computation in various ways
 
-The next file shows a working example.
+The next files show a working example.
