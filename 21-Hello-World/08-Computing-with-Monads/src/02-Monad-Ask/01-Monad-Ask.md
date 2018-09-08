@@ -74,17 +74,28 @@ useSettings = do
         \Specific Field: " <> show specificField)
 ```
 
+## MonadReader
+
+`MonadReader` extends `MonadAsk` by allowing the read-only value to be modified first before being used in one computation.
+```purescript
+class MonadAsk r m <= MonadReader r m | m -> r where
+  local :: forall a. (r -> r) -> m a -> m a
+```
+
 ## Laws, Instances, and Miscellaneous Functions
 
-For the laws, see [MonadAsk's docs](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Class)
+For the laws, see
+- [MonadAsk's docs](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Class)
+- [MonadReader's docs]()
 
 To see how `ReaderT` implements its instances
 - [Functor instance](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L50)
 - [Apply instance](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L53)
 - [Applicative instance](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L56)
 - [Bind instance](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L67)
-- [MonadTell instance](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L100)
+- [MonadTell instance](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L100), which is implemented using `pure` (Applicative)
+- [MonadReader instance](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L103), which is implemented using [`withReaderT` but where `r1` and `r2` are the same](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L45)
 
-Also see [ReaderT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Trans#t:ReaderT)/[Reader](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader#t:Reader)'s functions for how to handle the output of a reader computation in various ways
+Also see the functions in [ReaderT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Trans#t:ReaderT)/[Reader](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader#t:Reader) for how to handle the output of a reader computation in various ways
 
 The next file shows a working example.
