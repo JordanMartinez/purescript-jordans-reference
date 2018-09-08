@@ -2,18 +2,16 @@
 
 ## Monad Reader
 
-`MonadAsk` is used to expose a read-only value to a monadic context. It is very similar to and actually a bit simpler than `MonadState`:
+`MonadAsk` is used to expose a read-only value to a monadic context. It is implemented only by `ReaderT`:
 ```purescript
-newtype StateT  s m a = StateT  (\s -> m (Tuple a s))
-newtype ReaderT r m a = ReaderT (\r -> m        a   )
+             -- r        m     a
+newtype ReaderT readOnly monad finalOutput =
+  ReaderT (\readOnly -> monad finalOutput)
 
--- Since the classes are only implemented by one monad (a newtyped function)
--- we'll show the class and the related function's instance in the same block:
-class (Monad m) <= MonadState s (StateT  s m) where
-  state :: forall a. (s -> m Tuple a s) -> StateT  s m a
-
-class (Monad m) <= MonadAsk   r (ReaderT r m) where
-  ask   :: forall a.                       ReaderT r m a
+-- Pseudo-syntax for combining the type class and ReaderT's instance together
+class (Monad m) <= MonadAsk r (ReaderT r m) where
+  ask   :: forall a. ReaderT r m a
+  ask a = ReaderT (\_ -> pure a)
 ```
 
 ## Do Notation
@@ -88,7 +86,7 @@ class MonadAsk r m <= MonadReader r m | m -> r where
 
 For the laws, see
 - [MonadAsk's docs](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Class)
-- [MonadReader's docs]()
+- [MonadReader's docs](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Class#t:MonadReader)
 
 To see how `ReaderT` implements its instances
 - [Functor instance](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L50)
@@ -100,4 +98,4 @@ To see how `ReaderT` implements its instances
 
 Also see the functions in [ReaderT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Trans#t:ReaderT)/[Reader](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader#t:Reader) for how to handle the output of a reader computation in various ways
 
-The next files show a working example.
+The next files are working examples using meta-language.
