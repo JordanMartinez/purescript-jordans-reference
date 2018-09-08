@@ -3,11 +3,7 @@ module ComputingWithMonads.Example.MonadReader where
 import Prelude
 import Effect (Effect)
 import Effect.Console (log)
-import Data.Identity (Identity(..))
-import Control.Monad.Reader.Class (
-    ask, asks
-  , local
-  )
+import Control.Monad.Reader.Class (ask, local)
 import Control.Monad.Reader (Reader, runReader)
 
 data Difficulty = Easy | Medium | Hard
@@ -26,11 +22,17 @@ main = log $ runReader useSettings { editable: true, fontSize: 12 }
 useSettings :: Reader  Settings          String
 useSettings = do
   original <- ask
-  modified <- local (_ { fontSize = 20 }) ask
+
+  output <- local
+    -- a function that modifies the read-only value...
+    (\settings -> settings { fontSize = 20 })
+      -- which is used in only one computation
+      ask
+
   original_ <- ask
 
   pure (
         "Original: " <> show original <> "\n\
-        \Modified for one computation: " <> show modified <> "\n\
+        \Output of computation that uses modified value: " <> show output <> "\n\
         \Back to normal: " <> show original_
         )
