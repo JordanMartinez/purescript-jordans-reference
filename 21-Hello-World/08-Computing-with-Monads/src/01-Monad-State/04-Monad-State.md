@@ -298,16 +298,14 @@ crazyFunction :: State Int String
 crazyFunction = do
   value1 <- modify (_ + 1)
   modify_ (_ + (length $ show value1))
-  value2 <- gets show
-
-  pure value2
+  gets show
 
 main :: Effect Unit
 main =
   case (runState crazyFunction 0) of
     Tuple theString theInt -> do
-      log $ "theString was: " <> theString  -- "3"
-      log $ "theInt was: " <> show theInt   -- 8
+      log $ "theString was: " <> theString  -- "2"
+      log $ "theInt was: " <> show theInt   --  2
 
 unwrap :: forall a. Identity a -> a
 unwrap (Identity a) = a
