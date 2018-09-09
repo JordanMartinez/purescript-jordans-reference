@@ -67,24 +67,7 @@ class MonadAsk r m <= MonadReader r m | m -> r where
 `MonadReader` does not have any derived functions.
 
 `MonadAsk` has one derived function:
-- map our read-only value (e.g. a settings object) to the field we actually want `asks`
-:
-```purescript
-type Settings = { editable :: Boolean, fontSize :: Int }
-
-main :: Effect Unit
-main = log $ runReader useSettings { editable: true, fontSize: 12 }
-
-                  --   r                 a
-            -- ReaderT Settings Identity String
-useSettings :: Reader  Settings          String
-useSettings = do
-  entireSettingsObject <- ask
-  specificField <- asks (_.fontSize)
-
-  pure ("Entire Settings Object: " <> show entireSettingsObject <> "\n\
-        \Specific Field: " <> show specificField)
-```
+- `asks`: apply a function to the read-only value (useful for extracting something out of it, like a field in a settings object)
 
 ## Laws, Instances, and Miscellaneous Functions
 
@@ -100,6 +83,6 @@ To see how `ReaderT` implements its instances
 - [MonadTell instance](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L100), which is implemented using `pure` (Applicative)
 - [MonadReader instance](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L103), which is implemented using [`withReaderT` but where `r1` and `r2` are the same](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L45)
 
-Also see the functions in [ReaderT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Trans#t:ReaderT)/[Reader](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader#t:Reader) for how to handle the output of a reader computation in various ways
-
-The next files are working examples using meta-language.
+To handle the output of a reader computation:
+-[Reader](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader#v:runReader)
+- [ReaderT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Trans#v:runReaderT)
