@@ -83,6 +83,6 @@ To see how `ReaderT` implements its instances
 - [MonadTell instance](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L100), which is implemented using `pure` (Applicative)
 - [MonadReader instance](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L103), which is implemented using [`withReaderT` but where `r1` and `r2` are the same](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L45)
 
-To handle the output of a reader computation:
+To handle/modify the output of a reader computation:
 -[Reader](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader#v:runReader)
 - [ReaderT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Trans#v:runReaderT)

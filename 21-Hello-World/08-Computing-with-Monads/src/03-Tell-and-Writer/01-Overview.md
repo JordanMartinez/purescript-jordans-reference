@@ -58,6 +58,6 @@ For `WriterT`'s instances:
 - [MonadTell](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Writer/Trans.purs#L118)
 - [MonadWriter](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Writer/Trans.purs#L121)
 
-See also how to manipulate the output of running a writer:
+To handle/modify the output of a writer computation:
 - [Reader](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Writer#v:writer)
 - [ReaderT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Writer.Trans#v:runWriterT)
