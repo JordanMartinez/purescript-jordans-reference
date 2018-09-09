@@ -59,7 +59,7 @@ x = random.nextInt
 y = random.nextInt
 z = random.nextInt
 
-// rewritten to use function arg syntax
+// rewritten to use "function arg" syntax
 x = nextInt(random);
 y = nextInt(random);
 z = nextInt(random);

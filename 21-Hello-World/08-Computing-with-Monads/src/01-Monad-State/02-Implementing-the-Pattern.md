@@ -30,7 +30,7 @@ type Value = String
 initialState :: State
 initialState = 0
 
-add1 :: (State -> Tuple String Int)
+add1 :: (State -> Tuple Value State)
 add1 oldState   =
   let theNextState = oldState + 1
   in Tuple (show theNextState) theNextState
@@ -50,9 +50,9 @@ What if we want to run `add1` four times?
 Knowing that we have more complicated state manipulation ahead of us (e.g. Stacks), we should follow the pattern we identified above:
 1. Pass an initial state value into `add1`, which outputs `Tuple nextStateAsString nextState`
 2. Extract the `nextState` part of the Tuple
-3. Pass `nextState` it into another `add1` call
+3. Pass `nextState` into another `add1` call
 4. Loop a few times
-5. Pass the last state into `add` and return its output: `Tuple stateAsString state`.
+5. Pass the last state into `add` and return its output: `Tuple lastStateAsString lastState`.
 
 In code, this looks like:
 ```purescript
@@ -60,7 +60,7 @@ type State = Int
 type Value = String
 type Count = Int
 
-add1 :: (State -> Tuple String Int)
+add1 :: (State -> Tuple Value State)
 add1 oldState   =
   let theNextState = oldState + 1
   in Tuple (show theNextState) theNextState
@@ -80,7 +80,7 @@ runNTimes count add1_ nextState =
 
 This works but only because it's so simple. Let's say we want to call `add1` on the first state, then call `times2` on the second state, and then return the output of calling `add1` on the third state. How would we update our code to do that?
 
-We could try to specify a stack of functions (using an array or some other stack-like data structure) that are used to recursively evaluate the next state outputted by the previous function. Below is **not** a working example of how one would write that, but merely demonstrates the heart behind it:
+We could try to specify a stack of functions (using an array or some other stack-like data structure) that are used to recursively evaluate the next state outputted by the previous function. **Below is not a working example** of how one would write that, **but merely demonstrates the heart** behind it:
 ```purescript
 type Stack a = Array a
 type State = Int
@@ -207,9 +207,7 @@ newtype Identity a = Identity a -- compile-time-ONLY type!
 
 ### Abstracting the Concept into a Type Class
 
-The above solution works. However, we want to use `someFunction` for numerous state manipulating functions. If we later define a `Stack` type class, it would be helpful to to implement `Stack`'s type class instances by using  `someFunction` in their definition.
-
-This implies that we need to convert `someFunction` into a type class so we can use `someFunction` in another function via a type class constraint. Let's attempt to define it and call the type class `StateLike`. Its function, `stateLike`, should be the same as `someFunction`'s type signature:
+The above solution works. However, we want to use `someFunction` for numerous state manipulating functions on numerous data structures (e.g. `add1`, `popStack`, `replaceElemAtIndex`). This implies that we need to convert `someFunction` into a type class, so we can use `someFunction` in another function via a type class constraint. Let's attempt to define it and call the type class `StateLike`. Its function, `stateLike`, should be the same as `someFunction`'s type signature:
 ```purescript
 someFunction :: forall state monad value
               . Monad monad
@@ -222,7 +220,7 @@ class StateLike ??? where
              .  (s     ->        Tuple a s )
              -> (s     -> m     (Tuple a s))
 ```
-This should work for every monad type, so let's add a Monad constraint, `m`, to `???`:
+Because we know that we'll need to create a stack of monad `NaturalTransformations`, this should work for every monad type, so let's add a Monad constraint, `m`, to `???`:
 ```purescript
 class (Monad m) <= StateLike m where
   stateLike :: forall s a
