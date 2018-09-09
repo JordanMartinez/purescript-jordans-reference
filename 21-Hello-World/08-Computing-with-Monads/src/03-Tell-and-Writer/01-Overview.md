@@ -59,5 +59,5 @@ For `WriterT`'s instances:
 - [MonadWriter](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Writer/Trans.purs#L121)
 
 To handle/modify the output of a writer computation:
-- [Reader](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Writer#v:writer)
-- [ReaderT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Writer.Trans#v:runWriterT)
+- [Writer](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Writer#v:writer)
+- [WriterT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Writer.Trans#v:runWriterT)
