@@ -26,7 +26,7 @@ import Type.Proxy (Proxy(..), Proxy2(..))
 -- (e.g. our Box type from before)
 data Box a = Box a
 
--- ... that implements some instances...
+-- ... that implements some type classes...
 -- (instances appear at the bottom of the file)
 
 -- ... and an Arbitrary for our Box type
@@ -69,7 +69,7 @@ main = do
   checkBox
 
   -- Fruit's type, arbitrary, and instances appear after
-  -- the section including Box's instances
+  -- the "Box's instances" section
   checkFruit
 
 -- Box's instances
