@@ -231,7 +231,18 @@ runStateT = Identity (Tuple value2 initS)
 
 ## Derived Functions
 
-As we saw above, whenever we wrote `state function`, `function` always had to put our output into a `Tuple` type. This gets tedious really fast. Fortunately, that's why `MonadState`'s derived functions exist! They are convenience functions for wrapping our function's output into the `Tuple` return type. It makes the code more readable by reducing noise and emphasizing intent. Read through the derived functions' [source code here](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/State/Class.purs#L28-L28) and then look below to see why they are useful:
+As we saw above, whenever we wrote `state function`, `function` always had to wrap our output into a `Tuple` type:
+```purescript
+(\state -> {- do stuff -} Tuple output nextState)
+```
+This gets tedious really fast. Fortunately, `MonadState`'s derived functions remove that boilerplate and emphasize the developer's intent:
+- `get`: returns the state
+- `gets`: applies a function to the state and returns the result (useful for extracting some value out of the state)
+- `put`: overwrites the current state with the argument
+- `modify`: modify the state and return the updated state
+- `modify_`: same as `modify` but return `unit` so we can ignore the `binding <-` syntax
+
+Read through the derived functions' [source code here](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/State/Class.purs#L28-L28) and then look below to see why they are useful:
 ```purescript
 -- This just gets the state by putting it into
 -- the place where the value type would normally appear
@@ -322,4 +333,6 @@ runStateT (StateT f) initialState = f initialState
 
 For the laws, see [MonadState's docs](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.State.Class#t:MonadState)
 
-Also see [StateT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.State.Trans#v:runStateT)/[State](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.State#v:runState)'s functions for how to handle its output in various ways
+To handle/modify the output of a state computation:
+- [State](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.State#v:runState)
+- [StateT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.State.Trans#v:runStateT)
