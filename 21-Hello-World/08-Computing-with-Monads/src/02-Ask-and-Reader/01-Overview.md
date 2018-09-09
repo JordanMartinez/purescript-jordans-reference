@@ -54,9 +54,21 @@ useSettings = ask
   { editable: true, fontSize: 12 }
 ```
 
+## MonadReader
+
+`MonadReader` extends `MonadAsk` by allowing the read-only value to be modified first before being used in one computation.
+```purescript
+class MonadAsk r m <= MonadReader r m | m -> r where
+  local :: forall a. (r -> r) -> m a -> m a
+```
+
 ## Derived Functions
 
-Most of the time, we want a specific field from our settings object and not the entire thing. Thus, `ask` isn't too helpful in this regard. Fortunately, we have [`asks`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Class#v:asks), which uses a function to map our settings object to the field we actually want:
+`MonadReader` does not have any derived functions.
+
+`MonadAsk` has one derived function:
+- map our read-only value (e.g. a settings object) to the field we actually want `asks`
+:
 ```purescript
 type Settings = { editable :: Boolean, fontSize :: Int }
 
@@ -72,14 +84,6 @@ useSettings = do
 
   pure ("Entire Settings Object: " <> show entireSettingsObject <> "\n\
         \Specific Field: " <> show specificField)
-```
-
-## MonadReader
-
-`MonadReader` extends `MonadAsk` by allowing the read-only value to be modified first before being used in one computation.
-```purescript
-class MonadAsk r m <= MonadReader r m | m -> r where
-  local :: forall a. (r -> r) -> m a -> m a
 ```
 
 ## Laws, Instances, and Miscellaneous Functions
