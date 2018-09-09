@@ -242,46 +242,19 @@ This gets tedious really fast. Fortunately, `MonadState`'s derived functions rem
 - `modify`: modify the state and return the updated state
 - `modify_`: same as `modify` but return `unit` so we can ignore the `binding <-` syntax
 
-Read through the derived functions' [source code here](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/State/Class.purs#L28-L28) and then look below to see why they are useful:
 ```purescript
--- This just gets the state by putting it into
--- the place where the value type would normally appear
--- It can be rewritten as `get`
-getState :: Int -> Tuple Int Int
-getState i = Tuple i i
-
--- This outputs the result of calling "show" on the state
--- It can be rewritten as `gets show`
-justShow :: Int -> Tuple String Int
-justShow i = Tuple (show i) i
-
--- This overwrites the state instance. Since we don't have
--- anything to put into the value spot, we just return `Unit`
-putState :: Int -> Tuple Unit Int
-putState i = Tuple unit i
-
--- This modifies the state using a function "(_ + 1)"
---    and returns the output as the value type
--- It can be rewritten as `modify (_ + 1)`
-add1 :: Int -> Identity (Tuple Int Int)
-add1 i =
-  let value = i + 1
-  in pure $ Tuple value value
-
 sideBySideComparison :: State Int String
 sideBySideComparison = do
-  state1  <- state (\s -> getState)
+  state1  <- state (\s -> Tuple s s)
   state2  <- get
 
-  shownI1 <- state (\s -> justShow s)
+  shownI1 <- state (\s -> Tuple (show s) s)
   shownI2 <- gets show
 
-  -- We don't need a "b <-" because the value is Unit
-  -- Thus, it gets discarded
-  state (\s -> putState 5)
+  state (\s -> Tuple unit 5)
   put 5
 
-  added1A <- state (\s -> add1 s)
+  added1A <- state (\s -> let s' = s + 1 in Tuple s' s')
   added1B <- modify (_ + 1)
 
   -- Unit gets discared again!
