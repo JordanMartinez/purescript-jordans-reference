@@ -43,7 +43,7 @@ writeStuff = do
       -- "usefulData" <> "\n\n\t" <> "someData"
       <> "\n\n\t"
 
-  Tuple two modifiedData <- listens
+  Tuple output2 modifiedData <- listens
 
     -- 2) ... a modified version of the non-output data
     --          which is not appended via `tell`
@@ -55,17 +55,17 @@ writeStuff = do
           -- 2) that returns this entire object as output...,
           -- so that one can use both the computed output and...
           Tuple
-            -- the output
+            -- the output (this is `output2`)
             2
             -- the instance, which is appended via `tell` to
             -- the current instance of OtherUsefulData
             "someData"
         )
     )
-  tell $ "\n\n\t" <> "(Listens) two: " <> show two
+  tell $ "\n\n\t" <> "(Listens) two: " <> show output2
   tell $ "\n\n\t" <> "(Listens) modified Data: " <> show modifiedData
 
-  output2 <- pass $ WriterT (
+  output3 <- pass $ WriterT (
       -- A computation...
       Identity (
 
@@ -73,7 +73,7 @@ writeStuff = do
         --    nested tuple: (Tuple (Tuple one three) two)
         Tuple
           (Tuple
-            -- 1) the computation's output
+            -- 1) the computation's output (this is `output3`)
             4
             -- 3) a function which modifies the non-output data
             --    before appending it to the current non-output data
@@ -85,13 +85,13 @@ writeStuff = do
         )
     )
 
-  tell $ "\n\n\t" <> "(Pass) output2 was: " <> show output2
+  tell $ "\n\n\t" <> "(Pass) output2 was: " <> show output3
     -- needed to improve reading:
     --  turns "4someData" into
     -- "4" <> "\n\n\t" <> "someData"
     <> "\n\n\t"
 
-  output3 <- censor
+  output4 <- censor
       -- 3) a function which modifies the non-output data
       --    before appending it to the current non-output data
       --    instance
@@ -100,13 +100,13 @@ writeStuff = do
         Identity (
           -- ...that returns two things
           Tuple
-            -- a) the computation's output
+            -- a) the computation's output (this is `output4`)
             2
             -- b) the non-output data, which is...
             "someData"
         )
       )
 
-  tell $ "\n\n\t" <> "(censor) output3 was: " <> show output3
+  tell $ "\n\n\t" <> "(censor) output3 was: " <> show output4
 
   pure 0
