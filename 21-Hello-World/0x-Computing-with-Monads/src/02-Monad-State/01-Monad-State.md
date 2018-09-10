@@ -11,6 +11,17 @@ class (Monad m) <= MonadState s (StateT s m) where
   state f = StateT (\s -> pure $ f s)
 ```
 
+## Reading Its Do Notation
+
+```purescript
+stateT_do_notation :: StateT State Value
+stateT_do_notation = do
+    value1 <- state (\initialState -> Tuple value1 state2)
+    value2 <- state (\state2       -> Tuple value2 state3)
+    value3 <- state (\state3       -> Tuple value3 state4)
+    state (\state4 -> Tuple value4 state5)
+```
+
 ## Derived Functions
 
 As we saw above, whenever we wrote `state function`, `function` always had to wrap our output into a `Tuple` type:

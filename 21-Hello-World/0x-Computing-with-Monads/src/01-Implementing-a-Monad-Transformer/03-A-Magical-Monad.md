@@ -152,9 +152,11 @@ instance monad :: (Monad m) => Monad (StateFunctionT state monad)
 
 ## Defining StateFunction
 
-Now that we've defined `StateFunctionT`, how we can further specify its monad type to `Identity` when we aren't manipulating higher-kinded data structures (e.g. `Array`, `List`, `Tree`)?
+`StateFunctionT` enables another computational monad (e.g. `MonadWriter`, `MonadReader`, etc.) to run inside of it via it's `m` type. This enables the "monad stack" idea we mentioned before. However, when we don't want to run another computational monad inside of `StateFunctionT`, what do we write instead?
 
-We need a type (e.g. `data`, `type`, or `newtype`) that should only exist at compile time to reduce runtime overhead (e.g. `type` or `newtype`) that does not need to implement type classes (i.e. only `type`). Let's remove the `T` part (indicating that it is not transforming a monad into `StateLike`) via type alias:
+We could write `StateFunctionT s Identity a` and use `Identity` as a placeholder for a computational monad that doesn't comput anything. However, this gets tedious after a while a doesn't emphasize developer intent.
+
+To emphasize developer intent, we need a type (e.g. `data`, `type`, or `newtype`) that should only exist at compile time to reduce runtime overhead (e.g. `type` or `newtype`) that does not need to implement type classes but which merely specifies one of the types in `StateFunctionT` (i.e. only `type`). Let's remove the `T` part (indicating that it is not transforming another computational monad into `StateLike`) via a type alias:
 ```purescript
 type StateFunction state output = StateFunctionT state Identity output
 ```

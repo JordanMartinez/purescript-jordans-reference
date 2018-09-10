@@ -42,7 +42,7 @@ useReader = do                                                          {-
 
 `MonadWriter` has two:
 - `listens`: same as `listen` but modifies the non-output data before exposing it to the do notation
-- `censor`: a more convenient way to write `pass`
+- `censor`: modifies the non-output data returned by a computation before appending it via `tell`.
 
 ## Laws, Instances, and Miscellaneous Functions
 
