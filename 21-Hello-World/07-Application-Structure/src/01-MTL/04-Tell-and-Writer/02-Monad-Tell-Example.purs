@@ -1,4 +1,4 @@
-module ComputingWithMonads.Example.MonadTell where
+module ComputingWithMonads.MonadTell where
 
 import Prelude
 import Effect (Effect)

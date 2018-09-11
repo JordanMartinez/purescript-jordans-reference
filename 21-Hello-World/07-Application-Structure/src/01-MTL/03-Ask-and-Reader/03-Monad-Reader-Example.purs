@@ -1,4 +1,4 @@
-module ComputingWithMonads.Example.MonadReader where
+module ComputingWithMonads.MonadReader where
 
 import Prelude
 import Effect (Effect)

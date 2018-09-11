@@ -1,4 +1,4 @@
-module ComputingWithMonads.Example.MonadTrans where
+module ComputingWithMonads.MonadTrans where
 
 import Prelude
 import Effect (Effect)

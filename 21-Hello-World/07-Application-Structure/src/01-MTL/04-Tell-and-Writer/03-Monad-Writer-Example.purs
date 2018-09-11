@@ -1,4 +1,4 @@
-module ComputingWithMonads.Example.MonadWriter where
+module ComputingWithMonads.MonadWriter where
 
 import Prelude
 import Effect (Effect)

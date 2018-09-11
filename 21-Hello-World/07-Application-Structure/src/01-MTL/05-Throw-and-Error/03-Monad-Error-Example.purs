@@ -1,4 +1,4 @@
-module ComputingWithMonads.Example.MonadError where
+module ComputingWithMonads.MonadError where
 
 import Prelude
 import Effect (Effect)
