@@ -1,35 +1,33 @@
 # Hello World
 
 This folder will document everything necessary to create a simple console-based program in Purescript. It will explain:
-- The foundations of FP programming
+- The philosophical foundations of FP programming
 - The Prelude library (including Functor, Apply, Applicative, Bind, and Monad explanations)
 - A simple "Hello World" program and other Effects
-- How to handle Errors/Exceptions, the FP way
 - Custom Compiler Warnings/Errors
 - The difference between Local Mutable State vs Global Mutable State
 - How to test code
 - How to benchmark / profile code
-- How to structure an application (putting it all together)
+- How to structure an FP application 
+- A few console-based games written in Purescript (putting it all together)
 
 In pursuing these goals, it will overview the following libraries:
 - Basic
     - Prelude
-    - Partial
+    - Prim.TypeError
 - Effects
     - Effect
     - Console
     - Random
     - Node ReadLine
     - Aff
-- Data Types
-    - Maybe
-    - Either
 - State
     - ST
     - Refs
 - Testing
+    - Spec
     - Quick Check
-    - Quick Spec
+    - Quick Check Laws
 - Benchmarking
     - Benchotron
 
