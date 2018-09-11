@@ -37,7 +37,7 @@ class LiftSIntoT s t where
 
 Looking at those implementations above, we can see a general pattern (there are some exceptions to this due to how the types need to be handled, but this is generally true):
 - Require one of the types in the instance to be an instance of `MonadState`
-- Implement it by lifting that instance into the monad and delegate its implementation to that instance
+- Implement it by lifting that instance into the monad and delegate that monad's implementation to that instance
 
 Since only `StateT` actually implements `MonadState`, all other monads merely "transform" the `StateT` monad into some other target monad that is closer to the top of the stack. Likwise, since only `[Word]T` actually implements `Monad[Word]`, everything else is just lifting `[Word]T` into another monad that's closer to the top of the stack.
 
