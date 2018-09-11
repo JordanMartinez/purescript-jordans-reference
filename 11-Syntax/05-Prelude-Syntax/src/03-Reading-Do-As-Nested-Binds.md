@@ -46,9 +46,3 @@ half3Times maybeI = do
 -- ... passing in `Nothing` doesn't compute anything
 half3Times Nothing == Nothing
 ```
-
-## Do and Ado Notation
-
-At this point, you should look back at the `Syntax/Prelude-Syntax` folder to read through the file on...
-- `Do Notation`: requres understanding the above code snippet and `Applicative`'s `pure` function
-- `Ado Notation` (Applicative Do): requires understanding the `function <$> boxedArg1 <*> boxedArg2` (Apply's derived function: lift2) and `pure`.
