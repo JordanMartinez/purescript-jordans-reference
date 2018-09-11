@@ -4,6 +4,8 @@ Functional Programming utilizes functions to create programs and focuses on sepa
 
 ## Pure vs Impure
 
+### Properties
+
 Pure functions have 3 properties, but the third (marked with `*`) is expanded to show its full weight:
 
 |     | Pure | Pure Example | Impure | Impure Example |
@@ -18,40 +20,31 @@ In many OO languages, pure and impure code are mixed everywhere, making it hard 
 
 Programs written in an FP language usually have just one entry point via the `main` function. `Main` is an impure function that calls pure code.
 
-Sometimes, FP programmers will still write impure code, but they will restrict the impure code to a small local scope to prevent any of it from leaking. For example, sorting an array's contents by reusing the original array rather than copying its contents into a new array. Again, impure code is not being completely thrown out; rather, it is being clearly distinguished from pure code, so that one can understand the code faster and more easily.
+Sometimes, FP programmers will still write impure code, but they will restrict the impure code to a small local scope to prevent any of its impurity from leaking. For example, sorting an array's contents by reusing the original array rather than copying its contents into a new array. Again, impure code is not being completely thrown out; rather, it is being clearly distinguished from pure code, so that one can understand the code faster and more easily.
 
-## Modifying State
+### Graph Reduction
 
-In most OO languages, one writes code like the following:
-```javascript
-var x = 0;
-x = 1; // x has now been changed (side-effect).
-```
-In FP languages, one writes code like the following:
-```javascript
-const x = 0;
-const newX = x + 1; // no side-effect as 'x' is still '0'
-```
-
-## Looping
-
-In most OO languages, one writes loops using `while` and `for`:
-```javascript
-// factorial
-let count = 0
-let fact = 1
-while (count != 5) {
-  fact = fact * count
-  count = count + 1
-}
-```
-
-In FP languages, one writes loops using recursion, pattern-matching, and tail-call optimization:
+Since FP functions are pure, one can replace the left-hand side (LHS) of a function with its right-hand side (RHS), or the body/implementation of the function:
 ```purescript
-factorial :: Int -> Int
-factorial 0 = 0
-factorial x = x * (factorial (x - 1))
+function :: Int -> Int -> Int
+function n m = n + m
+
+function 4 3
+-- replace LHS with RHS
+4 + 3
+7
+
+(\arg1 arg2 arg3 -> arg1 + arg2 + arg3) 1 2 3
+-- replace LHS with RHS
+(\     arg2 arg3 -> 1    + arg2 + arg3)   2 3
+(\          arg3 -> 1    +    2 + arg3)     3
+(\               -> 1    +    2 +    3)
+                    1    +    2 +    3
+                    1    +    5
+                    6
 ```
+
+
 
 ## Execution vs Description and Interpretation
 

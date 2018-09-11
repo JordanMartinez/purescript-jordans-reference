@@ -1,9 +1,6 @@
-module ConsoleLessons.ErrorHandling.ViaMaybe where
+module PartialFunctions.ViaMaybe where
 
 import Prelude
-import Effect (Effect)
-import Node.ReadLine.CleanerInterface (createUseCloseInterface, log)
-import ConsoleLessons.ErrorHandling.DivisionTemplate (showResult, askUserForNumerator, askUserForDenominator)
 
 {-
 We can often turn our partial functions into total functions
@@ -32,21 +29,8 @@ Using our example of division:
 The following function, safeDivision, demonstrates this:
 -}
 
+-- No matter what arguments you pass into this,
+-- you will always get a value out
 safeDivision :: Int -> Int -> Maybe Int
 safeDivision _ 0 = Nothing -- x / 0
 safeDivision x y = Just (x / y)
-
-main :: Effect Unit
-main = createUseCloseInterface (\interface ->
-  do
-    log "This program demonstrates how to handle errors using `Maybe a`.\n\
-        \Recall that the notation is: 'numerator / denominator'\
-        \\n"
-
-    num <- askUserForNumerator interface
-    denom <- askUserForDenominator interface
-
-    case safeDivision num denom of
-      Just result -> log $ showResult num denom result
-      Nothing -> log "You divided by zero!"
-  )

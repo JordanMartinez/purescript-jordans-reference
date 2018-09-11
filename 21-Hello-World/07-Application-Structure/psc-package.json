@@ -9,6 +9,9 @@
     "console",
     "effect",
     "prelude",
-    "transformers"
+    "transformers",
+    "refs",
+    "st",
+    "random"
   ]
 }

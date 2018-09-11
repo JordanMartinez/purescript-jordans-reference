@@ -1,14 +1,11 @@
-module ConsoleLessons.ErrorHandling.ViaEitherErrorType where
+module PartialFunctions.ViaEitherErrorType where
 
 import Prelude
-import Effect (Effect)
-import Node.ReadLine.CleanerInterface (createUseCloseInterface, log)
-import ConsoleLessons.ErrorHandling.DivisionTemplate (showResult, askUserForNumerator, askUserForDenominator)
 
 import Data.Either (Either(..))
 {-
 The previous file demonstrates how to use "Either String a" for error handling.
-The problem with this approach is that error type isn't type-safe.
+The problem with this approach is that the error type isn't type-safe.
 In other words, why use Strings when we could define our own error types?
 
 Creating our own error types has these benefits:
@@ -30,19 +27,3 @@ instance divisionErrorShow :: Show DivisionError where
 safeDivision :: Int -> Int -> Either DivisionError Int
 safeDivision _ 0 = Left DividedByZero
 safeDivision x y = Right (x / y)
-
-main :: Effect Unit
-main = createUseCloseInterface (\interface ->
-  do
-    log "This program demonstrates how to handle errors using `Either a b` \
-        \and custom types that indicate errors.\n\
-        \Recall that the notation is: 'numerator / denominator'\
-        \\n"
-
-    num <- askUserForNumerator interface
-    denom <- askUserForDenominator interface
-
-    case safeDivision num denom of
-      Left error -> log $ show error
-      Right result -> log $ showResult num denom result
-  )
