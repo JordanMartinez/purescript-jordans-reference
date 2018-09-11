@@ -42,3 +42,8 @@ The Atom package, `ide-purescript`, is configured to `Bower`, but we'll be using
 4. Click on the `Settings` button in the entry that appears
 5. Check the `Add psc-package sources` checkbox
 6. Change the `build command` to: `pulp --psc-package build -- --json-errors`
+
+## Setting up Module Linker
+
+When you're browsing through code on GitHub, the browser extenstion, Module Linker, can greatly help:
+https://github.com/fiatjaf/module-linker
