@@ -151,6 +151,15 @@ bindAttempt :: Box1 Int
 bindAttempt =  doBind (Box1 4) (\four -> doBind (liftSourceMonad (Box2 6)) (\six -> Box1 (four + six)))
 ```
 
+## MonadEffect
+
+When `Effect` is the source monad being lifted into a target monad, we can just use  [MonadEffect](https://pursuit.purescript.org/packages/purescript-effect/2.0.0/docs/Effect.Class#v:liftEffect):
+
+```purescript
+class (Monad m) <= MonadEffect m where
+  liftEffect :: Effect ~> m
+```
+
 ## The Developer-Code Solution
 
 Another way way to get around this is use to a package that can be easily abused by new programmers.
