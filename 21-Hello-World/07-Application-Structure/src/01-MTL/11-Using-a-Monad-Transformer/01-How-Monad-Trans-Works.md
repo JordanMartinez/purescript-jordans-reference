@@ -1,5 +1,7 @@
 # How MonadTrans Works
 
+## Reviewing Old Ideas
+
 Thus far, we've overviewed individual Monad Transformers. However, we have not yet combined them into a stack that allows us to write anything useful. It's now time to reveal this. It will look similar to something we've seen before:
 ```purescript
 class LiftSourceIntoTargetMonad sourceMonad targetMonad where {-
@@ -22,7 +24,7 @@ class LiftSIntoT s t where
   liftSource :: forall a. s ~> t
 ```
 
-# How MonadTrans works
+## Explaining Its Process
 
 1. Define a type class (e.g. `MonadState`) that is only implemented by one monad (e.g. `StateT`)
 2. Define a type class (e.g. `MonadTrans`) that enables one monad to be lifted into another monad
