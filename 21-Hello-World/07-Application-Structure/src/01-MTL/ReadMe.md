@@ -74,7 +74,7 @@ So, how do we get around this limitation?
 
 We saw the same problem earlier when we wanted to run an `Effect` monad inside of a `Box` monad. We fixed it by "lifting" the `Effect` monad into the `Box` monad via a [`NaturalTransformation`](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.NaturalTransformation#t:NaturalTransformation)/`~>`. This was abstracted into a type class specific for `Effect ~> someOtherMonad` in [`MonadEffect`](https://pursuit.purescript.org/packages/purescript-effect/2.0.0/docs/Effect.Class#t:MonadEffect).
 
-Following that idea, we can define a `NaturalTransformation` between one computational monad (e.g. `MonadReader`) into another computational monad (e.g. `MonadState`) by implementing a function with this type signature: `MonadReader ~> MonadState`. Using a visual, it produces this diagram (read from bottom to top):
+Following that idea, we can define **something similar to** a `NaturalTransformation` that "lifts" one computational monad (e.g. `MonadReader`) into another computational monad (e.g. `MonadState`). Using a visual, it produces this diagram (read from bottom to top):
 ```
 MonadState_TargetMonad
       ^
@@ -82,7 +82,7 @@ MonadState_TargetMonad
       |
 MonadReader_SourceMonad
 ```
-If we want to use all of the monads above, we must ultimately create a "stack" of `NaturalTransformation`s that lifts one monad type somewhere in the "stack" all the way up and into the monad type at the top of the stack. Using a visual, it produces this diagram (read from bottom to top):
+If we want to use all of the monads above, we must ultimately create a "stack" of these monad transformations that lift one monad type somewhere in the "stack" all the way up and into the monad type at the top of the stack. Using a visual, it produces this diagram (read from bottom to top):
 ```
 Index0_TopMonad
       ^
@@ -106,16 +106,6 @@ Index4_NextMonad
       |
 Index5_BottomMonad
 ```
-In other words, there are five `NaturalTransformation` functions...:
-1. `Index5 ~> Index4`
-2. `Index4 ~> Index3`
-3. `Index3 ~> Index2`
-4. `Index2 ~> Index1`
-5. `Index1 ~> Index0`
-
-... that produces a data type like:
-```purescript
-Index0 (Index1 (Index2 (Index3 (Index4 (Index5 someDataType)))))
-```
+This idea will be covered more when we explain what `MonadTrans` is and how it works
 
 This approach to functional programming is called "**Monad Transformers**" or "**mtl**" (short for 'monad transformers library', referring to the original Haskell library that synthesized this discovered idea into code).
