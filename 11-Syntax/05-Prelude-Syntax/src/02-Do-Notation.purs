@@ -56,29 +56,75 @@ do2_do_notation = do
   z <- toString y
   print z
 
-do_ignore_syntax_indented :: Box Unit
-do_ignore_syntax_indented =
+do3_ignore_syntax_indented :: Box Unit
+do3_ignore_syntax_indented =
   get4 >>= (\x -> takeValueAndIgnoreResult x >>= (\_ -> print x))
-
-do_ignore_syntax :: Box Unit
-do_ignore_syntax = do
+-- gets turned into...
+do3_ignore_syntax :: Box Unit
+do3_ignore_syntax = do
   x     <- get4
-  unit_ <- takeValueAndIgnoreResult x
-  -- ... can be written...
   _     <- takeValueAndIgnoreResult x
-  -- ... since we don't use its return value.
-  -- We can remove the "_ <-" syntax completely and write:
-  takeValueAndIgnoreResult x
 
   print x
+
+do4_discard_syntax_1Line :: Box Unit
+do4_discard_syntax_1Line =
+  (Box unit) >>= (\unit_ -> (Box unit) >>= (\unit__ -> print 5))
+-- can be written as...
+do4_discard_syntax :: Box Unit
+do4_discard_syntax = do                                           {-
+  When we omit the "binding <-" syntax, as in
+
+      four <- Box 4   -- line 1
+              Box a   -- line 2
+      five <- Box 5   -- line 3
+
+  the compiler translates `line 2` to
+      "discard (Box a) (\_ -> (Box 5) >>= (\five -> ... ))"
+
+  This is find if the argument to the next function would be Unit
+
+      four <- Box 4
+      unit <- Box unit  -- here, we could omit the "unit <-" syntax
+      five <- Box 5
+
+  If we had accidentally written code that amounted to this...
+
+      four <- Box 4
+      unit <- Box 10
+      five <- Box 5
+
+  ... the compiler would notify us that we had discarded a non-unit value
+      "Could not find instance of Discard for Int"
+
+  Why does it do this? To highlight accidentally dropping results
+  If you want to intentionally drop a result, use `void $ monad`            -}
+  x <- (Box 5)
+  (Box unit) -- since it returns unit, it's ok to use discard here
+
+  -- rather than write this...
+  map (\_ -> unit) (Box 5)
+
+  -- or even this...
+  (\_ -> unit) <$> (Box 5)
+
+  -- we write this:
+  void $ Box 5
+
+  print 5
 
 do_full_syntax :: Box Unit
 do_full_syntax = do
   x <- get4
-  takeValueAndIgnoreResult x
+
+  _ <- takeValueAndIgnoreResult x
+
+  (Box unit)
+  void $ takeValueAndIgnoreResult x
+
   let y = x + 4
   z <- toString y
-  -- last line in do notation must not end with `value <- expression`
+  -- last line in do notation must NOT end with `value <- expression`
   -- but should just end in `expression`
   print z
 
@@ -105,8 +151,8 @@ add4To i = Box (i + 4)
 toString :: Int -> Box String
 toString i = Box (show i)
 
-takeValueAndIgnoreResult :: forall a. a -> Box Unit
-takeValueAndIgnoreResult _ = Box unit
+takeValueAndIgnoreResult :: forall a. a -> Box a
+takeValueAndIgnoreResult a = Box a
 
 print :: forall a. a -> Box Unit
 print _ = Box unit
