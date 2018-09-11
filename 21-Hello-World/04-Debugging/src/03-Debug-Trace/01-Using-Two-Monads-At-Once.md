@@ -1,4 +1,4 @@
-# Monad Natural Transformers
+# Using Two Monads at Once
 
 Before we can continue further, we need to review a concept, see the problem it creates, and show both possible solutions.
 
