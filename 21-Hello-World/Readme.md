@@ -8,7 +8,7 @@ This folder will document everything necessary to create a simple console-based 
 - The difference between Local Mutable State vs Global Mutable State
 - How to test code
 - How to benchmark / profile code
-- How to structure an FP application 
+- How to structure an FP application
 - A few console-based games written in Purescript (putting it all together)
 
 In pursuing these goals, it will overview the following libraries:
@@ -42,7 +42,7 @@ Besides this repo, we have a few choices in terms of understanding functional pr
 
 ### Purescript
 
-- [Purescript By Example](https://leanpub.com/purescript/read#) - Outdated since it covers Purescript `0.11.7` and not `0.12.0`, but still a helpful resource. Be wary of any references to these [deprecated packages](https://github.com/purescript-deprecated) and read through the ReadMe in `Console-Lessons/Effect-Eff-and-Aff` to understand how to translate the no-longer-used `Eff` type to `Effect` type.
+- [Purescript By Example](https://leanpub.com/purescript/read#) - Outdated since it covers Purescript `0.11.7` and not `0.12.0`, but still a helpful resource. Be wary of any references to these [deprecated packages](https://github.com/purescript-deprecated) and read through `Hello-World-and-Effects/Effect-Eff-and-Aff.md` to understand how to translate the no-longer-used `Eff` type to `Effect` type.
 - [Purescript Resources](https://purescript-resources.readthedocs.io/en/latest/index.html) - Justin Woo's Read the Docs (RTD) work
 
 ### Haskell
