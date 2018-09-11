@@ -1,9 +1,6 @@
-module ConsoleLessons.ErrorHandling.ViaEitherErrorType where
+module PartialFunctions.ViaEitherErrorType where
 
 import Prelude
-import Effect (Effect)
-import Node.ReadLine.CleanerInterface (createUseCloseInterface, log)
-import ConsoleLessons.ErrorHandling.DivisionTemplate (showResult, askUserForNumerator, askUserForDenominator)
 
 import Data.Either (Either(..))
 {-
@@ -30,19 +27,3 @@ instance divisionErrorShow :: Show DivisionError where
 safeDivision :: Int -> Int -> Either DivisionError Int
 safeDivision _ 0 = Left DividedByZero
 safeDivision x y = Right (x / y)
-
-main :: Effect Unit
-main = createUseCloseInterface (\interface ->
-  do
-    log "This program demonstrates how to handle errors using `Either a b` \
-        \and custom types that indicate errors.\n\
-        \Recall that the notation is: 'numerator / denominator'\
-        \\n"
-
-    num <- askUserForNumerator interface
-    denom <- askUserForDenominator interface
-
-    case safeDivision num denom of
-      Left error -> log $ show error
-      Right result -> log $ showResult num denom result
-  )
