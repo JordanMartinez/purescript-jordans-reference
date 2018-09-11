@@ -1,4 +1,4 @@
-module ComputingWithMonads.Example.MonadAsk where
+module ComputingWithMonads.MonadAsk where
 
 import Prelude
 import Effect (Effect)

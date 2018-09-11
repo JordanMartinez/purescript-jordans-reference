@@ -1,4 +1,4 @@
-module ComputingWithMonads.Example.MonadState where
+module ComputingWithMonads.MonadState where
 
 import Prelude
 import Effect (Effect)
