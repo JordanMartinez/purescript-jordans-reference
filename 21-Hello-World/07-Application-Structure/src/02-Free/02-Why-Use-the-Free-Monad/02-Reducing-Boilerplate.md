@@ -1,0 +1,180 @@
+# Reducing Boilerplate
+
+There are two problems with our current approach that we want to raise.
+
+**First**, if we want to add another data constructor `Cherry`, we now need to nest that type even further using another type wrapper:
+```purescript
+-- original file. This cannot change once written!
+data Fruit
+  = Apple
+  | Banana
+
+showFruit :: Fruit -> String
+showFruit Apple = "apple"
+showFruit Banana = "banana"
+showFruit Orange = "orange"
+
+-- File 2. This cannot change once written!
+intFruit :: Fruit -> Int
+intFruit Apple = 0
+intFruit Banana = 1
+
+data Fruit2
+  = Orange
+
+data FruitGrouper
+  = Fruit_  Fruit
+  | Fruit2_ Fruit2
+
+showAllFruit :: FruitGrouper -> String
+showAllFruit (Fruit_  Apple)  = "apple"
+showAllFruit (Fruit_  Banana) = "banana"
+showAllFruit (Fruit2_ Orange) = "orange"
+
+-- File 3.
+data Fruit3 = Cherry
+
+data FruitGrouper2
+  = FruitGrouper_ FruitGrouper
+  | Fruit3_       Fruit3
+
+showMoreFruit :: FruitGrouper -> String
+showMoreFruit (FruitGrouper_ a) = showAllFruit a
+showMoreFruit (Fruit3_ Cherry)  = "cherry"
+```
+
+We see that we keep nesting types inside more type wrappers. If we were to abstract this away into a more general type, we basically have nested `Either`s:
+```purescript
+data Either a b
+  = Left a
+  | Right b
+
+Either Fruit (Either Fruit2 Fruit3)
+```
+Anytime we want to add a new data constructor, we need to nest it in another `Either`:
+`Either first (Either second (Either third (Either fourth ... (Either _ last))))`
+If we were to visualize this data structure, it looks like this:
+```
+   Either                    Either
+   /   \                     /   \
+  /     \                   /     \
+first  Either         Left first  Right
+        /  \                      /  \
+       /    \                    /    \
+  second   Either       Left second   Right
+            /  \                      /  \
+           /    \                    /    \
+      third    Either        Left third   Right
+                /  \                      /  \
+               /    \                    /    \
+           fourth   last        Left fourth   Right last
+```
+Thus, to access `last`, we need to call `Right (Right (Right (Right last)))`
+
+**Second**, using an instance that is wrapped in a nested data structure leads to boilerplate.
+
+Here's an example of putting an instance of one of the nested types into the data structure. One needs to write a variant for each type position in our data structure:
+```purescript
+putInsideOf :: forall first second third fourth last
+             . last
+            -> Either first (Either second (Either third (Either fourth last)))
+putInsideOf last = Right (Right (Right (Right last)))
+```
+If we want to extract an instance of a type that is in our nested `Either` instance, we need to return `Maybe TheType` because the instance may be of a different type in the nested `Either` instance. Using `Maybe` makes our code pure:
+```purescript
+extractFrom :: forall first second third fourth last
+           . Either first (Either second (Either third (Either fourth last)))
+          -> Maybe Result
+extractFrom (Right (Right (Right (Right last)))) = Just (f last)
+extractFrom _ = Nothing
+```
+Once again, we need to write a variant of this function that works for every type position (e.g. `first`, `second`, and `third`) in our data structure.
+
+In short, this boilerplate gets tedious. However, boilerplate usually implies a pattern we can use. Here's two ways we could make this easier:
+1. Rather than using a nested `Either` type, why not define a type for this specific purpose?
+2. Rather than using `extractFrom` and `putInsideOf` , why not define a type class with two functions for this specific purpose?
+
+## Defining NestedEither
+
+Looking at our example of a nested `Either` below, what is the common structure?
+```purescript
+Either first   (      Either second   (      Either third         last))
+Left   first | Right (Left   second | Right (Left   third | Right last))
+Left   first | Right (NestedEither second theRemainintTypes            )
+```
+So we come up with this idea, but it doesn't work...
+```purescript
+data NestedEither a b
+  = Left a
+  | Right (NestedEither b c)
+```
+...because we enter an infinte cyclical loop
+1. To define `c` in the `Right` instance's `NestedEither b c` argument, we need the type declaraction to include third type, `c`. Thus, we go to step 2.
+2. Once it does so, the `NestedEither b c` in `Right` instance is missing one type, so that it no adheres to its own declaration (i.e. `NestedEither b c ?` vs `NestedEither a b c`). To add the type, we need it to be different than the others and call it `d`. Thus, we return to step 1 except `c` is now `d` in that example.
+
+Still, we can clean up the verbosity/readability of nested `Either`s by creating an infix notation for it:
+```purescript
+infixr 6 type Either as \/
+
+Either Int String == Int \/ String
+
+-- As an example, the first line below reduces to the last line below
+first \/  second \/  third \/  fourth \/ last       -- first
+first \/  second \/  third \/ (fourth \/ last)
+first \/  second \/ (third \/ (fourth \/ last))
+first \/ (second \/ (third \/ (fourth \/ last)))    -- last
+```
+
+## Defining InjectProject
+
+When we have to write the same function again and again for different types in FP languages, we convert it into a type class. For example, `Semigroup` specifies the function, `append`, which defines the type signature for a function that can combine two instances of the same type into just one instance of the same type. `Int`, `String`, and other types can all implement it in their own way that works for that specific type.
+
+Likewise, when we look at our code below...
+ `append`:
+```purescript
+putInsideOf :: forall first second third fourth last
+             . last
+            -> Either first (Either second (Either third (Either fourth last)))
+putInsideOf last = Right (Right (Right (Right last)))
+```
+... we want `putInsideOf` to mean "if I have a data structure with nested types, take one of those types instances and put it into that data structure." In other words, we want to `inject` some instance into a data structure:
+```purescript
+inject :: forall theType allOtherTypes
+        . theType
+       -> Variant (t :: theType | allOtherTypes)
+```
+When we look at the other code we had...
+```purescript
+extractFrom :: forall first second third fourth last
+             . Either first (Either second (Either third (Either fourth last)))
+            -> Maybe last
+extractFrom (Right (Right (Right (Right last)))) = Just (f last)
+extractFrom _ _ = Nothing
+```
+... we want `extractFrom` to mean "If I have a data structure with nested types, I want to extract the instance of a specific type out of that structure via `Just` or get `Nothing` if the instance does not exist." In other words, we want to `project` some type's instance from the data structure into the world:
+```purescript
+project :: forall theType
+         . nestedType
+        -> Maybe theType
+```
+Turning this idea into a type class, we get this:
+```purescript
+class InjectAndProject someType nestedType where
+  inject :: someType -> nestedType
+  project :: nestedType -> Maybe someType
+```
+
+## `Purescript-Either`
+
+Indeed, the ideas we've proposed have already been defined by `purescript-either`:
+- [`\/` as a type alias for `Either`](https://pursuit.purescript.org/packages/purescript-either/4.0.0/docs/Data.Either.Nested)
+- The [Inject](https://pursuit.purescript.org/packages/purescript-either/4.0.0/docs/Data.Either.Inject) type class and its [implementation](https://github.com/purescript/purescript-either/blob/v4.0.0/src/Data/Either/Inject.purs#L8-L10) that works for nested `Either` types.
+
+The library provides convenience functions and types for nested `Either`s, **but only up to 10 total types**:
+- Convenience functions for dealing with injection and projection
+    - [injection - inX](https://pursuit.purescript.org/packages/purescript-either/4.0.0/docs/Data.Either.Nested#v:in1)
+    - [projection - atX](https://pursuit.purescript.org/packages/purescript-either/4.0.0/docs/Data.Either.Nested#v:at1)
+- Convenience functions for running code that handles every possible type in the nested Either:
+    - [eitherX](https://pursuit.purescript.org/packages/purescript-either/4.0.0/docs/Data.Either.Nested#v:either1)
+- Convenience types for writing them in a function's type signature without the `\/` syntax
+    - [EitherX](https://pursuit.purescript.org/packages/purescript-either/4.0.0/docs/Data.Either.Nested#t:Either1)
