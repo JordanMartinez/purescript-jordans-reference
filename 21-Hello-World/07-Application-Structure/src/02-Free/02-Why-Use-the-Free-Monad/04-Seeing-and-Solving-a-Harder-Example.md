@@ -1,4 +1,4 @@
-# X
+# Seeing and Solving a Harder Example
 
 ## Failing to Solve a Harder Version
 
