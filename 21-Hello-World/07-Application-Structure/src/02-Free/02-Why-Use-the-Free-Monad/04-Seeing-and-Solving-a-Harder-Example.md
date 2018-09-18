@@ -78,68 +78,53 @@ data Add = Add Expression Expression
 -- File 2
 data Multiply = Multiply Expression Expression
 
--- The problem: this is the final type we need
+-- The problem: this is the final type we need,
+-- but we cannot define it somewhere without breaking something
 type Expression = Variant (value :: Value, add :: Add, multiply :: Multiply)
 ```
-If we define `Expression` in File 2, then File 1 will not compile because the compiler does not know where `Expression` comes from. If we define it in File 1, then its definition cannot include the `Multiply` field because File 1 doesn't now about that type.
+There are two places where we could define `Expression`, each with its own problems:
+- If we define it in File 2, then File 1 will not compile because the compiler does not know where `Expression` comes from.
+- If we define it in File 1, then its definition cannot include the `Multiply` field because File 1 doesn't now about that type.
 
 Hmm... The Expression Problem is more nuanced than first thought. Still, the above refactoring helps shed light on what needs to be done. Let's look back at `Add`:
 ```purescript
 data Add = Add Expression Expression
 ```
-`Add` must add 2 Expressions. However, we've hard-coded what `Expression` means. Our recent realization about `Expression`'s definition causing problems shows us that `Add` must work for any `Expression` type, not just those it currently knows about in File 1. Reformulating this, we could rewrite `Add` and `Multiply` like this:
+`Add` must add 2 Expressions. However, we've hard-coded what `Expression` means. Since the location declaration of `Expression` causes a problem, we must turn this hard-coded type into a generic type to enable us to define it at a later time. The same goes for `Multiply`:
 ```purescript
 data Add expression = Add expression expression
-data Multiply expression = Multiply expression expression
-```
-However, that still causes problems:
-```purescript
-x :: Add Value Value             -- an addition of two values
-y :: Add Value (Add Value Value) -- Compiler error!
-```
-Using two types doesn't help us either as we still don't know what `Expression` is for `show2` or `evalute`:
-```purescript
-data Add e1 e2 = Add e1 e2
-data Multiply e1 e2 = Multiply e1 e2
-
-a :: Add Value Value                    -- an addition of two values
-b :: Add Value (Add Value Value)        -- works now
-c :: Add Value (Multiply Value Value))  -- also works
-d :: Add Value (Multiply Value (Add Value Value))  -- also works
-
-type Expression = -- Um....?
-
-show2 :: Expression -> String
-show2 = default Nothing
-  # onMatch
-    { value: \(Value i) -> show i
-    , add: \(Add x y) -> "(" <> show2 x <> " + " <> show2 y <> ")"
-    -- how do we inject a `multiply` case here???
-    }
-```
-Thus, we need to
-- define the `expression` type in `Add`/`Multiply` generically to avoid the problem of "where" we define the `Expression` type
-- define an `Expression` type that inhabits the above generic, so that `Add`/`Multiply` still work without them knowing about one another
-
-The paper solved this by defining the types in this way:
-```purescript
--- Define a special "placeholder" type that hides the next
--- `expression` type from the actual data type
-data Expression f = Placeholder (f (Expression f))
-
--- Make the types all higher-kinded by one
-data Value e = Value Int  -- `e` not used here
-data Add e = Add e e
+-- or a less verbose version
 data Multiply e = Multiply e e
+```
+We also know from our previous simpler problem that we will need to eventually compose our data types together into a big `Expression` type. In other words, we should get something like this:
+```purescript
+--        L             RL  RR
+-- Either Value (Either Add Multiply)
 
--- Use a version of Either to compose these higher-kinded types:
-type FinalExpression e =
-  Expression (Either (Value e) (Either (Add e) (Multiply e)))
-                  --  Left      Right-Left      Right-Right
+              Right ( Left ( Add (
+                (Left (Value 1))
+                (Right ( Right ( Multiply
+                  (Left (Value 1))
+                  (Left (Value 1))
+                ))
+              ))
+```
+To summarize, we need to
+- define the `expression` type in `Add`/`Multiply` generically so we can define it at a later time as a way (avoids the location problem)
+- define an `Expression` type that composes data types together but somehow prevents them from knowing about one another.
 
--- Note: the above `Either` is known as a `Coproduct`
+We'll show you how the paper solved this, starting with the type's instance and then showing the actual type declaration/definition:
+```purescript
+-- Instance of our Expression type with Placeholder commented out
+{- Placeholder ( -} Right ( Left ( Add (
+  {- (Placeholder -} ( Left  (Value 1))   -- )
+  {- (Placeholder -} ( Right ( Right ( Multiply
+              {- (Placeholder -} (Left (Value 1))  -- )
+              {- (Placeholder -} (Left (Value 1))  -- )
+                      )))  -- )
+                    )))  -- )
 
--- Here's an example instance:
+-- A full instance
 Placeholder ( Right ( Left ( Add (
   (Placeholder ( Left (Value 1)))
   (Placeholder ( Right ( Right ( Multiply
@@ -147,15 +132,23 @@ Placeholder ( Right ( Left ( Add (
     (Placeholder (Left (Value 1)))
   ))))
 ))))
--- If we comment out the `Placeholder` and `Either` instances
--- and make the resulting output vertically-aligned, we get this:
-{- Placeholder ( Right ( Left ( -} Add (
-  {- (Placeholder ( Left -}          (Value 1)   -- ))
-  {- (Placeholder ( Right ( Right -} ( Multiply
-              {- (Placeholder (Left -} (Value 1)  -- ))
-              {- (Placeholder (Left -} (Value 1)  -- ))
-                                     )  -- )))
-                                   )  -- )))
+
+-- Define a special "placeholder" type that hides the next
+-- `expression` type from the actual data type
+-- `f` is a higher-kinded type
+data Expression f = Placeholder (f (Expression f))
+
+-- Make the types all higher-kinded by one
+data Add e = Add e e
+data Multiply e = Multiply e e
+-- `e` not used here
+-- but needed to make the next type work
+data Value e = Value Int
+
+-- Use a version of Either to compose these higher-kinded types:
+type AMV e = (Either (Value e) (Either (Add e) (Multiply e)))
+type AMV_Expression =
+  Expression (AMV AMV_Expression)
 ```
 TODO: Section 3 of the paper
 Due to how `Value`, `Add`, and `Multiply` are now defined, they are also natural `Functor`s because they delegate the function to their respective arguments:
