@@ -146,7 +146,7 @@ data Multiply e = Multiply e e
 -- but needed to make the next type work
 data Value e = Value Int
 
--- Use a version of Either to compose these higher-kinded types:
+-- Use Either to compose these higher-kinded types:
 type AMV e = (Either (Value e) (Either (Add e) (Multiply e)))
 type AMV_Expression =
   Expression (AMV AMV_Expression)
