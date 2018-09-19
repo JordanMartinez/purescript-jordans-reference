@@ -11,8 +11,10 @@ The [Expression Problem](http://www.daimi.au.dk/~madst/tool/papers/expression.tx
 
 | | Pre-existing compiled function | Function is added
 | - | - | - |
-| Pre-existing compiled data type | All languages | FP: Add a function<br> OO: ???
-| Data type is added | FP: ???<br>OO: Add a subclass | Problem's Solution<br><br>FP: ???<br>OO: ??? |
+| Pre-existing compiled data type | All languages | FP: Add a function in a new file<br> OO: ???
+| Data type is added | FP: ???<br>OO: Add a subclass in a new file | Problem's Solution^^ |
+
+^^ This cannot be defined until the corresponding FP/OO issue (marked as `???`) is resolved
 
 ## A Solution to the Expression Problem
 
