@@ -1,17 +1,20 @@
 # Defining Modular Monads
 
-To define modular monads, one will use the `Coproduct` (or `VariantF`) of two or more `Free` monads (this approach does not work for other non-`Free` monads). As the paper says, the List and State monads are not free monads. To get around that problem, we can define a language (similar to our `Add`, `Multiply`, `Value` language) that provides the operations we would expect from such a monad. The paper's example shows how one could create a state monad using this approach. It will follow much of what we have already covered before, so we'll just show the Purescript version of their code. **Note:** since `Expression` from before was really just the `Free` monad, the `Free` monad has its own way of injecting an instance into it called [`liftF`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:liftF). This is covered below:
-```purescript
-data Add theRestOfTheComputation = Add Int theRestOfTheComputation
-data GetValue theRestOfTheComputation = GetValue (Int -> theRestOfTheComputation)
+## From `Expression f a` to `Free f a`
 
-{-
-Inject the data type into the Free monad.
-Due to implementing it in the Remorseless version of Free, we won't show the
-actual code. Rather, understand it as this code:
-  liftF :: g (Free f a) -> Free f a
-  liftF = Impure $ inj
--}
+`Expression` from before was really just a variant of the `Free` monad. To review the ideas that were explained here in a different manner that uses `Free`, see [this code](https://github.com/xgrommx/purescript-from-adt-to-eadt/tree/master/src).
+
+Purescript's `Free` monad is implemented in the "reflection without remorse" style, which adds complexity to the implementation. Thus, rather than redirecting you there, we'll explain the general idea of what the code is doing.
+For example, the `Free` monad has its own way of injecting an instance into it called [`liftF`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:liftF). It can be understood like this:
+```purescript
+liftF :: g (Free f a) -> Free f a
+liftF = Impure $ inj
+```
+
+To define modular monads, one will use the `Coproduct` (or `VariantF`) of two or more `Free` monads (this approach does not work for other non-`Free` monads). As the paper says, the List and State monads are not free monads. To get around that problem, we can define a language (similar to our `Add`, `Multiply`, `Value` language) that provides the operations we would expect from such a monad. The paper's example shows how one could create a state monad using this approach. It will follow much of what we have already covered before, so we'll just show the Purescript version of their code.
+```purescript
+data Add      theRestOfTheComputation = Add Int theRestOfTheComputation
+data GetValue theRestOfTheComputation = GetValue (Int -> theRestOfTheComputation)
 
 -- Why the `a` type is `Pure` will become clear
 -- in the next section where we define the
@@ -90,6 +93,9 @@ data FileSystem a
 data ConsoleIO a
   = ReadFromConsole (String -> a)
   | WriteToConsole String a
+  -- This isn't needed, but it will show below how code is usually written
+  -- via do notation when either one of these argument types is used
+  | WriteThenRead String (String -> a)
 ```
 Using these data structure, we can "interpret" these non-runnable pure programs into an equivalent runnable impure program (e.g. `Effect`). Assuming these functions exist...
 ```purescript
@@ -101,22 +107,31 @@ readFromFile :: FilePath -> Effect String
 
 writeToFile :: FilePath -> String -> Effect Unit
 ```
-... we could take our "description" of computations (e.g. the `Free ConsoleIO a`) and "interpret" it into an `Effect` monad:
+... we could take our "description" of computations (e.g. `Free ConsoleIO a`) and "interpret" it into an `Effect` monad:
 ```purescript
 class Functor f => Exec f where                                      {-
   execAlgebra :: f (Effect a) -> Effect a                            -}
   execAlgebra :: f  Effect    ~> Effect
 
 instance Exec ConsoleIO where
-  execAlgebra (ReadFromConsole handler) =
-    -- use the output from `bind` and pass it into `handler`
+  execAlgebra (ReadFromConsole reply) = do
+    -- use the `bind` output from `consoleRead` and pass it into `reply`
     -- which will lift the result back into a `Free (Coproduct ...) a`
-    -- which will then be evaluated using `execAlgebra`,
-    -- which will lower its computation into an `Effect` monad again
-    -- which will adhere to the
-    -- "bind must return the same monad type" requirement
-    consoleRead >>= handler
-  execAlgebra (WriteToConsole msg io) = consoleWrite msg >>= (\_ -> io)
+    -- which will be lifted into the Monadic type via `pure`.
+    -- At a later time in the `fold` process,
+    -- the `Free (Coproduct ...) a` will be evaluated again
+    -- using `fold execAlgebra expression`,
+    -- which will start this loop all over again
+    -- until the final output is reached
+    result <- consoleRead
+    pure (reply result)
+  execAlgebra (WriteToConsole msg remainingComputation) = do
+    consoleWrite msg
+    pure remainingComputation
+  execAlgebra (WriteThenRead msg reply) = do
+    consoleWrite msg
+    input <- consoleRead
+    pure (reply input)
 
 {- our "run" function but using the `execAlgebra`
 exec :: Exec f => Free f a -> Effect a                          -}
@@ -139,3 +154,8 @@ What is your name?
 You wrote mike
 Now exiting.
 -}
+```
+
+## From `Free f a` to `Run f a`
+
+When I was looking over his code in the "adt to eadt" link above, he mentions [`purescript-run`](https://pursuit.purescript.org/packages/purescript-run/2.0.0). The ReadMe of this library provides an overview of the ideas we've explained here. The library provides the same functionality as `Free` in `purescript-free` with one advantage. Whereas `Free` is vulnerable to stack overflows, `purescript-run` can lessen the possibility of stack overflows or completely guarantee stack-safety. Thus, it should be used instead of `Free`. See the "Stack-Safety" section at the bottom of the project's ReadMe.
