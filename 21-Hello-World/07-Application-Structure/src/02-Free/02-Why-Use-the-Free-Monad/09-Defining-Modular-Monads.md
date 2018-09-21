@@ -50,8 +50,8 @@ instance r :: Run GetValue where
     (intToRestOfComputation i) (Memory i)
 
 instance e :: (Run f, Run g) => Run (Either f g) where
-  runAlgebra (Inl r) = runAlgebra r
-  runAlgebra (Inr r) = runAlgebra r
+  runAlgebra (Left r) = runAlgebra r
+  runAlgebra (Right r) = runAlgebra r
 
 instance c :: (Run f, Run g) => Run (Coproduct f g) where
   runAlgebra (Coproduct either) = runAlgebra either
@@ -137,6 +137,10 @@ instance Exec ConsoleIO where
 exec :: Exec f => Free f a -> Effect a                          -}
 exec :: Exec f => Free f   ~> Effect
 exec = foldFree pure execAlgebra
+
+-- assuming we have smart constructors for each of our data types
+writeToConsole :: forall f. String -> Free f Unit
+writeToConsole msg = liftF $ WriteToConsole msg
 
 -- we exclude FileSystem from this computation
 consoleComputation :: Free ConsoleIO a
