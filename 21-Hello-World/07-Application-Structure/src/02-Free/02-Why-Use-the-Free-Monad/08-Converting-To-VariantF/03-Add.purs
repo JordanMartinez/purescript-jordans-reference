@@ -1,4 +1,4 @@
-module ComputingWithMonads.Free.VariantF.Add
+module Free.ExpressionBased.VariantF.Add
   ( AddF, Add, add
   , example_add, addAlgebra
 

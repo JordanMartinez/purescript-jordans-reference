@@ -1,4 +1,4 @@
-module ComputingWithMonads.Free.VariantF.Multiply where
+module Free.ExpressionBased.VariantF.Multiply where
 
 import Prelude hiding (add)
 import Effect (Effect)

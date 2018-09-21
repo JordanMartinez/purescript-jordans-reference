@@ -1,4 +1,4 @@
-module ComputingWithMonads.Free.VariantF.Value
+module Free.ExpressionBased.VariantF.Value
   (
   -- data type and VariantF injection stuff
     ValueF, Value, value

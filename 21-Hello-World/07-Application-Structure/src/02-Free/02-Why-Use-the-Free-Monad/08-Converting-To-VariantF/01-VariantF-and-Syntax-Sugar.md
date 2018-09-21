@@ -68,7 +68,7 @@ The following files of code are an adapted version of a gist that was sent to me
 
 The following files can be run using this command below:
 ```
-pulp --psc-package run -m ComputingWithMonads.Free.VariantF.Value
-pulp --psc-package run -m ComputingWithMonads.Free.VariantF.Add
-pulp --psc-package run -m ComputingWithMonads.Free.VariantF.Multiply
+pulp --psc-package run -m Free.ExpressionBased.VariantF.Value
+pulp --psc-package run -m Free.ExpressionBased.VariantF.Add
+pulp --psc-package run -m Free.ExpressionBased.VariantF.Multiply
 ```
