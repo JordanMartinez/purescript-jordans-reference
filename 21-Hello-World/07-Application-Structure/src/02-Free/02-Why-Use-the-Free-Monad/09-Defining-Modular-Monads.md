@@ -2,7 +2,7 @@
 
 ## From `Expression f a` to `Free f a`
 
-`Expression` from before was really just a variant of the `Free` monad. To review the ideas that were explained here in a different manner that uses `Free`, see [this code](https://github.com/xgrommx/purescript-from-adt-to-eadt/tree/master/src).
+`Expression` from before was really just a variant of the `Free` monad. To see the evolution of this idea (and a review of what we taught here) in a different manner that uses `Free`, see [this code](https://github.com/xgrommx/purescript-from-adt-to-eadt/tree/master/src). "ADT 7" is where the code starts to diverge from an `Expression f`-based idea to more of a `Free f`-based idea.
 
 Purescript's `Free` monad is implemented in the "reflection without remorse" style, which adds complexity to the implementation. Thus, rather than redirecting you there, we'll explain the general idea of what the code is doing.
 For example, the `Free` monad has its own way of injecting an instance into it called [`liftF`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:liftF). It can be understood like this:
