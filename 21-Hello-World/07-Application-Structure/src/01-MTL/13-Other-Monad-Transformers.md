@@ -5,6 +5,7 @@
 - [RWS](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.RWS.Trans#t:RWST) a convenience monad that combines `ReaderT`, `WriterT`, and `StateT` into the same monad type
 - [ListT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.List.Trans#t:ListT), a monad that returns a `List a`. In addition, it provides the regular list functions you'd expect
 - [MaybeT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Maybe.Trans#t:MaybeT), a monad the returns a `Maybe a`
+- [MonadRec](https://pursuit.purescript.org/packages/purescript-tailrec/4.0.0/docs/Control.Monad.Rec.Class#t:MonadRec) (not included in the `purescript-transformers` library): guarantees stack safety for monad transformers
 
 ## Requires More Understanding
 
