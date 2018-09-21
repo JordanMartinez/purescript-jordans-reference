@@ -1,6 +1,12 @@
 # Defining Modular Monads
 
-To define modular monads, one will use the `Coproduct` (or `VariantF`) of two or more `Free` monads (this approach does not work for other non-`Free` monads). As the paper says, the List and State monads are not free monads. To get around that problem, we can define a language (similar to our `Add`, `Multiply`, `Value` language) that provides the operations we would expect from such a monad. The paper's example shows how one could create a state monad using this approach. It will follow much of what we have already covered before, so we'll just show the Purescript version of their code.
+We can now return to the original question we raised at the start of the `Free` folder: if we wanted to run a sequential computation (i.e. use a monad) that used multiple effects (e.g. different monads whose `bind` do different things), could we stop fighting against "`bind` returns the same monad type" fact and simply use just one monad? Yes. Similar to our previous examples, we can use `Coproduct`s/`VariantF`s of two or more `Free` monads.
+
+## Getting Around The Non-Free-Monad Limitation
+
+Unfortunately, this `Coproduct` + `Free` approach only works on `Free` monads; it does not work for other non-`Free` monads. So, how do we get around that limitation?
+
+As the paper says, the List and State monads are not free monads. To get around that problem, we can define a language (similar to our `Add`, `Multiply`, `Value` language) that provides the operations we would expect from such a monad. The paper's example shows how one could create a State monad using this approach. Since it will follow much of what we have already covered before, we'll just show the Purescript version of their code.
 ```purescript
 data Add      theRestOfTheComputation = Add Int theRestOfTheComputation
 data GetValue theRestOfTheComputation = GetValue (Int -> theRestOfTheComputation)
@@ -46,7 +52,9 @@ instance c :: (Run f, Run g) => Run (Coproduct f g) where
   runAlgebra (Coproduct either) = runAlgebra either
 
 run :: Run f => Free f a -> Memory -> Tuple a Memory
-run = foldFree (\a b -> Tuple a b) runAlgebra
+run =
+--          Pure               Impure     computation  initialState
+  foldFree (\a b -> Tuple a b) runAlgebra
 
 {- In the REPL
 > run stateComputation (Memory 4)
@@ -149,6 +157,8 @@ Now exiting.
 -}
 ```
 
-## From `Free f a` to `Run f a`
+## From `Free` to `Run`
 
-When I was looking over his code in the "adt to eadt" link above, he mentions [`purescript-run`](https://pursuit.purescript.org/packages/purescript-run/2.0.0). The ReadMe of this library provides an overview of the ideas we've explained here. The library provides the same functionality as `Free` in `purescript-free` with one advantage. Whereas `Free` is vulnerable to stack overflows, `purescript-run` can lessen the possibility of stack overflows or completely guarantee stack-safety. Thus, it should be used instead of `Free`. See the "Stack-Safety" section at the bottom of the project's ReadMe.
+If you recall in `ADT8.purs`, `xgromxx` mentions [`purescript-run`](https://pursuit.purescript.org/packages/purescript-run/2.0.0). (The ReadMe of this library provides an overview of the ideas we've explained here.)
+
+The library provides the same functionality as `Free` in `purescript-free` with one advantage. Whereas `Free` is vulnerable to stack overflows, `purescript-run` can lessen the possibility of stack overflows or completely guarantee stack-safety. Thus, it should be used instead of `Free`. **See the "Stack-Safety" section at the bottom of the project's ReadMe.**
