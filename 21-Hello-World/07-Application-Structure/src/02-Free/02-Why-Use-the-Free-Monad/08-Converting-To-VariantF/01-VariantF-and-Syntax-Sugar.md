@@ -65,3 +65,10 @@ run composedAlgebras expression = fold (case_ # composedAlgebras) expression
 ## Final Result
 
 The following files of code are an adapted version of a gist that was sent to me on the Slack channel. The link to the gist will appear after the next few files of code.
+
+The following files can be run using this command below:
+```
+pulp --psc-package run -m ComputingWithMonads.Free.VariantF.Value
+pulp --psc-package run -m ComputingWithMonads.Free.VariantF.Add
+pulp --psc-package run -m ComputingWithMonads.Free.VariantF.Multiply
+```
