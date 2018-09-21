@@ -1,16 +1,5 @@
 # Defining Modular Monads
 
-## From `Expression f a` to `Free f a`
-
-`Expression` from before was really just a variant of the `Free` monad.
-
-Purescript's `Free` monad is implemented in the "reflection without remorse" style, which adds complexity to the implementation. Thus, rather than redirecting you there, we'll explain the general idea of what the code is doing.
-For example, the `Free` monad has its own way of injecting an instance into it called [`liftF`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:liftF). It can be understood like this:
-```purescript
-liftF :: g (Free f a) -> Free f a
-liftF = Impure $ inj
-```
-
 To define modular monads, one will use the `Coproduct` (or `VariantF`) of two or more `Free` monads (this approach does not work for other non-`Free` monads). As the paper says, the List and State monads are not free monads. To get around that problem, we can define a language (similar to our `Add`, `Multiply`, `Value` language) that provides the operations we would expect from such a monad. The paper's example shows how one could create a state monad using this approach. It will follow much of what we have already covered before, so we'll just show the Purescript version of their code.
 ```purescript
 data Add      theRestOfTheComputation = Add Int theRestOfTheComputation
