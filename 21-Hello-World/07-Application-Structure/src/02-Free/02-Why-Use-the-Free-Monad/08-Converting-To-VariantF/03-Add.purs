@@ -11,7 +11,7 @@ import Effect.Console (log)
 import Data.Functor.Variant (VariantF, FProxy, inj, on)
 import Data.Symbol (SProxy(..))
 import Type.Row (type (+))
-import ComputingWithMonads.Free.VariantF.Value (
+import Free.ExpressionBased.VariantF.Value (
     Value, value
   , example_value, valueAlgebra
   , Expression(..), eval
