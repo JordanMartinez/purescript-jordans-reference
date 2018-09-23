@@ -29,18 +29,78 @@ Purescript's `Free` monad is implemented in the "reflection without remorse" sty
 
 The `Free` monad has its own way of injecting an instance into it called [`liftF`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:liftF). It can be understood like this:
 ```purescript
--- before, we wrote...
+-- Before
 addF :: Expression f -> Expression f -> Expression f
 addF x y = In $ inj (AddF x y)
 
--- but now we can rewrite it as...
-
+-- After...
 liftF :: g (Free f a) -> Free f a
-liftF = Impure $ inj
+liftF = Impure
 
-addF x y = liftF $ AddF x y
+addF :: Free f -> Free f -> Free f
+addF x y = liftF $ inj addSymbol (AddF x y)
 ```
 
 ### RunFree
 
-Rather than writing `fold` and then writing `run` as a way to use `fold` to evaluate a computation as we did in `Value.purs`, we can simplify this to one function by using [`runFree`](https://pursuit.purescript.org/packages/purescript-free/4.2.0/docs/Control.Monad.Free#v:runFree)
+Rather than writing `fold` and then writing `run` as a way to use `fold` to evaluate a computation as we did in `Value.purs`, we can simplify this to one function by using [`runFree`](https://pursuit.purescript.org/packages/purescript-free/4.2.0/docs/Control.Monad.Free#v:runFree):
+```purescript
+-- Before
+fold :: forall f a. Functor f => (f a -> a) -> Expression f -> a
+fold f (In t) = f (map (fold f) t)                                  {-
+... which could also be written as...                               -}
+fold f (In t) = f ((fold f) <$> t)                                  {-
+... which could also be written as...                               -}
+fold f = go where
+  go (In t) = f (go <$> t)                                          {-
+... which could also be written as...                               -}
+fold f = go where
+  go t = case t of
+    In t -> f (go <$> t)
+
+run :: forall f a b output
+      . Functor f
+      -- |     case_        | # |    algebra       |
+     => ((VariantF () a -> b) -> f output -> output)
+     -> Expression f
+     -> output
+run algebra expression = fold (case_ # algebra) expression
+
+eval :: forall f a b
+      . Functor f
+     => ((VariantF () a -> b) -> f Int -> Int)
+     -> Expression f
+     -> Int
+eval = run
+
+eval valueAlgebra (value 5)
+
+-- After
+eval :: forall f a b
+      . Functor f
+     => ((VariantF () a -> b) -> f Int -> Int)
+     -> Expression f
+     -> Int
+eval = runFree (case_ # valueAlgebra)
+
+runFree :: forall f a
+         . Functor f
+        => (f (Free f a) -> Free f a)
+        -> Free f a
+        -> a                                                        {-
+fold    f = go where
+  go t = case t of
+    In     t -> f (go <$> t)
+
+... which, when one changes `Value` to `Pure`, looks like...
+runFree k = go where
+  go m = case resume m of
+    Pure   a -> a
+    Impure f -> k (go <$> f)
+
+... but, due to remorseless complexities, is written like...        -}
+runFree k = go where
+  go m = case resume m of
+    Right  a -> a
+    Left   f -> k (go <$> f)
+```
