@@ -1,4 +1,8 @@
-# Type Directed Search
+# General Debugging
+
+The following sections are tips for debugging issues that may arise in a strongly-typed language via the compiler.
+
+## Type Directed Search
 
 If you recall in `Syntax/Basic Syntax/src/Data-and-Functions/Type-Directed-Search.md`, we can use type-directed search to
 1. help us determine what an entity's type is
@@ -32,7 +36,7 @@ main = do
 
 If you encounter a problem or need help, this should be one of the first things you use.
 
-## Getting the Type from the Compiler
+## Getting the Type of an Expression from the Compiler
 
 This tip comes from cvlad on the Slack channel (I've edited his response below for clarity):
 > If you want the type of `something`, a good trick is to assert its type to something random like `Unit`. For example, you could write: `(log "hola") :: Unit`. The compiler will give you an error such as, "Cannot unify `Unit` with `_`", where `_` will be the type of the expression.
