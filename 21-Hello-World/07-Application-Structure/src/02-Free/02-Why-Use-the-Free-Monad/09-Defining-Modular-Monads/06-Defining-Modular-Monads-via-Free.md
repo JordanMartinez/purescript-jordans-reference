@@ -156,11 +156,3 @@ You wrote mike
 Now exiting.
 -}
 ```
-
-## From `Free` to `Run`
-
-If you recall in `ADT8.purs`, `xgromxx` mentions [`purescript-run`](https://pursuit.purescript.org/packages/purescript-run/2.0.0). (The ReadMe of this library provides an overview of the ideas we've explained here.)
-
-The library provides the same functionality as `Free` in `purescript-free` with one advantage. Whereas `Free` is vulnerable to stack overflows, `purescript-run` can lessen the possibility of stack overflows or completely guarantee stack-safety. Thus, it should be used instead of `Free`. **See the "Stack-Safety" section at the bottom of the project's ReadMe.**
-
-In the next folder, we'll update our code once more to use `purescript-run` and give some examples for how it works.
