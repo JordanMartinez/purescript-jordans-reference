@@ -169,3 +169,5 @@ The purpose of this package is for debugging and possibly prototyping as you wri
 This package's functions are also the reason why we talked about Custom Type Errors, as the compiler will notify you when you use them, so that you can remove all such instances before you push out production code.
 
 This solution (covered next) is called [Debug.Trace](https://pursuit.purescript.org/packages/purescript-debug/4.0.0/docs/Debug.Trace)
+
+**WARNING**: `Debug.Trace`'s functions are not always reliable when running concurrent code.
