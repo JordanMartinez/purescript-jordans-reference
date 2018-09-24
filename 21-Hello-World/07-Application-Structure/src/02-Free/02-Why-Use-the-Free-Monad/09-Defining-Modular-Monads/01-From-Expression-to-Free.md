@@ -1,6 +1,21 @@
 # From `Expression` to `Free`
 
-`Expression` from before was really just a variant of the `Free` monad.
+We've been defining the function, `fold`, the same way for a while. However, there's another way to write the function. To help you understand the upcoming code, we'll rewrite it in this new way:
+```purescript
+fold :: forall f a. Functor f => (f a -> a) -> Expression f -> a
+fold f (In t) = f (map (fold f) t)                                          {-
+... which can be rewritten using infix notation                             -}
+fold f (In t) = f ((fold f) <$> t)                                          {-
+... which can be rewritten to not pass `f` through recursive calls          -}
+fold f = go where
+  go (In t) = f (go <$> t)                                                  {-
+... which can be rewritten to use "case _ of" to pattern match              -}
+fold f = go where
+  go t = case t of
+    In t -> f (go <$> t)
+```
+
+With that out of the way, let's compare `Expression` to `Free`. We can see that `Expression` is really just a variant of the `Free` monad without the `Pure` constructor.
 ```purescript
 newtype Expression f
   -- no pure here...
@@ -11,7 +26,20 @@ newtype Free       f a
   | Impure (f (Free       f a))
 ```
 
-So, how does this change the `VariantF` code from before? `Value` is replaced with `Pure`. To see an example of just `Value` and `Add`, see [ADT8.purs](https://github.com/xgrommx/purescript-from-adt-to-eadt/blob/master/src/ADT8.purs) and use this table to help you understand the terminology:
+How would we rewrite our solution from before to use `Free` instead of `Expression`? `Value` is replaced with `Pure`. To see an example of this for just `Value` and `Add` (`Multiply` is excluded), see [ADT8.purs](https://github.com/xgrommx/purescript-from-adt-to-eadt/blob/master/src/ADT8.purs) and use the following code snippet to understand why `iter` works that way and the following table to help you understand the terminology:
+
+```purescript
+-- when Value and Add were both `f`
+fold    f = go where
+  go t = case t of
+    In     t -> f (go <$> t)
+
+-- when Value is simply Pure now
+fold    f = go where
+  go t = case t of
+    Pure   a -> a              -- Value
+    Impure t -> f (go <$> t)   -- Add
+```
 
 | xgromxx's code | Our code |
 | - | - |
@@ -47,13 +75,6 @@ Rather than writing `fold` and then writing `run` as a way to use `fold` to eval
 ```purescript
 -- Before
 fold :: forall f a. Functor f => (f a -> a) -> Expression f -> a
-fold f (In t) = f (map (fold f) t)                                  {-
-... which could also be written as...                               -}
-fold f (In t) = f ((fold f) <$> t)                                  {-
-... which could also be written as...                               -}
-fold f = go where
-  go (In t) = f (go <$> t)                                          {-
-... which could also be written as...                               -}
 fold f = go where
   go t = case t of
     In t -> f (go <$> t)
@@ -87,20 +108,16 @@ runFree :: forall f a
          . Functor f
         => (f (Free f a) -> Free f a)
         -> Free f a
-        -> a                                                        {-
-fold    f = go where
-  go t = case t of
-    In     t -> f (go <$> t)
-
-... which, when one changes `Value` to `Pure`, looks like...
+        -> a                                                                  {-
+... which should appear like this...
 runFree k = go where
   go m = case resume m of
-    Pure   a -> a
     Impure f -> k (go <$> f)
+    Pure   a -> a
 
-... but, due to remorseless complexities, is written like...        -}
+... but, due to "reflection without remorse" complexities, is written like... -}
 runFree k = go where
   go m = case resume m of
-    Right  a -> a
     Left   f -> k (go <$> f)
+    Right  a -> a
 ```
