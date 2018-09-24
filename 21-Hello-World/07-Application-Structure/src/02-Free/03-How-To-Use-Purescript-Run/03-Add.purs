@@ -29,6 +29,40 @@ type ADD r = (add :: FProxy AddF | r)
 _add :: SProxy "add"
 _add = SProxy
 
+{-
+We know from previous code that we need a type signature like
+add :: Expression a
+    -> Expression a
+    -> Expression a
+
+However, if we follow the same pattern we've been using via `Run.lift`
+the return type;s `a` will be another "Expression a"
+-}
+add_problematic :: forall r a
+                 . Run (ADD + r) a
+                -> Run (ADD + r) a
+                -> Run (ADD + r) (Run (ADD + r) a)
+add_problematic x y = lift _add (AddF x y)
+
+{-
+To get around this problem, we need to remember that
+Run is a monad. Thus, the above type signature could look like this:
+add_problematic :: forall m a
+                 . Monad m
+                => m a
+                -> m a
+                -> m (m a)
+
+We need a function whose type signature is...
+    m (m a) -> m a
+... to get rid of that nested monad. This is known as 'join' from 'Bind'      -}
+add_correct :: forall r a
+             . Run (ADD + r) a
+            -> Run (ADD + r) a
+            -> Run (ADD + r) a
+add_correct x y = join $ add_problematic x y
+
+-- Putting it all on one line:
 add :: forall r a
      . Run (ADD + r) a
     -> Run (ADD + r) a
