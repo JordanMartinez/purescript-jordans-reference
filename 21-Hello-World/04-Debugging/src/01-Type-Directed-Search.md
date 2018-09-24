@@ -31,3 +31,23 @@ main = do
 ```
 
 If you encounter a problem or need help, this should be one of the first things you use.
+
+## Getting the Type from the Compiler
+
+This tip comes from cvlad on the Slack channel (I've edited his response below for clarity):
+> If you want the type of `something`, a good trick is to assert its type to something random like `Unit`. For example, you could write: `(log "hola") :: Unit`. The compiler will give you an error such as, "Cannot unify `Unit` with `_`", where `_` will be the type of the expression.
+
+## Getting the Type of a Function from the Compiler
+
+There are two possible situations where this idea might help:
+- You know how to write the body for a function but aren't sure what it's type signature is
+- You're exploring a new unfamiliar library and are still figuring out how to piece things together. So, you attempt to write the body of a function but aren't sure what it's type signature will be.
+
+In such cases, we can completely omit the type signature and the compiler will usually infer what it is for us:
+```purescript
+-- The following code is completely made up
+
+-- no type signature here, so the compiler will output a warning
+-- stating what it inferred it to be
+doSomething x y = runK $ repeat 4 $ add 5 \x -> x - 3
+```

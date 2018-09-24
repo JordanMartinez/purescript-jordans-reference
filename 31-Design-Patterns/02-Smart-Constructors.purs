@@ -12,15 +12,15 @@ module FlawedConstructors
 data TheType = DumbConstructor String
 
 example :: TheType -> Int
-example DumbConstructor "apple" = 1
+example DumbConstructor "apple"  = 1
 example DumbConstructor "orange" = 2
 example DumbConstructor "banana" = 42
-example DumbConstructor _ = -1 -- This should never occur
+example DumbConstructor _        = error "This should never occur!"
 
 -- Since the type and its constructor are both exported,
 -- this enables a user of this module to use it incorrectly.
 -- For example, in code outside this module, one could incorrectly write
-example (DumbConstructor "fire") -- returns -1
+example (DumbConstructor "fire") -- throws an error
 
 
 
@@ -45,17 +45,17 @@ banana :: TheType
 banana = DumbConstructor "banana"
 
 example :: TheType -> Int
-example DumbConstructor "apple" = 1
+example DumbConstructor "apple"  = 1
 example DumbConstructor "orange" = 2
 example DumbConstructor "banana" = 42
-example DumbConstructor _ = -1 -- We can now guarantee that this will never occur
+example DumbConstructor _ = error "We can guarantee that this will never occur!"
 
 -- Since "DumbConstructor" isn't exported, one is forced to use
 -- the apple, orange, or banana smart constructors to get an instance of
 -- `TheType`. Thus, it prevents one from creating incorrect "TheType" instances.
-preventBadInstances :: Array TheType
+preventBadInstances :: Array Int
 preventBadInstances =
-  [ example apple -- returns 1
+  [ example apple  -- returns 1
   , example orange -- returns 2
   , example banana -- returns 42
 
