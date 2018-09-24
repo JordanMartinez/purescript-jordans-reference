@@ -12,4 +12,4 @@ What are the advantages that `Free` provides? Due to the different "interpreters
 What are the disadvantages?
 - It seems to be slower (though I am not sure how much slower) than the `mtl` approach
 
-This folder will explain how the `Free` monad approach enables one to write programs that are structured according to the "onion architecture" idea. This idea can also be done using `mtl`, but we won't explain it until after covering the `Free` monad.
+This folder will teach readers with no prior understanding the fundamental concepts of the `Free` monad and a basic understanding of how to use it.
