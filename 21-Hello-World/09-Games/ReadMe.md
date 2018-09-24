@@ -1,3 +1,5 @@
+# Games
+
 Note: This was written previously for other purposes and is now in this folder. Don't expect to fully understand everything here. It is currently in the process of being re-purposed.
 
 ## Console Lessons
