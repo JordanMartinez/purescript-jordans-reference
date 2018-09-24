@@ -1,10 +1,7 @@
 module Free.RunBased.Add
   ( main
-  , AddF
-  , ADD
-  , add
-  , example_add
-  , addAlgebra
+  , AddF, ADD, add
+  , example_add, addAlgebra
   , eval
   ) where
 --
