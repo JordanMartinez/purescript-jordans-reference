@@ -45,6 +45,8 @@ runProgram :: (Core ~> Infrastructure) -> Free Core e -> Effect e
 -- framework, UI, database, etc. without rewriting any code of the main code.
 ```
 
+Thus, this recursive nature is what can lead to stack overflows and hence why we need to use `Run` instead of `Free`.
+
 ## Examples and Implications
 
 To see some examples and the implications of this idea, read the following links and translate the `IO` monad to `Effect` and the mention of Purescript's now-outdated `Eff` monad to `Effect`:
