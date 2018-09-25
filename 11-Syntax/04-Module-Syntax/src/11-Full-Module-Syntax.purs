@@ -44,6 +44,9 @@ module Syntax.Module.FullExample
 
   , module Exports
 
+  -- export all entties in this module by exporting itself
+  , module Syntax.Module.FullExample
+
   -- Kinds require the `kind` keyword to precede them
   , kind ExportedKind
   , ExportedKindInstance
