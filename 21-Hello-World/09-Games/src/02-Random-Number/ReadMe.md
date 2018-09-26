@@ -45,9 +45,11 @@ Following the same idea as above, I wrote non-compiling code that "translated" t
 
 Rather than writing a new file called `Main.purs` that ran the infrastructure, I just inlined the `main` function at the bottom of `Infrastructure.purs`.
 
+### Miscellaneous Comments
+
 Due to `gameLoop` in API, this code has the possibility of blowing the stack. However, since it is interpreted into the `Aff` monad, which is stack-safe, I did not need to worry about this possibility.
 
-The actual code demonstrated here only implements the Node infrastructure for the first version of the API (see next sectino). However, one could quickly build a browser version using Halogen or a similar library.
+The actual code demonstrated here only implements the Node infrastructure for the first version of the API (see next section). However, one could quickly build a browser version using Halogen or a similar library.
 
 ## Onion Architecture
 
