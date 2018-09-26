@@ -16,6 +16,7 @@ Free1 ~> Effect
 This allows us to write "onion architecture" programs without the impure unreasonable OO code and instead with the pure reasonable FP code. For a clearer idea of what "onion architecture" is, see these videos:
 - [A Quick Introduction to Onion Architecture](https://www.youtube.com/watch?v=R2pW09tMCnE&start=6&end=528)
 - [Domain-Driven Design through Onion Architecture](https://www.youtube.com/watch?v=pL9XeNjy_z4)
+- [Functional Architecture - The Pits of Success](https://www.youtube.com/watch?v=US8QG9I1XW0&t=0s&index=4&list=LL0RItGq_oLk-fvqppBpwtew)
 
 Each `~>` is going from a more central circle (e.g. Domain) to a less central circle (e.g. API). Updating our code above to use meta-language, we would have something like this:
 ```purescript
