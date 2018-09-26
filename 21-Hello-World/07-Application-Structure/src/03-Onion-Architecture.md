@@ -55,3 +55,5 @@ To see some examples and the implications of this idea, read the following links
 - [MTL-version of Onion Architecture](https://gist.github.com/ocharles/6b1b9440b3513a5e225e)
 - MTL vs Free Deathmatch - [Video](https://www.youtube.com/watch?v=JLevNswzYh8) & [Slides](https://www.slideshare.net/jdegoes/mtl-versus-free)
 - [A Modern Architecture for FP: Part 2](http://degoes.net/articles/modern-fp-part-2)
+
+Checkout the `Hello World/Games` folder for more examples and explanations on this idea.
