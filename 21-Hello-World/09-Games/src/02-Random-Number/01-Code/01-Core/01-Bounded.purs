@@ -1,14 +1,4 @@
--- | This modules defines compiler-time types to enable
--- | the compiler to catch any accidental misuse of the
--- | respective arguments (i.e. the Core)
--- |
--- | Rather than allowing anyone to create these objects
--- | by exporting their data constructors, we export smart constructors.
--- | One must use the `mk[TypeName]` function to create a validated object
--- | and the `un[TypeName]` function to use the validated object.
--- | Thus, data validation is handled correctly in this module as well
--- | (i.e. the Domain)
-module Games.RandomNumber.Core
+module Games.RandomNumber.Core.Bounded 
   ( Bounds, mkBounds, unBounds, showTotalPossibleGuesses
   , BoundsCreationError(..), BoundsCheckError(..)
 
@@ -16,9 +6,6 @@ module Games.RandomNumber.Core
 
   , Guess, mkGuess
   , guessEqualsRandomInt, (==#)
-
-  , Count, mkCount, decrement, outOfGuesses
-  , CountCreationError(..)
   )
   where
 
@@ -93,26 +80,3 @@ guessEqualsRandomInt (Guess i) (RandomInt r) = i == r
 -- since this is basically `Eq` between two types,
 -- we're using the same precedence as Eq's eq/== function
 infix 4 guessEqualsRandomInt as ==#
-
------- Count ------
-
--- | Newtype wrapper for wrapping the remaining guesses the player has
--- | until the player loses the game. Note, rather than defining `unCount`,
--- | one should use `useGuess`, which reduces the count by one automatically.
-newtype Count = Count Int
-instance cs :: Show Count where
-  show (Count i) = show i
-
-data CountCreationError = NotPositiveInteger
-instance cces :: Show CountCreationError where
-  show _ = "User did not input a positive integer."
-
-mkCount :: Int -> Either CountCreationError Count
-mkCount i | i <= 0    = Left NotPositiveInteger
-          | otherwise = Right $ Count i
-
-decrement :: Count -> Count
-decrement (Count n) = Count (n - 1)
-
-outOfGuesses :: Count -> Boolean
-outOfGuesses (Count i) = i == 0

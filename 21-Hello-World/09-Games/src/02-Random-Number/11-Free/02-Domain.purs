@@ -1,42 +1,27 @@
-module Games.RandomNumber.API
-  ( RandomNumberOperationF(..), RandomNumberOperation
-  , runGame
-  ) where
+module Games.RandomNumber.Free.Domain (RandomNumberOperation, runCore) where
 
 import Prelude
 import Control.Monad.Free (Free, liftF, substFree)
-import Data.Tuple (Tuple(..))
-import Games.RandomNumber.Core (
-    Bounds, showTotalPossibleGuesses
-  , RandomInt, Guess
-  , (==#)
-  , Count, decrement, outOfGuesses
-  )
-import Games.RandomNumber.Domain (
-    GameInfo(..), mkGameInfo
-  , GameResult(..)
-  , GameF(..), Game
-  )
-
--- | Defines the operations we'll need to run
--- | a Random Number Guessing game
-data RandomNumberOperationF a
-  = LogOutput String a
-  | DefineBounds (Bounds -> a)
-  | DefineCount (Count -> a)
-  | GenerateRandomInt Bounds (RandomInt -> a)
-  | MakeGuess Bounds (Guess -> a)
+import Data.Tuple (Tuple(Tuple))
+import Games.RandomNumber.Core ( Bounds, showTotalPossibleGuesses
+                               , RandomInt, Guess, (==#)
+                               , RemainingGuesses, outOfGuesses, decrement
+                               , GameF(..), GameResult(..)
+                               , GameInfo(..), mkGameInfo
+                               )
+import Games.RandomNumber.Free.Core (Game)
+import Games.RandomNumber.Domain (RandomNumberOperationF(..))
 
 type RandomNumberOperation a = Free RandomNumberOperationF a
 
 log :: String -> RandomNumberOperation Unit
-log msg = liftF $ LogOutput msg unit
+log msg = liftF $ NotifyUser msg unit
 
 defineBounds :: RandomNumberOperation Bounds
 defineBounds = liftF $ DefineBounds identity
 
-defineCount :: RandomNumberOperation Count
-defineCount = liftF $ DefineCount identity
+defineTotalGuesses :: RandomNumberOperation RemainingGuesses
+defineTotalGuesses = liftF $ DefineTotalGuesses identity
 
 generateRandomInt :: Bounds -> RandomNumberOperation RandomInt
 generateRandomInt bounds = liftF $ GenerateRandomInt bounds identity
@@ -46,18 +31,20 @@ makeGuess b = liftF $ MakeGuess b identity
 
 -- | Calls `makeGuess` recursively until either the random number is
 -- | correctly guessed or the player runs out of guesses
-gameLoop :: Bounds -> RandomInt -> Count -> RandomNumberOperation GameResult
-gameLoop bounds randomInt count
-  | outOfGuesses count = pure $ PlayerLoses $ randomInt
+gameLoop :: Bounds -> RandomInt -> RemainingGuesses -> RandomNumberOperation GameResult
+gameLoop bounds randomInt remaining
+  | outOfGuesses remaining = pure $ PlayerLoses randomInt
   | otherwise = do
-    let newCount = decrement count
+    let remaining' = decrement remaining
     guess <- makeGuess bounds
     if guess ==# randomInt
-      then pure $ PlayerWins newCount
-      else gameLoop bounds randomInt newCount
+      then pure $ PlayerWins remaining'
+      else do
+        log $ "Incorrect. You have " <> show remaining' <> " guesses remaining."
+        gameLoop bounds randomInt remaining'
 
-runGame :: Game ~> RandomNumberOperation
-runGame = substFree go
+runCore :: Game ~> RandomNumberOperation
+runCore = substFree go
 
   where
   go :: GameF ~> RandomNumberOperation
@@ -80,27 +67,28 @@ runGame = substFree go
       log $ "Second, please define the number of guesses you will have. This must \
           \be a postive number. Note: due to the bounds you defined, there are "
           <> showTotalPossibleGuesses bounds <> " possible answers."
-      count <- defineCount
-      log $ "You have limited yourself to " <> show count <> " guesses."
+      totalGueses <- defineTotalGuesses
+      log $ "You have limited yourself to " <> show totalGueses <> " guesses."
 
       log $ "Now generating random number..."
       randomInt <- generateRandomInt bounds
       log $ "Finished."
 
-      log $ "Everything is set. You will have " <> show count <> " guesses \
-            \to guess a number between " <> show bounds <> ". Good luck!"
+      log $ "Everything is set. You will have " <> show totalGueses <>
+            " guesses to guess a number between " <> show bounds <>
+            ". Good luck!"
 
-      pure (reply $ Tuple (mkGameInfo bounds randomInt) count)
-    PlayGame (GameInfo {bound: b, number: n}) count reply -> do
-      result <- gameLoop b n count
+      pure (reply $ Tuple (mkGameInfo bounds randomInt) totalGueses)
+    PlayGame (GameInfo {bound: b, number: n}) remaining reply -> do
+      result <- gameLoop b n remaining
 
       pure (reply result)
     EndGame gameResult next ->
       case gameResult of
-        PlayerWins count -> do
+        PlayerWins remaining -> do
           log "Player won!"
           log $ "Player guessed the random number with " <>
-            show count <> " trie(s) remaining."
+            show remaining <> " trie(s) remaining."
           pure next
         PlayerLoses randomInt -> do
           log "Player lost!"
