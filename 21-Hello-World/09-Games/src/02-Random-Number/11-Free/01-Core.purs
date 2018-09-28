@@ -10,11 +10,11 @@ type Game = Free GameF
 explainRules :: Game Unit
 explainRules = liftF $ (ExplainRules unit)
 
-setupGame :: Game (Tuple GameInfo RemainingGuesses)
+setupGame :: Game GameInfo
 setupGame = liftF $ (SetupGame identity)
 
-playGame :: GameInfo -> RemainingGuesses -> Game GameResult
-playGame info remaining = liftF $ (PlayGame info remaining identity)
+playGame :: GameInfo -> Game GameResult
+playGame info = liftF $ (PlayGame info identity)
 
 endGame :: GameResult -> Game Unit
 endGame result = liftF $ (EndGame result unit)
@@ -22,6 +22,6 @@ endGame result = liftF $ (EndGame result unit)
 game :: Game Unit
 game = do
   explainRules
-  Tuple info total <- setupGame
-  result <- playGame info total
+  info <- setupGame
+  result <- playGame info
   endGame result

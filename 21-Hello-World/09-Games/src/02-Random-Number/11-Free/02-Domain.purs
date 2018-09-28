@@ -2,12 +2,11 @@ module Games.RandomNumber.Free.Domain (RandomNumberOperation, runCore) where
 
 import Prelude
 import Control.Monad.Free (Free, liftF, substFree)
-import Data.Tuple (Tuple(Tuple))
 import Games.RandomNumber.Core ( Bounds, showTotalPossibleGuesses
                                , RandomInt, Guess, (==#)
                                , RemainingGuesses, outOfGuesses, decrement
                                , GameF(..), GameResult(..)
-                               , GameInfo(..), mkGameInfo
+                               , mkGameInfo
                                )
 import Games.RandomNumber.Free.Core (Game)
 import Games.RandomNumber.Domain (RandomNumberOperationF(..))
@@ -78,8 +77,8 @@ runCore = substFree go
             " guesses to guess a number between " <> show bounds <>
             ". Good luck!"
 
-      pure (reply $ Tuple (mkGameInfo bounds randomInt) totalGueses)
-    PlayGame (GameInfo {bound: b, number: n}) remaining reply -> do
+      pure (reply $ mkGameInfo bounds randomInt totalGueses)
+    PlayGame ({ bound: b, number: n, remaining: remaining }) reply -> do
       result <- gameLoop b n remaining
 
       pure (reply result)
