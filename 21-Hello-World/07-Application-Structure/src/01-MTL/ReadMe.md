@@ -68,7 +68,7 @@ bind :: forall a. f   a -> ( a    -> f   b)           -> f    b
 bind :: forall a. Box a -> ( a    -> Box b         )  -> Box  b
 bind             (Box 4)   (\four -> Box (show four)) == Box "5"
 ```
-**In other words, if we use one of the above monads (e.g. `MonadState`) as our monad, we cannot use any other computational monads from above.** For some parts of our program, this is not a problem. If we only want to run a state computation, we only need to use the `MonadState` effect. However, in other parts of our program, we need to use functions from both `MonadState` and `MonadReader`. Thus, we need to "extend" one effect with another. In other words, we need "extensible effects." 
+**In other words, if we use one of the above monads (e.g. `MonadState`) as our monad, we cannot use any other computational monads from above.** For some parts of our program, this is not a problem. If we only want to run a state computation, we only need to use the `MonadState` effect. However, in other parts of our program, we need to use functions from both `MonadState` and `MonadReader`. Thus, we need to "compose" one effect with another. In other words, we need "composable effects." 
 
 So, how do we get around this limitation?
 
