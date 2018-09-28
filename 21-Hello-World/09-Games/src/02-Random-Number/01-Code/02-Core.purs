@@ -5,6 +5,7 @@ module Games.RandomNumber.Core
   , module Exports
   ) where
 
+import Data.Functor (class Functor)
 import Data.Tuple (Tuple(Tuple))
 
 import Games.RandomNumber.Core.Bounded (Bounds, RandomInt)
@@ -44,3 +45,5 @@ data GameF a
   | SetupGame (GameInfo -> a)
   | PlayGame GameInfo (GameResult -> a)
   | EndGame GameResult a
+
+derive instance functor :: Functor GameF

@@ -1,5 +1,6 @@
 module Games.RandomNumber.Domain (RandomNumberOperationF(..)) where
 
+import Data.Functor (class Functor)
 import Games.RandomNumber.Core (Bounds, RandomInt, Guess, RemainingGuesses)
 
 -- | Defines the operations we'll need to run
@@ -10,3 +11,5 @@ data RandomNumberOperationF a
   | DefineTotalGuesses (RemainingGuesses -> a)
   | GenerateRandomInt Bounds (RandomInt -> a)
   | MakeGuess Bounds (Guess -> a)
+
+derive instance f :: Functor RandomNumberOperationF
