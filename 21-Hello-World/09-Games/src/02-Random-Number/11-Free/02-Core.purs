@@ -1,30 +1,26 @@
 module Games.RandomNumber.Free.Core
   ( GameF(..)
   , Game, game
-  , module Exports
+  , module ExportCore
   ) where
 
-import Prelude
-
-import Control.Monad.Free (Free, liftF)
-import Games.RandomNumber.Free.Core.Bounded (Bounds, RandomInt)
-import Games.RandomNumber.Free.Core.Bounded (
+import Games.RandomNumber.Core (
   Bounds, mkBounds, unBounds, showTotalPossibleGuesses
 , BoundsCheckError(..), BoundsCreationError(..)
 , Guess, mkGuess, guessEqualsRandomInt, (==#)
 , RandomInt, mkRandomInt
-) as Exports
 
-import Games.RandomNumber.Free.Core.RemainingGuesses (RemainingGuesses)
-import Games.RandomNumber.Free.Core.RemainingGuesses (
-  RemainingGuesses, mkRemainingGuesses, decrement, outOfGuesses
+, RemainingGuesses, mkRemainingGuesses, decrement, outOfGuesses
 , RemainingGuessesCreationError(..)
-) as Exports
 
-import Games.RandomNumber.Free.Core.GameTypes (GameInfo, GameResult)
-import Games.RandomNumber.Free.Core.GameTypes (
-  GameInfo, mkGameInfo, GameResult(..)
-) as Exports
+, GameInfo, mkGameInfo, GameResult(..)
+) as ExportCore
+
+import Prelude
+import Control.Monad.Free (Free, liftF)
+import Games.RandomNumber.Core ( Bounds, RandomInt, RemainingGuesses
+                               , GameInfo, GameResult
+                               )
 
 
 -- | High-level overview of our game's control flow

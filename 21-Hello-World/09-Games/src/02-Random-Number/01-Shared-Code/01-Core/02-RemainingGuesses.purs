@@ -1,4 +1,4 @@
-module Games.RandomNumber.Free.Core.RemainingGuesses
+module Games.RandomNumber.Core.RemainingGuesses
   ( RemainingGuesses, mkRemainingGuesses, decrement, outOfGuesses
   , RemainingGuessesCreationError(..)
   )
