@@ -5,7 +5,7 @@ module Games.RandomNumber.Free.Core
   ) where
 
 import Games.RandomNumber.Core (
-  Bounds, mkBounds, unBounds, showTotalPossibleGuesses
+  Bounds, mkBounds, unBounds, totalPossibleGuesses
 , BoundsCheckError(..), BoundsCreationError(..)
 , Guess, mkGuess, guessEqualsRandomInt, (==#)
 , RandomInt, mkRandomInt

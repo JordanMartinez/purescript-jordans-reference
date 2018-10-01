@@ -1,5 +1,5 @@
 module Games.RandomNumber.Core.Bounded
-  ( Bounds, mkBounds, unBounds, showTotalPossibleGuesses
+  ( Bounds, mkBounds, unBounds, totalPossibleGuesses
   , BoundsCreationError(..), BoundsCheckError(..)
 
   , RandomInt, mkRandomInt
@@ -39,9 +39,8 @@ mkBounds x y
 unBounds :: forall a. Bounds -> (Int -> Int -> a) -> a
 unBounds (Bounds {lower: l, upper: u}) f = f l u
 
-showTotalPossibleGuesses :: Bounds -> String
-showTotalPossibleGuesses (Bounds {lower: l, upper: u}) =
-  show $ (abs $ u - l) + 1
+totalPossibleGuesses :: Bounds -> Int
+totalPossibleGuesses (Bounds {lower: l, upper: u}) = (abs $ u - l) + 1
 
 data BoundsCheckError = NotWithinBounds Bounds Int
 instance bces :: Show BoundsCheckError where

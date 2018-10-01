@@ -13,7 +13,7 @@ import Data.Symbol (SProxy(..))
 import Type.Row (type (+))
 import Data.Functor.Variant (on)
 import Run (Run, FProxy(..), lift, interpret, send)
-import Games.RandomNumber.Core ( Bounds, showTotalPossibleGuesses
+import Games.RandomNumber.Core ( Bounds, totalPossibleGuesses
                                , RandomInt, Guess, (==#)
                                , RemainingGuesses, outOfGuesses, decrement
                                , GameResult(..)
@@ -60,7 +60,7 @@ defineBounds = lift _defineBounds (DefineBoundsF identity)
 
 ---
 
-data DefineTotalGuessesF a = DefineTotalGuessesF (RemainingGuesses -> a)
+data DefineTotalGuessesF a = DefineTotalGuessesF Bounds (RemainingGuesses -> a)
 derive instance dtf :: Functor DefineTotalGuessesF
 
 _defineTotalGuesses :: SProxy "defineTotalGuesses"
@@ -68,8 +68,9 @@ _defineTotalGuesses = SProxy
 
 type DEFINE_TOTAL_GUESSES r = (defineTotalGuesses :: FProxy DefineTotalGuessesF | r)
 
-defineTotalGuesses :: forall r. Run (DEFINE_TOTAL_GUESSES + r) RemainingGuesses
-defineTotalGuesses = lift _defineTotalGuesses (DefineTotalGuessesF identity)
+defineTotalGuesses :: forall r. Bounds -> Run (DEFINE_TOTAL_GUESSES + r) RemainingGuesses
+defineTotalGuesses bounds =
+  lift _defineTotalGuesses (DefineTotalGuessesF bounds identity)
 
 ---
 
@@ -117,24 +118,9 @@ setupGameToDomain (SetupGameF reply) = do
   notifyUser "Before we play the game, the computer needs you to \
              \define two things."
 
-  notifyUser "First, please define the range from which to choose a \
-             \random integer. This could be something easy like '1 to 5' \
-             \or something hard like `1 to 100`. The range can also include \
-             \negative numbers (e.g. '-10 to -1' or '-100 to 100')"
   bounds <- defineBounds
-  notifyUser $ "The random number will be between " <> show bounds <> "."
-
-  notifyUser $ "Second, please define the number of guesses you will have. \
-               \This must be a postive number. Note: due to the bounds you \
-               \defined, there are " <> showTotalPossibleGuesses bounds
-               <> " possible answers."
-  totalGueses <- defineTotalGuesses
-  notifyUser $ "You have limited yourself to " <> show totalGueses
-               <> " guesses."
-
-  notifyUser $ "Now generating random number..."
+  totalGueses <- defineTotalGuesses bounds
   randomInt <- genRandomInt bounds
-  notifyUser $ "Finished."
 
   notifyUser $ "Everything is set. You will have " <> show totalGueses <>
                " guesses to guess a number between " <> show bounds <>

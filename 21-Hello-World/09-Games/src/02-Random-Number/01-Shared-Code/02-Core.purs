@@ -1,7 +1,7 @@
 module Games.RandomNumber.Core (module Exports) where
 
 import Games.RandomNumber.Core.Bounded (
-  Bounds, mkBounds, unBounds, showTotalPossibleGuesses
+  Bounds, mkBounds, unBounds, totalPossibleGuesses
 , BoundsCheckError(..), BoundsCreationError(..)
 , Guess, mkGuess, guessEqualsRandomInt, (==#)
 , RandomInt, mkRandomInt

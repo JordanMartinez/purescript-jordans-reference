@@ -7,7 +7,7 @@ import Data.Int (fromString)
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
 import Games.RandomNumber.Free.Core ( Bounds, mkBounds, mkGuess, mkRandomInt
-                                    , mkRemainingGuesses
+                                    , mkRemainingGuesses, totalPossibleGuesses
                                     )
 
 import Games.RandomNumber.Free.Domain (RandomNumberOperationF(..), RandomNumberOperation)
@@ -67,21 +67,38 @@ runDomain = substFree go
       pure next
 
     DefineBounds reply -> do
+      log "Please, define the range from which to choose a random integer. \
+          \This could be something easy like '1 to 5' or something hard like \
+          \`1 to 100`. The range can also include negative numbers \
+          \(e.g. '-10 to -1' or '-100 to 100')"
+
       bounds <- recursivelyRunUntilPure
         (mkBounds
           <$> getIntFromUser "Please enter either the lower or upper bound: "
           <*> getIntFromUser "Please enter the other bound: ")
+
+      log $ "The random number will be between " <> show bounds <> "."
       pure (reply bounds)
 
-    DefineTotalGuesses reply -> do
+    DefineTotalGuesses bounds reply -> do
+      log $ "Please, define the number of guesses you will have. This must \
+          \be a postive number. Note: due to the bounds you defined, there are "
+          <> (show $ totalPossibleGuesses bounds) <> " possible answers."
+
       totalGuesses <- recursivelyRunUntilPure
         (mkRemainingGuesses <$>
           getIntFromUser "Please enter the total number of guesses: ")
+
+      log $ "You have limited yourself to " <> show totalGuesses <> " guesses."
       pure (reply totalGuesses)
 
     GenerateRandomInt bounds reply -> do
+      log $ "Now generating random number..."
+
       random <- recursivelyRunUntilPure
         (mkRandomInt bounds <$> genRandomInt bounds)
+
+      log $ "Finished."
       pure (reply random)
 
     MakeGuess bounds reply -> do
