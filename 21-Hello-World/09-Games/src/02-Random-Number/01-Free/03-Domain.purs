@@ -1,16 +1,25 @@
-module Games.RandomNumber.Free.Domain (RandomNumberOperation, runCore) where
+module Games.RandomNumber.Free.Domain (RandomNumberOperationF(..), RandomNumberOperation, runCore) where
 
 import Prelude
+import Data.Functor (class Functor)
 import Control.Monad.Free (Free, liftF, substFree)
-import Games.RandomNumber.Core ( Bounds, showTotalPossibleGuesses
-                               , RandomInt, Guess, (==#)
-                               , RemainingGuesses, outOfGuesses, decrement
-                               , GameF(..), GameResult(..)
-                               , mkGameInfo
-                               )
-import Games.RandomNumber.Free.Core (Game)
-import Games.RandomNumber.Domain (RandomNumberOperationF(..))
+import Games.RandomNumber.Free.Core ( Bounds, RandomInt, Guess, RemainingGuesses
+                                    , outOfGuesses, decrement, showTotalPossibleGuesses
+                                    , (==#), mkGameInfo
+                                    , GameResult(..), Game, GameF(..), game)
 
+-- | Defines the operations we'll need to run
+-- | a Random Number Guessing game
+data RandomNumberOperationF a
+  = NotifyUser String a
+  | DefineBounds (Bounds -> a)
+  | DefineTotalGuesses (RemainingGuesses -> a)
+  | GenerateRandomInt Bounds (RandomInt -> a)
+  | MakeGuess Bounds (Guess -> a)
+
+derive instance f :: Functor RandomNumberOperationF
+
+-- `Free` stuff
 type RandomNumberOperation a = Free RandomNumberOperationF a
 
 log :: String -> RandomNumberOperation Unit

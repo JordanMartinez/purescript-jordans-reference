@@ -1,18 +1,27 @@
-module Games.RandomNumber.Free.API (API, runDomain) where
+module Games.RandomNumber.Free.API (API_F(..), API, runDomain) where
 
 import Prelude
+
 import Control.Monad.Free (Free, liftF, substFree)
 import Data.Int (fromString)
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
-import Games.RandomNumber.Core ( Bounds, mkBounds, mkGuess, mkRandomInt
-                               , mkRemainingGuesses
-                               )
+import Games.RandomNumber.Free.Core ( Bounds, mkBounds, mkGuess, mkRandomInt
+                                    , mkRemainingGuesses
+                                    )
 
-import Games.RandomNumber.Domain (RandomNumberOperationF(..))
-import Games.RandomNumber.Free.Domain (RandomNumberOperation)
+import Games.RandomNumber.Free.Domain (RandomNumberOperationF(..), RandomNumberOperation)
 
-import Games.RandomNumber.API (API_F(..))
+import Games.RandomNumber.Free.API (API_F(..))
+
+data API_F a
+  = Log String a
+  | GetUserInput String (String -> a)
+  | GenRandomInt Bounds (Int -> a)
+
+derive instance f :: Functor API_F
+
+-- `Free` stuff
 
 type API = Free API_F
 

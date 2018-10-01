@@ -1,22 +1,24 @@
-module Games.RandomNumber.Core
+module Games.RandomNumber.Free.Core
   ( GameInfo(..), mkGameInfo
   , GameResult(..)
   , GameF(..)
+  , Game, game
   , module Exports
   ) where
 
 import Prelude
 
-import Games.RandomNumber.Core.Bounded (Bounds, RandomInt)
-import Games.RandomNumber.Core.Bounded (
+import Control.Monad.Free (Free, liftF)
+import Games.RandomNumber.Free.Core.Bounded (Bounds, RandomInt)
+import Games.RandomNumber.Free.Core.Bounded (
   Bounds, mkBounds, unBounds, showTotalPossibleGuesses
 , BoundsCheckError(..), BoundsCreationError(..)
 , Guess, mkGuess, guessEqualsRandomInt, (==#)
 , RandomInt, mkRandomInt
 ) as Exports
 
-import Games.RandomNumber.Core.RemainingGuesses (RemainingGuesses)
-import Games.RandomNumber.Core.RemainingGuesses (
+import Games.RandomNumber.Free.Core.RemainingGuesses (RemainingGuesses)
+import Games.RandomNumber.Free.Core.RemainingGuesses (
   RemainingGuesses, mkRemainingGuesses, decrement, outOfGuesses
 , RemainingGuessesCreationError(..)
 ) as Exports
@@ -51,3 +53,27 @@ data GameF a
   | PlayGame GameInfo (GameResult -> a)
 
 derive instance functor :: Functor GameF
+
+-- `Free` stuff
+
+type Game = Free GameF
+
+explainRules :: Game Unit
+explainRules = liftF $ (ExplainRules unit)
+
+setupGame :: Game GameInfo
+setupGame = liftF $ (SetupGame identity)
+
+playGame :: GameInfo -> Game GameResult
+playGame info = liftF $ (PlayGame info identity)
+
+-- endGame :: GameResult -> Game Unit
+-- endGame result = liftF $ (EndGame result unit)
+
+game :: Game GameResult
+game = do
+  explainRules
+  info <- setupGame
+  playGame info
+  -- result <- playGame info
+  -- endGame result

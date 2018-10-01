@@ -14,13 +14,9 @@ import Node.ReadLine ( Interface
                      )
 import Node.ReadLine as NR
 
-import Games.RandomNumber.Core (unBounds)
-import Games.RandomNumber.Free.Core (game)
-
+import Games.RandomNumber.Free.Core (game, unBounds)
 import Games.RandomNumber.Free.Domain (runCore)
-
-import Games.RandomNumber.API (API_F(..))
-import Games.RandomNumber.Free.API (API, runDomain)
+import Games.RandomNumber.Free.API (API_F(..), API, runDomain)
 
 question :: String -> Interface -> Aff String
 question message interface = do
