@@ -4,12 +4,14 @@ module Games.RandomNumber.Core.RemainingGuesses
   )
   where
 
-import Prelude (class Show, otherwise, show, ($), (-), (<=), (==))
+import Prelude (class Show, otherwise, show, ($), (-), (<=), (==), class Eq)
 import Data.Either(Either(..))
 
 ------ RemainingGuesses ------
 
 newtype RemainingGuesses = RemainingGuesses Int
+
+derive newtype instance rgE :: Eq RemainingGuesses
 instance cs :: Show RemainingGuesses where
   show (RemainingGuesses i) = show i
 

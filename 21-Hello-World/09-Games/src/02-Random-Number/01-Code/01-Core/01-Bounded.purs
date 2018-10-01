@@ -1,4 +1,4 @@
-module Games.RandomNumber.Core.Bounded 
+module Games.RandomNumber.Core.Bounded
   ( Bounds, mkBounds, unBounds, showTotalPossibleGuesses
   , BoundsCreationError(..), BoundsCheckError(..)
 
@@ -57,6 +57,7 @@ withinBounds bounds@(Bounds {lower: l, upper: u}) i
 ------ Random Int ------
 
 newtype RandomInt = RandomInt Int
+derive newtype instance riE :: Eq RandomInt
 instance ris :: Show RandomInt where
   show (RandomInt i) = show i
 
