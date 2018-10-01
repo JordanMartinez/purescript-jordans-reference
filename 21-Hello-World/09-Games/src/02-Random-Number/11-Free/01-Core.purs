@@ -16,12 +16,13 @@ setupGame = liftF $ (SetupGame identity)
 playGame :: GameInfo -> Game GameResult
 playGame info = liftF $ (PlayGame info identity)
 
-endGame :: GameResult -> Game Unit
-endGame result = liftF $ (EndGame result unit)
+-- endGame :: GameResult -> Game Unit
+-- endGame result = liftF $ (EndGame result unit)
 
-game :: Game Unit
+game :: Game GameResult
 game = do
   explainRules
   info <- setupGame
-  result <- playGame info
-  endGame result
+  playGame info
+  -- result <- playGame info
+  -- endGame result

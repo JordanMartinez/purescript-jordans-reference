@@ -5,8 +5,7 @@ module Games.RandomNumber.Core
   , module Exports
   ) where
 
-import Data.Functor (class Functor)
-import Data.Tuple (Tuple(Tuple))
+import Prelude
 
 import Games.RandomNumber.Core.Bounded (Bounds, RandomInt)
 import Games.RandomNumber.Core.Bounded (
@@ -39,11 +38,16 @@ data GameResult
   = PlayerWins RemainingGuesses
   | PlayerLoses RandomInt
 
+derive instance grE :: Eq GameResult
+
+instance grs :: Show GameResult where
+  show (PlayerWins rg) = "PlayerWins(" <> show rg <> ")"
+  show (PlayerLoses ri) = "PlayerLoses(" <> show ri <> ")"
+
 -- | High-level overview of our game's control flow
 data GameF a
   = ExplainRules a
   | SetupGame (GameInfo -> a)
   | PlayGame GameInfo (GameResult -> a)
-  | EndGame GameResult a
 
 derive instance functor :: Functor GameF

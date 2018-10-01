@@ -22,12 +22,13 @@ setupGame = lift _game (SetupGame identity)
 playGame :: forall r. GameInfo -> Game r GameResult
 playGame info = lift _game (PlayGame info identity)
 
-endGame :: forall r. GameResult -> Game r Unit
-endGame result = lift _game (EndGame result unit)
+-- endGame :: forall r. GameResult -> Game r Unit
+-- endGame result = lift _game (EndGame result unit)
 
-game :: forall r. Game r Unit
+game :: forall r. Game r GameResult
 game = do
   explainRules
   info <- setupGame
-  result <- playGame info
-  endGame result
+  playGame info
+  -- result <- playGame info
+  -- endGame result

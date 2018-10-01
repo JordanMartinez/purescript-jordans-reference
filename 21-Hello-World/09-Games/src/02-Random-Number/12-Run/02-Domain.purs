@@ -96,14 +96,14 @@ runCore = interpret (on _game go send)
       result <- gameLoop b n remaining
 
       pure (reply result)
-    EndGame gameResult next ->
-      case gameResult of
-        PlayerWins remaining -> do
-          log "Player won!"
-          log $ "Player guessed the random number with " <>
-            show remaining <> " trie(s) remaining."
-          pure next
-        PlayerLoses randomInt -> do
-          log "Player lost!"
-          log $ "The number was: " <> show randomInt
-          pure next
+    -- EndGame gameResult next ->
+    --   case gameResult of
+    --     PlayerWins remaining -> do
+    --       log "Player won!"
+    --       log $ "Player guessed the random number with " <>
+    --         show remaining <> " trie(s) remaining."
+    --       pure next
+    --     PlayerLoses randomInt -> do
+    --       log "Player lost!"
+    --       log $ "The number was: " <> show randomInt
+    --       pure next
