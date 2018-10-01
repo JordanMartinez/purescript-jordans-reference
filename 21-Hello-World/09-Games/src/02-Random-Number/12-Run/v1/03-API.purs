@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.API
+module Games.RandomNumber.Run.VOne.API
   ( GetUserInputF(..), _getUserInput, GET_USER_INPUT
   , CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT
 
@@ -17,7 +17,7 @@ import Games.RandomNumber.Core ( Bounds, mkBounds, mkGuess, mkRandomInt
                                , mkRemainingGuesses
                                )
 
-import Games.RandomNumber.Run.Domain (
+import Games.RandomNumber.Run.VOne.Domain (
   NOTIFY_USER, notifyUser
 , DefineBoundsF(..), _defineBounds, DEFINE_BOUNDS
 , DefineTotalGuessesF(..), _defineTotalGuesses, DEFINE_TOTAL_GUESSES
