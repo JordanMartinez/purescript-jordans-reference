@@ -1,9 +1,37 @@
 # Games
 
-Note: This was written previously for other purposes and is now in this folder. Don't expect to fully understand everything here. It is currently in the process of being re-purposed.
+Let's tie all of these ideas together. This folder is a project for a simple working game (guess a random number). As such, it will include:
+- side-effects (e.g. state manipulation, random number generation, etc.)
+- testing (currently cannot implement this yet due to needing monadic effects in QuickCheck)
+- benchmarking (pretty sure I can't implement this yet either)
+- data validation
+- user input via a terminal
 
-## Console Lessons
+It will also demonstrate how one can write a program using a domain-driven design / Onion Architecture mentioned previously.
 
-After one introduces the "Hello World" app in a language tutorial/textbook, they usually introduce additional programming concepts by writing a console-based program, a program that can receive user input and that outputs something based on that input. We will follow suit.
+Start with `src` and then look at `test`.
 
-At times, we'll hide some types/functions from you, so that you can focus on learning rather than explaining why/how something works. If you are curious to look at it later, the helper code can be found in the "Helper-Code" folder.
+## Contents
+
+- Explain how to use `Node.ReadLine` in Purecript. Also explain the basics of `Aff`.
+- Explain our thinking process for why we wrote the program according to the way that we did (i.e. where did we draw the lines for the "onion" layers in our architecture). This will include visual diagrams.
+- Write our program in a few different styles that show their pros/cons:
+    - Free-based approach
+    - Run-based approach
+
+## Compilation Instructions
+
+To run the programs in this folder, copy and paste this into your terminal:
+```bash
+# The Node Readline & Aff folder
+pulp --psc-package run -m ConsoleLessons.ReadLine.Effect
+pulp --psc-package run -m ConsoleLessons.ReadLine.AffMonad
+
+# The Random Number folder
+pulp --psc-package run -m Games.RandomNumber.Free.Infrastructure
+pulp --psc-package run -m Games.RandomNumber.Run.Infrastructure
+
+# Changes in Run folder
+pulp --psc-package run -m Games.RandomNumber.Run.ChangeImplementation
+pulp --psc-package run -m Games.RandomNumber.Run.AddDomainTerm
+```
