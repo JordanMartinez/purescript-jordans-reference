@@ -14,8 +14,8 @@ import Prelude
 import Data.Symbol (SProxy(..))
 import Type.Row (type (+))
 import Data.Functor.Variant (on)
-import Run (Run, FProxy(..), lift, interpret, send)
-import Games.RandomNumber.Core ( Bounds, totalPossibleGuesses
+import Run (Run, FProxy, lift, interpret, send)
+import Games.RandomNumber.Core ( Bounds
                                , RandomInt, Guess, (==#)
                                , RemainingGuesses, outOfGuesses, decrement
                                , GameResult(..)

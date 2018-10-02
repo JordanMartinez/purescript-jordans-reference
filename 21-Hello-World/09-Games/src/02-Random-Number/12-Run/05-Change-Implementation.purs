@@ -3,19 +3,12 @@ module Games.RandomNumber.Run.ChangeImplementation where
 import Prelude
 import Type.Row (type (+))
 import Data.Functor.Variant (on)
-import Run (Run, interpret, send, AFF, liftAff, runBaseAff)
+import Run (Run, interpret, send, runBaseAff)
 import Data.Either (Either(..))
-import Effect.Random (randomInt)
-import Effect.Class (liftEffect)
 import Effect (Effect)
 import Effect.Console (log)
-import Effect.Aff (Aff, runAff_, makeAff)
-import Node.ReadLine (
-  Interface
-, createConsoleInterface, noCompletion
-, close
-)
-import Node.ReadLine as NR
+import Effect.Aff (runAff_)
+import Node.ReadLine (createConsoleInterface, noCompletion, close)
 
 import Games.RandomNumber.Core (GameResult(..), Bounds, Guess, mkGuess)
 import Games.RandomNumber.Run.Core (game)
@@ -27,8 +20,7 @@ import Games.RandomNumber.Run.Domain (
 , GEN_RANDOM_INT, _genRandomInt
 , MakeGuessF(..), MAKE_GUESS, _makeGuess)
 import Games.RandomNumber.Run.API (
-  runDomain
-, recursivelyRunUntilPure
+  recursivelyRunUntilPure
 , GET_USER_INPUT, getUserInput, getIntFromUser
 , CREATE_RANDOM_INT
 , defineBoundsToAPI, defineTotalGuessesToAPI, genRandomIntToAPI

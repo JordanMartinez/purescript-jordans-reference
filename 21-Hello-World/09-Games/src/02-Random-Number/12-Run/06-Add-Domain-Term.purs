@@ -7,13 +7,9 @@ import Effect (Effect)
 import Effect.Console (log)
 import Type.Row (type (+))
 import Data.Functor.Variant (on)
-import Node.ReadLine (
-  Interface
-, createConsoleInterface, noCompletion
-, close
-)
+import Node.ReadLine (createConsoleInterface, noCompletion, close)
 import Effect.Aff (runAff_)
-import Run (Run, lift, FProxy(..), interpret, send, AFF, liftAff, runBaseAff)
+import Run (Run, lift, FProxy, interpret, send, runBaseAff)
 import Games.RandomNumber.Core ( Bounds
                                , RandomInt, (==#)
                                , RemainingGuesses, outOfGuesses, decrement
@@ -21,22 +17,21 @@ import Games.RandomNumber.Core ( Bounds
                                , GameResult(..)
                                )
 import Games.RandomNumber.Run.Core (
-  ExplainRulesF(..), _explainRules, EXPLAIN_RULES
-, SetupGameF(..), _setupGame, SETUP_GAME
+  _explainRules, EXPLAIN_RULES
+, _setupGame, SETUP_GAME
 , PlayGameF(..), _playGame, PLAY_GAME
 , game
 )
 import Games.RandomNumber.Run.Domain (
-  runCore
-, NOTIFY_USER, notifyUser
+  NOTIFY_USER, notifyUser
 , DEFINE_BOUNDS, _defineBounds
 , DEFINE_TOTAL_GUESSES, _defineTotalGuesses
 , GEN_RANDOM_INT, _genRandomInt
-, MakeGuessF(..), MAKE_GUESS, _makeGuess, makeGuess
+, MAKE_GUESS, _makeGuess, makeGuess
 , explainRulesToDomain, setupGameToDomain
 )
 import Games.RandomNumber.Run.API (
-  GET_USER_INPUT, _getUserInput, CREATE_RANDOM_INT, _createRandomInt
+  GET_USER_INPUT, CREATE_RANDOM_INT
 , defineBoundsToAPI, defineTotalGuessesToAPI, makeGuessToAPI, genRandomIntToAPI)
 
 import Games.RandomNumber.Run.Infrastructure (runAPI)
