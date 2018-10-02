@@ -1,6 +1,8 @@
 module Games.RandomNumber.Run.VOne.API
   ( GetUserInputF(..), GET_USER_INPUT, _getUserInput, getUserInput
   , CreateRandomIntF(..), CREATE_RANDOM_INT, _createRandomInt, createRandomInt
+  , getIntFromUser, recursivelyRunUntilPure
+  , defineBoundsToAPI, defineTotalGuessesToAPI, makeGuessToAPI, genRandomIntToAPI
 
   , runDomain
   ) where

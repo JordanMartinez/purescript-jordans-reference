@@ -5,6 +5,8 @@ module Games.RandomNumber.Run.VOne.Domain
   , GenRandomIntF(..), GEN_RANDOM_INT, _genRandomInt, genRandomInt
   , MakeGuessF(..), MAKE_GUESS, _makeGuess, makeGuess
 
+  , explainRulesToDomain, setupGameToDomain, playGameToDomain
+
   , runCore
   ) where
 
