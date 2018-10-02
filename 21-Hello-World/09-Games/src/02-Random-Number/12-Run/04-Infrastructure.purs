@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.VOne.Infrastructure
+module Games.RandomNumber.Run.Infrastructure
   ( notifyUserToInfrastructure
   , getUserInputToInfrastructure
   , createRandomIntToInfrastructure
@@ -25,12 +25,12 @@ import Node.ReadLine (
 import Node.ReadLine as NR
 
 import Games.RandomNumber.Core (unBounds, GameResult(..))
-import Games.RandomNumber.Run.VOne.Core (game)
-import Games.RandomNumber.Run.VOne.Domain (
+import Games.RandomNumber.Run.Core (game)
+import Games.RandomNumber.Run.Domain (
   runCore
 , NotifyUserF(..), _notifyUser, NOTIFY_USER
 )
-import Games.RandomNumber.Run.VOne.API (
+import Games.RandomNumber.Run.API (
   runDomain
 , GetUserInputF(..), _getUserInput, GET_USER_INPUT
 , CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT

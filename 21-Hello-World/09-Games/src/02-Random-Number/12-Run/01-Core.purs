@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.VOne.Core
+module Games.RandomNumber.Run.Core
   ( ExplainRulesF(..), EXPLAIN_RULES, _explainRules, explainRules
   , SetupGameF(..), SETUP_GAME, _setupGame, setupGame
   , PlayGameF(..), PLAY_GAME, _playGame, playGame

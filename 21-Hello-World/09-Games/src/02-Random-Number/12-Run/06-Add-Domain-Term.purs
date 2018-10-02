@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.VTwo.AddDomainTerm where
+module Games.RandomNumber.Run.AddDomainTerm where
 
 import Prelude
 import Data.Symbol (SProxy(..))
@@ -20,13 +20,13 @@ import Games.RandomNumber.Core ( Bounds
                                , unRemainingGuesses
                                , GameResult(..)
                                )
-import Games.RandomNumber.Run.VOne.Core (
+import Games.RandomNumber.Run.Core (
   ExplainRulesF(..), _explainRules, EXPLAIN_RULES
 , SetupGameF(..), _setupGame, SETUP_GAME
 , PlayGameF(..), _playGame, PLAY_GAME
 , game
 )
-import Games.RandomNumber.Run.VOne.Domain (
+import Games.RandomNumber.Run.Domain (
   runCore
 , NOTIFY_USER, notifyUser
 , DEFINE_BOUNDS, _defineBounds
@@ -35,11 +35,11 @@ import Games.RandomNumber.Run.VOne.Domain (
 , MakeGuessF(..), MAKE_GUESS, _makeGuess, makeGuess
 , explainRulesToDomain, setupGameToDomain
 )
-import Games.RandomNumber.Run.VOne.API (
+import Games.RandomNumber.Run.API (
   GET_USER_INPUT, _getUserInput, CREATE_RANDOM_INT, _createRandomInt
 , defineBoundsToAPI, defineTotalGuessesToAPI, makeGuessToAPI, genRandomIntToAPI)
 
-import Games.RandomNumber.Run.VOne.Infrastructure (runAPI)
+import Games.RandomNumber.Run.Infrastructure (runAPI)
 
 data TellJokeF a = TellJokeF a
 derive instance tjf :: Functor TellJokeF

@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.VTwo.ChangeImplementation where
+module Games.RandomNumber.Run.ChangeImplementation where
 
 import Prelude
 import Type.Row (type (+))
@@ -18,15 +18,15 @@ import Node.ReadLine (
 import Node.ReadLine as NR
 
 import Games.RandomNumber.Core (GameResult(..), Bounds, Guess, mkGuess)
-import Games.RandomNumber.Run.VOne.Core (game)
-import Games.RandomNumber.Run.VOne.Domain (
+import Games.RandomNumber.Run.Core (game)
+import Games.RandomNumber.Run.Domain (
   runCore
 , NOTIFY_USER, notifyUser
 , DEFINE_BOUNDS, _defineBounds
 , DEFINE_TOTAL_GUESSES, _defineTotalGuesses
 , GEN_RANDOM_INT, _genRandomInt
 , MakeGuessF(..), MAKE_GUESS, _makeGuess)
-import Games.RandomNumber.Run.VOne.API (
+import Games.RandomNumber.Run.API (
   runDomain
 , recursivelyRunUntilPure
 , GET_USER_INPUT, getUserInput, getIntFromUser
@@ -34,7 +34,7 @@ import Games.RandomNumber.Run.VOne.API (
 , defineBoundsToAPI, defineTotalGuessesToAPI, genRandomIntToAPI
 )
 
-import Games.RandomNumber.Run.VOne.Infrastructure (runAPI)
+import Games.RandomNumber.Run.Infrastructure (runAPI)
 
 -- | Normally, the user would input their guess and cannot confirm whether
 -- | that is the user's final decision. In this interpretation, the user
