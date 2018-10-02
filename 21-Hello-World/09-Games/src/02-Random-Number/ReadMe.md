@@ -63,11 +63,9 @@ The actual code demonstrated here only implements the Node infrastructure for th
 
 ## Onion Architecture
 
-**Edit:** As of this commit, the following images are outdated. If you are reading this not-yet-released version of my work on the `development` branch, you have been warned!
-
 The following image is a rewritten version of the above flow using the onion architecture. To read it, keep the following ideas in mind:
-- The arrows from Core to Domain indicate how the domain uses the core to build a program. I did not include arrows from the Core to the API and Infrastructure because that would make the image less clear.
-- The arrows from Domain to Infrastructure indicate how one level's language is "interpreted"/"tranlsated" into another level's language via a natural transformation
+- The arrows indicate how one level's language is "interpreted"/"tranlsated" into another level's language via a natural transformation
+- Version 2 of the Domain and API and Infrastructure levels **are not implemented** in this folder. However, they could be fairly easily, and that's the point of using the Onion Architecture.
 
 Here's the image
 ![Onion-Architecture](./images/Onion-Architecture.svg)
