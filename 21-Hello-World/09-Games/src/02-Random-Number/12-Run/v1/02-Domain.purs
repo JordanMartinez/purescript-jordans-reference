@@ -1,9 +1,9 @@
 module Games.RandomNumber.Run.VOne.Domain
-  ( NotifyUserF(..), _notifyUser, NOTIFY_USER, notifyUser
-  , DefineBoundsF(..), _defineBounds, DEFINE_BOUNDS
-  , DefineTotalGuessesF(..), _defineTotalGuesses, DEFINE_TOTAL_GUESSES
-  , GenRandomIntF(..), _genRandomInt, GEN_RANDOM_INT
-  , MakeGuessF(..), _makeGuess, MAKE_GUESS
+  ( NotifyUserF(..), NOTIFY_USER, _notifyUser, notifyUser
+  , DefineBoundsF(..), DEFINE_BOUNDS, _defineBounds, defineBounds
+  , DefineTotalGuessesF(..), DEFINE_TOTAL_GUESSES, _defineTotalGuesses, defineTotalGuesses
+  , GenRandomIntF(..), GEN_RANDOM_INT, _genRandomInt, genRandomInt
+  , MakeGuessF(..), MAKE_GUESS, _makeGuess, makeGuess
 
   , runCore
   ) where

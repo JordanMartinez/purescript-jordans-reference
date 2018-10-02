@@ -1,6 +1,6 @@
 module Games.RandomNumber.Run.VOne.API
-  ( GetUserInputF(..), _getUserInput, GET_USER_INPUT
-  , CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT
+  ( GetUserInputF(..), GET_USER_INPUT, _getUserInput, getUserInput
+  , CreateRandomIntF(..), CREATE_RANDOM_INT, _createRandomInt, createRandomInt
 
   , runDomain
   ) where

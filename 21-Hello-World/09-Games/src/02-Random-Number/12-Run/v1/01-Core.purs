@@ -1,7 +1,7 @@
 module Games.RandomNumber.Run.VOne.Core
-  ( ExplainRulesF(..), _explainRules, EXPLAIN_RULES
-  , SetupGameF(..), _setupGame, SETUP_GAME
-  , PlayGameF(..), _playGame, PLAY_GAME
+  ( ExplainRulesF(..), EXPLAIN_RULES, _explainRules, explainRules
+  , SetupGameF(..), SETUP_GAME, _setupGame, setupGame
+  , PlayGameF(..), PLAY_GAME, _playGame, playGame
 
   , game
   ) where
