@@ -82,7 +82,7 @@ data Multiply = Multiply Expression Expression
 type Expression = Variant (value :: Value, add :: Add, multiply :: Multiply)
 ```
 There are two places where we could define `Expression`, each with its own problems:
-- If we define it in File 1, then its definition cannot include the `Multiply` field because File 1 doesn't now about that type.
+- If we define it in File 1, then its definition cannot include the `Multiply` field because File 1 doesn't know about that type.
 - If we define it in File 2, then File 1 will not compile because the compiler does not know what the type, `Expression`, is.
 
 Hmm... The Expression Problem is more nuanced than first thought. Still, the above refactoring helps shed light on what needs to be done. Let's look back at `Add`:
@@ -110,7 +110,7 @@ We also know from our previous simpler problem that we will need to eventually c
 ```
 To summarize, we need to
 - define the `expression` type in `Add`/`Multiply` generically so we can define it at a later time as a way (avoids the location problem)
-- define an `Expression` type that composes data types together but somehow prevents them from knowing about one another.
+- define an `Expression` type that composes data types together but somehow prevents them from knowing about one another. We need something like a "[buffer zone](https://www.wikiwand.com/en/Buffer_zone)" but for our types.
 
 ## Solving the Problem
 
@@ -148,6 +148,5 @@ data Value e = Value Int
 
 -- Use Either to compose these higher-kinded types:
 type AMV e = (Either (Value e) (Either (Add e) (Multiply e)))
-type AMV_Expression =
-  Expression (AMV AMV_Expression)
+newtype AMV_Expression = AMV_Expression (Expression AMV)
 ```

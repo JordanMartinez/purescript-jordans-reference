@@ -64,6 +64,7 @@ instance ms :: Show2 Multiply where
 
 ## All Code So Far and Show2
 
+Again, **I have not checked whether this code works, but it will serve to give you an idea for how it works.**
 ```purescript
 -- File 1
 data Value e = Value Int
@@ -94,7 +95,7 @@ fold :: Functor f => (f a -> a) -> Expression f -> a
 fold f (In t) = f (map (fold f) t)
 
 type VA e = Coproduct Value Add e
-type VAExpression = Expression (VA VAExpression)
+newtype VA_Expression = VA_Expression (Expression VA)
 
 eval :: forall f. Expression f -> Int
 eval expression = fold evaluate expression
@@ -117,7 +118,7 @@ instance as :: Show2 Add where
     "(" <> removeInAndShow x <> " + " <> removeInAndShow y <> ")"
 
 -- call `eval` and `show2` on this
-file1Example :: VA Expression
+file1Example :: VA_Expression
 file1Example = add (value 5) (value 6)
 
 -- File 2
@@ -135,9 +136,9 @@ instance ms :: Show2 Multiply where
     "(" <> removeInAndShow x <> " * " <> removeInAndShow y <> ")"
 
 type VAM e = Coproduct3 Value Add Multiply e
-type VAMExpression = Expression (VAM VAMExpression)
+newtype VAM_Expression = VAM_Expression (Expression VAM)
 
 -- call `eval` and `show2` on this
-file2Example :: VAMExpression
+file2Example :: VAM_Expression
 file2Example = add (value 5) (multiply (add (value 2) (value 8)) (value 4))
 ```

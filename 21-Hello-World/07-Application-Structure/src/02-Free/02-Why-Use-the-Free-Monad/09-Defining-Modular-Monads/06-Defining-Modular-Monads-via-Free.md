@@ -1,6 +1,6 @@
 # Defining Modular Monads
 
-We can now return to the original question we raised at the start of the `Free` folder: if we wanted to run a sequential computation (i.e. use a monad) that used multiple effects (e.g. different monads whose `bind` do different things), could we stop fighting against "`bind` returns the same monad type" fact and simply use just one monad? Yes. Similar to our previous examples, we can use `Coproduct`s/`VariantF`s of two or more `Free` monads.
+We can now return to the original question we raised at the start of the `Free` folder: if we wanted to run a sequential computation (i.e. use a monad) that used multiple effects (e.g. different monads whose `bind` do different things), could we stop fighting against the "`bind` returns the same monad type" fact and simply use just one monad? Yes. Similar to our previous examples, we can use `Coproduct`s/`VariantF`s of two or more `Free` monads.
 
 ## Getting Around The Non-Free-Monad Limitation
 

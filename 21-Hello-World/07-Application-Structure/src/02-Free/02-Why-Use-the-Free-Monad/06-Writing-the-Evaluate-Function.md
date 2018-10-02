@@ -32,7 +32,7 @@ map    _          (Value x)             = Value x
 -- We have to extract the `x` and rewrap it in a different
 -- `Value z` type.
 ```
-Thus, `Value` is a no-op `Functor`: using `map` on it just returns the same instance. I believe another way to describe it is a **forgetful-Functor** because it "forgets" the function used to map it.
+Thus, `Value` is a no-op `Functor`: using `map` on it just returns the same instance.
 
 An `Either` that wraps higher-kinded types implements `Functor` as we would expect:
 ```purscript
@@ -305,7 +305,7 @@ There's another term we did not explain but which appears in the paper: `algebra
 
 ## All Code So Far and Evaluate
 
-Since `Variant` uses type-level programming, which adds noise to our explanation, the following code uses `Coproduct`. We will show how to change this to `Variant` at a later time.
+Since `Variant` uses type-level programming, which adds noise to our explanation, the following code uses `Coproduct`. **I have not checked whether this code works, but it will serve to give you an idea for how it works.** We will show how to change this to `VariantF` at a later time.
 ```purescript
 -- File 1
 data Value e = Value Int
@@ -336,13 +336,13 @@ fold :: Functor f => (f a -> a) -> Expression f -> a
 fold f (In t) = f (map (fold f) t)
 
 type VA e = Coproduct Value Add e
-type VAExpression = Expression (VA VAExpression)
+newtype VA_Expression = VA_Expression (Expression VA)
 
 eval :: forall f. Expression f -> Int
 eval expression = fold evaluate expression
 
 -- call `eval` on this
-file1Example :: VA Expression
+file1Example :: VA_Expression
 file1Example = add (value 5) (value 6)
 
 -- File 2
@@ -356,9 +356,9 @@ instance ae :: Evaluate Multiply where
   evaluate (Multiply x y) = x * y
 
 type VAM e = Coproduct3 Value Add Multiply e
-type VAMExpression = Expression (VAM VAMExpression)
+newtype VAM_Expression = VAM_Expression (Expression VAM)
 
 -- call `eval` on this
-file2Example :: VAMExpression
+file2Example :: VAM_Expression
 file2Example = add (value 5) (multiply (add (value 2) (value 8)) (value 4))
 ```
