@@ -36,3 +36,5 @@ and it uses the alias `<$>` for `map` to enable one to write `function <$> f_a` 
 - voidLeft
 - mapFlipped
 - flap
+
+To understand how typeclasses work, read [this article about 'dictionaries'](https://www.schoolofhaskell.com/user/jfischoff/instances-and-dictionaries)

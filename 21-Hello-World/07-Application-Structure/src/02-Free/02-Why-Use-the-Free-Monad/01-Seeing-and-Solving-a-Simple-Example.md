@@ -86,8 +86,7 @@ data FruitGrouper
   | Fruit2_ Fruit2
 
 showAllFruit :: FruitGrouper -> String
-showAllFruit (Fruit_  Apple)  = "apple"
-showAllFruit (Fruit_  Banana) = "banana"
+showAllFruit (Fruit_  appleOrBanana) = showFruit appleOrBanana
 showAllFruit (Fruit2_ Orange) = "orange"
 ```
 Great! We have now seen how to solve a **very simple version** of this problem. Now, let's refine this approach a bit as preparation for a future harder problem.

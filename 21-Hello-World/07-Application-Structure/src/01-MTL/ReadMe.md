@@ -40,7 +40,7 @@ main = do
 -- similar for `print` function
   print five_string
 ```
-If `bind`/`>>=` insures sequential computation, what kinds of functions could we have that work with `bind`/`>>=` to compute some new value? Let's now give some examples via the table below:
+`bind`/`>>=` insures sequential computation. Functions work with `bind` to compute a new value. When we want to group similar functions together, we call it an "effect". So what kind of "effects" (e.g. functions that work with `bind`/`>>=` to compute some new value) can we have? Let's now give some examples via the table below:
 
 | When we want `bind` to... | ... we expect to use functions named something like ... | ... which are best abstracted together in a type class called...
 | - | - | - |
@@ -68,7 +68,7 @@ bind :: forall a. f   a -> ( a    -> f   b)           -> f    b
 bind :: forall a. Box a -> ( a    -> Box b         )  -> Box  b
 bind             (Box 4)   (\four -> Box (show four)) == Box "5"
 ```
-**In other words, if we use one of the above monads (e.g. `MonadState`) as our monad, we cannot use any other computational monads from above.** That's problematic! For most programs, we want to use most or all of the above functions.
+**In other words, if we use one of the above monads (e.g. `MonadState`) as our monad, we cannot use any other computational monads from above.** For some parts of our program, this is not a problem. If we only want to run a state computation, we only need to use the `MonadState` effect. However, in other parts of our program, we need to use functions from both `MonadState` and `MonadReader`. Thus, we need to "compose" one effect with another. In other words, we need "composable effects." 
 
 So, how do we get around this limitation?
 

@@ -2,7 +2,7 @@
 
 ## Adding More Conditions
 
-The previous file's solution works. However, when we are writing prototype code, we often need to refactor things. If we are using nested `Either` types everywhere, there are three ways we could change our code:
+The previous file's solution works. However, when we are writing code, we often need to refactor things. If we are using nested `Either` types everywhere, there are three ways we could change our code:
 1. Change the order of the types position: `Either first second` <=> `Either second first`
 2. Add/Remove another type: `Either first (Either second third)` <=> `Either first second`
 3. Change one type to another: `Either Int Int` <=> `Either Int String`
@@ -34,6 +34,7 @@ Looking at our requirements from before...
 1. Change the order of the types position: `Either first second` <=> `Either second first`
 2. Add/Remove another type: `Either first (Either second third)` <=> `Either first second`
 3. Change one type to another: `Either String Boolean` <=> `Either Int Boolean`
+
 ... we can see that `Record` meets our requirements because of row polymorphism:
 ```purescript
 -- the function
@@ -80,9 +81,9 @@ projectFruit variant = prj (SProxy :: SProxy "fieldName") variant
 The other functions that `Variant` provides can be see via its [docs](https://pursuit.purescript.org/packages/purescript-variant/5.0.0/docs/Data.Variant#v:on). Since I'm still learning how to read/write type-level programming, I looked at the project's [test's source code](https://github.com/natefaubion/purescript-variant/blob/v5.0.0/test/Variant.purs) and created these two tables to help me understand those functions. Some functions seem to exist to fit different people's syntax preferences:
 
 | Exhaustively pattern matches types by... | Allows "open" `Variant` instances? | Corresponding function's syntax
-| - | - |
+| - | - | - |
 | Providing default value for missing cases | Yes | `default defaultValue <combinator chain> variantArg` |
-| Matching all cases | No | `match { eachField: \a -> {- body for each field -}) } variantArg` |
+| Matching all cases | No | `match { eachField: (\a -> {- body for each field -}) } variantArg` |
 | Matching all cases | No | `case_ <combinator chain> variantArg` |
 
 where a `<combinator chain>` is:
@@ -98,21 +99,18 @@ Besides those above, `Variant` also has `expand` and `contract`. One takes a `Va
 
 ## Updating Our Solution
 
-If we return to our solution from before and use `Variant` instead of `FruitGrouper`, here's what we get. Copy and paste each "file" below into the REPL, then run the commands at the end of this snippet:
+If we return to our solution from before and use `Variant` instead of `FruitGrouper`, here's what we get. Follow these instructions:
+1. Start a REPL
+2. Import the following imports by manually typing them in (unfortunately, pasting them in will not work):
+    - import Data.Maybe
+    - import Data.Variant
+    - import Data.Function
+    - import Data.Symbol
+3. Copy and paste each "file" below into the REPL.
+4. Run the commands at the end of this snippet
+
 ```purescript
-{-
-Before pasting anything from here into the REPL,
-import the following imports into the REPL.
-You will need to manually type these imports into the REPL.
-Pasting them won't work.
-
-import Data.Maybe
-import Data.Variant
-import Data.Function
-import Data.Symbol
--}
-
--- original code: once compiled, it cannot change
+-- File1's original code: once compiled, it cannot change
 data Fruit
   = Apple
   | Banana

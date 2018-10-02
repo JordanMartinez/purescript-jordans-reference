@@ -24,7 +24,9 @@ This folder is a summmary and commentary on the paper linked above. It is meant 
 - Sometimes, the above paper will state that something is true, but not show why. This folder will explore that more and show why it's true.
 - Sometimes, the paper may use unfamiliar terminology or use symbolic data types. This folder will explain the terminology and use alphabetical names to refer to some data types.
 - This folder will also show how to use other Purescript libraries to achieve the same results in a slightly better way by covering:
-    - `purescript-variant`
+    - `purescript-variant`: `Variant` and `VariantF`, the "open" sum type
+    - `purescript-run`: a better way to use `Free` to write programs
+    - `purescript-either`: `Coproduct`
 
 ## Reading the Paper and This Folder Side-by-Side
 
@@ -47,7 +49,7 @@ This folder has 9 files:
 2. Reducing boilerplate
 3. From Either to Variant
 4. Seeing and Solving a Harder Problem
-5. From Coproduc to VariantF
+5. From Coproduct to VariantF
 6. Writing the Evaluate Function
 7. Writing the Show function
 8. Converting To VariantF
@@ -56,7 +58,7 @@ This folder has 9 files:
 ### Correspondance Table
 
 | This Folder | General Idea | Corresponding Paper section | General idea |
-| - | - | - |
+| - | - | - | - |
 | File 1 | Prep work: Defining and solving a simple version of the problem by composing data types | Sections 1/2/3/5 (ish) | Laying a foundation
 | File 2 | Prep work: Abstract data type composition via `Either` | Section 4 (ish) | Laying a foundation
 | File 3 | Purescript library: Show that `Variant` is a better `Either` | - | -

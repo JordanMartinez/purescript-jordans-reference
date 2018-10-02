@@ -1,6 +1,6 @@
 # Defining Modular Monads
 
-We can now return to the original question we raised at the start of the `Free` folder: if we wanted to run a sequential computation (i.e. use a monad) that used multiple effects (e.g. different monads whose `bind` do different things), could we stop fighting against "`bind` returns the same monad type" fact and simply use just one monad? Yes. Similar to our previous examples, we can use `Coproduct`s/`VariantF`s of two or more `Free` monads.
+We can now return to the original question we raised at the start of the `Free` folder: if we wanted to run a sequential computation (i.e. use a monad) that used multiple effects (e.g. different monads whose `bind` do different things), could we stop fighting against the "`bind` returns the same monad type" fact and simply use just one monad? Yes. Similar to our previous examples, we can use `Coproduct`s/`VariantF`s of two or more `Free` monads.
 
 ## Getting Around The Non-Free-Monad Limitation
 
@@ -67,19 +67,23 @@ Why is this useful? Because it guarantees that a computation as modeled by the `
 
 When we look at how to define an instance for a data type, it follows this pattern (written in meta-language):
 ```purescript
-data OperationName theRestOfTheComputation
+data Language theRestOfTheComputation
+  -- Statement that tells interpreter to do something but
+  -- doesn't pass down any arguments into the interpreter
+  -- or receive any values from the interpreter
   = Function_No_Arg theRestOfTheComputation
 
-  -- Arg is known by Function
-  | Function_1_Arg Arg theRestOfTheComputation
-  | Function_2_Args Arg Arg theRestOfTheComputation
+  -- Arg is known by Function and passed down to the interpreter
+  | Function_1_Arg Arg_Passed_to_Interpreter theRestOfTheComputation
+  | Function_2_Args Arg1 Arg2 theRestOfTheComputation
 
-  -- `Value` is provided by the initial `run` or a previous computation
-  | Get_1_Value (Value -> theRestOfTheComputation)
+  -- `Value` is provided by the interpreter
+  -- when it finishes interpreting the language
+  | Get_1_Value (Value_Provided_By_Interpreter -> theRestOfTheComputation)
   | Get_2_Values (Value1 -> Value2 -> theRestOfTheComputation)
 
   -- Use both
-  | Function_With_Getter Arg (Value -> theRestOfTheComputation)
+  | Function_With_Getter Arg_Passed_to_Interpreter (Value_Provided_By_Interpreter -> theRestOfTheComputation)
 ```
 So far, we've only defined a data type with one instance and composed those data types together. However, what if we treated a data type as a "family" of operations where each instance in that data type was an operation? Then our data types might look like this:
 ```purescript

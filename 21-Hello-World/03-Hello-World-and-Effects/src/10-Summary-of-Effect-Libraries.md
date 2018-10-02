@@ -9,3 +9,5 @@ Since the `psc-package.json` file does not allow me to explain what each depened
 | [purescript-random](https://pursuit.purescript.org/packages/purescript-random/4.0.0) | `Effect.Random` | Type used to create random values
 | [purescript-now](https://pursuit.purescript.org/packages/purescript-now/4.0.0/docs/Effect.Now) | `Effect.Now` | Get current Date/Time from machine. (Note: see the [date-time](https://pursuit.purescript.org/packages/purescript-datetime/4.0.0) repo for additional related functions)
 | [purescript-js-timers](https://pursuit.purescript.org/packages/purescript-js-timers/4.0.1) | `Effect.Timer` | Bindings to low-level JS API: `set/clearTimeout` and `set/clearInterval`
+| [purscript-refs](https://pursuit.purescript.org/packages/purescript-refs/4.1.0/docs/Effect.Ref) | `Effect.Ref` | Global mutable state
+| [purscript-st](https://pursuit.purescript.org/packages/purescript-st/4.0.0/docs/Control.Monad.ST) | `Control.Monad.ST` | Local mutable state

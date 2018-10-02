@@ -1,0 +1,23 @@
+{
+  "name": "untitled",
+  "set": "psc-0.12.0-20180901",
+  "source": "https://github.com/purescript/package-sets.git",
+  "depends": [
+    "quickcheck",
+    "integers",
+    "node-readline",
+    "random",
+    "run",
+    "variant",
+    "free",
+    "strings",
+    "debug",
+    "psci-support",
+    "console",
+    "effect",
+    "prelude",
+    "transformers",
+    "refs",
+    "st"
+  ]
+}

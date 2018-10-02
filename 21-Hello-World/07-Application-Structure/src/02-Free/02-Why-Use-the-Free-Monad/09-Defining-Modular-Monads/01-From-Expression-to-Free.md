@@ -65,8 +65,10 @@ addF x y = In $ inj (AddF x y)
 liftF :: g (Free f a) -> Free f a
 liftF = Impure
 
+-- assuming that `f` is `VariantF` in this case
 addF :: Free f -> Free f -> Free f
-addF x y = liftF $ inj addSymbol (AddF x y)
+addF x y = liftF $ inj addSymbol (AddF x y)               {-
+addF x y = liftF $ AddF x y -- the basic idea -}
 ```
 
 ### RunFree

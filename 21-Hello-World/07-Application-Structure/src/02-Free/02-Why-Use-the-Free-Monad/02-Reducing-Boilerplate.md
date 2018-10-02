@@ -12,7 +12,6 @@ data Fruit
 showFruit :: Fruit -> String
 showFruit Apple = "apple"
 showFruit Banana = "banana"
-showFruit Orange = "orange"
 
 -- File 2. This cannot change once written!
 intFruit :: Fruit -> Int
@@ -27,8 +26,7 @@ data FruitGrouper
   | Fruit2_ Fruit2
 
 showAllFruit :: FruitGrouper -> String
-showAllFruit (Fruit_  Apple)  = "apple"
-showAllFruit (Fruit_  Banana) = "banana"
+showAllFruit (Fruit_  appleOrBanana) = showFruit appleOrBanana
 showAllFruit (Fruit2_ Orange) = "orange"
 
 -- File 3.
@@ -85,7 +83,7 @@ If we want to extract an instance of a type that is in our nested `Either` insta
 extractFrom :: forall first second third fourth last
            . Either first (Either second (Either third (Either fourth last)))
           -> Maybe Result
-extractFrom (Right (Right (Right (Right last)))) = Just (f last)
+extractFrom (Right (Right (Right (Right last)))) = Just last
 extractFrom _ = Nothing
 ```
 Once again, we need to write a variant of this function that works for every type position (e.g. `first`, `second`, and `third`) in our data structure.
@@ -109,8 +107,8 @@ data NestedEither a b
   | Right (NestedEither b c)
 ```
 ...because we enter an infinte cyclical loop
-1. To define `c` in the `Right` instance's `NestedEither b c` argument, we need the type declaraction to include third type, `c`. Thus, we go to step 2.
-2. Once it does so, the `NestedEither b c` in `Right` instance is missing one type, so that it no adheres to its own declaration (i.e. `NestedEither b c ?` vs `NestedEither a b c`). To add the type, we need it to be different than the others and call it `d`. Thus, we return to step 1 except `c` is now `d` in that example.
+1. To define `c` in the `Right` instance's `NestedEither b c` argument, we need the type declaraction, `data NestedEither a b` to include the third type, `c`. Thus, we go to step 2.
+2. We update the type to `data NetedEither a b c`. However, now the `NestedEither b c` in `Right` instance has only two types, not three. THus, it no longer adheres to its own declaration (i.e. `NestedEither b c ?` vs `NestedEither a b c`). To add the type, we need it to be different than the others to enable the recursive idea of a nested `Either`, so we'll call it `d`. Thus, we return to step 1 except `c` is now `d` in that example.
 
 Still, we can clean up the verbosity/readability of nested `Either`s by creating an infix notation for it:
 ```purescript
@@ -139,9 +137,9 @@ putInsideOf last = Right (Right (Right (Right last)))
 ```
 ... we want `putInsideOf` to mean "if I have a data structure with nested types, take one of those types instances and put it into that data structure." In other words, we want to `inject` some instance into a data structure:
 ```purescript
-inject :: forall theType allOtherTypes
+inject :: forall theType theNestedEitherType
         . theType
-       -> Variant (t :: theType | allOtherTypes)
+       -> theNestedEitherType
 ```
 When we look at the other code we had...
 ```purescript
@@ -153,7 +151,7 @@ extractFrom _ _ = Nothing
 ```
 ... we want `extractFrom` to mean "If I have a data structure with nested types, I want to extract the instance of a specific type out of that structure via `Just` or get `Nothing` if the instance does not exist." In other words, we want to `project` some type's instance from the data structure into the world:
 ```purescript
-project :: forall theType
+project :: forall nestedType theType
          . nestedType
         -> Maybe theType
 ```
@@ -168,7 +166,7 @@ class InjectAndProject someType nestedType where
 
 Indeed, the ideas we've proposed have already been defined by `purescript-either`:
 - [`\/` as a type alias for `Either`](https://pursuit.purescript.org/packages/purescript-either/4.0.0/docs/Data.Either.Nested)
-- The [Inject](https://pursuit.purescript.org/packages/purescript-either/4.0.0/docs/Data.Either.Inject) type class and its [implementation](https://github.com/purescript/purescript-either/blob/v4.0.0/src/Data/Either/Inject.purs#L8-L10) that works for nested `Either` types.
+- The [Inject](https://pursuit.purescript.org/packages/purescript-either/4.0.0/docs/Data.Either.Inject) type class and its [implementation via "instance chains"](https://github.com/purescript/purescript-either/blob/v4.0.0/src/Data/Either/Inject.purs#L8-L10) that works for nested `Either` types.
 
 The library provides convenience functions and types for nested `Either`s, **but only up to 10 total types**:
 - Convenience functions for dealing with injection and projection
