@@ -2,6 +2,7 @@ module Games.RandomNumber.Run.VOne.Infrastructure
   ( notifyUserToInfrastructure
   , getUserInputToInfrastructure
   , createRandomIntToInfrastructure
+  , runAPI
 
   , main
   ) where
