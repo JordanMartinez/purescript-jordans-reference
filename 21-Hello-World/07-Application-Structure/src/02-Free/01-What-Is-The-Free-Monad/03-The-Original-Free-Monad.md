@@ -131,7 +131,7 @@ instance apply :: (Functor f) => Apply (Free f) where
     ))
 ```
 Let's see `apply` in action via a graph reduction:
-```
+```purescript
 -- Reminder: function arg == arg # function
 
 -- Start
