@@ -10,6 +10,6 @@ What are the advantages that `Free` provides? Due to the different "interpreters
 - test that a computation produces Y outputs given X inputs
 
 What are the disadvantages?
-- It seems to be slower (though I am not sure how much slower) than the `mtl` approach
+- In Haskell, `Free` is slower (though I am not sure how much slower) than the `mtl` approach because it can heavily optimize the code in the compilation process. That is not the case with Purescript, whose compiler could still be optimized in a number of ways. I'm not sure whether one is faster than another and what are the other pros/cons one would need to think about when doing that.
 
 This folder will teach readers with no prior understanding the fundamental concepts of the `Free` monad and a basic understanding of how to use it.
