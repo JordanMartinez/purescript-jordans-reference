@@ -8,7 +8,8 @@ import Games.RandomNumber.Core.Bounded (
 ) as Exports
 
 import Games.RandomNumber.Core.RemainingGuesses (
-  RemainingGuesses, mkRemainingGuesses, decrement, outOfGuesses
+  RemainingGuesses, mkRemainingGuesses, unRemainingGuesses
+, decrement, outOfGuesses
 , RemainingGuessesCreationError(..)
 ) as Exports
 

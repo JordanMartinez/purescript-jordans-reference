@@ -1,5 +1,6 @@
 module Games.RandomNumber.Core.RemainingGuesses
-  ( RemainingGuesses, mkRemainingGuesses, decrement, outOfGuesses
+  ( RemainingGuesses, mkRemainingGuesses, unRemainingGuesses
+  , decrement, outOfGuesses
   , RemainingGuessesCreationError(..)
   )
   where
@@ -22,6 +23,9 @@ instance cces :: Show RemainingGuessesCreationError where
 mkRemainingGuesses :: Int -> Either RemainingGuessesCreationError RemainingGuesses
 mkRemainingGuesses i | i <= 0    = Left NotPositiveInteger
                      | otherwise = Right $ RemainingGuesses i
+
+unRemainingGuesses :: forall a. RemainingGuesses -> (Int -> a) -> a
+unRemainingGuesses (RemainingGuesses n) f = f n
 
 decrement :: RemainingGuesses -> RemainingGuesses
 decrement (RemainingGuesses n) = RemainingGuesses (n - 1)
