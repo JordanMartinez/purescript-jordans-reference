@@ -2,7 +2,7 @@
 
 ## Adding More Conditions
 
-The previous file's solution works. However, when we are writing prototype code, we often need to refactor things. If we are using nested `Either` types everywhere, there are three ways we could change our code:
+The previous file's solution works. However, when we are writing code, we often need to refactor things. If we are using nested `Either` types everywhere, there are three ways we could change our code:
 1. Change the order of the types position: `Either first second` <=> `Either second first`
 2. Add/Remove another type: `Either first (Either second third)` <=> `Either first second`
 3. Change one type to another: `Either Int Int` <=> `Either Int String`
@@ -80,7 +80,7 @@ projectFruit variant = prj (SProxy :: SProxy "fieldName") variant
 The other functions that `Variant` provides can be see via its [docs](https://pursuit.purescript.org/packages/purescript-variant/5.0.0/docs/Data.Variant#v:on). Since I'm still learning how to read/write type-level programming, I looked at the project's [test's source code](https://github.com/natefaubion/purescript-variant/blob/v5.0.0/test/Variant.purs) and created these two tables to help me understand those functions. Some functions seem to exist to fit different people's syntax preferences:
 
 | Exhaustively pattern matches types by... | Allows "open" `Variant` instances? | Corresponding function's syntax
-| - | - |
+| - | - | - |
 | Providing default value for missing cases | Yes | `default defaultValue <combinator chain> variantArg` |
 | Matching all cases | No | `match { eachField: \a -> {- body for each field -}) } variantArg` |
 | Matching all cases | No | `case_ <combinator chain> variantArg` |
