@@ -36,26 +36,6 @@ import Games.RandomNumber.Run.VOne.API (
 , CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT
 )
 
-main :: Effect Unit
-main = do
-  interface <- createConsoleInterface noCompletion
-
-  runAff_
-    (case _ of
-      Left _ -> close interface
-      Right gameResult -> case gameResult of
-        PlayerWins remaining -> do
-          log "Player won!"
-          log $ "Player guessed the random number with " <>
-            show remaining <> " trie(s) remaining."
-          close interface
-        PlayerLoses randomInt -> do
-          log "Player lost!"
-          log $ "The number was: " <> show randomInt
-          close interface
-    )
-    (runBaseAff $ runAPI interface (runDomain (runCore game)))
-
 -- Algebras
 
 notifyUserToInfrastructure :: forall r. NotifyUserF ~> Run (aff :: AFF | r)
@@ -92,3 +72,23 @@ runAPI iface = interpret (
     # on _getUserInput (getUserInputToInfrastructure iface)
     # on _createRandomInt createRandomIntToInfrastructure
   )
+
+main :: Effect Unit
+main = do
+  interface <- createConsoleInterface noCompletion
+
+  runAff_
+    (case _ of
+      Left _ -> close interface
+      Right gameResult -> case gameResult of
+        PlayerWins remaining -> do
+          log "Player won!"
+          log $ "Player guessed the random number with " <>
+            show remaining <> " trie(s) remaining."
+          close interface
+        PlayerLoses randomInt -> do
+          log "Player lost!"
+          log $ "The number was: " <> show randomInt
+          close interface
+    )
+    (runBaseAff $ runAPI interface (runDomain (runCore game)))
