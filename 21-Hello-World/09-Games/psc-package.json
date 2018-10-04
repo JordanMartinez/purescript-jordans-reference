@@ -10,14 +10,11 @@
     "run",
     "variant",
     "free",
-    "strings",
     "debug",
     "psci-support",
     "console",
     "effect",
     "prelude",
-    "transformers",
-    "refs",
-    "st"
+    "transformers"
   ]
 }

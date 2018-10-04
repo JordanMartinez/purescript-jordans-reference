@@ -4,7 +4,6 @@ This folder will show how to build a random number game using the Onion Architec
 - Shared Code: the main types, data structures, and their related functions that is used across all the other folders
 - Free: the program written using `Free`. Thus, it cannot be changed/improved easily
 - Run: the program written using `Run`. Once the `Run` boilerplate code is written, we'll show that how easy it is to change/improve the code.
-    - Version 1: the base version that looks just like the `Free` counterpart
 - (not yet started...) MTL: the program written using `MTL`-style of code.
 
 ## Control Flow
