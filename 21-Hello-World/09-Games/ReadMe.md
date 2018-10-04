@@ -2,7 +2,7 @@
 
 Let's tie all of these ideas together. This folder is a project for a simple working game (guess a random number). As such, it will include:
 - side-effects (e.g. state manipulation, random number generation, etc.)
-- testing (currently cannot implement this yet due to needing monadic effects in QuickCheck)
+- testing
 - benchmarking (pretty sure I can't implement this yet either)
 - data validation
 - user input via a terminal
