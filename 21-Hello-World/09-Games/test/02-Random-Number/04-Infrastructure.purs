@@ -11,11 +11,11 @@ import Effect.Console (log)
 import Games.RandomNumber.Core (GameResult)
 import Games.RandomNumber.Run.Core (game)
 import Games.RandomNumber.Run.Domain (
-runCore
+  runCore
 , NotifyUserF(..), _notifyUser, NOTIFY_USER
 )
 import Games.RandomNumber.Run.API (
-runDomain
+  runDomain
 , GetUserInputF(..), _getUserInput, GET_USER_INPUT
 , CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT
 )
@@ -23,7 +23,7 @@ import Run (Run, interpret, send, extract)
 import Run.Reader (READER, runReader, ask)
 import Run.State (STATE, runState, get, put)
 import Test.QuickCheck (quickCheck, quickCheck',(<?>))
-import Test.Games.RandomNumber.Generators (TestData(..))
+import Test.Games.RandomNumber.Generators (TestData(..), TestDataRecord)
 import Type.Row (type (+))
 
 
@@ -35,13 +35,25 @@ main = do
   -- log $ show $ (\(TestData record) -> record) <$> sample
 
   quickCheck (\(TestData record) ->
-    let gameResult = extractStateOutput $
-          runInfrastructure record.random record.userInputs
-            (runAPI (runDomain (runCore game)))
+    let gameResult = produceGameResult record.random record.userInputs
     in gameResult == record.result <?>
       "GameResult:     " <> show gameResult <> "\n\
       \ExpectedResult: " <> show record.result
   )
+
+produceGameResult :: Int -> Array String -> GameResult
+produceGameResult random userInputs =
+  game
+    # runCore
+    # runDomain
+    # runAPI
+    # runInfrastructure random userInputs
+    # extractStateOutput
+
+  -- which is the same as writing...
+  -- extractStateOutput
+  --   (runInfrastructure random userInputs
+  --     (runAPI (runDomain (runCore game))))
 
 extractStateOutput :: Run () (Tuple (Array String) GameResult) -> GameResult
 extractStateOutput = snd <<< extract
