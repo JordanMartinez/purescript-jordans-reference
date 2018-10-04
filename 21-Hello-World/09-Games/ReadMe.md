@@ -18,10 +18,12 @@ Start with `src` and then look at `test`.
 - Write our program in a few different styles that show their pros/cons:
     - Free-based approach
     - Run-based approach
+- Explain our thinking process for how to write a QuickCheck test for our Run-based approach
+- Write an example QuickCheck test for our program
 
 ## Compilation Instructions
 
-To run the programs in this folder, copy and paste this into your terminal:
+To run the programs/test in this folder, copy and paste this into your terminal:
 ```bash
 # The Node Readline & Aff folder
 pulp --psc-package run -m ConsoleLessons.ReadLine.Effect
@@ -34,4 +36,7 @@ pulp --psc-package run -m Games.RandomNumber.Run.Infrastructure
 # Changes in Run folder
 pulp --psc-package run -m Games.RandomNumber.Run.ChangeImplementation
 pulp --psc-package run -m Games.RandomNumber.Run.AddDomainTerm
+
+# Run-based Test
+pulp --psc-package test -m Test.Games.RandomNumber.Run.Infrastructure
 ```
