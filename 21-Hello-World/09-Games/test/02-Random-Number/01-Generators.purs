@@ -3,22 +3,18 @@ module Test.Games.RandomNumber.Generators
   , genTestData
   ) where
 
-import Control.Monad.Gen.Common (genMaybe)
-import Data.Tuple (Tuple(..))
-import Data.Maybe (Maybe(..), fromJust)
-import Data.Array (snoc, uncons)
-import Data.NonEmpty ((:|))
-import Data.Either (fromRight)
-import Partial.Unsafe (unsafePartial)
 import Prelude
-import Test.QuickCheck.Gen (Gen, chooseInt, oneOf, suchThat, vectorOf, randomSample)
-import Test.QuickCheck.Arbitrary (class Arbitrary)
 
-import Games.RandomNumber.Core ( Bounds, RemainingGuesses, RandomInt
-                               , GameResult(..)
-                               , mkBounds, mkRemainingGuesses, mkRandomInt
-                               , decrement
-                               )
+import Control.Monad.Gen.Common (genMaybe)
+import Data.Array (snoc, uncons)
+import Data.Either (fromRight)
+import Data.Maybe (Maybe(..), fromJust)
+import Data.NonEmpty ((:|))
+import Data.Tuple (Tuple(..))
+import Games.RandomNumber.Core (Bounds, RemainingGuesses, RandomInt, GameResult(..), mkBounds, mkRemainingGuesses, mkRandomInt, decrement)
+import Partial.Unsafe (unsafePartial)
+import Test.QuickCheck.Arbitrary (class Arbitrary)
+import Test.QuickCheck.Gen (Gen, chooseInt, oneOf, suchThat, vectorOf, randomSample)
 
 type MockedBounds = Tuple Int Int
 
@@ -35,7 +31,7 @@ type TestDataRecord =
 
 newtype TestData = TestData TestDataRecord
 instance arb :: Arbitrary TestData where
-  arbitrary = genTestData -- genTestData code is below main
+  arbitrary = genTestData
 
 -- Main Generator
 
@@ -51,9 +47,7 @@ genTestData = do
       incorrectGuesses <- genIncorrectGuesses (takesXGuesses - 1) bounds random
       let guesses = snoc incorrectGuesses random
       let userInputs = mkUserInputs bounds totalGuesses guesses
-      let _Remaining = case (totalGuesses - takesXGuesses) of
-            0 -> decrement $ mkRemainingGuesses_ 1
-            unusedGuesses -> mkRemainingGuesses_ unusedGuesses
+      let _Remaining = mkRemainingGuesses_ (totalGuesses - takesXGuesses)
       pure $ TestData
         { random: random, userInputs: userInputs, result: PlayerWins _Remaining }
     Nothing -> do
@@ -78,6 +72,8 @@ genBounds = do
 genIntWithinBounds :: MockedBounds -> Gen Int
 genIntWithinBounds (Tuple lower upper) = chooseInt lower upper
 
+-- If we make this `chooseInt 1 top`, it may generate a very large
+-- number of guesses. Thus, we'll limit it to the max bound
 genPositiveInt :: Int -> Gen Int
 genPositiveInt maxBound = chooseInt 1 maxBound
 
@@ -118,7 +114,10 @@ mkBounds_ :: MockedBounds -> Bounds
 mkBounds_ (Tuple lower upper) =
   unsafePartial $ fromRight $ mkBounds lower upper
 
+-- Since we can't create a RemainingGuesses with a 0 Int value,
+-- we'll create it with one and then decrement it.
 mkRemainingGuesses_ :: Int -> RemainingGuesses
+mkRemainingGuesses_ 0 = decrement $ mkRemainingGuesses_ 1
 mkRemainingGuesses_ i = unsafePartial $ fromRight $ mkRemainingGuesses i
 
 mkRandomInt_ :: Bounds -> Int -> RandomInt
