@@ -34,7 +34,8 @@ main = do
   -- sample <- randomSample genTestData
   -- log $ show $ (\(TestData record) -> record) <$> sample
 
-  quickCheck (\(TestData record) ->
+  -- quickCheck' 1000 (\(TestData record) ->    -- swap this line with next
+  quickCheck (\(TestData record) ->             -- to run more tests
     let gameResult = produceGameResult record.random record.userInputs
     in gameResult == record.result <?>
       "GameResult:     " <> show gameResult <> "\n\
