@@ -12,27 +12,32 @@ When we define a function for type-level programming, we're not defining a funct
 - `function InputInstance` outputs `OutputInstance`
 - `function OutputInstance` outputs `InputInstance`
 
-Let's give a much clearer example using `add`. For value-level programming, I might write it like this:
-```purescript
-type Left = Int
-type Right = Int
-type Total = Int
-
-add :: Left -> Right -> Total
-add x y = total
-  where
-  total = x + y
+Let's give a much clearer example by solving an equation:
 ```
-If we could turn this `add` function into a "relationship", we could use it to write three functions:
-- If we know `x` and `y`, we can use `add` to tell us what `total` is
-- If we know `x` and `total`, we can use `add` to tell us what `y` is
-- If we know `y` and `total`, we can use `add` to tell us what `x` is
+total = x + y
+```
+Right now, the equation is making us solve for `total`. However, with some simple rearranging, we can make it solve for `x`
+```
+total = x + y
+total - y = x + y - y
+total - y = x
+x = total - y
+```
+We can also make it solve for `y`:
+```
+total = x + y
+total - x = x - x + y
+total - x = y
+y = total - x
+```
+Thus, we can take this "relationship"/equation and figure out one entity if we know the other two entities. Putting it into programming terms, if we have one relationship/equation (like that above), we can define three functions:
+1. `f1 :: X -> Y     -> Total`
+2. `f2 :: X -> Total -> Y`
+3. `f3 :: Y -> Total -> X`
 
-The 'function' for which we use the relationship is determined by which entities we know and which we want the relationship to figure out and tell us.
+This is the same idea used in type-level programming. So, how does this actually work in Purescript? Multi-parameter type classes and functional dependencies.
 
-So, how does this actually work in Purescript? Multi-parameter type classes and functional dependencies.
-
-| The Relationship | The Number of Functions & its type signature | The implementation of a function
+| The Relationship/Equation | The Number of Functions & its type signature | The implementation of a function
 | - | - |
 | a type class | the number of functional dependencies | type class instances
 
@@ -40,12 +45,12 @@ For example, assuming we had a type-level number called `IntK`, we could write b
 ```purescript
 -- the relationship itself, where each entity is already fully known...
 class AddOrSubtract (left :: IntK) (right :: IntK) (total :: IntK)
-  -- the normal "add" function
+  -- the normal "add" function: "total = left + right"
   | left right -> total
 
-  -- the first 'subtract' function
+  -- the first 'subtract' function: "right = total - left"
   , left total -> right
-  -- the second 'subtract' function
+  -- the second 'subtract' function: "left = total - right"
   , right total -> left
 ```
 Then, we could use this one relationship as three different functions:
