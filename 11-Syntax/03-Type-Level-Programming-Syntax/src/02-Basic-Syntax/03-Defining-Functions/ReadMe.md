@@ -38,7 +38,7 @@ Thus, we can take this "relationship"/equation and figure out one entity if we k
 This is the same idea used in type-level programming. So, how does this actually work in Purescript? Multi-parameter type classes and functional dependencies.
 
 | The Relationship/Equation | The Number of Functions & its type signature | The implementation of a function
-| - | - |
+| - | - | - |
 | a type class | the number of functional dependencies | type class instances
 
 For example, assuming we had a type-level number called `IntK`, we could write both an `add` and two `subtract` functions using just one relationship:
