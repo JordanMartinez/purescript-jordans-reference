@@ -22,7 +22,13 @@ function InputInstance = OutputInstance
 --   - type classes
 --   - functional dependencies
 
--- function's type signature
-class TypeLevelFunction (input :: InputKind) (output :: OutputKind) | input -> output
--- function's implementation
+-- the relationship
+class TypeLevelFunction (input :: InputKind) (output :: OutputKind)
+  -- one function's type signature
+  | input -> output
+
+  -- another function's type signature
+  , output -> input
+
+-- the implementation for both functions (since this is a simple example)
 instance implementation :: TypeLevelFunction InputInstanceK OutputInstanceK

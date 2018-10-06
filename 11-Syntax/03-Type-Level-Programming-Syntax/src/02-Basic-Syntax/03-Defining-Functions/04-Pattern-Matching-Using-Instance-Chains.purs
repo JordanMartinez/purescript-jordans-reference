@@ -45,6 +45,14 @@ fruitToInt _ {- Orange .. Cherry -} = One
 -- we can use a feature called "Instance Chains:"
 
 class FruitToInt (a :: FruitKind) (i :: ZeroOrOneKind)
+  | a -> i                                                                {-
+
+  Notice that we have omitted this type signature because
+  we don't know what to do when we know `i` but not `a`
+
+  , i -> a                                                                -}
+
+
 instance appleMatch :: FruitToInt AppleK ZeroK
 else instance catchAll :: FruitToInt a OneK
 

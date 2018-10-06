@@ -83,8 +83,11 @@ This definition sufficed when we were learning only value-level programming. In 
 | Kind | A "Type" for type-level programming |
 | Type | The "kind" (i.e. type-level type) that indicates a value-level type for value-level programming |
 
+Sometimes, pictures say a lot more than words:
+![comparing-kinds-with-types](../images/Comparing-Kinds-With-Types.svg "Comparing Kinds with Types")
+
 We can now modify the definition to account for this new understanding:
-> Kinds = "How many more type-level types do I need defined before I have a 'concrete' type-level type? Also, `kind Type` is a type-level type that indicates a value-level type.
+> Kinds = "How many more type-level types do I need defined before I have a 'concrete' type-level type? Also, `kind Type` is a type-level type whose 'instances'/'members' are value-level types.
 
 ### Summary of Inferred Kinds
 
