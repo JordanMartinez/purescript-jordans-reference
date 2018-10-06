@@ -59,6 +59,10 @@ After proving that the above property is true for both the `true` and `false` in
 
 On another hand, to successfully prove that `reverse` works as expected, one would need to test an infinite number of `String` instances. Since we don't have enough time for that, we usually stop testing it after 100 tests pass successfully. 100 tests does not guarantee that our function is correct as there could still be a case where it fails. However, it makes us highly confident in it. The option to increase the number of tests is always present if that's not enough for you.
 
+## The Limits of Property Testing
+
+Usually, people who have never heard of property testing will think it is a "silver bullet" when it comes to writing tests. However, property testing can only cover a select number of tests cases before one must resort to unit testing. Rather than explaining it here, see [this article](https://fsharpforfunandprofit.com/posts/property-based-testing-2/) that demonstrates 7 situations where property testing works. If a test falls outside of that pattern, one will likely need to use unit testing instead.
+
 ## Conclusion
 
 As much as possible, use Property Testing. When that does not suffice, one must resort back to unit testing.
