@@ -1,12 +1,20 @@
 # Partial Functions
 
-This folder will use the problem of dividing two integers to demonstrate the four different ways one can handle partial functions in Purescript:
-- via `Partial`
-- via `Maybe a`
-- via `Either String a`
-- via `Either CustomErrorType a`
+Partial functions are functions that will not always return an output for every input. An example is integer division:
+- `x / 1` produces an output: `x`
+- `x / 0` cannot produce an output but will throw an error.
 
-It tries to not use any other libraries beyond that to which the user has already been exposed, unless it is the topic being explained. The code demonstrated here is likely not the best way to code a program that seeks to solve the given problem. Rather, it uses the simplest possible problem (divison) to demonstrate how to handle errors.
+This folder is a summary of the article: [Keep your Types Small and Your Bugs Smaller](http://www.parsonsmatt.org/2018/10/02/small_types.html)
+
+There are three different ways one can handle partial functions in Purescript:
+1. Crash on invalid inputs
+    - via `Partial`
+2. Return an error-container type:
+    - via `Maybe a`
+    - via `Either String a`
+    - via `Either CustomErrorType a`
+3. Use refined types
+    - via `NonZeroInt` (or some other refined type)
 
 ## Compilation Instruction
 
