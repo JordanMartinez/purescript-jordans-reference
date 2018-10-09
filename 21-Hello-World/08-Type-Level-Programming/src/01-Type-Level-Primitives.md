@@ -2,6 +2,18 @@
 
 In addition to Custom Type Errors, the Prim module has sub modules that are not imported by default. Within these modules, Prim defines a few more things for type-level programming. These type classes' instances are [derived by the compiler](https://github.com/purescript/documentation/blob/master/language/Type-Classes.md#compiler-solvable-type-classes)
 
+## Types of Relationships
+
+As explained in the Syntax folder, we use logic programming and unification to compute type-level expressions. To define type-level functions, we define a relationship and the various ways (functional dependencies) that the types can unify. However, there are actually two types of relationships in type-level programming:
+1. A relationship that can define multiple type-level functions.
+2. A relationship that can assert that something is true.
+
+The first one is easy to understand and is used frequently. However, we have never mentioned assertion relationships. For some examples, see these type classes:
+- [Lacks](https://pursuit.purescript.org/builtins/docs/Prim.Row#t:Lacks)
+- [Homogenous](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row.Homogeneous#t:Homogeneous)
+
+In my current understanding, I'd guess that these likely do not appear that often in type-level code, but they may be critical for some use cases.
+
 ## Type-Level Types, Instances, and Proxies
 
 In the below table, **"ValueTypeN" was abbreviated to VTN**
