@@ -28,7 +28,7 @@ In the below table, **"ValueTypeN" was abbreviated to VTN**
 
 ## Type-Level Modules
 
-Rather than explaining things, read through the source code of these modules and you should be able to get a good intuition for how this stuff works.
+Rather than explaining things, read through the source code of these modules and you should be able to get a good intuition for how this stuff works. For additional examples, see the Ecosystem folder and check out some of the data structures (e.g. Array, Matrix) that have been augmented with type-level programming.
 
 | Kind | Modules |
 | - | - |
@@ -36,7 +36,10 @@ Rather than explaining things, read through the source code of these modules and
 | Ordering | [Prim.Ordering](https://pursuit.purescript.org/builtins/docs/Prim.Ordering)<br>
 | Symbol | [Prim.Symbol](https://pursuit.purescript.org/builtins/docs/Prim.Symbol)<br> [Type.Data.Symbol](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Symbol)
 | Number | [Data.Typelevel.Number](https://pursuit.purescript.org/packages/purescript-typelevel/4.0.0/docs/Data.Typelevel.Num)<br>[Tanghulu](https://github.com/justinwoo/purescript-tanghulu)
-| Row | [Prim.Row]()<br>[Type.Row](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row)<br>[Type.Row.Homoegeneous](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row.Homogeneous)<br>[Record](https://pursuit.purescript.org/packages/purescript-record/1.0.0)<br>[Heterogenous](https://pursuit.purescript.org/packages/purescript-heterogenous/0.1.0)
+| Row | [Prim.Row]()<br>[Type.Row](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row)<br>[Type.Row.Homoegeneous](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row.Homogeneous)<br>[Record](https://pursuit.purescript.org/packages/purescript-record/1.0.0)<br>[Heterogenous](https://pursuit.purescript.org/packages/purescript-heterogenous/0.1.0)^^
 | RowList | [Prim.RowList](https://pursuit.purescript.org/builtins/docs/Prim.RowList)
 | Higher-Order Functions | [Type.Eval](https://pursuit.purescript.org/packages/purescript-typelevel-eval/0.2.0)
 | N/A | [Type.IsEqual](https://pursuit.purescript.org/packages/purescript-type-isequal/0.1.0)<br> [Type.Proxy](https://pursuit.purescript.org/packages/purescript-proxy/3.0.0/docs/Type.Proxy)<br>[Data.Typelevel.Undefined](https://pursuit.purescript.org/packages/purescript-typelevel/4.0.0/docs/Data.Typelevel.Undefined) |
+
+^^ The `purescript-heterogenous` is exlained by its author in the following link. This is potentially difficult-to-understand but will make more sense as one gets used more FP concepts. **Around 14 minutes in, Nate gets up and moves elsewhere. So, skip to `16:37` when this occurs to avoid wasting time**:
+[PS Unscripted - Heterogenous](https://www.youtube.com/watch?v=oNbkpZZAhgk&index=11&list=WL&t=0s)
