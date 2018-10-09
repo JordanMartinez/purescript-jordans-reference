@@ -1,5 +1,7 @@
 # Defining Functions
 
+## Solve for X
+
 Normally, when we define a function for value-level programming, it looks like this:
 ```purescript
 function :: InputType -> OutputType
@@ -8,7 +10,7 @@ function InputInstance = OutputInstance
 
 In other words, when given `InputInstance`, return `OutputInstance`. The direction of this "relationship" is ALWAYS in one direction: to the right (i.e. `->`).
 
-When we define a function for type-level programming, we're not defining a function that takes some input and returns an output. Rather, we are defining a "relationship" between some input(s) and some output(s). Because we're doing this at compile-time, this "relationship" already knows (i.e. has fully evaluted) what all of the entities described in the relationship are. Thus, these "relationships" can be applied in multiple directions to create multiple functions. One could say that type-level functions work in **all directions**. To put it another way...:
+When we define a function for type-level programming, we're not defining a function that takes some input and returns an output. Rather, we are defining a "relationship" between some input(s) and some output(s). In other words, these "relationships" can be applied in multiple directions to create multiple functions. One could say that type-level functions work in **multiple directions**. To put it another way...:
 - `function InputInstance` outputs `OutputInstance`
 - `function OutputInstance` outputs `InputInstance`
 
@@ -39,30 +41,141 @@ This is the same idea used in type-level programming. So, how does this actually
 
 | The Relationship/Equation | The Number of Functions & its type signature | The implementation of a function
 | - | - | - |
-| a type class | the number of functional dependencies | type class instances
+| a multi-parameter type class | functional dependencies (the exact number depends) | type class instances
 
-For example, assuming we had a type-level number called `IntK`, we could write both an `add` and two `subtract` functions using just one relationship:
+For example, assuming we had 1) a type-level number called `IntK`, 2) its value-level Proxy type, `IProxy`, and 3) instances for the below type class, we could write an `add` and two `subtract` functions using just one relationship:
 ```purescript
--- the relationship itself, where each entity is already fully known...
-class AddOrSubtract (left :: IntK) (right :: IntK) (total :: IntK)
-  -- the normal "add" function: "total = left + right"
-  | left right -> total
+-- the relationship itself
+class AddOrSubtract (x :: IntK) (y :: IntK) (total :: IntK)
+  -- the normal "add" function: "total = x + y"
+  | x y -> total
 
-  -- the first 'subtract' function: "right = total - left"
-  , left total -> right
-  -- the second 'subtract' function: "left = total - right"
-  , right total -> left
+  -- the first 'subtract' function: "y = total - x"
+  , x total -> y
+  -- the second 'subtract' function: "x = total - y"
+  , y total -> x
 ```
 Then, we could use this one relationship as three different functions:
 ```purescript
 -- given two IntK values, I can add them together by returning
 -- `total`, which is "calculated" via the type class `AddOrSubtract`
-addTwoIntK :: AddOrSubtract left right total => left -> right -> total
+addTwoIntK :: forall x y total
+            . AddOrSubtract x y total
+           => IProxy x -> IProxy y -> IProxy total
+addTwoIntK _ _ = IProxyInstance
 
 -- given two IntK values, I can subtract one from another by
--- returning `left`/`right`, which is "calculated"
+-- returning `x`/`y`, which is "calculated"
 -- via the type class `AddOrSubtract`
-subtractIntK_1 :: AddOrSubtract left right total => left -> total -> right
+subtractIntK_1 :: forall x y total
+                . AddOrSubtract x y total
+               => IProxy x -> IProxy total -> IProxy y
+subtractIntK_1 _ _ = IProxyInstance
 
-subtractIntK_2 :: AddOrSubtract left right total => right -> total -> left
+subtractIntK_2 :: forall x y total
+                . AddOrSubtract x y total
+               => IProxy y -> IProxy total -> IProxy x
+subtractIntK_2 _ _ = IProxyInstance
 ```
+
+## Unification
+
+Recall that the type checker / type constraint solver "computes" type-level expressions by figuring out what type something is. Thus, the above analogy is helpful for understanding type-level programming, but it is incomplete without an explanation on how types "unify". In short, **unification** is the way by which the compiler infers or figures out some type. For our context, it is how the type checker computes the "type-level output" of a type-level function. It does this by unifying the undefined types in a type class' definition with a concrete type's instance of that type class.
+
+Let's review something first. In a type class definition and its instance, we have terms to refer to specific parts of it:
+```purescript
+class Show a where
+  show :: a -> String
+
+{-            | 1    |    |    2     |                                -}
+instance s :: (Show a) -> Show (Box a) where
+  show (Box a) = show a
+```
+1. Instance Context
+2. Instance Head
+
+Unification is how logic programming works. A popular language which uses logic programming to compute is Prolog, which has a nice explanation on unification. (Curious readers can see the bottom of the file for links about Prolog). To see the rules for how this works in general, **search for "The basic intuitions should now be clear."** in [this chapter in "Learn Prolog Now"](http://www.learnprolognow.org/lpnpage.php?pagetype=html&pageid=lpn-htmlse5) and then translate their terms to the following ones using the table below:
+
+| Their Term | Our Context
+| - | - |
+| term | a type
+| constant | concrete type
+| variable | the `a` in `class TypeClass a` since it needs to be defined at some point
+| a variable is instantiated to a term | a polymorphic/generic type, `a`, is assigned to a concrete type (e.g. `Int`)
+| complex terms | inferring the type between one or more type classes and their instancs
+
+These examples can be used to help read through their four rules:
+1. Constants unify
+    - `String` unifies with `String`
+    - `String` does not unify with `Int`
+2. Variables are assigned
+    - Similar to how a variable can be assigned a value, `let a = 5`, so one assigns a type to a type variable:`a = Int`. By this analogy, every time one sees an `a` type in a type signature, they can replace it with `Int`.
+3. Two variables' relationship is saved
+    - Given `f :: Add a b c => Add c d e => a -> b -> d -> e`, the `c` type in both `Add` constraints are unified and their relationship is "saved". As soon as one of them is assigned to a concrete type, the other will be assigned that type, too.
+4. Complex terms unify
+    - A type class' type variables unifies with a concrete type's instance of that type class if and only if all of their corresponding arguments unify:
+        - the number of parameter types in the type class is the same number of types in the instance
+            - `class MyClass first second`
+            - `instance i :: MyClass String Int`
+        - instance types unify with the class' constraints
+            - `class (OtherClass constrained) => ThisClass constrained`
+            - `instance a :: OtherClass String`
+            - `instance i :: ThisClass String`
+        - types in the instance context unify with their corresponding class
+            - `instance i :: (ParentClass a) => FastClass a`
+    - a type variable is only assigned once and is not assigned to two different concrete types during the unification process
+
+A type-level function can only "compute" a type-level expression when the types unify. This will fail in a few situations (this list may not be exhaustive):
+- a concrete type that terminates the recursive unification process cannot be found
+- infinite unification: to unify some type, `a`, one must unify some type `b`, which can only be unified if `a` is unified.
+- situations where the type inferencer cannot infer the correct type
+- situations where one needs to do "backtracking". (Either Google this for a better understanding of it or see the Prolog links below)
+
+## Functional Dependencies Reexamined
+
+At times, it can be difficult for the type checker to infer what a given type is. Thus, one uses functional dependencies (FDs) to help the compiler. As a reminder, FDs tell the compiler to find an instance whose known types are the types on the left-hand side of the arrow and use that instance to infer what the types on the right-hand side of the arrow are:
+```purescript
+class Add (x :: IntK) (y :: IntK) (total :: IntK)
+  | x y -> total
+  , y total -> x
+  , x total -> y
+```
+However, sometimes the functional dependencies get a bit more complicated because there are two types on the right-hand side of the arrow. This is where our analogy of a "FDs are type-level functions" starts to break down since a value-level function can only return one value at a time. (Granted, one can use a `Tuple` or `Record` to return multiple values in a container, but the principle still applies.) **With our "relationships", a single FD can sometimes define multiple type-level functions depending on how we use them.**
+
+For example, look at the second FD of [`Prim.Row.Cons`](https://pursuit.purescript.org/builtins/docs/Prim.Row#t:Cons):
+```purescript
+class Cons (label :: Symbol) (a :: Type) (tail :: # Type) (row :: # type)
+  | label a tail -> row
+  , label row -> a tail                                                     {-
+
+The second FD can be read as
+ "If you provide a row and the name of a field in the row,
+  I can give you that field's type and a version of the row
+  without that field (i.e. the tail)"
+
+One can see how this single FD can be used to do two things
+if one uses one of the types and ignores the other:
+- get the type of a some field (use `a`, ignore `tail`)
+- remove a field from a row (use `tail`, ignore `a`)                          -}
+
+-- given this type
+type ExampleRow = (first :: String, second :: Int)
+-- the kinds in Cons would appear as:
+type ExampleCons = Cons
+  (first :: Symbol) (a :: String) (tail :: (second :: Int))
+  (first :: String, second :: Int)
+
+-- given this type
+type ExampleRow2 = (first :: String)
+-- the kinds in Cons would appear as:
+type ExampleCons2 = Cons
+  (first :: Symbol) (a :: String) (tail :: ())
+  (first :: String)
+```
+
+## Prolog Links
+
+Learning Prolog is not necessary to understand how to do type-level programming. However, one may want to learn more about it to understand the idea of unification better. If so, these links helped me understand Prolog:
+- the "Learn Prolog Now" book, [chapter 1 - 2](http://www.learnprolognow.org/lpnpage.php?pagetype=html&pageid=lpn-html)
+- the ["Learn X in Y minutes where X = Prolog"](https://learnxinyminutes.com/docs/prolog/)
+- this [Intro to Prolog](https://www.doc.gold.ac.uk/~mas02gw/prolog_tutorial/prologpages/)
