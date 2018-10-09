@@ -19,9 +19,9 @@ In programming, there are usually two terms we use to describe "when" a problem/
 
 ^ First heard of this from @natefaubion when he mentioned it in the #purescript Slack channel
 
-### Example
+## Example
 
-#### A Problem
+### A Problem
 
 [Taken from this SO answer (last paragraph)](https://stackoverflow.com/a/24481747), type-level programming can be used to:
 > restrict certain behavior at the value-level, manage resource finalization, or store more information about data-structures.
@@ -37,7 +37,7 @@ elemAtIndex idx [] = Partial.crash "cannot get " <> show idx <> "th element of a
 elemAtIndex index fullArray = unsafePartial $ unsafeIndex fullArray index
 ```
 
-#### A  Solution
+### A Solution
 
 However, what if we could modify the type of `Array`, so that it included the size of that array at compile-time? Then, the type-checker could insure that the "elemAtIndex" function described above only receives correct arguments (i.e. specific types) that make the function "total," meaning the function will always return a valid output and never throw an error. If it receives an invalid argument, it results in a compiler error.
 
@@ -50,3 +50,10 @@ elemAtIndex index array = -- implementation
 elemAtIndex 3 (IndexedArray 3 ["a", "b", "c", "d"]) -- "d"
 elemAtIndex 0 (IndexedArray Empty []) -- compiler error!
 ```
+
+This is exactly what the library [Vec](https://pursuit.purescript.org/packages/purescript-sized-vectors/3.1.0/docs/Data.Vec#t:Vec) does.
+
+## Issues with Type-Level Programming
+
+- While type-level programming may improve your program's runtime speed or further force you to use safe code, it will increase the time it takes to compile your program
+- Creating an type-level instance for a kind can get really tedious and boilerplatey. Either reuse ones that exist or publish your own for the benefit of the entire community.

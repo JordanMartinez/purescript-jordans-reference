@@ -1,6 +1,18 @@
-# Libraries
+# Type-Level Primitives
 
-The Prim module has sub modules that are not imported by default. Within these modules, Prim defines a few more things for type-level programming. These type classes' instances are [derived by the compiler](https://github.com/purescript/documentation/blob/master/language/Type-Classes.md#compiler-solvable-type-classes)
+In addition to Custom Type Errors, the Prim module has sub modules that are not imported by default. Within these modules, Prim defines a few more things for type-level programming. These type classes' instances are [derived by the compiler](https://github.com/purescript/documentation/blob/master/language/Type-Classes.md#compiler-solvable-type-classes)
+
+## Types of Relationships
+
+As explained in the Syntax folder, we use logic programming and unification to compute type-level expressions. To define type-level functions, we define a relationship and the various ways (functional dependencies) that the types can unify. However, there are actually two types of relationships in type-level programming:
+1. A relationship that can define multiple type-level functions.
+2. A relationship that can assert that something is true.
+
+The first one is easy to understand and is used frequently. However, we have never mentioned assertion relationships. For some examples, see these type classes:
+- [Lacks](https://pursuit.purescript.org/builtins/docs/Prim.Row#t:Lacks)
+- [Homogenous](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row.Homogeneous#t:Homogeneous)
+
+In my current understanding, I'd guess that these likely do not appear that often in type-level code, but they may be critical for some use cases.
 
 ## Type-Level Types, Instances, and Proxies
 
@@ -16,22 +28,18 @@ In the below table, **"ValueTypeN" was abbreviated to VTN**
 
 ## Type-Level Modules
 
-Rather than explaining things, read through the source code of these modules and you should be able to get a good intuition for how this stuff works.
+Rather than explaining things, read through the source code of these modules and you should be able to get a good intuition for how this stuff works. For additional examples, see the Ecosystem folder and check out some of the data structures (e.g. Array, Matrix) that have been augmented with type-level programming.
 
 | Kind | Modules |
 | - | - |
 | Boolean | ["Kind-less" Data.Typelevel.Bool](https://pursuit.purescript.org/packages/purescript-typelevel/4.0.0/docs/Data.Typelevel.Bool)<br>["Kind-full Type.Data.Boolean](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Boolean)
 | Ordering | [Prim.Ordering](https://pursuit.purescript.org/builtins/docs/Prim.Ordering)<br>
-| Symbol | [Prim.Symbol](https://pursuit.purescript.org/builtins/docs/Prim.Symbol)<br> [Type.Data.Symbol](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Symbol)<br>[purescript-alphasucc](https://pursuit.purescript.org/packages/purescript-alphasucc/0.1.0)
+| Symbol | [Prim.Symbol](https://pursuit.purescript.org/builtins/docs/Prim.Symbol)<br> [Type.Data.Symbol](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Symbol)
 | Number | [Data.Typelevel.Number](https://pursuit.purescript.org/packages/purescript-typelevel/4.0.0/docs/Data.Typelevel.Num)<br>[Tanghulu](https://github.com/justinwoo/purescript-tanghulu)
-| Row | [Prim.Row]()<br>[Type.Row](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row)<br>[Type.Row.Homoegeneous](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row.Homogeneous)<br>[Record](https://pursuit.purescript.org/packages/purescript-record/1.0.0)<br>[Heterogenous](https://pursuit.purescript.org/packages/purescript-heterogenous/0.1.0)
+| Row | [Prim.Row]()<br>[Type.Row](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row)<br>[Type.Row.Homoegeneous](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row.Homogeneous)<br>[Record](https://pursuit.purescript.org/packages/purescript-record/1.0.0)<br>[Heterogenous](https://pursuit.purescript.org/packages/purescript-heterogenous/0.1.0)^^
 | RowList | [Prim.RowList](https://pursuit.purescript.org/builtins/docs/Prim.RowList)
 | Higher-Order Functions | [Type.Eval](https://pursuit.purescript.org/packages/purescript-typelevel-eval/0.2.0)
 | N/A | [Type.IsEqual](https://pursuit.purescript.org/packages/purescript-type-isequal/0.1.0)<br> [Type.Proxy](https://pursuit.purescript.org/packages/purescript-proxy/3.0.0/docs/Type.Proxy)<br>[Data.Typelevel.Undefined](https://pursuit.purescript.org/packages/purescript-typelevel/4.0.0/docs/Data.Typelevel.Undefined) |
 
-# Real-World examples
-
-- [purescript-trout](https://github.com/owickstrom/purescript-hypertrout) -  Type-Level Routing. Used in [purescript-hypertrout](https://github.com/owickstrom/purescript-hypertrout).
-- [purescript-kushikatsu](https://github.com/justinwoo/purescript-kushikatsu) - Simple type-level routing
-- [purescript-chirashi](https://github.com/justinwoo/purescript-chirashi) - An easy way to work with Errors by inserting a Variant, and reading it out later.
-- [purescript-variant](https://pursuit.purescript.org/packages/purescript-variant/5.0.0)
+^^ The `purescript-heterogenous` is exlained by its author in the following link. This is potentially difficult-to-understand but will make more sense as one gets used to more FP concepts. **Around 14 minutes in, Nate gets up and moves elsewhere. So, skip to `16:37` when this occurs to avoid wasting time**:
+[PS Unscripted - Heterogenous](https://www.youtube.com/watch?v=oNbkpZZAhgk&index=11&list=WL&t=0s)

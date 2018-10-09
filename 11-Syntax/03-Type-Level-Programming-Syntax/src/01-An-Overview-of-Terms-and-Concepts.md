@@ -116,3 +116,7 @@ Type-Level programming has 2-3 stages:
 - Terminal
     - Constrain types, so that an impossible state/code fails with a compiler error
     - **Reflection** - convert a type-level instance stored in a `Proxy` type into a value-level instance
+
+## Related Papers
+
+- [Fun with Functional Dependencies](http://www.cse.chalmers.se/~hallgren/Papers/hallgren.pdf)
