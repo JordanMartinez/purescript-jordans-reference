@@ -4,14 +4,28 @@ This repo is my way of trying to use the [Feynman Technique](https://medium.com/
 
 - 00-Getting-Started - how to install Purscript, set up an editor (using Atom), and get familiar with the REPL.
 - 01-Build-Tools - how to use the tools in the ecosystem to manage dependencies, compile source code, and build projects
-- 11-Syntax - how to use syntax to write code in Purescript (PS versions: `0.12.0`)
-- 21-Hello-World - everything you need to know (Monad explanation using pictures included) in how to write your first "Hello World" program (and actually understand what it's doing)
-- 31-Design Patterns - commonly-used patterns to solve problems in FP languages
-- 41-Ecosystem - a better overview of the libraries in Purescript (categorized by tags)
+- 11-Syntax - Purescript's syntax explained using meta-language and verified by the compiler (PS versions: `0.12.0`)
+    - Basic Syntax
+    - Foreign Function Interface Syntax
+    - Type-Level Programming Syntax
+    - Module syntax
+- 21-Hello-World - everything you need to know to write, structure, test, and benchmark a Purescript program
+    - Philosophical Foundations
+    - Prelude + Basic data structures
+    - Hello World & Effects
+    - Debugging
+    - Testing
+    - Benchmarking
+    - Application structure
+    - Type-Level Programming Overview
+    - Example Games
+- 31-Design Patterns - (WIP) commonly-used patterns to solve problems in FP languages
+- 41-Ecosystem - (WIP) a better overview of the libraries in Purescript (categorized by tags)
 
-See [issues marked with the 'Roadmap' label](https://github.com/JordanMartinez/purescript-jordans-reference/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3ARoadmap) for a deeper understanding of this project's current direction/goals.
-
-Also, see the [Meta-labeled issues](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Meta) for issues related to the project as a whole.
+The following labels give insight into this project's development:
+- [the 'Roadmap' label](https://github.com/JordanMartinez/purescript-jordans-reference/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3ARoadmap): a deeper understanding of this project's current direction/goals.
+- [the 'Meta' label](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Meta): issues related to the project as a whole.
+- [the 'Release-PR' label](https://github.com/JordanMartinez/purescript-jordans-reference/pulls?utf8=%E2%9C%93&q=is%3Apr+label%3ARelease-PR+): the changelog of the code
 
 ## License
 
@@ -32,7 +46,6 @@ Feel free to open a new issue for:
 **I have written an ISSUE_TEMPLATE file. When you open a new issue, there will be content there that tells you how to write a good, clear issue. Please, follow those instructions!**
 
 ### Learning Purescript Using This Project
-
 
 - Read through these links about learning:
     - [How to teach yourself to learn](https://jvns.ca/blog/2018/09/01/learning-skills-you-can-practice/)
