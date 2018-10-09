@@ -1,4 +1,6 @@
-module ProblemsThatPhantomTypesFix
+-- This file demonstrates how the second form of phantom types
+-- can restrict us to writing better and safer code
+module KeyValueProblem
   (
     Attribute
   , attribute
