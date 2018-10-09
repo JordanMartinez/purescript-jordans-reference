@@ -87,7 +87,7 @@ Let's review something first. In a type class definition and its instance, we ha
 class Show a where
   show :: a -> String
 
-{-            | 1    |    |    2     |                                -}
+{-            |  1   |         |  2  |                                -}
 instance s :: (Show a) -> Show (Box a) where
   show (Box a) = show a
 ```
