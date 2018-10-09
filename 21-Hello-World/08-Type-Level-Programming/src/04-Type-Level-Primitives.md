@@ -41,5 +41,5 @@ Rather than explaining things, read through the source code of these modules and
 | Higher-Order Functions | [Type.Eval](https://pursuit.purescript.org/packages/purescript-typelevel-eval/0.2.0)
 | N/A | [Type.IsEqual](https://pursuit.purescript.org/packages/purescript-type-isequal/0.1.0)<br> [Type.Proxy](https://pursuit.purescript.org/packages/purescript-proxy/3.0.0/docs/Type.Proxy)<br>[Data.Typelevel.Undefined](https://pursuit.purescript.org/packages/purescript-typelevel/4.0.0/docs/Data.Typelevel.Undefined) |
 
-^^ The `purescript-heterogenous` is exlained by its author in the following link. This is potentially difficult-to-understand but will make more sense as one gets used more FP concepts. **Around 14 minutes in, Nate gets up and moves elsewhere. So, skip to `16:37` when this occurs to avoid wasting time**:
+^^ The `purescript-heterogenous` is exlained by its author in the following link. This is potentially difficult-to-understand but will make more sense as one gets used to more FP concepts. **Around 14 minutes in, Nate gets up and moves elsewhere. So, skip to `16:37` when this occurs to avoid wasting time**:
 [PS Unscripted - Heterogenous](https://www.youtube.com/watch?v=oNbkpZZAhgk&index=11&list=WL&t=0s)
