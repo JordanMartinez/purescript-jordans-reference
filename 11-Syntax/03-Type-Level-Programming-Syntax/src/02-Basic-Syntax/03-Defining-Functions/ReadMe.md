@@ -117,9 +117,9 @@ Unification is how logic programming works. A popular language which uses logic 
 
 A type-level function can only "compute" a type-level expression when the types unify. This will fail in a few situations (this list may not be exhaustive):
 - the unification process continues recursively for some time but a concrete type that would terminate the recursion is never found
-- infinite unification: to unify some type, `a`, one must unify some type `b`, which can only be unified if `a` is unified.
+- infinite unification: to unify some type, `a`, one must unify some type, `b`, which can only be unified if `a` is unified.
 - situations where the type inferencer cannot infer the correct type
-- situations where one needs to do "backtracking", which does not currently working in instance chains due to [this issue](). (Either Google this for a better understanding of it or see the Prolog links below)
+- situations where one needs to do "backtracking". (Either Google this for a better understanding of it or see the Prolog links below)
 
 ## Functional Dependencies Reexamined
 
