@@ -1,14 +1,18 @@
-Ideal, but defining typeclass instances on it requires defining it for all records
+# Records: Use Type, Data, or Newtype?
+
+Short answer: use `type`
+
+**Type:** ideal, but defining typeclass instances on it requires defining it for all records, which is usually not what you want.
 ```purescript
-type TypeWithRecord0 = { anInt :: Int }
+type TypedRecord = { anInt :: Int }
 ```
 
-Allows defining type class instances, but performs unnecessary unboxing
+**Newtype:** use if you need a type class instance and you only need to wrap a single record
 ```purescript
-data TypeWithRecord1 = T { anInt :: Int }
+newtype NewtypedRecord = NR { anInt :: Int }
 ```
 
-Use if it's a single wrapper
+**Data:** use if you need a type class instance and you need to wrap a record AND something else. Unfortunately, this will perform unboxing during runtime.
 ```purescript
-newtype TypeWithRecord2 = TWR { anInt :: Int }
+data DataRecord = DR { anInt :: Int } { aString :: String }
 ```
