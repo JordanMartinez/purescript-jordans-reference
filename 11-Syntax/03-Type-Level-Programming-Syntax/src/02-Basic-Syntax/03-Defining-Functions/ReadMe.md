@@ -94,42 +94,32 @@ instance s :: (Show a) -> Show (Box a) where
 1. Instance Context
 2. Instance Head
 
-Unification is how logic programming works. A popular language which uses logic programming to compute is Prolog, which has a nice explanation on unification. (Curious readers can see the bottom of the file for links about Prolog). To see the rules for how this works in general, **search for "The basic intuitions should now be clear."** in [this chapter in "Learn Prolog Now"](http://www.learnprolognow.org/lpnpage.php?pagetype=html&pageid=lpn-htmlse5) and then translate their terms to the following ones using the table below:
-
-| Their Term | Our Context
-| - | - |
-| term | a type
-| constant | concrete type
-| variable | the `a` in `class TypeClass a` since it needs to be defined at some point
-| a variable is instantiated to a term | a polymorphic/generic type, `a`, is assigned to a concrete type (e.g. `Int`)
-| complex terms | inferring the type between one or more type classes and their instancs
-
-These examples can be used to help read through their four rules:
-1. Constants unify
+Unification is how logic programming works. A popular language which uses logic programming to compute is Prolog, which has a nice explanation on unification. (Curious readers can see the bottom of the file for links about Prolog). To see the rules for how this works in general, I've adapted the Prolog unification rules defined by Blackburn et al. below:
+1. Two concrete types unify
     - `String` unifies with `String`
     - `String` does not unify with `Int`
-2. Variables are assigned
+2. A concrete type and a polymorphic/generic type (i.e. type variables) unify and the type variable is assigned to a concrete type
     - Similar to how a variable can be assigned a value, `let a = 5`, so one assigns a type to a type variable:`a = Int`. By this analogy, every time one sees an `a` type in a type signature, they can replace it with `Int`.
-3. Two variables' relationship is saved
+3. Two type variables unify and their relationship is saved
     - Given `f :: Add a b c => Add c d e => a -> b -> d -> e`, the `c` type in both `Add` constraints are unified and their relationship is "saved". As soon as one of them is assigned to a concrete type, the other will be assigned that type, too.
-4. Complex terms unify
-    - A type class' type variables unifies with a concrete type's instance of that type class if and only if all of their corresponding arguments unify:
-        - the number of parameter types in the type class is the same number of types in the instance
-            - `class MyClass first second`
-            - `instance i :: MyClass String Int`
-        - instance types unify with the class' constraints
-            - `class (OtherClass constrained) => ThisClass constrained`
-            - `instance a :: OtherClass String`
-            - `instance i :: ThisClass String`
-        - types in the instance context unify with their corresponding class
-            - `instance i :: (ParentClass a) => FastClass a`
+4. Complex "type chains" (e.g. a type class and a concrete type's instance of that type class) unify if and only if all of their corresponding arguments unify:
+    - the number of parameter types in the type class is the same number of types in the instance
+        - `class MyClass first second`
+        - `instance i :: MyClass String Int`
+    - instance types unify with the class' constraints
+        - `class (SuperClass constrained) => ThisClass constrained`
+        - `instance a :: SuperClass String`
+        - `instance i :: ThisClass String`
+    - types in the instance context unify with their corresponding class
+        - `instance a :: OtherConstraint a`
+        - `instance i :: (OtherConstraint a) => FastClass a`
     - a type variable is only assigned once and is not assigned to two different concrete types during the unification process
 
 A type-level function can only "compute" a type-level expression when the types unify. This will fail in a few situations (this list may not be exhaustive):
-- a concrete type that terminates the recursive unification process cannot be found
+- the unification process continues recursively for some time but a concrete type that would terminate the recursion is never found
 - infinite unification: to unify some type, `a`, one must unify some type `b`, which can only be unified if `a` is unified.
 - situations where the type inferencer cannot infer the correct type
-- situations where one needs to do "backtracking". (Either Google this for a better understanding of it or see the Prolog links below)
+- situations where one needs to do "backtracking", which does not currently working in instance chains due to [this issue](). (Either Google this for a better understanding of it or see the Prolog links below)
 
 ## Functional Dependencies Reexamined
 
@@ -179,3 +169,9 @@ Learning Prolog is not necessary to understand how to do type-level programming.
 - the "Learn Prolog Now" book, [chapter 1 - 2](http://www.learnprolognow.org/lpnpage.php?pagetype=html&pageid=lpn-html)
 - the ["Learn X in Y minutes where X = Prolog"](https://learnxinyminutes.com/docs/prolog/)
 - this [Intro to Prolog](https://www.doc.gold.ac.uk/~mas02gw/prolog_tutorial/prologpages/)
+
+## Works Cited
+
+(for lack of a better section header name...)
+
+Blackburn, Patrick, et al. "2.1: Unification." _Learn Prolog Now!_ vol. 7, College Publications, 2006, http://www.learnprolognow.org/lpnpage.php?pagetype=html&pageid=lpn-htmlse5. Accessed 9 Oct. 2018
