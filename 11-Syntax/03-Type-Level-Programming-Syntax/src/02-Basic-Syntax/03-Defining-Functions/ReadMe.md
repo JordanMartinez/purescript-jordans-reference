@@ -116,8 +116,7 @@ Unification is how logic programming works. A popular language which uses logic 
     - a type variable is only assigned once and is not assigned to two different concrete types during the unification process
 
 A type-level function can only "compute" a type-level expression when the types unify. This will fail in a few situations (this list may not be exhaustive):
-- the unification process continues recursively for some time but a concrete type that would terminate the recursion is never found
-- infinite unification: to unify some type, `a`, one must unify some type, `b`, which can only be unified if `a` is unified.
+- infinite unification: to unify some type, `a`, one must unify some type, `b`, which can only be unified if `a` is unified. After making X many recursive steps, the type inferencer will eventually give up and throw an error. This is a hard-coded number in the Purescript compiler.
 - situations where the type inferencer cannot infer the correct type
 - situations where one needs to do "backtracking". (Either Google this for a better understanding of it or see the Prolog links below)
 
