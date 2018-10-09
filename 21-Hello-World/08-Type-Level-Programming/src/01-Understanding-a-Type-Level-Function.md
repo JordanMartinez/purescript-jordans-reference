@@ -1,5 +1,50 @@
 # Understanding a Type-Level Function
 
+## Tips on Rows
+
+Rows in particular are where type-level programming gets interesting and fun.
+
+First, there is a long and short way to write `Record rowType`:
+```purescript
+long :: forall r. Record r
+
+short :: forall r. { | r }
+```
+Since the left part of `{ | r}` does not contain any rows, this reduces to `Record r`.
+
+Second, there is syntax sugar via [`RowApply`](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row#t:RowApply)/[`+`](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row#t:type%20(+)) for adding additional rows:
+```purescript
+type EmptyRow = ()
+type ClosedRow = (a :: Int)
+type OpenRow1 r = (a :: Int | r)
+type OpenRow2 r = (OpenRow1 + r)
+type MixedRow r = (a :: Int | OpenRow1 + r)
+
+type Row1 r = (x :: Int | r)
+type Row2 r = (y :: Int | r)
+type Row3 r = (z :: Int | r)
+type SuperMixedRow r = (a :: Int, b :: Int, c :: Int | Row1 + Row2 + Row3 + r)
+```
+
+Third, we sometimes need to close the "open" row type by using the empty row, `()`:
+```purescript
+-- Example 1
+type Row1 r = (a :: Int | r)
+type Row2 r = (b :: Int | r)
+type Row3 r = (c :: Int | r)
+type Rows1To3__Open r = (Row1 + Row2 + Row3 + r )
+type Rows1To3__Closed = (Row1 + Row2 + Row3 + ())
+
+-- Example 2
+type OpenRecord r = Record (name :: String, age :: Int | r)
+
+-- If we want to compute something using OpenRecord,
+-- we might need to close it:
+finalEval :: OpenRecord () -> Output
+```
+
+Rows can make our life easier in a number of ways. We'll see some examples before finishing this "Hello World" folder.
+
 ## Reading a Type-Level Function
 
 This process can be done in the reverse order of the above:
@@ -76,48 +121,3 @@ For example, the library, `purescript-variant`, uses `unsafeCoerce` to coerce a 
 - [VariantRep](https://pursuit.purescript.org/packages/purescript-variant/5.0.0/docs/Data.Variant.Internal#t:VariantRep)
 - [Variant and two functions](https://github.com/natefaubion/purescript-variant/blob/v5.0.0/src/Data/Variant.purs#L34-L67)
 - the [on function](https://github.com/natefaubion/purescript-variant/blob/v5.0.0/src/Data/Variant.purs#L69-L90)
-
-## Tips on Rows
-
-Rows in particular are where type-level programming gets interesting and fun.
-
-First, there is a long and short way to write `Record rowType`:
-```purescript
-long :: forall r. Record r
-
-short :: forall r. { | r }
-```
-Since the left part of `{ | r}` does not contain any rows, this reduces to `Record r`.
-
-Second, there is syntax sugar via [`RowApply`](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row#t:RowApply)/[`+`](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row#t:type%20(+)) for adding additional rows:
-```purescript
-type EmptyRow = ()
-type ClosedRow = (a :: Int)
-type OpenRow1 r = (a :: Int | r)
-type OpenRow2 r = (OpenRow1 + r)
-type MixedRow r = (a :: Int | OpenRow1 + r)
-
-type Row1 r = (x :: Int | r)
-type Row2 r = (y :: Int | r)
-type Row3 r = (z :: Int | r)
-type SuperMixedRow r = (a :: Int, b :: Int, c :: Int | Row1 + Row2 + Row3 + r)
-```
-
-Third, we sometimes need to close the "open" row type by using the empty row, `()`:
-```purescript
--- Example 1
-type Row1 r = (a :: Int | r)
-type Row2 r = (b :: Int | r)
-type Row3 r = (c :: Int | r)
-type Rows1To3__Open r = (Row1 + Row2 + Row3 + r )
-type Rows1To3__Closed = (Row1 + Row2 + Row3 + ())
-
--- Example 2
-type OpenRecord r = Record (name :: String, age :: Int | r)
-
--- If we want to compute something using OpenRecord,
--- we might need to close it:
-finalEval :: OpenRecord () -> Output
-```
-
-Rows can make our life easier in a number of ways. We'll see some examples before finishing this "Hello World" folder.
