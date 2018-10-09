@@ -51,6 +51,8 @@ elemAtIndex 3 (IndexedArray 3 ["a", "b", "c", "d"]) -- "d"
 elemAtIndex 0 (IndexedArray Empty []) -- compiler error!
 ```
 
+This is exactly what the library [Vec](https://pursuit.purescript.org/packages/purescript-sized-vectors/3.1.0/docs/Data.Vec#t:Vec) does.
+
 ## Issues with Type-Level Programming
 
 - While this may improve your program's runtime, it will increase the time it takes to compile your program
