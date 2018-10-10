@@ -95,7 +95,8 @@ instance s :: (Show a) -> Show (Box a) where
 2. Instance Head
 
 Unification is how logic programming works. A popular language which uses logic programming to compute is Prolog, which has a nice explanation on unification. (Curious readers can see the bottom of the file for links about Prolog). To see the rules for how this works in general, I've adapted the Prolog unification rules defined by Blackburn et al. below:
-1. Two concrete types unify
+1. Two concrete terms unify where...
+2.
     - `String` unifies with `String`
     - `String` does not unify with `Int`
 2. A concrete type and a polymorphic/generic type (i.e. type variables) unify and the type variable is assigned to a concrete type
@@ -118,7 +119,9 @@ Unification is how logic programming works. A popular language which uses logic 
 A type-level function can only "compute" a type-level expression when the types unify. This will fail in a few situations (this list may not be exhaustive):
 - infinite unification: to unify some type, `a`, one must unify some type, `b`, which can only be unified if `a` is unified. After making X many recursive steps, the type inferencer will eventually give up and throw an error. This is a hard-coded number in the Purescript compiler.
 - situations where the type inferencer cannot infer the correct type
-- situations where one needs to do "backtracking". (Either Google this for a better understanding of it or see the Prolog links below)
+- situations where one needs to do "backtracking".
+    - Normally, the compiler will commit to the instance head before it ever considers the instance context. If the compiler cannot figure things out using the head alone, it will fail. If the compiler supported "backtracking," it would also consider the instance context, which would prevent failure in some cases.
+    - "Backtracking" could be implemented in the compiler by using instance guards, but this has not yet been done. See [the related Purescript issue](https://github.com/purescript/purescript/issues/3120) for the current progress on this as well as an example of the code that "backtracking" would enable.
 
 ## Functional Dependencies Reexamined
 
