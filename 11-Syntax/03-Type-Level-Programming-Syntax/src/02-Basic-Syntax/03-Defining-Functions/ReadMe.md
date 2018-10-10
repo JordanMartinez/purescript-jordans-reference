@@ -94,17 +94,24 @@ instance s :: (Show a) -> Show (Box a) where
 1. Instance Context
 2. Instance Head
 
+The "Instance Context" and "Instance Head" terms are crucial to understanding the unification rules below.
+
 Unification is how logic programming works. A popular language which uses logic programming to compute is Prolog, which has a nice explanation on unification. (Curious readers can see the bottom of the file for links about Prolog). To see the rules for how this works in general, I've adapted the Prolog unification rules defined by Blackburn et al. below:
-1. Two concrete terms unify where...
-2.
-    - `String` unifies with `String`
-    - `String` does not unify with `Int`
-2. A concrete type and a polymorphic/generic type (i.e. type variables) unify and the type variable is assigned to a concrete type
-    - Similar to how a variable can be assigned a value, `let a = 5`, so one assigns a type to a type variable:`a = Int`. By this analogy, every time one sees an `a` type in a type signature, they can replace it with `Int`.
-3. Two type variables unify and their relationship is saved
-    - Given `f :: Add a b c => Add c d e => a -> b -> d -> e`, the `c` type in both `Add` constraints are unified and their relationship is "saved". As soon as one of them is assigned to a concrete type, the other will be assigned that type, too.
-4. Complex "type chains" (e.g. a type class and a concrete type's instance of that type class) unify if and only if all of their corresponding arguments unify:
-    - the number of parameter types in the type class is the same number of types in the instance
+1. Two concrete terms unify. A "term" for this explanation is either a `Type` or a `Kind`:
+    - Type
+        - `String` unifies with `String`
+        - `String` does not unify with `Int`
+    - Kind
+        - kind `BooleanK` unifies with kind `BooleanK`
+        - kind `BooleanK` does not unify with kind `IntK`
+    - a Kind term only unifies with other Kind terms, not Type terms.
+    - a Type term only unifies with other Type terms, not Kind terms.
+2. A concrete term and a polymorphic/generic term (i.e. term variable) unify and the term variable is assigned to a concrete term:
+    - Similar to how a variable can be assigned a value, `let a = 5`, so one assigns a term to a term variable: `a = Int` (type variable assigned to a concrete type) or `a = IntK` (kind variable assigned to a concrete kind). By this analogy, every time one sees an `a` type/kind in a type/kind signature, they can replace it with `Int`/`IntK`.
+3. Two term variables unify and their relationship is saved
+    - Ignoring the `forall .` syntax, given `f :: Add a b c => Add c d e => a -> b -> d -> e`, the `c` type/kind in both `Add` constraints are unified and their relationship is "saved". As soon as one of them is assigned to a concrete term, the other will be assigned that term, too.
+4. Complex "term chains" (e.g. a type class and a concrete type's instance of that type class) unify if and only if all of their corresponding arguments unify:
+    - the number of parameter terms in the type class is the same number of terms in the instance
         - `class MyClass first second`
         - `instance i :: MyClass String Int`
     - instance types unify with the class' constraints
@@ -114,14 +121,17 @@ Unification is how logic programming works. A popular language which uses logic 
     - types in the instance context unify with their corresponding class
         - `instance a :: OtherConstraint a`
         - `instance i :: (OtherConstraint a) => FastClass a`
-    - a type variable is only assigned once and is not assigned to two different concrete types during the unification process
+    - the type of terms in the type class unify only with their corresponding term type in the instance:
+        - The type class' Kind terms are made to unify only with other Kind terms, not Type terms, in the instance
+        - The type class' Type terms are made to unify only with other Type terms, not Kind terms, in the instance.
+    - a term variable is only assigned once and is not assigned to two different concrete term during the unification process
 
 A type-level function can only "compute" a type-level expression when the types unify. This will fail in a few situations (this list may not be exhaustive):
-- infinite unification: to unify some type, `a`, one must unify some type, `b`, which can only be unified if `a` is unified. After making X many recursive steps, the type inferencer will eventually give up and throw an error. This is a hard-coded number in the Purescript compiler.
-- situations where the type inferencer cannot infer the correct type
+- infinite unification: to unify some term, `a`, one must unify some term, `b`, which can only be unified if `a` is unified. After making X many recursive steps, the type inferencer will eventually give up and throw an error. This is a hard-coded number in the Purescript compiler.
+- situations where the type inferencer cannot infer the correct type/kind
 - situations where one needs to do "backtracking".
-    - Normally, the compiler will commit to the instance head before it ever considers the instance context. If the compiler cannot figure things out using the head alone, it will fail. If the compiler supported "backtracking," it would also consider the instance context, which would prevent failure in some cases.
-    - "Backtracking" could be implemented in the compiler by using instance guards, but this has not yet been done. See [the related Purescript issue](https://github.com/purescript/purescript/issues/3120) for the current progress on this as well as an example of the code that "backtracking" would enable.
+    - Normally, the compiler will commit to the instance head before it ever considers the instance context. Once it can figure out the instance head, it will then check whether the head adheres to the instance context. If the compiler cannot figure things out using the head alone, it will fail. If the compiler supported "backtracking," it would also consider the instance context, which would prevent failure in some cases.
+    - "Backtracking" could be implemented in the compiler by using instance guards, but this has not yet been done. For the current progress on this issue, as well as an example of what "backtrackign" code looks like, see [the related Purescript issue](https://github.com/purescript/purescript/issues/3120).
 
 ## Functional Dependencies Reexamined
 
