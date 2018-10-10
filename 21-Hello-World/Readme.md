@@ -9,6 +9,7 @@ This folder will document everything necessary to create a simple console-based 
 - How to test code
 - How to benchmark / profile code
 - How to structure an FP application
+- An overview of various type-level programming libraries
 - A few console-based games written in Purescript (putting it all together)
 
 In pursuing these goals, it will overview the following libraries:
@@ -30,6 +31,11 @@ In pursuing these goals, it will overview the following libraries:
     - Quick Check Laws
 - Benchmarking
     - Benchotron
+- Advanced
+    - Variant/VariantF
+    - MTL
+    - Free
+    - Run
 
 ## Helpful Links
 
