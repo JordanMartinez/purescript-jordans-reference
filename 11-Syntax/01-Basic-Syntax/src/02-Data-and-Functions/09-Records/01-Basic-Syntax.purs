@@ -5,16 +5,9 @@ module Syntax.Record.Basic where
 -- "# Type" stands for "Row". It is a special kind used to indicate that
 -- there will be an N-sized number of types that are known at compile time.
 
--- closed rows
 type Example_of_an_Empty_Row = ()
 type Example_of_a_Single_Row = (fieldName :: ValueType)
 type Example_of_a_Multiple_Rows = (first :: ValueType, second :: ValueType)
-
--- open rows
-type Example_of_Open_Rows additionalRows =
-  (first :: ValueType, second :: ValueType | additionalRows)
-type Example_of_Anything_and_Everything_Rows r = ( | r)
-
 
 data Record_ -- # Type -> Type
 
@@ -56,15 +49,17 @@ type NestedRecordType = { person :: { skills :: { name :: String } } }
 nestedRecordUpdate :: String -> NestedRecordType -> NestedRecordType
 nestedRecordUpdate name p = p { person { skills { name = "newName" } } }
 
-{-
-Syntax reminder:
+syntaxReminder :: String
+syntaxReminder = """
 
-"field = value" - update the field
-  record { field = newValue }
+Don't confuse the two operators that go in-between field and value!
 
-"field : value" - create the record's field
-  { field: initialValue }
--}
+"field OPERATOR value" where OPERATOR is
+  "=" means "update the field of a record that already exists":
+          record { field = newValue }
+  ":" means "create the field of a new record":
+          record { field: initialValue }
+"""
 
 -- needed to compile
 type ValueType = String

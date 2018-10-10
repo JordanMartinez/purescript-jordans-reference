@@ -23,8 +23,34 @@ The following code...
 ...will output a compiler error since no other fields are allowed!
 -}
 
+{-
+Rows can either be "closed" or "open." "Closed" rows means that we will
+not be adding any other 'fields' to it at a later time. So far, we
+have only shown examples of "closed" rows.
+"Open" rows means that we might add more 'fields' to it at a later time.
+We'll now show the syntax for that.
+-}
 
--- There is a way to get rid of the compiler error using row polymorphism
+-- open rows
+type Example_of_Closed_Row              = (first :: ValueType)
+type Example_of_Open_Row additionalRows = (first :: ValueType | additionalRows)
+
+type Closed_Record1 = Record (first :: ValueType)
+type Open_Record1 r = Record (first :: ValueType | r)
+
+type Closed_Record2 = { first :: ValueType }
+type Open_Record2 r = { first :: ValueType | r}
+
+type OpenRecord1 rowsAreDefinedLater = Record ( | rowsAreDefinedLater)
+type OpenRecord2 rowsAreDefinedLater = { | rowsAreDefinedLater}
+
+{-
+We can get rid of the compiler error by using open rows and row polymorphism
+
+The below function can be read as
+    "Given a record that has the field, 'name',
+     and zero or more other rows I don't care about,
+  I can give you a String value."                                            -}
 rowPolymorphism1 :: forall anyOtherFieldsThatMayExist
                   . { name :: String | anyOtherFieldsThatMayExist }
                  -> String
@@ -44,3 +70,7 @@ test2 =
 -- such as this example:
 --
 --    getName4 { age: 4, stuff: "?" }
+
+
+-- needed to compile
+type ValueType = String
