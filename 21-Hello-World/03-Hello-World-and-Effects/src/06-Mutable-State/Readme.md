@@ -1,5 +1,7 @@
 # Mutable State: Global vs Local
 
+**Note:** This file will use `Debug.Trace (traceM)`. This concept will be explained in the `Hello World/Debugging` folder. Please read through that before continuing here.
+
 There are two types of mutable state:
 
 | | Global | Local |
