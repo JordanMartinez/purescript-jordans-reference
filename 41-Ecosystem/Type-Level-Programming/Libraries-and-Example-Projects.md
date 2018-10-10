@@ -29,9 +29,13 @@ Rather than explaining things, read through the source code of these modules and
 | Higher-Order Functions | [Type.Eval](https://pursuit.purescript.org/packages/purescript-typelevel-eval/0.2.0)
 | N/A | [Type.IsEqual](https://pursuit.purescript.org/packages/purescript-type-isequal/0.1.0)<br> [Type.Proxy](https://pursuit.purescript.org/packages/purescript-proxy/3.0.0/docs/Type.Proxy)<br>[Data.Typelevel.Undefined](https://pursuit.purescript.org/packages/purescript-typelevel/4.0.0/docs/Data.Typelevel.Undefined) |
 
-# Real-World examples
+## Real-World examples
 
 - [purescript-trout](https://github.com/owickstrom/purescript-hypertrout) -  Type-Level Routing. Used in [purescript-hypertrout](https://github.com/owickstrom/purescript-hypertrout).
 - [purescript-kushikatsu](https://github.com/justinwoo/purescript-kushikatsu) - Simple type-level routing
 - [purescript-chirashi](https://github.com/justinwoo/purescript-chirashi) - An easy way to work with Errors by inserting a Variant, and reading it out later.
 - [purescript-variant](https://pursuit.purescript.org/packages/purescript-variant/5.0.0)
+
+## Ideas
+
+- [Type-Safe Versioned APIs](https://chrispenner.ca/posts/typesafe-api-versioning). This idea could be combined with the onion architecture and `Run`
