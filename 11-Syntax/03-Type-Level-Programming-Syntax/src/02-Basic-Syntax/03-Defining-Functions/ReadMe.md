@@ -107,7 +107,7 @@ Unification is how logic programming works. A popular language which uses logic 
         - `class MyClass first second`
         - `instance i :: MyClass String Int`
     - instance types unify with the class' constraints
-        - `class (SuperClass constrained) => ThisClass constrained`
+        - `class (SuperClass constrained) <= ThisClass constrained`
         - `instance a :: SuperClass String`
         - `instance i :: ThisClass String`
     - types in the instance context unify with their corresponding class
