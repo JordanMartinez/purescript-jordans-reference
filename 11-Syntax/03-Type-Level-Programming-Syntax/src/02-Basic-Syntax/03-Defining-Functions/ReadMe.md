@@ -88,7 +88,7 @@ class Show a where
   show :: a -> String
 
 {-            |  1   |         |  2  |                                -}
-instance s :: (Show a) -> Show (Box a) where
+instance s :: (Show a) => Show (Box a) where
   show (Box a) = show a
 ```
 1. Instance Context
