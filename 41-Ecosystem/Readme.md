@@ -21,3 +21,4 @@ Since this repo is meant for my learning (with your benefit), it will center aro
 ## Other Useful Links
 
 - [Awesome Purescript Index](https://github.com/passy/awesome-purescript)
+- [Justin Woo's "purescript-references"](https://purescript-resources.readthedocs.io/en/latest/index.html)
