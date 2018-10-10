@@ -81,3 +81,5 @@ TODO: prove the above law using `Box` (a lot of work, so ignoring for now...)
 - Do a computation...
     - if some condition is true: `when`
     - if some condition is false: `unless`
+
+Note: `when`/`unless` is strict. For a lazy version, see [purescript-call-by-name](https://github.com/natefaubion/purescript-call-by-name)
