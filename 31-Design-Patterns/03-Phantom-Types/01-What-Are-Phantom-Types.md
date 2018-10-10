@@ -17,3 +17,4 @@ data Data unusedType = Data
     - [ST](https://pursuit.purescript.org/packages/purescript-st/4.0.0/docs/Control.Monad.ST.Internal#t:ST) uses a [Region](https://pursuit.purescript.org/packages/purescript-st/4.0.0/docs/Control.Monad.ST.Internal#k:Region) type to prevent local mutation from escaping some scope.
 - Use a phantom type to restrict how a developer can use a function
     - See ["Restricting ArgumentTypes.purs"](./02-Restricting-Argument-Types.purs)
+    - See [Pathy](https://github.com/slamdata/purescript-pathy#introduction), which uses them to track the distinctions of relative/absolute file paths and of file/directory
