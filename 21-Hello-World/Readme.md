@@ -9,6 +9,7 @@ This folder will document everything necessary to create a simple console-based 
 - How to test code
 - How to benchmark / profile code
 - How to structure an FP application
+- An overview of various type-level programming libraries
 - A few console-based games written in Purescript (putting it all together)
 
 In pursuing these goals, it will overview the following libraries:
@@ -30,6 +31,11 @@ In pursuing these goals, it will overview the following libraries:
     - Quick Check Laws
 - Benchmarking
     - Benchotron
+- Advanced
+    - Variant/VariantF
+    - MTL
+    - Free
+    - Run
 
 ## Helpful Links
 
@@ -58,3 +64,7 @@ Since Purescript is heavily inspired by and very similar to Haskell, one can lea
 | Read and do the exercises from [The Haskell Book](http://haskellbook.com/) | The "standard" for teaching Haskell and FP concepts in general: good explanations; good exercises; teaches "programming in the small" | Costs money; costs time; the exercises will stretch you
 | Read and do the exercises from [Haskell Cookbook](https://leanpub.com/haskellcookbook), and then its follow up book [Haskell Cookbook 2](https://leanpub.com/haskellcookbook2) | Free/Cheap; simpler than the Haskell book; gets to ideas faster; teaches "programming in the large" | May be harder for a new beginner (I haven't read it yet)
 | Watch the Intro to FP course on edX.org [here](https://www.edx.org/course/introduction-functional-programming-delftx-fp101x-0) | Free (or paid) | (Haven't done it so I don't know)
+
+### Miscellaneous Links
+
+- [LambdaConf YouTube Channel](https://www.youtube.com/channel/UCEtohQeDqMSebi2yvLMUItg)

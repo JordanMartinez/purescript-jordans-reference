@@ -1,4 +1,6 @@
-module ProblemsThatPhantomTypesFix
+-- This file demonstrates how the second form of phantom types
+-- can restrict us to writing better and safer code
+module KeyValueProblem
   (
     Attribute
   , attribute
@@ -8,7 +10,7 @@ newtype Attribute = Attribute { key :: String, value :: String }
 
 -- convenience constructor
 attribute :: String -> String -> Attribute
-attribute = Attribute { key: _, value: _ }
+attribute key value = Attribute { key, value }
 
 infix 4 attribute as :=
 
@@ -16,9 +18,9 @@ infix 4 attribute as :=
 -- later on during runtime.
 example :: Array Attribute
 example =
-  [ "width" := "not a valid number"
+  [ "width"  := "not a valid number"
   , "height" := "not a valid number"
-  , "style" := "not a valid style"
+  , "style"  := "not a valid style"
   ]
 
 -- The problem is that the `width` function should specify
@@ -43,13 +45,13 @@ newtype Attribute = Attribute { key :: String, value :: String }
 -- This time, we're not going to export the smart constructor 'attribute'
 -- Rather, we'll change its type signture and export wrappers around it
 
--- assume there are instances of ToString for Int and Style
-class ToString a where
-  toString :: a -> String
+-- assume there are instances of Show for Int and Style
+class Show a where
+  show :: a -> String
 
 -- Read "given a string and any value that can be turned into a string"
-attribute :: forall a. ToString a => String -> a -> Attribute
-attribute key value = Attribute { key: key, value: toString value }
+attribute :: forall a. Show a => String -> a -> Attribute
+attribute key value = Attribute { key: key, value: show value }
 
 -- new smart constructor
 width :: Int -> Attribute
@@ -93,9 +95,9 @@ module PhantomTypes
 
 newtype Attribute = Attribute { key :: String, value :: String }
 
--- assume there are instances of ToString for Int and Style
-class ToString a where
-  toString :: a -> String
+-- assume there are instances of Show for Int and Style
+class Show a where
+  show :: a -> String
 
 -- A phantom type is a type defined in the type
 -- but not used in its instances / constructors
@@ -107,9 +109,9 @@ newtype AttributeKey desiredValueType = AttributeKey String
 -- Let's update attribute to use the phantom type to restrict
 -- what the second parameter can be in our function. Recall that
 -- "a" in this situation means "desired value type":
-attribute :: forall a. ToString a => AttributeKey a -> a -> Attribute
+attribute :: forall a. Show a => AttributeKey a -> a -> Attribute
 attribute (AttributeKey key) value =
-  Attribute { key: key, value: toString value }
+  Attribute { key: key, value: show value }
 
 infix 4 attribute as :=
 
@@ -129,7 +131,7 @@ style = AttributeKey "style"
 -- Alright!
 example :: Array Attribute
 example =
-  [ width := 40
+  [ width  := 40
   , height := 200
-  , style := Bold
+  , style  := Bold
   ]

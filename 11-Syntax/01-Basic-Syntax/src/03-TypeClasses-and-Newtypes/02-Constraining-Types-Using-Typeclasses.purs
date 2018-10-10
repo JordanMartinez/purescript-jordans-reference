@@ -60,6 +60,10 @@ data Box a = Box a
 instance boxShow :: (Show a) => Show (Box a) where
   show (Box a) = "Box(" <> show a <> ")"
 
+-- We have names for specific parts of the instance
+instance instancePartNames :: (InstanceContext a) => A_TypeClass (InstanceHead a) where
+  function2 _ = "body"
+
 -- usage
 test1 :: Boolean
 test1 =
@@ -72,6 +76,15 @@ test2 =
 -- necessary to make file compile
 class TypeClass1 a where
   function1 :: a -> String
+
+class InstanceContext a
+
+instance ih :: InstanceContext a
+
+data InstanceHead a = InstanceHead
+
+class A_TypeClass a where
+  function2 :: a -> String
 
 instance typeclass1 :: TypeClass1 String where
   function1 a = a
