@@ -133,6 +133,11 @@ A type-level function can only "compute" a type-level expression when the types 
     - Normally, the compiler will commit to the instance head before it ever considers the instance context. Once it can figure out the instance head, it will then check whether the head adheres to the instance context. If the compiler cannot figure things out using the head alone, it will fail. If the compiler supported "backtracking," it would also consider the instance context, which would prevent failure in some cases.
     - "Backtracking" could be implemented in the compiler by using instance guards, but this has not yet been done. For the current progress on this issue, as well as an example of what "backtrackign" code looks like, see [the related Purescript issue](https://github.com/purescript/purescript/issues/3120).
 
+To understand unification at a deeper level, see these links:
+- [Type Checking](https://www.youtube.com/watch?v=r030JkmMLMI). This video **quickly** explains some of the notation used in the paper below, but not all of it.
+- [Introduction to Type Inference](https://www.youtube.com/watch?v=il3gD7XMdmA). This video will explain a few more pieces of the notation used in the paper below as well as the problems that arise in type inference. Unfortunately, the teacher goes through concepts quickly and runs out of time, so not everything is immediately understandable through the first viewing.
+- [The original paper describing instance chains](http://web.cecs.pdx.edu/~mpj/pubs/instancechains.pdf).
+
 ## Functional Dependencies Reexamined
 
 At times, it can be difficult for the type checker to infer what a given type is. Thus, one uses functional dependencies (FDs) to help the compiler. As a reminder, FDs tell the compiler to find an instance whose known types are the types on the left-hand side of the arrow and use that instance to infer what the types on the right-hand side of the arrow are:
