@@ -12,8 +12,8 @@
 See its docs: [Applicative](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Applicative)
 
 ```purescript
-class (Functor f) <= Apply f where
-  apply :: forall a b. f (a -> b) -> f a -> f b
+class (Apply f) <= Applicative f where
+  pure :: forall a. a -> f a
 
 data Box a = Box a
 
