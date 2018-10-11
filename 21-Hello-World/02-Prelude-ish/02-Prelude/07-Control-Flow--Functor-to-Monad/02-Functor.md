@@ -26,6 +26,12 @@ instance f :: Functor Box where
   map                 f         (Box a) =  Box (f a)
 ```
 
+One could also see `map` as "lifting" a function into a context, our Box-like type:
+```purescript
+map :: forall a b. (a -> b) -> (Box a -> Box b)
+map f = (\(Box a) -> Box (f b))
+```
+
 ## Laws
 
 ### Identity
