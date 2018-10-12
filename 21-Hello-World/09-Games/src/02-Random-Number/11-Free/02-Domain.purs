@@ -1,12 +1,11 @@
 module Games.RandomNumber.Free.Domain (RandomNumberOperationF(..), RandomNumberOperation, runCore) where
 
 import Prelude
-import Data.Functor (class Functor)
+
 import Control.Monad.Free (Free, liftF, substFree)
-import Games.RandomNumber.Free.Core ( Bounds, RandomInt, Guess, RemainingGuesses
-                                    , outOfGuesses, decrement, totalPossibleGuesses
-                                    , (==#), mkGameInfo
-                                    , GameResult(..), Game, GameF(..), game)
+import Data.Functor (class Functor)
+-- import Games.RandomNumber.Free (Game(..))
+import Games.RandomNumber.Free.Core (Bounds, RandomInt, Guess, RemainingGuesses, outOfGuesses, decrement, totalPossibleGuesses, (==#), mkGameInfo, GameResult(..), Game, GameF(..), game)
 
 -- | Defines the operations we'll need to run
 -- | a Random Number Guessing game
@@ -76,6 +75,14 @@ runCore = substFree go
       pure (reply $ mkGameInfo bounds randomInt totalGueses)
     PlayGame ({ bound: b, number: n, remaining: remaining }) reply -> do
       result <- gameLoop b n remaining
+      case result of
+        PlayerWins remaining -> do
+          log "Player won!"
+          log $ "Player guessed the random number with " <>
+            show remaining <> " try(s) remaining."
+        PlayerLoses randomInt -> do
+          log "Player lost!"
+          log $ "The number was: " <> show randomInt
 
       pure (reply result)
     -- EndGame gameResult next ->

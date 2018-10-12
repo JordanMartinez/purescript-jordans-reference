@@ -31,8 +31,7 @@ main = do
     body <- HA.awaitBody
     io <- runUI terminal unit body
 
-    gameResult <- runInfrastructure io.query
-    io.query $ inj _notifyUser $ NotifyUserF ("Game result was: " <> show gameResult) unit
+    runInfrastructure io.query
 
 -- | (io :: HalogenIO).query
 type QueryRoot = VariantF (NOTIFY_USER + GET_USER_INPUT + ()) ~> Aff

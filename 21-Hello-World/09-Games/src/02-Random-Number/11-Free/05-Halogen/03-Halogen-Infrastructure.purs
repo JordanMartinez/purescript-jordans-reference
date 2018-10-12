@@ -19,8 +19,7 @@ main = do
     body <- HA.awaitBody
     io <- runUI terminal unit body
 
-    gameResult <- runAPI io.query (runDomain (runCore game))
-    io.query $ H.action $ Log $ "Game result was: " <> show gameResult
+    runAPI io.query (runDomain (runCore game))
 
 -- | (io :: HalogenIO).query
 type QueryRoot = API_F ~> Aff

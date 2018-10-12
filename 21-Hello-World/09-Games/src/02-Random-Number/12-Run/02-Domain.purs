@@ -137,6 +137,15 @@ playGameToDomain
   (PlayGameF { bound: b, number: n, remaining: remaining } reply) = do
     result <- gameLoop b n remaining
 
+    case result of
+      PlayerWins remaining -> do
+        notifyUser "Player won!"
+        notifyUser $ "Player guessed the random number with " <>
+          show remaining <> " try(s) remaining."
+      PlayerLoses randomInt -> do
+        notifyUser "Player lost!"
+        notifyUser $ "The number was: " <> show randomInt
+
     pure (reply result)
 
 -- Code
