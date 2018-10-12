@@ -1,0 +1,85 @@
+module Games.RandomNumber.Run.Halogen.Terminal (terminal) where
+
+import Prelude
+import Data.Maybe (Maybe(..))
+import Effect.Aff (Aff)
+import Effect.Aff.Class as AffClass
+import Effect.Aff.AVar (AVar)
+import Effect.Aff.AVar as AVar
+import Data.Array (snoc)
+import Halogen as H
+import Halogen.Aff as HA
+import Halogen.HTML as HH
+import Halogen.HTML.Events as HE
+import Games.RandomNumber.Run.Halogen.UserInput (Language(..), calcLikeInput)
+import Games.RandomNumber.Run.Domain (NotifyUserF(..), _notifyUser, NOTIFY_USER)
+import Games.RandomNumber.Run.API (GetUserInputF(..), _getUserInput, GET_USER_INPUT)
+import Type.Row (type (+))
+import Data.Functor.Variant (VariantF(..), on, inj, case_)
+import Run (Run, interpret, send, AFF)
+
+-- | Store the messages that should appear in the terminal (history).
+-- | When `getInput == Nothing`, just display the terminal.
+-- | When `getInput == Just avar`, display the calculator-like interface
+-- | to get the user's input.
+type State = { history :: Array String
+             , getInput :: Maybe (AVar String)
+             }
+
+type Query = VariantF (NOTIFY_USER + GET_USER_INPUT + ())
+
+-- | No need to raise any messages to listeners outside of this
+-- | root component as we'll be emitting messages via AVars.
+type Message = Void
+
+-- | There's only one child, so this slot type is overkill. Oh well...
+newtype Slot = Slot Int
+derive newtype instance e :: Eq Slot
+derive newtype instance s :: Ord Slot
+
+-- |
+terminal :: forall r. H.Component HH.HTML Query Unit Message Aff
+terminal =
+  H.parentComponent
+    { initialState: const { history: [], getInput: Nothing }
+    , render
+    , eval
+    , receiver: const Nothing
+    }
+  where
+  render :: State -> H.ParentHTML Query Language Slot Aff
+  render state = case state.getInput of
+    Just avar ->
+      HH.div_
+        [ HH.div_ $ state.history <#> \msg -> HH.div_ [HH.text msg]
+        , HH.slot (Slot 1) calcLikeInput avar (\s -> Just $ inj _notifyUser $ NotifyUserF s unit)
+        ]
+    Nothing ->
+      HH.div_
+        [ HH.div_ $ state.history <#> \msg -> HH.div_ [HH.text msg]
+        ]
+
+  -- | Log: adds the message to the terminal
+  -- | GetUserInput: Our game's business logic outside this
+  -- |   component will send a query into this root component
+  -- |   to get the user's input. This component will re-render
+  -- |   itself with the calculator-like interface,
+  -- |   so that user can submit their input. Evaluation will block
+  -- |   until user submits their input. Once received, this component
+  -- |   will re-render so that the interface disappears.
+  -- |   and then return the user's input to the game logic code outside.
+  eval :: Query ~> H.ParentDSL State Query Language Slot Message Aff
+  eval =
+    case_
+      # on _notifyUser (\(NotifyUserF msg next) -> do
+          H.modify_ (\state -> state { history = state.history `snoc` msg})
+          pure next
+        )
+      # on _getUserInput (\(GetUserInputF msg reply) -> do
+          avar <- AffClass.liftAff AVar.empty
+          H.modify_ (\state -> state { history = state.history `snoc` msg
+                                     , getInput = Just avar })
+          value <- AffClass.liftAff $ AVar.take avar
+          H.modify_ (\state -> state { getInput = Nothing })
+          pure $ reply value
+        )
