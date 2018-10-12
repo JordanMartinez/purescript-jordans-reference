@@ -39,8 +39,8 @@ pulp --psc-package run -m Games.RandomNumber.Run.ChangeImplementation
 pulp --psc-package run -m Games.RandomNumber.Run.AddDomainTerm
 
 ## Browser-based implementation
-pulp --psc-package browserify -O -m Games.RandomNumber.Free.Infrastructure --to dist/random-number/free/app.js
-pulp --psc-package browserify -O -m Games.RandomNumber.Run.Infrastructure --to dist/random-number/run/app.js
+pulp --psc-package browserify -O -m Games.RandomNumber.Free.Halogen.Infrastructure --to dist/random-number/free/app.js
+pulp --psc-package browserify -O -m Games.RandomNumber.Run.Halogen.Infrastructure --to dist/random-number/run/app.js
 
 ## Run-based Test
 pulp --psc-package test -m Test.Games.RandomNumber.Run.Infrastructure
