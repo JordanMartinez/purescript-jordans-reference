@@ -10,7 +10,7 @@ module Games.RandomNumber.Run.Infrastructure
 import Prelude
 import Type.Row (type (+))
 import Data.Functor.Variant (on)
-import Run (Run, interpret, send, AFF, liftAff, runBaseAff)
+import Run (Run, interpret, case_, AFF, liftAff, runBaseAff)
 import Data.Either (Either(..))
 import Effect.Random (randomInt)
 import Effect.Class (liftEffect)
@@ -38,20 +38,20 @@ import Games.RandomNumber.Run.API (
 
 -- Algebras
 
-notifyUserToInfrastructure :: forall r. NotifyUserF ~> Run (aff :: AFF | r)
+notifyUserToInfrastructure :: NotifyUserF ~> Aff
 notifyUserToInfrastructure (NotifyUserF msg next) = do
-  liftAff $ liftEffect $ log msg
+  liftEffect $ log msg
   pure next
 
-getUserInputToInfrastructure :: forall r. Interface -> GetUserInputF ~> Run (aff :: AFF | r)
+getUserInputToInfrastructure :: Interface -> GetUserInputF ~> Aff
 getUserInputToInfrastructure iface (GetUserInputF prompt reply) = do
-  answer <- liftAff $ question prompt iface
+  answer <- question prompt iface
   pure (reply answer)
 
-createRandomIntToInfrastructure :: forall r. CreateRandomIntF ~> Run (aff :: AFF | r)
+createRandomIntToInfrastructure :: CreateRandomIntF ~> Aff
 createRandomIntToInfrastructure (CreateRandomIntF bounds reply) = do
   random <- unBounds bounds (\l u ->
-    liftAff $ liftEffect $ randomInt l u)
+    liftEffect $ randomInt l u)
   pure (reply random)
 
 -- Code
@@ -62,12 +62,11 @@ question message interface = do
   where
     go handler = NR.question message (handler <<< Right) interface $> mempty
 
-runAPI :: forall r
-        . Interface
-       -> Run (aff :: AFF | NOTIFY_USER + GET_USER_INPUT + CREATE_RANDOM_INT + r)
-       ~> Run (aff :: AFF | r)
+runAPI :: Interface
+       -> Run (NOTIFY_USER + GET_USER_INPUT + CREATE_RANDOM_INT + ())
+       ~> Aff
 runAPI iface = interpret (
-  send
+  case_
     # on _notifyUser notifyUserToInfrastructure
     # on _getUserInput (getUserInputToInfrastructure iface)
     # on _createRandomInt createRandomIntToInfrastructure
@@ -78,17 +77,5 @@ main = do
   interface <- createConsoleInterface noCompletion
 
   runAff_
-    (case _ of
-      Left _ -> close interface
-      Right gameResult -> case gameResult of
-        PlayerWins remaining -> do
-          log "Player won!"
-          log $ "Player guessed the random number with " <>
-            show remaining <> " trie(s) remaining."
-          close interface
-        PlayerLoses randomInt -> do
-          log "Player lost!"
-          log $ "The number was: " <> show randomInt
-          close interface
-    )
-    (runBaseAff $ runAPI interface (runDomain (runCore game)))
+    (\_ -> close interface)
+    (runAPI interface (runDomain (runCore game)))

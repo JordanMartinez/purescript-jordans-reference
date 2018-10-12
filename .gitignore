@@ -13,7 +13,7 @@
 /**/.psa*
 /**/output/
 /**/.pulp-cache/
-/**/dist/
+/**/dist/**/*.js
 /**/node_modules/
 /**/package-lock.json
 

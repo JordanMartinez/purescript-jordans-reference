@@ -14,7 +14,7 @@ import Node.ReadLine ( Interface
                      )
 import Node.ReadLine as NR
 
-import Games.RandomNumber.Free.Core (game, unBounds, GameResult(..))
+import Games.RandomNumber.Free.Core (game, unBounds)
 import Games.RandomNumber.Free.Domain (runCore)
 import Games.RandomNumber.Free.API (API_F(..), API, runDomain)
 
@@ -47,17 +47,5 @@ main = do
   interface <- createConsoleInterface noCompletion
 
   runAff_
-    (case _ of
-      Left _ -> close interface
-      Right gameResult -> case gameResult of
-        PlayerWins remaining -> do
-          log "Player won!"
-          log $ "Player guessed the random number with " <>
-            show remaining <> " trie(s) remaining."
-          close interface
-        PlayerLoses randomInt -> do
-          log "Player lost!"
-          log $ "The number was: " <> show randomInt
-          close interface
-    )
+    (\_ -> close interface)
     (runAPI interface (runDomain (runCore game)))

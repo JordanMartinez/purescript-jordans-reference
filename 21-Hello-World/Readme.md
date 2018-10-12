@@ -20,7 +20,6 @@ In pursuing these goals, it will overview the following libraries:
     - Effect
     - Console
     - Random
-    - Node ReadLine
     - Aff
 - State
     - ST
@@ -36,6 +35,9 @@ In pursuing these goals, it will overview the following libraries:
     - MTL
     - Free
     - Run
+- UIs
+    - Node ReadLine
+    - Halogen
 
 ## Helpful Links
 
