@@ -10,7 +10,7 @@ This is another example of the Expression Problem. Had we written our code using
 
 ## Unnecessary Translations
 
-There's one translation in our code that's actually unnecessary, the API's `Log` translation: `NotifyUser (Domain) ~> Log (API) ~> Effect.Console.log (Infrastructure)`. If we look at the Domain to API translation, we can see that it does nothing more than forward the Domain data to the Infrastructure level:
+In the Node infrastructure, there's one translation in our code that's actually unnecessary, the API's `Log` translation: `NotifyUser (Domain) ~> Log (API) ~> Effect.Console.log (Infrastructure)`. If we look at the Domain to API translation, we can see that it does nothing more than forward the Domain data to the Infrastructure level:
 ```purescript
 -- Domain -> API
 go :: RandomNumberOperationF ~> API
@@ -38,3 +38,7 @@ Unfortunately, we cannot translate the `NotifyUser` instance to the `Infrastruct
 Our code is not modular in that one could easily swap out the current "interpreter" of one language term (e.g. Domain's `DefineBounds`) with another. In other words, what if we wanted the interpreter to ignore the user's input and just look up the values from a configuration file? Or, what if we wanted the user to have a choice: define it themselves or use the config file?
 
 Both ideas would require us to rewrite the entire API interpreter. Had we written it in `Variant`/`Run`, we could literally swap out one `Domain_Language_Term ~> API_1_Term` translation with another `Domain_Language_Term ~> API_2_Term`
+
+## Unnecessary Usage of UI
+
+In the Halogen infrastructure, we had to generate the random int inside of the component's `eval` function despite never needing the UI to do that. I believe it would be more performant if that value was generated outside of the component since it will run through less 'layers' of Free.
