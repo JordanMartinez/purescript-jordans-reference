@@ -5,7 +5,7 @@ Let's tie all of these ideas together. This folder is a project for a simple wor
 - testing
 - benchmarking (pretty sure I can't implement this yet either)
 - data validation
-- user input via a terminal
+- user input via a terminal and via a browser-based UI
 
 It will also demonstrate how one can write a program using a domain-driven design / Onion Architecture mentioned previously.
 
