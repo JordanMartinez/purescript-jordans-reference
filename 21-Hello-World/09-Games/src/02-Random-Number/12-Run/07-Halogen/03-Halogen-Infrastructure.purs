@@ -2,6 +2,11 @@ module Games.RandomNumber.Run.Halogen.Infrastructure where
 
 import Prelude
 
+import Data.Functor.Variant (VariantF, on, inj)
+import Effect (Effect)
+import Effect.Aff (Aff)
+import Effect.Random (randomInt)
+import Effect.Console (log)
 import Games.RandomNumber.Core (unBounds, GameResult)
 import Games.RandomNumber.Run.Core (game)
 import Games.RandomNumber.Run.Domain (
@@ -13,19 +18,12 @@ import Games.RandomNumber.Run.API (
 , GET_USER_INPUT
 , CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT
 )
-import Type.Row (type (+))
-import Data.Functor.Variant (VariantF, on, inj)
-import Run (Run, interpret)
-
-import Effect (Effect)
-import Effect.Aff (Aff)
-import Effect.Random (randomInt)
-import Effect.Console (log)
+import Games.RandomNumber.Run.Halogen.Terminal (terminal)
 import Halogen (liftEffect)
 import Halogen.Aff as HA
 import Halogen.VDom.Driver (runUI)
-
-import Games.RandomNumber.Run.Halogen.Terminal (terminal)
+import Run (Run, interpret)
+import Type.Row (type (+))
 
 main :: Effect Unit
 main = do

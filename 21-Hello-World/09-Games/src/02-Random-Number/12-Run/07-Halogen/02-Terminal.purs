@@ -6,19 +6,19 @@
 module Games.RandomNumber.Run.Halogen.Terminal (terminal) where
 
 import Prelude
+import Data.Array (snoc)
+import Data.Functor.Variant (VariantF, on, inj, case_)
 import Data.Maybe (Maybe(..))
 import Effect.Aff (Aff)
 import Effect.Aff.Class as AffClass
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
-import Data.Array (snoc)
-import Halogen as H
-import Halogen.HTML as HH
 import Games.RandomNumber.Run.Halogen.UserInput (Language, calcLikeInput)
 import Games.RandomNumber.Run.Domain (NotifyUserF(..), _notifyUser, NOTIFY_USER)
 import Games.RandomNumber.Run.API (GetUserInputF(..), _getUserInput, GET_USER_INPUT)
+import Halogen as H
+import Halogen.HTML as HH
 import Type.Row (type (+))
-import Data.Functor.Variant (VariantF, on, inj, case_)
 
 -- | Store the messages that should appear in the terminal (history).
 -- | When `getInput == Nothing`, just display the terminal.

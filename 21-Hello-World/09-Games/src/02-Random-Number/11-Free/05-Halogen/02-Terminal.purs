@@ -1,22 +1,20 @@
-module Games.RandomNumber.Free.Halogen.Terminal
-  ( terminal
-  ) where
+module Games.RandomNumber.Free.Halogen.Terminal (terminal) where
 
 import Prelude
+import Data.Array (snoc)
 import Data.Maybe (Maybe(..))
 import Effect.Aff (Aff)
 import Effect.Aff.Class as AffClass
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
-import Data.Array (snoc)
-import Halogen as H
-import Halogen.HTML as HH
-import Halogen.HTML.Events as HE
 import Effect.Random (randomInt)
-import Halogen (liftEffect)
 import Games.RandomNumber.Free.Halogen.UserInput (Language, calcLikeInput)
 import Games.RandomNumber.Core (unBounds)
 import Games.RandomNumber.Free.API (API_F(..))
+import Halogen as H
+import Halogen.HTML as HH
+import Halogen.HTML.Events as HE
+import Halogen (liftEffect)
 
 -- Rather than defining our query language
 -- for this component, we'll just re-use the API language
