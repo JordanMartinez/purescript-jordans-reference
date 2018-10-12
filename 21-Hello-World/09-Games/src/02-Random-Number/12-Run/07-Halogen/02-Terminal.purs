@@ -1,3 +1,8 @@
+-- | This is the same code as the Free-based version except for one thing:
+-- | - the Query type is a subset of our API language
+-- |
+-- | This small change means we have to use `case_ # on symbol function`
+-- | syntax from `purescript-variant`
 module Games.RandomNumber.Run.Halogen.Terminal (terminal) where
 
 import Prelude
@@ -8,15 +13,12 @@ import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
 import Data.Array (snoc)
 import Halogen as H
-import Halogen.Aff as HA
 import Halogen.HTML as HH
-import Halogen.HTML.Events as HE
-import Games.RandomNumber.Run.Halogen.UserInput (Language(..), calcLikeInput)
+import Games.RandomNumber.Run.Halogen.UserInput (Language, calcLikeInput)
 import Games.RandomNumber.Run.Domain (NotifyUserF(..), _notifyUser, NOTIFY_USER)
 import Games.RandomNumber.Run.API (GetUserInputF(..), _getUserInput, GET_USER_INPUT)
 import Type.Row (type (+))
-import Data.Functor.Variant (VariantF(..), on, inj, case_)
-import Run (Run, interpret, send, AFF)
+import Data.Functor.Variant (VariantF, on, inj, case_)
 
 -- | Store the messages that should appear in the terminal (history).
 -- | When `getInput == Nothing`, just display the terminal.
@@ -26,6 +28,8 @@ type State = { history :: Array String
              , getInput :: Maybe (AVar String)
              }
 
+-- | Rather than defining a new query language here,
+-- | we'll just reuse **a subset** of our API language.
 type Query = VariantF (NOTIFY_USER + GET_USER_INPUT + ())
 
 -- | No need to raise any messages to listeners outside of this
@@ -38,7 +42,7 @@ derive newtype instance e :: Eq Slot
 derive newtype instance s :: Ord Slot
 
 -- |
-terminal :: forall r. H.Component HH.HTML Query Unit Message Aff
+terminal :: H.Component HH.HTML Query Unit Message Aff
 terminal =
   H.parentComponent
     { initialState: const { history: [], getInput: Nothing }
@@ -59,7 +63,9 @@ terminal =
         [ HH.div_ $ state.history <#> \msg -> HH.div_ [HH.text msg]
         ]
 
-  -- | Log: adds the message to the terminal
+  -- | Log: Our game's business logic outside this
+  -- |   component will send a query into this root component
+  -- |   to add the message to the terminal
   -- | GetUserInput: Our game's business logic outside this
   -- |   component will send a query into this root component
   -- |   to get the user's input. This component will re-render

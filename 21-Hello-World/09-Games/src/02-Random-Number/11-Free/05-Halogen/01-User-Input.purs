@@ -1,3 +1,4 @@
+-- | This is the same code used in the Run-based version
 module Games.RandomNumber.Free.Halogen.UserInput
   ( Language(..)
   , calcLikeInput
@@ -5,14 +6,11 @@ module Games.RandomNumber.Free.Halogen.UserInput
 
 import Prelude
 import Data.Maybe (Maybe(..))
-import Effect (Effect)
 import Effect.Aff (Aff)
 import Effect.Aff.Class as AC
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
-import Data.Array (snoc)
 import Halogen as H
-import Halogen.Aff as HA
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
 

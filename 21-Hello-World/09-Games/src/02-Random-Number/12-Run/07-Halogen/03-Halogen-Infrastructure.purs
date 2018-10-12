@@ -41,7 +41,8 @@ type QueryRoot = VariantF (NOTIFY_USER + GET_USER_INPUT + ()) ~> Aff
 
 -- Algebras
 
--- the algebras that use the UI are defined in the eval function
+-- the algebras that use the UI are defined
+-- in the root component's eval function
 
 createRandomIntToInfrastructure :: CreateRandomIntF ~> Aff
 createRandomIntToInfrastructure (CreateRandomIntF bounds reply) = do
