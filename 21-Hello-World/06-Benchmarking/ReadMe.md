@@ -65,3 +65,11 @@ pulp --psc-package run --src-path "benchmark" -m Benchmarking.Syntax.Benchotron
 2. It will output a file in the freshly-created `tmp` directory
 3. Upload the outputted file to [this link](http://harry.garrood.me/purescript-benchotron-svg-renderer/)
 4. Download the graph as an SVG or PNG
+
+## Generating benchmarks for real-world projects
+
+In real-world projects, one would run this command:
+```bash
+pulp --psc-package run -m Performance.ModulePath.To.MainModule --src-
+path benchmark --include "src:test"
+```
