@@ -40,15 +40,15 @@ main = do
 -- similar for `print` function
   print five_string
 ```
-`bind`/`>>=` insures sequential computation. Functions work with `bind` to compute a new value. When we want to group similar functions together, we call it an "effect". So what kind of "effects" (e.g. functions that work with `bind`/`>>=` to compute some new value) can we have? Let's now give some examples via the table below:
+`bind`/`>>=` insures that one computation occurs before another (i.e. sequential computation), but it does not define what kinds of computation are done. Thus, we must explain what "effects" are. **Effects** are the types of computations we want to use. These effects can be grouped together into functions that define computations which `bind` executes in a sequential manner. So what kind of "effects" can we have? Let's now give some examples via the table below:
 
-| When we want `bind` to... | ... we expect to use functions named something like ... | ... which are best abstracted together in a type class called...
+| When we want a type of computation (effect) that... | ... we expect to use functions named something like ... | ... which are best abstracted together in a type class called...
 | - | - | - |
-| Provide for later usage a read-only value/function that may change between different program runs<br>(e.g. "settings" values; dependency injection) | <ul><li>`getSettingValue`</li><li>`getConfigValueStoredOnFile`</li><li>`getNumberOfPlayersInGame`</li></ul> | [`MonadAsk`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Class#t:MonadAsk)
-| Modify the state of a data structure<br>(e.g. changing the nth value in a list)| <ul><li>`pop stack`</li><li>`replaceAt index treeOfStrings "some value"`</li><li>`(\int -> int + 1)`</li></ul> | [`MonadState`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.State.Class#t:MonadState)
-| Return a computation's output and additional data that is generated during the computation | <ul><li>[See this SO answer](https://stackoverflow.com/a/27651976)</li><li>[See this Reddit thread](https://www.reddit.com/r/haskell/comments/3faa02/what_are_some_real_world_uses_of_writer/)</li></ul> | [`MonadTell`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Writer.Class#t:MonadTell)
-| Stop computation because of an unforeseeable error<br>(e.g. "business logic error") | -- | [`MonadThrow`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Error.Class#t:MonadThrow)
-| Deal with "callback hell"<br>(e.g. [de-invert inversion of control](http://www.thev.net/PaulLiu/invert-inversion.html)) | -- | [`MonadCont`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Cont.Class#t:MonadCont)
+| Provides for later usage a read-only value/function that may change between different program runs<br>(e.g. "settings" values; dependency injection) | <ul><li>`getSettingValue`</li><li>`getConfigValueStoredOnFile`</li><li>`getNumberOfPlayersInGame`</li></ul> | [`MonadAsk`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Class#t:MonadAsk)
+| Modifies the state of a data structure<br>(e.g. changing the nth value in a list)| <ul><li>`pop stack`</li><li>`replaceAt index treeOfStrings "some value"`</li><li>`(\int -> int + 1)`</li></ul> | [`MonadState`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.State.Class#t:MonadState)
+| Returns a computation's output and additional data that is generated during the computation | <ul><li>[See this SO answer](https://stackoverflow.com/a/27651976)</li><li>[See this Reddit thread](https://www.reddit.com/r/haskell/comments/3faa02/what_are_some_real_world_uses_of_writer/)</li></ul> | [`MonadTell`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Writer.Class#t:MonadTell)
+| Stops computation because of an unforeseeable error<br>(e.g. "business logic error") | -- | [`MonadThrow`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Error.Class#t:MonadThrow)
+| Deals with "callback hell"<br>(e.g. [de-invert inversion of control](http://www.thev.net/PaulLiu/invert-inversion.html)) | -- | [`MonadCont`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Cont.Class#t:MonadCont)
 
 | When we want to extend the functionality of... | ... with the ability to... | ... we can use its extension type class called...
 | - | - | - |
@@ -68,7 +68,7 @@ bind :: forall a. f   a -> ( a    -> f   b)           -> f    b
 bind :: forall a. Box a -> ( a    -> Box b         )  -> Box  b
 bind             (Box 4)   (\four -> Box (show four)) == Box "5"
 ```
-**In other words, if we use one of the above monads (e.g. `MonadState`) as our monad, we cannot use any other computational monads from above.** For some parts of our program, this is not a problem. If we only want to run a state computation, we only need to use the `MonadState` effect. However, in other parts of our program, we need to use functions from both `MonadState` and `MonadReader`. Thus, we need to "compose" one effect with another. In other words, we need "composable effects." 
+**In other words, if we use one of the above monads (e.g. `MonadState`) as our monad, we cannot use any other computational monads from above.** For some parts of our program, this is not a problem. If we only want to run a state computation, we only need to use the `MonadState` effect. However, in other parts of our program, we need to use functions from both `MonadState` and `MonadReader`. Thus, we need to "compose" one effect with another. In other words, we need "composable effects."
 
 So, how do we get around this limitation?
 
@@ -82,6 +82,8 @@ MonadState_TargetMonad
       |
 MonadReader_SourceMonad
 ```
+Thus, a **monad transformer** can "transform" one monad that does not have certain effects (e.g. state manipulation) into a version that does. In short, a monad transformer augments a base monad with additional powers.
+
 If we want to use all of the monads above, we must ultimately create a "stack" of these monad transformations that lift one monad type somewhere in the "stack" all the way up and into the monad type at the top of the stack. Using a visual, it produces this diagram (read from bottom to top):
 ```
 Index0_TopMonad
@@ -108,4 +110,5 @@ Index5_BottomMonad
 ```
 This idea will be covered more when we explain what `MonadTrans` is and how it works
 
-This approach to functional programming is called "**Monad Transformers**" or "**mtl**" (short for 'monad transformers library', referring to the original Haskell library that synthesized this discovered idea into code).
+In short, "**monad transformers**" augment a base monad with additional capabilties. In Haskell, "**mtl**" is a library that provides default implementations for each monad transformer in such a way that one can compose multiple effects in any order.
+In Purescript, these two ideas are combined together in the library called `purescript-transformers`.
