@@ -21,7 +21,7 @@ The following commands should now work (the versions beside them are the version
 ```bash
 purs --version        # 0.12.0
 pulp --version        # 12.3.0
-psc-pacakge --version # 0.3.2
+psc-package --version # 0.3.2
 ```
 ### Setting up your editor
 
