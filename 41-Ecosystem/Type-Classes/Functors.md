@@ -11,3 +11,5 @@ However, one also hears about `Bifunctor`, `Profunctor`, and `Invariant`. These 
 | [Bifunctor](https://pursuit.purescript.org/packages/purescript-bifunctors/4.0.0/docs/Data.Bifunctor#t:Bifunctor) | `bimap` | Maps 1 type with **a Covariant** Functor and maps 1 other type with a Covariant Functor<br>
 | [Profunctor](https://pursuit.purescript.org/packages/purescript-profunctor/4.0.0/docs/Data.Profunctor) | `dimap` | Maps 1 type with **a Contravariant Functor** and maps 1 other type with a Contravariant Functor
 | [Invariant](https://pursuit.purescript.org/packages/purescript-invariant/4.1.0/docs/Data.Functor.Invariant#t:Invariant) | `imap` | Maps 1 type with either/both a Covariant Functor or/and a Contravariant Functor
+
+See also [this Profunctor](https://typeclasses.com/profunctors) explanation
