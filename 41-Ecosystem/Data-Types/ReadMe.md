@@ -57,3 +57,8 @@ These costs can be minimized by making data structures `lazy`, waiting to comput
 ## Deeper Reading
 
 For a deeper explanation of Purely Functional Data Structures, read through Chris Okasaki's [thesis](https://www.cs.cmu.edu/~rwh/theses/okasaki.pdf) or buy his [book](https://www.amazon.com/Purely-Functional-Structures-Chris-Okasaki/dp/0521663504). Then see the answer to ["What's new in purely functional data structures since Okasaki?"](https://cstheory.stackexchange.com/questions/1539/whats-new-in-purely-functional-data-structures-since-okasaki)
+
+
+## See Also
+
+An explanation on ["higher-kinded data types"](http://reasonablypolymorphic.com/blog/higher-kinded-data/)
