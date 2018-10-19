@@ -74,7 +74,9 @@ See the indentation rules to correctly indent your where clause
    madeUpFunctions.
 -}
 
-{-
+warning :: String
+warning = """
+
 WARNING!
 
 The 'where' clause cannot be used with pattern matching due to a bug
@@ -90,7 +92,7 @@ patternMatchGuardWithWhere x | x == 0 = stringValue
   stringValue :: String
   stringValue = "string value"
 -------------------------------------------------------------
--}
+"""
 
 -- necessary to make this file compile:
 somethingThatUses :: String -> String
