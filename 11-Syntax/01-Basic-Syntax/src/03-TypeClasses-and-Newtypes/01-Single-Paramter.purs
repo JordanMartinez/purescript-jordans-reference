@@ -46,6 +46,15 @@ instance intZeroAppender :: ZeroAppender Int where
   append = (+)
   zeroValue = 0
 
+warning_orphanInstance :: String
+warning_orphanInstance = """
+
+Be aware of what an 'orphan instance' is. 
+
+See the following link for more info:
+https://github.com/purescript/documentation/blob/master/errors/OrphanInstance.md
+"""
+
 {-
 Note: Type class instances that use type aliases (i.e. the `type` keyword)
 wil fail to compile. The following code demonstrates this.
