@@ -14,7 +14,15 @@ In other words, one needs to be able to do a few things:
 
 ## The Solution
 
-This solution is called the `Zipper`. For an explanatino on this concept, see these links:
+This solution is called the `Zipper`.
+
+There are libraries the implement this for variuos types. Reading through the code can help you understand it pretty quickly:
+
+| Type | Library |
+| - | - |
+| `List` | [purescript-pointed-list](https://github.com/paluh/purescript-pointed-list)
+
+For an non-code explanation on this concept, see these links:
 - [Haskell Wikibook's explanation](https://en.wikibooks.org/wiki/Haskell/Zippers), which includes pictures to help understand how this idea in general works.
 - [The original paper](https://www.st.cs.uni-saarland.de/edu/seminare/2005/advanced-fp/docs/huet-zipper.pdf)
 - [Learn You a Haskell for Great Good](http://learnyouahaskell.com/zippers)'s explanation
