@@ -54,4 +54,7 @@ TODO
 
 ## Category Theory
 
-- See Bortosz Mileski's [blogs](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/) / [videos](https://www.youtube.com/playlist?list=PLbgaMIhjbmEnaH_LTkxLI7FMa2HsnawM_)
+- See Bortosz Mileski's
+    - (unofficial) [PDF / Hard back of all his blog posts](https://github.com/hmemcpy/milewski-ctfp-pdf)
+    - [blogs](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
+    - [videos](https://www.youtube.com/playlist?list=PLbgaMIhjbmEnaH_LTkxLI7FMa2HsnawM_)
