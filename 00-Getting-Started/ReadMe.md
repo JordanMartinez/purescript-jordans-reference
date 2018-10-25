@@ -36,3 +36,7 @@ TODO, but the general idea is:
 - https://www.youtube.com/watch?time_continue=22&v=5AtyWgQ3vv0
 - type-level programming
 - compiles to other backends beside Javascript
+
+## Establishing Culture
+
+Watch [The Hard Parts of Open Source](https://www.youtube.com/watch?v=o_4EX4dPppA)
