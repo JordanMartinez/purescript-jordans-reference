@@ -37,6 +37,8 @@ TODO, but the general idea is:
 - type-level programming
 - compiles to other backends beside Javascript
 
+See the (WIP) [Purescript version of Real World App](https://github.com/thomashoneyman/purescript-halogen-realworld)
+
 ## Establishing Culture
 
 Watch [The Hard Parts of Open Source](https://www.youtube.com/watch?v=o_4EX4dPppA)
