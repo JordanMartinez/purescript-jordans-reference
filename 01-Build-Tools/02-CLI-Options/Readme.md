@@ -5,7 +5,7 @@ It's easier to read through the CLI's documentation by reading them in a mind-ma
 - pulp: `12.3.0`
 - psc-package: `0.3.2`
 
-Download [Freeplane](https://www.freeplane.org/) to read through the documenation in a mind-map format
+Download [Freeplane](https://www.freeplane.org/) to read through the documentation in a mind-map format
 
 ![Purescript-Build-Tools.mm](./Purescript-Build-Tools.mm)
 
