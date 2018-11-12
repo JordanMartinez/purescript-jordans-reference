@@ -71,3 +71,35 @@ However, the above is not always useful when one only wants to know what the typ
 doesX :: String -> _ -> Int
 doesX str anotherString = length (concat str anotherString)
 ```
+
+## Determining why a type was inferred incorrectly
+
+Sometimes, I wish we could have a 'unification trace' or a 'type inference trace'. I know the code I wrote works, but there's some mistake somewhere in my code that's making the compiler infer the wrong type at point X, which then produces the type inference problem much later at point Y. To solve Y, I need to fix the problem X, but I'm not sure where X is.
+
+Here's an example:
+```purescript
+type Rec = { a :: String }
+
+f :: String -> String
+f theString = wrap (unwrap theString)
+
+  where
+    wrap :: String -> Rec
+    wrap theString = { a: theString }
+
+    {-
+      the mistake! Compiler says
+      Cannot match type
+        { a :: String }
+      with type
+        { a :: String, b :: String }
+    unwrap :: Rec -> String
+    unwrap rec = rec.b
+```
+
+From the Slack channel, garyb mentioned passing the `--verbose-errors` flag to the compiler. **This will output a LOT of information**, but it's that or nothing. To do that, run this code:
+
+```bash
+pulp --psc-package build -- --verbose-errors
+pulp --psc-package build -- -v
+```
