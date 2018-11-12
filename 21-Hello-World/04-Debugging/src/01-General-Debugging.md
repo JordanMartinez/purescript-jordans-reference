@@ -4,6 +4,8 @@ The following sections are tips for debugging issues that may arise in a strongl
 
 ## Type Directed Search
 
+Otherwise known as "typed holes."
+
 If you recall in `Syntax/Basic Syntax/src/Data-and-Functions/Type-Directed-Search.md`, we can use type-directed search to
 1. help us determine what an entity's type is
 2. guide us in how to implement something
@@ -38,15 +40,16 @@ If you encounter a problem or need help, this should be one of the first things 
 
 ## Getting the Type of an Expression from the Compiler
 
-This tip comes from cvlad on the Slack channel (I've edited his response below for clarity):
-> If you want the type of `something`, a good trick is to assert its type to something random like `Unit`. For example, you could write: `(log "hola") :: Unit`. The compiler will give you an error such as, "Cannot unify `Unit` with `_`", where `_` will be the type of the expression.
+This is known as "typed wildcards".
+
+In a function body, wrapping some term with `(term :: _)` will cause the compiler to infer the type for you.
 
 ```purescript
 main :: Effect Unit
 main = do
   a <- computeA
   b <- computeB
-  c <- (\a -> (\c -> ((doX c) :: Unit)) <$> box a) <$> (Box 5) <*> (Box 8)
+  c <- (\w x -> ((doX x) :: _)) <$> box a) <$> (Box 5) <*> (Box 8)
 ```
 
 ## Getting the Type of a Function from the Compiler
@@ -61,4 +64,42 @@ In such cases, we can completely omit the type signature and the compiler will u
 -- so the compiler will output a warning
 -- stating what its inferred type is
 f = (\a -> (\c -> doX c) <$> box a) <$> (Box 5) <*> (Box 8)
+```
+
+However, the above is not always useful when one only wants to know what the type of either an argument or the return type. In such situations, one can use typed wildcards from above in the type signature:
+```purescript
+doesX :: String -> _ -> Int
+doesX str anotherString = length (concat str anotherString)
+```
+
+## Determining why a type was inferred incorrectly
+
+Sometimes, I wish we could have a 'unification trace' or a 'type inference trace'. I know the code I wrote works, but there's some mistake somewhere in my code that's making the compiler infer the wrong type at point X, which then produces the type inference problem much later at point Y. To solve Y, I need to fix the problem X, but I'm not sure where X is.
+
+Here's an example:
+```purescript
+type Rec = { a :: String }
+
+f :: String -> String
+f theString = wrap (unwrap theString)
+
+  where
+    wrap :: String -> Rec
+    wrap theString = { a: theString }
+
+    {-
+      the mistake! Compiler says
+      Cannot match type
+        { a :: String }
+      with type
+        { a :: String, b :: String }
+    unwrap :: Rec -> String
+    unwrap rec = rec.b
+```
+
+From the Slack channel, garyb mentioned passing the `--verbose-errors` flag to the compiler. **This will output a LOT of information**, but it's that or nothing. To do that, run this code:
+
+```bash
+pulp --psc-package build -- --verbose-errors
+pulp --psc-package build -- -v
 ```

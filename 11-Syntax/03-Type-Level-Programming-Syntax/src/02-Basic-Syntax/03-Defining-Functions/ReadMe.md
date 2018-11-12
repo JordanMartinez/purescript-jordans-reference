@@ -136,6 +136,7 @@ A type-level function can only "compute" a type-level expression when the types 
 To understand unification at a deeper level, see these links:
 - [Type Checking](https://www.youtube.com/watch?v=r030JkmMLMI). This video **quickly** explains some of the notation used in the paper below, but not all of it.
 - [Introduction to Type Inference](https://www.youtube.com/watch?v=il3gD7XMdmA). This video will explain a few more pieces of the notation used in the paper below as well as the problems that arise in type inference. Unfortunately, the teacher goes through concepts quickly and runs out of time, so not everything is immediately understandable through the first viewing.
+- [Phil's overview of the Purescript Type's System](https://www.youtube.com/embed/SPpIbiZFPRY?start=2258), where he shows how the compiler unifies types using the same notation above.
 - [The original paper describing instance chains](http://web.cecs.pdx.edu/~mpj/pubs/instancechains.pdf).
 
 ## Functional Dependencies Reexamined

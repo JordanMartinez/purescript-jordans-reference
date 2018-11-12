@@ -23,6 +23,12 @@ TODO, but the general idea:
 
 ### ...but not write Javascript to build it...
 
+The benefits of strong types:
+- Types == UML diagrams
+- The types guide how something should be implemented
+- The compiler can infer runtime code
+- Certain classes of bugs are eliminated
+
 TODO, but the general idea is:
 - dynamic typing -> runtime errors
 - a linter is just a basic static type checker

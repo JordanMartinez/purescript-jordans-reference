@@ -19,3 +19,7 @@ There are three different ways one can handle partial functions in Purescript:
 ## Compilation Instruction
 
 Start the REPL, import the file's module, and pass in different arguments to the function to see what happens
+
+## Other Useful Links
+
+- [Lamda The Ultimate - Pattern Factory](https://github.com/thma/LtuPatternFactory/tree/master) - Explains FP design patterns using OO terms.
