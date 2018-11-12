@@ -7,6 +7,10 @@ Throughout your learning process, it will be helpful to ask others for help. The
 - Register for an account on the Functional Programming Slack group [here](https://functionalprogramming.slack.com/) and add yourself to these two channels:`#purescript-beginner`, `#purescript`. You may also be interested in these channels: `#categoryTheory`, `#haskell`, and `#haskell-beginner` .
 - Register for the Purescript ML forum [here](https://discourse.purescript.org/)
 
+## PureScript's Open Collective
+
+If you ever want to support PureScript, consider making a pledge on its [Open Collective](https://opencollective.com/purescript) page.
+
 ## Setting up Purescript for the First Time
 
 ### Installation
