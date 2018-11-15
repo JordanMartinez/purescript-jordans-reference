@@ -15,15 +15,15 @@ If you ever want to support PureScript, consider making a pledge on its [Open Co
 
 ### Installation
 
-The [Purescript By Example book](https://leanpub.com/purescript/) demonstrates how to set up one's environment for PureScript `0.11.x` (outdated). Since the book's release, PureScript `0.12.0` has been released, which introduced breaking changes. Fortunately, Justin Woo explains how to set up one's environment for the `0.12.0`. If you just want to get things set up ASAP, follow the below summary of his article's instructions. If you want to understand why you should do these commands, read [his article here](https://qiita.com/kimagure/items/570e6f2bbce5b4724564):
+The [Purescript By Example book](https://leanpub.com/purescript/) demonstrates how to set up one's environment for PureScript `0.11.x` (outdated). Since the book's release, PureScript `0.12.0` has been released, which introduced breaking changes. Fortunately, Justin Woo explains how to set up one's environment for the `0.12.0` (since the article's publication, `0.12.1` has been released). If you just want to get things set up ASAP, follow the below summary of his article's instructions. If you want to understand why you should do these commands, read [his article here](https://qiita.com/kimagure/items/570e6f2bbce5b4724564):
 1. Install Node 8 or greater: https://nodejs.org/en/download/
 2. Set your npm prefix: `npm set prefix ~/.npm`
 3. Set your PATH: `export PATH="$HOME/.npm/bin:$PATH"`
-4. Install Purescript, pulp, and psc-package: `npm i -g purescript@0.12.0 pulp psc-package`
+4. Install Purescript, pulp, and psc-package: `npm i -g purescript@0.12.1 pulp psc-package`
 
 The following commands should now work (the versions beside them are the versions I used when writing this project):
 ```bash
-purs --version        # 0.12.0
+purs --version        # 0.12.1
 pulp --version        # 12.3.0
 psc-package --version # 0.3.2
 ```
