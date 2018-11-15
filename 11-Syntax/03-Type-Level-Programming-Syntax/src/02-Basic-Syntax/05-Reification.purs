@@ -1,5 +1,8 @@
 module Syntax.TypeLevel.Reification where
 
+-- ignore this
+import Prelude (class Show)
+
 -- Reification = value-level instance -> type-level instance
 
 -- In value-level programming,
@@ -23,31 +26,31 @@ Reification works by using callback functions:
 -}
 
 -- Given the following code, which
---   - defines the type-Level Boolean and its two instances
+--   - defines the type-Level Boolean (named here Boolean_) and its two instances
 --   - defines a Proxy type and its two instances
 --   - defines the reflection function for both instances ...
-data BooleanValueLevelType = True_T | False_T
+data Boolean_ = True_Value | False_Value
 
 foreign import kind BooleanKind
 foreign import data True :: BooleanKind
 foreign import data False :: BooleanKind
 
-data BooleanProxy (b :: BooleanKind) = BProxyInstance
+data BooleanProxy (b :: BooleanKind) = BooleanProxyInstance
 
 trueK :: BooleanProxy True
-trueK = BProxyInstance
+trueK = BooleanProxyInstance
 
 falseK :: BooleanProxy False
-falseK = BProxyInstance
+falseK = BooleanProxyInstance
 
 class IsBooleanKind (b :: BooleanKind) where
-  reflectBool :: BooleanProxy b -> Boolean
+  reflectBoolean :: BooleanProxy b -> Boolean_
 
 instance trueBoolean :: IsBooleanKind True where
-  reflectBool _ = true
+  reflectBoolean _ = True_Value
 
 instance falseBoolean :: IsBooleanKind False where
-  reflectBool _ = false
+  reflectBoolean _ = False_Value
 
 -- We can reify a boolean by
 --   - defining a type class that constrains a type
@@ -63,12 +66,12 @@ class IsBooleanKind b <= BooleanKindConstraint b
 -- no other instance should exist.
 instance typeConstraint :: IsBooleanKind b => BooleanKindConstraint b
 
-reifyBool :: forall returnType
-           . Boolean
-          -> (forall b. BooleanKindConstraint b => BooleanProxy b -> returnType)
-          -> returnType
-reifyBool true  function = function trueK
-reifyBool false function = function falseK
+reifyBoolean :: forall returnType
+             . Boolean_
+             -> (forall b. BooleanKindConstraint b => BooleanProxy b -> returnType)
+             -> returnType
+reifyBoolean True_Value  function = function trueK
+reifyBoolean False_Value function = function falseK
 
 {-
 One might ask,
@@ -102,6 +105,12 @@ I currently think:
       reifyBool false toBlue
 
 -}
+
+-- necessary for not getting errors while trying the functions in the REPL
+
+instance showBoolean_ :: Show Boolean_ where
+    show True_Value  = "True_Value"
+    show False_Value = "False_Value"
 
 -- necessary to compile
 
