@@ -21,7 +21,7 @@ pulp --psc-package init projectName
 # default package set. This is the recommended approach.
 # (See the latest release here):
 #    https://github.com/purescript/package-sets/releases
-psc-package init --set psc-0.12.0-20180819 --source https://github.com/purescript/package-sets.git
+psc-package init --set psc-0.12.1 --source https://github.com/purescript/package-sets.git
 
 # 2b) Open the below file and change the 'name' field to your project's name.
 #
