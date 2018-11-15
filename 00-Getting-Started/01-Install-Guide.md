@@ -37,8 +37,7 @@ The following commands should now work (the versions beside them are the version
 purs --version        # 0.12.1
 pulp --version        # 12.3.0
 psc-package --version # 0.3.2
-
-# Spachetti does not have any version info unfortunately...
+spacchetti version    # 0.5.0.0
 ```
 
 In addition to the above packages, you also need to install `dhall-to-json`. [Dhall](https://github.com/dhall-lang/dhall-lang):
