@@ -58,7 +58,7 @@ A **package set** consists of a set of packages. It's a JSON file that maps a pa
 
 #### The Cause of the Pain Point
 
-When using Bower, you have no idea whether a package (code that was released at some tag) will compile with some other package. AFAIK, Justin created `psc-package` to fix this problem.
+When using Bower, you have no idea whether a package (code that was released at some tag) will compile with some other package. AFAIK, Phil Freeman (creator of PureScript) and others created `psc-package` to fix this problem. Currently, Justin Woo maintains it.
 
 Justin has defined an "official" / "standard" package set [here](https://github.com/purescript/package-sets/blob/master/packages.json) that `psc-package` uses to download and compile one's dependencies. Why? So that he can prove via CI that all the packages in the set work/compile together without issue. This addresses the pain point from Bower. Moreover, it also stops each developer who uses `psc-package` from wasting time verifying the same package set locally as it can be done only once in Justin's repo.
 
