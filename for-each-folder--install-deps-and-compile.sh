@@ -62,13 +62,13 @@ rm -rf .psc-package/ .pulp-cache/  output/
 psc-package install && pulp --psc-package test
 cd ../../
 
-# Benchmarking is omitted because it requires using a custom package set
-# TODO: fix this by using Dhall
-#cd 21-Hello-World/06-Benchmarking/
-#
-#rm -rf .psc-package/ .pulp-cache/  output/
-#psc-package install && pulp --psc-package test
-#cd ../../
+cd 21-Hello-World/06-Benchmarking/
+pwd
+rm -rf .psc-package/ .pulp-cache/  output/  node_modules/
+npm install benchmark
+spacchetti insdhall
+psc-package install && pulp --psc-package build --src-path "benchmark"
+cd ../../
 
 cd 21-Hello-World/07-Type-Level-Programming/
 pwd
