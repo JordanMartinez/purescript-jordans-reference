@@ -1,0 +1,17 @@
+{
+    "name": "ignore",
+    "set": "local",
+    "source": "",
+    "depends": [
+      "exceptions",
+      "console",
+      "strings",
+      "quickcheck-laws",
+      "quickcheck",
+      "benchotron",
+      "spec",
+      "psci-support",
+      "effect",
+      "prelude"
+    ]
+}
