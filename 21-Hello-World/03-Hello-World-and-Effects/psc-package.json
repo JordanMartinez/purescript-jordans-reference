@@ -9,6 +9,7 @@
     "prelude",
     "random",
     "now",
-    "js-timers"
+    "js-timers",
+    "debug"
   ]
 }
