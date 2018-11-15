@@ -11,26 +11,31 @@
 echo "... Syntax ...."
 
 cd 11-Syntax/01-Basic-Syntax/
+pwd
 rm -rf .psc-package/ .pulp-cache/  output/
 psc-package install && pulp --psc-package build
 cd ../../
 
 cd 11-Syntax/02-Foreign-Function-Interface/
+pwd
 rm -rf .psc-package/ .pulp-cache/  output/
 psc-package install && pulp --psc-package build
 cd ../../
 
 cd 11-Syntax/03-Type-Level-Programming-Syntax/
+pwd
 rm -rf .psc-package/ .pulp-cache/  output/
 psc-package install && pulp --psc-package build
 cd ../../
 
 cd 11-Syntax/04-Module-Syntax/
+pwd
 rm -rf .psc-package/ .pulp-cache/  output/
 psc-package install && pulp --psc-package build
 cd ../../
 
 cd 11-Syntax/05-Prelude-Syntax/
+pwd
 rm -rf .psc-package/ .pulp-cache/  output/
 psc-package install && pulp --psc-package build
 cd ../../
@@ -40,16 +45,19 @@ cd ../../
 echo "... Hello World ...."
 
 cd 21-Hello-World/03-Hello-World-and-Effects/
+pwd
 rm -rf .psc-package/ .pulp-cache/  output/
 psc-package install && pulp --psc-package build
 cd ../../
 
 cd 21-Hello-World/04-Debugging/
+pwd
 rm -rf .psc-package/ .pulp-cache/  output/
 psc-package install && pulp --psc-package build
 cd ../../
 
 cd 21-Hello-World/05-Testing/
+pwd
 rm -rf .psc-package/ .pulp-cache/  output/
 psc-package install && pulp --psc-package test
 cd ../../
@@ -63,16 +71,19 @@ cd ../../
 #cd ../../
 
 cd 21-Hello-World/07-Type-Level-Programming/
+pwd
 rm -rf .psc-package/ .pulp-cache/  output/
 psc-package install && pulp --psc-package build
 cd ../../
 
 cd 21-Hello-World/08-Application-Structure/
+pwd
 rm -rf .psc-package/ .pulp-cache/  output/
 psc-package install && pulp --psc-package build
 cd ../../
 
 cd 21-Hello-World/09-Games/
+pwd
 rm -rf .psc-package/ .pulp-cache/  output/
 psc-package install && pulp --psc-package build && pulp --psc-package test -m Test.Games.RandomNumber.Run.Infrastructure
 cd ../../
