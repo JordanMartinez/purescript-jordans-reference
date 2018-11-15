@@ -1,5 +1,8 @@
 module Syntax.TypeLevel.Reflection where
 
+-- ignore this
+import Prelude (class Show)
+
 -- Reflection syntax
 --  Converting a type-level instance into a value-level instance
 
@@ -34,40 +37,40 @@ data Boolean_ = True_Value | False_Value
 foreign import kind BooleanKind
 foreign import data True :: BooleanKind
 foreign import data False :: BooleanKind
-data BooleanProxy (a :: BooleanKind) = BProxyInstance
+data BooleanProxy (a :: BooleanKind) = BooleanProxyInstance
 
 {-
 Read trueK and falseK as:
-  trueK  = (BProxyInstance :: BProxy True) - an instance of type "BProxy True"
-  falseK = (BProxyInstance :: BProxy False) - an instance of type "BProxy False" -}
+  trueK  = (BooleanProxyInstance :: BooleanProxy True) - an instance of type "BooleanProxy True"
+  falseK = (BooleanProxyInstance :: BooleanProxy False) - an instance of type "BooleanProxy False" -}
 trueK :: BooleanProxy True
-trueK = BProxyInstance
+trueK = BooleanProxyInstance
 
 falseK :: BooleanProxy False
-falseK = BProxyInstance
+falseK = BooleanProxyInstance
 
 class IsBooleanKind (a :: BooleanKind) where
-  reflectBoolean :: BooleanProxy a -> Boolean
+  reflectBoolean :: BooleanProxy a -> Boolean_
 
 instance trueTL_VL :: IsBooleanKind True where
--- reflectBoolean (BProxyInstance :: BProxy True) = true
-   reflectBoolean _                               = true
+-- reflectBoolean (BooleanProxyInstance :: BooleanProxy True) = True_Value
+   reflectBoolean _                                           = True_Value
 
 instance falseTL_VL :: IsBooleanKind False where
--- reflectBoolean (BProxyInstance :: BProxy False) = false
-   reflectBoolean _                                = false
+-- reflectBoolean (BooleanProxyInstance :: BooleanProxy False) = False_Value
+   reflectBoolean _                                            = False_Value
 
 
 -- We can also use instance chains here to distinguish
 -- one from another
 
 class IsTrue (a :: BooleanKind) where
-  isTrue :: BooleanProxy a -> Boolean
+  isTrue :: BooleanProxy a -> Boolean_
 
 instance isTrue_True :: IsTrue True where
-  isTrue _ = true
+  isTrue _ = True_Value
 else instance isTrue_catchall :: IsTrue a where
-  isTrue _ = false
+  isTrue _ = False_Value
 
 -- Using instance chains here is more convenient if we had
 -- a lot more type-level instances than just 2. In some cases,
@@ -79,3 +82,10 @@ else instance isTrue_catchall :: IsTrue a where
 --    reflectBoolean falseK
 --    isTrue trueK
 --    isTrue falseK
+
+
+-- necessary for not getting errors while trying the functions in the REPL
+
+instance showBVLT :: Show Boolean_ where
+    show True_Value  = "True_Value"
+    show False_Value = "False_Value"
