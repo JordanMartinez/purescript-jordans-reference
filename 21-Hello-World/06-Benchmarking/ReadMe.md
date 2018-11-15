@@ -53,5 +53,5 @@ pulp --psc-package run --src-path "benchmark" -m Benchmarking.Syntax.Benchotron
 
 In real-world projects, one would run this command:
 ```bash
-pulp --psc-package run -m Performance.ModulePath.To.MainModule --src-path benchmark --include "src:test"
+pulp --psc-package run -m Performance.ModulePath.To.MainModule --src-path "benchmark" --include "src:test"
 ```
