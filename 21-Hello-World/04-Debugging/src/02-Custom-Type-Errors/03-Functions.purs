@@ -1,5 +1,7 @@
 module ConsoleLessons.CustomTypeErrors.Functions where
 
+import Prelude
+import Data.Symbol (SProxy(..))
 import Effect (Effect)
 import Effect.Console (log)
 
@@ -10,11 +12,14 @@ import Data.Unit (Unit)
 import Data.Function (($))
 import Control.Bind (discard)
 
-import Prim.TypeError (kind Doc, Text, Quote, Above, Beside, class Warn, class Fail)
+import Prim.TypeError (kind Doc, Text, Quote, Above, Beside, QuoteLabel, class Warn, class Fail)
 
 data Doc_
   = Text_ String      -- wraps a Symbol
   | Quote_ String     -- the Type's name as a Symbol
+  | QuoteLabel_ String -- Similar to Text but handles things differently
+                       -- Used particularly for 'labels', the 'keys'
+                       -- in rows/records (see below)
   | Beside_ Doc_ Doc_ -- same as "left <> right" ("leftright")
   | Above_ Doc_ Doc_  -- same as "top" <> "\n" <> "bottom" ("top\nbottom")
 
@@ -47,10 +52,31 @@ failValue = 20
 regularValue :: Int
 regularValue = 4
 
+-- QuoteLabel vs Text
+labelAsText :: forall l. Warn
+  ( Text "Text Label " <> Text l
+  ) => SProxy l -> String
+labelAsText _ = ""
+
+labelAsQuote :: forall l. Warn
+  ( Text "Quote Label " <> QuoteLabel l
+  ) => SProxy l -> String
+labelAsQuote _ = ""
+
 main :: Effect Unit
 main = do
   log $ show regularValue
   log $ show warnValue
+
+  -- Demonstrates the difference between Text and QuoteLabel
+  log $ show (labelAsText (SProxy :: SProxy "boo"))
+  log $ show (labelAsQuote (SProxy :: SProxy "boo"))
+
+  log $ show (labelAsText (SProxy :: SProxy "b\"oo"))
+  log $ show (labelAsQuote (SProxy :: SProxy "b\"oo"))
+
+  log $ show (labelAsText (SProxy :: SProxy "b o o"))
+  log $ show (labelAsQuote (SProxy :: SProxy "b o o"))
 
   -- Uncomment the next line, save the file, run it, and see what happens
   -- log $ show failValue
