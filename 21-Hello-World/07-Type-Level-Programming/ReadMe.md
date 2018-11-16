@@ -57,3 +57,7 @@ This is exactly what the library [Vec](https://pursuit.purescript.org/packages/p
 
 - While type-level programming may improve your program's runtime speed or further force you to use safe code, it will increase the time it takes to compile your program
 - Creating an type-level instance for a kind can get really tedious and boilerplatey. Either reuse ones that exist or publish your own for the benefit of the entire community.
+
+## Other Learning Sources
+
+Consider purchasing the `Thinking with Types` book mentioned in `ROOT_FOLDER/Syntax/Type-Level Programming Syntax/ReadMe.md`
