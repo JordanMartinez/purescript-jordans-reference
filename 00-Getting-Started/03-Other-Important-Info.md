@@ -1,6 +1,11 @@
 # Other Important Info
 
-[Purescript By Example](https://leanpub.com/purescript/read#) is a now-outdated book that teaches Purescript. It covers Purescript `0.11.7` and not `0.12.0`, which introduced a lot of breaking changes. It's still a useful learning resource. However, be wary of any references to these [deprecated packages](https://github.com/purescript-deprecated) and read through the ReadMe in `ROOT_FOLDER/Hello-World/Console-Lessons/Effect-Eff-and-Aff` to understand how to translate the no-longer-used `Eff` type to `Effect` type.
+[Purescript By Example](https://leanpub.com/purescript/read#) is a book that teaches Purescript. Unfortunately, it is now outdated because it covers Purescript `0.11.7` and not `0.12.x`, which introduced a lot of breaking changes. However, it's still a useful learning resource.
+
+If you decide to read the book, here are things to be aware of:
+- be wary of any references to these [deprecated packages](https://github.com/purescript-deprecated)
+- Refer to `dwhitney` fork of the book's code, which is currently being updating to use `0.12.x` code [here](https://github.com/dwhitney/purescript-book/tree/0.12)
+- Refer to the ReadMe in `ROOT_FOLDER/Hello-World/Console-Lessons/Effect-Eff-and-Aff` to understand how to translate the no-longer-used `Eff` type to `Effect` type.
 
 ## Documenation
 

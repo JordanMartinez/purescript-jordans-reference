@@ -15,18 +15,42 @@ If you ever want to support PureScript, consider making a pledge on its [Open Co
 
 ### Installation
 
-The [Purescript By Example book](https://leanpub.com/purescript/) demonstrates how to set up one's environment for PureScript `0.11.x` (outdated). Since the book's release, PureScript `0.12.0` has been released, which introduced breaking changes. Fortunately, Justin Woo explains how to set up one's environment for the `0.12.0` (since the article's publication, `0.12.1` has been released). If you just want to get things set up ASAP, follow the below summary of his article's instructions. If you want to understand why you should do these commands, read [his article here](https://qiita.com/kimagure/items/570e6f2bbce5b4724564):
+Justin Woo explains how to set up one's environment for the `0.12.x` release but has not been updated for two things. First, the PureScript release at the time was `0.12.0` but now `0.12.1` is out. Second, he did not include instructions for setting up [`spacchetti`](https://github.com/justinwoo/spacchetti) and its counterpart, `dhall`. Spacchetti is a project Justin later wrote to speed up tedious tasks that often arise when using `psc-package`.
+
+If you just want to get things set up ASAP, follow the below summary of his article's instructions + the Spacchetti stuff. If you want to understand why you should do these commands, read [his article here](https://qiita.com/kimagure/items/570e6f2bbce5b4724564):
 1. Install Node 8 or greater: https://nodejs.org/en/download/
 2. Set your npm prefix: `npm set prefix ~/.npm`
 3. Set your PATH: `export PATH="$HOME/.npm/bin:$PATH"`
-4. Install Purescript, pulp, and psc-package: `npm i -g purescript@0.12.1 pulp psc-package`
 
+NPM will then be used to install 4 packages
+- `purescript` - the PureScript binary
+- `pulp` - a build tool for PureScript
+- `psc-package` - a dependency manager for PureScript
+- `spacchetti` - already explained above
+
+To install them, run this command:
+```bash
+npm i -g purescript@0.12.1 pulp psc-package-bin-simple spacchetti-cli-bin-simple
+```
 The following commands should now work (the versions beside them are the versions I used when writing this project):
 ```bash
 purs --version        # 0.12.1
 pulp --version        # 12.3.0
 psc-package --version # 0.3.2
+spacchetti version    # 0.5.0.0
 ```
+
+In addition to the above packages, you also need to install `dhall-to-json`. [Dhall](https://github.com/dhall-lang/dhall-lang):
+> Dhall is a programmable configuration language that is not Turing-complete
+>
+> You can think of Dhall as: JSON + functions + types + imports
+
+Good news! You don't need to understand Dhall to use it (I've literally written the instructions / examples to copy/paste).
+
+To install `dhall-to-json` for your platform, see [this page](https://github.com/dhall-lang/dhall-lang/wiki/Getting-started%3A-Generate-JSON-or-YAML)
+
+See the `Build Tools/Tool Comparisons.md` file's "Why Spacchetti"'s section for more info about why `Spacchetti` even exists.
+
 ### Setting up your editor
 
 The following are instructions for setting up the Atom editor. For Emacs, Vim, or Visual Studio, [consult Justin Woo's post on the matter](https://qiita.com/kimagure/items/570e6f2bbce5b4724564#install-some-editor-plugins) and [the respective page in the documentation repo](https://github.com/purescript/documentation/blob/master/ecosystem/Editor-and-tool-support.md#emacs)

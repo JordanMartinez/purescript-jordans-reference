@@ -42,6 +42,58 @@ Now for a side-by-side comparison (an "apples to oranges" comparison)
 
 ^^ This is explained later in this folder ("Create Local Custom Package Set.md")
 
+### Why Spacchetti?
+
+#### Psc-Package Terms
+
+A **package** in this context is 4 things:
+    1. a Git repo
+    2. a tag in that repo
+    3. a set of its dependencies (which are also packages).
+    4. a name to refer to the combination of the above three things
+
+Thus, a package is a unique named `repo-tag-dependencies` combination (e.g. `prelude` could indicate the [Prelude repo at the 'v0.4.1' tag](https://github.com/purescript/purescript-prelude/tree/v4.1.0)).
+
+A **package set** consists of a set of packages. It's a JSON file that maps a package name to its corresponding repo-tag-dependencies combination.
+
+#### The Cause of the Pain Point
+
+When using Bower, you have no idea whether a package (code that was released at some tag) will compile with some other package. AFAIK, Phil Freeman (creator of PureScript) and others created `psc-package` to fix this problem. Currently, Justin Woo maintains it.
+
+Justin has defined an "official" / "standard" package set [here](https://github.com/purescript/package-sets/blob/master/packages.json) that `psc-package` uses to download and compile one's dependencies. Why? So that he can prove via CI that all the packages in the set work/compile together without issue. This addresses the pain point from Bower. Moreover, it also stops each developer who uses `psc-package` from wasting time verifying the same package set locally as it can be done only once in Justin's repo.
+
+This "guaranteed to work together" feature comes with implications:
+- The "official" / "standard" package set must be immutable. Our confidence that packages work together is broken as soon as a new package is added. Adding a package requires reverifying that all the packages work when the package is added.
+- Following from this, changing the package set in any way requires Justin to re-verify it via CI and make a new release of the "official" / "standard" package set.
+
+These implications create the following problems:
+1. Your workflow is blocked when you need a dependency/library that is not already defined as a package within the "official" / "standard" package set.
+  - When this occurs, you or the library/dependency author have to add it to the "official" / "standard" package set yourself, AND THEN wait for Justin to merge that pull request, AND THEN wait for verification to finish (it might fail verification in some cases), AND THEN wait for Justin to make a new relase of the "official" / "standard" package set. That's a lot of waiting.
+2. Your workflow is blocked when you need a dependency/library that is in the package set, but which needs to be patched/changed in some way. For example, a library for handling a `MouseEvent`does not include `mouseEvent.offsetX` ([true story](https://pursuit.purescript.org/packages/purescript-web-uievents/1.0.0/docs/Web.UIEvent.MouseEvent#v:clientX))
+  - This situation is the same as the above except now you or the author need to submit a PR to the library/dependency to fix the issue, AND THEN wait for the library maintainer to make a new release, AND THEN go through all of the steps above.
+
+Moreover, you likely only need to make some change in only one project. It's not worth it to submit a PR, either to Justin's package set repo or a library's repo, because it's custom to your use cases.
+
+Fortunately, `psc-package` does not know about or even have a notion of the "official" / "standard" package set. A developer can still verify packages in a package set on their own. However, manipulating the packaget set's files is very tedious.
+
+To add a new or patch an existing package, here's the steps one has to take (where items marked with `*` are the tedious parts):
+- `*`Create a local copy of the "official" / "standard" package set
+- `*`Add a new package to or modify an existing package's repo/tag in the local package set
+- `*`Locally verify that the package set compiles together
+- `*`Refer to the local package set in one's `psc-package.json` file instead of the "official" / "standard" package set.
+- Re-install the packages and continue coding from there.
+
+#### Solving the Pain Point
+
+Justin fixed this by using `Spacchetti` and `Dhall`. Now, one can easily and quickly patch/change/add a package in some set using Dhall by following these steps:
+1. Run `spacchetti local-setup`
+2. Patch/Change/Add packages to the package set by modifying the `packages.dhall` file, which now includes my instructions and examples for how to do so (this was added [here](https://github.com/justinwoo/spacchetti-cli/pull/18/commits/f949f1ca951be3570a38c0f007b5a28ecf920cf1#diff-eb94b4b0f53b1dc125cfee4342687dd0R2))
+3. Run `spacchetti insdhall`
+4. Run `psc-package verify` (if you know it works, you can skip this step)
+5. Run `psc-package install`
+
+In other words, a potentially weeks-long problem can become a few-seconds fix.
+
 ## The `Batteries` Prelude
 
 The closest idea Bower has to a `package set` is the [`batteries` prelude](https://github.com/tfausak/purescript-batteries) that is no longer maintained and doesn't work for PureScript 0.12.0. I looked through it a month ago and updated the dependencies in their `bower.json` file to [this file](updated-batteries.json), which enables one to use the [Halogen](https://github.com/slamdata/purescript-halogen) library, v4.0.0. (Note: this file is not a correctly-formatted Bower.json file). I abandoned it after I learned about psc-package, but I'm including it here in case others want to use Bower and find a use for it.

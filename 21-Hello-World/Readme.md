@@ -50,7 +50,7 @@ Besides this repo, we have a few choices in terms of understanding functional pr
 
 ### Purescript
 
-- [Purescript By Example](https://leanpub.com/purescript/read#) - Outdated since it covers Purescript `0.11.7` and not `0.12.0`, but still a helpful resource. Be wary of any references to these [deprecated packages](https://github.com/purescript-deprecated) and read through `Hello-World-and-Effects/Effect-Eff-and-Aff.md` to understand how to translate the no-longer-used `Eff` type to `Effect` type.
+- The `Purescript By Example` book. (See `ROOT_FOLDER/Getting Started/Other Important Info.md` for links and clarifications around it)
 - [Purescript Resources](https://purescript-resources.readthedocs.io/en/latest/index.html) - Justin Woo's Read the Docs (RTD) work
 
 ### Haskell

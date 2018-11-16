@@ -19,5 +19,5 @@
 
 # For the benchmarking folder
 /**/tmp/
-# Since Benchotron is not yet in the default package set
-/**/*Benchmarking/psc-package.json
+# Since we need to use Spacchetti to install Benchotron
+/**/*Benchmarking/packages.json

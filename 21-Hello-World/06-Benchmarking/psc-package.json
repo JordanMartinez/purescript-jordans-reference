@@ -1,0 +1,13 @@
+{
+    "name": "ignore",
+    "set": "local",
+    "source": "",
+    "depends": [
+      "console",
+      "quickcheck",
+      "benchotron",
+      "psci-support",
+      "effect",
+      "prelude"
+    ]
+}

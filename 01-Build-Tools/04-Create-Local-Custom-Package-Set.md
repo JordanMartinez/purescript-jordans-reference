@@ -1,6 +1,6 @@
 # Create Local Custom Package Set
 
-I'm writing this because I finally came across a situation where I needed a package via `psc-package` and it was not already included in the default package-set.
+**These are the steps one must take to change something in the "official" / "standard" package-set. This file is for legacy purpose; you should be using `spacchetti` now.**
 
 Thus, here's the steps I took to make it work:
 ```bash

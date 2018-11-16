@@ -36,6 +36,9 @@ import Prim.TypeError (
 data Doc_
   = Text_ String      -- wraps a Symbol
   | Quote_ String     -- the Type's name as a Symbol
+  | QuoteLabel_ String -- Similar to Text but handles things differently
+                       -- Used particularly for 'labels', the 'keys'
+                       -- in rows/records (see functions file)
   | Beside_ Doc_ Doc_ -- same as "left <> right" ("leftright")
   | Above_ Doc_ Doc_  -- same as "top" <> "\n" <> "bottom" ("top\nbottom")
 
