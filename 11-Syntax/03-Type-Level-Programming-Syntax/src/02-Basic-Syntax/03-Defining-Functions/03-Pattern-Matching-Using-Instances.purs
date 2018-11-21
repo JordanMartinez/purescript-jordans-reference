@@ -42,25 +42,25 @@ instance secondPatternMatch :: TypeLevelFunction InputInstance2 OutputInstance2
 instance thirdPatternMatch  :: TypeLevelFunction InputInstance3 OutputInstance3
 
 --------------------------------------------
--- An example using Boolean and Zero/One
-data Boolean_ = True_Value | False_Value
-data ZeroOrOne_ = Zero_ | One_
+-- An example using YesNo and Zero/One
+data YesNo     = Yes  | No
+data ZeroOrOne = Zero | One
 
-toInt :: Boolean -> ZeroOrOne_
+toInt :: YesNo -> ZeroOrOne
 --    input = output
-toInt true = One_
-toInt false = Zero_
+toInt Yes = One
+toInt No = Zero
 
 -- converts to
 
-foreign import kind Boolean
-foreign import data True :: Boolean
-foreign import data False :: Boolean
+foreign import kind YesNoKind
+foreign import data YesK :: YesNoKind
+foreign import data NoK  :: YesNoKind
 
-foreign import kind ZeroOrOne
-foreign import data One :: ZeroOrOne
-foreign import data Zero :: ZeroOrOne
+foreign import kind ZeroOrOneKind
+foreign import data OneK  :: ZeroOrOneKind
+foreign import data ZeroK :: ZeroOrOneKind
 
-class ToInt (input :: Boolean) (output :: ZeroOrOne) | input -> output
-instance toInt_TrueOne :: ToInt True One
-instance toInt_FalseZero :: ToInt False Zero
+class ToInt (input :: YesNoKind) (output :: ZeroOrOneKind) | input -> output
+instance toInt_YesOne :: ToInt YesK OneK
+instance toInt_NoZero :: ToInt NoK  ZeroK
