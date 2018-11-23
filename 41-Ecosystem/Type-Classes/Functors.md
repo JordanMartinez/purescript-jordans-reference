@@ -8,8 +8,8 @@ However, one also hears about `Bifunctor`, `Profunctor`, and `Invariant`. These 
 | - | - | - |
 | [Functor](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Functor#t:Functor) | `map`/ `<$>`/`<#>` | Maps 1 type with a Covariant Functor
 | [Contravariant](https://pursuit.purescript.org/packages/purescript-contravariant/4.0.0/docs/Data.Functor.Contravariant) | `cmap`/`>$<`/`>#<` | Maps 1 type with a Contravariant Functor
-| [Bifunctor](https://pursuit.purescript.org/packages/purescript-bifunctors/4.0.0/docs/Data.Bifunctor#t:Bifunctor) | `bimap` | Maps 1 type with **a Covariant** Functor and maps 1 other type with a Covariant Functor<br>
-| [Profunctor](https://pursuit.purescript.org/packages/purescript-profunctor/4.0.0/docs/Data.Profunctor) | `dimap` | Maps 1 type with **a Contravariant Functor** and maps 1 other type with a Contravariant Functor
+| [Bifunctor](https://pursuit.purescript.org/packages/purescript-bifunctors/4.0.0/docs/Data.Bifunctor#t:Bifunctor) | `bimap` | <ul><li>1st Type: **Covariant map** (e.g. `map`)</li><li>2nd Type: **Covariant map** (e.g. `map`)</li></ul>
+| [Profunctor](https://pursuit.purescript.org/packages/purescript-profunctor/4.0.0/docs/Data.Profunctor) | `dimap` | <ul><li>1st Type: **Contravariant map** (e.g. `cmap`)</li><li>2nd Type: **Covariant map** (e.g. `map`)</li></ul>
 | [Invariant](https://pursuit.purescript.org/packages/purescript-invariant/4.1.0/docs/Data.Functor.Invariant#t:Invariant) | `imap` | Maps 1 type with either/both a Covariant Functor or/and a Contravariant Functor
 
 See also [this Profunctor](https://typeclasses.com/profunctors) explanation
