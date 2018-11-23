@@ -12,7 +12,7 @@ https://pursuit.purescript.org/packages/purescript-arrays/5.0.0/docs/Data.Array.
 ```
 
 | Package | Type name | "Plain English" name |
-| - | - | - | - | - |
+| - | - | - |
 | [purescript-arrays](https://pursuit.purescript.org/packages/purescript-arrays/5.0.0/docs/Data.Array)<br>(Utils library) | `Array a` | Immutable strict size-NOT-known-at-compile-time array
 
 | Usage | Instances & their Usage
@@ -54,7 +54,7 @@ infixr 6 Cons as :
 ```
 
 | Package | Type name | "Plain English" name |
-| - | - | - | - | - |
+| - | - | - |
 | [purescript-list](https://pursuit.purescript.org/packages/purescript-lists/5.0.0) | `List a` | Immutable strict singly-linked list
 
 | Usage | Instances & their Usage
@@ -82,7 +82,7 @@ infixr 6 cons as :
 ```
 
 | Package | Type name | "Plain English" name |
-| - | - | - | - | - |
+| - | - | - |
 | [purescript-list](https://pursuit.purescript.org/packages/purescript-lists/5.3.0/docs/Data.List.Lazy.Types#t:List) | `List a` | Immutable lazy singly-linked list
 
 | Usage | Instances & their Usage

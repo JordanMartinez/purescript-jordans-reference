@@ -7,7 +7,7 @@ data Map key value = -- implementation
 ```
 
 | Package | Type name | "Plain English" name |
-| - | - | - | - | - |
+| - | - | - |
 | [purescript-ordered-collections](https://pursuit.purescript.org/packages/purescript-ordered-collections/1.0.0/docs/Data.Map.Internal) | `Map k v` | Balanced 2-3 Tree map
 
 https://pursuit.purescript.org/packages/purescript-ordered-collections/1.0.0/docs/Data.Set

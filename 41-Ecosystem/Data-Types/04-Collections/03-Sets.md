@@ -7,7 +7,7 @@ newtype Set a = -- implementation
 ```
 
 | Package | Type name | "Plain English" name |
-| - | - | - | - | - |
+| - | - | - |
 | [purescript-ordered-collections](https://pursuit.purescript.org/packages/purescript-ordered-collections/1.0.0/docs/Data.Set) | `Set a` | Balanced 2-3 Tree Set
 
 ## Set (Hash-based)
