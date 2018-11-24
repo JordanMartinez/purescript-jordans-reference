@@ -31,46 +31,46 @@ instance tli_to_vlI :: TLI_to_VLI CustomKindInstance where {-
   reflectCustomKind _                       = "value-level instance"
 ----------------------------
 
--- An example using Booleans:
-data Boolean_ = True_Value | False_Value
+-- An example using the Boolean-like data type YesNo:
+data YesNo = Yes | No
 
-foreign import kind BooleanKind
-foreign import data True :: BooleanKind
-foreign import data False :: BooleanKind
-data BooleanProxy (a :: BooleanKind) = BooleanProxyInstance
+foreign import kind YesNoKind
+foreign import data YesK :: YesNoKind
+foreign import data NoK  :: YesNoKind
+data YesNoProxy (a :: YesNoKind) = YesNoProxyInstance
 
 {-
-Read trueK and falseK as:
-  trueK  = (BooleanProxyInstance :: BooleanProxy True) - an instance of type "BooleanProxy True"
-  falseK = (BooleanProxyInstance :: BooleanProxy False) - an instance of type "BooleanProxy False" -}
-trueK :: BooleanProxy True
-trueK = BooleanProxyInstance
+Read yesK and yesK as:
+  yesK = (YesNoProxyInstance :: YesNoProxy Yes) - an instance of type "YesNoProxy Yes"
+  noK  = (YesNoProxyInstance :: YesNoProxy No)  - an instance of type "YesNoProxy No" -}
+yesK :: YesNoProxy YesK
+yesK = YesNoProxyInstance
 
-falseK :: BooleanProxy False
-falseK = BooleanProxyInstance
+noK :: YesNoProxy NoK
+noK = YesNoProxyInstance
 
-class IsBooleanKind (a :: BooleanKind) where
-  reflectBoolean :: BooleanProxy a -> Boolean_
+class IsYesNoKind (a :: YesNoKind) where
+  reflectYesNo :: YesNoProxy a -> YesNo
 
-instance trueTL_VL :: IsBooleanKind True where
--- reflectBoolean (BooleanProxyInstance :: BooleanProxy True) = True_Value
-   reflectBoolean _                                           = True_Value
+instance yesTL_VL :: IsYesNoKind YesK where
+-- reflectYesNo (YesNoProxyInstance :: YesNoProxy Yes) = Yes
+   reflectYesNo _                                      = Yes
 
-instance falseTL_VL :: IsBooleanKind False where
--- reflectBoolean (BooleanProxyInstance :: BooleanProxy False) = False_Value
-   reflectBoolean _                                            = False_Value
+instance noTL_VL :: IsYesNoKind NoK where
+-- reflectYesNo (YesNoProxyInstance :: YesNoProxy No) = No
+   reflectYesNo _                                     = No
 
 
 -- We can also use instance chains here to distinguish
 -- one from another
 
-class IsTrue (a :: BooleanKind) where
-  isTrue :: BooleanProxy a -> Boolean_
+class IsYes (a :: YesNoKind) where
+  isYes :: YesNoProxy a -> YesNo
 
-instance isTrue_True :: IsTrue True where
-  isTrue _ = True_Value
-else instance isTrue_catchall :: IsTrue a where
-  isTrue _ = False_Value
+instance isYes_Yes :: IsYes YesK where
+  isYes _ = Yes
+else instance isYes_catchall :: IsYes a where
+  isYes _ = No
 
 -- Using instance chains here is more convenient if we had
 -- a lot more type-level instances than just 2. In some cases,
@@ -78,14 +78,14 @@ else instance isTrue_catchall :: IsTrue a where
 -- infinite number of instances, such as a type-level String
 
 -- Open a REPL, import this module, and then run this code:
---    reflectBoolean trueK
---    reflectBoolean falseK
---    isTrue trueK
---    isTrue falseK
+--    reflectYesNo yesK
+--    reflectYesNo noK
+--    isYes yesK
+--    isYes noK
 
 
 -- necessary for not getting errors while trying the functions in the REPL
 
-instance showBVLT :: Show Boolean_ where
-    show True_Value  = "True_Value"
-    show False_Value = "False_Value"
+instance showYNVLT :: Show YesNo where
+    show Yes = "Yes"
+    show No  = "No"
