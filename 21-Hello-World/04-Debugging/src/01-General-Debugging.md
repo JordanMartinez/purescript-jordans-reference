@@ -21,6 +21,28 @@ In the following error...
 
 Why? Because [the compiler uses a mixture of unification and type inference to check types](https://github.com/purescript/purescript/issues/3111#issuecomment-335596641). See [purescript/purescript#3399](https://github.com/purescript/purescript/issues/3399) for more information.
 
+## Distinguishing the Difference between `{...}` and `(...)` errors
+
+(thomashoneyman recommended I document this. These examples might be incorrect since I am not fully aware of the comment that garyb made, but the general idea still applies.)
+
+Recall that `{ label :: Type }` is syntax sugar for `Record (label :: Type)`
+
+So, the below error means a `Record` could not unify with some other type:
+```
+  Could not match type
+    { label :: Type }
+  with type
+    String
+```
+
+Whereas the below error means a `Record` was the correct type, but some of its label-type associations were missing.
+```
+  Could not match type
+    Record (label :: Type)
+  with type
+    Record (label :: Type, forgottenLabel :: OtherType)
+```
+
 ## Type Directed Search
 
 Otherwise known as "typed holes."
