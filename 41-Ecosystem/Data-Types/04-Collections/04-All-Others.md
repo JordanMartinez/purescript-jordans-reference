@@ -8,7 +8,7 @@ data FingerTree measurement a = -- implementation
 ```
 
 | Package | Type name | "Plain English" name |
-| - | - | - | - | - |
+| - | - | - |
 | [purescript-sequences](https://pursuit.purescript.org/packages/purescript-sequences/1.0.3/docs/Data.FingerTree) | `FingerTree v a` | General-purpose FP collections data structure<br>(can be used to implement all other collections data structures)
 
 ## Seq

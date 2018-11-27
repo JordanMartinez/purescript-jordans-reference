@@ -1,12 +1,13 @@
 # What Are "Free" `SomeTypeClass` Types
 
-When we first introduced type classes, we explained that they are an encapsulation of 1-4 things:
-1. A definition of 1 or more functions/values' type signatures
-2. Laws to which a concrete type's implmenetation of said type class much adhere
-3. Functions that a type obtains for free once the core defintion/values are implemented
-4. An entity that groups multiple type classes together into one
+When we first introduced type classes, we explained that they are an encapsulation of 2-3 things:
+1. (always) A definition of 1 or more functions/values' type signatures
+2. (always) Laws to which a concrete type's implmenetation of said type class much adhere
+3. (frequently) Functions that a type obtains for free once the core defintion/values are implemented
 
-Thus, `SomeTypeClass` isn't so much a 'thing' as much as it is an expectation. When we say that `f` is a `SomeTypeClass`, we are really saying that `f` has an instance that implements `SomeTypeClass`'s `specialFunction` function in such a way that it adheres to `SomeTypeClass`'s laws. As we saw from the MTL folder, even `StateT`, a newtyped function, is a `Functor` because it meets all of these requirements.
+Moreover, some type classes comebine two or more type classes together
+
+Thus, `SomeTypeClass` isn't so much a 'thing' as much as it is an expectation. We don't say that `f` **is** a `SomeTypeClass` (for it could implement it in various ways); rather, we are really saying that `f` **has** an instance that implements `SomeTypeClass`'s `specialFunction` function in such a way that it adheres to `SomeTypeClass`'s laws. As we saw from the MTL folder, even `StateT`, a newtyped function, can be called a `Functor` because it meets all of these requirements.
 
 However, whenever we had a type that we wanted to use in a `Functor`-like way, we needed to define its `Functor` instance before we could use it in that way. In other words, we have to write a lot of boilerplate code. What if we could grant `Functor`-like capabailities for any type without implementing such an instance? That is the idea behind "free" type classes.
 

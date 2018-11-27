@@ -7,7 +7,7 @@ data Maybe a
 ```
 
 | Package | Type name | "Plain English" name
-| - | - | - | - | - |
+| - | - | - |
 | [purescript-maybe](https://pursuit.purescript.org/packages/purescript-maybe/4.0.0) | `Maybe a` | A full or empty box
 
 | Usage | Instances' Representation
