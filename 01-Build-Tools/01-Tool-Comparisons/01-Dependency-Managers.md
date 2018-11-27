@@ -47,10 +47,10 @@ Now for a side-by-side comparison (an "apples to oranges" comparison)
 #### Psc-Package Terms
 
 A **package** in this context is 4 things:
-    1. a Git repo
-    2. a tag in that repo
-    3. a set of its dependencies (which are also packages).
-    4. a name to refer to the combination of the above three things
+1. a Git repo
+2. a tag in that repo
+3. a set of its dependencies (which are also packages).
+4. a name to refer to the combination of the above three things
 
 Thus, a package is a unique named `repo-tag-dependencies` combination (e.g. `prelude` could indicate the [Prelude repo at the 'v0.4.1' tag](https://github.com/purescript/purescript-prelude/tree/v4.1.0)).
 
