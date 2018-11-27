@@ -2,6 +2,25 @@
 
 The following sections are tips for debugging issues that may arise in a strongly-typed language via the compiler.
 
+## There is currently no "Actual Type / Expected Type" distinction
+
+In the following error...
+```
+  Could not match type
+
+    A
+
+  with type
+
+    B
+
+  ... rest of error ...
+```
+
+... one might expect `A` to be the "actual" type and `B` to be the "expected" type. However, sometimes the two are swapped, so that `A` is the "expected" type and `B` is the "actual" type. This is not desirable, but is currently how the compiler works.
+
+Why? Because [the compiler uses a mixture of unification and type inference to check types](https://github.com/purescript/purescript/issues/3111#issuecomment-335596641). See [purescript/purescript#3399](https://github.com/purescript/purescript/issues/3399) for more information.
+
 ## Type Directed Search
 
 Otherwise known as "typed holes."
