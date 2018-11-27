@@ -7,6 +7,12 @@ If you decide to read the book, here are things to be aware of:
 - Refer to `dwhitney` fork of the book's code, which is currently being updating to use `0.12.x` code [here](https://github.com/dwhitney/purescript-book/tree/0.12)
 - Refer to the ReadMe in `ROOT_FOLDER/Hello-World/Console-Lessons/Effect-Eff-and-Aff` to understand how to translate the no-longer-used `Eff` type to `Effect` type.
 
+## Differences From Haskell
+
+If you're coming to PureScript with a Haskell background, be sure to consult the following resources:
+- [Introduction to Purescript for Haskell Developers](http://code.adriansieber.com/adrian/adriansieber-com/src/branch/master/posts/_2018-11-01_introduction_to_purescript_for_haskell_developers/main.pdf) (pdf) 
+- [The Purescript Documentation Repo's "Differences from Haskell" page](https://github.com/purescript/documentation/blob/master/language/Differences-from-Haskell.md)
+
 ## Documenation
 
 - Anytime you need to look up the documentation for a package, use [Pursuit](http://pursuit.purescript.org/). Be aware that some of the deprecated packages mentioned above are still posted there.
