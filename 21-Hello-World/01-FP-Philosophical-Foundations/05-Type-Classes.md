@@ -34,12 +34,10 @@ Thus, type classes abstract general concepts into an "interface" that can be imp
         - For example, `Apply` is a less powerful typeclass than `Monad` because it does not have `bind` but is more flexible than `Monad` because it can compute things in parallel.
 
 Some type classes (e.g. `ParentTypeClass`) combine two or more other type classes (e.g. `ChildTypeClass`). **This parent-child-like relationship is not necessarily hierarchial (type must satisfy child before parent possibility exists) but synchronous (type must satisfy both child and parent)**. This leads to the following possibilities:
-- `ParentTypeClass` asserts that some type has an instance for of all its `ChildTypeClass`es.
+- `ParentTypeClass` asserts that some type has an instance for all of its `ChildTypeClass`es.
     - Some derived functions for `ParentTypeClass` are only possible if the implementation can use functions from two or more `ChildTypeClass`es
     - Some implementations of `ChildTypeClass` can be done more easily / better by using functions/values from `ParentTypeClass`
 - `ParentTypeClass` forces implementations for `ChildTypeClass` to satisfy additional law(s).
-
-In other words, if a type has an instance for some class X and another class Y
 
 ### Non-Category Theory Usages of Type Classes
 
