@@ -59,13 +59,14 @@ example value = toBoolean value
 ... gets desugared to this code
 
 ```purescript
-type ToBooleanDictionary a =
-  { toBoolean :: a -> Boolean
-  , unUsed :: a -> String
-  }
+data ToBooleanDictionary a =
+  ToBooleanDictionary
+    { toBoolean :: a -> Boolean
+    , unUsed :: a -> String
+    }
 
 example :: forall a. ToBooleanDictionary a -> a -> Boolean
-example record value = record.toBoolean value
+example (ToBooleanDictionary record) value = record.toBoolean value
 ```
 
 Thus, type classes provide a "convenience" of sorts: rather than forcing the developer to pass in an implementation of the function, `(a -> Boolean)`, the compiler can infer what that function's implementation is **as long as it can infer the type of `a` in `class ToBoolean a`**.
