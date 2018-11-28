@@ -4,6 +4,8 @@
   "source": "https://github.com/purescript/package-sets.git",
   "depends": [
     "newtype",
+    "spec",
+    "quickcheck-laws",
     "quickcheck",
     "psci-support",
     "effect",

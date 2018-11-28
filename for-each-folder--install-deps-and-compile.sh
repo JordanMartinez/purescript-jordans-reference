@@ -59,7 +59,11 @@ cd ../../
 cd 21-Hello-World/05-Testing/
 pwd
 rm -rf .psc-package/ .pulp-cache/  output/
-psc-package install && pulp --psc-package test
+psc-package install
+# Test Spec folder
+pulp --psc-package test -m Test.Spec.Examples.SelfContained.ConsoleReporter
+# Test QuickCheck foler
+pulp --psc-package test -m Test.QuickCheckSyntax
 cd ../../
 
 cd 21-Hello-World/06-Benchmarking/
