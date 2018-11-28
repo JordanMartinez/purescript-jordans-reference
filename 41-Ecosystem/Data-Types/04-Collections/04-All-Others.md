@@ -11,6 +11,12 @@ data FingerTree measurement a = -- implementation
 | - | - | - |
 | [purescript-sequences](https://pursuit.purescript.org/packages/purescript-sequences/1.0.3/docs/Data.FingerTree) | `FingerTree v a` | General-purpose FP collections data structure<br>(can be used to implement all other collections data structures)
 
+### Bitmapped Vector Trie
+
+(Start at 26:35): [Extreme Cleverness: Functional Data Structures in Scala](https://www.youtube.com/watch?v=pNhBQJN44YQ)
+
+In the above video, the guy argues that FingerTrees are in principle really efficient but, depending on the runtime, can be less efficient than regular Arrays. I think Javascript might fit this situation due to the [PureScript's FingerTree implementation's own admission](https://pursuit.purescript.org/packages/purescript-sequences/1.0.3).
+
 ## Seq
 
 - [Seq](https://pursuit.purescript.org/packages/purescript-sequences/1.0.3/docs/Data.Sequence)

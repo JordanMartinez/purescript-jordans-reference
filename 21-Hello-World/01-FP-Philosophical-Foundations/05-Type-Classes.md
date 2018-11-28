@@ -25,21 +25,30 @@ Thus, type classes abstract general concepts into an "interface" that can be imp
 
 1. (Always) The definition of type signatures for a single/multiple functions/values.
     - Functions may be put into infix notation using aliases to make it easier to write them.
-2. (Always) The laws by which implementations of a type class must abide.
+2. (Almost Always) The laws by which implementations of a type class must abide.
     - These laws guarantee certain properties, increasing developers' confidence that their code works as expected.
     - They also help one to know how to refactor code. Given `left-hand-side == right-hand-side`, evaluating code on the left may be more expensive (memory, time, IO, etc.) than the code on the right.
-    - **Note: Some laws cannot always be enforced.**
+    - **Laws cannot be enforced by the compiler.** For example, one could define a a type class' instance for some type which satisfies the type signature. However, the implementation of that instance might not satisfy the type class' law(s). The compiler can verify that the type signature is correct, but not the implementation. Thus, one will need to insure an instance's lawfulness via tests, (usually by using a testing library called `quickcheck-laws`, which is covered later in this repo)
 3. (Frequently) The functions/values that can be derived once one implements the type class.
     - Most of the power/flexibility of type classes come from the combination of the main functions/values implemented in a type class' definition and these derived functions. When a type class extends another, the type class' power increases, its flexibility decreases, and its costs increase.
         - For example, `Apply` is a less powerful typeclass than `Monad` because it does not have `bind` but is more flexible than `Monad` because it can compute things in parallel.
 
 Some type classes (e.g. `ParentTypeClass`) combine two or more other type classes (e.g. `ChildTypeClass`). **This parent-child-like relationship is not necessarily hierarchial (type must satisfy child before parent possibility exists) but synchronous (type must satisfy both child and parent)**. This leads to the following possibilities:
-- `ParentTypeClass` asserts that some type has an instance for of all its `ChildTypeClass`es.
+- `ParentTypeClass` asserts that some type has an instance for all of its `ChildTypeClass`es.
     - Some derived functions for `ParentTypeClass` are only possible if the implementation can use functions from two or more `ChildTypeClass`es
     - Some implementations of `ChildTypeClass` can be done more easily / better by using functions/values from `ParentTypeClass`
 - `ParentTypeClass` forces implementations for `ChildTypeClass` to satisfy additional law(s).
 
-In other words, if a type has an instance for some class X and another class Y
+### Non-Category Theory Usages of Type Classes
+
+Some type classes are purposefully designed to be lawless because they are used for other situations. Here are some examples:
+- Type-level documentation
+    - `Partial` - represents a partial function: a function that does not always return a value for every input, but which will throw a runtime error on some inputs (covered in `Design Patterns/Partial Functions`)
+- Custom compiler warnings/errors
+    - `Warn`/`Fail` - causes the compiler to emit a custom warning or a compiler error when the associated function/value is used in the code base (covered in `Hello World/Debugging/Custom Type Errors`)
+- Type-level functions
+    - `Symbol.Append` - represents a type-level function (covered later in this repo).
+- Function/Value Name Overloading (see next section's explanation and debate about this idea)
 
 ## Dictionaries and Lawless Type Classes
 
@@ -59,13 +68,14 @@ example value = toBoolean value
 ... gets desugared to this code
 
 ```purescript
-type ToBooleanDictionary a =
-  { toBoolean :: a -> Boolean
-  , unUsed :: a -> String
-  }
+data ToBooleanDictionary a =
+  ToBooleanDictionary
+    { toBoolean :: a -> Boolean
+    , unUsed :: a -> String
+    }
 
 example :: forall a. ToBooleanDictionary a -> a -> Boolean
-example record value = record.toBoolean value
+example (ToBooleanDictionary record) value = record.toBoolean value
 ```
 
 Thus, type classes provide a "convenience" of sorts: rather than forcing the developer to pass in an implementation of the function, `(a -> Boolean)`, the compiler can infer what that function's implementation is **as long as it can infer the type of `a` in `class ToBoolean a`**.
@@ -93,7 +103,7 @@ instance specialInt :: Default SpecialInt where
   default = SpecialInt 7
 ```
 
-The counterargument from those that say "laws must be required" is: "one usually hasn't through through their design that deeply yet." As an example, is `Default Int` just a different name for `Monoid`'s `mempty`, (i.e. `0` in addition (`1 + 0 == 1` and `0 + 1 == 1`)? Is their approach to their design actually flawed because there is a "better" way and they just haven't realized it yet? Are there cases where the code would "read well" if one names a function that returns some value `default` in Context A but in Context B, the code would "read well" if one called some other function `default` but which returns a different value than the first function?
+The counterargument from those that say "laws must be required" is: "one usually hasn't thought through their design that deeply yet." As an example, is `Default Int` just a different name for `Monoid`'s `mempty`, (i.e. `0` in addition (`1 + 0 == 1` and `0 + 1 == 1`)? Is their approach to their design actually flawed because there is a "better" way and they just haven't realized it yet? Are there cases where the code would "read well" if one names a function that returns some value `default` in Context A but in Context B, the code would "read well" if one called some other function `default` but which returns a different value than the first function?
 
 The reader is left with these question:
 - Are there ever times where gaining the convenience of overloaded function names are worth the loss of lawful-reasoning?

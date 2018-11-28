@@ -2,8 +2,11 @@ module Syntax.Record.Basic where
 
 -- Records have a different kind than "Type".
 
--- "# Type" stands for "Row". It is a special kind used to indicate that
--- there will be an N-sized number of types that are known at compile time.
+-- "# Type" stands for a "row" of types.
+-- It uses a special kind called "row kinds" to indicate that there will be an
+-- N-sized number of types that are known at compile time.
+-- Row kinds will be covered more fully in the Type-Level Programming Syntax
+-- folder.
 
 type Example_of_an_Empty_Row = ()
 type Example_of_a_Single_Row = (fieldName :: ValueType)
