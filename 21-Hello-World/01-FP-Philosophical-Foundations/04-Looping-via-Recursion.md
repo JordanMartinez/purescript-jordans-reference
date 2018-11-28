@@ -128,11 +128,11 @@ findFirst         (Cons 1 (Cons 2 Nil))  (\el -> el == 1)
 Just 1
 ```
 
-### Other Loops
+## Other Loops
 
 The following Purescript examples are very _crude_ ways of mimicking the following loops. More appropriate examples would require explaning and using type classes like `Foldable` and `Monad` (intermediate FP concepts). Thus, take these examples with a grain of salt.
 
-## While
+### While
 
 ```javascript
 while (condition == true) {
@@ -155,7 +155,7 @@ whileLoop true shouldStop doSomething =
   whileLoop (shouldStop unit) shouldStop doSomething
 ```
 
-## For In
+### For In
 
 ```javascript
 // length
