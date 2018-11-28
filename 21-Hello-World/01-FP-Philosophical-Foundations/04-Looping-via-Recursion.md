@@ -53,51 +53,6 @@ factorial' 1 24
 24
 ```
 
-## While
-
-```javascript
-while (condition == true) {
-  if (shouldStop()) {
-    condition = false
-  } else {
-    doSomething();
-  }
-}
-```
-
-```purescript
-data Unit = Unit
-
-whileLoop :: Boolean -> (Unit -> Boolean) -> (Unit -> Unit) -> Unit
-whileLoop false _ _ = -- body
-whileLoop true shouldStop doSomething =
-  -- `doSomething unit` is called in here somewhere
-  -- at the end of the function's body, it will call
-  whileLoop (shouldStop unit) shouldStop doSomething
-```
-
-## For In
-
-```javascript
-// length
-var count = 0;
-for (value in list) {
-  count += 1;
-}
-```
-
-```purescript
-data List a
-  = Nil
-  | Cons a (List a)
-
-length :: forall a. List a -> Int -> Int
-length Nil totalCount = totalCount
-length (Cons head tail) currentCount =
-  length tail (currentCount  + 1)
-```
-(There is a better way to write this in FP languages via the type class called `Foldable`, but we won't explain it now)
-
 ## For ... Break If
 
 ```javascript
@@ -171,4 +126,52 @@ findFirst (Cons 0 (Cons 1 (Cons 2 Nil))) (\el -> el == 1)
 -- reduces via a graph reduction...
 findFirst         (Cons 1 (Cons 2 Nil))  (\el -> el == 1)
 Just 1
+```
+
+### Other Loops
+
+The following Purescript examples are very _crude_ ways of mimicking the following loops. More appropriate examples would require explaning and using type classes like `Foldable` and `Monad` (intermediate FP concepts). Thus, take these examples with a grain of salt.
+
+## While
+
+```javascript
+while (condition == true) {
+  if (shouldStop()) {
+    condition = false
+  } else {
+    doSomething();
+  }
+}
+```
+
+```purescript
+data Unit = Unit
+
+whileLoop :: Boolean -> (Unit -> Boolean) -> (Unit -> Unit) -> Unit
+whileLoop false _ _ = -- body
+whileLoop true shouldStop doSomething =
+  -- `doSomething unit` is called in here somewhere
+  -- at the end of the function's body, it will call
+  whileLoop (shouldStop unit) shouldStop doSomething
+```
+
+## For In
+
+```javascript
+// length
+var count = 0;
+for (value in list) {
+  count += 1;
+}
+```
+
+```purescript
+data List a
+  = Nil
+  | Cons a (List a)
+
+length :: forall a. List a -> Int -> Int
+length Nil totalCount = totalCount
+length (Cons head tail) currentCount =
+  length tail (currentCount  + 1)
 ```
