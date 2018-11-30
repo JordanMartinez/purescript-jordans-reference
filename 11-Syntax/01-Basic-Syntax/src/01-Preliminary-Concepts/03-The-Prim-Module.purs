@@ -5,7 +5,8 @@ import Prelude
 {-
 The following file documents the Prim module. This module is imported
 by default into every Purescript file (unless one hides it using Module aliases,
-which are described in the Module Syntax folder).
+which are described in the Module Syntax folder) and is embedded in the
+compiler itself to provide value literals for certain types and syntax sugar.
 
 See the full documenation here:
 https://pursuit.purescript.org/builtins/docs/Prim
@@ -42,6 +43,17 @@ exampleTrue = true
 
 exampleFalse :: Boolean
 exampleFalse = false
+{-
+Note: The Boolean data type is used via true/false literal values instead of
+True/False constructors as one might expect, especially those coming from Haskell
+where such a simple data type would be defined as:
+
+data Boolean = True | False
+
+In Purescript, having Javascript as the main compilation target, the decision was
+made to use true/false literal values for the Boolean data type instead of
+having it be defined as a simple Algebric Data Type (ADT) as is the case in Haskell.
+-}
 
 data Char_ -- Type -- doesn't support astral plane characters (code points > 0xFFFF)
 
