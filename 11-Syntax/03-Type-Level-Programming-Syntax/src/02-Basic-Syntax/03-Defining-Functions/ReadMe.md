@@ -131,7 +131,7 @@ A type-level function can only "compute" a type-level expression when the types 
 - situations where the type inferencer cannot infer the correct type/kind
 - situations where one needs to do "backtracking".
 
-Here is an example of "backtracking"
+Here is an example of "backtracking". It will make more sense after you have read through the `Pattern-Matching-Using-Instance-Chains.purs` file.
 ```purescript
 class MyClass a
   someValue :: Boolean
