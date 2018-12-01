@@ -92,7 +92,7 @@ Recursion_Here__Store_A "first"
 ------------------------------------------
 
 -- Full Syntax
-data InterfaceLikeType aType bType hktBy1 ignored
+data DataType aType bType hktBy1 ignored
   = NoArgs
   | Args Type1 Type2 Type3
   | FunctionArg (Type1 -> Type2)
@@ -100,8 +100,8 @@ data InterfaceLikeType aType bType hktBy1 ignored
   | DoubleNestedArg (Box (Box Int))
   | HigherKindedGenericType1 (hktBy1 Int)
   | HigherKindedGenericType2 (hktBy1 aType)
-  | Recursive (InterfaceLikeType aType bType hktBy1 ignored)
-  | ArgMix Type_ (A -> B) bType (InterfaceLikeType aType bType hktBy1 ignored)
+  | Recursive (DataType aType bType hktBy1 ignored)
+  | ArgMix Type_ (A -> B) bType (DataType aType bType hktBy1 ignored)
 
 -- Necessary for this to compile
 type Type1 = Int
