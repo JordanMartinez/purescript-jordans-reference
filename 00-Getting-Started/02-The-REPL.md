@@ -20,7 +20,7 @@ cd playground
 #   "Build-Tools" folder
 
 # 3. Create a new psc-package.json file using psc-package
-psc-package init --set psc-0.12.0-20180819 --source https://github.com/purescript/package-sets.git
+psc-package init --set psc-0.12.1 --source https://github.com/purescript/package-sets.git
 
 # 4. Install the psci-support package using this command:
 psc-package install psci-support
