@@ -188,14 +188,14 @@ if one uses one of the types and ignores the other:
 type ExampleRow = (first :: String, second :: Int)
 -- the kinds in Cons would appear as:
 type ExampleCons = Cons
-  (first :: Symbol) (a :: String) (tail :: (second :: Int))
+  first String (tail :: (second :: Int))
   (first :: String, second :: Int)
 
 -- given this type
 type ExampleRow2 = (first :: String)
 -- the kinds in Cons would appear as:
 type ExampleCons2 = Cons
-  (first :: Symbol) (a :: String) (tail :: ())
+  first String (tail :: ())
   (first :: String)
 ```
 
