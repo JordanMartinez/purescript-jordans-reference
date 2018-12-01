@@ -63,7 +63,7 @@ which is the same as writing...
   instance orangeMatch    :: FruitToInt OrangeK    OneK
   instance bananaMatch    :: FruitToInt BananaK    OneK
   instance blueberryMatch :: FruitToInt BlueBerryK OneK
-  instance cherryMatch    :: FruitToInt CherrK     OneK
+  instance cherryMatch    :: FruitToInt CherryK     OneK
 -}
 
 {-
