@@ -62,7 +62,7 @@ instance m :: Monad Box
 
 ## Function Reduction
 
-In these files, we will "evaluate" functions by replacing the left-hand side (LHS) of the `=` sign (the function's call signature) with the right-hand side (RHS) of the `=` sign (the function's implementation / body). In other words...
+In these files, we will "evaluate" functions by using graph reductions: replacing the left-hand side (LHS) of the `=` sign (the function's call signature) with the right-hand side (RHS) of the `=` sign (the function's implementation / body). In other words...
 ```purescript
 someFunction arg1 arg2 arg3 = bodyOfFunction
 | call signature (LHS)    | = | body (RHS) |
