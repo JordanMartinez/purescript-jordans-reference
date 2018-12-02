@@ -33,11 +33,25 @@ Thus, type classes abstract general concepts into an "interface" that can be imp
     - Most of the power/flexibility of type classes come from the combination of the main functions/values implemented in a type class' definition and these derived functions. When a type class extends another, the type class' power increases, its flexibility decreases, and its costs increase.
         - For example, one can consider `Apply` and `Monad`. `Apply` is a less powerful typeclass than `Monad` because it requires its arguments to be known at compile-time whereas `Monad`'s arguments must be known at runtime. However, `Apply` is more flexibile because it can compute things in parallel whereas `Monad` must compute things sequentially.
 
-Some type classes (e.g. `ParentTypeClass`) combine two or more other type classes (e.g. `ChildTypeClass`). **This parent-child-like relationship is not necessarily hierarchial (type must satisfy child before parent possibility exists) but synchronous (type must satisfy both child and parent)**. This leads to the following possibilities:
-- `ParentTypeClass` asserts that some type has an instance for all of its `ChildTypeClass`es.
-    - Some derived functions for `ParentTypeClass` are only possible if the implementation can use functions from two or more `ChildTypeClass`es
-    - Some implementations of `ChildTypeClass` can be done more easily / better by using functions/values from `ParentTypeClass`
-- `ParentTypeClass` forces implementations for `ChildTypeClass` to satisfy additional law(s).
+### Clarifying Type Class Relationships
+
+#### Parent-Child-Like Relationships
+
+While type classes are written using "parent-child"-like syntax...
+
+```purescript
+class SomeChildTypeClass a
+
+class (SomeChildTypeClass a) <= SomeParentTypeClass a
+```
+
+...this relationship is only syntactical. In reality, **these parent-child-like relationships are not necessarily hierarchial (the type must satisfy the child before the possibility of satisfying the parent exists) but conditional (the type must satisfy both the child and parent type classes' type signatures and laws by compile-time)**.
+
+This leads to the following possibilities. If a type has an instance for `ParentTypeClass`, then...
+- the type's implementation for `ChildTypeClass` must satisfy additional law(s).
+- the type's implementation for `ChildTypeClass` can be done more easily / better by using functions/values from `ParentTypeClass`.
+
+In addition, some derived functions for `ParentTypeClass` are only possible if the implementation can use functions from two or more `ChildTypeClass`es
 
 ### Non-Category Theory Usages of Type Classes
 
