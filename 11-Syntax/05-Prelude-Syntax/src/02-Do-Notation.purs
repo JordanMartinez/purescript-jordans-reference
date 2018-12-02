@@ -82,7 +82,7 @@ do4_discard_syntax = do                                           {-
   the compiler translates `line 2` to
       "discard (Box a) (\_ -> (Box 5) >>= (\five -> ... ))"
 
-  This is find if the argument to the next function would be Unit
+  This is fine if the argument to the next function would be Unit
 
       four <- Box 4
       unit <- Box unit  -- here, we could omit the "unit <-" syntax
