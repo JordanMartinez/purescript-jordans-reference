@@ -43,6 +43,8 @@ While type classes are written using "parent-child"-like syntax...
 class SomeChildTypeClass a
 
 class (SomeChildTypeClass a) <= SomeParentTypeClass a
+
+class (OneChild a, AnotherChild a) <= ParentThatCombines a
 ```
 
 ...this relationship is only syntactical. In reality, **these parent-child-like relationships are not necessarily hierarchial (the type must satisfy the child before the possibility of satisfying the parent exists) but conditional (the type must satisfy both the child and parent type classes' type signatures and laws by compile-time)**.
@@ -52,6 +54,11 @@ This leads to the following possibilities. If a type has an instance for `Parent
 - the type's implementation for `ChildTypeClass` can be done more easily / better by using functions/values from `ParentTypeClass`.
 
 In addition, some derived functions for `ParentTypeClass` are only possible if the implementation can use functions from two or more `ChildTypeClass`es
+
+Thus, a parent type class can
+- extend a child type class with additional functions/values
+- restrict a child type class by imposing additional laws
+- combine two or more type classes, so that using the parent type class exposes all the functions/values of its children type classes.
 
 #### Dual Relationships
 
