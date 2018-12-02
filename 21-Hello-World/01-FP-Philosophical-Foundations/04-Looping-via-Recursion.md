@@ -41,7 +41,14 @@ factorial n = factorial' n 1
 
 factorial' :: StartingInt -> AccumulatedInt -> AccumulatedInt
 factorial' 1 finalResult = finalResult
-factorial' amountRemaining accumulatedSoFar =
+factorial' amountRemaining accumulatedSoFar =                             {-
+  -- This is the general idea being done in the single line of code
+  -- after this comment
+  let
+    oneLess = amountRemaining - 1
+    nextAccumulatedValue = accumulatedSoFar * amountRemaining
+  in
+    factorial' oneLess nextAccumulatedValue                               -}
   factorial' (amountRemaining - 1) (amountRemaining * accumulatedSoFar)
 
 factorial 4
