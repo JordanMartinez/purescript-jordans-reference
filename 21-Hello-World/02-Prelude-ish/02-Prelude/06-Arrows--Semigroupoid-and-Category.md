@@ -49,9 +49,9 @@ To summarize...
 
 | Name | Meaning | Shortcut |
 | - | - | - |
-| Compose | `(\a -> g (f a))` | `(g <<< f)`
-| ComposeFlipped | `(\a -> g (f a))` | `(f >>> g)`
-| Identity | `(\x -> x) a` | `identity a`
+| compose | `(\a -> g (f a))` | `(g <<< f)`
+| composeFlipped | `(\a -> g (f a))` | `(f >>> g)`
+| identity | `(\x -> x) a` | `identity a`
 
 If we were to turn `compose` into a function, it would appear with the type signature below:
 ```purescript
