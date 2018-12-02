@@ -61,10 +61,10 @@ On another hand, to successfully prove that `reverse` works as expected, one wou
 
 ## The Limits of Property Testing
 
-Usually, people who have never heard of property testing will think it is a "silver bullet" when it comes to writing tests. However, property testing can only cover a select number of tests cases before one must resort to unit testing. Rather than explaining it here, see [this article](https://fsharpforfunandprofit.com/posts/property-based-testing-2/) that demonstrates 7 situations where property testing works. If a test falls outside of that pattern, one will likely need to use unit testing instead.
+Usually, people who have never heard of property testing will think it is a "silver bullet" when it comes to writing tests. However, property testing can only cover a select number of tests cases before one must resort to unit testing. Rather than explaining it here, [here are 7 patterns where property-based testing works](https://fsharpforfunandprofit.com/posts/property-based-testing-2/). If a test falls outside of that pattern, one will likely need to use unit testing instead.
 
 Still, before deciding that one must use unit tests, consider using [state machine testing](http://qfpl.io/posts/intro-to-state-machine-testing-1/)
 
 ## Conclusion
 
-As much as possible, use Property Testing. When that does not suffice, one must resort back to unit testing.
+As much as possible, use Property Testing. When that does not suffice, consider state-machine testing. Otherwise, use unit testing.
