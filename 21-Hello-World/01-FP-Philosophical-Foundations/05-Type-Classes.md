@@ -67,12 +67,10 @@ Each type class from CT has a corresponding Dual. While there are better ways to
 For example, `Example'` is the dual of `Example`:
 
 ```purescript
-class Example a where
-  toB :: a -> b
+class Example a where  toB :: a -> b
 
-class Example' b where
-      -- a <- b
-  toA :: b -> a
+                           -- a <- b
+class Example' b where toA :: b -> a
 ```
 
 ### Non-Category Theory Usages of Type Classes
