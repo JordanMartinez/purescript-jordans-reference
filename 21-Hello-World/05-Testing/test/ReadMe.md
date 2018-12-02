@@ -11,7 +11,7 @@ unitTest = (reverse "apple") == "elppa"
 If we want to test `reverse` for a different instance of `String` (e.g. "pineapple"), we would need to write a second test:
 ```purescript
 unitTest2 :: Boolean
-unitTest2 = (reverse "apple") == "elppa"
+unitTest2 = (reverse "pineapple") == "elppaenip"
 ```
 If we the function can take `n` different intputs, we need to write `n` different unit tests.
 
