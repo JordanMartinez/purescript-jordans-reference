@@ -14,8 +14,7 @@ We've linked to an article below that explains these abstract notions in a clear
 | `map` (Array function) | see [the implementation in Purescript](#lists-map-function-in-purescript) |
 | `IO ()` | `Effect Unit`, which will be explained/used in a later part of this folder |
 
-Here's the link to the article:
-http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html
+Here's the link: [Functors, Applicatives, and Monads in Pictures](http://adit.io/posts/2013-04-17-functors,_applicatives,_and_monads_in_pictures.html)
 
 ### Lists' Map Function in Purescript
 
