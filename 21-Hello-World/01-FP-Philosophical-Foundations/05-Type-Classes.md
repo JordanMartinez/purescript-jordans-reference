@@ -59,9 +59,9 @@ and it uses the alias `<$>` for `map` to enable one to write `function <$> f_a` 
 - mapFlipped
 - flap
 
-### Clarifying Type Class Relationships
+## Clarifying Type Class Relationships
 
-#### Parent-Child-Like Relationships
+### Parent-Child-Like Relationships
 
 While type classes are written using "parent-child"-like syntax...
 
@@ -87,7 +87,7 @@ Thus, a parent type class can
 3. does 1 and 2 in the same type class
 4. combine two or more type classes, so that using the parent type class exposes all the functions/values of its children type classes, but does not add any new functions/values or impose any new laws upon its implementations.
 
-#### Dual Relationships
+### Dual Relationships
 
 Each type class from CT has a corresponding Dual. While there are better ways to explain duals, the basic idea is that the function arrow's "direction" gets flipped. Likewise, the laws of some type class are the "flipped" version of the laws of its dual.
 
@@ -102,7 +102,7 @@ class Example' b where
   toA :: b -> a
 ```
 
-### Non-Category Theory Usages of Type Classes
+## Non-Category Theory Usages of Type Classes
 
 Some type classes are purposefully designed to be lawless because they are used for other situations. Here are some examples:
 - Type-level documentation
@@ -113,7 +113,7 @@ Some type classes are purposefully designed to be lawless because they are used 
     - `Symbol.Append` - represents a type-level function (covered in `Syntax/Type-Level Programming Syntax` and `Hello World/Type-Level Programming`).
 - Function/Value Name Overloading (see next section's explanation and debate about this idea)
 
-## Dictionaries and Lawless Type Classes
+### Dictionaries and Lawless Type Classes
 
 Dictionaries are what enable a function/value to magically appear in the implementation of a function's body. Read [this article about type class 'dictionaries'](https://www.schoolofhaskell.com/user/jfischoff/instances-and-dictionaries) as there really is no better way to explain this concept.
 
