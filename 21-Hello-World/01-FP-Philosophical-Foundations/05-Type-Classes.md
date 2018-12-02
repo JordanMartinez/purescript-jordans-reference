@@ -53,6 +53,21 @@ This leads to the following possibilities. If a type has an instance for `Parent
 
 In addition, some derived functions for `ParentTypeClass` are only possible if the implementation can use functions from two or more `ChildTypeClass`es
 
+#### Dual Relationships
+
+Each type class from CT has a corresponding Dual. While there are better ways to explain duals, the basic idea is that the function arrow's "direction" gets flipped. Likewise, the laws of some type class are the "flipped" version of the laws of its dual.
+
+For example, `Example'` is the dual of `Example`:
+
+```purescript
+class Example a where
+  toB :: a -> b
+
+class Example' b where
+      -- a <- b
+  toA :: b -> a
+```
+
 ### Non-Category Theory Usages of Type Classes
 
 Some type classes are purposefully designed to be lawless because they are used for other situations. Here are some examples:
