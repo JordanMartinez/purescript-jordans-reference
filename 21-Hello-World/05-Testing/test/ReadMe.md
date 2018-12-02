@@ -13,7 +13,7 @@ If we want to test `reverse` for a different instance of `String` (e.g. "pineapp
 unitTest2 :: Boolean
 unitTest2 = (reverse "pineapple") == "elppaenip"
 ```
-If we the function can take `n` different intputs, we need to write `n` different unit tests.
+If the function can take `n` different intputs, we need to write `n` different unit tests.
 
 ## Why Unit Testing Fails
 
@@ -31,7 +31,7 @@ If we the function can take `n` different intputs, we need to write `n` differen
 
 Property-testing verifies that a function (e.g. `reverse`) that receives **any** instance of some data type (e.g. `String`) will output an expected instance of the same/different data type; the expected instance is calculated using the given input.
 
-One might immediately think of this code beore realizing that it doesn't work:
+One might immediately think of this code before realizing that it doesn't work:
 ```purescript
 propertyTestFail :: String -> Boolean
 propertyTestFail input = (reverse input) == -- ???
