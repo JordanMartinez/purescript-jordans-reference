@@ -57,7 +57,7 @@ In addition, some derived functions for `ParentTypeClass` are only possible if t
 
 Thus, a parent type class can
 - extend a child type class with additional functions/values
-- restrict a child type class by imposing additional laws
+- restrict a child type class' implementation by imposing additional laws
 - combine two or more type classes, so that using the parent type class exposes all the functions/values of its children type classes.
 
 #### Dual Relationships
