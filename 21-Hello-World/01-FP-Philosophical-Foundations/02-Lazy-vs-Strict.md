@@ -7,7 +7,7 @@ A computation can either be lazy or strict:
 | Strict | computes its results immediately | Expensive computations can be run at the most optimum time | Wastes CPU cycles and memory for storing/evaluating expensive compuations that are unneeded/unused |
 | Lazy | defers compututation until its needed | Saves CPU cycles and memory: unneeded/unused computations are never computed | When computations will occur every time, this adds unneeded overhead
 
-To make something lazy, we add `Unit ->` in front of it. This is called a `thunk`: a computation that we know how to do but have not yet executed yet. When we are reading to execute it, we call it `forcing the thunk`.
+To make something lazy, we add `Unit ->` in front of it. This is called a `thunk`: a computation that we know how to do but have not yet executed yet. When we are ready to execute it, we call it `forcing the thunk`.
 ```purescript
 strictlyCompute :: Int -> Int
 strictlyCompute x = x + 4
