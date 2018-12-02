@@ -140,7 +140,11 @@ instance specialInt :: Default SpecialInt where
   default = SpecialInt 7
 ```
 
-The counterargument from those that say "laws must be required" is: "one usually hasn't thought through their design that deeply yet." As an example, is `Default Int` just a different name for `Monoid`'s `mempty`, (i.e. `0` in addition (`1 + 0 == 1` and `0 + 1 == 1`)? Is their approach to their design actually flawed because there is a "better" way and they just haven't realized it yet? Are there cases where the code would "read well" if one names a function that returns some value `default` in Context A but in Context B, the code would "read well" if one called some other function `default` but which returns a different value than the first function?
+The counterargument from those that say "laws must be required" is: "one usually hasn't thought through their design that deeply yet." As an example, is `Default Int` just a different name for `Monoid`'s `mempty`, (i.e. `0` in addition (`1 + 0 == 1` and `0 + 1 == 1`)? Is their approach to their design actually flawed because there is a "better" way and they just haven't realized it yet?
+
+Are there cases where the function name would "read well" in two contexts but mean two different things? For example, Context A's use of `default` might return `0` whereas Context B's use of `default` might return `12`.
+
+Thus, it seems that lawless type classes imply a domain-specific meaning in each context whereas lawful type classes imply a domain-independent meaning.
 
 The reader is left with these question:
 - Are there ever times where gaining the convenience of overloaded function names are worth the loss of lawful-reasoning?
