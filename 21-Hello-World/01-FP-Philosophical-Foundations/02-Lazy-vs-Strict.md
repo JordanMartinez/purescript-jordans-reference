@@ -1,6 +1,7 @@
 # Lazy vs Strict
 
 A computation can either be lazy or strict:
+
 | Term | Definition | Pros | Cons
 | - | - | - | - |
 | Strict | computes its results immediately | Expensive computations can be run at the most optimum time | Wastes CPU cycles and memory for storing/evaluating expensive compuations that are unneeded/unused |
