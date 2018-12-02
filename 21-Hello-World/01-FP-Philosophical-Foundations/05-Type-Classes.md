@@ -84,7 +84,7 @@ Some type classes are purposefully designed to be lawless because they are used 
 - Custom compiler warnings/errors
     - `Warn`/`Fail` - causes the compiler to emit a custom warning or a compiler error when the associated function/value is used in the code base (covered in `Hello World/Debugging/Custom Type Errors`)
 - Type-level functions
-    - `Symbol.Append` - represents a type-level function (covered later in this repo).
+    - `Symbol.Append` - represents a type-level function (covered in `Syntax/Type-Level Programming Syntax` and `Hello World/Type-Level Programming`).
 - Function/Value Name Overloading (see next section's explanation and debate about this idea)
 
 ## Dictionaries and Lawless Type Classes
