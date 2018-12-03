@@ -59,6 +59,33 @@ and it uses the alias `<$>` for `map` to enable one to write `function <$> f_a` 
 - mapFlipped
 - flap
 
+### Dictionaries: How Type Classes Work
+
+Dictionaries are what enable a function/value to magically appear in the implementation of a function's body. The below code is a summary of [this article about type class 'dictionaries'](https://www.schoolofhaskell.com/user/jfischoff/instances-and-dictionaries); I could not explain it clearer nor more concisely than they did.
+
+```purescript
+class ToBoolean a where
+  toBoolean :: a -> Boolean
+
+  unUsed :: a -> String
+
+example :: forall a. ToBoolean a => a -> Boolean
+example value = toBoolean value
+```
+
+... gets desugared to this code
+
+```purescript
+data ToBooleanDictionary a =
+  ToBooleanDictionary
+    { toBoolean :: a -> Boolean
+    , unUsed :: a -> String
+    }
+
+example :: forall a. ToBooleanDictionary a -> a -> Boolean
+example (ToBooleanDictionary record) value = record.toBoolean value
+```
+
 ## Clarifying Type Class Relationships
 
 ### Parent-Child-Like Relationships
@@ -113,37 +140,9 @@ Some type classes are purposefully designed to be lawless because they are used 
     - `Symbol.Append` - represents a type-level function (covered in `Syntax/Type-Level Programming Syntax` and `Hello World/Type-Level Programming`).
 - Function/Value Name Overloading (see next section's explanation and debate about this idea)
 
-### Dictionaries and Lawless Type Classes
-
-Dictionaries are what enable a function/value to magically appear in the implementation of a function's body. Read [this article about type class 'dictionaries'](https://www.schoolofhaskell.com/user/jfischoff/instances-and-dictionaries) as there really is no better way to explain this concept.
-
-After reading the above article, it's clear that this code...
-```purescript
-class ToBoolean a where
-  toBoolean :: a -> Boolean
-
-  unUsed :: a -> String
-
-example :: forall a. ToBoolean a => a -> Boolean
-example value = toBoolean value
-```
-
-... gets desugared to this code
-
-```purescript
-data ToBooleanDictionary a =
-  ToBooleanDictionary
-    { toBoolean :: a -> Boolean
-    , unUsed :: a -> String
-    }
-
-example :: forall a. ToBooleanDictionary a -> a -> Boolean
-example (ToBooleanDictionary record) value = record.toBoolean value
-```
-
-Thus, type classes provide a "convenience" of sorts: rather than forcing the developer to pass in an implementation of the function, `(a -> Boolean)`, the compiler can infer what that function's implementation is **as long as it can infer the type of `a` in `class ToBoolean a`**.
-
 ### Debate: Must Type Classes Always Be Lawful?
+
+As can be inferred by how dictionaries work, type classes provide a "convenience" of sorts: rather than forcing the developer to pass in an implementation of the function, `(a -> Boolean)`, the compiler can infer what that function's implementation is **as long as it can infer the type of `a` in `class ToBoolean a`**.
 
 This understanding is crucial for understanding a debate: must type classes always have laws? The following is a summary (somewhat biased) of [this Reddit thread](https://www.reddit.com/r/haskell/comments/5gospp/dont_use_typeclasses_to_define_default_values/)
 
