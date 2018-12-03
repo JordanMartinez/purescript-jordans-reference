@@ -27,6 +27,8 @@ The following labels give insight into this project's development:
 - [the 'Meta' label](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Meta): issues related to the project as a whole.
 - [the 'Release-PR' label](https://github.com/JordanMartinez/purescript-jordans-reference/pulls?utf8=%E2%9C%93&q=is%3Apr+label%3ARelease-PR+): the changelog of the code
 
+**Note: Sometimes this repo will produce a lot of notifications due to opening/closing issues/PRs and me adding additional thoughts/comments to things. If you wish to watch this repo, you are advised to watch for releases only. Many have unwatched this repo (before the release-only watch option was available) because it sometimes feels like notification spam.**
+
 ## License
 
 Unless stated otherwise in a specific folder or file, this project is licensed under the `Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license`: [(Human-readable version)](https://creativecommons.org/licenses/by-nc-sa/4.0/), [(Actual License)](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
