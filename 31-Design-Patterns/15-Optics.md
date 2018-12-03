@@ -1,5 +1,7 @@
 # Optics
 
+Once you have finished the Lenses book mentioned below, see [Oleg's Glassery post](http://oleg.fi/gists/posts/2017-04-18-glassery.html)
+
 ## Lenses
 
 Since FP data types cannot be subclassed like OO data types, one will often define a shared component and then define its 'subclasses' as having that shared component:
