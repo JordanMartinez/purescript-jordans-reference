@@ -1,8 +1,12 @@
 # Application Structure
 
-The upcoming folders will document the two ways one can structure an application. These will be later used to write two games that will only run in Node (not the browser):
-- MTL (Monad Transforms Library)
-- Free
+The upcoming folders will explain
+- the principle behind structuring FP programs
+- how to structure an FP program via
+    - MTL (Monad Transforms Library)
+    - Free/Run
+
+These will later be used to write games/programs that run in Node via the console and in the Browser via Halogen
 
 ### A Word of Thanks
 
