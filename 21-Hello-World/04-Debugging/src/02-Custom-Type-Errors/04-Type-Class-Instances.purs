@@ -1,4 +1,4 @@
-module ConsoleLessons.CustomTypeErrors.TypeClassInstances where
+module Debugging.CustomTypeErrors.TypeClassInstances where
 
 import Effect (Effect)
 import Effect.Console (log)

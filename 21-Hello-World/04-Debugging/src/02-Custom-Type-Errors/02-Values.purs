@@ -1,4 +1,4 @@
-module ConsoleLessons.CustomTypeErrors.Values where
+module Debugging.CustomTypeErrors.Values where
 
 import Effect (Effect)
 import Effect.Console (log)

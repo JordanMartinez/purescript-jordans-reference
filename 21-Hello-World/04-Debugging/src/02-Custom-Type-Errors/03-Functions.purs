@@ -1,4 +1,4 @@
-module ConsoleLessons.CustomTypeErrors.Functions where
+module Debugging.CustomTypeErrors.Functions where
 
 import Prelude
 import Data.Symbol (SProxy(..))

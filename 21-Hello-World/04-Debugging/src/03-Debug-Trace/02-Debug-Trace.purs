@@ -1,7 +1,7 @@
 -- When you compile this file, it will output compiler warnings.
 -- If you wish to remove that noise, comment out everything below
 -- the "module" declaration.
-module ConsoleLessons.DebugTrace where
+module Debugging.DebugTrace where
 
 -- Comment out everything below this line to prevent compiler warning.
 
