@@ -20,4 +20,4 @@ To understand this more clearly,
 - get a general idea of [Three Layer Haskell Cake](https://www.parsonsmatt.org/2018/03/22/three_layer_haskell_cake.html), where `Infrastructure` is Level 1, `API` is Level 2, and `Domain` is Level 3
 - Also worth watching: [Boundaries](https://www.destroyallsoftware.com/talks/boundaries)
 
-The rest of this folder will show how to do the `Domain/API` part of this structure via `MTL` and `Free`.
+The rest of this folder will show how to do the `Domain` part of this structure via `MTL` and `Free`.

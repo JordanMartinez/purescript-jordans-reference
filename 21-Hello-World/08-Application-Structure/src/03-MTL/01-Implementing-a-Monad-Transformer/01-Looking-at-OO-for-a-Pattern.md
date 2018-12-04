@@ -21,6 +21,8 @@ z = getAndIncrement(a);
 ```javascript
 // we'll make the function pure
 // and call it "add1"
+var add1 = (i) => i + 1;
+
 a = 0;
 x = add1(a);
 y = add1(a);
@@ -49,7 +51,7 @@ runNTimes :: forall a. Int -> (a -> a) -> a
 runNTimes 0 _ output = output
 runNTimes count func arg = runNTimes (count - 1) func (func arg)
 ```
-... but state manipulation is more complicated than that. While this idea may work for a simple state manipulation like an integer, it does not work for larger data structures as the next two examples will show.
+... but state manipulation is more complicated than that. What if we wanted to add 1 at one point and add 2 at another? What if we want to subtract 5 as well? In short, this approach does not work when we increase the complexity of the state manipulation. The next two examples will focus on a different kind of state manipulation.
 
 ## Random Number Generators
 
