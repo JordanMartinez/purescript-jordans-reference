@@ -4,7 +4,7 @@
 
 `MonadThrow` is used to immediately stop `bind`'s sequential computation and return an instance of its error type because of some unforeseeable error (e.g. business logic error).
 
-It's sole instance is `ExceptT`:
+It's default implmentation is `ExceptT`:
 ```purescript
              -- e     m     a
 newtype ExceptT error monad output =

@@ -9,6 +9,8 @@
 
 ## Requires More Understanding
 
+We previously mentioned that all lawful type classes that find their roots in Category Theory have duals. The following are monad transformers for the duals of some of the monad transformers we covered here.
+
 - [CoMonadTrans](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Comonad.Trans.Class), the Transformer type class for Comonads.
 - [CoMonadTraced](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Comonad.Traced.Class#t:ComonadTraced)
 - [CoMonadStore](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Comonad.Store.Class)

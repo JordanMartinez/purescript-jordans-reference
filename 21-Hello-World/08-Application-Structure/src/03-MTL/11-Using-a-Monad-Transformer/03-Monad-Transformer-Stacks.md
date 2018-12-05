@@ -1,4 +1,4 @@
-# Identifying The Pattern
+# Monad Transformer Stacks
 
 You will want to bookmark this page.
 
@@ -18,14 +18,14 @@ runProgram :: Index3 input3 (       -- bottom of the stack
                 Index2 input2 (
                   Index1 input1 (
                     Index0 input0   -- =
-                      Identity      -- | top of the stack (just a function)
+                      Identity      -- | top of the stack (the base monad)
                     output0         -- =
                   ) output1
                 ) output2
               ) output3
         -- -> input0      -- =
-        -- -> input1      -- | all needed initial
-        -- -> input2      -- | args go here
+        -- -> input1      -- | all needed initial args to
+        -- -> input2      -- | `run[Word]T`/`runWord` go here
         -- -> input3      -- =
            -> Tuple (
                 Tuple (

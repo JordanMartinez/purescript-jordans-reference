@@ -1,39 +1,36 @@
 # A Magical Monad
 
-Despite getting our code to work for a simple manipulation, we're not done yet. Why? Because of one horrible reason:
-> This approach requires every monad type in our monad stack to implement `StateLike` if we want to use it in a monad stack.
+We reached these conclusions previously:
+- we need `Monad`'s `bind`/`>>=` to enable multiple different state-manipulating functions to work
+- we need to hide the `state` from the actual function, so that developers can't pass in the wrong state value accidentally (i.e. make impossible states impossible). This came with two implications:
+    - Calling `bind`/`>>=` should return just `value`, not `Tuple value state`
+    - Running the computation via `runSomeFunction` should return `Tuple value state`.
 
-In other words, we'll need to write A LOT of `NaturalTransformations` from some source monad to all other target monads. What a waste of time!
-
-## Implementing StateLike for Every Monad
-
-So, what if we could define `StateLike` in such a way that, by defining only one instance for a magical type, we've also implemented it for all other `Monad` types? Crazy, I know! But it's possible! Let's take another look at `stateLike`'s type signature as it reveals an important clue:
+In short, we need to implement the following two functions with these type signatures:
 ```purescript
-                                                -- |      Hmm....     |
-stateLike :: forall a. (s -> Tuple a s) ->         (s -> m (Tuple a s))
+class (Monad m) <= MonadState state monad | monad -> state where
+  state :: forall value. (state -> Tuple value state) -> monad value
 
--- Desguar the "->" to see its type
-stateLike :: forall a. (s -> Tuple a s) -> Function s   (m (Tuple a s))
+runStateFunction :: forall state value.
+                   (state -> Identity (Tuple value state)) ->
+                    state ->
+                    Tuple value state
+runStateFunction stateManipulation initialState =
+  let (Identity tuple) = stateManipulation initialState
+  in tuple
 ```
-What if `Function` was a `Monad`? Assuming it was, we would not need to define an instance for any other Monad type because they could all be lifted into this function monad. For now, we'll assume (and later prove) that `Function` is a Monad, try to implement Function's instance for `StateLike`, and see what problems arise:
-```purescript
-class (Monad m) <= StateLike s m | m -> s where
-  stateLike :: forall a
-             .  (s ->    Tuple a s )
-             -> (s -> m (Tuple a s))
 
--- Read this instance as...
---    "I can implement `stateLike` for every monad, `m`"
--- The `?` acts as a place holder for our theory
-instance name :: (Monad m) => StateLike s (Function s (m (Tuple ? s))) where
-  stateLike :: forall a. (s -> Tuple a s) -> (s -> m (Tuple a s))
-  stateLike f = (\s -> pure $ f s) -- pure is the `m`'s pure
-```
-The above instance has a two problems:
-1. It won't compile because of that `?` placeholder.
-2. A `Monad` has kind `Type -> Type` whereas a `Function` has kind `Type -> Type -> Type`.
+## Introducing the Function Monad
 
-How do we resolve both? For the second problem, we can make `Function`'s kind one less by specifying either the input type or the output type:
+What if `Function` was a `Monad`? This might sound surprising at first, but it's actually true.
+
+Recall that a `Monad` is any type that has lawful instances for the `Functor`, `Apply`, `Applicative`, `Bind`, and `Monad` (FAABM) type classes. As long as a type can successfully implement lawful functions for them, the type can be called monadic.
+
+How might this be possible?
+
+First, a `Monad` has kind `Type -> Type` whereas a `Function` has kind `Type -> Type -> Type`.
+
+We can make `Function`'s kind one less by specifying either the input type or the output type:
 - `Function Int a`/`(Int -> a)` has kind `Type -> Type`
 - `Function a Int`/`(a -> Int)` has kind `Type -> Type`
 
@@ -46,117 +43,233 @@ specifiesInput :: forall a. TypedFunction Int b -- Kind: Type -> Type
 
 specifiesOutput :: forall a. TypedFunction a Int  -- Kind: Type -> Type
 ```
-Specializing this idea to our case, we need our function to newtype the function
+
+Second, since `Function` can refer to any function, what should our newtyped function's type signature be? We'll use the state-manipulating function's type signature itself!
 `(state -> monad (Tuple value state))`
 
-Since this monad will make it possible for all other monads to implement StateLike, we'll call it, `StateFunctionT`, because it can transform other monad types into `StateLike`:
+We will call this the `StateT` monad. The `T` part of the name will become clearer later.
+
+## Monadic Instances
+
+Let's now implement the FAABM type classes by using pattern matching to expose the inner function. The `value` type will be left undefined (i.e. it's the `a` in everything), making `StateT` have the necessary kind, `Type -> Type`:
+
+### Functor
+
 ```purescript
-newtype StateFunctionT stateType monadType valueType =
-  StateFunctionT (stateType -> monadType (Tuple valueType stateType))
+newtype StateT state monad value =
+  StateT (state -> monad (Tuple value state))
 
-class (Monad m) <= StateLike s m | m -> s where
-  stateLike :: forall a
-             .  (s ->    Tuple a s )
-             -> (s -> m (Tuple a s))
-
--- and now we can remove the `?` in the instance head,
---    (the "StateLike s (StateFunctionT s m)" part of the instance),
--- and let it's `a` type be defined by `stateLike` via "forall"
-instance name :: (Monad m) => StateLike s (StateFunctionT s m) where
-  stateLike :: forall a. (s -> Tuple a s) -> StateFunctionT s m a
-  stateLike f = StateFunctionT (\s -> pure $ f s)
-```
-However, the above code will not compile. Instead of returning a function, `(s -> m (Tuple a s))`, we are now returning a `StateFunctionT knownStateType knownMonadType arbitraryType`, which is a Monad. In other words, the return type has the type `forall a. m a`. If we update our `StateLike` type class to return `m a`, we get what's actually written in Purescript, just using different names:
-```purescript
-class (Monad m) <= StateLike s m | m -> s where
-  stateLike :: forall a. (s -> Tuple a s) -> m a
-
-newtype StateFunctionT stateType monadType valueType =
-  StateFunctionT (stateType -> monadType (Tuple valueType stateType))
-
-instance onlyInstance :: (Monad m) => StateLike s (StateFunctionT s m) where
-  stateLike :: forall a. (s -> Tuple a s) -> StateFunctionT s m a
-  stateLike f = StateFunctionT (\s -> pure $ f s)
-```
-
-## Proving that StateFunctionT is a Monad
-
-Great! Now comes the next part: how can a `StateFunctionT` be a Monad?
-
-A Monad is a type that has instances for the Functor, Apply, Applicative, and Bind type classes. These type classes, as we saw earlier, only specify the type signatures of their functions and the laws any implementations must satisfy. As long as our implementations for `StateFunctionT` can satisfy those laws, we can call `StateFunctionT` a monad.
-
-Is it possible? Suprisingly, yes, but only if we use pattern matching to expose nested types!
-```purescript
-newtype StateFunctionT state monad value =
-  StateFunctionT (state -> monad (Tuple value state))
-
-instance functor :: (Monad monad) => Functor (StateFunctionT state monad) where
+-- Let's follow the types. We'll need to return a `StateT` value
+-- so we'll start by doing that:
+instance functor :: (Monad monad) => Functor (StateT state monad) where
   map :: forall a b
        . (a -> b)
-      -> StateFunctionT state monad a
-      -> StateFunctionT state monad b
-  map f (StateFunctionT g) =
-    -- To get the "state" value, we'll need to run all of our code within
-    -- the StateFunctionT context
-    StateFunctionT (\s1 ->
+      -> StateT state monad a
+      -> StateT state monad b
+  map f (StateT g) = StateT -- todo
 
-      -- since "g s1" produces a Monad, we can call `bind`/`>>=` on it
-      -- to get the Tuple
-      (g s1) >>= (\(Tuple value1 state2) ->
+-- Since StateT wraps a function whose only argument
+-- is state, we'll add that now:
+instance functor :: (Monad monad) => Functor (StateT state monad) where
+  map :: forall a b
+       . (a -> b)
+      -> StateT state monad a
+      -> StateT state monad b
+  map f (StateT g) = StateT (\state ->
+      -- todo
+    )
 
-        let mappedValue = f value1
+-- We need to use that function, but it only takes an `a`
+-- argument. So, we need to get that `a` by using `g`
+-- Thus, we'll pass the returning StateT's state argument into `g`
+instance functor :: (Monad monad) => Functor (StateT state monad) where
+  map :: forall a b
+       . (a -> b)
+      -> StateT state monad a
+      -> StateT state monad b
+  map f (StateT g) = StateT (\state ->
+      let
+        (Tuple value state2) = g state
+      in
+        -- todo
+    )
 
-        -- this is the `monad` type's pure, not StateFunctionT's pure because
-        -- `StateFunctionT` must return a "monad (Tuple valueType stateType)"
-        in pure $ Tuple mappedValue state2
+-- Great. Now let's pass `value` into the `f` function
+instance functor :: (Monad monad) => Functor (StateT state monad) where
+  map :: forall a b
+       . (a -> b)
+      -> StateT state monad a
+      -> StateT state monad b
+  map f (StateT g) = StateT (\state ->
+      let
+        (Tuple value state2) = g state
+        b = f value
+      in
+        -- todo
+    )
+
+-- Now we have our `b`. However, the returned `StateT` needs
+-- to wrap a function that returns `monad (Tuple value state)`
+-- Let's do that now and finish implementing Functor for StateT
+instance functor :: (Monad monad) => Functor (StateT state monad) where
+  map :: forall a b
+       . (a -> b)
+      -> StateT state monad a
+      -> StateT state monad b
+  map f (StateT g) = StateT (\state ->
+      let
+        (Tuple value state2) = g state
+        b = f value
+      in
+        pure (Tuple b state2)
+    )
+```
+
+### Apply
+
+Since `Apply` is very similar to `Functor` (actually the exact same, but we just unwrap the `f` now, too), we'll just show the code.
+
+```purescript
+instance apply :: (Monad monad) => Apply (StateT state monad) where
+  apply :: forall a b
+        -- (state -> Tuple (a -> b) state)
+         . StateT state monad (a -> b)
+        -> StateT state monad a
+        -> StateT state monad b
+  apply (StateT f) (StateT g) = StateT (\s1 ->
+    let
+      (Tuple value1 s2) = g s1
+    in
+      let
+        (Tuple function s3) = f s2
+      in
+        let
+          mappedValue = function value1
+        in
+          pure $ Tuple mappedValue s3
+        )
+      )
+    )
+```
+
+### Applicative
+
+The Applicative instance is actually quite straight forward:
+```purescript
+instance apctv :: (Monad monad) => Applicative (StateT state monad) where
+  pure :: forall a. a -> StateT state monad a
+  pure a = StateT (\s -> pure $ Tuple a s)
+```
+
+### Bind & Monad
+
+```purescript
+instance bind :: (Monad monad) => Bind (StateT state monad) where
+  bind :: forall a b
+        . StateT state monad a
+       -> (a -> StateT state monad b)
+       -> StateT state monad b
+  bind (StateT g) f = StateT (\s1 ->
+    let
+      (Tuple value1 s2) = g s1
+    in
+      let
+        (State h) = f value1
+      in
+        h s2
       )
     )
 
-instance apply :: (Monad monad) => Apply (StateFunctionT state monad) where
+-- The Monad instance is just declared since there is nothing to implement.
+instance monad :: (Monad m) => Monad (StateT state monad)
+```
+
+### MonadState
+
+```purescript
+instance ms :: (Monad m) => Monad (StateT state monad) where
+  state :: forall value. (state -> Tuple value state) -> StateT state monad value
+  state f = StateT (\s -> pure $ f s)
+```
+
+## FAABM Using Bind
+
+Notice, however, that the above `let ... in` syntax is really just a verbose way of doing `bind`/`>>=`. If we were to rewrite our instances using `bind`, they now look like this:
+
+```purescript
+instance map :: (Monad monad) => Functor (StateT state monad) where
+  map :: forall a b
+       . (a -> b)
+      -> StateT state monad a
+      -> StateT state monad b
+  map f (StateT g) = StateT (\s1 ->
+      (g s1) >>= (\(Tuple value1 s2) ->
+        pure $ Tuple (function value1) s2
+      )
+    )
+
+instance apply :: (Monad monad) => Apply (StateT state monad) where
   apply :: forall a b
         -- (state -> Tuple (a -> b) state)
-         . StateFunctionT state monad (a -> b)
-        -> StateFunctionT state monad a
-        -> StateFunctionT state monad b
-  apply (StateFunctionT f) (StateFunctionT g) = StateFunctionT (\s1 ->
+         . StateT state monad (a -> b)
+        -> StateT state monad a
+        -> StateT state monad b
+  apply (StateT f) (StateT g) = StateT (\s1 ->
       (g s1) >>= (\(Tuple value1 s2) ->
-
         (f s2) >>= (\(Tuple function s3) ->
-
-          let mappedValue = function value1
-
-          in pure $ Tuple mappedValue s3
+          pure $ Tuple (function value1) s3
         )
       )
     )
 
-instance apctv :: (Monad monad) => Applicative (StateFunctionT state monad) where
-  pure :: forall a. a -> StateFunctionT state monad a
-  pure a = StateFunctionT (\s -> pure $ Tuple a s)
+instance apctv :: (Monad monad) => Applicative (StateT state monad) where
+  pure :: forall a. a -> StateT state monad a
+  pure a = StateT (\s -> pure $ Tuple a s)
 
-instance bind :: (Monad monad) => Bind (StateFunctionT state monad) where
+instance bind :: (Monad monad) => Bind (StateT state monad) where
   bind :: forall a b
-        . StateFunctionT state monad a
-       -> (a -> StateFunctionT state monad b)
-       -> StateFunctionT state monad b
-  bind (StateFunctionT g) f = StateFunctionT (\s1 ->
+        . StateT state monad a
+       -> (a -> StateT state monad b)
+       -> StateT state monad b
+  bind (StateT g) f = StateT (\s1 ->
       (g s1) >>= (\(Tuple value1 s2) ->
-        let (StateFunctionT h) = f value1
-        -- h :: (state -> monad (Tuple value state))
-        in h s2
+        let (StateT h) = f value1 in h s2
       )
     )
 
-instance monad :: (Monad m) => Monad (StateFunctionT state monad)
+instance monad :: (Monad m) => Monad (StateT state monad)
 ```
 
-## Defining StateFunction
+## Reviewing StateT's Bind Instance
 
-`StateFunctionT` enables another computational monad (e.g. `MonadWriter`, `MonadReader`, etc.) to run inside of it via it's `m` type. This enables the "monad stack" idea we mentioned before. However, when we don't want to run another computational monad inside of `StateFunctionT`, what do we write instead?
-
-We could write `StateFunctionT s Identity a` and use `Identity` as a placeholder for a computational monad that doesn't comput anything. However, this gets tedious after a while a doesn't emphasize developer intent.
-
-To emphasize developer intent, we need a type (e.g. `data`, `type`, or `newtype`) that should only exist at compile time to reduce runtime overhead (e.g. `type` or `newtype`) that does not need to implement type classes but which merely specifies one of the types in `StateFunctionT` (i.e. only `type`). Let's remove the `T` part (indicating that it is not transforming another computational monad into `StateLike`) via a type alias:
+Let's look in particular at `StateT`'s `bind` implmentation as this is crucial to understanding how it enables the syntax we desire:
 ```purescript
-type StateFunction state output = StateFunctionT state Identity output
+instance bind :: (Monad monad) => Bind (StateT state monad) where
+  bind :: forall a b
+        . StateT state monad a
+       -> (a -> StateT state monad b)
+       -> StateT state monad b
+  bind (StateT g) f = StateT (\s1 ->
+      (g s1) >>= (\(Tuple value1 s2) ->
+        let
+          (StateT h) = f value1
+        in
+        -- h :: (state -> monad (Tuple value state))
+           h s2
+      )
+    )
 ```
+
+Behind the scenes, `StateT` is still using `Tuple value state` as normal. However, the value that is passed to `f` is the `value` type (i.e. `a`) and not `Tuple value state`.  This is what enables the syntax we desire.
+
+In other words, recall that
+```purescript
+bind (Box 4) (\four -> body)
+-- converts to
+(Box 4) >>= (\four -> body)
+-- which in 'do notation' looks like
+four <- (Box 4)
+body four
+```
+
+In the next file, we'll show how this actually works via a graph reduction.

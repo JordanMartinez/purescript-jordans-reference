@@ -4,37 +4,37 @@ When we wrote code for our `MonadState` example, we had something that looked li
 ```purescript
 type Output = Int
 type StateType = Int
-function :: State StateType Output
-function = do
+computation :: State StateType Output
+computation = do
   modify_ (_ + 1)
   modify_ (_ * 10)
   modify_ (_ + 1)
 
 main :: Effect Unit
-main = case runState function 0 of
+main = case runState computation 0 of
   Tuple output state -> do
     log $ "Result of computation: " <> show output
     log $ "End state of computation: " <> show state
 ```
-The above code works because we're using `MonadState` behind the scenes via `StateT`'s instance. However, this function's type signature restricts us to only using `StateT` for computations. If we want to augment `function` with functions from `MonadWriter`, we'll need to use a different approach. Let's fix this one step at a time.
+The above code works because we're using `MonadState` behind the scenes via `StateT`'s instance. However, this function's type signature restricts us to only using `StateT` for computations. If we want to define `computation`, so that it can use functions from `MonadWriter`, we'll need to use a different approach. Let's fix this one step at a time.
 
 First, we'll abstract our `State` type into `MonadState` by using a type constraint:
 ```purescript
 type Output = Int
 type StateType = Int
-function :: forall m => MonadState StateType m => m Output
-function = do
+computation :: forall m => MonadState StateType m => m Output
+computation = do
   modify_ (_ + 1)
   modify_ (_ * 10)
   modify_ (_ + 1)
 
 -- use a helper function to tell the type inferer that
--- `function`'s `m` type is `StateT`
+-- `computation`'s `m` type is `StateT`
 runProgram :: State StateType Output -> Tuple Output StateType
 runProgram s = runState s 0
 
 main :: Effect Unit
-main = case runProgram function of
+main = case runProgram computation of
   Tuple string state -> do
     log $ "Result of computation: " <> string
     log $ "End state of computation: " <> show state
@@ -45,11 +45,11 @@ Second, we'll add another type class constraint for `MonadAsk` to expose it's `t
 type Output = Int
 type StateType = Int
 type NonOutputData = String
-function :: forall m
+computation :: forall m
           . MonadState StateType m
          => MonadAsk NonOuputData m
          => m Output
-function = do
+computation = do
   modify_ (_ + 1)
   tell "Modified state by adding 1"
   currentState <- modify (_ * 10)
@@ -57,13 +57,13 @@ function = do
     <> show currentState
   modify_ (_ + 1)
 ```
-Great! We now have a single function that can do both state manipulation and use `tell`. However, how does that affect `runProgram`?
+Great! We now have a single computation that can do both state manipulation and use `tell`. However, how does that affect `runProgram`?
 ```purescript
 runProgram :: StateT_and_WriterT -> StateT_and_WriterT_Output
 runProgram s = -- ???
 ```
 
-When we used a monad (e.g. `WriterT`) to run a computation, we didn't need to specify the monad type being used. So, we used `Identity` as a placeholder monad and used the type alias, `Writer`, to make it easier to write. To use another computational monad (e.g. `StateT`) inside of `Writer`, we now need to specify what that monad is by re-exposing the `T` part of `WriterT` and replacing `Identity` with `StateT`:
+When we used a monad (e.g. `WriterT`) to run a computation, we didn't need to specify the monad type being used. So, we used `Identity` as a placeholder monad and used the type alias, `Writer`, to make it easier to write. To use another computational monad (e.g. `StateT`) inside of `Writer`, we now need to specify what that monad is by re-exposing the `T` part of `WriterT` and replacing `Identity` with `StateT`. Putting it differently, `WriterT` is now transforming the monad, `StateT` with additional effects, which is likewise transforming the base monad, `Identity` with additional effects:
 ```purescript
 -- simple writer computation
 writer :: Writer NonOutputData Output -> Tuple NonOuputData Output

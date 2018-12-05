@@ -43,7 +43,7 @@ main =
       log $ "next state was: " <> show theNextState --  1
 ```
 
-### Why We Need a Monad
+## Why We Need a Monad
 
 What if we want to run `add1` four times?
 
@@ -125,39 +125,30 @@ someFunction :: forall state monad value
              => (state -> Tuple value state) -- the state manipulation function
              -> state                        -- the initial state
              -> monad (Tuple value state)    -- the monad that makes `bind` work
-someFunction function = (\state -> pure $ function state)
+someFunction function state = pure $ function state
 ```
-However, if the output of one state manipulation function will be passed into the next, then we don't need an `initialState` value anymore. Rather, it implies that `initialState` should be relocated to another function, `runSomeFunction`, that does a few things:
-1. Passes the `initialState` value into the final composition of all the state manipulating functions
-2. Unwraps `someFunction`'s returned `Monad (Tuple value state)` box-like type to get the final `(Tuple value state)`
-
-Using `Box` as our Monad type (for now), our code now reads:
+Putting this all together, we get this:
 ```purescript
 someFunction :: forall state monad value
               . Monad monad
 
-             -- the state manipulation function
+             -- the state manipulation function...
              => (state -> Tuple value state)
 
-             -- lifted into a Monad that makes `bind` work,
+             -- (the initial/next state)
+             -> state
+
+             -- whose output gets lifted into a Monad that makes `bind` work,
              -- so we can compose multiple state manipulating functions
              -- together into one function
-             -> (state -> monad (Tuple value state))
-someFunction function = (\state ->
-    let tuple = function state
+             -> monad (Tuple value state))
+someFunction function initialOrNextState =
+    let tuple = function initialOrNextState
 
       -- lift it into the Monad to
       -- enable sequential computation via bind
     in pure tuple
   )
-
-runSomeFunction :: forall state monad value
-                 . (state -> monad (Tuple value state))
-                -> (monad (Tuple value state) -> Tuple value state)
-                -> state
-                -> Tuple value state
-runSomeFunction stateFunctionsComposedIntoOne unwrap initialState =
-  unwrap (stateFunctionsComposedIntoOne initialState)
 
 -- our Monad type
 data Box a = Box a
@@ -173,12 +164,11 @@ addStringLengthTo value state =
 
 -- Uses `someFunction` to compose multiple state functions together into one
 crazyFunction :: Int -> Box (Tuple Int Int)
-crazyFunction state1 = do                                                   {-
-  Tuple value    state        <- pure $ function state
-  Tuple value    state        <- (\s -> pure $ function s) state
-  Tuple value    state        <- (someFunction function) state
-                                                                            -}
-  Tuple value1      state2      <- (someFunction add1) state1
+crazyFunction initial = do                                                   {-
+  Tuple value  state  <- pure $ function state
+  Tuple value  state  <- (\s -> pure $ function s) state
+  Tuple value  state  <- (someFunction function) state                      -}
+  Tuple value1 state2 <- (someFunction add1) initial
   (someFunction (\s -> addStringLengthTo value1 s) state2
 
 main :: Effect Unit
@@ -189,9 +179,11 @@ main =
       log $ "theInt was: " <> show theInt   --  2
 ```
 
+There's two problems with the above approach, which the next sections will refine.
+
 ## The `Identity` Monad
 
-However, we have a problem.... `Box` is a literal runtime Box. So, using it here means we'll be boxing and unboxing the result of our functions. We only need `Box` so we can use a Monad for sequential computation, not because we need the type, `Box`, specifically (we could use `Box2` and our code wouldn't change). This implies unneeded runtime overhead. Why don't we fix this by using a type that only exists at compile-time? This implies using `newtype`.
+`Box` is a literal runtime Box. So, using it here as our monad type means we'll be runtime boxing and unboxing the result of our functions, thereby slowing down our code needlessly. We only need `Box` so we can use a Monad for sequential computation, not because we need the type, `Box`, specifically (we could use `Box2` and our code wouldn't change). Why don't we get rid of this needless runtime overhead by using a type that only exists at compile-time? This implies using `newtype` because the type still needs to implement an instance for `Monad`.
 
 Since we have a "placeholder" function called `identity`, let's reuse this name for our compile-time-only type:
 ```purescript
@@ -199,78 +191,51 @@ Since we have a "placeholder" function called `identity`, let's reuse this name 
 identity :: forall a. a -> a
 identity x = x
 
-data    Box      a = Box      a -- runtime type!
+-- runtime type!
+data    Box      a = Box      a
 
 -- placeholder for a monad!
-newtype Identity a = Identity a -- compile-time-ONLY type!
-```
-
-### Abstracting the Concept into a Type Class
-
-The above solution works. However, we want to use `someFunction` for numerous state manipulating functions on numerous data structures (e.g. `add1`, `popStack`, `replaceElemAtIndex`). This implies that we need to convert `someFunction` into a type class, so we can use `someFunction` in another function via a type class constraint. Let's attempt to define it and call the type class `StateLike`. Its function, `stateLike`, should be the same as `someFunction`'s type signature:
-```purescript
-someFunction :: forall state monad value
-              . Monad monad
-             => (state ->        Tuple value state)
-             -> (state -> monad (Tuple value state))
-someFunction function = (\state -> pure $ function state)
-
-class StateLike ??? where
-  stateLike :: forall s m a
-             .  (s     ->        Tuple a s )
-             -> (s     -> m     (Tuple a s))
-```
-Because we know that we'll need to create a stack of monad `NaturalTransformations`, this should work for every monad type, so let's add a Monad constraint, `m`, to `???`:
-```purescript
-class (Monad m) <= StateLike m where
-  stateLike :: forall s a
-             .  (s     ->        Tuple a s )
-             -> (s     -> m     (Tuple a s))
-```
-We need to make sure the `s` type does not change, so we'll also define a functional dependency from `m` to `s`
-```purescript
-class (Monad m) <= StateLike s m | m -> s where
-  stateLike :: forall a
-             .  (s     ->        Tuple a s )
-             -> (s     -> m     (Tuple a s))
-```
-Now let's implement it for `Identity`:
-```purescript
-class (Monad m) <= StateLike s m | m -> s where
-  stateLike :: forall a
-             .  (s -> Tuple a s )
-             -> (s -> m (Tuple a s))
-
-instance name :: StateLike s Identity where
-  stateLike f = (\s -> pure $ f s)
-```
-Great! Everything works now! Here's a working example:
-```purescript
-class (Monad m) <= StateLike s m | m -> s where
-  stateLike :: forall a
-             .  (s -> Tuple a s )
-             -> (s -> m (Tuple a s))
-
-instance name :: StateLike s Identity where
-  stateLike f = (\s -> pure $ f s)
-
-instance aplctv :: Applicative Identity where
-  pure :: forall a. a -> Identity a
-  pure a = Identity a
-
+-- compile-time-ONLY type!
 newtype Identity a = Identity a
+```
 
-unwrapBox :: forall a. Identity a -> a
-unwrapBox (Identity a) = a
+## The Syntax Problem
 
-runSomeFunction :: forall s m a
-                 . StateLike m
-                => (s -> m (Tuple a s))
-                -> (m (Tuple a s) -> Tuple a s)
-                -> s
-                -> Tuple a s
-runSomeFunction stateFunctionsComposedIntoOne unwrap initialState =
-  unwrap (stateFunctionsComposedIntoOne initialState)
+`crazyFunction` showed an issue with our current approach: we have to pass the previous `state` result back into the next function. If the developer passes in the wrong state value, the code will no longer work as expected:
+```purescript
+crazyFunction :: Int -> Identity (Tuple Int Int)
+crazyFunction initial = do
+  -- Computation 1: here we calculate what state2 is
+  Tuple value1 state2 <- (someFunction add1) initial
+
+  -- Computation 2: here we calculate what state3 is
+  Tuple value2 state3 <- (someFunction add1) state2
+
+  -- Computation 3: here we pass in `state2` when we should pass in `state3`
+  (someFunction (\s -> addStringLengthTo value2 s) state2
+```
+
+In short, we need to hide the `state` value entirely from the function so that developers cannot pass in the wrong value. Thus, we must also get rid of the `Tuple value state` notion in our function. Putting those two concepts together, we imagine syntax that looks like this:
+`nextValue <- someFunction (\nextState -> stateManipulatingFunction nextState)`
+
+This syntax...
+`nextValue <- someFunction (\initialState -> stateManipulatingFunction initialState)`
+... looks very similar to OO's syntax:
+`var nextValue = initialState.stateManipulatingFunction();`
+
+Another benefit: it gets rid of the boilerplate-y noise-y `Tuple`s
+
+What would we need to change to get this syntax? This gets tricky.
+
+First, `initialState` should now be located outside `crazyFunction` and appear in another function, `runSomeFunction`. `runSomeFunction` should pass the `initialState` value into the final composition of all the state manipulating functions:
+```purescript
+runSomeFunction :: forall state value.
+                   (state -> Identity (Tuple value state)) ->
+                   state ->
+                   Tuple value state
+runSomeFunction stateFunctionsComposedIntoOne initialState =
+  let (Identity tuple) = stateFunctionsComposedIntoOne initialState
+  in tuple
 
 addStringLengthTo :: Int -> Int -> Tuple String Int
 addStringLengthTo value state =
@@ -278,15 +243,77 @@ addStringLengthTo value state =
       state3 = state + (length valueAsString)
   in Tuple (show state3) state3
 
-crazyFunction :: Int -> Box (Tuple Int Int)
-crazyFunction state1 = do
-  Tuple string state2 <- (someFunction add1) state1
-  (someFunction (s -> addStringLengthTo string s)) state2
+-- Using our new syntax...
+crazyFunction :: (state -> Identity (Tuple Int state))
+crazyFunction = do
+  -- Computation 1
+  value1 <- someFunction (\initialState -> add1 initialState)
 
-main :: Effect Unit
-main =
-  case (runSomeeFunction crazyFunction unwrapBox 0) of
-    Tuple theString theInt -> do
-      log $ "theString was: " <> theString  -- "2"
-      log $ "theInt was: " <> show theInt   -- 2
+  -- Computation 2
+  -- `bind` will produce `Tuple value2 state3`
+  someFunction (\state2 -> addStringLengthTo value1 state2)
 ```
+
+Second (and as the above example shows), `someFunction` must somehow return just `value` and not `Tuple value state`.
+
+From these clues, we get this new type signature:
+```purescript
+someFunction :: forall state monad value.
+                Monad monad =>
+                (state -> Tuple value state) -> monad value
+someFunction function = -- ???
+
+runSomeFunction :: forall state value.
+                   (state -> Identity (Tuple value state)) ->
+                   state ->
+                   Tuple value state
+runSomeFunction stateFunctionsComposedIntoOne initialState =
+  let (Identity tuple) = stateFunctionsComposedIntoOne initialState
+  in tuple
+```
+
+It would seem that this idea is not possible. We'll reveal how in the next file. For now, we'll abstract this concept into a type class
+
+### Abstracting the Concept into a Type Class
+
+We want to use `someFunction` for numerous state manipulating functions on numerous data structures (e.g. `add1`, `popStack`, `replaceElemAtIndex`). This implies that we need to convert `someFunction` into a type class, so we can use `someFunction` in other situations via a type class constraint. Let's attempt to define it and call the type class `MonadState`. Its function, `state`, should be the same as `someFunction`'s type signature:
+```purescript
+someFunction :: forall state monad value
+              . Monad monad
+             => (state -> Tuple value state)
+             -> monad value
+someFunction function = -- ???
+
+class MonadState ??? where
+  state :: forall s m a
+             .  (s -> Tuple a s )
+             -> m a
+```
+Because we know we need `bind`, let's add a Monad constraint, `m`, to `???`:
+```purescript
+class (Monad m) <= MonadState m where
+  state :: forall s a
+             .  (s -> Tuple a s )
+             -> m a
+```
+We need to make sure the `state` type does not change, so we'll also define a functional dependency from `m` to `s`
+```purescript
+class (Monad m) <= MonadState s m | m -> s where
+  state :: forall a
+             .  (s -> Tuple a s )
+             -> m a
+```
+
+Combining this definition with its corresponding `runSomeFunction`, we get this (where `runSomeFunction` is now called `runStateFunction`)
+
+```purescript
+class (Monad m) <= MonadState s m | m -> s where
+  state :: forall a. (s -> Tuple a s) -> m a
+
+runStateFunction :: forall s a. (s -> Identity (Tuple a s)) -> s -> Tuple a s
+runStateFunction stateManipulation initialState =
+  let (Identity tuple) = stateManipulation initialState
+  in tuple
+```
+
+Ok. Now let's see how this seemingly impossible syntax is actually possible.

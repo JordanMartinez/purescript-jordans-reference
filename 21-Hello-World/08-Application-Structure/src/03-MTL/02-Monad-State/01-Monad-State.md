@@ -83,12 +83,10 @@ main =
       log $ "theString was: " <> theString  -- "2"
       log $ "theInt was: " <> show theInt   --  2
 
-unwrap :: forall a. Identity a -> a
-unwrap (Identity a) = a
-
 runState :: forall s a. StateT s Identity a -> s -> Tuple a s
-runState (StateT f) initialState =
-  unwrap $ runStateT f initialState
+runState stateT initialState =
+  let (Identity tuple) = runStateT stateT initialState
+  in tuple
 
 runStateT :: forall s m a. StateT s m a -> s -> m Tuple a s
 runStateT (StateT f) initialState = f initialState

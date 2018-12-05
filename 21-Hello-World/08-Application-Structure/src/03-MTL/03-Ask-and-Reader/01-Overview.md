@@ -2,7 +2,7 @@
 
 ## Monad Reader
 
-`MonadAsk` is used to expose a read-only value to a monadic context. It is implemented only by `ReaderT`:
+`MonadAsk` is used to expose a read-only value to a monadic context. It's default implmentation is `ReaderT`:
 ```purescript
              -- r        m     a
 newtype ReaderT readOnly monad finalOutput =
@@ -84,5 +84,5 @@ To see how `ReaderT` implements its instances
 - [MonadReader instance](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L103), which is implemented using [`withReaderT` but where `r1` and `r2` are the same](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Reader/Trans.purs#L45)
 
 To handle/modify the output of a reader computation:
--[Reader](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader#v:runReader)
+- [Reader](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader#v:runReader)
 - [ReaderT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Trans#v:runReaderT)

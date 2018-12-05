@@ -14,7 +14,10 @@ import Control.Monad.State (State, runState)
 import Control.Monad.Writer.Class (class MonadWriter, tell)
 import Control.Monad.Writer.Trans (WriterT, runWriterT)
 
-program :: forall m. MonadState Int m => MonadWriter String m => m String
+program :: forall m.
+           MonadState Int m =>
+           MonadWriter String m =>
+           m String
 program = do
     currentState <- get
     tell $ "Current State is now: " <> show currentState
