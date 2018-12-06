@@ -6,6 +6,7 @@
 - [ListT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.List.Trans#t:ListT), a monad that returns a `List a`. In addition, it provides the regular list functions you'd expect
 - [MaybeT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Maybe.Trans#t:MaybeT), a monad the returns a `Maybe a`
 - [MonadRec](https://pursuit.purescript.org/packages/purescript-tailrec/4.0.0/docs/Control.Monad.Rec.Class#t:MonadRec) (not included in the `purescript-transformers` library): guarantees stack safety for monad transformers
+- [MonadGen](https://pursuit.purescript.org/packages/purescript-gen/2.1.0/docs/Control.Monad.Gen.Class#t:MonadGen) (not included in the `purescript-transformers` library): generates random data. (This is used in the Testing library later)
 
 ## Requires More Understanding
 
