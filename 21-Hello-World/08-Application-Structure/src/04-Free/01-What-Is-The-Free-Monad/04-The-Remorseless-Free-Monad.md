@@ -64,7 +64,9 @@ instance a :: Semigroup Int where
 -- Finish:
 1 <> (2 <> (3 <> (4 <> (5 <> (6 <> (7 <> 8))))))
 ```
-We can see that the output of adding up all these integers, regardless of where we put the parenthesis, will still be the same output value  (that's the law of associativity). However, functions that are "associative" sometimes take longer to output that value depending on which "direction" it goes. As an example, consider the `Semigroup` instance for `List`:
+We can see that the output of adding up all these integers, regardless of where we put the parenthesis, will still be the same output value  (that's the law of associativity).
+
+However, functions that are "associative" sometimes take longer to output that value depending on which "direction" it goes. As an example, consider the `Semigroup` instance for `List`:
 ```purescript
 data List a
   = Nil
@@ -137,7 +139,7 @@ So, let's think about why this occured. Due to the way the type is defined, `Lis
 -- Thus, this code...
 freeMonad >>= f >>= g >>= h >>= ...
 -- is synonymous with the runtime performance hit as this code...
-(((freeMonad <> f) <> g) <> h) <> ...
+(((list <> f) <> g) <> h) <> ...
 ```
 When we call `freeMonad >>= f`, we iterate through `freeMonad`'s entire structure. When we take that output and `bind`/`>>=` it to `g`, we iterate through `freeMonad`'s entire structure plus any new nesting values that `f` added to it. When we take that output and `bind`/`>>=` it to `h`, the total cost is `freeMonad + f's additional structure + g's additional structure`. As a result, `Free`'s performance suffers because of its recursive nature.
 

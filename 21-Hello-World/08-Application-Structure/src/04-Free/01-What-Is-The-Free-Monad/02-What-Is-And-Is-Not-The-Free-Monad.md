@@ -34,23 +34,23 @@ instance apply :: Apply FreeMonad where
 instance bind :: Bind FreeMonad where
   bind (Pure a) f = f a
 ```
-Well, that was easy... Wasn't this the same implementation as `Box` from before? You are correct.
+Well, that was easy... Wasn't this the same implementation as `Identity` from before? You are correct.
 ```purescript
-data Box a = Box a
+data Identity a = Identity a
 
-instance applicative :: Applicative Box where
-  pure a = Box a
+instance applicative :: Applicative Identity where
+  pure a = Identity a
 
-instance functor :: Functor Box where
-  map f (Box a) = Box (f a)
+instance functor :: Functor Identity where
+  map f (Identity a) = Identity (f a)
 
-instance apply :: Apply Box where
-  apply (Box f) (Box a) = Box (f a)
+instance apply :: Apply Identity where
+  apply (Identity f) (Identity a) = Identity (f a)
 
-instance bind :: Bind Box where
-  bind (Box a) f = f a
+instance bind :: Bind Identity where
+  bind (Identity a) f = f a
 ```
-We can see here that `Box` is a free `Functor`, `Apply`, `Applicative`, `Bind`, and therefore `Monad` for any type with kind `Type`. However, that's not what others mean when they talk about **the** free `Functor`, `Applicative`, and `Monad` types. Those "free" types make any type with kind `Type -> Type` a functor, applicative, and monad. AFAIK, these types were not discovered at the same time by the same people. Rather, they were discovered over time as solutions to specific problems. See below for these types:
+We can see here that `Identity` is a free `Functor`, `Apply`, `Applicative`, `Bind`, and therefore `Monad` for any type with kind `Type`. However, that's not what others mean when they talk about **the** free `Functor`, `Applicative`, and `Monad` types. Those "free" types make any type with kind `Type -> Type` a functor, applicative, and monad. AFAIK, these types were not discovered at the same time by the same people. Rather, they were discovered over time as solutions to specific problems. See below for these types:
 - Coyoneda - [docs](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Data.Coyoneda#t:Coyoneda) & [source code](https://github.com/purescript/purescript-free/blob/v5.1.0/src/Data/Coyoneda.purs#L32) - a free `Functor` for any type of kind `Type -> Type`.
 - FreeAp - [docs](https://pursuit.purescript.org/packages/purescript-freeap/5.0.1/docs/Control.Applicative.Free) & [source code](https://github.com/ethul/purescript-freeap/blob/v5.0.1/src/Control/Applicative/Free.purs#L22-L25) - a free `Applicative` for any type of kind `Type -> Type`. Here's the [related paper](https://arxiv.org/pdf/1403.0749.pdf), which will likely make more sense once we explain how the `Free` monad works.
 - Free (the original) - a free `Monad` for any `Functor`. Its implementation suffers from big performance problems when run.

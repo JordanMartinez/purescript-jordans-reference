@@ -54,7 +54,7 @@ data FreeMonoid a
   = Mempty
   | Append a
 ```
-However, if try to implement this as `(Append a1) <> (Append a2)`, we can't combine `a1` and `a2`. Rather, we need to store both an `a1` and an `a2` in a single `Append`:
+However, if we try to implement this as `(Append a1) <> (Append a2)`, we can't combine `a1` and `a2`. Rather, we need to store both an `a1` and an `a2` in a single `Append`:
 ```purescript
 data FreeMonoid a
   = Mempty
@@ -75,7 +75,7 @@ instance s :: Semigroup (FreeMonoid a) where
 -- ...well, not quite!
 (Append a1 a2) <> (Append a3 Mempty) == -- ???
 ```
-Our previous solution doesn't work either. However, if the failure case above is just another append, we get something like this:
+Our previous solution doesn't work either. If the failure case above is just another append, we get something like this:
 `((Append a1 Mempty) <> (Append a2 Mempty)) <> (Append a3 Mempty)`
 Rather than defining a second `a` for `Append`, what if we nested the types together? This approach makes our code finally work:
 ```purescript

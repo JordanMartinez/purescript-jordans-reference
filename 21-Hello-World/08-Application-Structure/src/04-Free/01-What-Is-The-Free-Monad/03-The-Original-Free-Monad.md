@@ -7,27 +7,27 @@ data Free f a
   = Pure a
   | Impure (f (Free f a))
 ```
-Let's say that `Box` is our `f`/`Functor` type. What does a concrete instance of the `Free` data type look like?
+Let's say that `Identity` is our `f`/`Functor` type. What does a concrete instance of the `Free` data type look like?
 ```purescript
-Impure ( Box (
-  Impure ( Box (
-    Impure ( Box (
+Impure ( Identity (
+  Impure ( Identity (
+    Impure ( Identity (
       Pure a
     ))
   ))
 ))
 ```
-In other words, `Free` is just a data structure of nested `Box` types where the final `Box` one wraps a value:
+In other words, `Free` is just a data structure of nested `Identity` instances where the final `Identity` instance wraps a value:
 ```purescript
-{- Impure ( -} Box (
-  {- Impure ( -} Box (
-    {- Impure ( -} Box (
+{- Impure ( -} Identity (
+  {- Impure ( -} Identity (
+    {- Impure ( -} Identity (
       {- Pure -}     a
     {- ) -}        )
   {- ) -}        )
 {- ) -}        )
 ```
-The only difference is that `Box` itself is wrapped in another type. So how do we change a value that is wrappd in a box-like type? We use `Functor`'s `map`, of course! We'll use `map` in most of `Free`'s instances for the needed type classes:
+The only difference is that `Identity` itself is wrapped in another type. So how do we change a value that is wrappd in a box-like type? We use `Functor`'s `map`, of course! We'll use `map` in most of `Free`'s instances for the needed type classes:
 ```purescript
 -- easiest one!
 instance Applicative :: Applicative (Free f) where
@@ -49,8 +49,8 @@ Let's see `map` in action via a graph reduction:
 ```purescript
 -- Start!
 map f (
-  Impure ( Box (
-    Impure ( Box (
+  Impure ( Identity (
+    Impure ( Identity (
       Pure 5
     ))
   ))
@@ -58,55 +58,55 @@ map f (
 -- Recursively apply `map` until we get a `Pure` instance
 -- 1.
       (
-  Impure ( map f Box (
-    Impure ( Box (
+  Impure ( map f Identity (
+    Impure ( Identity (
       Pure 5
     ))
   ))
 )
 -- 2.
        (
-   Impure ( Box (
-     map f Impure ( Box (
+   Impure ( Identity (
+     map f Impure ( Identity (
        Pure 5
      ))
    ))
  )
 -- 3.
       (
-   Impure ( Box (
-     Impure ( map f Box (
+   Impure ( Identity (
+     Impure ( map f Identity (
        Pure 5
      ))
    ))
  )
 -- 4.
        (
-   Impure ( Box (
-     Impure ( Box (
+   Impure ( Identity (
+     Impure ( Identity (
        map f (Pure 5)
      ))
    ))
  )
 -- Now apply the function to pure's value
         (
-   Impure ( Box (
-     Impure ( Box (
+   Impure ( Identity (
+     Impure ( Identity (
        Pure (f 5)
      ))
    ))
  )
 -- End definition
 map f (
-  Impure ( Box (
-    Impure ( Box (
+  Impure ( Identity (
+    Impure ( Identity (
       Pure a
     ))
   ))
 )
 ==
-  Impure ( Box (
-    Impure ( Box (
+  Impure ( Identity (
+    Impure ( Identity (
       Pure (f a)
     ))
   ))
@@ -136,30 +136,30 @@ Let's see `apply` in action via a graph reduction:
 
 -- Start
 --    "Left" Impure            "Right" Impure
-apply (Impure (Box (Pure f))) (Impure (Box (Pure a)))
+apply (Impure (Identity (Pure f))) (Impure (Identity (Pure a)))
 -- Use `map` to recursively call `apply` on the left Impure until we get the
 -- Pure instance
-Impure ((Box (Pure f)) <#> (\pure_F  -> apply pure_F (Impure (Box (Pure a)))))
-Impure (Box ((Pure f)   #  (\pure_F  -> apply pure_F (Impure (Box (Pure a)))))
+Impure ((Identity (Pure f)) <#> (\pure_F  -> apply pure_F (Impure (Identity (Pure a)))))
+Impure (Identity ((Pure f)   #  (\pure_F  -> apply pure_F (Impure (Identity (Pure a)))))
 -- apply `Pure f` to the function
-Impure (Box (             (\(Pure f) -> apply (Pure f) (Impure (Box (Pure a)))))
-Impure (Box (                          apply (Pure f) (Impure (Box (Pure a)))))
+Impure (Identity (             (\(Pure f) -> apply (Pure f) (Impure (Identity (Pure a)))))
+Impure (Identity (                           apply (Pure f) (Impure (Identity (Pure a)))))
 -- Remove the extra whitespace
-Impure (Box (apply (Pure f) (Impure (Box (Pure a)))))
+Impure (Identity (apply (Pure f) (Impure (Identity (Pure a)))))
 
 -- Now use `map` to recursiveely call `apply` on the right Impure until we get
 -- Pure instance
-Impure (Box (Impure ((Box (Pure a) <#> (\pure_A  -> apply (Pure f) pure_A))))
-Impure (Box (Impure (Box ((Pure a)  #  (\pure_A  -> apply (Pure f) pure_A))))
+Impure (Identity (Impure ((Identity (Pure a) <#> (\pure_A  -> apply (Pure f) pure_A))))
+Impure (Identity (Impure (Identity ((Pure a)  #  (\pure_A  -> apply (Pure f) pure_A))))
 -- apply `Pure a` to the function
-Impure (Box (Impure (Box (            (\(Pure a) -> apply (Pure f) (Pure a))))))
-Impure (Box (Impure (Box (                          apply (Pure f) (Pure a) ))))
+Impure (Identity (Impure (Identity (            (\(Pure a) -> apply (Pure f) (Pure a))))))
+Impure (Identity (Impure (Identity (                          apply (Pure f) (Pure a) ))))
 -- Remove thee extra whitespace
-Impure (Box (Impure (Box (apply (Pure f) (Pure a)))))
+Impure (Identity (Impure (Identity (apply (Pure f) (Pure a)))))
 -- Look up the instance
 --    apply (Pure f) (Pure a) = Pure (f a)
 -- and replace the LHS with the RHS
-Impure (Box (Impure (Box (Pure (f a)))))
+Impure (Identity (Impure (Identity (Pure (f a)))))
 ```
 Now let's define `Bind`, again using the `map` recursively:
 ```purescript
@@ -176,21 +176,21 @@ instance bind :: (Functor f) => Bind (Free f) where
 Let's see `bind` in action via a graph reduction:
 ```purescript
 -- Start!
-bind (Impure ( Box (Pure a))) f
+bind (Impure ( Identity (Pure a))) f
 
 -- Recursively call `bind` via `map` until reach a `Pure` instance:
-bind (Impure ( Box  (Pure a))) f
-      Impure ((Box  (Pure a)) <#> (\pure_a -> bind pure_a f) )
-      Impure ( Box ((Pure a)   #  (\pure_a -> bind pure_a f)))
+bind (Impure ( Identity  (Pure a))) f
+      Impure ((Identity  (Pure a)) <#> (\pure_a -> bind pure_a f) )
+      Impure ( Identity ((Pure a)   #  (\pure_a -> bind pure_a f)))
 -- Apply `Pure a` to the function
-      Impure ( Box (              (        -> bind (Pure a) f)))
-      Impure ( Box (                          bind (Pure a) f))
+      Impure ( Identity (              (           bind (Pure a) f)))
+      Impure ( Identity (                          bind (Pure a) f))
 -- remove extra white space
-Impure ( Box (bind (Pure a) f))
+Impure ( Identity (bind (Pure a) f))
 -- Look up the instance
 --    bind (Pure a) f = f a
 -- and replace the LHS with the RHS
-Impure ( Box (Pure (f a)))
+Impure ( Identity (Pure (f a)))
 ```
 
 ### Definition of Free Monad
