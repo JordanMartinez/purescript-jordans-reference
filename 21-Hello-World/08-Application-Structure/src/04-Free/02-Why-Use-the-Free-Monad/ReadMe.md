@@ -59,12 +59,12 @@ This folder has 9 files:
 
 | This Folder | General Idea | Corresponding Paper section | General idea |
 | - | - | - | - |
-| File 1 | Prep work: Defining and solving a simple version of the problem by composing data types | Sections 1/2/3/5 (ish) | Laying a foundation
-| File 2 | Prep work: Abstract data type composition via `Either` | Section 4 (ish) | Laying a foundation
-| File 3 | Purescript library: Show that `Variant` is a better `Either` | - | -
-| File 4 | Showing why the paper's problem is hard to solve, but still solvable | Sections 1/2/5 (ish) | -
-| File 5 | Abstract concept into `Coproduct` before using `VariantF`, a better `Coproduct` | Section 4 (ish) | How do we reduce boilerplate when working with composed data types?
-| File 6 | - | Sections 3/5 | Writing the `evaluate` function
-| File 7 | - | Sections 3/5 | Writing the `show` function
-| File 8 | Rewriting the paper's solution to use `VariantF` | - | -
-| File 9 | - | Sections 6/7 | Its relevance to and application for `Free` monads
+| 1 (File) | Prep work: Defining and solving a simple version of the problem by composing data types | Sections 1/2/3/5 (ish) | Laying a foundation
+| 2 (File) | Prep work: Abstract data type composition via `Either` | Section 4 (ish) | Laying a foundation
+| 3 (File) | Purescript library: Show that `Variant` is a better `Either` | - | -
+| 4 (File) | Showing why the paper's problem is hard to solve, but still solvable | Sections 1/2/5 (ish) | -
+| 5 (File) | Abstract concept into `Coproduct` before using `VariantF`, a better `Coproduct` | Section 4 (ish) | How do we reduce boilerplate when working with composed data types?
+| 6 (File) | - | Sections 3/5 | Writing the `evaluate` function
+| 7 (File) | - | Sections 3/5 | Writing the `show` function
+| 8 (Folder) | Rewriting the paper's solution to use `VariantF` | - | -
+| 9 (Folder) | - | Sections 6/7 | Its relevance to and application for `Free` monads
