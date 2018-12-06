@@ -2,7 +2,7 @@
 
 When we first introduced type classes, we explained that they are an encapsulation of 2-3 things:
 1. (always) A definition of 1 or more functions/values' type signatures
-2. (always) Laws to which a concrete type's implmenetation of said type class much adhere
+2. (almost always) Laws to which a concrete type's implmenetation of said type class much adhere
 3. (frequently) Functions that a type obtains for free once the core defintion/values are implemented
 
 Moreover, some type classes comebine two or more type classes together
