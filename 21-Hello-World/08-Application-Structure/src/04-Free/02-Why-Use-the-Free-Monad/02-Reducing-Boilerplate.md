@@ -106,9 +106,9 @@ data NestedEither a b
   = Left a
   | Right (NestedEither b c)
 ```
-...because we enter an infinte cyclical loop
+...because we enter an infinte loop:
 1. To define `c` in the `Right` instance's `NestedEither b c` argument, we need the type declaraction, `data NestedEither a b` to include the third type, `c`. Thus, we go to step 2.
-2. We update the type to `data NetedEither a b c`. However, now the `NestedEither b c` in `Right` instance has only two types, not three. THus, it no longer adheres to its own declaration (i.e. `NestedEither b c ?` vs `NestedEither a b c`). To add the type, we need it to be different than the others to enable the recursive idea of a nested `Either`, so we'll call it `d`. Thus, we return to step 1 except `c` is now `d` in that example.
+2. We update the type to `data NestedEither a b c`. However, now the `NestedEither b c` in `Right` instance has only two types, not three. Thus, it no longer adheres to its own declaration (i.e. `NestedEither b c ?` vs `NestedEither a b c`). To add the type, we need it to be different than the others to enable the recursive idea of a nested `Either`, so we'll call it `d`. Thus, we return to step 1 except `c` is now `d` in that example.
 
 Still, we can clean up the verbosity/readability of nested `Either`s by creating an infix notation for it:
 ```purescript
@@ -125,10 +125,7 @@ first \/ (second \/ (third \/ (fourth \/ last)))    -- last
 
 ## Defining InjectProject
 
-When we have to write the same function again and again for different types in FP languages, we convert it into a type class. For example, `Semigroup` specifies the function, `append`, which defines the type signature for a function that can combine two instances of the same type into just one instance of the same type. `Int`, `String`, and other types can all implement it in their own way that works for that specific type.
-
-Likewise, when we look at our code below...
- `append`:
+When we have to write the same function again and again for different types in FP languages, we convert it into a type class (e.g. `Semigroup`, `Monoid`, `Functor`, etc.). Likewise, when we look at our code below...
 ```purescript
 putInsideOf :: forall first second third fourth last
              . last

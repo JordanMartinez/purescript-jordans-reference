@@ -11,9 +11,9 @@ If we made one of the changes above, we would need to change our function's type
 
 Moreover, `purescript-either` only grants us the ability to define 10 total types in a nested manner. Once we go above that number, we need to write our own convenience functions. If we do this in multiple projects, that's more wasted developer time.
 
-So, what are our options here? We saw previously that we could not define our own special nested `Either` type without knowing at the type-declaration-time what the next few types are. However, we do know at compile-time what those types will be. We also know at compile-time how many types will exist in a nested `Either`-like type. This implies that we might want to stop looking at value-level programming for our solutions and instead look at type-level programming. More specifically, we should look at the `Row`/`# Type` kind.
+So, what are our options here? We saw previously that we could not define our own special nested `Either` type without knowing at the type-declaration-time what the next few types are. However, we do know at compile-time what those types will be. We also know at compile-time how many types will exist in a nested `Either`-like type. This implies that we might want to stop looking at value-level programming for our solutions and instead look at type-level programming. More specifically, we should look at row kinds.
 
-The `Row`/`# Type` kind allows us to specify n-different types that are known at compile-time. As an example, we can look at `Record`, which is a nested `Tuple` that uses `Row` to work:
+The `# Type` kind allows us to specify n-different types that are known at compile-time. As an example, we can look at `Record`, which is a nested `Tuple` that uses row kinds to work:
 ```purescript
 -- first AND second AND third AND fourth AND last
 Tuple first (Tuple second (Tuple third (Tuple fourth last)))
@@ -28,7 +28,7 @@ Either first (Either second (Either third (Either fourth last)))
 Variant (a :: first, b :: second, c :: third, d :: fourth, e :: last)
 -- Unfortunately, there is no equivalent "{}"-like syntax for variants
 ```
-The advantage of using the `Row`/`# Type` kind is that it makes our nested `Either` type "open" via row polymorphism. Using `Record` as an example, we'll see that each of the three "prototype code" requirements from above can be achieved without refactoring!
+The advantage of using the row kinds via `# Type` is that it makes our nested `Either` type "open" via row polymorphism. Using `Record` as an example, we'll see that each of the three "prototype code" requirements from above can be achieved without refactoring!
 
 Looking at our requirements from before...
 1. Change the order of the types position: `Either first second` <=> `Either second first`
@@ -52,7 +52,7 @@ getName { name: "John" }
 -- 3) changed "dogName" from type `String` to `DogNames`
 getName { name: "John", dogName: Spot }
 ```
-All five exampls from above compile. Since `Variant` uses the `Row`/`# Type` kind, too, it also benefits from these advantages.
+All five exampls from above compile. Since `Variant` uses row kinds via `# Type`, too, it also benefits from these advantages.
 
 ## Using Variant
 
@@ -78,7 +78,7 @@ projectFruit variant = prj (SProxy :: SProxy "fieldName") variant
 
 ### Pattern Matching in Variant
 
-The other functions that `Variant` provides can be see via its [docs](https://pursuit.purescript.org/packages/purescript-variant/5.0.0/docs/Data.Variant#v:on). Since I'm still learning how to read/write type-level programming, I looked at the project's [test's source code](https://github.com/natefaubion/purescript-variant/blob/v5.0.0/test/Variant.purs) and created these two tables to help me understand those functions. Some functions seem to exist to fit different people's syntax preferences:
+The other functions that `Variant` provides can be see via its [docs](https://pursuit.purescript.org/packages/purescript-variant/5.0.0/docs/Data.Variant#v:on). I created the following table after looking at the project's [test's source code](https://github.com/natefaubion/purescript-variant/blob/v5.0.0/test/Variant.purs). Some functions seem to exist to fit different people's syntax preferences:
 
 | Exhaustively pattern matches types by... | Allows "open" `Variant` instances? | Corresponding function's syntax
 | - | - | - |
@@ -99,7 +99,20 @@ Besides those above, `Variant` also has `expand` and `contract`. One takes a `Va
 
 ## Updating Our Solution
 
-If we return to our solution from before and use `Variant` instead of `FruitGrouper`, here's what we get. Follow these instructions:
+If we return to our solution from before and use `Variant` instead of `FruitGrouper`, here's what we get.
+
+Here's the list of run commands:
+- `showFruitVariant (injFruit Apple)`
+    - At step 3 below, only
+- `showFruitVariant (injFruit2 Orange)`
+    - This function **still** works despite `showFruitVariant` never knowing anything about a `Fruit2` type!
+- `showFruit2Variant (injFruit3 Cherry)`
+    - This function **still** works despite `showFruit2Variant` never knowing anything about a `Fruit3` type!
+- `showFruit3Variant (injFruit2 Orange)`
+    - This function **still** works despite `showFruit3Variant` never knowing anything about a `Fruit2` type!
+
+For each of the above run commands, do the following to "simulate" one file existing before another one:
+
 1. Start a REPL
 2. Import the following imports by manually typing them in (unfortunately, pasting them in will not work):
     - import Data.Maybe
@@ -165,13 +178,6 @@ injFruit3 :: forall v
 injFruit3 fruit3 = inj (SProxy :: SProxy "fruit3") fruit3
 ```
 Now run the following commands in the REPL:
-- `showFruitVariant (injFruit Apple)`
-    - This function should work as expected because it is a part of the original file.
-- `showFruitVariant (injFruit2 Orange)`
-    - This function **still** works despite `showFruitVariant` never knowing anything about a `Fruit2` type!
-- `showFruit2Variant (injFruit3 Cherry)`
-    - This function **still** works despite `showFruit2Variant` never knowing anything about a `Fruit3` type!
-- `showFruit3Variant (injFruit2 Orange)`
-    - This function **still** works despite `showFruit3Variant` never knowing anything about a `Fruit2` type!
+
 
 Amazing!
