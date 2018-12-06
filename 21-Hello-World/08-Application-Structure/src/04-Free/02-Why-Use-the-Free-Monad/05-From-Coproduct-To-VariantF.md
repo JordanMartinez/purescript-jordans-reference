@@ -37,7 +37,7 @@ When we explored the idea of nested `Either`s before, we raised the issue of ref
 Our solution to the above problem was to use `Variant`, which is an "open" `Either` for kind `Type`. However, now we need a version of `Variant` that works for kind `Type -> Type`, higher-kinded types at the type-level.  `Variant` uses type-level programming, how would we do that? Fortunately, there is `VariantF`, which exists for that reason.
 
 `VariantF` builds upon `Variant`. To refresh our memory, `Variant`...
-- enables us to write nested `Either`s using the `Row`/`# Type` kind that is refactor-proof due to row polymorphism (i.e. "open" data type).
+- enables us to write nested `Either`s using row kinds via `# Type` kind that is refactor-proof due to row polymorphism (i.e. "open" data type).
 - has two core methods:
     - `inj` (inject): puts an instance into a `Variant`
     - `prj` (project): extracts an instance from a `Variant` if it exists
@@ -51,6 +51,8 @@ Looking at `VariantF`, we see the following definition, whose type names I have 
 ```purescript
 data    VariantF (f_and_g :: # Type) a
 
+-- for example
+--      VariantF (f :: FProxy F_Type, g :: FProxy G_Type) a
 newtype Coproduct f g                a  = Coproduct (Either (f a) (g a))
 ```
 

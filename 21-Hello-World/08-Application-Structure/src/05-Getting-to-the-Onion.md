@@ -13,12 +13,7 @@ Free3 ~> Effect
 -- means we can effectively write this
 Free1 ~> Effect
 ```
-This allows us to write "onion architecture" programs without the impure unreasonable OO code and instead with the pure reasonable FP code. For a clearer idea of what "onion architecture" is, see these videos:
-- [A Quick Introduction to Onion Architecture](https://www.youtube.com/watch?v=R2pW09tMCnE&start=6&end=528)
-- [Domain-Driven Design through Onion Architecture](https://www.youtube.com/watch?v=pL9XeNjy_z4)
-- [Functional Architecture - The Pits of Success](https://www.youtube.com/watch?v=US8QG9I1XW0&t=0s&index=4&list=LL0RItGq_oLk-fvqppBpwtew)
-
-Each `~>` is going from a more central circle (e.g. Domain) to a less central circle (e.g. API). Updating our code above to use meta-language, we would have something like this:
+This allows us to write "onion architecture" programs without the impure unreasonable OO code and instead with the pure reasonable FP code. Each `~>` is going from a more central circle (e.g. Domain) to a less central circle (e.g. API). Updating our code above to use meta-language, we would have something like this:
 ```purescript
 -- Let your domain experts write their domain-specific "programs"
 -- using a familiar domain-specific language...
@@ -39,18 +34,21 @@ Core ~> Infrastructure
 
 -- which enables this...
 runProgram :: (Core ~> Infrastructure) -> Free Core e -> Effect e
--- ... a working program written by a domain-expert in a domain-specific
--- language who is ignorant of all the technical details that make it work.
+-- ... a program written by a domain-expert in a domain-specific
+-- language who is ignorant of all the technical details that make it work...
+--
+-- ... that has been optimized and works for numerous backends by
+-- your technical experts.
 --
 -- In addition, we can always change the infrastructure code to use a new
--- framework, UI, database, etc. without rewriting any code of the main code.
+-- framework, UI, database, etc. without rewriting any of the domain-specific code.
 ```
 
-Thus, this recursive nature is what can lead to stack overflows and hence why we need to use `Run` instead of `Free`.
+Note: this recursive nature of `Free` is what can lead to stack overflows. This is why we should to use `Run` instead of `Free`.
 
 ## Examples and Implications
 
-To see some examples and the implications of this idea, read the following links and translate the `IO` monad to `Effect` and the mention of Purescript's now-outdated `Eff` monad to `Effect`:
+To see some examples and the implications of this idea, read the following links and translate the `IO` monad to `Effect` and the mention of Purescript's now-outdated `Eff` monad to `Effect`. Also note that `MTL` works faster than `Free` on Haskell, but I don't know their performance comparison on Purescript:
 - [A Modern Architecture for FP: Part 1](http://degoes.net/articles/modern-fp)
 - [MTL-version of Onion Architecture](https://gist.github.com/ocharles/6b1b9440b3513a5e225e)
 - MTL vs Free Deathmatch - [Video](https://www.youtube.com/watch?v=JLevNswzYh8) & [Slides](https://www.slideshare.net/jdegoes/mtl-versus-free)

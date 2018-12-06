@@ -26,16 +26,17 @@ map f (Multiply e1 e2) = Multiply (f e1) (f e2)
 ```
 However, `Value` implements it differently in an important way. Since `Value`'s generic type, `e`, is never used in its instance and since the instance can only wrap an `Int` type, one cannot really "map" a `Value` (i.e. change the inner `Int` type) to anything else. Rather, they can only change `Value`'s `e` type:
 ```purescript
-map :: (e -> z) -> Value e ->             Value z
-map    _          (Value x)             = Value x
---               ((Value x) :: Value e) ((Value x) :: Value z)
+data Value e = ValueInstance Int
+map :: (e -> z) -> Value e         ->             Value z
+map    _          (ValueInstance x)             = ValueInstance x
+--               ((ValueInstance x) :: Value e) ((ValueInstance x) :: Value z)
 -- We have to extract the `x` and rewrap it in a different
 -- `Value z` type.
 ```
 Thus, `Value` is a no-op `Functor`: using `map` on it just returns the same instance.
 
 An `Either` that wraps higher-kinded types implements `Functor` as we would expect:
-```purscript
+```purescript
 instance f :: (Functor f, Functor g) => Functor (Either (f e) (g e)) where
   map func (Left f)  = Left  (map func f)
   map func (Right g) = Right (map func g)
@@ -55,7 +56,7 @@ data BoxF f a = BoxF (f a)
 instance functor :: Functor f => Functor (Box f) where
   map function (BoxF f_of_a) = Box (map function f_of_a)
 
--- the `e` type can be anything.
+-- the `e` type in `Value e` can be anything.
 valueExample :: forall e. Expression (BoxF (Value e))
 valueExample = In (BoxF (Value 2))
 ```
@@ -102,7 +103,7 @@ instance a :: Evaluate Add where
   evaluate (Add x y) = -- ???
 ```
 The difficulty above lies in one problem: what is `x` and `y` for `Add`? We might immediately presume that they are another `Expression`. However, the `e` in `Add e` could be anything. Moreover, the `Eval` type class does not force that `e` to be anything in particular. Here's the dilemma we run into now:
-- If we constraint `a` to be an `Evaluate`, so that we could implement `Add`'s Evaluate instance as `(eval x) + (eval y)`, then that will force `Value`'s `e` type to also satisfy that constraint. How then would we create an instance for `Value`?
+- If we use a type class constraint to make `a` be an `Evaluate`, so that we could implement `Add`'s Evaluate instance as `(eval x) + (eval y)`, then that will force `Value`'s `e` type to also satisfy that constraint. How then would we create an instance for `Value`?
 - If we don't constrain the `a` to be an `Evaluate`, we cannot evaluate `addExample`.
 
 So, let's look at what we need to do to evaluate `Add`. We need to

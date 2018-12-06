@@ -37,6 +37,8 @@ ask = askAt _reader
 askAt symbol = -- implementation
 ```
 
+In short, one can use a `Run`-based monad to do two different state computations in the same function, unlike the unmodified `MTL` approach that doesn't use `Symbols`.
+
 ## Examples of MTL-Like Run-Based Code
 
 - [A simple program using multiple effects](https://pursuit.purescript.org/packages/purescript-run/2.0.0/docs/Run#t:Run)

@@ -6,7 +6,7 @@ We can now return to the original question we raised at the start of the `Free` 
 
 Unfortunately, this `Coproduct` + `Free` approach only works on `Free` monads; it does not work for other non-`Free` monads. So, how do we get around that limitation?
 
-As the paper says, the List and State monads are not free monads. To get around that problem, we can define a language (similar to our `Add`, `Multiply`, `Value` language) that provides the operations we would expect from such a monad. The paper's example shows how one could create a State monad using this approach. Since it will follow much of what we have already covered before, we'll just show the Purescript version of their code.
+As the paper says, the `ListT` and `StateT` monads are not free monads. (For example, the issue with `StateT` is that there is no way to guarantee that a `set 4` call followed by a `get` call will produce `4`, the same value that was just set.) To get around that problem, we can define a language (similar to our `Add`, `Multiply`, `Value` language) that provides the operations we would expect from such a monad. The paper's example shows how one could create a `State` monad using this approach. Since it will follow much of what we have already covered before, we'll just show the Purescript version of their code.
 ```purescript
 data Add      theRestOfTheComputation = Add Int theRestOfTheComputation
 data GetValue theRestOfTheComputation = GetValue (Int -> theRestOfTheComputation)
@@ -61,7 +61,7 @@ run =
 (4, Memory 5)
 -}
 ```
-Why is this useful? Because it guarantees that a computation as modeled by the `Free` monad, based on the types (e.g. the operations) in its `Coproduct`, will only do specific computations (e.g. read data) and not others (e.g. overwrite data).
+Why is this useful? Because it guarantees that a computation as modeled by the `Free` monad, based on the types (e.g. the operations) in its `Coproduct`, will only enable certain effects (e.g. read data) and not others (e.g. send HTTP requests).
 
 ## Interpreting Free Monads
 
