@@ -1,10 +1,23 @@
-# MTL Problems and Patterns
+# Drawbacks of MTL and Free
 
-## Problems
+Note: some of the things said or the sources I link to in this file are better understood after reading the next file. At the same time, the next file does not have as much context without understanding this file.
 
-Now that we have a better understanding of how the MTL approach works, it's time to talk about some of its flaws. Note: some of these flaws may be specific only to Haskell and not Purescript. I need to ask people who know about this more than I do.
+## Limitations of Free
 
-Note: in the below sources, any mention of Haskell's `IORef` is equivalent to Purescript's `Ref`: a global mutable variable.
+In the below video, John De Goes explains what some of the limitations of the Free monad are, why, how fixes for them can be "hacked in," and what is needed to ultimately fix them...
+- parallelism
+- racing
+- alternatives
+- e.g. stuff one can't model using just the Monad structure of Free
+
+[Beyond Free Monads](https://www.youtube.com/watch?v=A-lmrvsUi2Y)
+
+
+## MTL Problems and Patterns
+
+Note:
+- Some of the below flaws may be specific only to Haskell and not Purescript.
+- In the below sources, any mention of Haskell's `IORef` is equivalent to Purescript's `Ref`: a global mutable variable.
 
 ### `MonadState` Allows Only One State Manipulation Type
 
@@ -48,7 +61,7 @@ f = do
   theString <- get _s
 ```
 
-However, I'm not sure what are the pros/cons of this approach.
+However, I'm not sure what are the pros/cons of this approach. However, this is similar to how `Run` enables two different state manipulations.
 
 ### `MonadState` & `MonadWriter` lose their state on a runtime error
 

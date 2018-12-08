@@ -92,7 +92,7 @@ ask = askAt _reader
 askAt symbol = -- implementation
 ```
 
-In short, one can use a `Run`-based monad to do two different state computations in the same function, unlike the unmodified `MTL` approach that doesn't use `Symbols`.
+In short, one can use a `Run`-based monad to do two different state computations in the same function. While this will be covered in a later file (i.e. "Drawbacks of MTL and Free.md"), the unmodified `MTL` approach cannot do two different state computations.
 
 ## Examples of MTL-Like Run-Based Code
 
