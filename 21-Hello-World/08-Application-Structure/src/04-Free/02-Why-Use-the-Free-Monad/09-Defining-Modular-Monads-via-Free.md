@@ -36,24 +36,24 @@ foldFree pure impure (Impure t) = impure (fmap (foldFree pure impure) t)
 
 newtype Memory = Memory Int
 
-class Functor f =>  Run f where
+class Functor f => Free f where
   runAlgebra :: f (Memory -> Tuple a Memory) -> (Memory -> Tuple a Memory)
 
-instance i :: Run Add where
+instance i :: Free Add where
   runAlgebra (Add amount restOfComputation) (Memory i) =
     restOfComputation (Memory (i + amount))
-instance r :: Run GetValue where
+instance r :: Free GetValue where
   runAlgebra (GetValue intToRestOfComputation) (Memory i) =
     (intToRestOfComputation i) (Memory i)
 
-instance e :: (Run f, Run g) => Run (Either f g) where
+instance e :: (Functor f, Functor g) => Free (Either f g) where
   runAlgebra (Left r) = runAlgebra r
   runAlgebra (Right r) = runAlgebra r
 
-instance c :: (Run f, Run g) => Run (Coproduct f g) where
+instance c :: (Functor f, Functor g) => Free (Coproduct f g) where
   runAlgebra (Coproduct either) = runAlgebra either
 
-run :: Run f => Free f a -> Memory -> Tuple a Memory
+run :: Functor f => Free f a -> Memory -> Tuple a Memory
 run =
 --          Pure               Impure     computation  initialState
   foldFree (\a b -> Tuple a b) runAlgebra
