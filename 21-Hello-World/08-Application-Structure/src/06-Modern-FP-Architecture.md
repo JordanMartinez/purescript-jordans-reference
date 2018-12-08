@@ -48,7 +48,9 @@ runProgram :: (Core ~> Infrastructure) -> Free Core e -> Effect e
 
 To see some examples and the implications of this idea, read the following links and translate the `IO` monad to `Effect` and the mention of Purescript's now-outdated `Eff` monad to `Effect`. Also note that `MTL` works faster than `Free` on Haskell, but I don't know their performance comparison on Purescript:
 - [A Modern Architecture for FP: Part 1](http://degoes.net/articles/modern-fp)
-- [MTL-version of Onion Architecture](https://gist.github.com/ocharles/6b1b9440b3513a5e225e)
+- MTL-version of Onion Architecture
+    - [Original Haskell version](https://gist.github.com/ocharles/6b1b9440b3513a5e225e)
+    - [My port to Purescript](https://gist.github.com/JordanMartinez/4eb9dd1f5ac4e5220ab3d2cc500c0fce)
 - MTL vs Free Deathmatch - [Video](https://www.youtube.com/watch?v=JLevNswzYh8) & [Slides](https://www.slideshare.net/jdegoes/mtl-versus-free)
 - [A Modern Architecture for FP: Part 2](http://degoes.net/articles/modern-fp-part-2)
 - [Free? monads with mtl](https://gist.github.com/ocharles/252bc296b659aa32e915e02d02537064) - Linking to this because it relates, but I'm still understanding it myself.
