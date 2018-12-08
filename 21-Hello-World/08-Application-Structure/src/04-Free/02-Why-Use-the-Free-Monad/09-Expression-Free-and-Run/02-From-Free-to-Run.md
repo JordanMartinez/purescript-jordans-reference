@@ -4,7 +4,7 @@ If you recall, `xgromxx` mentions [`purescript-run`](https://pursuit.purescript.
 
 The library provides the same functionality as `Free` in `purescript-free` with one advantage. Whereas `Free` is vulnerable to stack overflows, `purescript-run` can lessen the possibility of stack overflows or completely guarantee stack-safety. Thus, it should be used instead of `Free`. **See the "Stack-Safety" section at the bottom of the project's ReadMe.**
 
-We'll explain later in the "Onion Architecture.md" file why the stackoverflow problem can occur. For now, we'll solve the paper's version of the Expression Problem using `purescript-run` to gradually introduce you to its types and some of its functions.
+We'll explain later in the "Getting to the Onion.md" file why the stackoverflow problem can occur. For now, we'll solve the paper's version of the Expression Problem using `purescript-run` to gradually introduce you to its types and some of its functions.
 
 ## Core Type and A Few Functions
 
