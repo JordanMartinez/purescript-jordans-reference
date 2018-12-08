@@ -1,5 +1,9 @@
 # Application Structure
 
+Prerequisites:
+- You should be familiar with type-level programming
+- You should understand what "smart constructors" (see `Design Patterns` folder) are and how they work
+
 The upcoming folders will explain
 - a small explanation on the onion architecture
 - an overview of what MTL and Free/Run are and how they work conceptually
