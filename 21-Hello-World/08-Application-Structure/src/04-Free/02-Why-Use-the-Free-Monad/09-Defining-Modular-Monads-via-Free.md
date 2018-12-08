@@ -6,9 +6,9 @@ We can now return to the original question we raised at the start of the `Free` 
 
 ## Getting Around The Non-Free-Monad Limitation
 
-Unfortunately, this `Coproduct` + `Free` approach only works on `Free` monads; it does not work for other non-`Free` monads. So, how do we get around that limitation?
+Unfortunately, this `Coproduct` + `Free` approach only works on `Free` monads; it does not work for other non-`Free` monads. As the paper says, the `ListT` and `StateT` monads are not free monads. Why? Let's consider the `StateT` monad. The issue at hand are its laws. If I call `set 4` and then later call `get`, `get` should return `4`. By using `Free` as we have so far, we cannot uphold that law.
 
-As the paper says, the `ListT` and `StateT` monads are not free monads. (For example, the issue with `StateT` is that there is no way to guarantee that a `set 4` call followed by a `get` call will produce `4`, the same value that was just set.) To get around that problem, we can define a language (similar to our `Add`, `Multiply`, `Value` language) that provides the operations we would expect from such a monad. The paper's example shows how one could create a `State` monad using this approach. Since it will follow much of what we have already covered before, we'll just show the Purescript version of their code.
+So, how do we get around that limitation? We can define a language (similar to our `Add`, `Multiply`, `Value` language) that provides the operations we would expect from such a monad. The paper's example shows how one could create a `State` monad using this approach. Since it will follow much of what we have already covered before, we'll just show the Purescript version of their code.
 ```purescript
 data Add      theRestOfTheComputation = Add Int theRestOfTheComputation
 data GetValue theRestOfTheComputation = GetValue (Int -> theRestOfTheComputation)
