@@ -306,7 +306,7 @@ There's another term we did not explain but which appears in the paper: `algebra
 
 ## All Code So Far and Evaluate
 
-Since `Variant` uses type-level programming, which adds noise to our explanation, the following code uses `Coproduct`. **I have not checked whether this code works, but it will serve to give you an idea for how it works.** We will show how to change this to `VariantF` at a later time.
+**I have not checked whether this code works, but it will serve to give you an idea for how it works.** 
 ```purescript
 -- File 1
 data Value e = Value Int

@@ -150,3 +150,46 @@ data Value e = Value Int
 type AMV e = (Either (Value e) (Either (Add e) (Multiply e)))
 newtype AMV_Expression = AMV_Expression (Expression AMV)
 ```
+
+## Revealing Coproduct
+
+Above, we wrote this:
+```purescript
+Either (Value e) (Either (Add e) (Multiply e))
+```
+However, this is just a more verbose form of [`Coproduct`](https://pursuit.purescript.org/packages/purescript-functors/3.0.1/docs/Data.Functor.Coproduct#t:Coproduct):
+```purescript
+newtype Coproduct f g a = Coproduct (Either (f a) (g a))
+```
+Indeed, just as there was a library for nested `Either`s via `purescript-either`, there is also a library for nested `Coproduct`s: [`purescript-functors`](https://pursuit.purescript.org/packages/purescript-functors/3.0.1/docs/Data.Functor.Coproduct#t:Coproduct), which also includes [convenience functions and types for dealing with nested versions of `Coproduct`](https://pursuit.purescript.org/packages/purescript-functors/3.0.1/docs/Data.Functor.Coproduct.Nested) as well as [inject instances into and project instances out of it](https://pursuit.purescript.org/packages/purescript-functors/3.0.1/docs/Data.Functor.Coproduct.Inject).
+
+To help us understand how to read and write `Coproduct`, let's compare the `Coproduct` version to its equivalent `Either` version:
+```purescript
+-- not nested
+Either   (Value e) (Add e)
+Coproduct Value     Add e
+
+-- nested
+Either   (Value e) (Either   (Add e) (Multiply e))
+Coproduct Value    (Coproduct Add     Multiply) e
+
+-- nested using convenience types from both libraries
+Either3   (Value e) (Add e) (Multiply e)
+Coproduct3 Value     Add     Multiply e
+```
+
+When we explored the idea of nested `Either`s before, we raised the issue of refactoring, which has three forms:
+1. Change the order of the types
+2. Add/Remove a type
+3. Change one type to another type
+
+Our solution to the above problem was to use `Variant`, which is an "open" `Either` for kind `Type`. However, now we need a version of `Variant` that works for kind `Type -> Type`, higher-kinded types at the type-level.  `Variant` uses type-level programming, how would we do that?
+
+| | Open/Closed | Kind
+| - | - | - |
+| `Either` | Closed | Type
+| `Variant` | Open | Type
+| `Coproduct` | Closed | Type -> Type
+| ??? | Open | Type -> Type
+
+Since we only want to learn one thing at a time to reduce information overload, we'll explain this later.

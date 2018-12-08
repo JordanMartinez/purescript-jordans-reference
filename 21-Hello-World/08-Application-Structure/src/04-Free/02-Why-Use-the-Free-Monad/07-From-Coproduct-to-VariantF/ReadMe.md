@@ -1,6 +1,80 @@
-# VariantF and Syntax Sugar
+# From Coproduct to VariantF
 
-Now that we have a better understanding of the concept, let's add the type-level stuff back in using `VariantF`.
+Previously, we explained `Coproduct`
+```purescript
+data Either l r = Left l | Right r
+
+newtype Coproduct f g a = Coproduct (Either (f a) (g a))
+
+-- not nested
+Either (Value e) (Add e)
+Coproduct Value Add e
+
+-- nested
+Either   (Value e) (Either   (Add e) (Multiply e))
+Coproduct Value    (Coproduct Add     Multiply) e
+
+-- nested using convenience types from both libraries
+Either3   (Value e) (Add e) (Multiply e)
+Coproduct3 Value     Add     Multiply e
+```
+
+When covering `Coproduct`, we explained that it was vulnerable to the same refactoring issues as `Either` because it is not "open":
+1. Change the order of the types
+2. Add/Remove a type
+3. Change one type to another type
+
+Thus, the question was "What is the open `Coproduct` type?" The answer is `VariantF`.
+
+| | Open/Closed | Kind
+| - | - | - |
+| `Either` | Closed | Type
+| `Variant` | Open | Type
+| `Coproduct` | Closed | Type -> Type
+| `VariantF` | Open | Type -> Type
+
+## Explaining `VariantF`
+
+`VariantF` builds upon `Variant`. To refresh our memory, `Variant`...
+- enables us to write nested `Either`s using row kinds via `# Type` that is refactor-proof due to row polymorphism (i.e. "open" data type).
+- has two core methods:
+    - `inj` (inject): puts an instance into a `Variant`
+    - `prj` (project): extracts an instance from a `Variant` if it exists
+- requires the use of `Symbol` and `SProxy` to specify which field within the row is being used
+
+`VariantF` adds the additional requirement of using a proxy called `FProxy` to wrap a type-level higher-kinded type:
+```purescript
+data FProxy (f :: Type -> Type) = FProxy
+```
+Looking at `VariantF`, we see the following definition, whose type names I have modified to make it look similar to `Coproduct`:
+```purescript
+data    VariantF (f_and_g :: # Type) a
+
+-- for example
+--      VariantF (f :: FProxy F_Type, g :: FProxy G_Type) a
+newtype Coproduct f g                a  = Coproduct (Either (f a) (g a))
+```
+
+Let's see what the code looks like now:
+```purescript
+-- Rather than writing this...
+data Fruit_ConcreteType
+  = Apple
+  | Banana
+
+-- Either Fruit_ConcreteType v
+forall v. Variant  (fruit ::        Fruit_ConcreteType     | v)
+
+-- ... we can now write this...
+data Fruit_HigherKindedType e
+  = Apple
+  | Banana
+derive instance f :: Functor Fruit_HigherKindedType
+
+-- Either (Fruit_HigherKindedType Int) (v Int)
+-- Coproduct Fruit_HigherKindedType v Int
+forall v. VariantF (fruit :: FProxy Fruit_HigherKindedType | v) Int
+```
 
 ## Composing Type-Level Types via `RowApply`
 
