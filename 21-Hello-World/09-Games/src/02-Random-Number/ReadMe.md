@@ -58,8 +58,6 @@ Rather than writing a new file called `Main.purs` that ran the infrastructure, I
 
 Due to `gameLoop` in `Domain` and `recursivelyRunUntilPure` in `API`, this code has the possibility of blowing the stack. However, since it is interpreted into the `Aff` monad, which is stack-safe, I did not need to worry about this possibility.
 
-The actual code demonstrated here only implements the Node infrastructure for the first version of the API (see next section). However, one could quickly build a browser version using Halogen or a similar library.
-
 ## Onion Architecture
 
 The following image is a rewritten version of the above flow using the onion architecture. To read it, keep the following ideas in mind:
