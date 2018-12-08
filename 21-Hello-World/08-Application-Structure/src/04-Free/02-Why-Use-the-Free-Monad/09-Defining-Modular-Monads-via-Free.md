@@ -63,7 +63,6 @@ run =
 (4, Memory 5)
 -}
 ```
-Why is this useful? Because it guarantees that a computation as modeled by the `Free` monad, based on the types (e.g. the operations) in its `Coproduct`, will only enable certain effects (e.g. read data) and not others (e.g. send HTTP requests).
 
 ## Interpreting Free Monads
 
