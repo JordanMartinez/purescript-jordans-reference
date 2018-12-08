@@ -35,7 +35,7 @@ Thus, the question was "What is the open `Coproduct` type?" The answer is `Varia
 
 ## Explaining `VariantF`
 
-`VariantF` builds upon `Variant`. To refresh our memory, `Variant`...
+[`VariantF`](https://pursuit.purescript.org/packages/purescript-variant/5.0.0/docs/Data.Functor.Variant#t:VariantF) builds upon `Variant`. To refresh our memory, `Variant`...
 - enables us to write nested `Either`s using row kinds via `# Type` that is refactor-proof due to row polymorphism (i.e. "open" data type).
 - has two core methods:
     - `inj` (inject): puts an instance into a `Variant`
