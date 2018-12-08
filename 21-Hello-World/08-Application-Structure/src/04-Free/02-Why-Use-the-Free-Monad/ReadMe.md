@@ -49,11 +49,12 @@ This folder has 9 files:
 2. Reducing boilerplate
 3. From Either to Variant
 4. Seeing and Solving a Harder Problem
-5. From Coproduct to VariantF
-6. Writing the Evaluate Function
-7. Writing the Show function
-8. Converting To VariantF
-9. Defining Modular Monads
+5. Writing the Evaluate Function
+6. Writing the Show function
+7. Converting To VariantF
+8. From Expression to Free
+9. From Free to Run
+11. Defining Modular Monads
 
 ### Correspondance Table
 
@@ -62,9 +63,10 @@ This folder has 9 files:
 | 1 (File) | Prep work: Defining and solving a simple version of the problem by composing data types | Sections 1/2/3/5 (ish) | Laying a foundation
 | 2 (File) | Prep work: Abstract data type composition via `Either` | Section 4 (ish) | Laying a foundation
 | 3 (File) | Purescript library: Show that `Variant` is a better `Either` | - | -
-| 4 (File) | Showing why the paper's problem is hard to solve, but still solvable | Sections 1/2/5 (ish) | -
-| 5 (File) | Abstract concept into `Coproduct` before using `VariantF`, a better `Coproduct` | Section 4 (ish) | How do we reduce boilerplate when working with composed data types?
-| 6 (File) | - | Sections 3/5 | Writing the `evaluate` function
-| 7 (File) | - | Sections 3/5 | Writing the `show` function
-| 8 (Folder) | Rewriting the paper's solution to use `VariantF` | - | -
-| 9 (Folder) | - | Sections 6/7 | Its relevance to and application for `Free` monads
+| 4 (File) | Showing why the paper's problem is hard to solve, but still solvable; reveal `Coproduct` | Sections 1/2/4/5 (ish) | -
+| 5 (File) | - | Sections 3/5 | Writing the `evaluate` function
+| 6 (File) | - | Sections 3/5 | Writing the `show` function
+| 7 (Folder) | Show that `VariantF` is a better `Coproduct` | Section 4 (ish) | How do we reduce boilerplate when working with composed data types?
+| 8 (File) | Show that `Expression` is really `Free` | - | -
+| 09 (Folder) | Show that `Run` is a better `Free` | - | -
+| 11 File | - | Sections 6/7 | Its relevance to and application for `Free` monads
