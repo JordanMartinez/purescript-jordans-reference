@@ -53,3 +53,16 @@ To see some examples and the implications of this idea, read the following links
 - [A Modern Architecture for FP: Part 2](http://degoes.net/articles/modern-fp-part-2)
 
 Checkout the `Hello World/Games` folder for more examples and explanations on this idea.
+
+## Evaluating MTL and Free
+
+Now might be a good time to re-read the article we linked to in `Monads-and-Effects.md`
+
+Let's now examine that post's criteria for each approach. The following is my guess at where things stand^^:
+
+| | Extensible? | Composable? | Efficient? | Terse? | Inferrable?
+| - | - | - | - | - | - |
+| MTL | Yes via the Capability Design Pattern | Yes via newtyped monadic functions? | ? | ~`n^2` instances for `Monad[Word]` | ? |
+| Free/Run | Yes via open rows and `VariantF` | Yes via embedded domain-specific languages | ? | boilerplate smart constructors | ? |
+
+^^ Note: The `MTL vs Free` debate is pretty heated in FP communities.
