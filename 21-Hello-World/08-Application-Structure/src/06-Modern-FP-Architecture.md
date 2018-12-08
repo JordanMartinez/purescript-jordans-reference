@@ -51,6 +51,7 @@ To see some examples and the implications of this idea, read the following links
 - [MTL-version of Onion Architecture](https://gist.github.com/ocharles/6b1b9440b3513a5e225e)
 - MTL vs Free Deathmatch - [Video](https://www.youtube.com/watch?v=JLevNswzYh8) & [Slides](https://www.slideshare.net/jdegoes/mtl-versus-free)
 - [A Modern Architecture for FP: Part 2](http://degoes.net/articles/modern-fp-part-2)
+- [Free? monads with mtl](https://gist.github.com/ocharles/252bc296b659aa32e915e02d02537064) - Linking to this because it relates, but I'm still understanding it myself.
 
 Note: one can also mix the two approaches. I'm not yet sure of the pros/cons to this approach.
 
