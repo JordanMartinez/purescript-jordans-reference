@@ -1,4 +1,4 @@
-module Test.Games.RandomNumber.MTL.DifferentMonad where
+module Test.Games.RandomNumber.MTL.Infrastructure where
 
 import Prelude
 import Data.Tuple (Tuple(..))
