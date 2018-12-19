@@ -1,6 +1,8 @@
 # Embedded Compilers
 
-Previously, we saw that we could "interpret" the `Free` monad into another monad, namely, `Effect`. However, what if we recursively interpreted the `Free` monad into another `Free` monad for a few rounds until the last one gets interpreted into the `Effect` monad?
+What is a compiler? Generally, a compiler will parse some high-level language (human-readable source code) and convert it into a lower-level language (platform-specific machine code)
+
+Previously, we saw that we could "interpret" the `Free` monad into another monad, namely, `Effect`, to simulate state manipulation effects. However, what if we recursively interpreted the `Free` monad into another `Free` monad for a few rounds until the last one gets interpreted into the `Effect` monad?
 ```purescript
 type Free1 = Free f a
 type Free2 = Free g a
@@ -13,7 +15,7 @@ Free3 ~> Effect
 -- means we can effectively write this
 Free1 ~> Effect
 ```
-This allows us to write one high-level language that gets "interpreted" into a lower-level language, which itself gets interpreted into an even lower-level language. Each `~>` is going from a more abstract language to specific capabilities to specific implementations that support such capabilities. Updating our code above to use meta-language, we would have something like this:
+This allows us to write one high-level language that gets "interpreted" into a lower-level language, which itself gets interpreted into an even lower-level language. Each `~>` is going from a high-level abstract language to a lower-level more-platform-specific language. In other words, a compiler of sorts. Updating our code above to use meta-language, we would have something like this:
 ```purescript
 -- Let your domain experts write their domain-specific "programs"
 -- using a familiar domain-specific language...
@@ -35,13 +37,15 @@ Core ~> Infrastructure
 -- which enables this...
 runProgram :: (Core ~> Infrastructure) -> Free Core e -> Effect e
 -- ... a program written by a domain-expert in a domain-specific
--- language who is ignorant of all the technical details that make it work...
+-- language who is ignorant of all the technical and platform-specific
+-- details that make it work...
 --
 -- ... that has been optimized and works for numerous backends by
 -- your technical experts.
 --
--- In addition, we can always change the infrastructure code to use a new
--- framework, UI, database, etc. without rewriting any of the domain-specific code.
+-- Similar to the ReaderT design pattern, we can always change
+-- the infrastructure code to use a new framework, UI, database, etc.
+-- without rewriting any of the domain-specific code.
 ```
 
 ## Related Posts
