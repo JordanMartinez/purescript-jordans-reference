@@ -25,14 +25,13 @@ type Domain1 e = Free (Coproduct4 Core1 Core2 Core3 Core4) e
 -- and let your technical experts "translate" them into working programs
 -- via NaturalTransformations
 type API e = Free (Coproduct3 Domain1 Domain2 Domain3) e
-type Infrastructure e = Free Effect e
 
 -- given this...
 Core ~> Domain1
 Domain1 ~> API
-API ~> Infrastructure
+API ~> Effect
 -- we compose them to get this
-Core ~> Infrastructure
+Core ~> Effect
 
 -- which enables this...
 runProgram :: (Core ~> Infrastructure) -> Free Core e -> Effect e
