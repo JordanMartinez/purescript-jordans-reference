@@ -1,6 +1,6 @@
 # Modern FP Architecture
 
-## Evaluating MTL and Free
+## Key Articles
 
 Now might be a good time to re-read these articles:
 - [Monad transformers, free monads, mtl, laws and a new approach](https://ocharles.org.uk/posts/2016-01-26-transformers-free-monads-mtl-laws.html)
@@ -10,7 +10,9 @@ Now might be a good time to re-read these articles:
 - [A Modern Architecture for FP: Part 1](http://degoes.net/articles/modern-fp)
 - [A Modern Architecture for FP: Part 2](http://degoes.net/articles/modern-fp-part-2)
 
-Let's now examine that post's criteria for each approach. The following is my guess at where things stand^^:
+## Evaluating MTL and Free
+
+Let's now examine one post's criteria for each approach. The following is my guess at where things stand^^:
 
 | | Extensible? | Composable? | Efficient? | Terse? | Inferrable?
 | - | - | - | - | - | - |
