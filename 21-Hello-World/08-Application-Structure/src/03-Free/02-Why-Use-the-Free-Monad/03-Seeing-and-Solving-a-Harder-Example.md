@@ -71,7 +71,7 @@ data Add = Add Expression Expression
 data Multiply = Multiply Expression Expression
 
 -- The problem: this is the final type we need
-type Expression = Value \/ Add \/Multiply
+type Expression = Value \/ Add \/ Multiply
 ```
 There are two places where we could define `Expression`, each with its own problems:
 - If we define it in File 1, then its definition cannot include the `Multiply` field because File 1 doesn't know about that type.
