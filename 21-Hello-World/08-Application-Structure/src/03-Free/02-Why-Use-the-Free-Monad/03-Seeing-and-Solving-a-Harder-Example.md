@@ -2,7 +2,7 @@
 
 ## Failing to Solve a Harder Version
 
-Let's try using our `Variant`-based solution to solve a harder problem. We'll solve the same problem the paper to which we referred beforehand solved.
+Let's try using our `Either`-based solution to solve a harder problem. We'll solve the same problem the paper to which we referred beforehand solved.
 
 They want to define a program that can evaluate an expression that consists of adding and multiplying integers. However, they want to define this program in such a way that it also solves the Expression Problem.
 
@@ -45,29 +45,21 @@ Let's model these types differently by separating them all into their own types 
 data Value = Value Int
 data Add = Add Expression Expression
 
-                -- Either Value Add
-                -- Value \/ Add
-type Expression = Variant (value :: Value, add :: Add)
+type Expression = Value \/ Add
 
 value :: Expression
-value i = inj (SProxy :: SProxy "value") i
+value i = inj i
 
 add :: Expression -> Expression -> Expression
-add x y = inj (SProxy :: SProxy "add") (Add x y)
+add x y = inj (Add x y)
 
 show2 :: Expression -> String
-show2 = default Nothing
-  # onMatch
-    { value: \(Value i) -> show i
-    , add: \(Add x y) -> "(" <> show2 x <> " + " <> show2 y <> ")"
-    }
+show2 (Left (Value i)) = show i
+show2 (Right (Add x y)) = "(" <> show2 x <> " + " <> show2 y <> ")"
 
 evaluate :: Expression -> Int
-evaluate default Nothing
-  # onMatch
-    { value: \(Value i) -> i
-    , add: \(Add x y) -> (evaluate x) + (evaluate y)
-    }
+evaluate (Left (Value i)) = i
+evaluate (Right (Add x y)) = (evaluate x) + (evaluate y)
 ```
 To achieve the capability to add and multiply `Multiply` expressions, what would we need to do, even if it means breaking the constraints of the Expression Problem?
 ```purescript
@@ -79,7 +71,7 @@ data Add = Add Expression Expression
 data Multiply = Multiply Expression Expression
 
 -- The problem: this is the final type we need
-type Expression = Variant (value :: Value, add :: Add, multiply :: Multiply)
+type Expression = Value \/ Add \/Multiply
 ```
 There are two places where we could define `Expression`, each with its own problems:
 - If we define it in File 1, then its definition cannot include the `Multiply` field because File 1 doesn't know about that type.
