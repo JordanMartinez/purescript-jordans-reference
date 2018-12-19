@@ -58,68 +58,34 @@ Purescript's `Free` monad is implemented in the "reflection without remorse" sty
 The `Free` monad has its own way of injecting an instance into it called [`liftF`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:liftF). It can be understood like this:
 ```purescript
 -- Before
-addF :: Expression f -> Expression f -> Expression f
-addF x y = In $ inj (AddF x y)
+someValue :: forall a. a -> Expression SomeFunctor
+someValue a = In (SomeFunctor a)
 
 -- After...
-liftF :: g (Free f a) -> Free f a
-liftF = Impure
-
--- assuming that `f` is `VariantF` in this case
-addF :: Free f -> Free f -> Free f
-addF x y = liftF $ inj addSymbol (AddF x y)               {-
-addF x y = liftF $ AddF x y -- the basic idea -}
+liftF :: a -> Free SomeFunctor a
+liftF = Impure (SomeFunctor a)
 ```
 
-### RunFree
+### Wrap
 
-Rather than writing `fold` and then writing `run` as a way to use `fold` to evaluate a computation as we did in `Value.purs`, we can simplify this to one function by using [`runFree`](https://pursuit.purescript.org/packages/purescript-free/4.2.0/docs/Control.Monad.Free#v:runFree):
+`LiftF` is useful, but it won't let us compile the examples we will show next because it expects the `a` to be any `a`. In cases like `AddF` and `MultiplyF`, sometimes that `a` has to be `Free SomeFunctor`. In such cases, we can use [`wrap`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:wrap):
+
 ```purescript
+type CProdFunctor = Coproduct Functor1 Functor2
+
 -- Before
-fold :: forall f a. Functor f => (f a -> a) -> Expression f -> a
-fold f = go where
-  go t = case t of
-    In t -> f (go <$> t)
+someValue :: forall a. CProdFunctor (Expression CProdFunctor) -> Expression CProdFunctor
+someValue a = In (Coproduct (Left (Functor1 a)))
 
-run :: forall f a b output
-      . Functor f
-      -- |     case_        | # |    algebra       |
-     => ((VariantF () a -> b) -> f output -> output)
-     -> Expression f
-     -> output
-run algebra expression = fold (case_ # algebra) expression
-
-eval :: forall f a b
-      . Functor f
-     => ((VariantF () a -> b) -> f Int -> Int)
-     -> Expression f
-     -> Int
-eval = run
-
-eval valueAlgebra (value 5)
-
--- After
-eval :: forall f a b
-      . Functor f
-     => ((VariantF () a -> b) -> f Int -> Int)
-     -> Expression f
-     -> Int
-eval = runFree (case_ # valueAlgebra)
-
-runFree :: forall f a
-         . Functor f
-        => (f (Free f a) -> Free f a)
-        -> Free f a
-        -> a                                                                  {-
-... which should appear like this...
-runFree k = go where
-  go m = case resume m of
-    Impure f -> k (go <$> f)
-    Pure   a -> a
-
-... but, due to "reflection without remorse" complexities, is written like... -}
-runFree k = go where
-  go m = case resume m of
-    Left   f -> k (go <$> f)
-    Right  a -> a
+-- After...
+wrap :: forall a. CProdFunctor (Free CProdFunctor) -> Expression CProdFunctor
+wrap a = Impure (Coproduct (Left (Functor1 a)))
 ```
+
+### Other Functions
+
+Other functions like `foldFree` and `runFree` will be discussed in later parts of the `Free` folder.
+
+### Where is the Render/Show function?
+
+In the upcoming code, I could not figure out how to get the `Render` type class to work using a `Free` + `Coproduct` approach. However, don't be alarmed by this. AFAIK, this issue isn't crucial to understanding how `Free` works and why one would want to use it.
