@@ -23,7 +23,11 @@ getValue :: forall f. Free f Int
 getValue = liftF $ GetValue Pure
 
 -- The `Free` monad's equivalent of `State StateType OutputType`
--- simulates "y = get(x); set(x, x + 1); return y;"
+-- simulates "function(x) => {
+--    var y = get(x);
+--    set(x, x + 1);
+--    return y;
+-- }"
 stateComputation :: Free (Coproduct Add1 GetValue) Int
 stateComputation = do
   y <- getValue
