@@ -88,7 +88,7 @@ wrap a = Impure (Coproduct (Left (Functor1 a)))
 
 [`foldFree`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:foldFree) interprets the Free into some other monad (e.g. `Effect`, etc.).
 
-[`runFree`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:runFree) - computes a "pure" program stored `Free` (by 'pure,' we meant that `Free` only stores the instructions the program would execute, but does not run them).
+[`runFree`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:runFree) computes a "pure" program stored `Free` (by 'pure,' we meant that `Free` only stores the instructions the program would execute, but does not run them).
 
 ### Where is the Render/Show function?
 
