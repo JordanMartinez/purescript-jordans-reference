@@ -41,7 +41,7 @@ The paper above has 8 sections:
 7. Applications (Using this approach to define extensible effects by composing Free monads)
 8. Discussion
 
-This folder has 9 files:
+This folder has 8 files:
 1. Seeing and Solving a Simple Problem
 2. Reducing boilerplate
 3. Seeing and Solving a Harder Problem
