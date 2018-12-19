@@ -47,6 +47,10 @@ runProgram :: (Core ~> Infrastructure) -> Free Core e -> Effect e
 -- without rewriting any of the domain-specific code.
 ```
 
+### Free Applicative
+
+Since each `~>` acts like a compiler that compiles the higher-level language (input) into a lower-level language (output), one can also "optimize" a compiler's output in some cases via `FreeAp`, the Free Applicative type. Unfortunately, this is not covered here (_yet_), but one should be aware of it. John De Goes overviews this idea below.
+
 ## Related Posts
 
 To see some examples and the implications of this idea, read the following links and translate the `IO` monad to `Effect` and the mention of Purescript's now-outdated `Eff` monad to `Effect`. Also note that `MTL` works faster than `Free` on Haskell, but I don't know their performance comparison on Purescript:
