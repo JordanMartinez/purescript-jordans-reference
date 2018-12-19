@@ -8,7 +8,7 @@ We can now return to the original question we raised at the start of the `Free` 
 
 Unfortunately, this `Coproduct` + `Free` approach only works on `Free` monads; it does not work for other non-`Free` monads. As the paper says, the `ListT` and `StateT` monads are not free monads. Why? Let's consider the `StateT` monad. The issue at hand are its laws. If I call `set 4` and then later call `get`, `get` should return `4`. By using `Free` as we have so far, we cannot uphold that law.
 
-So, how do we get around that limitation? We can define a language (similar to our `Add`, `Multiply`, `Value` language) that provides the operations we would expect from such a monad. The paper's example shows how one could create a `State` monad using this approach. Since it will follow much of what we have already covered before, we'll just show the Purescript version of their code.
+So, how do we get around that limitation? We can define a type that has an instance for `Functor` and whose instances represent terms in a language (similar to our `Add`, `Multiply`, `Value` language) that provides the operations we would expect from such a monad. The paper's example shows how one could create a `State` monad using this approach. Since it will follow much of what we have already covered before, we'll just show the Purescript version of their code.
 ```purescript
 data Add      theRestOfTheComputation = Add Int theRestOfTheComputation
 data GetValue theRestOfTheComputation = GetValue (Int -> theRestOfTheComputation)
@@ -30,6 +30,9 @@ stateComputation = do
   add 1
   pure y
 
+-- Computes the pure description of machine instructions
+-- that are stored via `Free f a` down into `b`
+-- using the provided functions
 foldFree :: Functor f => (a -> b) -> (f b -> b) -> Free f a -> b
 foldFree pure _ (Pure x) = pure x
 foldFree pure impure (Impure t) = impure (fmap (foldFree pure impure) t)
@@ -109,7 +112,7 @@ readFromFile :: FilePath -> Effect String
 
 writeToFile :: FilePath -> String -> Effect Unit
 ```
-... we could take our "description" of computations (e.g. `Free ConsoleIO a`) and "interpret" it into an `Effect` monad:
+... we could take our pure "description" of computations (e.g. `Free ConsoleIO a`) and "interpret" it into an impure `Effect` monad:
 ```purescript
 class Functor f => Exec f where                                      {-
   execAlgebra :: f (Effect a) -> Effect a                            -}
