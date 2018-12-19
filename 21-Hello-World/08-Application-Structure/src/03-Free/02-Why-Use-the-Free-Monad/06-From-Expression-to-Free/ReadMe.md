@@ -76,18 +76,20 @@ liftF = Impure (SomeFunctor a)
 type CProdFunctor = Coproduct Functor1 Functor2
 
 -- Before
-someValue :: forall a. CProdFunctor (Expression CProdFunctor) -> Expression CProdFunctor
+someValue :: forall a. SameFunctor (Free SameFunctor) -> Free SameFunctor
 someValue a = In (Coproduct (Left (Functor1 a)))
 
 -- After...
-wrap :: forall a. CProdFunctor (Free CProdFunctor) -> Expression CProdFunctor
+wrap :: forall a. SameFunctor (Free DifferentFunctor) -> Expression SameFunctor
 wrap a = Impure (Coproduct (Left (Functor1 a)))
 ```
 
 ### Other Functions
 
-Other functions like `foldFree` and `runFree` will be discussed in later parts of the `Free` folder.
+[`foldFree`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:foldFree) interprets the Free into some other monad (e.g. `Effect`, etc.).
+
+[`runFree`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:runFree) - computes a "pure" program stored `Free` (by 'pure,' we meant that `Free` only stores the instructions the program would execute, but does not run them).
 
 ### Where is the Render/Show function?
 
-In the upcoming code, I could not figure out how to get the `Render` type class to work using a `Free` + `Coproduct` approach. However, don't be alarmed by this. AFAIK, this issue isn't crucial to understanding how `Free` works and why one would want to use it.
+In the upcoming code, I could not figure out how to get the `Render` type class to work using a `Free` + `Coproduct` approach. I also did not think it was worthwhile to spend more time on this when it's not crucial to understanding how `Free` works. My apologies. If you want it fix, attempt to solve the problem and submit a PR.
