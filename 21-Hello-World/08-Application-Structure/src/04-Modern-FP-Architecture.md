@@ -1,73 +1,22 @@
 # Modern FP Architecture
 
-Previously, we saw that we could "interpret" the `Free` monad into another monad, namely, `Effect`. However, what if we recursively interpreted the `Free` monad into another `Free` monad for a few rounds until the last one gets interpreted into the `Effect` monad?
-```purescript
-type Free1 = Free f a
-type Free2 = Free g a
-type Free3 = Free h a
-
--- assuming there is a natural transformation from one to another...
-Free1 ~> Free2
-Free2 ~> Free3
-Free3 ~> Effect
--- means we can effectively write this
-Free1 ~> Effect
-```
-This allows us to write "onion architecture" programs without the impure unreasonable OO code and instead with the pure reasonable FP code. Each `~>` is going from a more central circle (e.g. Domain) to a less central circle (e.g. API). Updating our code above to use meta-language, we would have something like this:
-```purescript
--- Let your domain experts write their domain-specific "programs"
--- using a familiar domain-specific language...
-data Core e = -- data types and other core things
-type Domain1 e = Free (Coproduct4 Core1 Core2 Core3 Core4) e
-
--- and let your technical experts "translate" them into working programs
--- via NaturalTransformations
-type API e = Free (Coproduct3 Domain1 Domain2 Domain3) e
-type Infrastructure e = Free Effect e
-
--- given this...
-Core ~> Domain1
-Domain1 ~> API
-API ~> Infrastructure
--- we compose them to get this
-Core ~> Infrastructure
-
--- which enables this...
-runProgram :: (Core ~> Infrastructure) -> Free Core e -> Effect e
--- ... a program written by a domain-expert in a domain-specific
--- language who is ignorant of all the technical details that make it work...
---
--- ... that has been optimized and works for numerous backends by
--- your technical experts.
---
--- In addition, we can always change the infrastructure code to use a new
--- framework, UI, database, etc. without rewriting any of the domain-specific code.
-```
-
-## Examples of the Onion Architecture
-
-To see some examples and the implications of this idea, read the following links and translate the `IO` monad to `Effect` and the mention of Purescript's now-outdated `Eff` monad to `Effect`. Also note that `MTL` works faster than `Free` on Haskell, but I don't know their performance comparison on Purescript:
-- [A Modern Architecture for FP: Part 1](http://degoes.net/articles/modern-fp)
-- MTL-version of Onion Architecture
-    - [Original Haskell version](https://gist.github.com/ocharles/6b1b9440b3513a5e225e)
-    - [My port to Purescript](https://gist.github.com/JordanMartinez/4eb9dd1f5ac4e5220ab3d2cc500c0fce)
-- MTL vs Free Deathmatch - [Video](https://www.youtube.com/watch?v=JLevNswzYh8) & [Slides](https://www.slideshare.net/jdegoes/mtl-versus-free)
-- [A Modern Architecture for FP: Part 2](http://degoes.net/articles/modern-fp-part-2)
-- [Free? monads with mtl](https://gist.github.com/ocharles/252bc296b659aa32e915e02d02537064) - Linking to this because it relates, but I'm still understanding it myself.
-
-Note: one can also mix the two approaches. I'm not yet sure of the pros/cons to this approach.
-
-Checkout the `Hello World/Games` folder for more examples and explanations on this idea.
-
 ## Evaluating MTL and Free
 
-Now might be a good time to re-read the article we linked to in `Monads-and-Effects.md`
+Now might be a good time to re-read these articles:
+- [Monad transformers, free monads, mtl, laws and a new approach](https://ocharles.org.uk/posts/2016-01-26-transformers-free-monads-mtl-laws.html)
+- [Three Layer Haskell Cake](https://www.parsonsmatt.org/2018/03/22/three_layer_haskell_cake.html)
+- [the `ReaderT` Design Pattern](https://www.fpcomplete.com/blog/2017/06/readert-design-pattern)
+- [the Capability Design Pattern](https://www.tweag.io/posts/2018-10-04-capability.html)
+- [A Modern Architecture for FP: Part 1](http://degoes.net/articles/modern-fp)
+- [A Modern Architecture for FP: Part 2](http://degoes.net/articles/modern-fp-part-2)
 
 Let's now examine that post's criteria for each approach. The following is my guess at where things stand^^:
 
 | | Extensible? | Composable? | Efficient? | Terse? | Inferrable?
 | - | - | - | - | - | - |
-| MTL | Yes via the Capability Design Pattern | Yes via newtyped monadic functions? | ? | ~`n^2` instances for `Monad[Word]` | ? |
+| MTL | Yes via the Capability Design Pattern | Yes via newtyped monadic functions? | ? | ~`n^2` instances for `Monad[Word]`<br>boilerplate capability type classes | ? |
 | Free/Run | Yes via open rows and `VariantF` | Yes via embedded domain-specific languages | ? | boilerplate smart constructors | ? |
 
 ^^ Note: The `MTL vs Free` debate is pretty heated in FP communities.
+
+In the `Hello World/Games` folder, we'll implement the same programs for each concept mentioned above as more concrete examples.
