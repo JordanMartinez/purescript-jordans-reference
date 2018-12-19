@@ -138,8 +138,12 @@ data Multiply e = Multiply e e
 -- but needed to make the next type work
 data Value e = Value Int
 
--- Use Either to compose these higher-kinded types:
-type AMV e = (Either (Value e) (Either (Add e) (Multiply e)))
+{-
+The following is pseudo-code. I don't konw whether it compiles.
+
+Use Either to compose these higher-kinded types:
+             Either (Value e) (Either (Add e)    (Multiply e))
+type AMV e =        (Value e) \/      (Add e) \/ (Multiply e)
 newtype AMV_Expression = AMV_Expression (Expression AMV)
 ```
 
@@ -147,7 +151,8 @@ newtype AMV_Expression = AMV_Expression (Expression AMV)
 
 Above, we wrote this:
 ```purescript
-Either (Value e) (Either (Add e) (Multiply e))
+Either (Value e) (Either (Add e)    (Multiply e))
+       (Value e) \/      (Add e) \/ (Multiply e)
 ```
 However, this is just a more verbose form of [`Coproduct`](https://pursuit.purescript.org/packages/purescript-functors/3.0.1/docs/Data.Functor.Coproduct#t:Coproduct):
 ```purescript
@@ -162,8 +167,9 @@ Either   (Value e) (Add e)
 Coproduct Value     Add e
 
 -- nested
-Either   (Value e) (Either   (Add e) (Multiply e))
-Coproduct Value    (Coproduct Add     Multiply) e
+         (Value e) \/        (Add e) \/ (Multiply  e)
+Either   (Value e) (Either   (Add e)    (Multiply  e))
+Coproduct Value    (Coproduct Add        Multiply) e
 
 -- nested using convenience types from both libraries
 Either3   (Value e) (Add e) (Multiply e)
