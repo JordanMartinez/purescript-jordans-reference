@@ -23,10 +23,7 @@ The paper, [Data Types à la carte](http://www.cs.ru.nl/~W.Swierstra/Publication
 This folder is a summmary and commentary on the paper linked above. It is meant to be read alongside of or after you read the paper. While you, the reader, could just read the paper and ignore the rest of this folder's contents, there are some advantages to reading through this folder's contents alongside of the paper:
 - Sometimes, the above paper will state that something is true, but not show why. This folder will explore that more and show why it's true.
 - Sometimes, the paper may use unfamiliar terminology or use symbolic data types. This folder will explain the terminology and use alphabetical names to refer to some data types.
-- This folder will also show how to use other Purescript libraries to achieve the same results in a slightly better way by covering:
-    - `purescript-variant`: `Variant` and `VariantF`, the "open" sum type
-    - `purescript-run`: a better way to use `Free` to write programs
-    - `purescript-either`: `Coproduct`
+- The last file in this folder (i.e. `Embedded Compilers.md`) explains one of the key features one obtains by using the `Free` monad approach
 
 ## Reading the Paper and This Folder Side-by-Side
 
@@ -47,14 +44,12 @@ The paper above has 8 sections:
 This folder has 9 files:
 1. Seeing and Solving a Simple Problem
 2. Reducing boilerplate
-3. From Either to Variant
-4. Seeing and Solving a Harder Problem
-5. Writing the Evaluate Function
-6. Writing the Show function
-7. Converting To VariantF
-8. From Expression to Free
-9. From Free to Run
-11. Defining Modular Monads
+3. Seeing and Solving a Harder Problem
+4. Writing the Evaluate Function
+5. Writing the Show function
+6. From Expression to Free
+7. Defining Modular Monads
+8. Embedded Compilers
 
 ### Correspondance Table
 
@@ -62,11 +57,9 @@ This folder has 9 files:
 | - | - | - | - |
 | 1 (File) | Prep work: Defining and solving a simple version of the problem by composing data types | Sections 1/2/3/5 (ish) | Laying a foundation
 | 2 (File) | Prep work: Abstract data type composition via `Either` | Section 4 (ish) | Laying a foundation
-| 3 (File) | Purescript library: Show that `Variant` is a better `Either` | - | -
-| 4 (File) | Showing why the paper's problem is hard to solve, but still solvable; reveal `Coproduct` | Sections 1/2/4/5 (ish) | -
-| 5 (File) | - | Sections 3/5 | Writing the `evaluate` function
-| 6 (File) | - | Sections 3/5 | Writing the `show` function
-| 7 (Folder) | Show that `VariantF` is a better `Coproduct` | Section 4 (ish) | How do we reduce boilerplate when working with composed data types?
-| 8 (File) | Show that `Expression` is really `Free` | - | -
-| 09 (Folder) | Show that `Run` is a better `Free` | - | -
-| 11 File | - | Sections 6/7 | Its relevance to and application for `Free` monads
+| 3 (File) | Showing why the paper's problem is hard to solve, but still solvable; reveal `Coproduct` | Sections 1/2/4/5 (ish) | -
+| 4 (File) | - | Sections 3/5 | Writing the `evaluate` function
+| 5 (File) | - | Sections 3/5 | Writing the `show` function
+| 6 (Folder) | Show that `Expression` is really `Free` | - | -
+| 7 (File) | Using 'languages' to model effects | Section 6 | Simulating the State monad
+| 8 File | Defining abstract syntax trees via `Free` | Sections 6/7 | Its relevance to and application for `Free` monads
