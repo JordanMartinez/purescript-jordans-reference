@@ -43,7 +43,7 @@ The paper above has 8 sections:
 
 This folder has 8 files:
 1. Seeing and Solving a Simple Problem
-2. Reducing boilerplate
+2. Reducing boilerplate via Either
 3. Seeing and Solving a Harder Problem
 4. Writing the Evaluate Function
 5. Writing the Show function
