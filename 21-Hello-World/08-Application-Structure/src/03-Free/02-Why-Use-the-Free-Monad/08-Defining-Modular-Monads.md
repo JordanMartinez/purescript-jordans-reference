@@ -2,11 +2,11 @@
 
 **This file has two sections. The first only makes more sense after reading the second. So, be sure to read this file twice.**
 
-We can now return to the original question we raised at the start of the `Free` folder: if we wanted to run a sequential computation (i.e. use a monad) that used multiple effects, could we stop fighting against the "`bind` returns the same monad type" fact and simply use just one monad? Yes. Similar to our previous examples, we can use `Coproduct`s/`VariantF`s of two or more `Free` monads.
+We can now return to the original question we raised at the start of the `Free` folder: if we wanted to run a sequential computation (i.e. use a monad) that used multiple effects, could we stop fighting against the "`bind` returns the same monad type" fact and simply use just one monad? Yes. Similar to our previous examples, we can use `Coproduct`s of two or more `Free` monads.
 
 ## Getting Around The Non-Free-Monad Limitation
 
-Unfortunately, this `Coproduct`/`VariantF` + `Free` approach only works on `Free` monads; it does not work for other non-`Free` monads. As the paper says, the `ListT` and `StateT` monads are not free monads. Why? Let's consider the `StateT` monad. The issue at hand are its laws. If I call `set 4` and then later call `get`, `get` should return `4`. By using `Free` as we have so far, we cannot uphold that law.
+Unfortunately, this `Coproduct` + `Free` approach only works on `Free` monads; it does not work for other non-`Free` monads. As the paper says, the `ListT` and `StateT` monads are not free monads. Why? Let's consider the `StateT` monad. The issue at hand are its laws. If I call `set 4` and then later call `get`, `get` should return `4`. By using `Free` as we have so far, we cannot uphold that law.
 
 So, how do we get around that limitation? We can define a language (similar to our `Add`, `Multiply`, `Value` language) that provides the operations we would expect from such a monad. The paper's example shows how one could create a `State` monad using this approach. Since it will follow much of what we have already covered before, we'll just show the Purescript version of their code.
 ```purescript
