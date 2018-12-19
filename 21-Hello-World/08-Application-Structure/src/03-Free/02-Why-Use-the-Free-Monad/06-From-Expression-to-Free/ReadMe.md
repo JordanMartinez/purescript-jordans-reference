@@ -43,7 +43,7 @@ fold    f = go where
 
 | xgromxx's code | Our code |
 | - | - |
-| `Free ExprF a`<br>`Expr` | `Expression (Coproduct Value ExprF) a`
+| `Free ExprF a`<br>or<br>`Expr` | `Expression (Coproduct Value ExprF) a`
 | `lit` | `value`
 | `iter` | `fold`
 | `iter k go` | `fold algebra expression`
