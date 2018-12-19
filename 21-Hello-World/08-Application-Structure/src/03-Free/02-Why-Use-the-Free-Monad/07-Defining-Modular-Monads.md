@@ -96,13 +96,13 @@ data Language theRestOfTheComputation
 So far, we've only defined a data type with one instance and composed those data types together. However, what if we treated a data type as a "family" of operations where each instance in that data type was an operation? Then our data types might look like this:
 ```purescript
 data FileSystem a
-  = ReadFromFile FilePath (String -> a)
-  | WriteToFile FilePath String a
+  = ReadFromFile FilePath (ContentsOfFile -> a)
+  | WriteToFile FilePath NewContents a
 
 data ConsoleIO a
   = ReadFromConsole (String -> a)
   | WriteToConsole String a
-  -- This isn't needed, but it will show below how code is usually written
+  -- This shouldn't be here, but it will show below how code is usually written
   -- via do notation when either one of these argument types is used
   | WriteThenRead String (String -> a)
 ```
