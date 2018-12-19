@@ -60,6 +60,6 @@ This folder has 8 files:
 | 3 (File) | Showing why the paper's problem is hard to solve, but still solvable; reveal `Coproduct` | Sections 1/2/4/5 (ish) | -
 | 4 (File) | - | Sections 3/5 | Writing the `evaluate` function
 | 5 (File) | - | Sections 3/5 | Writing the `show` function
-| 6 (Folder) | Show that `Expression` is really `Free` | - | -
+| 6 (Folder) | Show that `Expression` is really `Free` | Section 6 | -
 | 7 (File) | Using 'languages' to model effects | Section 6 | Simulating the State monad
 | 8 File | Defining abstract syntax trees via `Free` | Sections 6/7 | Its relevance to and application for `Free` monads
