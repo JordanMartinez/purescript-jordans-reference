@@ -19,12 +19,12 @@ Either3   (Value e) (Add e) (Multiply e)
 Coproduct3 Value     Add     Multiply e
 ```
 
-When covering `Coproduct`, we explained that it was vulnerable to the same refactoring issues as `Either` because it is not "open":
+When covering `Either`, we explained that it was vulnerable to the following refactoring issues because it is not "open":
 1. Change the order of the types
 2. Add/Remove a type
 3. Change one type to another type
 
-Thus, the question was "What is the open `Coproduct` type?" The answer is `VariantF`.
+Since `Coproduct` is just a newtype wrapper over an `Either`, it suffers from the same "closed" problem. Thus, we'll need a corresponding `Variant`-like type to make it open. That type is `VariantF`.
 
 | | Open/Closed | Kind
 | - | - | - |
@@ -94,10 +94,11 @@ type Add r = (add :: FProxy AddF | r)
 -- and then compose the rows together using RowApply / "+"
 type ValueAdd r = (Value + Add + r)
 -- which desugars ultimately to
-type ValueAdd otherRow = (value :: FProxy ValueF, add :: FProxy AddF | otherRow)
+type ValueAdd otherRows = (value :: FProxy ValueF, add :: FProxy AddF | otherRows)
 
--- and we can put this into a VariantF
-VariantF (ValueAdd + r) e
+-- In our final type, we'll need to use an empty row to "close" the row
+-- so that our code compiles
+VariantF (ValueAdd + ()) e
 ```
 
 ## Defining Composable Algebras for Data Types

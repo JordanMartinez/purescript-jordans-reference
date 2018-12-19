@@ -2,7 +2,7 @@
 
 ## Adding More Conditions
 
-The previous file's solution works. However, when we are writing code, we often need to refactor things. If we are using nested `Either` types everywhere, there are three ways we could change our code:
+Let's forget `Coproduct` for a moment and return back to the `Either` level. When we are writing code, we often need to refactor things. If we are using nested `Either` types everywhere, there are three ways we could change our code:
 1. Change the order of the types position: `Either first second` <=> `Either second first`
 2. Add/Remove another type: `Either first (Either second third)` <=> `Either first second`
 3. Change one type to another: `Either Int Int` <=> `Either Int String`
@@ -13,7 +13,7 @@ Moreover, `purescript-either` only grants us the ability to define 10 total type
 
 So, what are our options here? We saw previously that we could not define our own special nested `Either` type without knowing at the type-declaration-time what the next few types are. However, we do know at compile-time what those types will be. We also know at compile-time how many types will exist in a nested `Either`-like type. This implies that we might want to stop looking at value-level programming for our solutions and instead look at type-level programming. More specifically, we should look at row kinds.
 
-The `# Type` kind allows us to specify n-different types that are known at compile-time. As an example, we can look at `Record`, which is a nested `Tuple` that uses row kinds to work:
+We can use row kinds specified to type (i.e. `# Type`) to specify n-different types that are known at compile-time. As an example, we can look at `Record`, which is a nested `Tuple` that uses row kinds to work:
 ```purescript
 -- first AND second AND third AND fourth AND last
 Tuple first (Tuple second (Tuple third (Tuple fourth last)))
@@ -99,7 +99,7 @@ Besides those above, `Variant` also has `expand` and `contract`. One takes a `Va
 
 ## Updating Our Solution
 
-If we return to our solution from before and use `Variant` instead of `FruitGrouper`, here's what we get.
+If we return to our `FruitGrouper` solution from before and use `Variant` instead of `FruitGrouper`, here's what we get.
 
 Here's the list of run commands:
 - `showFruitVariant (injFruit Apple)`
