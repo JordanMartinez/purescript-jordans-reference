@@ -26,7 +26,9 @@ newtype Free       f a
   | Impure (f (Free       f a))
 ```
 
-How would we rewrite our solution from before to use `Free` instead of `Expression`? `Value` is replaced with `Pure`. To see an example of this for just `Value` and `Add` (`Multiply` is excluded), see [ADT8.purs](https://github.com/xgrommx/purescript-from-adt-to-eadt/blob/master/src/ADT8.purs) and use the following code snippet to understand why `iter` works that way and the following table to help you understand the terminology:
+How would we rewrite our solution from before to use `Free` instead of `Expression`? `Value` is replaced with `Pure`.
+
+To see an example of this for just `Value` and `Add` (`Multiply` is excluded) and to understand its code, refer to the below code and table before viewing [ADT8.purs](https://github.com/xgrommx/purescript-from-adt-to-eadt/blob/master/src/ADT8.purs).
 
 ```purescript
 -- when Value and Add were both `f`
