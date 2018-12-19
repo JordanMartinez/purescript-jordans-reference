@@ -11,7 +11,7 @@ fold f = go where
   go (In t) = f (go <$> t)                                                  {-
 ... which can be rewritten to use "case _ of" to pattern match              -}
 fold f = go where
-  go t = case t of
+  go in_t = case in_t of
     In t -> f (go <$> t)
 ```
 
@@ -31,12 +31,12 @@ How would we rewrite our solution from before to use `Free` instead of `Expressi
 ```purescript
 -- when Value and Add were both `f`
 fold    f = go where
-  go t = case t of
+  go in_t = case in_t of
     In     t -> f (go <$> t)
 
 -- when Value is simply Pure now
 fold    f = go where
-  go t = case t of
+  go free = case free of
     Pure   a -> a              -- Value
     Impure t -> f (go <$> t)   -- Add
 ```
