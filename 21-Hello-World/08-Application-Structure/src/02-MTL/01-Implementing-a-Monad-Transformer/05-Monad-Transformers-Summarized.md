@@ -24,14 +24,15 @@ Putting it into a table, we get this:
 
 Putting it differently, we get this:
 
-| A basic concept... | ...becomes a monad transformer via |
+| A basic concept... | ...as a monad transformer |
 | - | - |
+| `oldState -> monad (Tuple (output, newState))`<br>(state manipulation) | StateT
+| `monad (Tuple (output, accumulatedValue)` | WriterT
+| `globalValue -> monad outputThatUsesGlobalValue` | ReaderT
 | Either e a | ExceptT
-| Tuple a b | WriterT
+| function $ arg | ContT
 | Maybe a | MaybeT
 | List a | ListT
-| function $ arg | ContT
-| state manipulation | StateT
 
 
-Finally, if we want to add more effects than just state manipulation, we can create a "stack" of monad transformers that all work together to transform some base monad. This is the heart of the `MonadTrans`, which will be covered later in this folder.
+Finally, if we want to add more effects than just state manipulation, we can create a "stack" of monad transformers that all work together to transform some base monad: impure computatons via `Effect`/`Aff` or pure computations via `Identity`. This is the heart of the `MonadTrans`, which will be covered later in this folder.
