@@ -61,7 +61,8 @@ The `Free` monad has its own way of injecting an instance into it called [`liftF
 ```purescript
 -- Before
 someValue :: forall a. a -> Expression SomeFunctor
-someValue a = In (SomeFunctor a)
+someValue a =
+  In (SomeFunctor a) -- or `inj (SomFunctor a)`
 
 -- After...
 liftF :: a -> Free SomeFunctor a
@@ -70,18 +71,19 @@ liftF = Impure (SomeFunctor a)
 
 ### Wrap
 
-`LiftF` is useful, but it won't let us compile the examples we will show next because it expects the `a` to be any `a`. In cases like `AddF` and `MultiplyF`, sometimes that `a` has to be `Free SomeFunctor`. In such cases, we can use [`wrap`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:wrap):
+`LiftF` is useful, but it won't let us compile the examples we will show next because it expects the `a` to be any `a`. In cases like `AddF`/`MultiplyF`, sometimes that `a` has to be `Free AddF`/`Free MultiplyF` instead of just the `Int` type. In such cases, we can use [`wrap`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:wrap):
 
 ```purescript
-type CProdFunctor = Coproduct Functor1 Functor2
+-- Using `liftF`
+add :: Int -> Int -> Free AddF Int
+add x y = liftF $ AddF x y
 
--- Before
-someValue :: forall a. SameFunctor (Free SameFunctor) -> Free SameFunctor
-someValue a = In (Coproduct (Left (Functor1 a)))
+-- the above 'add' definition does not allow us to create
+-- nested adds
 
--- After...
-wrap :: forall a. SameFunctor (Free DifferentFunctor) -> Expression SameFunctor
-wrap a = Impure (Coproduct (Left (Functor1 a)))
+-- Using `wrap`
+add :: Free AddF Int -> Free AddF Int -> Free AddF Int
+add x y = wrap $ AddF x y
 ```
 
 ### Other Functions
