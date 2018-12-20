@@ -5,7 +5,7 @@ import Effect (Effect)
 import Effect.Console (log)
 import Control.Monad.Free (Free, wrap)
 import Data.Functor.Coproduct (Coproduct, coproduct)
-import Data.Functor.Coproduct.Inject (inj)
+import Data.Functor.Coproduct.Inject (class Inject, inj)
 import Free.Value (iter, value)
 import Free.Add (AddF(..), addAlgebra, showAddExample)
 import Free.Multiply (MultiplyF(..), multiplyAlgebra, showMultiplyExample)
@@ -28,7 +28,13 @@ type AddAndMultiply = Free (Coproduct AddF MultiplyF)
 add' :: forall a. AddAndMultiply a -> AddAndMultiply a -> AddAndMultiply a
 add' a b = wrap $ inj (AddF a b)
 
-multiply' :: forall a. AddAndMultiply a -> AddAndMultiply a -> AddAndMultiply a
+-- This function exists for the same reasons as above. However,
+-- it also shows that we do not need to hard-code the "AddAndMultiply" type
+-- to get this to work.
+multiply' :: forall f a.
+             Functor f =>
+             Inject MultiplyF f =>
+             Free f a -> Free f a -> Free f a
 multiply' a b = wrap $ inj (MultiplyF a b)
 
 evalAddAndMultiply :: AddAndMultiply Int -> Int
