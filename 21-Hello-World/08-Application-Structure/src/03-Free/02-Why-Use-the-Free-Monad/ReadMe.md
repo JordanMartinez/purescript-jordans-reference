@@ -29,6 +29,8 @@ This folder is a summmary and commentary on the paper linked above. It is meant 
 
 Rather than follow the paper exactly, this folder will define and solve a simpler version of the Expression Problem to demonstrate the basic idea of the solution. With that foundation, the paper's real problem will be explored and solved.
 
+**In addition, the paper explains how to write a `show` function that pretty prints the mathetmatical expression. This folder's contents will not overview that part of the paper. The full reasons will be explained when we get to that part.**
+
 ### Contents of The Paper
 
 The paper above has 8 sections:
@@ -46,7 +48,7 @@ This folder has 8 files:
 2. Reducing boilerplate via Either
 3. Seeing and Solving a Harder Problem
 4. Writing the Evaluate Function
-5. Writing the Show function
+5. Writing the Show function (optional)
 6. From Expression to Free
 7. Defining Modular Monads
 8. Embedded Compilers
@@ -59,7 +61,7 @@ This folder has 8 files:
 | 2 (File) | Prep work: Abstract data type composition via `Either` | Section 4 (ish) | Laying a foundation
 | 3 (File) | Showing why the paper's problem is hard to solve, but still solvable; reveal `Coproduct` | Sections 1/2/4/5 (ish) | -
 | 4 (File) | - | Sections 3/5 | Writing the `evaluate` function
-| 5 (File) | - | Sections 3/5 | Writing the `show` function
+| 5 (File) | Optional reading | Sections 3/5 | Writing the `show` function
 | 6 (Folder) | Show that `Expression` is really `Free` | Section 6 | -
 | 7 (File) | Using 'languages' to model effects | Section 6 | Simulating the State monad
 | 8 File | Defining abstract syntax trees via `Free` | Sections 6/7 | Its relevance to and application for `Free` monads

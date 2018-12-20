@@ -1,5 +1,14 @@
 # Writing the Show Function
 
+<hr>
+**Thils file is optional reading!**
+
+There are two reasons why:
+- I was not able (i.e. smart enough to initially figure this out on my own) to convert this code into a compilable example
+- I found that I was able to understand the concept that this folder teaches without ultimately figuring out the above. For example, the paper only lists the `show` function as another example about how it is easy to add more functions.
+- The cost-beneifits weren't worth it. Why spend time on trying to figure out this problem when I could spend time improving some other part of this repo, especially since this detail does not contribute greatly to one's understanding of this concept.
+<hr>
+
 We still have one more function to define: `show2` (which is just `show` but which prevents the name conflict from `Prelude`). In our original file, `show2` was defined like this:
 ```purescript
 show2 :: Expression -> String
