@@ -73,6 +73,10 @@ run =
 
 ## Interpreting Free Monads
 
+What is a compiler? Generally, a compiler will parse some high-level language (human-readable source code) and convert it into a runnable platform-specific machine code. This is the general idea of the `Free` monads, as the above example just showed.
+
+Thus, we have the high-level source-code-like 'language' (i.e. the `Add` and `GetValue` types above) that we "compile"/"interpret" into machine code via our algerbras (i.e. functions with the type signature: `Functor f => f a -> a`). The "interpreter" is what actually runs the machine code / the layer we introduce `Effect`/`Aff` into the picture.
+
 When we look at how to define an instance for a data type, it follows this pattern (written in meta-language):
 ```purescript
 data Language theRestOfTheComputation
