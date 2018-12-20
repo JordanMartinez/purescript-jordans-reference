@@ -8,9 +8,3 @@ Since I'm already somewhat familiar with it, I decided to implement the web-base
 ## Halogen Warning
 
 **WARNING!** As of this writing, Halogen's `master` branch is currently in development and their `examples` directory within that branch has not yet been updated. If you try to compile the examples with the `master` branch checked out, it will fail to compile. Instead, check out their `v4.0.0` tag and try the examples there.
-
-## Code Warning
-
-The browser-based UI you will see in both the Free- and Run-based code will look utterly horrible! This is intentional for two reasons:
-1. The pattern to follow is easier to see without CSS and additional events cluttering up the code base
-2. While I know some HTML/CSS, my learning focus has been on Purescript. I currently don't know best practices when it comes to HTML and CSS, but I will learn those things after I get more familiar with Purescript.
