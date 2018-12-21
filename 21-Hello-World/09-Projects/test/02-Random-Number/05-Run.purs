@@ -7,11 +7,9 @@ import Data.Array (uncons)
 import Data.Functor.Variant (on)
 import Partial.Unsafe (unsafePartial)
 import Effect (Effect)
-import Effect.Console (log)
 import Games.RandomNumber.Core (GameResult)
-import Games.RandomNumber.Run.Core (game)
 import Games.RandomNumber.Run.Domain (
-  runCore
+  game
 , NotifyUserF(..), _notifyUser, NOTIFY_USER
 )
 import Games.RandomNumber.Run.API (
@@ -23,7 +21,7 @@ import Run (Run, interpret, send, extract)
 import Run.Reader (READER, runReader, ask)
 import Run.State (STATE, runState, get, put)
 import Test.QuickCheck (quickCheck, quickCheck',(<?>))
-import Test.Games.RandomNumber.Generators (TestData(..), TestDataRecord)
+import Test.Games.RandomNumber.Generators (TestData(..))
 import Type.Row (type (+))
 
 
@@ -45,7 +43,6 @@ main = do
 produceGameResult :: Int -> Array String -> GameResult
 produceGameResult random userInputs =
   game
-    # runCore
     # runDomain
     # runAPI
     # runInfrastructure random userInputs

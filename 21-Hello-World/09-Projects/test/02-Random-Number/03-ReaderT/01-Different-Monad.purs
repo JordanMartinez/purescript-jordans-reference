@@ -13,8 +13,8 @@ import Control.Monad.State (State, runState)
 import Control.Monad.State.Class (get, put)
 import Type.Equality (class TypeEquals, from)
 
-import Games.RandomNumber.Core (Bounds, unBounds, GameResult, Guess, RandomInt, RemainingGuesses)
-import Games.RandomNumber.MTL.Domain (
+import Games.RandomNumber.Core (Bounds, unBounds, GameResult)
+import Games.RandomNumber.ReaderT.Domain (
   game
 , class NotifyUser
 , class GetUserInput

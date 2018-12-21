@@ -6,9 +6,9 @@ module Test.Games.RandomNumber.Generators
 import Prelude
 
 import Control.Monad.Gen.Common (genMaybe)
-import Data.Array (snoc, uncons)
+import Data.Array (snoc)
 import Data.Either (fromRight)
-import Data.Maybe (Maybe(..), fromJust)
+import Data.Maybe (Maybe(..))
 import Data.NonEmpty ((:|))
 import Data.Tuple (Tuple(..))
 import Games.RandomNumber.Core (Bounds, RemainingGuesses, RandomInt, GameResult(..), mkBounds, mkRemainingGuesses, mkRandomInt, decrement)
