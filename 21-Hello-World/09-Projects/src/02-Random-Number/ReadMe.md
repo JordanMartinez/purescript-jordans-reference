@@ -16,7 +16,7 @@ pulp --psc-package run -m ConsoleLessons.ReadLine.AffMonad
 # The Random Number folder
 ## Node-Based implementation
 pulp --psc-package run -m Games.RandomNumber.Free.Infrastructure.Console
-pulp --psc-package run -m Games.RandomNumber.Run.Infrastructure
+pulp --psc-package run -m Games.RandomNumber.Run.Infrastructure.Console
 pulp --psc-package run -m Games.RandomNumber.MTL.Infrastructure
 
 ### Changes in Run folder
@@ -29,7 +29,7 @@ pulp --psc-package run -m Games.RandomNumber.MTL.AddDomainTerm
 
 ## Browser-based implementation
 pulp --psc-package browserify -O -m Games.RandomNumber.Free.Infrastructure.Halogen.Web --to dist/random-number/free/app.js
-pulp --psc-package browserify -O -m Games.RandomNumber.Run.Halogen.Infrastructure --to dist/random-number/run/app.js
+pulp --psc-package browserify -O -m Games.RandomNumber.Run.Infrastructure.Halogen.Web --to dist/random-number/run/app.js
 pulp --psc-package browserify -O -m Games.RandomNumber.MTL.Halogen.Infrastructure --to dist/random-number/mtl/app.js
 
 ## Run-based Test
