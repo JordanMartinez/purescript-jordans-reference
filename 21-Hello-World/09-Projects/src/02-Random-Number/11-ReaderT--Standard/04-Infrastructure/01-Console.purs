@@ -20,8 +20,8 @@ import Node.ReadLine (
 )
 import Node.ReadLine as NR
 
-import Games.RandomNumber.ReaderT.Domain (game)
-import Games.RandomNumber.ReaderT.API (AppM, runAppM)
+import Games.RandomNumber.ReaderT.Standard.Domain (game)
+import Games.RandomNumber.ReaderT.Standard.API (AppM, runAppM)
 
 -- Code for Infrastructure
 

@@ -29,7 +29,7 @@ import Node.ReadLine as NR
 import Type.Equality (class TypeEquals, from)
 
 import Games.RandomNumber.Core (unBounds)
-import Games.RandomNumber.ReaderT.Domain (
+import Games.RandomNumber.ReaderT.Standard.Domain (
   game
 , class NotifyUser
 , class GetUserInput
