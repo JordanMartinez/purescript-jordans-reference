@@ -3,7 +3,7 @@
 This folder's purposes are
 - to solidify one's understanding for how to write FP programs according to modern FP architecture principles.
     - Explain the throught-process behind designing some program by starting with the properties one wants to employ. This will include diagrams and other explanations.
-    - Compare the various ways one can structure an FP program and analyze their pros/cons and other tradeoffs
+    - Compare the various ways one can structure an FP program and analyze their pros/cons and other tradeoffs. The following approaches are explained more in this file:
         - "standard" ReaderT approach
         - "standard" Free/Run approach
         - "layered compilers" Free/Run approach
@@ -23,9 +23,18 @@ When overviewing the design process of the program, we'll use the following term
 | - | - | - |
 | Layer 4 | Core | Strong types with well-defined properties and their pure, total functions that operate on them
 | Layer 3 | Domain | the "business logic" code which uses effects
-| Layer 2 | API | the "production" or "test" monad which "links" these effects/capabilties to their implementations: <ul><li>a newtyped `ReaderT`'s instances</li><li>the `Free`/`Run` monad's final interpreter</li></ul>
+| Layer 2 | API | the "production" or "test" monad which "links" these effects/capabilties to their implementations: <ul><li>a newtyped `ReaderT` and its instances</li><li>the `Free`/`Run` monad's language and its interpretation</li></ul>
 | Layer 1 | Infrastructure | the platform-specific framework/monad we'll use to implement some special effects/capabilities (i.e. `Node.ReadLine`/`Halogen`/`StateT`)
 | Layer 0 | Machine Code<br>(no equivalent onion term) | the "base" monad that runs the program (e.g. production: `Effect`/`Aff`; test: `Identity`)
+
+## Explaining "Standard" vs "Layered Compilers" Terms
+
+By "standard," I mean the code will follow the ideas expressed in the table above. This is the code one would expect to see in production-level programs.
+
+By "layered compilers," I mean defining a monad with a higher-level language (e.g. Domain) that gets interpreted  (`Free`/`Run`) or lifted (`ReaderT`) into the same monad with a lower-level language (e.g. API). This is purely an experimental idea that shows what one _can_ do, but not necessarily "best practices" per say.
+It might help one write a program when the specifications are still not well-understood. Or it might just be pointless boilerplate-y work.
+
+Since "layered compilers" is rather long, I'll just use "layered" in folders' and modules' names.
 
 ## Libraries Overviewed
 
