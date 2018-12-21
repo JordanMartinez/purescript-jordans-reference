@@ -27,4 +27,5 @@ Below is the current list of libraries we introduce and further explain here. Th
 
 ## Compilation Instructions
 
-Each folder will have its own instructions for building/running the program. To run a web-based program, follow the folder's build instructions and then open the `dist/project-name/<FP structure approach>/index.html` file
+Each folder will specify the `pulp` command to run to build/run the program. Because of the multi-project nature of this folder, the `pulp` command must be executed in `Hello World/Projects/`, not in each project's folder.
+To run a web-based program, follow the folder's build instructions and then open the `dist/<project-name>/<FP structure approach>/index.html` file
