@@ -4,9 +4,7 @@ This file will analyze our Free-based implementation of the random number guessi
 
 ## Hard-Coded Language
 
-The first problem is that our language is hard-coded. If we ever wanted to add another member to our Domain or API language, we would effectively need to rewrite the entire file, leading to wasted developer time.
-
-This is another example of the Expression Problem. Had we written our code using `VariantF` and `Run`, we could compose individual data structures to form the language we want to use.
+The first problem is that our language is hard-coded. If we ever wanted to add another member to our Domain or API language, we would effectively need to rewrite the entire file, leading to wasted developer time. Had we written our code using `VariantF` and `Run`, we could compose individual data structures to form the language we want to use.
 
 ## Unnecessary Translations
 
@@ -35,7 +33,7 @@ Unfortunately, we cannot translate the `NotifyUser` instance to the `Infrastruct
 
 ## Tightly-Coupled Code
 
-Our code is not modular in that one could easily swap out the current "interpreter" of one language term (e.g. Domain's `DefineBounds`) with another. In other words, what if we wanted the interpreter to ignore the user's input and just look up the values from a configuration file? Or, what if we wanted the user to have a choice: define it themselves or use the config file?
+Our code is not modular in that one could easily swap out the current "interpreter" of one language term with another (e.g. Domain's `DefineBounds` gets interpreted into API's language terms). In other words, what if we wanted the interpreter to ignore the user's input and just look up the values from a configuration file? Or, what if we wanted the user to have a choice: define it themselves or use the config file?
 
 Both ideas would require us to rewrite the entire API interpreter. Had we written it in `Variant`/`Run`, we could literally swap out one `Domain_Language_Term ~> API_1_Term` translation with another `Domain_Language_Term ~> API_2_Term`
 
