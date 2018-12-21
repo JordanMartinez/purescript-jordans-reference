@@ -1,6 +1,6 @@
 # Design Thought-Process
 
-**Note:** one should read through this project's corresponding test folder's "Design" file as it further clarifies a few things said below.
+**Note:** one should read through this project's corresponding test folder's `Test Thought-Process.md` file as it further clarifies a few things said below.
 
 ## Level 4 / Core
 
