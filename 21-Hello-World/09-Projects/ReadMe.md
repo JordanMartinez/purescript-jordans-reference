@@ -12,7 +12,7 @@ This folder's purposes are
     - We'll introduce/overview the libraries we'll use in later projects before using them in those projects.
 - to help the reader determine which approach with which they feel most comfortable (there is no "the one and only way" to doing this)
 
-Read through `src` first and then look at `test` unless told otherwise.
+Note: each 'project' folder in the `src` folder has a corresponding folder in `test` folder. When reading through a project's files, read through its `src` folder's content before its `test` folder's content.
 
 ## Libraries Overviewed
 
