@@ -1,4 +1,4 @@
-# Embedded Compilers
+# Layered Compilers
 
 Previously, we saw that we could "interpret" the `Free` monad into another monad, namely, `Effect`, to simulate state manipulation effects. However, what if we recursively interpreted the `Free` monad into another `Free` monad for a few rounds until the last one gets interpreted into the `Effect` monad?
 ```purescript
