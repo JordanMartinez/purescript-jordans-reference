@@ -14,6 +14,18 @@ This folder's purposes are
 
 Note: each 'project' folder in the `src` folder has a corresponding folder in `test` folder. When reading through a project's files, read through its `src` folder's content before its `test` folder's content.
 
+## Clarifying Our Terminology
+
+When overviewing the design process of the program, we'll use the following terminology to refer to the various layers of our program:
+
+| Layer Level | Onion Architecture Term | General idea |
+| - | - | - |
+| Layer 4 | Core | Strong types with well-defined properties and their pure, total functions that operate on them
+| Layer 3 | Domain | the "business logic" code which uses effects
+| Layer 2 | API | the "production" or "test" monad which "links" these effects/capabilties to their implementations: <ul><li>a newtyped `ReaderT`'s instances</li><li>the `Free`/`Run` monad's final interpreter</li></ul>
+| Layer 1 | Infrastructure | the platform-specific framework/monad we'll use to implement an effect/capability (i.e. `Node.ReadLine`/`Halogen`/`StateT`)
+| Layer 0 | Machine Code<br>(no equivalent onion term) | the "base" monad that runs the program (e.g. production: `Effect`/`Aff`; test: `Identity`)
+
 ## Libraries Overviewed
 
 Below is the current list of libraries we introduce and further explain here. This list may grow over time.
