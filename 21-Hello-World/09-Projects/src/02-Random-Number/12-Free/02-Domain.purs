@@ -4,8 +4,7 @@ import Prelude
 
 import Control.Monad.Free (Free, liftF)
 import Data.Functor (class Functor)
--- import Games.RandomNumber.Free (Game(..))
-import Games.RandomNumber.Free.Core (Bounds, RandomInt, Guess, RemainingGuesses, outOfGuesses, decrement, totalPossibleGuesses, (==#), mkGameInfo, GameResult(..))
+import Games.RandomNumber.Core (Bounds, RandomInt, Guess, RemainingGuesses, outOfGuesses, decrement, totalPossibleGuesses, (==#), mkGameInfo, GameResult(..))
 
 -- | Defines the operations we'll need to run
 -- | a Random Number Guessing game
@@ -50,7 +49,7 @@ gameLoop bounds randomInt remaining
         log $ "Incorrect. You have " <> show remaining' <> " guesses remaining."
         gameLoop bounds randomInt remaining'
 
-game :: Game playerResult
+game :: Game GameResult
 game = do
   -- explain rules
   log "This is a random integer guessing game. In this game, you must try \
@@ -68,15 +67,15 @@ game = do
         ". Good luck!"
 
   -- play game
-  result <- gameLoop bounds totalGueses remaining
+  result <- gameLoop bounds randomInt totalGueses
   case result of
     PlayerWins remaining -> do
       log "Player won!"
       log $ "Player guessed the random number with " <>
         show remaining <> " try(s) remaining."
-    PlayerLoses randomInt -> do
+    PlayerLoses randomInt' -> do
       log "Player lost!"
-      log $ "The number was: " <> show randomInt
+      log $ "The number was: " <> show randomInt'
 
   -- return game result
   pure result

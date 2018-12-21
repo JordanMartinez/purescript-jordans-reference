@@ -10,7 +10,7 @@ import Games.RandomNumber.Core ( Bounds, mkBounds, mkGuess, mkRandomInt
                                , mkRemainingGuesses, totalPossibleGuesses
                                )
 
-import Games.RandomNumber.Free.Domain (RandomNumberOperationF(..), Game)
+import Games.RandomNumber.Free.Domain (RandomNumberGameF(..), Game)
 
 data API_F a
   = Log String a
@@ -50,6 +50,7 @@ inputIsInt s = case fromString s of
   Just i -> Right i
   Nothing -> Left $ NotAnInt s
 
+-- domain -> API
 runDomain :: Game ~> API
 runDomain = substFree go
 

@@ -14,8 +14,8 @@ import Node.ReadLine ( Interface
                      )
 import Node.ReadLine as NR
 
-import Games.RandomNumber.Free.Core (game, unBounds)
-import Games.RandomNumber.Free.Domain (runCore)
+import Games.RandomNumber.Core (unBounds)
+import Games.RandomNumber.Free.Domain (game)
 import Games.RandomNumber.Free.API (API_F(..), API, runDomain)
 
 question :: String -> Interface -> Aff String
@@ -24,6 +24,7 @@ question message interface = do
   where
     go handler = NR.question message (handler <<< Right) interface $> mempty
 
+-- API to Infrastructure
 runAPI :: Interface -> API ~> Aff
 runAPI iface_ = foldFree (go iface_)
 
@@ -49,4 +50,4 @@ main = do
 
   runAff_
     (\_ -> close interface)
-    (runAPI interface (runDomain (runCore game)))
+    (runAPI interface (runDomain game))

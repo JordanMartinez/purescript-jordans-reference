@@ -1,4 +1,4 @@
-module Games.RandomNumber.Free.Halogen.Terminal (terminal) where
+module Games.RandomNumber.Free.Infrastructure.Halogen.Terminal (terminal) where
 
 import Prelude
 import Data.Array (snoc)
@@ -8,7 +8,7 @@ import Effect.Aff.Class as AffClass
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
 import Effect.Random (randomInt)
-import Games.RandomNumber.Free.Halogen.UserInput (Language, calcLikeInput)
+import Games.RandomNumber.Free.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
 import Games.RandomNumber.Core (unBounds)
 import Games.RandomNumber.Free.API (API_F(..))
 import Halogen as H
