@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.Infrastructure
+module Games.RandomNumber.Run.Infrastructure.Console
   ( notifyUserToInfrastructure
   , getUserInputToInfrastructure
   , createRandomIntToInfrastructure
@@ -25,9 +25,8 @@ import Node.ReadLine (
 import Node.ReadLine as NR
 
 import Games.RandomNumber.Core (unBounds, GameResult(..))
-import Games.RandomNumber.Run.Core (game)
 import Games.RandomNumber.Run.Domain (
-  runCore
+  game
 , NotifyUserF(..), _notifyUser, NOTIFY_USER
 )
 import Games.RandomNumber.Run.API (
@@ -78,4 +77,4 @@ main = do
 
   runAff_
     (\_ -> close interface)
-    (runAPI interface (runDomain (runCore game)))
+    (runAPI interface (runDomain game))

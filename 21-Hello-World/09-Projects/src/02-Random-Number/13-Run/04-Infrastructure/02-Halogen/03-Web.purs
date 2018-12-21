@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.Halogen.Infrastructure where
+module Games.RandomNumber.Run.Infrastructure.Halogen.Web where
 
 import Prelude
 
@@ -8,9 +8,8 @@ import Effect.Aff (Aff)
 import Effect.Random (randomInt)
 import Effect.Console (log)
 import Games.RandomNumber.Core (unBounds, GameResult)
-import Games.RandomNumber.Run.Core (game)
 import Games.RandomNumber.Run.Domain (
-  runCore
+  game
 , NotifyUserF(..), _notifyUser, NOTIFY_USER
 )
 import Games.RandomNumber.Run.API (
@@ -18,7 +17,7 @@ import Games.RandomNumber.Run.API (
 , GET_USER_INPUT
 , CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT
 )
-import Games.RandomNumber.Run.Halogen.Terminal (terminal)
+import Games.RandomNumber.Run.Infrastructure.Halogen.Terminal (terminal)
 import Halogen (liftEffect)
 import Halogen.Aff as HA
 import Halogen.VDom.Driver (runUI)
@@ -58,4 +57,4 @@ runAPI query = interpret (
 
 runInfrastructure :: QueryRoot -> Aff GameResult
 runInfrastructure query =
-  runAPI query (runDomain (runCore game))
+  runAPI query (runDomain game)

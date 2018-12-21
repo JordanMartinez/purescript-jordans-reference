@@ -5,9 +5,7 @@ module Games.RandomNumber.Run.Domain
   , GenRandomIntF(..), GEN_RANDOM_INT, _genRandomInt, genRandomInt
   , MakeGuessF(..), MAKE_GUESS, _makeGuess, makeGuess
 
-  , explainRulesToDomain, setupGameToDomain, playGameToDomain
-
-  , runCore
+  , game
   ) where
 
 import Prelude
@@ -21,11 +19,6 @@ import Games.RandomNumber.Core ( Bounds
                                , GameResult(..)
                                , mkGameInfo
                                )
-import Games.RandomNumber.Run.Core (
-  ExplainRulesF(..), _explainRules, EXPLAIN_RULES
-, SetupGameF(..), _setupGame, SETUP_GAME
-, PlayGameF(..), _playGame, PLAY_GAME
-)
 
 {-
 data DomainLanguage a
@@ -100,54 +93,6 @@ type MAKE_GUESS r = (makeGuess :: FProxy MakeGuessF | r)
 makeGuess :: forall r. Bounds -> Run (MAKE_GUESS + r) Guess
 makeGuess bounds = lift _makeGuess (MakeGuessF bounds identity)
 
--- Algebras
-
-explainRulesToDomain :: forall r. ExplainRulesF ~> Run (NOTIFY_USER + r)
-explainRulesToDomain (ExplainRulesF next) = do
-  notifyUser "This is a random integer guessing game. \
-             \In this game, you must try to guess the random integer \
-             \before running out of guesses."
-
-  pure next
-
-setupGameToDomain :: forall r
-             . SetupGameF
-            ~> Run (NOTIFY_USER +
-                    DEFINE_BOUNDS +
-                    DEFINE_TOTAL_GUESSES +
-                    GEN_RANDOM_INT + r)
-setupGameToDomain (SetupGameF reply) = do
-  notifyUser "Before we play the game, the computer needs you to \
-             \define two things."
-
-  bounds <- defineBounds
-  totalGueses <- defineTotalGuesses bounds
-  randomInt <- genRandomInt bounds
-
-  notifyUser $ "Everything is set. You will have " <> show totalGueses <>
-               " guesses to guess a number between " <> show bounds <>
-               ". Good luck!"
-
-  pure (reply $ mkGameInfo bounds randomInt totalGueses)
-
-playGameToDomain :: forall r
-             . PlayGameF
-            ~> Run (NOTIFY_USER + MAKE_GUESS + r)
-playGameToDomain
-  (PlayGameF { bound: b, number: n, remaining: remaining } reply) = do
-    result <- gameLoop b n remaining
-
-    case result of
-      PlayerWins remaining -> do
-        notifyUser "Player won!"
-        notifyUser $ "Player guessed the random number with " <>
-          show remaining <> " try(s) remaining."
-      PlayerLoses randomInt -> do
-        notifyUser "Player lost!"
-        notifyUser $ "The number was: " <> show randomInt
-
-    pure (reply result)
-
 -- Code
 
 -- | Calls `makeGuess` recursively until either the random number is
@@ -168,28 +113,43 @@ gameLoop bounds randomInt remaining
           <> " guesses remaining."
         gameLoop bounds randomInt remaining'
 
-runCore :: forall r
-         . Run (EXPLAIN_RULES + SETUP_GAME + PLAY_GAME +
+-- game
+game :: forall r.
+        Run ( NOTIFY_USER
+            + DEFINE_BOUNDS
+            + DEFINE_TOTAL_GUESSES
+            + GEN_RANDOM_INT
+            + MAKE_GUESS
+            + r
+            ) GameResult
+game = do
+  -- explain rules
+  notifyUser "This is a random integer guessing game. \
+             \In this game, you must try to guess the random integer \
+             \before running out of guesses."
 
-                NOTIFY_USER + DEFINE_BOUNDS + DEFINE_TOTAL_GUESSES +
-                GEN_RANDOM_INT + MAKE_GUESS + r)
-        ~> Run (NOTIFY_USER + DEFINE_BOUNDS + DEFINE_TOTAL_GUESSES +
-                GEN_RANDOM_INT + MAKE_GUESS + r)
-runCore = interpret (
-  send
-    # on _explainRules explainRulesToDomain
-    # on _setupGame setupGameToDomain
-    # on _playGame playGameToDomain
-  )
+  -- setup game
+  notifyUser "Before we play the game, the computer needs you to \
+             \define two things."
 
-    -- EndGame gameResult next ->
-    --   case gameResult of
-    --     PlayerWins remaining -> do
-    --       log "Player won!"
-    --       log $ "Player guessed the random number with " <>
-    --         show remaining <> " trie(s) remaining."
-    --       pure next
-    --     PlayerLoses randomInt -> do
-    --       log "Player lost!"
-    --       log $ "The number was: " <> show randomInt
-    --       pure next
+  bounds <- defineBounds
+  totalGueses <- defineTotalGuesses bounds
+  randomInt <- genRandomInt bounds
+
+  notifyUser $ "Everything is set. You will have " <> show totalGueses <>
+               " guesses to guess a number between " <> show bounds <>
+               ". Good luck!"
+
+  -- play game
+  result <- gameLoop bounds randomInt totalGueses
+
+  case result of
+    PlayerWins remaining -> do
+      notifyUser "Player won!"
+      notifyUser $ "Player guessed the random number with " <>
+        show remaining <> " try(s) remaining."
+    PlayerLoses randomInt' -> do
+      notifyUser "Player lost!"
+      notifyUser $ "The number was: " <> show randomInt'
+
+  pure result

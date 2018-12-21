@@ -3,7 +3,7 @@
 -- |
 -- | This small change means we have to use `case_ # on symbol function`
 -- | syntax from `purescript-variant`
-module Games.RandomNumber.Run.Halogen.Terminal (terminal) where
+module Games.RandomNumber.Run.Infrastructure.Halogen.Terminal (terminal) where
 
 import Prelude
 import Data.Array (snoc)
@@ -13,7 +13,7 @@ import Effect.Aff (Aff)
 import Effect.Aff.Class as AffClass
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
-import Games.RandomNumber.Run.Halogen.UserInput (Language, calcLikeInput)
+import Games.RandomNumber.Run.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
 import Games.RandomNumber.Run.Domain (NotifyUserF(..), _notifyUser, NOTIFY_USER)
 import Games.RandomNumber.Run.API (GetUserInputF(..), _getUserInput, GET_USER_INPUT)
 import Halogen as H

@@ -147,7 +147,7 @@ runDomain :: forall r
                   MAKE_GUESS +
 
                   GET_USER_INPUT + CREATE_RANDOM_INT + r)
-          ~> Run (NOTIFY_USER +
+          ~> Run (NOTIFY_USER + -- note that NotifyUser is not interpreted yet
 
                   GET_USER_INPUT + CREATE_RANDOM_INT + r)
 runDomain = interpret (

@@ -11,9 +11,8 @@ import Effect.Aff (runAff_)
 import Node.ReadLine (createConsoleInterface, noCompletion, close)
 
 import Games.RandomNumber.Core (GameResult(..), Bounds, Guess, mkGuess)
-import Games.RandomNumber.Run.Core (game)
 import Games.RandomNumber.Run.Domain (
-  runCore
+  game
 , NOTIFY_USER, notifyUser
 , DEFINE_BOUNDS, _defineBounds
 , DEFINE_TOTAL_GUESSES, _defineTotalGuesses
@@ -26,7 +25,7 @@ import Games.RandomNumber.Run.API (
 , defineBoundsToAPI, defineTotalGuessesToAPI, genRandomIntToAPI
 )
 
-import Games.RandomNumber.Run.Infrastructure (runAPI)
+import Games.RandomNumber.Run.Infrastructure.Console (runAPI)
 
 -- | Normally, the user would input their guess and cannot confirm whether
 -- | that is the user's final decision. In this interpretation, the user
@@ -60,15 +59,16 @@ runDomain_2 :: forall r
                   GET_USER_INPUT + CREATE_RANDOM_INT + r)
 runDomain_2 = interpret (
   send
+    -- Before
+ -- # on _makeGuess makeGuessToAPI
+
+    -- After
+    # on _makeGuess makeGuessToAPI_2
+
+    -- Unchanged
     # on _defineBounds defineBoundsToAPI
     # on _defineTotalGuesses defineTotalGuessesToAPI
-    # on _genRandomInt genRandomIntToAPI                              {-
-
-    Before:
-    # on _makeGuess makeGuessToAPI
-
-    After:                                                            -}
-    # on _makeGuess makeGuessToAPI_2
+    # on _genRandomInt genRandomIntToAPI
   )
 
 main :: Effect Unit
@@ -77,4 +77,4 @@ main = do
 
   runAff_
     (\_ -> close interface)
-    (runAPI interface (runDomain_2 (runCore game)))
+    (runAPI interface (runDomain_2 game))
