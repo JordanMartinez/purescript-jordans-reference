@@ -1,5 +1,5 @@
 -- | This is the same code used in the Run-based version
-module Games.RandomNumber.Free.Halogen.UserInput
+module Games.RandomNumber.Free.Infrastructure.Halogen.UserInput
   ( Language(..)
   , calcLikeInput
   ) where

@@ -1,4 +1,4 @@
-module Games.RandomNumber.Free.Halogen.Infrastructure where
+module Games.RandomNumber.Free.Infrastructure.Halogen.Web where
 
 import Prelude
 
