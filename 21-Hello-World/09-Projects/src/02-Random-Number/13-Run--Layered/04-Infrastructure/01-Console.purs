@@ -25,11 +25,11 @@ import Node.ReadLine (
 import Node.ReadLine as NR
 
 import Games.RandomNumber.Core (unBounds)
-import Games.RandomNumber.Run.Domain (
+import Games.RandomNumber.Run.Layered.Domain (
   game
 , NotifyUserF(..), _notifyUser, NOTIFY_USER
 )
-import Games.RandomNumber.Run.API (
+import Games.RandomNumber.Run.Layered.API (
   runDomain
 , GetUserInputF(..), _getUserInput, GET_USER_INPUT
 , CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT
