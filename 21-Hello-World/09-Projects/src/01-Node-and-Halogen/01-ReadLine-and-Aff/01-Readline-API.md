@@ -32,7 +32,9 @@ close :: Interface -> Effect Unit
 close interface = -- implementation
 ```
 <hr>
+
 Copyright for above code:
+
 ```
 The MIT License (MIT)
 
