@@ -5,24 +5,17 @@ module Games.RandomNumber.ReaderT.API
   where
 
 import Prelude
-import Control.Monad.Trans.Class (class MonadTrans, lift)
-import Control.Monad.Reader.Trans (ReaderT(..), runReaderT)
+import Control.Monad.Reader.Trans (ReaderT, runReaderT)
 import Control.Monad.Reader.Class (class MonadAsk, ask, asks)
-import Data.Int (fromString)
-import Data.Either (Either(..))
-import Data.Maybe (Maybe(..))
 import Effect.Aff (Aff)
 import Effect.Aff.Class (class MonadAff, liftAff)
-import Effect.Class (class MonadEffect, liftEffect)
-import Effect.Console (log)
-import Games.RandomNumber.Core ( Bounds, mkBounds, unBounds, mkGuess, RandomInt, mkRandomInt
-                               , Guess, RemainingGuesses, mkRemainingGuesses, totalPossibleGuesses
-                               )
+import Effect.Class (class MonadEffect)
+import Games.RandomNumber.Core (Bounds, unBounds)
 
 import Games.RandomNumber.ReaderT.Domain (
-  class NotifyUser, notifyUser
-, class GetUserInput, getUserInput
-, class CreateRandomInt, createRandomInt
+  class NotifyUser
+, class GetUserInput
+, class CreateRandomInt
 )
 import Type.Equality (class TypeEquals, from)
 

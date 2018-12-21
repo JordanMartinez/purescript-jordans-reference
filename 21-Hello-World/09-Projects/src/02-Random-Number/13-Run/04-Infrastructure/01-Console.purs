@@ -10,7 +10,7 @@ module Games.RandomNumber.Run.Infrastructure.Console
 import Prelude
 import Type.Row (type (+))
 import Data.Functor.Variant (on)
-import Run (Run, interpret, case_, AFF, liftAff, runBaseAff)
+import Run (Run, interpret, case_)
 import Data.Either (Either(..))
 import Effect.Random (randomInt)
 import Effect.Class (liftEffect)
@@ -24,7 +24,7 @@ import Node.ReadLine (
 )
 import Node.ReadLine as NR
 
-import Games.RandomNumber.Core (unBounds, GameResult(..))
+import Games.RandomNumber.Core (unBounds)
 import Games.RandomNumber.Run.Domain (
   game
 , NotifyUserF(..), _notifyUser, NOTIFY_USER

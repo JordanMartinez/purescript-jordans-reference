@@ -3,14 +3,12 @@ module Games.RandomNumber.Run.ChangeImplementation where
 import Prelude
 import Type.Row (type (+))
 import Data.Functor.Variant (on)
-import Run (Run, interpret, send, runBaseAff)
-import Data.Either (Either(..))
+import Run (Run, interpret, send)
 import Effect (Effect)
-import Effect.Console (log)
 import Effect.Aff (runAff_)
 import Node.ReadLine (createConsoleInterface, noCompletion, close)
 
-import Games.RandomNumber.Core (GameResult(..), Bounds, Guess, mkGuess)
+import Games.RandomNumber.Core (Bounds, Guess, mkGuess)
 import Games.RandomNumber.Run.Domain (
   game
 , NOTIFY_USER, notifyUser

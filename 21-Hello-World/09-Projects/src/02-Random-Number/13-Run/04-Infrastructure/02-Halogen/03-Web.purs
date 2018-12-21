@@ -2,16 +2,12 @@ module Games.RandomNumber.Run.Infrastructure.Halogen.Web where
 
 import Prelude
 
-import Data.Functor.Variant (VariantF, on, inj)
+import Data.Functor.Variant (VariantF, on)
 import Effect (Effect)
 import Effect.Aff (Aff)
 import Effect.Random (randomInt)
-import Effect.Console (log)
 import Games.RandomNumber.Core (unBounds, GameResult)
-import Games.RandomNumber.Run.Domain (
-  game
-, NotifyUserF(..), _notifyUser, NOTIFY_USER
-)
+import Games.RandomNumber.Run.Domain (game, NOTIFY_USER)
 import Games.RandomNumber.Run.API (
   runDomain
 , GET_USER_INPUT

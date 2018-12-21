@@ -10,7 +10,6 @@ import Prelude
 import Data.Maybe (Maybe(..))
 import Data.Either (Either(..))
 import Data.Int (fromString)
-import Control.Monad.Trans.Class (class MonadTrans, lift)
 import Games.RandomNumber.Core ( Bounds, mkBounds, totalPossibleGuesses
                                , RandomInt, mkRandomInt
                                , Guess, mkGuess, (==#)

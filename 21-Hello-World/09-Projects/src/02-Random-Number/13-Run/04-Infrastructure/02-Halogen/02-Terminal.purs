@@ -38,8 +38,8 @@ type Message = Void
 
 -- | There's only one child, so this slot type is overkill. Oh well...
 newtype Slot = Slot Int
-derive newtype instance e :: Eq Slot
-derive newtype instance s :: Ord Slot
+derive newtype instance eqInstance :: Eq Slot
+derive newtype instance ordInstance :: Ord Slot
 
 -- |
 terminal :: H.Component HH.HTML Query Unit Message Aff

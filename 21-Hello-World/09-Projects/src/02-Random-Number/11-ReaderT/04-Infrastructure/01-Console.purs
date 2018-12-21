@@ -9,12 +9,9 @@ module Games.RandomNumber.ReaderT.Infrastructure.Console
 import Prelude
 import Data.Either (Either(..))
 import Effect.Random (randomInt)
-import Control.Monad.Reader.Trans (ReaderT, runReaderT)
-import Control.Monad.Reader.Class (class MonadAsk, ask, asks)
 import Effect (Effect)
 import Effect.Console (log)
-import Effect.Class (class MonadEffect, liftEffect)
-import Effect.Aff.Class (class MonadAff, liftAff)
+import Effect.Class (liftEffect)
 import Effect.Aff (Aff, runAff_, makeAff)
 import Node.ReadLine (
   Interface
@@ -23,7 +20,6 @@ import Node.ReadLine (
 )
 import Node.ReadLine as NR
 
-import Games.RandomNumber.Core (Bounds, unBounds, RandomInt, Guess, RemainingGuesses)
 import Games.RandomNumber.ReaderT.Domain (game)
 import Games.RandomNumber.ReaderT.API (AppM, runAppM)
 

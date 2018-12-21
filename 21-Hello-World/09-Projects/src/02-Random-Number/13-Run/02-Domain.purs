@@ -11,13 +11,11 @@ module Games.RandomNumber.Run.Domain
 import Prelude
 import Data.Symbol (SProxy(..))
 import Type.Row (type (+))
-import Data.Functor.Variant (on)
-import Run (Run, FProxy, lift, interpret, send)
+import Run (Run, FProxy, lift)
 import Games.RandomNumber.Core ( Bounds
                                , RandomInt, Guess, (==#)
                                , RemainingGuesses, outOfGuesses, decrement
                                , GameResult(..)
-                               , mkGameInfo
                                )
 
 {-

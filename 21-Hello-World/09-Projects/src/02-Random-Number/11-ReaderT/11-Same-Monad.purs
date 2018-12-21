@@ -18,9 +18,8 @@ import Control.Monad.Reader.Class (class MonadAsk, ask, asks)
 import Control.Monad.State.Class (class MonadState)
 import Effect (Effect)
 import Effect.Aff (Aff, runAff_, makeAff)
-import Effect.Aff.Class (class MonadAff, liftAff)
 import Effect.Console (log)
-import Effect.Class (class MonadEffect, liftEffect)
+import Effect.Class (liftEffect)
 import Node.ReadLine (
   Interface
 , createConsoleInterface, noCompletion
@@ -29,7 +28,7 @@ import Node.ReadLine (
 import Node.ReadLine as NR
 import Type.Equality (class TypeEquals, from)
 
-import Games.RandomNumber.Core (Bounds, unBounds, RandomInt, Guess, RemainingGuesses)
+import Games.RandomNumber.Core (unBounds)
 import Games.RandomNumber.ReaderT.Domain (
   game
 , class NotifyUser

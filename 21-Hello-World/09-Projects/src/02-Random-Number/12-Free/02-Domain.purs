@@ -3,8 +3,7 @@ module Games.RandomNumber.Free.Domain (RandomNumberGameF(..), Game, game) where
 import Prelude
 
 import Control.Monad.Free (Free, liftF)
-import Data.Functor (class Functor)
-import Games.RandomNumber.Core (Bounds, RandomInt, Guess, RemainingGuesses, outOfGuesses, decrement, totalPossibleGuesses, (==#), mkGameInfo, GameResult(..))
+import Games.RandomNumber.Core (Bounds, RandomInt, Guess, RemainingGuesses, outOfGuesses, decrement, (==#), GameResult(..))
 
 -- | Defines the operations we'll need to run
 -- | a Random Number Guessing game
