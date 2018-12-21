@@ -1,13 +1,13 @@
-module Games.RandomNumber.ReaderT.Infrastructure.Halogen.Web where
+module Games.RandomNumber.ReaderT.Standard.Infrastructure.Halogen.Web where
 
 import Prelude
 
 import Effect (Effect)
 import Effect.Aff (Aff)
 import Effect.Random (randomInt)
-import Games.RandomNumber.ReaderT.Domain (game)
-import Games.RandomNumber.ReaderT.API (AppM, runAppM)
-import Games.RandomNumber.ReaderT.Infrastructure.Halogen.Terminal (terminal, Query(..))
+import Games.RandomNumber.ReaderT.Standard.Domain (game)
+import Games.RandomNumber.ReaderT.Standard.API (AppM, runAppM)
+import Games.RandomNumber.ReaderT.Standard.Infrastructure.Halogen.Terminal (terminal, Query(..))
 import Halogen (liftEffect)
 import Halogen as H
 import Halogen.Aff as HA

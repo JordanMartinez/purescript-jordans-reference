@@ -1,4 +1,4 @@
-module Games.RandomNumber.ReaderT.SameMonad
+module Games.RandomNumber.ReaderT.Standard.SameMonad
   ( Environment
   , AppM(..), runAppM
 

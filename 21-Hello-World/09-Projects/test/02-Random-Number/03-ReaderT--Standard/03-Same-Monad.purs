@@ -1,4 +1,4 @@
-module Test.Games.RandomNumber.ReaderT.SameMonad where
+module Test.Games.RandomNumber.ReaderT.Standard.SameMonad where
 
 import Prelude
 import Data.Tuple (Tuple(..))
@@ -11,8 +11,8 @@ import Control.Monad.State (State, runState)
 import Control.Monad.State.Class (get, put)
 
 import Games.RandomNumber.Core (GameResult)
-import Games.RandomNumber.ReaderT.Domain (game)
-import Games.RandomNumber.ReaderT.SameMonad (runAppM)
+import Games.RandomNumber.ReaderT.Standard.Domain (game)
+import Games.RandomNumber.ReaderT.Standard.SameMonad (runAppM)
 
 import Test.QuickCheck (quickCheck, quickCheck',(<?>))
 import Test.Games.RandomNumber.Generators (TestData(..))

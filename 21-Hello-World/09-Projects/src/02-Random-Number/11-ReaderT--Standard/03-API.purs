@@ -1,4 +1,4 @@
-module Games.RandomNumber.ReaderT.API
+module Games.RandomNumber.ReaderT.Standard.API
   ( Environment
   , AppM(..), runAppM
   )
@@ -12,7 +12,7 @@ import Effect.Aff.Class (class MonadAff, liftAff)
 import Effect.Class (class MonadEffect)
 import Games.RandomNumber.Core (Bounds, unBounds)
 
-import Games.RandomNumber.ReaderT.Domain (
+import Games.RandomNumber.ReaderT.Standard.Domain (
   class NotifyUser
 , class GetUserInput
 , class CreateRandomInt

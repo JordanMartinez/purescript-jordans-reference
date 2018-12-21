@@ -1,4 +1,4 @@
-module Games.RandomNumber.ReaderT.Domain
+module Games.RandomNumber.ReaderT.Standard.Domain
   ( class NotifyUser, notifyUser
   , class GetUserInput, getUserInput
   , class CreateRandomInt, createRandomInt

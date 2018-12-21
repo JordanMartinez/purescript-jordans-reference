@@ -1,4 +1,4 @@
-module Test.Games.RandomNumber.ReaderT.DifferentMonad where
+module Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad where
 
 import Prelude
 import Data.Tuple (Tuple(..))
@@ -14,7 +14,7 @@ import Control.Monad.State.Class (get, put)
 import Type.Equality (class TypeEquals, from)
 
 import Games.RandomNumber.Core (Bounds, unBounds, GameResult)
-import Games.RandomNumber.ReaderT.Domain (
+import Games.RandomNumber.ReaderT.Standard.Domain (
   game
 , class NotifyUser
 , class GetUserInput
