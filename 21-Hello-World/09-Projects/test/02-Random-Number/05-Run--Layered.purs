@@ -1,4 +1,4 @@
-module Test.Games.RandomNumber.Run.Infrastructure where
+module Test.Games.RandomNumber.Run.Layered.Infrastructure where
 
 import Prelude
 import Data.Tuple (Tuple, snd)

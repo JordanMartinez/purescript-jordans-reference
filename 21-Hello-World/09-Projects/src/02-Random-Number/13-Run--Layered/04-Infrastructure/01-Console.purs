@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.Infrastructure.Console
+module Games.RandomNumber.Run.Layered.Infrastructure.Console
   ( notifyUserToInfrastructure
   , getUserInputToInfrastructure
   , createRandomIntToInfrastructure

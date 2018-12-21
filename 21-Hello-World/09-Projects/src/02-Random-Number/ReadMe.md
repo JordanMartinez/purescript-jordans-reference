@@ -10,23 +10,23 @@ This folder will show how to build a "guess the random number" game. Here's an o
 Run the following while in the `Hello World/Projects/` folder. The web-based games can be opened via `Hello World/Projects/dist/random-number/<FP structure approach>/index.html`:
 ```bash
 ## Node-Based implementation
-pulp --psc-package run -m Games.RandomNumber.Free.Infrastructure.Console
-pulp --psc-package run -m Games.RandomNumber.Run.Infrastructure.Console
+pulp --psc-package run -m Games.RandomNumber.Free.Layered.Infrastructure.Console
+pulp --psc-package run -m Games.RandomNumber.Run.Layered.Infrastructure.Console
 pulp --psc-package run -m Games.RandomNumber.ReaderT.Standard.Infrastructure.Console
 
 ### Changes in Run folder
-pulp --psc-package run -m Games.RandomNumber.Run.ChangeImplementation
-pulp --psc-package run -m Games.RandomNumber.Run.AddDomainTerm
+pulp --psc-package run -m Games.RandomNumber.Run.Layered.ChangeImplementation
+pulp --psc-package run -m Games.RandomNumber.Run.Layered.AddDomainTerm
 
 ### Changes in MTL folder
 pulp --psc-package run -m Games.RandomNumber.MTL.ChangeImplementation
 pulp --psc-package run -m Games.RandomNumber.MTL.AddDomainTerm
 
 ## Browser-based implementation
-pulp --psc-package browserify -O -m Games.RandomNumber.Free.Infrastructure.Halogen.Web --to dist/random-number/free/app.js
-pulp --psc-package browserify -O -m Games.RandomNumber.Run.Infrastructure.Halogen.Web --to dist/random-number/run/app.js
+pulp --psc-package browserify -O -m Games.RandomNumber.Free.Layered.Infrastructure.Halogen.Web --to dist/random-number/free/app.js
+pulp --psc-package browserify -O -m Games.RandomNumber.Run.Layered.Infrastructure.Halogen.Web --to dist/random-number/run/app.js
 pulp --psc-package browserify -O -m Games.RandomNumber.ReaderT.Standard.Infrastructure.Halogen.Web --to dist/random-number/readerT/app.js
 
 ## Run-based Test
-pulp --psc-package test -m Test.Games.RandomNumber.Run.Infrastructure
+pulp --psc-package test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
 ```

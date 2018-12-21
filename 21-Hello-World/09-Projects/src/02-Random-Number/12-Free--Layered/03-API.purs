@@ -1,4 +1,4 @@
-module Games.RandomNumber.Free.API (API_F(..), API, runDomain) where
+module Games.RandomNumber.Free.Layered.API (API_F(..), API, runDomain) where
 
 import Prelude
 
@@ -10,7 +10,7 @@ import Games.RandomNumber.Core ( Bounds, mkBounds, mkGuess, mkRandomInt
                                , mkRemainingGuesses, totalPossibleGuesses
                                )
 
-import Games.RandomNumber.Free.Domain (RandomNumberGameF(..), Game)
+import Games.RandomNumber.Free.Layered.Domain (RandomNumberGameF(..), Game)
 
 data API_F a
   = Log String a

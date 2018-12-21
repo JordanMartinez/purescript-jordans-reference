@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.Domain
+module Games.RandomNumber.Run.Layered.Domain
   ( NotifyUserF(..), NOTIFY_USER, _notifyUser, notifyUser
   , DefineBoundsF(..), DEFINE_BOUNDS, _defineBounds, defineBounds
   , DefineTotalGuessesF(..), DEFINE_TOTAL_GUESSES, _defineTotalGuesses, defineTotalGuesses

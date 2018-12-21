@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.ChangeImplementation where
+module Games.RandomNumber.Run.Layered.ChangeImplementation where
 
 import Prelude
 import Type.Row (type (+))
@@ -9,21 +9,21 @@ import Effect.Aff (runAff_)
 import Node.ReadLine (createConsoleInterface, noCompletion, close)
 
 import Games.RandomNumber.Core (Bounds, Guess, mkGuess)
-import Games.RandomNumber.Run.Domain (
+import Games.RandomNumber.Run.Layered.Domain (
   game
 , NOTIFY_USER, notifyUser
 , DEFINE_BOUNDS, _defineBounds
 , DEFINE_TOTAL_GUESSES, _defineTotalGuesses
 , GEN_RANDOM_INT, _genRandomInt
 , MakeGuessF(..), MAKE_GUESS, _makeGuess)
-import Games.RandomNumber.Run.API (
+import Games.RandomNumber.Run.Layered.API (
   recursivelyRunUntilPure
 , GET_USER_INPUT, getUserInput, getIntFromUser
 , CREATE_RANDOM_INT
 , defineBoundsToAPI, defineTotalGuessesToAPI, genRandomIntToAPI
 )
 
-import Games.RandomNumber.Run.Infrastructure.Console (runAPI)
+import Games.RandomNumber.Run.Layered.Infrastructure.Console (runAPI)
 
 -- | Normally, the user would input their guess and cannot confirm whether
 -- | that is the user's final decision. In this interpretation, the user

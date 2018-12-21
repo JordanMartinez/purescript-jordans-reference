@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.Infrastructure.Halogen.Web where
+module Games.RandomNumber.Run.Layered.Infrastructure.Halogen.Web where
 
 import Prelude
 
@@ -7,13 +7,13 @@ import Effect (Effect)
 import Effect.Aff (Aff)
 import Effect.Random (randomInt)
 import Games.RandomNumber.Core (unBounds, GameResult)
-import Games.RandomNumber.Run.Domain (game, NOTIFY_USER)
-import Games.RandomNumber.Run.API (
+import Games.RandomNumber.Run.Layered.Domain (game, NOTIFY_USER)
+import Games.RandomNumber.Run.Layered.API (
   runDomain
 , GET_USER_INPUT
 , CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT
 )
-import Games.RandomNumber.Run.Infrastructure.Halogen.Terminal (terminal)
+import Games.RandomNumber.Run.Layered.Infrastructure.Halogen.Terminal (terminal)
 import Halogen (liftEffect)
 import Halogen.Aff as HA
 import Halogen.VDom.Driver (runUI)

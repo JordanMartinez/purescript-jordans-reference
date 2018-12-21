@@ -1,13 +1,13 @@
-module Games.RandomNumber.Free.Infrastructure.Halogen.Web where
+module Games.RandomNumber.Free.Layered.Infrastructure.Halogen.Web where
 
 import Prelude
 
 import Control.Monad.Free (foldFree)
 import Effect (Effect)
 import Effect.Aff (Aff)
-import Games.RandomNumber.Free.Domain (game)
-import Games.RandomNumber.Free.API (API_F, API, runDomain)
-import Games.RandomNumber.Free.Infrastructure.Halogen.Terminal (terminal)
+import Games.RandomNumber.Free.Layered.Domain (game)
+import Games.RandomNumber.Free.Layered.API (API_F, API, runDomain)
+import Games.RandomNumber.Free.Layered.Infrastructure.Halogen.Terminal (terminal)
 import Halogen.Aff as HA
 import Halogen.VDom.Driver (runUI)
 

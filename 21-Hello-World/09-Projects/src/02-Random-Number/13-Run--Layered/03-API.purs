@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.API
+module Games.RandomNumber.Run.Layered.API
   ( GetUserInputF(..), GET_USER_INPUT, _getUserInput, getUserInput
   , CreateRandomIntF(..), CREATE_RANDOM_INT, _createRandomInt, createRandomInt
   , getIntFromUser, recursivelyRunUntilPure
@@ -19,7 +19,7 @@ import Games.RandomNumber.Core ( Bounds, mkBounds, mkGuess, mkRandomInt
                                , mkRemainingGuesses, totalPossibleGuesses
                                )
 
-import Games.RandomNumber.Run.Domain (
+import Games.RandomNumber.Run.Layered.Domain (
   NOTIFY_USER, notifyUser
 , DefineBoundsF(..), _defineBounds, DEFINE_BOUNDS
 , DefineTotalGuessesF(..), _defineTotalGuesses, DEFINE_TOTAL_GUESSES

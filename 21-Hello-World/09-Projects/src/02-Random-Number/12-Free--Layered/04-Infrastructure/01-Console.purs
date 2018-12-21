@@ -1,4 +1,4 @@
-module Games.RandomNumber.Free.Infrastructure.Console (main) where
+module Games.RandomNumber.Free.Layered.Infrastructure.Console (main) where
 
 import Prelude
 import Control.Monad.Free (foldFree)
@@ -15,8 +15,8 @@ import Node.ReadLine ( Interface
 import Node.ReadLine as NR
 
 import Games.RandomNumber.Core (unBounds)
-import Games.RandomNumber.Free.Domain (game)
-import Games.RandomNumber.Free.API (API_F(..), API, runDomain)
+import Games.RandomNumber.Free.Layered.Domain (game)
+import Games.RandomNumber.Free.Layered.API (API_F(..), API, runDomain)
 
 question :: String -> Interface -> Aff String
 question message interface = do

@@ -1,23 +1,24 @@
-module Games.RandomNumber.Free.Infrastructure.Halogen.Terminal (terminal) where
+-- | This is the same code as the Free-based version except for one thing:
+-- | - the Query type is a subset of our API language
+-- |
+-- | This small change means we have to use `case_ # on symbol function`
+-- | syntax from `purescript-variant`
+module Games.RandomNumber.Run.Layered.Infrastructure.Halogen.Terminal (terminal) where
 
 import Prelude
 import Data.Array (snoc)
+import Data.Functor.Variant (VariantF, on, inj, case_)
 import Data.Maybe (Maybe(..))
 import Effect.Aff (Aff)
 import Effect.Aff.Class as AffClass
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
-import Effect.Random (randomInt)
-import Games.RandomNumber.Free.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
-import Games.RandomNumber.Core (unBounds)
-import Games.RandomNumber.Free.API (API_F(..))
+import Games.RandomNumber.Run.Layered.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
+import Games.RandomNumber.Run.Layered.Domain (NotifyUserF(..), _notifyUser, NOTIFY_USER)
+import Games.RandomNumber.Run.Layered.API (GetUserInputF(..), _getUserInput, GET_USER_INPUT)
 import Halogen as H
 import Halogen.HTML as HH
-import Halogen.HTML.Events as HE
-import Halogen (liftEffect)
-
--- Rather than defining our query language
--- for this component, we'll just re-use the API language
+import Type.Row (type (+))
 
 -- | Store the messages that should appear in the terminal (history).
 -- | When `getInput == Nothing`, just display the terminal.
@@ -28,8 +29,8 @@ type State = { history :: Array String
              }
 
 -- | Rather than defining a new query language here,
--- | we'll just reuse the API_F one.
-type Query = API_F
+-- | we'll just reuse **a subset** of our API language.
+type Query = VariantF (NOTIFY_USER + GET_USER_INPUT + ())
 
 -- | No need to raise any messages to listeners outside of this
 -- | root component as we'll be emitting messages via AVars.
@@ -37,8 +38,8 @@ type Message = Void
 
 -- | There's only one child, so this slot type is overkill. Oh well...
 newtype Slot = Slot Int
-derive newtype instance e :: Eq Slot
-derive newtype instance s :: Ord Slot
+derive newtype instance eqInstance :: Eq Slot
+derive newtype instance ordInstance :: Ord Slot
 
 -- |
 terminal :: H.Component HH.HTML Query Unit Message Aff
@@ -55,7 +56,7 @@ terminal =
     Just avar ->
       HH.div_
         [ HH.div_ $ state.history <#> \msg -> HH.div_ [HH.text msg]
-        , HH.slot (Slot 1) calcLikeInput avar (HE.input Log)
+        , HH.slot (Slot 1) calcLikeInput avar (\s -> Just $ inj _notifyUser $ NotifyUserF s unit)
         ]
     Nothing ->
       HH.div_
@@ -73,22 +74,18 @@ terminal =
   -- |   until user submits their input. Once received, this component
   -- |   will re-render so that the interface disappears.
   -- |   and then return the user's input to the game logic code outside.
-  -- | GenRandomInt: We don't need to use the UI to generate a random int.
-  -- |   However, because this instance is part of the `API_F` type,
-  -- |   we need to account for it, so that we have a total function.
   eval :: Query ~> H.ParentDSL State Query Language Slot Message Aff
-  eval = case _ of
-    Log msg next -> do
-      H.modify_ (\state -> state { history = state.history `snoc` msg})
-      pure next
-    GetUserInput msg reply -> do
-      avar <- AffClass.liftAff AVar.empty
-      H.modify_ (\state -> state { history = state.history `snoc` msg
-                                 , getInput = Just avar })
-      value <- AffClass.liftAff $ AVar.take avar
-      H.modify_ (\state -> state { getInput = Nothing })
-      pure $ reply value
-    GenRandomInt bounds reply -> do
-      random <- unBounds bounds (\l u -> liftEffect $ randomInt l u)
-
-      pure (reply random)
+  eval =
+    case_
+      # on _notifyUser (\(NotifyUserF msg next) -> do
+          H.modify_ (\state -> state { history = state.history `snoc` msg})
+          pure next
+        )
+      # on _getUserInput (\(GetUserInputF msg reply) -> do
+          avar <- AffClass.liftAff AVar.empty
+          H.modify_ (\state -> state { history = state.history `snoc` msg
+                                     , getInput = Just avar })
+          value <- AffClass.liftAff $ AVar.take avar
+          H.modify_ (\state -> state { getInput = Nothing })
+          pure $ reply value
+        )

@@ -1,7 +1,7 @@
 -- Due to my understanding being corrected, this file is a bad example
 -- and needs to be reworked. For now, I'm just commenting it out,
 -- so that this folder's contents still compiles.
-module Games.RandomNumber.Run.AddAPITerm where
+module Games.RandomNumber.Run.Layered.AddAPITerm where
 
 -- import Prelude
 -- import Data.Symbol (SProxy(..))
