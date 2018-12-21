@@ -9,11 +9,6 @@ This folder will show how to build a "guess the random number" game. Here's an o
 
 Run the following while in the `Hello World/Projects/` folder. The web-based games can be opened via `Hello World/Projects/dist/random-number/<FP structure approach>/index.html`:
 ```bash
-# The Node Readline & Aff folder
-pulp --psc-package run -m ConsoleLessons.ReadLine.Effect
-pulp --psc-package run -m ConsoleLessons.ReadLine.AffMonad
-
-# The Random Number folder
 ## Node-Based implementation
 pulp --psc-package run -m Games.RandomNumber.Free.Infrastructure.Console
 pulp --psc-package run -m Games.RandomNumber.Run.Infrastructure.Console
