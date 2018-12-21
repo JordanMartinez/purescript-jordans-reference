@@ -5,8 +5,9 @@ This folder's purposes are
     - Explain the throught-process behind designing some program by starting with the properties one wants to employ. This will include diagrams and other explanations.
     - Compare the various ways one can structure an FP program and analyze their pros/cons and other tradeoffs
         - "standard" ReaderT approach
+        - "standard" Free/Run approach
         - "layered compilers" Free/Run approach
-        - "layered compilers" ReaderT approach
+        - "layered compilers" ReaderT approach (my experiment)
     - Explain and show how to test and benchmark our code
 - to introduce the reader to a few commonly-used libraries in the "real world."
     - We'll introduce/overview the libraries we'll use in later projects before using them in those projects.
