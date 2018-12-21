@@ -15,7 +15,7 @@ pulp --psc-package run -m ConsoleLessons.ReadLine.AffMonad
 
 # The Random Number folder
 ## Node-Based implementation
-pulp --psc-package run -m Games.RandomNumber.Free.Infrastructure
+pulp --psc-package run -m Games.RandomNumber.Free.Infrastructure.Console
 pulp --psc-package run -m Games.RandomNumber.Run.Infrastructure
 pulp --psc-package run -m Games.RandomNumber.MTL.Infrastructure
 

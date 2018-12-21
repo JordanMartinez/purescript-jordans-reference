@@ -1,4 +1,4 @@
-module Games.RandomNumber.Free.Infrastructure (main) where
+module Games.RandomNumber.Free.Infrastructure.Console (main) where
 
 import Prelude
 import Control.Monad.Free (foldFree)
@@ -42,6 +42,7 @@ runAPI iface_ = foldFree (go iface_)
 
       pure (reply random)
 
+-- Level 0 / Machine Code
 main :: Effect Unit
 main = do
   interface <- createConsoleInterface noCompletion
