@@ -6,13 +6,11 @@ import Control.Monad.Free (Free, liftF, substFree)
 import Data.Int (fromString)
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
-import Games.RandomNumber.Free.Core ( Bounds, mkBounds, mkGuess, mkRandomInt
-                                    , mkRemainingGuesses, totalPossibleGuesses
-                                    )
+import Games.RandomNumber.Core ( Bounds, mkBounds, mkGuess, mkRandomInt
+                               , mkRemainingGuesses, totalPossibleGuesses
+                               )
 
-import Games.RandomNumber.Free.Domain (RandomNumberOperationF(..), RandomNumberOperation)
-
-import Games.RandomNumber.Free.API (API_F(..))
+import Games.RandomNumber.Free.Domain (RandomNumberOperationF(..), Game)
 
 data API_F a
   = Log String a
@@ -52,7 +50,7 @@ inputIsInt s = case fromString s of
   Just i -> Right i
   Nothing -> Left $ NotAnInt s
 
-runDomain :: RandomNumberOperation ~> API
+runDomain :: Game ~> API
 runDomain = substFree go
 
   where
@@ -60,7 +58,7 @@ runDomain = substFree go
   getIntFromUser prompt =
     recursivelyRunUntilPure (inputIsInt <$> getUserInput prompt)
 
-  go :: RandomNumberOperationF ~> API
+  go :: RandomNumberGameF ~> API
   go = case _ of
     NotifyUser msg next -> do
       log msg
