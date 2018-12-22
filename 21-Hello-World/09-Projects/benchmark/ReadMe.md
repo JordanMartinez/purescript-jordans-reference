@@ -4,6 +4,8 @@ In this folder, we will benchmark our various approaches to structuring our code
 
 I ran this folder's benchmarks and stored their results in the `benchmarks-results` folder.
 
+Since we'll be benchmarking our projects here, I should also note that Nate has already written such benchmarks in his `Run` repo. See the [purescript-run repo's test folder's Benchmark.purs file](https://github.com/natefaubion/purescript-run/blob/master/test/Bench.purs)
+
 ## Compilation Instructions
 
 Note: I assume you have already locally installed `Benchmark.js` and used spacchetti to create your own package set that includes `Benchotron`.
