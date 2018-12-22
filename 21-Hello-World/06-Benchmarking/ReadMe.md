@@ -18,14 +18,18 @@ This benchotron graph...
 
 ## Compilation Instructions
 
-`Benchotron` is a Purescript library that provides bindings to [`Benchmark.js`](https://benchmarkjs.com/). As such, you will need to install that library via the command below:
+`Benchotron` is a Purescript library that provides bindings to [`Benchmark.js`](https://benchmarkjs.com/). Follow these commands to set up this folder:
+
+1. If it exists, delete this folder's `.psc-package` folder (Step 4 won't work if you have already set up a package set in this folder)
+
+2. Install [`Benchmark.js`](https://benchmarkjs.com/) locally via the command below:
 ```bash
 # Note: This must be installed locally for the code to work.
 # If you install it globally, Node won't be able to find `benchmark`.
 npm install benchmark
 ```
 
-Since `benchotron` is not in the default package set (yet), you'll need to use `spacchetti` to create your own local custom package set by following these instructions:
+3. Use `spacchetti` to create your own local custom package set that includes `Benchotron` by following these instructions (that library does not yet exist in the default package set):
 ```bash
 # I've already ran `spacchetti local-setup`
 # and configured the 'packages.dhall' file.
@@ -34,6 +38,10 @@ Since `benchotron` is not in the default package set (yet), you'll need to use `
 
 # So, we just need to install the local custom package set
 spacchetti insdhall
+```
+
+4. Install that package set using psc-package:
+```bash
 psc-package install
 ```
 
