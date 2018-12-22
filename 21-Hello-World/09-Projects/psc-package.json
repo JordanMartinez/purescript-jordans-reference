@@ -1,7 +1,7 @@
 {
-  "name": "untitled",
-  "set": "psc-0.12.1",
-  "source": "https://github.com/purescript/package-sets.git",
+  "name": "ignore",
+  "set": "local",
+  "source": "",
   "depends": [
     "avar",
     "halogen",
@@ -17,6 +17,7 @@
     "console",
     "effect",
     "prelude",
-    "transformers"
+    "transformers",
+    "benchotron"
   ]
 }

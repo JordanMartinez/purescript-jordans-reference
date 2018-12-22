@@ -49,5 +49,37 @@ Below is the current list of libraries we introduce and further explain here. Th
 
 ## Compilation Instructions
 
+### Setting Up This Folder
+
+Since this folder includes benchmarking, we'll be using `Benchotron`, which is still not yet included in the default package set. Thus, you'll need to follow these instructions to set up this folder's `psc-package.json` file correctly:
+
+1. Delete this folder's `.psc-package` folder (Step 4 won't work if you have already set up a package set in this folder)
+
+2. Install [`Benchmark.js`](https://benchmarkjs.com/) locally via the command below:
+```bash
+# Note: This must be installed locally for the code to work.
+# If you install it globally, Node won't be able to find `benchmark`.
+npm install benchmark
+```
+
+3. Use `spacchetti` to create your own local custom package set by following these instructions:
+```bash
+# I've already ran `spacchetti local-setup`
+# and configured the 'packages.dhall' file.
+# See this folder as an example of what you would need to do
+# if you had to do it on your own.
+
+# So, we just need to install the local custom package set
+spacchetti insdhall
+```
+
+4. Install that package set using psc-package:
+```bash
+psc-package install
+```
+
+
+### Building/Running Each Approach
+
 Each folder will specify the `pulp` command to run to build/run the program. Because of the multi-project nature of this folder, the `pulp` command must be executed in `Hello World/Projects/`, not in each project's folder.
 To run a web-based program, follow the folder's build instructions and then open the `dist/<project-name>/<FP structure approach>/index.html` file
