@@ -17,6 +17,10 @@ Similar to what we did in the Syntax folder, we'll show the
 value-level definitions of these type-level types, instances, and functions
 -}
 
+{-
+The following is commented out to prevent a compiler warning:
+  "import is redundant"
+
 -- new imports
 import Prim.TypeError (
   -- type-level type
@@ -33,13 +37,18 @@ import Prim.TypeError (
   , class Fail
   )
 
+-}
+
 data Doc_
   = Text_ String      -- wraps a Symbol
   | Quote_ String     -- the Type's name as a Symbol
   | QuoteLabel_ String -- Similar to Text but handles things differently
                        -- Used particularly for 'labels', the 'keys'
                        -- in rows/records (see functions file)
-  | Beside_ Doc_ Doc_ -- same as "left <> right" ("leftright")
+  | Beside_ Doc_ Doc_ -- Similar to "left <> right" ("leftright") in that
+                      -- it places documents side-by-side. However, it's
+                      -- different in that these documents are aligned at
+                      -- the top.
   | Above_ Doc_ Doc_  -- same as "top" <> "\n" <> "bottom" ("top\nbottom")
 
 type Explanation = String

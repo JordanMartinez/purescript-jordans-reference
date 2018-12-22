@@ -20,7 +20,10 @@ data Doc_
   | QuoteLabel_ String -- Similar to Text but handles things differently
                        -- Used particularly for 'labels', the 'keys'
                        -- in rows/records (see below)
-  | Beside_ Doc_ Doc_ -- same as "left <> right" ("leftright")
+  | Beside_ Doc_ Doc_ -- Similar to "left <> right" ("leftright") in that
+                      -- it places documents side-by-side. However, it's
+                      -- different in that these documents are aligned at
+                      -- the top.
   | Above_ Doc_ Doc_  -- same as "top" <> "\n" <> "bottom" ("top\nbottom")
 
 -- The following aliases are taken from purescript-typelevel-eval:
@@ -28,6 +31,22 @@ data Doc_
 -- I would use it and import them here, but it's not yet in the default package set
 infixr 2 type Beside as <>
 infixr 1 type Above as |>
+
+besideExample :: Warn
+  (  Text "Beside lays out documents side-by-side, aligned at the top:"
+  |> Text ""
+  |> ( (  Text "A"
+       |> Text "B"
+       ) <> Text "C"
+     )
+  |> Text ""
+  |> ( Text "C" <> (  Text "A"
+                   |> Text "B"
+                   )
+     )
+
+  ) => Int
+besideExample = 2
 
 warnValue :: Warn
   (  Text "This warning appears only when you use this value or function"
@@ -67,6 +86,8 @@ main :: Effect Unit
 main = do
   log $ show regularValue
   log $ show warnValue
+
+  log $ show besideExample
 
   -- Demonstrates the difference between Text and QuoteLabel
   log $ show (labelAsText (SProxy :: SProxy "boo"))
