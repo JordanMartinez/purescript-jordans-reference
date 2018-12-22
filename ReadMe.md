@@ -68,8 +68,34 @@ Feel free to open a new issue for:
         - 11-Syntax/01-Basic-Syntax/src/02-Data-and-Functions/... (the rest of the folder's content)
 - Compile the code where possible, either before or after you experiment
 
-### File or Folder Name Meanings
+## Naming Conventions Used In This Repo
+
+### Numbering System
+
+When you see this number system:
+```
+01-File-Name.md
+02-Folder-Name/
+03-File-Name2.md
+11-File-Name.md
+```
+You should understand it like so:
+```
+[major theme/idea][minor concept/point]
+```
+Each major theme will almost always have 1..9 minor concepts/points. Thus, you will sometimes not see a `10-file-name.md` file:
+```
+09-first-major-theme--file-9.md
+-- 10-file-name is intentionally missing here
+11-second-major-theme--file-1.md
+```
+
+In situations, where 9 files were not enough, I converted a file into a folder and each file in that folder further explains it.
+
+### An 'x' in a File/Folder Name
 
 If a file or folder name has `x` in the numerical part of its name (e.g. `0x-File-or-Folder-Name`, `9x-File-or-Folder-Name`), it means I am still deciding where it should appear in the numerical order (and it is likely still a work in progress).
+
+### Referring to Files/Folders in this repo
 
 Lastly, when referring to folders/files, we'll omit the numerical ordering (since the final order is still being determined). So, rather than `00-Getting-Started`, you'll see `Getting Started` folder. Rather than `00-Getting-Started/01-Install-Guide.md`, you'll see `Getting-Started/Install-Guide.md`
