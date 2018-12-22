@@ -86,10 +86,17 @@ rm -rf .psc-package/ .pulp-cache/  output/
 psc-package install && pulp --psc-package build
 cd ../../
 
-cd 21-Hello-World/09-Games/
+cd 21-Hello-World/09-Projects/
 pwd
 rm -rf .psc-package/ .pulp-cache/  output/
-psc-package install && pulp --psc-package build && pulp --psc-package test -m Test.Games.RandomNumber.Run.Infrastructure
+npm install benchmark
+spacchetti insdhall
+psc-package install && pulp --psc-package build --src-path "benchmark" --include "src:test"
+
+# Node-based tests
+pulp --psc-package test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
+pulp --psc-package test -m Test.Games.RandomNumber.ReaderT.Standard.SameMonad
+pulp --psc-package test -m Test.Games.RandomNumber.Run.Standard.Infrastructure
 cd ../../
 
 echo "... Finished ...."
