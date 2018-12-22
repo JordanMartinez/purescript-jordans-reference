@@ -5,13 +5,6 @@ import Data.Symbol (SProxy(..))
 import Effect (Effect)
 import Effect.Console (log)
 
--- Prelude is not imported to prevent some of its functon aliases
--- from clashing with ones defined below (e.g. "<>")
-import Data.Show (show)
-import Data.Unit (Unit)
-import Data.Function (($))
-import Control.Bind (discard)
-
 import Prim.TypeError (kind Doc, Text, Quote, Above, Beside, QuoteLabel, class Warn, class Fail)
 
 data Doc_
