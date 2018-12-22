@@ -1,4 +1,7 @@
-module Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad where
+module Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
+  ( main
+  , produceGameResult
+  ) where
 
 import Prelude
 import Data.Tuple (Tuple(..))

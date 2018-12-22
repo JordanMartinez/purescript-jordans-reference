@@ -1,4 +1,7 @@
-module Test.Games.RandomNumber.Run.Standard.Infrastructure where
+module Test.Games.RandomNumber.Run.Standard.Infrastructure
+  ( main
+  , produceGameResult
+  ) where
 
 import Prelude
 import Data.Tuple (Tuple, snd)
