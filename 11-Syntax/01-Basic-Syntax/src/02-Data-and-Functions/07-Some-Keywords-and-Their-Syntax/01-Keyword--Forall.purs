@@ -1,5 +1,7 @@
 module Keyword.Forall where
 
+import Prelude
+
 {-
 When using generic data types in functions, such as the one below...
 genericFunction0 :: a -> a
@@ -37,18 +39,22 @@ forAllUnicodeStyle a = a
 
 
 -- Sometimes, we'll see multiple instances of 'forall' in the same type signature.
--- In such cases, the parenthesis determine 'who' gets to determine what
--- a given type is. For example, who gets to determine what type 'b' is
--- in the following functions?
-whoDeterminesB1 :: (forall b. b -> String) -> String
-whoDeterminesB1 functionArg = "body"
+--
+--    f :: forall a b. a -> b -> (forall c. c -> String) -> String
+--
+-- This means that the third argument, the function with `forall c`,
+-- can be used on different types. Thus, we can write something like this:
 
-whoDeterminesB2 :: forall b. (b -> String) -> String
-whoDeterminesB2 functionArg = "body"
+ignoreArg_returnString :: forall a. a -> String
+ignoreArg_returnString _ = "some string"
 
--- Here's the answers:
-b1_answer__Not_Me :: (forall b. b -> String) -> String
-b1_answer__Not_Me i_do = "body"
+example :: forall a b. a -> b -> (forall c. c -> String) -> String
+example a b function = concat (function a) (function b)
 
-b2_answer__I_Do :: forall b. (b -> String) -> String
-b2_answer__I_Do not_me = "body"
+testExample :: String
+testExample = example true 5 ignoreArg_returnString
+
+-- needed to compile
+
+concat :: String -> String -> String
+concat = append

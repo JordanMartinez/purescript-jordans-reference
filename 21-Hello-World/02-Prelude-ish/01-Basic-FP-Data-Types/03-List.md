@@ -28,7 +28,7 @@ infixr 6 Cons as :
 ```
 
 | Package | Type name | "Plain English" name |
-| - | - | - | - | - |
+| - | - | - |
 | [purescript-list](https://pursuit.purescript.org/packages/purescript-lists/5.0.0) | `List a` | Immutable strict singly-linked list
 
 | Usage | Instances & their Usage

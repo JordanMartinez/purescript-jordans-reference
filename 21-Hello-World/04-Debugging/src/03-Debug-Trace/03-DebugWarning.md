@@ -20,6 +20,7 @@ In short, rather than writing `function :: Warn (Text "Debug.Trace usage") => [f
 
 <hr>
 Copyright notice for the above code:
+
 ```
 The MIT License (MIT)
 

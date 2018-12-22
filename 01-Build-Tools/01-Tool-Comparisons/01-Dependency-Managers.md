@@ -60,7 +60,7 @@ A **package set** consists of a set of packages. It's a JSON file that maps a pa
 
 When using Bower, you have no idea whether a package (code that was released at some tag) will compile with some other package. AFAIK, Phil Freeman (creator of PureScript) and others created `psc-package` to fix this problem. Currently, Justin Woo maintains it.
 
-Justin has defined an "official" / "standard" package set [here](https://github.com/purescript/package-sets/blob/master/packages.json) that `psc-package` uses to download and compile one's dependencies. Why? So that he can prove via CI that all the packages in the set work/compile together without issue. This addresses the pain point from Bower. Moreover, it also stops each developer who uses `psc-package` from wasting time verifying the same package set locally as it can be done only once in Justin's repo.
+Justin has defined [an "official" / "standard" package set](https://github.com/purescript/package-sets/blob/master/packages.json) that `psc-package` uses to download and compile one's dependencies. Why? So that he can prove via CI that all the packages in the set work/compile together without issue. This addresses the pain point from Bower. Moreover, it also stops each developer who uses `psc-package` from wasting time verifying the same package set locally as it can be done only once in Justin's repo.
 
 This "guaranteed to work together" feature comes with implications:
 - The "official" / "standard" package set must be immutable. Our confidence that packages work together is broken as soon as a new package is added. Adding a package requires reverifying that all the packages work when the package is added.
@@ -69,10 +69,10 @@ This "guaranteed to work together" feature comes with implications:
 These implications create the following problems:
 1. Your workflow is blocked when you need a dependency/library that is not already defined as a package within the "official" / "standard" package set.
     - When this occurs, you or the library/dependency author have to add it to the "official" / "standard" package set yourself, AND THEN wait for Justin to merge that pull request, AND THEN wait for verification to finish (it might fail verification in some cases), AND THEN wait for Justin to make a new relase of the "official" / "standard" package set. That's a lot of waiting.
-2. Your workflow is blocked when you need a dependency/library that is in the package set, but which needs to be patched/changed in some way. For example, a library for handling a `MouseEvent`does not include `mouseEvent.offsetX` ([true story](https://pursuit.purescript.org/packages/purescript-web-uievents/1.0.0/docs/Web.UIEvent.MouseEvent#v:clientX))
-    - This situation is the same as the above except now you or the author need to submit a PR to the library/dependency to fix the issue, AND THEN wait for the library maintainer to make a new release, AND THEN go through all of the steps above.
+2. Your workflow is blocked when you need a dependency/library that is in the package set, but which needs to be patched/changed in some way.
+    - This situation is the same as the above except that now you or the author need to submit a PR to the library/dependency to fix the issue, AND THEN wait for the library maintainer to make a new release, AND THEN go through all of the steps above.
 
-Moreover, you likely only need to make some change in only one project. It's not worth it to submit a PR, either to Justin's package set repo or a library's repo, because it's custom to your use cases.
+Moreover, you likely only need to make some change in only one project. It's not worth it to submit a PR, either to Justin's package set repo or a library's repo, because it's custom to your use case.
 
 Fortunately, `psc-package` does not know about or even have a notion of the "official" / "standard" package set. A developer can still verify packages in a package set on their own. However, manipulating the packaget set's files is very tedious.
 

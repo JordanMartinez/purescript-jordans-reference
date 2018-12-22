@@ -5,6 +5,10 @@ import Prelude (class Show)
 
 -- Reification = value-level instance -> type-level instance
 
+-- Given a yes/no data type
+--
+--  data YesNo = Yes | No
+
 -- In value-level programming,
 ignoreMe :: String
 ignoreMe =

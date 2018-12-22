@@ -130,8 +130,26 @@ A type-level function can only "compute" a type-level expression when the types 
 - infinite unification: to unify some term, `a`, one must unify some term, `b`, which can only be unified if `a` is unified. After making X many recursive steps, the type inferencer will eventually give up and throw an error. This is a hard-coded number in the Purescript compiler.
 - situations where the type inferencer cannot infer the correct type/kind
 - situations where one needs to do "backtracking".
-    - Normally, the compiler will commit to the instance head before it ever considers the instance context. Once it can figure out the instance head, it will then check whether the head adheres to the instance context. If the compiler cannot figure things out using the head alone, it will fail. If the compiler supported "backtracking," it would also consider the instance context, which would prevent failure in some cases.
-    - "Backtracking" could be implemented in the compiler by using instance guards, but this has not yet been done. For the current progress on this issue, as well as an example of what "backtrackign" code looks like, see [the related Purescript issue](https://github.com/purescript/purescript/issues/3120).
+
+Here is an example of "backtracking". It will make more sense after you have read through the `Pattern-Matching-Using-Instance-Chains.purs` file.
+```purescript
+class MyClass a
+  someValue :: Boolean
+
+instance firstInstance :: (SomeConstraint a) => MyClass a where
+  someValue = true
+else instance secondInstance :: MyClass a where
+  someValue = false
+```
+Here's the steps the compiler walks through:
+1. Find the first instance for MyClass ('firstInstance')
+2. Commit to that instance and check whether the `a` type fulfills the `SomeConstraint` type class, too.
+3. The `a` type does not satisfy that type class constraint.
+4. The type checker fails.
+
+The issue lies in step 2: the instance head is checked before the instance context. Once the type inferer commits to some instance, it cannot 'backtrack' to the starting position after realizing that its current instance fails. Ideally, the type inferer would jump back to step 2 and realize that there is another instance ('secondInstance') that always works for any `a` type (since there is no constraint).
+
+"Backtracking" could be implemented in the compiler by using instance guards, but this has not yet been done. For the current progress on this issue, see [the related Purescript issue](https://github.com/purescript/purescript/issues/3120).
 
 To understand unification at a deeper level, see these links:
 - [Type Checking](https://www.youtube.com/watch?v=r030JkmMLMI). This video **quickly** explains some of the notation used in the paper below, but not all of it.
@@ -141,7 +159,7 @@ To understand unification at a deeper level, see these links:
 
 ## Functional Dependencies Reexamined
 
-At times, it can be difficult for the type checker to infer what a given type is. Thus, one uses functional dependencies (FDs) to help the compiler. As a reminder, FDs tell the compiler to find an instance whose known types are the types on the left-hand side of the arrow and use that instance to infer what the types on the right-hand side of the arrow are:
+At times, it can be difficult for the type checker to infer what a given type is. Thus, one uses functional dependencies (FDs) to help the compiler. As a reminder, FDs inform the compiler how to infer what some types are given that it knows other types:
 ```purescript
 class Add (x :: IntK) (y :: IntK) (total :: IntK)
   | x y -> total
@@ -170,14 +188,14 @@ if one uses one of the types and ignores the other:
 type ExampleRow = (first :: String, second :: Int)
 -- the kinds in Cons would appear as:
 type ExampleCons = Cons
-  (first :: Symbol) (a :: String) (tail :: (second :: Int))
+  first String (tail :: (second :: Int))
   (first :: String, second :: Int)
 
 -- given this type
 type ExampleRow2 = (first :: String)
 -- the kinds in Cons would appear as:
 type ExampleCons2 = Cons
-  (first :: Symbol) (a :: String) (tail :: ())
+  first String (tail :: ())
   (first :: String)
 ```
 

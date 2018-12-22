@@ -7,7 +7,7 @@ This folder will cover the following topics:
 
 ## Why Learn PureScript?
 
-This question can be answered by explaining two things:
+This question can be answered by explaining three things:
 - Why one should use Javascript to build programs...
 - ...but not write Javascript to build it...
 - ...and write Purescript instead of alternatives

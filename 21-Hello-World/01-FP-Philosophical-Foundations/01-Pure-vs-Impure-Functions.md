@@ -7,7 +7,8 @@ Functional Programming utilizes functions to create programs and focuses on sepa
 ### Properties
 
 <hr>
-The following table that shows a comparison of pure and impure functions is licensed under CC BY-SA 4.0
+The following table that shows a comparison of pure and impure functions is licensed under CC BY-SA 4.0:
+
 - Original Credit: Sam Halliday - ["Functional Programming for Mortals with Scalaz"](https://leanpub.com/fpmortals)
 - License: [legal code](https://creativecommons.org/licenses/by-sa/4.0/legalcode) & [legal deed](https://creativecommons.org/licenses/by-sa/4.0/)
 - Changes made

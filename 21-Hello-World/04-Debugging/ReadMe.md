@@ -1,17 +1,9 @@
-# Console Lessons
+# Debugging
 
-After one introduces the "Hello World" app in a language tutorial/textbook, they usually introduce additional programming concepts by writing a console-based program, a program that can receive user input and that outputs something based on that input. We will follow suit.
-
-In this folder, we'll continue teaching some FP concepts, such as:
-- Error Handling
-- Custom Type Warnings/Failures
-- State
-
-In the process, we'll also explain some basic data types along the way:
-  - `Maybe a`
-  - `Either a b`
-
-At times, we'll hide some types/functions from you, so that you can focus on learning rather than explaining why/how something works. If you are curious to look at it later, the helper code can be found in the "Helper-Code" folder.
+This folder helps you debug problems in your code by
+- explaining some tips/tricks to use to help debug compiler errors
+- forewarning about some potential misunderstandings
+- helping you to read some compiler errors
 
 ## Running The Lessons
 
@@ -22,13 +14,13 @@ Rather, you should use pulp to run them using this syntax:
 # Syntax
 pulp --psc-package run --main ModuleName
 # Example for "OverviewAPI"...
-pulp --psc-package run --main ConsoleLessons.OverviewAPI
+pulp --psc-package run --main Debugging.OverviewAPI
 ```
 
 When compiling these examples, you will likely see a warning like below:
 ```
 Warning found:
-in module ConsoleLessons.CustomTypeErrors.TypeClassInstances
+in module Debugging.CustomTypeErrors.TypeClassInstances
 at src/03-Custom-Type-Errors/04-Type-Class-Instances.purs line 41, column 1 - line 41, column 23
 
   A custom warning occurred while solving type class constraints:

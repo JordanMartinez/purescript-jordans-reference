@@ -47,7 +47,6 @@ Rows can make our life easier in a number of ways. We'll see some examples befor
 
 ## Reading a Type-Level Function
 
-This process can be done in the reverse order of the above:
 1. Ignore the type class constraints and look solely at the function's arguments.
 2. Ignore the `IsKind` (e.g. `IsSymbol`/`IsOrdering`) type class constraints and look at the type class constraints that actually compute something (e.g. `Add`, `Append`, `Compare`, `Cons`, etc.)
 3. Once you determine how the type-level expression computes, now look at the `IsKind` constraints and the value-level code to see how one gets the function to type check.

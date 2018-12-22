@@ -1,11 +1,11 @@
 # Objecty
 
-In Java, every object has 3 methods:
+In Java, every object has 3 functions:
 - toString
 - equals
 - hashCode
 
-However, not every object needs these types (e.g. singletons, the String object, etc.). Furthermore, `equals` should only work between objects of the same type (i.e. `4 == "4"` shouldn't compile).
+However, some types do not need these functions (e.g. singletons, lambda functions, etc.). Furthermore, `equals` should only work between objects of the same type (i.e. `4 == "4"` shouldn't compile).
 
 ## Show, Equal, Ord, Bounded
 
@@ -21,7 +21,6 @@ Since the documentation for these type classes are clear, we will redirect you t
 ## Useful Derived Functions
 
 Most of these come from `Ord`:
-- min - self-explanatory
-- max - self-explanatory
-- clamp - `clamp lowerBound value upperBound`
-- between - `between lowerBound value upperBound`
+- min/max - self-explanatory
+- clamp - `clamp lowerBound upperBound value`
+- between - `between lowerBound upperBound value`

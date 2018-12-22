@@ -1,0 +1,23 @@
+{
+  "name": "ignore",
+  "set": "local",
+  "source": "",
+  "depends": [
+    "avar",
+    "halogen",
+    "quickcheck",
+    "integers",
+    "node-readline",
+    "random",
+    "run",
+    "variant",
+    "free",
+    "debug",
+    "psci-support",
+    "console",
+    "effect",
+    "prelude",
+    "transformers",
+    "benchotron"
+  ]
+}
