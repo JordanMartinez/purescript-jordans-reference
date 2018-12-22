@@ -15,7 +15,7 @@ import Control.Monad.State.Class (get, put)
 
 import Games.RandomNumber.Core (GameResult)
 import Games.RandomNumber.ReaderT.Standard.Domain (game)
-import Games.RandomNumber.ReaderT.Standard.SameMonad (runAppM)
+import Games.RandomNumber.ReaderT.Standard.SameMonad (runAppT)
 
 import Test.QuickCheck (quickCheck, quickCheck',(<?>))
 import Test.Games.RandomNumber.Generators (TestData(..))
@@ -44,7 +44,7 @@ The difference in this file from the Different-Monad lies in a few ideas:
 
 runTestApp :: Int -> State (Array String) GameResult
 runTestApp random =
-  runAppM { notifyUser: (\_ -> pure unit)
+  runAppT { notifyUser: (\_ -> pure unit)
 
           {-
           Here, we'll use the State monad to run our state-like operations

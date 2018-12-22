@@ -26,6 +26,9 @@ type Environment = { notifyUser :: String -> Aff Unit
                    , createRandomInt :: Int -> Int -> Aff Int
                    }
 
+-- While this type is a newtype wrapper around ReaderT, this type
+-- is not a monad transformer. It's just a monad. Thus, we'll add
+-- the "M" suffix to indicate that.
 newtype AppM a = AppM (ReaderT Environment Aff a)
 
 runAppM :: Environment -> AppM ~> Aff

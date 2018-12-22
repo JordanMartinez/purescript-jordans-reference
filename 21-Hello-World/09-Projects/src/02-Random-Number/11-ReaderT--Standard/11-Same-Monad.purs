@@ -1,6 +1,6 @@
 module Games.RandomNumber.ReaderT.Standard.SameMonad
   ( Environment
-  , AppM(..), runAppM
+  , AppT(..), runAppT
 
   , question
   , runAPI
@@ -42,42 +42,44 @@ type Environment m = { notifyUser :: String -> m Unit
                      , createRandomInt :: Int -> Int -> m Int
                      }
 
-newtype AppM m a = AppM (ReaderT (Environment m) m a)
+-- Since thie type works just like a monad transformer,
+-- we'll add the "T" suffix to indicate that it is a monad transformer.
+newtype AppT m a = AppT (ReaderT (Environment m) m a)
 
-runAppM :: forall m. Environment m -> AppM m ~> m
-runAppM env (AppM m) = runReaderT m env
+runAppT :: forall m. Environment m -> AppT m ~> m
+runAppT env (AppT m) = runReaderT m env
 
 -- Our derived type classes look a little different than before
--- We need to add `m` to AppM so that it's kind is correct: Type -> Type
+-- We need to add `m` to AppT so that it's kind is correct: Type -> Type
 -- However, to guarantee that this type is the Monad that ReaderT
 -- expects, we need to add these constraints as well.
-derive newtype instance a1 :: (Functor m) => Functor (AppM m)
-derive newtype instance a2 :: (Applicative m) => Applicative (AppM m)
-derive newtype instance a3 :: (Apply m) => Apply (AppM m)
-derive newtype instance a4 :: (Bind m) => Bind (AppM m)
-derive newtype instance a5 :: (Monad m) => Monad (AppM m)
-derive newtype instance a6 :: MonadTrans AppM
+derive newtype instance a1 :: (Functor m) => Functor (AppT m)
+derive newtype instance a2 :: (Applicative m) => Applicative (AppT m)
+derive newtype instance a3 :: (Apply m) => Apply (AppT m)
+derive newtype instance a4 :: (Bind m) => Bind (AppT m)
+derive newtype instance a5 :: (Monad m) => Monad (AppT m)
+derive newtype instance a6 :: MonadTrans AppT
 
 -- Defining this here because we'll use it in the Test module
-derive newtype instance a7 :: (MonadState s m) => MonadState s (AppM m)
+derive newtype instance a7 :: (MonadState s m) => MonadState s (AppT m)
 
 -- everything else below is the same as before.
-instance monadAskAppM :: (Monad m, TypeEquals e (Environment m)) => MonadAsk e (AppM m) where
-  ask = AppM $ asks from
+instance monadAskAppT :: (Monad m, TypeEquals e (Environment m)) => MonadAsk e (AppT m) where
+  ask = AppT $ asks from
 
 --------------------------------
 
-instance notifyUserInstance :: (Monad m) => NotifyUser (AppM m) where
+instance notifyUserInstance :: (Monad m) => NotifyUser (AppT m) where
   notifyUser msg = do
     env <- ask
     lift $ env.notifyUser msg
 
-instance getUserInputInstance :: (Monad m) => GetUserInput (AppM m) where
+instance getUserInputInstance :: (Monad m) => GetUserInput (AppT m) where
   getUserInput prompt = do
     env <- ask
     lift $ env.getUserInput prompt
 
-instance createRandomIntInstance :: (Monad m) => CreateRandomInt (AppM m) where
+instance createRandomIntInstance :: (Monad m) => CreateRandomInt (AppT m) where
   createRandomInt bounds = do
     env <- ask
     lift $ unBounds bounds (\l u -> env.createRandomInt l u)
@@ -90,9 +92,9 @@ question interface message = do
   where
     go handler = NR.question message (handler <<< Right) interface $> mempty
 
-runAPI :: Interface -> AppM Aff ~> Aff
+runAPI :: Interface -> AppT Aff ~> Aff
 runAPI iface =
-  runAppM { notifyUser: liftEffect <<< log
+  runAppT { notifyUser: liftEffect <<< log
           , getUserInput: question iface
           , createRandomInt: (\l u -> liftEffect $ randomInt l u) }
 
