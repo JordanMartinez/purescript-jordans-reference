@@ -15,6 +15,21 @@ import Test.Games.RandomNumber.Run.Layered.Infrastructure as LayeredRun
 main :: Effect Unit
 main = runSuite [bench]
 
+stackOverflow_error_warning :: String
+stackOverflow_error_warning = """
+On my computer, the below 'sizes' value will produce
+a stack overflow error after 2000 guesses.
+
+Talking to Nate on the Slack channel, here are our options:
+1. benchmark using a smaller number, so that I don't need to use
+    a special type (Trampoline) to guarantee that the pure computation
+    is stack-safe
+2. benchmark using a large number, but incur the overhead of Trampoline
+    because otherwise I'll get a stackoverflow error
+
+With this choice, I opted for the first option and not using Trampoline.
+"""
+
 bench :: Benchmark
 bench = mkBenchmark
   { slug: "random-number-game"
