@@ -1,6 +1,6 @@
 # Layered Compilers
 
-Previously, we saw that we could "interpret" the `Free` monad into another monad, namely, `Effect`, to simulate state manipulation effects. However, what if we recursively interpreted the `Free` monad into another `Free` monad for a few rounds until the last one gets interpreted into the `Effect` monad?
+Previously, we saw that we could "interpret" the `Free` monad into another monad, namely, `Effect`, to simulate state manipulation effects. This idea is similar to a compiler: a high-level language (i.e. `Free`'s languages) get "compiled"/"interpreted" into a lower-level language (i.e. `Effect`/`Aff`). However, what if we recursively interpreted the `Free` monad into another `Free` monad for a few rounds until the last one gets interpreted into the `Effect` monad?
 ```purescript
 type Free1 = Free f a
 type Free2 = Free g a
@@ -13,26 +13,35 @@ Free3 ~> Effect
 -- means we can effectively write this
 Free1 ~> Effect
 ```
-This allows us to write one high-level language that gets "interpreted" into a lower-level language, which itself gets interpreted into an even lower-level language. Each `~>` is going from a high-level abstract language to a lower-level more-platform-specific language. In other words, a compiler of sorts. Updating our code above to use meta-language, we would have something like this:
+This allows us to write one high-level language that gets "interpreted" into a lower-level language, which itself gets interpreted into an even lower-level language. Each `~>` is going from a high-level abstract language to a lower-level more-platform-specific language. In other words, a chain of compiler, where the output of the previous is the input of the next. Updating our code above to use meta-language, we would have something like this:
 ```purescript
 -- Let your domain experts write their domain-specific "programs"
 -- using a familiar domain-specific language...
-data Core e = -- data types and other core things
-type Domain1 e = Free (Coproduct4 Core1 Core2 Core3 Core4) e
+type HighestLevelLanguage = CoproductN Language1 Language2 Language3 -- ...
+type HighestLevelProgram = Free HighestLevelLanguage
+
+type HighLevelLanguage = CoproductN LanguageA LanguageB LanguageC -- ...
+type HighLevelProgram = Free HighLevelLanguage
+
+type FirstCompiler = HighestLevelProgram ~> HighLevelProgram
 
 -- and let your technical experts "translate" them into working programs
 -- via NaturalTransformations
-type API e = Free (Coproduct3 Domain1 Domain2 Domain3) e
+type LowLevelLanguage = CoproductN LanguageX LangaugeY LanguageZ -- ...
+type LowLevelProgram = Free LowLevelLanguage
+
+type SecondCompiler = HighLevelProgram ~> LowLevelProgram
+type ThirdCompiler = LowLevelProgram ~> Effect -- or Aff
 
 -- given this...
-Core ~> Domain1
-Domain1 ~> API
-API ~> Effect
+HighestLevelProgram ~> HighLevelProgram
+HighLevelProgram ~> LowLevelProgram
+LowLevelProgram ~> Effect -- or Aff
 -- we compose them to get this
-Core ~> Effect
+type RealCompiler = HighestLevelProgram ~> Effect -- or Aff
 
 -- which enables this...
-runProgram :: (Core ~> Infrastructure) -> Free Core e -> Effect e
+runProgram :: RealCompiler -> HighestLevelProgram e -> Effect e
 -- ... a program written by a domain-expert in a domain-specific
 -- language who is ignorant of all the technical and platform-specific
 -- details that make it work...
@@ -59,5 +68,3 @@ To see some examples and the implications of this idea, read the following links
 - MTL vs Free Deathmatch - [Video](https://www.youtube.com/watch?v=JLevNswzYh8) & [Slides](https://www.slideshare.net/jdegoes/mtl-versus-free)
 - [A Modern Architecture for FP: Part 2](http://degoes.net/articles/modern-fp-part-2)
 - [Free? monads with mtl](https://gist.github.com/ocharles/252bc296b659aa32e915e02d02537064) - Linking to this because it relates, but I'm still understanding it myself.
-
-Note: one can also mix the two approaches. I'm not yet sure of the pros/cons to this approach.
