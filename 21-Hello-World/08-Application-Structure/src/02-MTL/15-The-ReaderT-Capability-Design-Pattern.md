@@ -12,13 +12,13 @@ For a clearer picture of this idea, see the [Three Layer Haskell Cake](https://w
 
 Looking at the above from a top-down perspective, we get this:
 
-| Layer | General idea |
-| - | - |
-| Layer 4 | Strong types
-| Layer 3 | pure, total functions that operate on the types themselves
-| Layer 2 | the "business logic" code which uses effects via "capability" type class constraints
-| Layer 1 | a newtyped `ReaderT` monad, which implements our "capability" type classes<br><ul><li>production code: `AppM`</li><li>test code: `TestM`?</li></ul>
-| Layer 0 | the monad which the `ReaderT` transforms:<ul><li>production code: `Effect`/`Aff`</li><li>test code: `Effect`/`Aff`/`Identity`</li></ul>
+| Layer Level | Onion Architecture Term | General idea |
+| - | - | - |
+| Layer 4 | Core | Strong types with well-defined properties and their pure, total functions that operate on them
+| Layer 3 | Domain | the "business logic" code which uses effects
+| Layer 2 | API | the "production" or "test" monad which "links" these effects/capabilties to their implementations: <ul><li>a newtyped `ReaderT` and its instances</li></ul>
+| Layer 1 | Infrastructure | the platform-specific framework/monad we'll use to implement some special effects/capabilities (i.e. `Node.ReadLine`/`Halogen`/`StateT`)
+| Layer 0 | Machine Code<br>(no equivalent onion term) | the "base" monad that runs the program (e.g. production: `Effect`/`Aff`; test: `Identity`)
 
 Putting it into code, we would get something that looks like this:
 ```purescript
