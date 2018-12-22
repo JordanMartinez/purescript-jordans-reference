@@ -18,7 +18,6 @@ import Games.RandomNumber.Run.Layered.API (
 , CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT
 )
 import Run (Run, interpret, send, extract)
-import Run.Reader (READER, runReader, ask)
 import Run.State (STATE, runState, get, put)
 import Test.QuickCheck (quickCheck, quickCheck',(<?>))
 import Test.Games.RandomNumber.Generators (TestData(..))
@@ -44,40 +43,39 @@ produceGameResult :: Int -> Array String -> GameResult
 produceGameResult random userInputs =
   game
     # runDomain
-    # runAPI
-    # runInfrastructure random userInputs
+    # runAPI random
+    # runInfrastructure userInputs
     # extractStateOutput
 
   -- which is the same as writing...
   -- extractStateOutput
-  --   (runInfrastructure random userInputs
-  --     (runAPI (runDomain (runCore game))))
+  --   (runInfrastructure userInputs
+  --     (runAPI random (runDomain game)))
 
 extractStateOutput :: Run () (Tuple (Array String) GameResult) -> GameResult
 extractStateOutput = snd <<< extract
 
 -- Get rid of the reader/state code and
 -- don't make the row type "open" via ' | r' or ' + r'
-runInfrastructure :: Int
-                  -> Array String
-                  -> Run (reader :: READER Int, state :: STATE (Array String)) GameResult
+runInfrastructure :: Array String
+                  -> Run (state :: STATE (Array String)) GameResult
                   -> Run () (Tuple (Array String) GameResult)
-runInfrastructure random allGuesses program =
+runInfrastructure allGuesses program =
   program
-    # runReader random
     # runState allGuesses
 
 -- Get rid of the API-level code
 -- and interpret it into reader/state code
-runAPI :: forall r
-        . Run (reader :: READER Int, state :: STATE (Array String) |
+runAPI :: forall r.
+          Int
+       -> Run (state :: STATE (Array String) |
                NOTIFY_USER + GET_USER_INPUT + CREATE_RANDOM_INT +    r)
-       ~> Run (reader :: READER Int, state :: STATE (Array String) | r)
-runAPI = interpret (
+       ~> Run (state :: STATE (Array String) | r)
+runAPI random = interpret (
   send
     # on _notifyUser notifyUserToInfrastructure
     # on _getUserInput getUserInputToInfrastructure
-    # on _createRandomInt createRandomIntToInfrastructure
+    # on _createRandomInt (createRandomIntToInfrastructure random)
   )
 
 -- Algebras
@@ -93,7 +91,6 @@ getUserInputToInfrastructure (GetUserInputF _ reply) = do
 
   pure (reply nextInput)
 
-createRandomIntToInfrastructure :: forall r. CreateRandomIntF ~> Run (reader :: READER Int | r)
-createRandomIntToInfrastructure (CreateRandomIntF _ reply) = do
-  random <- ask
+createRandomIntToInfrastructure :: forall r. Int -> CreateRandomIntF ~> Run ( | r)
+createRandomIntToInfrastructure random (CreateRandomIntF _ reply) = do
   pure (reply random)
