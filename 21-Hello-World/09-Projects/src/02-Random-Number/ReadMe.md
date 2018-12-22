@@ -11,6 +11,9 @@ Run the following while in the `Hello World/Projects/` folder. The web-based gam
 ```bash
 ## Node-Based implementation
 pulp --psc-package run -m Games.RandomNumber.ReaderT.Standard.Infrastructure.Console
+pulp --psc-package run -m Games.RandomNumber.Free.Standard.Infrastructure.Console
+pulp --psc-package run -m Games.RandomNumber.Run.Standard.Infrastructure.Console
+
 pulp --psc-package run -m Games.RandomNumber.Free.Layered.Infrastructure.Console
 pulp --psc-package run -m Games.RandomNumber.Run.Layered.Infrastructure.Console
 
@@ -20,6 +23,9 @@ pulp --psc-package run -m Games.RandomNumber.Run.Layered.AddDomainTerm
 
 ## Browser-based implementation
 pulp --psc-package browserify -O -m Games.RandomNumber.ReaderT.Standard.Infrastructure.Halogen.Web --to dist/random-number/readerT/app.js
+pulp --psc-package browserify -O -m Games.RandomNumber.Free.Standard.Infrastructure.Halogen.Web --to dist/random-number/free/app.js
+pulp --psc-package browserify -O -m Games.RandomNumber.Run.Standard.Infrastructure.Halogen.Web --to dist/random-number/run/app.js
+
 pulp --psc-package browserify -O -m Games.RandomNumber.Free.Layered.Infrastructure.Halogen.Web --to dist/random-number/free/app.js
 pulp --psc-package browserify -O -m Games.RandomNumber.Run.Layered.Infrastructure.Halogen.Web --to dist/random-number/run/app.js
 
