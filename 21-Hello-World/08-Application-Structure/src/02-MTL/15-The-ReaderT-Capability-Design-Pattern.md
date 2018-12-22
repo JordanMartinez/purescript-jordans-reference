@@ -26,12 +26,10 @@ Putting it into code, we would get something that looks like this:
 
 newtype Name = Name String
 
--- Layer 3
-
 getName :: Name -> String
 getName (Name s) = s
 
--- Layer 2
+-- Layer 3
 
 -- Capability type classes:
 class (Monad m) <= LogToScreen m where
@@ -51,7 +49,7 @@ program = do
   name <- getName
   log $ "You name is" <> (getName name)
 
--- Layer 1 (Production)
+-- Layer 2 (Production)
 
 -- Environment type
 type Environment = { } -- mutable state, read-only values, etc. go in this record
@@ -62,6 +60,7 @@ newtype AppM a = AppM (ReaderT Environemnt Effect a)
 runApp :: AppM a -> Environment -> Effect a
 runApp (AppM reader_T) env = runReaderT reader_T env
 
+-- Layer 1 (the implementations of each instance)
 instance lts :: LogToScreen AppM where
   log = liftEffect $ Console.log
 
@@ -76,7 +75,7 @@ main = do
   runApp program globalEnvironmentInfo
 
 -----------------------
--- Layer 1 (test)
+-- Layer 2 (test)
 
 -- newtyped ReaderT that implements the capabilities for testing
 newtype TestM a = TestM (Reader Environemnt a)
@@ -84,6 +83,7 @@ newtype TestM a = TestM (Reader Environemnt a)
 runTest :: TestM a -> Environment -> a
 runTest (TestM reader) env = runReader reader env
 
+-- Layer 1 (test: implementations of instances)
 instance lts :: LogToScreen TestM where
   log = pure unit -- no need to implement this
 
