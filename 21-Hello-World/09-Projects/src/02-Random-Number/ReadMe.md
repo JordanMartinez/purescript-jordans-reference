@@ -22,12 +22,12 @@ pulp --psc-package run -m Games.RandomNumber.Run.Layered.ChangeImplementation
 pulp --psc-package run -m Games.RandomNumber.Run.Layered.AddDomainTerm
 
 ## Browser-based implementation
-pulp --psc-package browserify -O -m Games.RandomNumber.ReaderT.Standard.Infrastructure.Halogen.Web --to dist/random-number/readerT/app.js
-pulp --psc-package browserify -O -m Games.RandomNumber.Free.Standard.Infrastructure.Halogen.Web --to dist/random-number/free/app.js
-pulp --psc-package browserify -O -m Games.RandomNumber.Run.Standard.Infrastructure.Halogen.Web --to dist/random-number/run/app.js
+pulp --psc-package browserify -O -m Games.RandomNumber.ReaderT.Standard.Infrastructure.Halogen.Web --to dist/random-number/readerT--standard/app.js
+pulp --psc-package browserify -O -m Games.RandomNumber.Free.Standard.Infrastructure.Halogen.Web --to dist/random-number/free--standard/app.js
+pulp --psc-package browserify -O -m Games.RandomNumber.Run.Standard.Infrastructure.Halogen.Web --to dist/random-number/run--standard/app.js
 
-pulp --psc-package browserify -O -m Games.RandomNumber.Free.Layered.Infrastructure.Halogen.Web --to dist/random-number/free/app.js
-pulp --psc-package browserify -O -m Games.RandomNumber.Run.Layered.Infrastructure.Halogen.Web --to dist/random-number/run/app.js
+pulp --psc-package browserify -O -m Games.RandomNumber.Free.Layered.Infrastructure.Halogen.Web --to dist/random-number/free--layered/app.js
+pulp --psc-package browserify -O -m Games.RandomNumber.Run.Layered.Infrastructure.Halogen.Web --to dist/random-number/run--layered/app.js
 
 ## Test
 pulp --psc-package test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
