@@ -71,13 +71,20 @@ run =
 -}
 ```
 
-## Interpreting Free Monads
+## Modular Effects via Languages
 
-What is a compiler? Generally, a compiler will parse some high-level language (human-readable source code) and convert it into a runnable platform-specific machine code. This is the general idea of the `Free` monads, as the above example just showed.
+When we learned about the `ReaderT` design pattern, we saw that it simply "links" the capabilities we need to run a pure computation with its impure implementations (the type class' instances). As we will show later, this makes it much easier to test our "business logic."
 
-Thus, we have the high-level source-code-like 'language' (i.e. the `Add` and `GetValue` types above) that we "compile"/"interpret" into machine code via our algerbras (i.e. functions with the type signature: `Functor f => f a -> a`). The "interpreter" is what actually runs the machine code / the layer we introduce `Effect`/`Aff` into the picture.
+Similarly, the `Free` monad is the thing which "links" some capability needed in a pure computation with its impure implementation. Whereas `ReaderT` used "capability type classes," `Free` using "languages" like the state manipulation language, `Add`/`GetValue`, demonstrated in the previous section. Thus, we can easily add new "effects" to our `Free` monad by adding more "languages."
 
-When we look at how to define an instance for a data type, it follows this pattern (written in meta-language):
+Whereas the `ReaderT` design pattern would use type class instances to implement these capabilities, a `Free` monad will use an interpreter. An interpreter can be a few different hings:
+- the actual machine code layer that runs the computation in `Effect`/`Aff`
+- a pure computation (used for testing) that runs in `Identity`
+- something that pretty prints the instructions the computer would execute
+
+## Defining and Interpreting Languages for the Free Monad
+
+When we look at how to define a language data type for the `Free` monad, it follows this pattern (written in meta-language):
 ```purescript
 data Language theRestOfTheComputation
   -- Statement that tells interpreter to do something but
@@ -99,10 +106,14 @@ data Language theRestOfTheComputation
 ```
 So far, we've only defined a data type with one instance and composed those data types together. However, what if we treated a data type as a "family" of operations where each instance in that data type was an operation? Then our data types might look like this:
 ```purescript
+-- A "language" that supports the capabilities of reading from
+-- a file and writing to a file
 data FileSystem a
   = ReadFromFile FilePath (ContentsOfFile -> a)
   | WriteToFile FilePath NewContents a
 
+-- A "language" that supports the capabilities of reading from
+-- the console and writing to the console
 data ConsoleIO a
   = ReadFromConsole (String -> a)
   | WriteToConsole String a
@@ -171,4 +182,66 @@ What is your name?
 You wrote mike
 Now exiting.
 -}
+```
+
+## Example
+
+Thus, say we had a program that needed a number of capabilities:
+- read/write to the console
+- random number generation
+- gets current date/time
+
+That program might look something like this:
+```purescript
+type Message = String
+type Prompt = String
+type UserInput = String
+
+-- first language family
+data ConsoleIO a
+  = WriteToConsole Message a
+  | ReadFromConsole Prompt (UserInput -> a)
+
+-- second language family
+data RandomNumber a
+  = GenerateRandomNumber (Int -> a)
+
+-- Third language family
+data DateTime a
+  = GetCurrentDateTime (DateTime -> a)
+
+-- We could compose these languages/capabilities together via Coproduct
+type Language = Coproduct3 ConsoleIO RandomNumber DateTime
+type Program = Free Language
+
+-- We can then define a pure computation using our Free monad
+        -- Free (Coproduct3 ConsoleIO RandomNumber DateTime) output
+program :: Program output
+program = do
+  -- imagine we defined smart constructors for each language and term above
+  dateTime <- getCurrentDateTime
+  writeToConsole $ show dateTime <> ": Input your name:"
+  name <- readFromConsole "My name: "
+  random <- generateRandomNumber
+  let encryptedName = encryptNameWith name random
+  dateTime' <- getCurrentDateTime
+  writeToConsole $ show dateTime' <> ": Your encrypted name is: " <> encryptedName
+  pure encryptedName
+
+-- which does not become "impure" until it's actually interpreted
+runProgram :: Effect Unit
+runProgram = foldFree go program
+
+  -- pseudo-code below!
+  where
+  go :: Language ~> Effect
+  go =
+    coproduct3
+      (\WriteToConsole msg next) -> do
+        Console.log msg
+        pure next
+      (\ReadFromConsole prompt reply) -> do
+        response <- Console.read prompt
+        pure (reply response)
+      -- etc.
 ```
