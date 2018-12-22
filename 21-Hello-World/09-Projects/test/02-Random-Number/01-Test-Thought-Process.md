@@ -1,43 +1,53 @@
-# Random Number Test
+# Test Thought-Process
 
-Now that we've written the code to make our game work, how do we test it? The language of the game itself (Core) can be translated/interpreted into a lower-level but still pure language (API). It is the translation from API to Infrastructure where we introduce impurity into our code via `Effect`/`Aff`. Because everything from the API level and up is technically a pure function, we can test it using QuickCheck to do conformance testing. However, the impure Infrastructure-level of our code can only be tested using unit tests.
+## Overview of Our Testing Approach
 
-As such, we need to translate the API langauge into a pure computation that can be evaluated. Once we do that, we can randomly generate a record that represents this idea: "If the program is given X inputs, it will produce Y outputs." For this example, the X inputs are what is needed to "translate"/"interpret" the API langauge into a pure computation and the Y output is the game result those inputs should produce.
+Now that we've written the code to make our game work, how do we test it? Due to how we structured the code, all of our domain logic exists as a pure function. The function only becomes impure because
+- the `ReaderT` monad transforms an impure monad (i.e. `Effect`/`Aff`)
+- the `Free`/`Run` monad gets interpreted into an impure monad (i.e. `Effect`/`Aff`)
 
-The API language has 3 terms that need to be interprted:
-- Log String a
-- CreateRandomInt Bounds (Int -> a)
-- GetUserInput String (String -> a)
+If we were to (ReaderT) transform or (Free/Run) be interpreted into a pure monad, such as `Identity`, our function never becomes 'impure'. Thus, we can use QuickCheck to do property testing to insure the logic adheres to our expectations/standards. (I'm not sure whether this will always work because it is easy to define standards for our example game. I don't know how well this would work in more complicated systems.)
 
-We can ignore the `Log` term because it will not change the result of our computation. We will need to interpret the other two. For the `CreateRandomInt` term, we need to provide a read-only `Int` value as our random number. This idea adheres to the Reader monad transformer, of which `purescript-run` provides a version via its `Run.Reader` module. For the `GetUserInput` term, we need to provide a new `String` value that represents the next input value. Since the `nextInput` value will change each time we evaluate `GetUserInput`, we need state manipulation. Again `purescript-run` provides a version of the State monad transformer via its `Run.State` module.
+Thus, we can test our entire game using a single pure function: "If the game logic is given X inputs, it will produce Y outputs." For this example, the X inputs are
+- the instances of the newtyped `ReaderT` monad
+- the final interpretation of our `Free`/`Run` monad
 
-As such, we'll need to do three things:
-1. Translate the API language into a `Run` object that has both `READER` and `STATE` rows
-2. Run the `READER` and `STATE` rows with our specified random number and the "user's inputs". This computation will produce a `Run` with an empty row (e.g. `Run () output`)
-3. Extract the final output using `extract`, similar to what we did when we first introduced `purescript-run`
+In the `Design Thought-Process.md` file, we saw that there were 3 capabilities we needed to implement:
+- send message to user (i.e. `String -> m Unit`/`NotifyUser String a`)
+- generate a random integer (i.e. `Bounds -> m Int`/`CreateRandomInt Bounds (Int -> a)`)
+- get the user's input (i.e. `String -> m String`/`GetUserInput String (String -> a)`)
 
-We'll use QuickCheck's generators to generate the 2 input values and 1 expected output value. Here is where we can define the "standards" to which we expect our code to adhere:
+Since the "notify user" capability is purely informative, we do not need to implement it in our test code. Rather, we can use `pure unit` for all our approaches.
+
+However, we will need to implement the other two. We can easily support the "generate random int" capability by providing our own `Int` value via `pure randomIntValue`.
+To support the "get user's input," we need to provide a new `String` value that represents the next input value. This is where the difficulty starts to arise. Since the `nextInput` value will change each time we get the user's input, we need some form of state manipulation. Thus, here's the approach we'll take for both approaches:
+- (ReaderT) we will transform a `StateT` monad, that then transforms the base monad, `Identity`.
+- (Run) we will use `purescript-run`'s `Run.State` module to follow the same idea where we will `extract` the purely computated result at the end.
+
+## Reviewing Our Game's Properties
+
+Before we talk about using QuickCheck to generate our random data, let's review the properties we wish to uphold:
 - Given that...
     - the player has defined a bounds of `B` where `B.lower < B.upper`, which implies that there are always at least two possible guesses (the lower bound and the upper bound)
     - the random number is `R` where `B.lower == R || (B.lower < R && R < B.upper) || R == B.upper`
-    - the player wins on the `G`th guess and loses on the `I`th incorrect guess
-    - the player has defined a total guess limit of `C` where `C <= G || C == I`
+    - the player wins on the `C`th correct guess and loses on the `I`th incorrect guess
+    - the player has defined a total guess limit of `TG` where `TG <= C || TG == I`
     - the player can make the same incorrect guess multiple times.
-        - This occurs when the only possible guesses are 1a) the random number, which is equal to one of the bounds' edges, and 1b) an incorrect guess, which is equal to the corresponding bounds' edge (i.e. `B.upper - B.lower == 1`), and 2) the total guesses are greater than the total possible guesses one can make `C > (B.upper - B.lower + 1)`
+        - This occurs when the only possible guesses are 1a) the random number, which is equal to one of the bounds' edges, and 1b) an incorrect guess, which is equal to the corresponding bounds' edge (i.e. `B.upper - B.lower == 1`), and 2) the total guesses are greater than the total possible guesses one can make `TG > (B.upper - B.lower + 1)`
 - then...
-  - A player should win with `(C - G)` remaining guesses after submitting these inputs:
+  - A player should win with `(TG - C)` remaining guesses after submitting these inputs:
       - define a `B`
-      - define a `C`
-      - make `(G - 1)` incorrect guesses
+      - define a `TG`
+      - make `(C - 1)` incorrect guesses
       - make the correct guess
   - A player should lose with the `R` random number after submitting these inputs:
       - define a `B`
-      - define a `C`
+      - define a `TG`
       - make `I` guesses
 
 ## Generating Our Test Data
 
-Let's start with a top-down approach. What do we need to generate ultimately to write a QuickCheck test? We need three values:
+Let's start with a top-down approach. What do we need to generate ultimately to write a QuickCheck test? We need three values (2 inputs, 1 output):
 - an `Int` to represent the random number we'll use to interpret `CreateRandomInt`
 - a list-like type that stores `String`s to represent all the user's inputs, which we'll use to interpret `GetUserInput`
 - a `GameResult` that represents whether the player should win or lose

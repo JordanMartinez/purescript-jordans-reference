@@ -28,7 +28,6 @@ The following image is the general flow of the program:
 
 The "effects" or "capabilities" we need to run this program are relatively simple:
 - The capability to generate a random `Int` value (Note: this random number generator does not need cryptography-level security)
-- The capability to decrease the `RemainingGuesses` (e.g. state manipulation)
 - The capability to send a message to the user
 - The capability to get the user's input:
     - two `Int` values for the `Bounds`
@@ -39,9 +38,6 @@ The "effects" or "capabilities" we need to run this program are relatively simpl
 
 Each of the above capabilities can be obtained by a few different things:
 - The random number generation can be done via the `Effect.Random (randomInt)` function
-- The state manipulation function (i.e. decrease `RemainingGuesses`) can be done via
-    - a `Ref` value stored in the `ReaderT`'s environment type
-    - a `StateT`-like "language" used in the `Free`/`Run` monad
 - We can "send a message to the user" in one of three ways
     - (Production) Console-based approach: use `Node.ReadLine`
     - (Production) Web-based approach: use `Halogen`
