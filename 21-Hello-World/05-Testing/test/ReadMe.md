@@ -15,6 +15,16 @@ unitTest2 = (reverse "pineapple") == "elppaenip"
 ```
 If the function can take `n` different intputs, we need to write `n` different unit tests.
 
+### A Brief Note on Golden Testing
+
+A variant of unit testing is "golden testing," which basically stores the expected output of a test in a separate file. It comes with the following benefits:
+- Some characters are easier to store in a separate file rather than in source code (e.g. the `"` character).
+- Storing the "expected output" in the test's source code can distract from what the test is even testing in cases where that output is very large. Storing it in a separate file makes it easier to focus on what the test is testing.
+
+For more details, see these links:
+- [Golden Tests are Tasty](https://kseo.github.io/posts/2016-12-15-golden-tests-are-tasty.html)
+- [Golden Tests](https://ro-che.info/articles/2017-12-04-golden-tests)
+
 ## Why Unit Testing Fails
 
 1. **Bad "time : code-coverage" ratio**
