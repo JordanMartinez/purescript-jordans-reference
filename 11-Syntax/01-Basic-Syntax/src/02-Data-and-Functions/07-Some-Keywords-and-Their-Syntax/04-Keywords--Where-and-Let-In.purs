@@ -68,6 +68,16 @@ letInFunction3 value =
   in
     function value
 
+-- One can also use guards with let
+letWithGuards :: Int -> String
+letWithGuards x =
+  let result
+        | x == 0 = "zero"
+        | x == 1 = "one"
+        | otherwise = "something else"
+  in computeSomethingWithString result
+
+
 {-
 See the indentation rules to correctly indent your where clause
    in the context of the containing function and how far to indent your
@@ -100,3 +110,6 @@ somethingThatUses x = x
 
 bodyOfPatternMatch :: String
 bodyOfPatternMatch = "body of pattern match"
+
+computeSomethingWithString :: String -> String
+computeSomethingWithString _ = "string value"
