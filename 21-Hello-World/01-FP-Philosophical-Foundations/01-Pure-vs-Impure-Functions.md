@@ -27,7 +27,7 @@ Pure functions have 3 properties, but the third (marked with `*`) is expanded to
 
 <hr>
 
-In many OO languages, pure and impure code are mixed everywhere, making it hard to understand what a function does without examining its body. In FP languages, pure and impure code are separated cleanly, making it easier to understand the code without looking at its implementation.
+In many OO languages, pure and impure code are mixed everywhere, making it hard to understand what a function does without examining its body. In FP languages, pure and impure code are separated cleanly, making it easier to understand the code does without looking at its implementation.
 
 Programs written in an FP language usually have just one entry point via the `main` function. `Main` is an impure function that calls pure code.
 
