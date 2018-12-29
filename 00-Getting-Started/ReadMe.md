@@ -120,6 +120,9 @@ You might want to learn it **later** for these reasons:
 The average time for learning FP languages in general is usually 6 months due to the following reasons:
 - The syntax for FP languages are paradigmatically different than the syntax with which most developers are familiar (C/Java/Python). It takes a while just to get used to a "different" syntax family before it feels normal. Until it feels normal, reading through code examples will be harder.
     - This project's `Syntax` folder exists to counter the above issue.
+- Related to the above, FP languages often use symbol-based aliases to refer to functions that are well-known to FP Programmers instead of those functions' literal names (e.g. `<$>` instead of `map`). It's more concise and there are similarities between these symbol-based aliases that help add meaning to them. Since new learners do not already know that to which function a symbol refers, it can be hard to know what that function even does
+    - [A Pursuit search that wraps the symbol in parenthensis (e.g. `(<$>)`)](https://pursuit.purescript.org/search?q=%28%3C%24%3E%29) fixes this problem
+    - This project's `Ecosystem/Type Classes/ReadMe.md#Functions` section explains how to read the `Ecosystem/Type Classes/Type-Class-Functions.xlsx` file, which provides a table that indicates what those symbol-based fuction names are and from where they come.
 - Many tutorials/guides assume their readers already know foundational principles. New learners who read them often do not know, nor are even aware of, those foundational principles.
     - This project's `Hello World/FP Philosophical Foundations` folder exists to counter this issue
 - Many people try to re-explain something that another has already explained well and they write a poor re-explanation. It's hard to determine which explanations are accurate and correct and which are vague and mistaken until after you have already read it and/or know better.
