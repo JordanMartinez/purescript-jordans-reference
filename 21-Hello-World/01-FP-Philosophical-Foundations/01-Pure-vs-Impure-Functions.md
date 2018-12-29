@@ -35,7 +35,7 @@ Sometimes, FP programmers will still write impure code, but they will restrict t
 
 ### Graph Reduction
 
-Since FP functions are pure, one can replace the left-hand side (LHS) of a function with its right-hand side (RHS), or the body/implementation of the function:
+Since FP functions are pure, one can replace the left-hand side (LHS) of a function with its right-hand side (RHS), or the body/implementation of the function. This concept is known as **referential transparency**:
 ```purescript
 function :: Int -> Int -> Int
 function n m = n + m
