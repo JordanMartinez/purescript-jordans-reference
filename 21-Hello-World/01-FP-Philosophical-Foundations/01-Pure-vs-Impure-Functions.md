@@ -1,5 +1,7 @@
 # Philosophical Foundations for FP
 
+![Pure and Impure Functions](./resources/Pure-and-Impure-Functions.svg)
+
 Functional Programming utilizes functions to create programs and focuses on separating pure functions from impure functions. It also first describes computations before running them instead of executing them immediately.
 
 ## Pure vs Impure
