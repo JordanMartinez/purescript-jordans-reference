@@ -62,7 +62,7 @@ See the (WIP) [Purescript version of Real World App](https://github.com/thomasho
 
 This part's explanation depends on your particular background. For example, here are a few different kinds of people that might be reading this file:
 - A developer who is already competent/productive in Javascript or a compile-to-Javascript language (e.g. Coffeescript, Typescript, etc.)
-- A developer who is only starting to learn web technologies, but has heard that Javascript is horrible and is investingating other compile-to-Javascript languages.
+- A developer who is only starting to learn web technologies, but has heard that Javascript is horrible and is investigating other compile-to-Javascript languages.
 - A business person who knows very little about programming or programming languages but who wants to know more about what options are available and what their pros/cons are.
 
 These are the kinds of questions the above people might be asking:
@@ -173,7 +173,7 @@ See Phil Freeman's own blog post on the matter: [PureScript and Haskell at Lumi]
 
 Likewise, see `Hello World/Conclusion.md` for a link about introducing Haskell to a company, which relates to this.
 
-Still, see [Robert Kluin - Introducing A Functional Language At Work - λC 2018](https://www.youtube.com/watch?v=3USNLflRRUA)/[slides](https://github.com/lambdaconf/lambdaconf-2018/blob/master/LC18-slides/A%20Developer%E2%80%99s%20Guide%20to%20Introducing%20A%20Functional%20Language%20At%20Work.pdf) for a cautionary tale of "what can go wrong" and why when he attempted to introduce Scala at work.
+Still, see [Robert Kluin - Introducing A Functional Language At Work - λC 2018](https://www.youtube.com/watch?v=3USNLflRRUA)/[slides](https://github.com/lambdaconf/lambdaconf-2018/blob/master/LC18-slides/A%20Developer%E2%80%99s%20Guide%20to%20Introducing%20A%20Functional%20Language%20At%20Work.pdf) for a cautionary tale of "what can go wrong and why" when he attempted to introduce Scala at work.
 
 ## Establishing Culture
 
