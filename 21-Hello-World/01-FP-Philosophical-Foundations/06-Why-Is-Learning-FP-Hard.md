@@ -1,7 +1,15 @@
 # Why is Learning Functional Programming Hard?
 
-1. Pure functions are more restrictive than impure ones. It takes a while to learn how to do the same thing in FP code that one does in OO code.
-2. FP is heavily based on Category Theory (CT), which is very abstract and mathematical, and names its concepts after CT. This implies a lot of unfamiliar jargon that you've never heard of before.
+## No One Explains the Big Picture
+
+Here's a sneak peek as to what the design process for writing FP programs looks like:
+
+![FP--Big Picture](./resources/FP--Big-Picture.svg)
+
+## You aren't familiar with Category Theory
+
+1. FP languages are heavily based on Category Theory (CT), which is a very abstract field of mathematics, and names its concepts after CT. This implies a lot of unfamiliar jargon that you've never heard of before. Moreover, it can be difficult to understand these concepts due to how abstract they can be.
+2. Pure functions are more restrictive than impure ones. It takes a while to learn how to do the same thing in FP code that one does in OO code.
 3. Since FP code must work or not compile, debugging a compiler error can be difficult because of using complex types and having type inference work in unexpected ways.
 4. CT makes it possible to solve a problem in a number of different ways. It's easy to get lost in it all due to three levels:
 
