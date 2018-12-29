@@ -118,6 +118,8 @@ You might want to learn it **later** for these reasons:
 #### How long will it take me before I can write idiomatic code and be productive in PureScript?
 
 The average time for learning FP languages in general is usually 6 months due to the following reasons:
+- Many tutorials/guides assume their readers already know foundational principles. New learners who read them often do not know, nor are even aware of, those foundational principles.
+    - This project's `Hello World/FP Philosophical Foundations` folder exists to counter this issue
 - The syntax for FP languages are paradigmatically different than the syntax with which most developers are familiar (C/Java/Python). It takes a while just to get used to a "different" syntax family before it feels normal. Until it feels normal, reading through code examples will be harder.
     - This project's `Syntax` folder exists to counter the above issue.
 - Related to the above, FP languages often use symbol-based aliases to refer to functions that are well-known to FP Programmers instead of those functions' literal names (e.g. `<$>` instead of `map`, `<$` instead of `voidRight`, `$>` instead of `voidLeft`). It's more concise and similarities between these symbol-based aliases add meaning to them, such as their "direction." Since new learners do not already know that to which function a symbol refers, it can be hard to know what that function even does
@@ -129,8 +131,6 @@ The average time for learning FP languages in general is usually 6 months due to
 - Related to the above point, the powerful type system enables one to model some abstract ideas in a very precise way using type definitions or things called type classes. However, those concepts can be recursive (they reference themselves in their definition), use higher-kinded types (these types are, in one way, defined only "partially" to enable code that works for many cases instead of just one), or work as part of a larger system outside of their definition. Thus, it can be very hard for a new learner to understand how to read a type or a type class.
     - This project either explains or links to other explanations on the most common types that are hard to understand but frequently used: (e.g. Functor, Monad, Monad Transformers, the Free Monad)
     - However, there are some concepts (e.g. Coyoneda, Free Applicatives, Day Convolution, etc.) that are not yet covered here.
-- Many tutorials/guides assume their readers already know foundational principles. New learners who read them often do not know, nor are even aware of, those foundational principles.
-    - This project's `Hello World/FP Philosophical Foundations` folder exists to counter this issue
 - Many people try to re-explain something that another has already explained well and they write a poor re-explanation. It's hard to determine which explanations are accurate and correct and which are vague and mistaken until after you have already read it and/or know better.
     - Ironically, this entire project could be a bad re-explanation! That's why I summarize or link to other posts that I believe to be credible.
     - My sources include `Haskell Weekly`, the FP Slack community's `#purescript`/`#purescript-beginners` channels, a number of books I've read on FP programming, a number of papers I've read on FP programming, and various videos I've watched regarding FP programming. Consider yourself warned.
