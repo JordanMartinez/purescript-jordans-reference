@@ -120,6 +120,8 @@ You might want to learn it **later** for these reasons:
 The average time for learning FP languages in general is usually 6 months due to the following reasons:
 - Many tutorials/guides assume their readers already know foundational principles. New learners who read them often do not know, nor are even aware of, those foundational principles.
     - This project's `Hello World/FP Philosophical Foundations` folder exists to counter this issue
+- No one really explains what the "big picture" that FP programming is all about. Thus, it's hard to see how some concept fits in the larger scheme of things.
+    - See this project's `Hello World/FP Philosophical Foundations/07-FP--The-Big-Picture.md` file
 - The syntax for FP languages are paradigmatically different than the syntax with which most developers are familiar (C/Java/Python). It takes a while just to get used to a "different" syntax family before it feels normal. Until it feels normal, reading through code examples will be harder.
     - This project's `Syntax` folder exists to counter the above issue.
 - Related to the above, FP languages often use symbol-based aliases to refer to functions that are well-known to FP Programmers instead of those functions' literal names (e.g. `<$>` instead of `map`, `<$` instead of `voidRight`, `$>` instead of `voidLeft`). It's more concise and similarities between these symbol-based aliases add meaning to them, such as their "direction." Since new learners do not already know that to which function a symbol refers, it can be hard to know what that function even does

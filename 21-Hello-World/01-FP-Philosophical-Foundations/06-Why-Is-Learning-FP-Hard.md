@@ -1,11 +1,5 @@
 # Why is Learning Functional Programming Hard?
 
-## No One Explains the Big Picture
-
-Here's a sneak peek as to what the design process for writing FP programs looks like:
-
-![FP--Big Picture](./resources/FP--Big-Picture.svg)
-
 ## You aren't familiar with Category Theory
 
 1. FP languages are heavily based on Category Theory (CT), which is a very abstract field of mathematics, and names its concepts after CT. This implies a lot of unfamiliar jargon that you've never heard of before. Moreover, it can be difficult to understand these concepts due to how abstract they can be.
