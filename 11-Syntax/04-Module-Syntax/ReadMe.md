@@ -50,3 +50,7 @@ module Module.SubModule.SubSubModule where
 -- ... should be located in the file...
 -- src/Module/SubModule/SubSubModule.purs
 ```
+
+## Real World Naming Conventions
+
+See [the Style Guide's section on Module Names](https://github.com/purescript/documentation/blob/master/guides/Style-Guide.md#modules)
