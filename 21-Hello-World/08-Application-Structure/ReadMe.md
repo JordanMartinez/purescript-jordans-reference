@@ -25,7 +25,7 @@ When we structure our code according to the below table, it provides a number of
 | Layer 4 | Core | Strong types with well-defined properties and their pure, total functions that operate on them
 | Layer 3 | Domain | the "business logic" code which uses "effects," impure computations that are expressed in a pure way
 | Layer 2 | API | the "production" or "test" monad which "links" these pure effects/capabilties to their impure implementations
-| Layer 1 | Infrastructure | the platform-specific framework/monad we'll use to implement some special effects/capabilities (i.e. `Node.ReadLine` (terminal-based programs), `Halogen`/`React` (web-based UIs))
+| Layer 1 | Infrastructure | the platform-specific framework/libraries we'll use to implement some special effects/capabilities (i.e. `Node.ReadLine` (terminal-based programs), `Halogen`/`React` (web-based UIs))
 | Layer 0 | Machine Code<br>(no equivalent onion term) | the "base" monad that runs the program (e.g. production: `Effect`/`Aff`; test: `Identity`)
 
 To get a general idea for the concept this folder is going to try to teach:

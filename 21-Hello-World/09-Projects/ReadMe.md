@@ -24,7 +24,7 @@ When overviewing the design process of the program, we'll use the following term
 | Layer 4 | Core | Strong types with well-defined properties and their pure, total functions that operate on them
 | Layer 3 | Domain | the "business logic" code which uses effects
 | Layer 2 | API | the "production" or "test" monad which "links" these effects/capabilties to their implementations: <ul><li>a newtyped `ReaderT` and its instances</li><li>the `Free`/`Run` monad's language and its interpretation</li></ul>
-| Layer 1 | Infrastructure | the platform-specific framework/monad we'll use to implement some special effects/capabilities (i.e. `Node.ReadLine`/`Halogen`/`StateT`)
+| Layer 1 | Infrastructure | the platform-specific framework/libraries we'll use to implement some special effects/capabilities (i.e. `Node.ReadLine`/`Halogen`/`StateT`)
 | Layer 0 | Machine Code<br>(no equivalent onion term) | the "base" monad that runs the program (e.g. production: `Effect`/`Aff`; test: `Identity`)
 
 ## Explaining "Standard" vs "Layered Compilers" Terms
