@@ -408,13 +408,13 @@
       <text x="1252.5253" xml:space="preserve" y="4734.542" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Only Impure Functions exist below this line</text>
     </g>
     <g fill="rgb(255,204,0)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-887,-3028)" stroke="rgb(255,204,0)">
-      <rect x="1462.8965" width="223.9883" height="55.9062" y="5043.5561" clip-path="url(#clipPath2)" stroke="none"/>
+      <rect x="1461.0205" width="223.9883" height="55.9062" y="5043.5561" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-887,-3028)" stroke-linecap="butt">
-      <rect fill="none" x="1462.8965" width="223.9883" height="55.9062" y="5043.5561" clip-path="url(#clipPath2)"/>
-      <text x="1507.1943" xml:space="preserve" y="5061.6948" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Impure Machine Code:</text>
-      <text x="1469.8965" xml:space="preserve" y="5075.6636" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Runs the production-level program</text>
-      <text x="1536.3799" xml:space="preserve" y="5089.6323" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">via Effect/Aff</text>
+      <rect fill="none" x="1461.0205" width="223.9883" height="55.9062" y="5043.5561" clip-path="url(#clipPath2)"/>
+      <text x="1505.3184" xml:space="preserve" y="5061.6948" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Impure Machine Code:</text>
+      <text x="1468.0205" xml:space="preserve" y="5075.6636" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Runs the production-level program</text>
+      <text x="1534.5039" xml:space="preserve" y="5089.6323" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">via Effect/Aff</text>
       <text x="909.376" y="3062.8418" clip-path="url(#clipPath2)" fill="white" font-family="sans-serif" stroke="none" xml:space="preserve">Design Process' Direction</text>
       <text x="909.376" y="5075.6636" clip-path="url(#clipPath2)" fill="white" font-family="sans-serif" stroke="none" xml:space="preserve">Design Process' Direction</text>
     </g>
@@ -476,8 +476,8 @@
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-887,-3028)" stroke-linecap="butt">
       <rect fill="none" x="2075.4683" width="394.8184" height="30" y="4164.5" clip-path="url(#clipPath2)"/>
       <text x="2082.4683" xml:space="preserve" y="4183.6543" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Type Classes enable lawful easy-to-reason-about computations</text>
-      <path fill="none" d="M1574.0237 4991.3037 L1574.502 5035.5566" clip-path="url(#clipPath2)"/>
-      <path d="M1574.5885 5043.5562 L1579.4584 5031.5029 L1574.4911 5034.5566 L1569.459 5031.6108 Z" clip-path="url(#clipPath2)" stroke="none"/>
+      <path fill="none" d="M1573.0146 4991.3037 L1573.0146 5035.5562" clip-path="url(#clipPath2)"/>
+      <path d="M1573.0146 5043.5562 L1578.0146 5031.5562 L1573.0146 5034.5562 L1568.0146 5031.5562 Z" clip-path="url(#clipPath2)" stroke="none"/>
       <path fill="none" d="M985.791 3073.6875 L985.791 5048.5093" clip-path="url(#clipPath2)" stroke="white"/>
       <path fill="white" d="M985.791 5056.5093 L990.791 5044.5093 L985.791 5047.5093 L980.791 5044.5093 Z" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
