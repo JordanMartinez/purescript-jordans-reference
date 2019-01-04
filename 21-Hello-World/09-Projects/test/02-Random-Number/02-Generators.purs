@@ -1,6 +1,13 @@
 module Test.Games.RandomNumber.Generators
   ( TestData(..), TestDataRecord
-  , genTestData, genTestData'
+  , genTestData
+  , genBounds
+  , genIntWithinBounds
+  , genIncorrectGuesses
+  , mkUserInputs
+  , mkBounds_
+  , mkRemainingGuesses_
+  , mkRandomInt_
   ) where
 
 import Prelude
@@ -36,13 +43,10 @@ instance arb :: Arbitrary TestData where
 -- Main Generator
 
 genTestData :: Gen TestData
-genTestData = genTestData' (genPositiveInt 100)
-
-genTestData' :: Gen Int -> Gen TestData
-genTestData' genTotalGuesses = do
+genTestData = do
   bounds <- genBounds
   random <- genIntWithinBounds bounds
-  totalGuesses <- genTotalGuesses
+  totalGuesses <- genPositiveInt 100
   winOrLoss <- genGameResult totalGuesses
 
   case winOrLoss of
