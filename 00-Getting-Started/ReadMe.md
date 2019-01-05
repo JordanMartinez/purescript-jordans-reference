@@ -20,6 +20,7 @@ TODO, but the general idea:
 - Progressive web applications are better than native web apps in a few important ways
 - WebAssembly
 - The points mentioned in this article: [Learn Javascript in 2018](https://hackernoon.com/learn-to-code-in-2018-get-hired-and-have-fun-along-the-way-b338247eed6a)
+- [Why Founders Should Start With a Website, Not a Mobile App](https://www.atrium.co/blog/founders-should-build-website-not-mobile-app/)
 
 ### ...but not write Javascript to build it...
 
