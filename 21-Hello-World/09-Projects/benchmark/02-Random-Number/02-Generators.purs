@@ -31,7 +31,7 @@ import Test.Games.RandomNumber.Generators (
 , mkBounds_
 )
 
--- These generators take `genWithData` and separate its win/lose scenarios
+-- These generators take `genTestData` and separate its win/lose scenarios
 -- into their own generators.
 
 newtype WinData = WinData TestData
