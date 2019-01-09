@@ -2,7 +2,7 @@
 
 # This file will re-install and compile all the code in every folder
 # in this project. It assumes that one has already installed
-# purescript, pulp, and psc-package.
+# purescript, pulp, psc-package, and spachetti.
 #
 # Use it to update your entire project on new releases
 

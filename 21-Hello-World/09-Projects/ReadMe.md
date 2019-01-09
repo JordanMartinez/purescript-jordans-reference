@@ -13,7 +13,7 @@ This folder's purposes are
     - We'll introduce/overview the libraries we'll use in later projects before using them in those projects.
 - to help the reader determine which approach with which they feel most comfortable (there is no "the one and only way" to doing this)
 
-Note: each 'project' folder in the `src` folder has a corresponding folder in `test` folder. When reading through a project's files, read through its `src` folder's content before its `test` folder's content.
+Note: each 'project' folder in the `src` folder has a corresponding folder in the `test` and `benchmark` folders. When reading through a project's files, read through its `src` folder's content before its `test` folder's content, followed by its `benchmark` folder's content.
 
 ## Clarifying Our Terminology
 
@@ -24,7 +24,7 @@ When overviewing the design process of the program, we'll use the following term
 | Layer 4 | Core | Strong types with well-defined properties and their pure, total functions that operate on them
 | Layer 3 | Domain | the "business logic" code which uses effects
 | Layer 2 | API | the "production" or "test" monad which "links" these effects/capabilties to their implementations: <ul><li>a newtyped `ReaderT` and its instances</li><li>the `Free`/`Run` monad's language and its interpretation</li></ul>
-| Layer 1 | Infrastructure | the platform-specific framework/monad we'll use to implement some special effects/capabilities (i.e. `Node.ReadLine`/`Halogen`/`StateT`)
+| Layer 1 | Infrastructure | the platform-specific framework/libraries we'll use to implement some special effects/capabilities (i.e. `Node.ReadLine`/`Halogen`/`StateT`)
 | Layer 0 | Machine Code<br>(no equivalent onion term) | the "base" monad that runs the program (e.g. production: `Effect`/`Aff`; test: `Identity`)
 
 ## Explaining "Standard" vs "Layered Compilers" Terms

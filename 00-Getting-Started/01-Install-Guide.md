@@ -13,43 +13,65 @@ If you ever want to support PureScript, consider making a pledge on its [Open Co
 
 ## Setting up Purescript for the First Time
 
+### Overview
+
+We'll show how to install the following programs:
+- `purescript` - the PureScript language & compiler
+- `pulp` - a build tool for PureScript
+- `psc-package` - a dependency manager for PureScript
+
+We'll also show how to install two other entities related to `psc-package`. However, these aren't required/used in this project until the `Hello World/Benchmarking` folder. What they are and why one will should install them if using `psc-package` as their dependency manager is covered more fully in `Build Tools/Tool Comparisons/Dependency Managers.md`:
+- `spacchetti` - a project that speeds up tedious tasks that arise when using `psc-package`
+- `dhall-to-json` - a configuration language that `spacchetti` uses for outputting well-typed JSON
+
 ### Installation
 
-Justin Woo explains how to set up one's environment for the `0.12.x` release but has not been updated for two things. First, the PureScript release at the time was `0.12.0` but now `0.12.1` is out. Second, he did not include instructions for setting up [`spacchetti`](https://github.com/justinwoo/spacchetti) and its counterpart, `dhall`. Spacchetti is a project Justin later wrote to speed up tedious tasks that often arise when using `psc-package`.
+Justin Woo explains how to set up one's environment for the `0.12.x` release but has not been updated for two things. First, the PureScript release at the time was `0.12.0` but now `0.12.1` is out. Second, he did not include instructions for setting up [`spacchetti`](https://github.com/justinwoo/spacchetti) and its counterpart, `dhall-to-json`.
 
-If you just want to get things set up ASAP, follow the below summary of his article's instructions + the Spacchetti stuff. If you want to understand why you should do these commands, read [his article here](https://qiita.com/kimagure/items/570e6f2bbce5b4724564):
+If you just want to get things set up ASAP, follow the below summary of his article's instructions. If you want to understand why you should do these commands, read [his article here](https://qiita.com/kimagure/items/570e6f2bbce5b4724564):
 1. Install Node 8 or greater: https://nodejs.org/en/download/
 2. Set your npm prefix: `npm set prefix ~/.npm`
 3. Set your PATH: `export PATH="$HOME/.npm/bin:$PATH"`
 
-NPM will then be used to install 4 packages
+NPM will then be used to install these 3 packages
 - `purescript` - the PureScript binary
 - `pulp` - a build tool for PureScript
 - `psc-package` - a dependency manager for PureScript
-- `spacchetti` - already explained above
 
 To install them, run this command:
 ```bash
-npm i -g purescript@0.12.1 pulp psc-package-bin-simple spacchetti-cli-bin-simple
+npm i -g purescript@0.12.1 pulp psc-package-bin-simple
 ```
+
+<hr>
+
+To install `spacchetti`, use NPM:
+```bash
+npm i -g spacchetti-cli-bin-simple
+```
+
+To install `dhall-to-json` for your platform, see their [Getting Started](https://github.com/dhall-lang/dhall-lang/wiki/Getting-started%3A-Generate-JSON-or-YAML#installation).
+
+### Versions Used in this Project
+
 The following commands should now work (the versions beside them are the versions I used when writing this project):
 ```bash
 purs --version        # 0.12.1
 pulp --version        # 12.3.0
 psc-package --version # 0.3.2
+
+## If Spacchetti was installed...
 spacchetti version    # 0.5.0.0
 ```
 
-In addition to the above packages, you also need to install `dhall-to-json`. [Dhall](https://github.com/dhall-lang/dhall-lang):
-> Dhall is a programmable configuration language that is not Turing-complete
->
-> You can think of Dhall as: JSON + functions + types + imports
+### Building This Project
 
-Good news! You don't need to understand Dhall to use it (I've literally written the instructions / examples to copy/paste).
+Once the above has been verified, run the below script, which will download, install, and build every folder in this project. Open a shell in this project's parent folder and run this command:
+```bash
+./for-each-folder--install-deps-and-compile.sh
+```
 
-To install `dhall-to-json` for your platform, see [this page](https://github.com/dhall-lang/dhall-lang/wiki/Getting-started%3A-Generate-JSON-or-YAML)
-
-See the `Build Tools/Tool Comparisons.md` file's "Why Spacchetti"'s section for more info about why `Spacchetti` even exists.
+Whenever I make a new release with breaking changes, this script will remove any outdated dependencies, reinstall the correct ones, and rebuild all of the folders' code.
 
 ### Setting up your editor
 

@@ -1,5 +1,7 @@
 # Philosophical Foundations for FP
 
+![Pure and Impure Functions](./resources/Pure-and-Impure-Functions.svg)
+
 Functional Programming utilizes functions to create programs and focuses on separating pure functions from impure functions. It also first describes computations before running them instead of executing them immediately.
 
 ## Pure vs Impure
@@ -27,7 +29,7 @@ Pure functions have 3 properties, but the third (marked with `*`) is expanded to
 
 <hr>
 
-In many OO languages, pure and impure code are mixed everywhere, making it hard to understand what a function does without examining its body. In FP languages, pure and impure code are separated cleanly, making it easier to understand the code without looking at its implementation.
+In many OO languages, pure and impure code are mixed everywhere, making it hard to understand what a function does without examining its body. In FP languages, pure and impure code are separated cleanly, making it easier to understand the code does without looking at its implementation.
 
 Programs written in an FP language usually have just one entry point via the `main` function. `Main` is an impure function that calls pure code.
 
@@ -35,7 +37,7 @@ Sometimes, FP programmers will still write impure code, but they will restrict t
 
 ### Graph Reduction
 
-Since FP functions are pure, one can replace the left-hand side (LHS) of a function with its right-hand side (RHS), or the body/implementation of the function:
+Since FP functions are pure, one can replace the left-hand side (LHS) of a function with its right-hand side (RHS), or the body/implementation of the function. This concept is known as **referential transparency**:
 ```purescript
 function :: Int -> Int -> Int
 function n m = n + m
