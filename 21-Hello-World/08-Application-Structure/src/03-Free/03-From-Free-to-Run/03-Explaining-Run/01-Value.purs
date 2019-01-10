@@ -3,12 +3,7 @@ module Free.RunBased.Value (main, value, example_value) where
 import Prelude
 import Effect (Effect)
 import Effect.Console (log)
-import Data.Either (Either(..))
-import Data.Functor.Variant (VariantF, FProxy, inj, on, case_, default)
-import Data.Symbol (SProxy(..))
-import Run (Run, extract, lift, interpret, peel)
-import Type.Row (type (+))
-import Partial.Unsafe (unsafeCrashWith)
+import Run (Run, extract)
 
 value :: forall r. Int -> Run r Int
 value i = pure i

@@ -1,12 +1,8 @@
 module Games.RandomNumber.Free.Standard.Infrastructure.Console (main) where
 
 import Prelude
-import Control.Monad.Free (foldFree)
 import Data.Either (Either(..))
-import Effect.Random (randomInt)
-import Effect.Class (liftEffect)
 import Effect (Effect)
-import Effect.Console (log)
 import Effect.Aff (Aff, runAff_, makeAff)
 import Node.ReadLine ( Interface
                      , createConsoleInterface, noCompletion
@@ -14,7 +10,6 @@ import Node.ReadLine ( Interface
                      )
 import Node.ReadLine as NR
 
-import Games.RandomNumber.Core (unBounds)
 import Games.RandomNumber.Free.Standard.Domain (game)
 import Games.RandomNumber.Free.Standard.API (runDomain)
 

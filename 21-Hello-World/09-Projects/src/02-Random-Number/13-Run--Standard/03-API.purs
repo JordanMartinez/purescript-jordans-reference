@@ -4,20 +4,14 @@ module Games.RandomNumber.Run.Standard.API
   ) where
 
 import Prelude
-import Data.Symbol (SProxy(..))
 import Type.Row (type (+))
 import Data.Functor.Variant (on)
-import Run (Run, FProxy, lift, interpret, case_, AFF)
-import Data.Int (fromString)
-import Data.Either (Either(..))
-import Data.Maybe (Maybe(..))
+import Run (Run, interpret, case_)
 import Effect.Aff (Aff)
 import Effect.Class (liftEffect)
 import Effect.Console (log)
 import Effect.Random (randomInt)
-import Games.RandomNumber.Core ( Bounds, mkBounds, unBounds, mkGuess, mkRandomInt
-                               , mkRemainingGuesses, totalPossibleGuesses
-                               )
+import Games.RandomNumber.Core (unBounds)
 
 import Games.RandomNumber.Run.Standard.Domain (
   NotifyUserF(..), _notifyUser, NOTIFY_USER
