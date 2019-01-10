@@ -8,20 +8,12 @@ module Performance.Games.RandomNumber.Generators
 
 import Prelude
 
-import Control.Monad.Gen.Common (genMaybe)
 import Data.Array (snoc)
-import Data.Either (fromRight)
-import Data.Maybe (Maybe(..))
-import Data.NonEmpty ((:|))
-import Data.Tuple (Tuple(..))
-import Games.RandomNumber.Core (Bounds, RemainingGuesses, RandomInt, GameResult(..), mkBounds, mkRemainingGuesses, mkRandomInt, decrement)
-import Partial.Unsafe (unsafePartial)
-import Test.QuickCheck.Arbitrary (class Arbitrary)
-import Test.QuickCheck.Gen (Gen, chooseInt, oneOf, suchThat, vectorOf, randomSample)
+import Games.RandomNumber.Core (GameResult(..))
+import Test.QuickCheck.Gen (Gen)
 
 import Test.Games.RandomNumber.Generators (
   TestData(..)
-, TestDataRecord
 , genBounds
 , genIntWithinBounds
 , genIncorrectGuesses
