@@ -3,10 +3,7 @@ module Free.Add (AddF(..), add, addAlgebra, showAddExample) where
 import Prelude hiding (add)
 import Effect (Effect)
 import Effect.Console (log)
-import Control.Monad.Free (Free, wrap, liftF)
-import Data.Either (Either(..))
-import Data.Functor.Coproduct (Coproduct, coproduct)
-import Data.Functor.Coproduct.Inject (inj)
+import Control.Monad.Free (Free, wrap)
 import Free.Value (iter, value)
 
 --------------------------------------------------
