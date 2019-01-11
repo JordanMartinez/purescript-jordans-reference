@@ -1,7 +1,7 @@
 dist: xenial
 language: node_js
-  # use latest version of NodeJS
   - "node"
+  # ^ use latest version of NodeJS
 
 # Unless we specify "sudo: false", build runs in VM, not container
 
@@ -16,35 +16,32 @@ branches:
 
 # Define environment
 env:
-  # true regardless of matrix
   global:
     - DHALL_TO_JSON_VERSION=1.20.1
+    # ^ true regardless of matrix
 
 before_install:
-  # Include the folder on PATH that will store the "dhall-to-json" binary
   - export PATH=$HOME/bin:$PATH
+  # ^ Include the folder that will store the "dhall-to-json" binary on PATH
 
 install:
-  # Download Dhall-to-JSON archive
   - wget -O $HOME/dhall-json.tar.gz https://github.com/dhall-lang/dhall-haskell/releases/download/$DHALL_TO_JSON_VERSION/dhall-json-$DHALL_TO_JSON_VERSION-x86_64-linux.tar.bz2
-  # Make directory, so that next command works (directory must already exist)
+  # ^ Download the Dhall-to-JSON archive
   - mkdir $HOME/dhall-json
-  # Extract the contents into this directory
+  # ^ Make directory, so that next command works (directory must already exist)
   - tar --extract --bzip2 --file $HOME/dhall-json.tar.gz -C $HOME/dhall-json/
-  # dhall-json comes with two binaries, but we only need 'dhall-to-json'
-  # Move that binary into $HOME/bin/ so that it is on the PATH
+  # ^ Extract the contents into this directory
   - mv $HOME/dhall-json/bin/dhall-to-json $HOME/bin/
-
-  # Use NPM to install most packages
+  # ^ dhall-json comes with two binaries, but we only need 'dhall-to-json'
+  # Move that binary into $HOME/bin/ so that it is on the PATH
   - npm i -g purescript@0.12.1 pulp psc-package-bin-simple spacchetti-cli-bin-simple
-
-  # Crudely print installed packages' versions
+  # ^ Use NPM to install most packages
   - chmod +x .travis/psc-package--print-versions.sh
   - ./.travis/psc-package--print-versions.sh
-
-  # Install each folder's contents using custom script
+  # ^ Crudely print installed packages' versions
   - chmod +x .travis/psc-package--install.sh
   - ./.travis/psc-package--install.sh
+  # ^ Install each folder's contents using custom script
 
 before_script:
   - chmod +x .travis/psc-package--build-and-test.sh
@@ -54,42 +51,29 @@ script:
 
 cache:
   directories:
-    # Syntax
     - 11-Syntax/01-Basic-Syntax/.psc-package
     - 11-Syntax/01-Basic-Syntax/output
-
     - 11-Syntax/02-Foreign-Function-Interface/.psc-package
     - 11-Syntax/02-Foreign-Function-Interface/output
-
     - 11-Syntax/03-Type-Level-Programming-Syntax/.psc-package
     - 11-Syntax/03-Type-Level-Programming-Syntax/output
-
     - 11-Syntax/04-Module-Syntax/.psc-package
     - 11-Syntax/04-Module-Syntax/output
-
     - 11-Syntax/05-Prelude-Syntax/.psc-package
     - 11-Syntax/05-Prelude-Syntax/output
-
-    # Hello World
     - 21-Hello-World/03-Hello-World-and-Effects/.psc-package
     - 21-Hello-World/03-Hello-World-and-Effects/output
-
     - 21-Hello-World/04-Debugging/.psc-package
     - 21-Hello-World/04-Debugging/output
-
     - 21-Hello-World/05-Testing/.psc-package
     - 21-Hello-World/05-Testing/output
-
     - 21-Hello-World/06-Benchmarking/.psc-package
     - 21-Hello-World/06-Benchmarking/output
     - 21-Hello-World/06-Benchmarking/node_modules
-
     - 21-Hello-World/07-Type-Level-Programming/.psc-package
     - 21-Hello-World/07-Type-Level-Programming/output
-
     - 21-Hello-World/08-Application-Structure/.psc-package
     - 21-Hello-World/08-Application-Structure/output
-
     - 21-Hello-World/09-Projects/.psc-package
     - 21-Hello-World/09-Projects/output
     - 21-Hello-World/09-Projects/node_modules

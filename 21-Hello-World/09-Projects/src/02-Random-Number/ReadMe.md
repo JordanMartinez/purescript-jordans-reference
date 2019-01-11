@@ -26,6 +26,7 @@ pulp --psc-package browserify -O -m Games.RandomNumber.Run.Standard.Infrastructu
 pulp --psc-package test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
 pulp --psc-package test -m Test.Games.RandomNumber.ReaderT.Standard.SameMonad
 pulp --psc-package test -m Test.Games.RandomNumber.Run.Standard.Infrastructure
+pulp --psc-package test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
 ```
 
 ### Layered
