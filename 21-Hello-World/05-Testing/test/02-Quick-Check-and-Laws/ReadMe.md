@@ -11,10 +11,16 @@ For a longer explanation of the original Haskell QuickCheck:
 
 ## Compilation Instructions
 
-Use this command:
+Use these commands to compare the test results:
 ```bash
-# Syntax
-pulp --psc-package test -m [moduleName]
-# Example
+# Unit Tests
+pulp --psc-package test -m Test.Spec.Examples.SelfContained.ConsoleReporter
+pulp --psc-package test -m Test.Spec.Examples.SelfContained.DotReporter
+pulp --psc-package test -m Test.Spec.Examples.SelfContained.SpecReporter
+pulp --psc-package test -m Test.Spec.Examples.SelfContained.TapReporter
+
+pulp --psc-package test -m Test.Spec.Examples.Modulated.Runner
+
+# Quick Check
 pulp --psc-package test -m Test.QuickCheckSyntax
 ```
