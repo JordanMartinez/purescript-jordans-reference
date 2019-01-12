@@ -144,3 +144,23 @@ From the Slack channel, garyb mentioned passing the `--verbose-errors` flag to t
 pulp --psc-package build -- --verbose-errors
 pulp --psc-package build -- -v
 ```
+
+# Improve Error Messages when using `unsafePartial` to un-Partial Functions
+
+(This section assumes familiarity with the `Design Patterns/Partial Functions/` folder)
+
+Taken from [safareli's comment in "When should you use primitive types instead of custom types?""](https://discourse.purescript.org/t/when-should-you-use-primitive-types-instead-of-custom-types/450/14?u=jordanmartinez), there might be times where you want to use a partial function to get or compute some value that might not be there. If one just uses `unsafePartial $ <unsafeFunction>`, the error message will likely not be helpful:
+```purescript
+-- Don't do this.
+foo :: forall a. Maybe a -> a
+foo mightBeHere =
+                  -- we assume that 'mightBeHere' is the "Just a" constructor
+  unsafePartial $ fromJust mightBeHere
+```
+`sarafeli`'s suggestion is to pattern match on the value and use `unsafeCrashWith` instead to provide a much better error message in case your assumption is proven invalid.
+```purescript
+foo :: forall a. Maybe a -> a
+foo mightBeHere = case mightBeHere of
+  Nothing -> unsafeCrashWith "'mightBeHere' should be a valid 'a'"
+  Just v -> v
+```
