@@ -62,3 +62,4 @@ TODO
     - (unofficial) [PDF / Hard back of all his blog posts](https://github.com/hmemcpy/milewski-ctfp-pdf)
     - [blogs](https://bartoszmilewski.com/2014/10/28/category-theory-for-programmers-the-preface/)
     - [videos](https://www.youtube.com/playlist?list=PLbgaMIhjbmEnaH_LTkxLI7FMa2HsnawM_)
+- Tom Leinster's [Basic Category Theory](https://arxiv.org/abs/1612.09375) (intended audience: people with "relatively little mathematics background)

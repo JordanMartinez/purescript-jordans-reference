@@ -81,3 +81,14 @@ In short, the type checker will use the FDs to determine how it should "unify"
 the types together. If one FD fails, it'll go to the next one. If all of them
 fail, it'll assume that there is no such type class instance.
 -}
+
+{-
+In Haskell literature, functional dependencies can also be written as
+"Type Families." To see how one can write the same concept in both
+styles, see the below link:
+https://wiki.haskell.org/GHC/Type_families#The_class_declaration_2
+
+For advantages/disadvantages of both approaches, see these links:
+https://wiki.haskell.org/Functional_dependencies_vs._type_families
+https://ghc.haskell.org/trac/ghc/wiki/TFvsFD
+-}

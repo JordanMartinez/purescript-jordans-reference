@@ -60,7 +60,7 @@ Since Purescript is heavily inspired by and very similar to Haskell, one can lea
 | Action | Pros | Cons |
 | --- | --- | --- |
 | Read the documentation and source code for a type class and a few data types' implementations of said type classes | Free | Takes a lot of time; requires intuition to understand type class' usefulness / relation to others.
-| Read the relevant chapters from [Learn You a Haskell for Great Good](http://learnyouahaskell.com/chapters) | Free | I read elsewhere that it's "outdated"
+| Read the relevant chapters from [Learn You a Haskell for Great Good](http://learnyouahaskell.com/chapters) | Free | I read elsewhere that it's "outdated". See [this Reddit comment's warning about learning from LYAHH](https://www.reddit.com/r/programming/comments/50m99l/new_edition_of_programming_in_haskell_now/d75pyxf/)
 | Read through some of the free course materials taught by someone well informed about Haskell [here (you'll need to scroll towards the bottom)](https://github.com/bitemyapp/learnhaskell) | Free; more principled explanations | Looking at just slides without hearing someone teach using them is not usually as clear as when someone does teach using them or reading through a textbook on the same matter.
 | Read through the extremely lengthy ["What I wish I knew when learning Haskell"](http://dev.stephendiehl.com/hask/) site | Free; provides a better overview of basic to advanced topics | Very long; not necessarily deep and clear in its explanations
 | Read and do the exercises from [The Haskell Book](http://haskellbook.com/) | The "standard" for teaching Haskell and FP concepts in general: good explanations; good exercises; teaches "programming in the small" | Costs money; costs time; the exercises will stretch you

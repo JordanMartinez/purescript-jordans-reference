@@ -1,7 +1,7 @@
 # Why is Learning Functional Programming Hard?
 
 1. <del>FP languages are heavily based on Category Theory (CT), which is a very abstract field of mathematics, and names its concepts after CT. This implies a lot of unfamiliar jargon that you've never heard of before. Moreover, it can be difficult to understand these concepts due to how abstract they can be.</del>
-    - This above point might be reinforcing a myth that is wrong. The myth is, "One must know Category Theory to use PureScript/Haskell."
+    - This above point might be reinforcing a myth that is wrong. The myth is, "One must know Category Theory to use PureScript/Haskell." For more context, see [hdgarrood's comment](https://discourse.purescript.org/t/main-ideas-diagrams-of-category-theory-part-1-videos-1-1-to-3-1/567/7?u=jordanmartinez) in [Main Ideas / Diagrams of Category Theory, Part 1, Videos 1.1 to 3.1](https://discourse.purescript.org/t/main-ideas-diagrams-of-category-theory-part-1-videos-1-1-to-3-1/567)
 2. Pure functions are more restrictive than impure ones. It takes a while to learn how to do the same thing in FP code that one does in OO code.
 3. CT makes it possible to solve a problem in a number of different ways. It's easy to get lost in it all due to three levels:
 
