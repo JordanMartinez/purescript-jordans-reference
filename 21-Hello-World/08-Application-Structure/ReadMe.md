@@ -8,6 +8,7 @@ The upcoming folders will explain
 - a small explanation on the onion architecture / 3-Layer Haskell Cake concepts
 - an overview of what MTL and Free/Run are and how they work conceptually
 - how to structure an FP program via MTL and Free/Run
+- examples of basic programs using these application architecture styles. We'll start with the simplest "hello world" program that uses only one effect and write programs that use more and more effects/capabilities.
 
 These will later be used to write games/programs that run in Node via the console and in the Browser via Halogen
 
@@ -31,10 +32,6 @@ When we structure our code according to the below table, it provides a number of
 To get a general idea for the concept this folder is going to try to teach:
 - Watch [Functional Architecture - The Pits of Success](https://www.youtube.com/watch?v=US8QG9I1XW0)
 - Optional but also worth watching: [Boundaries](https://www.destroyallsoftware.com/talks/boundaries)
-
-### Simplest Examples of Each Approach
-
-As you read through this folder's contents (or afterward), check out this project's `Hello World/Projects/src/Simplest Program` folder. It provides a very simple program that is structured according to each architecture style explained in this folder. Once familiar, a new learner will see these patterns used extensively in the ecosystem.
 
 ### A Word of Thanks
 
