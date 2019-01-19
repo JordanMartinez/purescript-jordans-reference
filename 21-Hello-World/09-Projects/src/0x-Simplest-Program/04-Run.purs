@@ -126,7 +126,6 @@ generateRandomIntToEffect (GenerateRandomInt reply) = do
 --      all effects/capabilities are interpreted.
 --   Any values or functions that are needed by Reader are passed in
 --      from the outside (i.e. `envRecord`)
-
 runProgram :: Environment ->
               Run ( reader :: READER Environment
                   | LOG_TO_SCREEN
