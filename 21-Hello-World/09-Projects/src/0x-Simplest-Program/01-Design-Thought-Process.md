@@ -12,7 +12,7 @@ We'll first define the types we'll be using throughout our program. Since the on
 
 ## Level 3 / Domain
 
-The program consists of 2 steps:
+The program consists of 3 steps:
 1. generate a random integer
 2. get the hardcoded integer value from the global configuration
 3. log whether the random integer is less than, equal to, or greater than our hard-coded integer
