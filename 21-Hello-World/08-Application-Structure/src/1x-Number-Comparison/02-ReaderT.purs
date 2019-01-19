@@ -1,4 +1,4 @@
-module Projects.SimplestProgram.ReaderT where
+module Projects.NumberComparison.ReaderT where
 
 import Prelude
 import Effect (Effect)

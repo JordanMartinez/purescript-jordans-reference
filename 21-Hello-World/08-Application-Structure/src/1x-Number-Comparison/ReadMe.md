@@ -13,7 +13,7 @@ The upcoming projects will build on this pattern and include tests/benchmarks th
 Run the following while in the `Hello World/Projects/` folder.
 
 ```bash
-pulp --psc-package run -m Projects.SimplestProgram.ReaderT
-pulp --psc-package run -m Projects.SimplestProgram.Free
-pulp --psc-package run -m Projects.SimplestProgram.Run
+pulp --psc-package run -m Projects.NumberComparison.ReaderT
+pulp --psc-package run -m Projects.NumberComparison.Free
+pulp --psc-package run -m Projects.NumberComparison.Run
 ```
