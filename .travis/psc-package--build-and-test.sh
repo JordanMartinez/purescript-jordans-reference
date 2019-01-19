@@ -86,7 +86,15 @@ cd 21-Hello-World/09-Projects/
 pwd
 # Build but do not run benchmark tests
 pulp --psc-package build --src-path "benchmark" --include "src:test"
-HELLO_RANDOM_BUILT_OK=$?
+HELLO_PROJECTS_BUILT_OK=$?
+
+# Run the "Simplest Program" examples
+pulp --psc-package run -m Projects.SimplestProgram.ReaderT
+HELLO_SIMPLEST_PROGRAM_READERT=$?
+pulp --psc-package run -m Projects.SimplestProgram.Free
+HELLO_SIMPLEST_PROGRAM_FREE=$?
+pulp --psc-package run -m Projects.SimplestProgram.Run
+HELLO_SIMPLEST_PROGRAM_RUN=$?
 
 # Node-based tests
 pulp --psc-package test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
@@ -113,7 +121,10 @@ echo "$HELLO_TESTING - Hello World - Testing"
 echo "$HELLO_BENCHMARK - Hello World - Benchmarking"
 echo "$HELLO_TLP - Hello World - Type-Level Programming"
 echo "$HELLO_APP_STRUCT - Hello World - Application Structure"
-echo "$HELLO_RANDOM_BUILT_OK - Hello World - Projects - RandomNumber - Builds Correctly"
+echo "$HELLO_PROJECTS_BUILT_OK - Hello World - Projects - All - Builds Correctly"
+echo "$HELLO_SIMPLEST_PROGRAM_READERT - Hello World - Simplest Program - ReaderT"
+echo "$HELLO_SIMPLEST_PROGRAM_FREE - Hello World - Simplest Program - Free"
+echo "$HELLO_SIMPLEST_PROGRAM_RUN - Hello World - Simplest Program - Run"
 echo "$HELLO_RANDOM_TEST_READERT_DIFFERENT - Hello World - Projects - RandomNumber - ReaderT Test (Different)"
 echo "$HELLO_RANDOM_TEST_READERT_SAME - Hello World - Projects - RandomNumber - ReaderT Test (Same)"
 echo "$HELLO_RANDOM_TEST_RUN_STANDARD - Hello World - Projects - RandomNumber - Run Test (Standard)"
@@ -131,6 +142,9 @@ if [ $SYNTAX_BASIC == 0 ] &&
    [ $HELLO_TLP == 0 ] &&
    [ $HELLO_APP_STRUCT == 0 ] &&
    [ $HELLO_RANDOM_BUILT_OK == 0 ] &&
+   [ $HELLO_SIMPLEST_PROGRAM_READERT == 0 ] &&
+   [ $HELLO_SIMPLEST_PROGRAM_FREE == 0 ] &&
+   [ $HELLO_SIMPLEST_PROGRAM_RUN == 0 ] &&
    [ $HELLO_RANDOM_TEST_READERT_DIFFERENT == 0 ] &&
    [ $HELLO_RANDOM_TEST_READERT_SAME == 0 ] &&
    [ $HELLO_RANDOM_TEST_RUN_STANDARD == 0 ] &&
