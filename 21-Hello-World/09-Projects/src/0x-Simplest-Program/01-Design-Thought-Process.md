@@ -13,25 +13,25 @@ We'll first define the types we'll be using throughout our program. Since the on
 ## Level 3 / Domain
 
 The program consists of 2 steps:
-1. generate a random number
-2. log whether this value is less than, equal to, or greater than our hard-coded value
-
-The following image is the general flow of the program:
-![Control-Flow](./images/Control-Flow.svg)
+1. generate a random integer
+2. get the hardcoded integer value from the global configuration
+3. log whether the random integer is less than, equal to, or greater than our hard-coded integer
 
 ## Level 2 / API
 
 The "effects" or "capabilities" we need to run this program are relatively simple:
 - The capability to generate a random `Int` value (Note: this random number generator does not need cryptography-level security)
 - The capability to send a message to the user
+- The capability to get the hard-coded value from the global configuration
 
 ## Level 1 / Infrastructure
 
-Each of the above capabilities can be obtained by a few different things:
+These two capabilities can be obtained by the runtime system:
 - The random number generation can be done via the `Effect.Random (randomInt)` function
 - For this program, we will only "send a message to the user" in one way: log it to the console. In future projects, we could also use Halogen (or React) to print a message to our web app.
+
+Getting the hard-coded value requires us to use a `ReaderT`-like approach to getting that value.
 
 ## Level 0 / Machine Code
 
 Production: we'll use `Effect` as our base monad to run the code
-Test: we'll use `Identity` as our base monad and QuickCheck to test our domain logic.
