@@ -2,8 +2,6 @@
 
 This program will generate a random number, determine whether that random number is greater than or less to a hard-coded value (to simulate a domain idea) and then print its results.
 
-**Note:** one should read through this project's corresponding test folder's `Test Thought-Process.md` file as it further clarifies a few things said below.
-
 ## Level 4 / Core
 
 We'll first define the types we'll be using throughout our program. Since the only domain-specifc idea we want to model is a hard-coded number that has no properties or relationships with other values, this will be simple:
