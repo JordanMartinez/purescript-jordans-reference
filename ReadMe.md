@@ -10,7 +10,7 @@ This repo is my way of trying to use the [Feynman Technique](https://medium.com/
 - 01-Build-Tools - how to use the tools in the ecosystem to manage dependencies, compile source code, and build projects
     - Overview of the dependency managers
     - Other build tools
-- 11-Syntax - Purescript's syntax explained using meta-language and verified by the compiler (PS versions: `0.12.1`)
+- 11-Syntax - Purescript's syntax explained using meta-language and verified by the compiler (PS versions: `0.12.2`)
     - Basic Syntax
     - Foreign Function Interface Syntax
     - Type-Level Programming Syntax
