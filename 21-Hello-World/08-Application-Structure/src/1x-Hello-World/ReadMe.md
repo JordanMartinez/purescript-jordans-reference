@@ -6,10 +6,10 @@ This is as simple as can be: the program prints "hello world" to the console and
 
 ## Compilation Instructions
 
-Run the following while in the `Hello World/Projects/` folder.
+Run the following while in the `Hello World/Application Structure/` folder.
 
 ```bash
-pulp --psc-package run -m Projects.HelloWorld.ReaderT
-pulp --psc-package run -m Projects.HelloWorld.Free
-pulp --psc-package run -m Projects.HelloWorld.Run
+pulp --psc-package run -m Examples.HelloWorld.ReaderT
+pulp --psc-package run -m Examples.HelloWorld.Free
+pulp --psc-package run -m Examples.HelloWorld.Run
 ```

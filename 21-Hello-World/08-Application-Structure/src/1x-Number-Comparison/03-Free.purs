@@ -1,4 +1,4 @@
-module Projects.NumberComparison.Free where
+module Examples.NumberComparison.Free where
 
 import Prelude
 import Effect (Effect)

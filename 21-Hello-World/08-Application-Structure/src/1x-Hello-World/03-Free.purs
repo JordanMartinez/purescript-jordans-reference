@@ -1,4 +1,4 @@
-module Projects.HelloWorld.Free where
+module Examples.HelloWorld.Free where
 
 import Prelude
 import Effect (Effect)

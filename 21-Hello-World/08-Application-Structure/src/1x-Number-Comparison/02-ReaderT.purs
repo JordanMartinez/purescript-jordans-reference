@@ -1,4 +1,4 @@
-module Projects.NumberComparison.ReaderT where
+module Examples.NumberComparison.ReaderT where
 
 import Prelude
 import Effect (Effect)

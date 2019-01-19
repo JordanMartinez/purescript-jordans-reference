@@ -1,4 +1,4 @@
-module Projects.HelloWorld.Run where
+module Examples.HelloWorld.Run where
 
 import Prelude
 import Effect (Effect)

@@ -1,4 +1,4 @@
-module Projects.HelloWorld.ReaderT where
+module Examples.HelloWorld.ReaderT where
 
 import Prelude
 import Effect (Effect)

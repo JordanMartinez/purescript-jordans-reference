@@ -10,10 +10,10 @@ The upcoming projects will build on this pattern and include tests/benchmarks th
 
 ## Compilation Instructions
 
-Run the following while in the `Hello World/Projects/` folder.
+Run the following while in the `Hello World/Application Structure/` folder.
 
 ```bash
-pulp --psc-package run -m Projects.NumberComparison.ReaderT
-pulp --psc-package run -m Projects.NumberComparison.Free
-pulp --psc-package run -m Projects.NumberComparison.Run
+pulp --psc-package run -m Examples.NumberComparison.ReaderT
+pulp --psc-package run -m Examples.NumberComparison.Free
+pulp --psc-package run -m Examples.NumberComparison.Run
 ```
