@@ -58,7 +58,7 @@ TODO, but the general idea is:
     - easy to add/change/remove a "backend" to account for trends, new insights, or faster code (Without introducing a new bug or deleting a current feature, can I switch from Company A's database to Company B's database without rewriting more than 30 lines of code?)
     - unconcerning to allow a new developer to work on the code, knowing that he/she cannot screw up anything major (Can the Lead/Senior Developer take the weekend off and return, knowing that it's extraordinarily difficult for developers with little experience to break something?)
 
-See the (WIP) [Purescript version of Real World App](https://github.com/thomashoneyman/purescript-halogen-realworld)
+See the [Purescript version of Real World App](https://github.com/thomashoneyman/purescript-halogen-realworld)
 
 <hr>
 
