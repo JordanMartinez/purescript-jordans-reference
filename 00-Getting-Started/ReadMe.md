@@ -42,7 +42,7 @@ TODO, but the general idea is:
 **TL;DR**
 
 TODO, but the general idea is:
-- https://www.youtube.com/watch?time_continue=22&v=5AtyWgQ3vv0
+- [Purescript: Tomrrow's Javascript Today](https://www.youtube.com/watch?time_continue=22&v=5AtyWgQ3vv0)
 - [Phil Freeman's post: 'Why You Should Use PureScript'](https://gist.github.com/paf31/adfd15fbb1ac8b99fc68be2c9aca8427)
 - type-level programming
 - compiles to other languages beside Javascript: C, C++, Erlang, and Swift
