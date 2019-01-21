@@ -6,15 +6,25 @@ This folder will explain the basic idea of `purescript-run` and then solve the p
 
 If you recall, `xgromxx` mentions [`purescript-run`](https://pursuit.purescript.org/packages/purescript-run/2.0.0) in [a comment in `ADT8.purs`](https://github.com/xgrommx/purescript-from-adt-to-eadt/blob/master/src/ADT8.purs#L11). (The ReadMe of this library provides an overview of the ideas we've explained here.)
 
-What is `purescript-run`? Why would we use that over `Free`? There are two reasons.
+What is `purescript-run`? Why would we use that over `Free`? There are three reasons.
+
 First, let's look at the type of `Run` :
 ```purescript
 newtype Run r a = Run (Free (VariantF r) a)
 ```
+We can see that `Run` is a compile-time-only type that specifies the `Functor` type of `Free` to the open `CoProduct` type: `VariantF`.
 
-In other words, `Run` is a compile-time-only type that specifies the `Functor` type of `Free` to the open `CoProduct` type: `VariantF`. Rather than writing `Free (VariantF (add :: FProxy Add) Int`, which is quite verbose, one can write `Run (add :: FProxy Add) Int`. The `Run` abstraction draws attention to the row kind and removes the noise of `Free VariantF`.
+Let's compare the same idea encoded in both forms (note: `Run` will use naming conventions that will be explained below):
+```purescript
+free :: Free (VariantF (add :: FProxy Add, subtract :: FProxy Subtract)) a
+-- is the same as
+run  :: Run (ADD + SUBTRACT) a
+```
+**In short, `Run` draws attention to the effects used and eliminates other distracting "noise" that occurs due to a lot of types.**
 
-Second, this library exposes [functions](https://pursuit.purescript.org/packages/purescript-run/2.0.0/docs/Run#v:interpret) that add a [`MonadRec` type class](https://pursuit.purescript.org/packages/purescript-tailrec/4.0.0/docs/Control.Monad.Rec.Class#t:MonadRec) constraint to guarantee that stack overflows won't occur. Due to the recursive nature by which one "interprets" a `Free` monad, `Free`'s functions can sometimes result in stack overflows. **See the "Stack-Safety" section at the bottom of the project's ReadMe.**
+Second, this library exposes helper [functions](https://pursuit.purescript.org/packages/purescript-run/2.0.0/docs/Run#v:interpret) that add a [`MonadRec` type class](https://pursuit.purescript.org/packages/purescript-tailrec/4.0.0/docs/Control.Monad.Rec.Class#t:MonadRec) constraint to guarantee that stack overflows won't occur. Due to the recursive nature by which one "interprets" a `Free` monad, `Free`-based computations can sometimes result in stack overflows. **These helper functions make it trivial to insure stack-safety.** See the "Stack-Safety" section at the bottom of the project's ReadMe for more info.
+
+Third, **this library already defines types and functions for using and working with different effects** (e.g. `StateT`, `ReaderT`, `WriterT`, etc. but for the `Free` monad). One does not need to re-implement these types for each project, so that the code works every time. (These are also covered more below)
 
 ## Comparing Run to Free and MTL
 
@@ -74,7 +84,8 @@ type EXCEPT e = FProxy (Except e)
 type FAIL = EXCEPT Unit
 ```
 The takeaways here:
-- We have type aliases for most of the monads we originally explained in the `MTL` folder. The `a` in each type is the output type, so it is excluded.
+- As stated above, `purescript-run` already defines and properly handles the types that make the same effects we saw in the `MTL` folder work out-of-box.
+- The `a` in each type is the output type, so it is excluded.
 - `FAIL` indicates an error whose type we don't care about.
 
 #### MTL-Like Functions
@@ -96,6 +107,7 @@ In short, one can use a `Run`-based monad to do two different state computations
 
 ## Examples of MTL-Like Run-Based Code
 
+- See this project's `Hello World/Projects/src/Simplest Program` folder for an example of what a very simple program with a `Run`-based architecture looks like.
 - [A simple program using multiple effects](https://pursuit.purescript.org/packages/purescript-run/2.0.0/docs/Run#t:Run)
 - A [short explanation from Free to Run](https://github.com/natefaubion/purescript-run#free-dsls) that also covers `Coproduct`/`VariantF` and whose code can be found in the project's test directory:
     - [Examples.purs](https://github.com/natefaubion/purescript-run/blob/master/test/Examples.purs)

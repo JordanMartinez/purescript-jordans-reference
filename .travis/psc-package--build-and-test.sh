@@ -79,14 +79,32 @@ cd ../../
 cd 21-Hello-World/08-Application-Structure/
 pwd
 pulp --psc-package build
-HELLO_APP_STRUCT=$?
+HELLO_APP_STRUCT_BUILT_OK=$?
+
+# Run the example programs
+## Hello World
+pulp --psc-package run -m Examples.HelloWorld.ReaderT
+HELLO_EXAMPLE_HELLO_WORLD_READERT=$?
+pulp --psc-package run -m Examples.HelloWorld.Free
+HELLO_EXAMPLE_HELLO_WORLD_FREE=$?
+pulp --psc-package run -m Examples.HelloWorld.Run
+HELLO_EXAMPLE_HELLO_WORLD_RUN=$?
+
+## Number Comparison
+pulp --psc-package run -m Examples.NumberComparison.ReaderT
+HELLO_EXAMPLE_NUMBER_COMPARISON_READERT=$?
+pulp --psc-package run -m Examples.NumberComparison.Free
+HELLO_EXAMPLE_NUMBER_COMPARISON_FREE=$?
+pulp --psc-package run -m Examples.NumberComparison.Run
+HELLO_EXAMPLE_NUMBER_COMPARISON_RUN=$?
+
 cd ../../
 
 cd 21-Hello-World/09-Projects/
 pwd
 # Build but do not run benchmark tests
 pulp --psc-package build --src-path "benchmark" --include "src:test"
-HELLO_RANDOM_BUILT_OK=$?
+HELLO_PROJECTS_BUILT_OK=$?
 
 # Node-based tests
 pulp --psc-package test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
@@ -112,8 +130,14 @@ echo "$HELLO_DEBUGGING - Hello World - Debugging"
 echo "$HELLO_TESTING - Hello World - Testing"
 echo "$HELLO_BENCHMARK - Hello World - Benchmarking"
 echo "$HELLO_TLP - Hello World - Type-Level Programming"
-echo "$HELLO_APP_STRUCT - Hello World - Application Structure"
-echo "$HELLO_RANDOM_BUILT_OK - Hello World - Projects - RandomNumber - Builds Correctly"
+echo "$HELLO_APP_STRUCT_BUILT_OK - Hello World - Application Structure - Builds correctly"
+echo "$HELLO_EXAMPLE_HELLO_WORLD_READERT - Hello World - Application Structure - Hello World - ReaderT"
+echo "$HELLO_EXAMPLE_HELLO_WORLD_FREE - Hello World - Application Structure - Hello World - Free"
+echo "$HELLO_EXAMPLE_HELLO_WORLD_RUN - Hello World - Application Structure - Hello World - Run"
+echo "$HELLO_EXAMPLE_NUMBER_COMPARISON_READERT - Hello World - Application Structure - Number Comparison - ReaderT"
+echo "$HELLO_EXAMPLE_NUMBER_COMPARISON_FREE - Hello World - Application Structure - Number Comparison - Free"
+echo "$HELLO_EXAMPLE_NUMBER_COMPARISON_RUN - Hello World - Application Structure - Number Comparison - Run"
+echo "$HELLO_PROJECTS_BUILT_OK - Hello World - Projects - All - Builds Correctly"
 echo "$HELLO_RANDOM_TEST_READERT_DIFFERENT - Hello World - Projects - RandomNumber - ReaderT Test (Different)"
 echo "$HELLO_RANDOM_TEST_READERT_SAME - Hello World - Projects - RandomNumber - ReaderT Test (Same)"
 echo "$HELLO_RANDOM_TEST_RUN_STANDARD - Hello World - Projects - RandomNumber - Run Test (Standard)"
@@ -129,8 +153,14 @@ if [ $SYNTAX_BASIC == 0 ] &&
    [ $HELLO_TESTING == 0 ] &&
    [ $HELLO_BENCHMARK == 0 ] &&
    [ $HELLO_TLP == 0 ] &&
-   [ $HELLO_APP_STRUCT == 0 ] &&
-   [ $HELLO_RANDOM_BUILT_OK == 0 ] &&
+   [ $HELLO_APP_STRUCT_BUILT_OK == 0 ] &&
+   [ $HELLO_EXAMPLE_HELLO_WORLD_READERT == 0 ] &&
+   [ $HELLO_EXAMPLE_HELLO_WORLD_FREE == 0 ] &&
+   [ $HELLO_EXAMPLE_HELLO_WORLD_RUN == 0 ] &&
+   [ $HELLO_EXAMPLE_NUMBER_COMPARISON_READERT == 0 ] &&
+   [ $HELLO_EXAMPLE_NUMBER_COMPARISON_FREE == 0 ] &&
+   [ $HELLO_EXAMPLE_NUMBER_COMPARISON_RUN == 0 ] &&
+   [ $HELLO_PROJECTS_BUILT_OK == 0 ] &&
    [ $HELLO_RANDOM_TEST_READERT_DIFFERENT == 0 ] &&
    [ $HELLO_RANDOM_TEST_READERT_SAME == 0 ] &&
    [ $HELLO_RANDOM_TEST_RUN_STANDARD == 0 ] &&

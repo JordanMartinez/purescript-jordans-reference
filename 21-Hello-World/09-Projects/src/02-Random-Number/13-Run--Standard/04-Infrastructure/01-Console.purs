@@ -14,7 +14,6 @@ import Node.ReadLine (
 )
 import Node.ReadLine as NR
 
-import Games.RandomNumber.Core (unBounds)
 import Games.RandomNumber.Run.Standard.Domain (game)
 import Games.RandomNumber.Run.Standard.API (
   runDomain

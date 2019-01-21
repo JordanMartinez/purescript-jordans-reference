@@ -42,7 +42,9 @@ TODO, but the general idea is:
 **TL;DR**
 
 TODO, but the general idea is:
-- https://www.youtube.com/watch?time_continue=22&v=5AtyWgQ3vv0
+- Paradigm shifts, such as the one demonstrated by this video using C++, are what enable programs with less problems: [Logging a function's name each time it is called: migrating an OO solution to an FP solution](https://www.youtube.com/embed/i9CU4CuHADQ?start=540)
+- [Purescript: Tomrrow's Javascript Today](https://www.youtube.com/watch?time_continue=22&v=5AtyWgQ3vv0)
+- [Phil Freeman's post: 'Why You Should Use PureScript'](https://gist.github.com/paf31/adfd15fbb1ac8b99fc68be2c9aca8427)
 - type-level programming
 - compiles to other languages beside Javascript: C, C++, Erlang, and Swift
 
@@ -57,7 +59,7 @@ TODO, but the general idea is:
     - easy to add/change/remove a "backend" to account for trends, new insights, or faster code (Without introducing a new bug or deleting a current feature, can I switch from Company A's database to Company B's database without rewriting more than 30 lines of code?)
     - unconcerning to allow a new developer to work on the code, knowing that he/she cannot screw up anything major (Can the Lead/Senior Developer take the weekend off and return, knowing that it's extraordinarily difficult for developers with little experience to break something?)
 
-See the (WIP) [Purescript version of Real World App](https://github.com/thomashoneyman/purescript-halogen-realworld)
+See the [Purescript version of Real World App](https://github.com/thomashoneyman/purescript-halogen-realworld)
 
 <hr>
 
@@ -136,6 +138,7 @@ The average time for learning FP languages in general is usually 6 months due to
     - This project's `Syntax` folder (and more specifically, the `Syntax/Type-Level Programming Syntax` folder) explain enough to help one understand why some (but not all) problems arise.
     - The [Error Documentation](https://github.com/purescript/documentation/tree/master/errors) sometimes explains what the error is and how to fix it ([example](https://github.com/purescript/documentation/blob/master/errors/NoInstanceFound.md)) and other times is simply left unexplained ([example](https://github.com/purescript/documentation/blob/master/errors/AmbiguousTypeVariables.md)).
 - Related to the above point, the powerful type system enables one to model some abstract ideas in a very precise way using well-defined types or things called type classes. However, those concepts can be recursive (they reference themselves in their definition), use higher-kinded types (these types are, in one way, defined only "partially" to enable code that works for many cases instead of just one), or work as part of a larger system outside of their definition. Thus, it can be very hard for a new learner to understand how to read a type or a type class.
+    - While many cool things can be done using very complex types, new learners need to know that such types can wait until they get more familiar with the language. As an example, consider [the Haskell Pyramid](https://patrickmn.com/software/the-haskell-pyramid/). "Monads" are an important concept that are a bit harder to grasp. Learners need to be told that they do not need to know these things right away. They should learn them when they are ready and not be feel intimidated about types before then.
     - This project either explains or links to other explanations on the most common types and type classes that are hard to understand but frequently used (e.g. Functor, Monad, Monad Transformers, the Free Monad).
     - However, there are some concepts (e.g. Coyoneda, Free Applicatives, Day Convolution, etc.) that are not yet covered here.
 - Many people try to re-explain something that another has already explained well and they write a poor re-explanation. It's hard to determine which explanations are accurate and correct and which are vague and mistaken until after you have already read it and/or know better.
