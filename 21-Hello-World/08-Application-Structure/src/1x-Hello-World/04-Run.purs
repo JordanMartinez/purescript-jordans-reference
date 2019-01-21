@@ -3,11 +3,9 @@ module Examples.HelloWorld.Run where
 import Prelude
 import Effect (Effect)
 import Effect.Console as Console
-import Effect.Random (randomInt)
 import Type.Row (type (+))
 import Data.Functor.Variant (on)
 import Run (Run, FProxy, lift, interpret, case_)
-import Run.Reader (READER, runReader, ask)
 import Data.Symbol (SProxy(..))
 
 -----------------------------------------

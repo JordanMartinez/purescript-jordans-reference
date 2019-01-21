@@ -3,10 +3,7 @@ module Examples.HelloWorld.Free where
 import Prelude
 import Effect (Effect)
 import Effect.Console as Console
-import Effect.Random (randomInt)
 import Control.Monad.Free (Free, liftF, foldFree)
-import Data.Functor.Coproduct.Nested (Coproduct3, coproduct3)
-import Data.Functor.Coproduct.Inject (inj)
 
 -----------------------------------------
 -- Core: Define any domain-specific concepts and their rules/relationships to
