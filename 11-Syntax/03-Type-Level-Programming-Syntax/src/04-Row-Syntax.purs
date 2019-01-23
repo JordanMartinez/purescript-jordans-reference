@@ -1,7 +1,9 @@
 module Syntax.TypeLevel.RowSyntax where
 
--- a Row has kind "# k" where 'k' is another kind.
--- Usually, it's used with the kind, `Type`, to make Records
+-- "row kinds" look like "# k" where 'k' is another kind.
+-- Usually, it's used with the kind, `Type`, to make Records (e.g. "# Type")
+-- You cannot find that muchd documentation on "row kinds" because
+-- they are built into the compiler.
 
 type Example_of_an_Empty_Row = ()
 type Example_of_a_Single_Row_of_Types = (fieldName :: ValueType)
