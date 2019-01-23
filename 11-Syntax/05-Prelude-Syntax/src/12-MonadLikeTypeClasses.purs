@@ -6,7 +6,7 @@ module Syntax.Notation.MonadLikeTypeClasses
   , class IxMonad
   ) where
 
-import Data.Unit (Unit(..))
+import Data.Unit (Unit)
 
 -- Requirement 1: type classes that are similar to Functor to Monad hierarchy
 --  - ado requirements: Functor, Apply, and Applicative
@@ -44,5 +44,5 @@ pure = ipure
 bind :: forall m a b x y z. IxBind m => m x y a -> (a -> m y z b) -> m x z b
 bind = ibind
 
-discard :: forall a b x y z m. IxBind m => m x y a -> (a -> m y z Unit) -> m x z Unit
+discard :: forall a x y z m. IxBind m => m x y a -> (a -> m y z Unit) -> m x z Unit
 discard = ibind
