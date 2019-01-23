@@ -24,7 +24,9 @@ This repo is my way of trying to use the [Feynman Technique](https://medium.com/
     - Benchmarking
     - Application structure
     - Type-Level Programming Overview
-    - Example Games
+- 22-Projects - working programs written in an FP style with helpful comments and overviews of the libraries they use
+    - Random Number Game - a game that runs on the console and in the browser using the same "business logic"
+    - Table of Contents Generator (WIP) - a program that generates a table of contents for this project.
 - 31-Design Patterns - (WIP) commonly-used patterns to solve problems in FP languages
 - 41-Ecosystem - (WIP) a better overview of the libraries in Purescript (categorized by tags)
 
