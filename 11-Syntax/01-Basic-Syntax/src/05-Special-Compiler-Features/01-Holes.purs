@@ -1,7 +1,5 @@
 module Syntax.SpecialCompilerFeatures.Holes where
 
-import Prelude
-
 {-
 Sometimes, when writing code, we're not always sure what function/value
 we should use. In such cases, we can use a feature called "holes"
