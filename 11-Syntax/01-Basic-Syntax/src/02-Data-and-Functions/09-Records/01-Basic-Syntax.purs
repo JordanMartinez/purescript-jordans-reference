@@ -12,6 +12,8 @@ type Example_of_an_Empty_Row = ()
 type Example_of_a_Single_Row = (fieldName :: ValueType)
 type Example_of_a_Multiple_Rows = (first :: ValueType, second :: ValueType)
 
+type PS_Keywords_Can_Be_Field_Names = (data :: ValueType, type :: ValueType, class :: ValueType)
+
 data Record_ -- # Type -> Type
 
 -- Think of records as a unordered named TupleN

@@ -10,7 +10,7 @@ This repo is my way of trying to use the [Feynman Technique](https://medium.com/
 - 01-Build-Tools - how to use the tools in the ecosystem to manage dependencies, compile source code, and build projects
     - Overview of the dependency managers
     - Other build tools
-- 11-Syntax - Purescript's syntax explained using meta-language and verified by the compiler (PS versions: `0.12.1`)
+- 11-Syntax - Purescript's syntax explained using meta-language and verified by the compiler (PS versions: `0.12.2`)
     - Basic Syntax
     - Foreign Function Interface Syntax
     - Type-Level Programming Syntax
@@ -24,7 +24,9 @@ This repo is my way of trying to use the [Feynman Technique](https://medium.com/
     - Benchmarking
     - Application structure
     - Type-Level Programming Overview
-    - Example Games
+- 22-Projects - working programs written in an FP style with helpful comments and overviews of the libraries they use
+    - Random Number Game - a game that runs on the console and in the browser using the same "business logic"
+    - Table of Contents Generator (WIP) - a program that generates a table of contents for this project.
 - 31-Design Patterns - (WIP) commonly-used patterns to solve problems in FP languages
 - 41-Ecosystem - (WIP) a better overview of the libraries in Purescript (categorized by tags)
 

@@ -148,6 +148,14 @@ There are two commands in this one:
 - `show loaded`/`:s loaded` - Shows all modules which you can import into the REPL.
 - `show import`/`:s imported` - Shows which modules you currently have imported in the REPL
 
+### Print
+
+Changes how a value is printed to the console after an expression is evaluated. By default, it uses [`PSCI.Support.eval`](https://github.com/purescript/purescript-psci-support/blob/master/src/PSCI/Support.purs).
+
+New learners can ignore this command for now. Those who are familiar with the language can change it to a different one by calling `:print Path.To.Module.functionName`.
+
+Regardless, to reset it to the default, one can call `:print PSCI.Support.eval`.
+
 ### Paste
 
 The REPL only accepts single-line Purescript code. If anything requires you to write multi-line expressions, you must use the `:paste` command.

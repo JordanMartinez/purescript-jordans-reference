@@ -114,16 +114,16 @@ Here's the list of run commands:
 For each of the above run commands, do the following to "simulate" one file existing before another one:
 
 1. Start a REPL
-2. Import the following imports by manually typing them in (unfortunately, pasting them in will not work):
-    - import Data.Maybe
-    - import Data.Variant
-    - import Data.Function
-    - import Data.Symbol
-3. Copy and paste each "file" below into the REPL.
-4. Run the commands at the end of this snippet
+2. Copy and paste each "file" below into the REPL.
+3. Run the commands at the end of this snippet
 
 ```purescript
 -- File1's original code: once compiled, it cannot change
+import Data.Maybe
+import Data.Variant
+import Data.Function
+import Data.Symbol
+
 data Fruit
   = Apple
   | Banana
