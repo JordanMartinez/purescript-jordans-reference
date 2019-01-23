@@ -22,7 +22,7 @@ We'll also show how to install two other entities related to `psc-package`. Howe
 
 ### Installation
 
-Justin Woo explains how to set up one's environment for the `0.12.x` release but has not been updated for two things. First, the PureScript release at the time was `0.12.0` but now `0.12.1` is out. Second, he did not include instructions for setting up [`spacchetti`](https://github.com/justinwoo/spacchetti) and its counterpart, `dhall-to-json`.
+Justin Woo explains how to set up one's environment for the `0.12.x` release but has not been updated for two things. First, the PureScript release at the time was `0.12.0` but now `0.12.2` is out. Second, he did not include instructions for setting up [`spacchetti`](https://github.com/justinwoo/spacchetti) and its counterpart, `dhall-to-json`.
 
 If you just want to get things set up ASAP, follow the below summary of his article's instructions. If you want to understand why you should do these commands, read [his article here](https://qiita.com/kimagure/items/570e6f2bbce5b4724564):
 1. Install Node 8 or greater: https://nodejs.org/en/download/
@@ -52,7 +52,7 @@ To install `dhall-to-json` for your platform, see their [Getting Started](https:
 
 The following commands should now work (the versions beside them are the versions I used when writing this project):
 ```bash
-purs --version        # 0.12.1
+purs --version        # 0.12.2
 pulp --version        # 12.3.0
 psc-package --version # 0.3.2
 
