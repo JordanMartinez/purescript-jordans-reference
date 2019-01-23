@@ -100,22 +100,22 @@ HELLO_EXAMPLE_NUMBER_COMPARISON_RUN=$?
 
 cd ../../
 
-cd 21-Hello-World/09-Projects/
+cd 22-Projects/
 pwd
 # Build but do not run benchmark tests
 pulp --psc-package build --src-path "benchmark" --include "src:test"
-HELLO_PROJECTS_BUILT_OK=$?
+PROJECTS_BUILT_OK=$?
 
 # Node-based tests
 pulp --psc-package test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
-HELLO_RANDOM_TEST_READERT_DIFFERENT=$?
+RANDOM_TEST_READERT_DIFFERENT=$?
 pulp --psc-package test -m Test.Games.RandomNumber.ReaderT.Standard.SameMonad
-HELLO_RANDOM_TEST_READERT_SAME=$?
+RANDOM_TEST_READERT_SAME=$?
 pulp --psc-package test -m Test.Games.RandomNumber.Run.Standard.Infrastructure
-HELLO_RANDOM_TEST_RUN_STANDARD=$?
+RANDOM_TEST_RUN_STANDARD=$?
 pulp --psc-package test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
-HELLO_RANDOM_TEST_RUN_LAYERED=$?
-cd ../../
+RANDOM_TEST_RUN_LAYERED=$?
+cd ../
 
 echo ""
 echo "Finished. Summarizing Results:"
@@ -137,11 +137,11 @@ echo "$HELLO_EXAMPLE_HELLO_WORLD_RUN - Hello World - Application Structure - Hel
 echo "$HELLO_EXAMPLE_NUMBER_COMPARISON_READERT - Hello World - Application Structure - Number Comparison - ReaderT"
 echo "$HELLO_EXAMPLE_NUMBER_COMPARISON_FREE - Hello World - Application Structure - Number Comparison - Free"
 echo "$HELLO_EXAMPLE_NUMBER_COMPARISON_RUN - Hello World - Application Structure - Number Comparison - Run"
-echo "$HELLO_PROJECTS_BUILT_OK - Hello World - Projects - All - Builds Correctly"
-echo "$HELLO_RANDOM_TEST_READERT_DIFFERENT - Hello World - Projects - RandomNumber - ReaderT Test (Different)"
-echo "$HELLO_RANDOM_TEST_READERT_SAME - Hello World - Projects - RandomNumber - ReaderT Test (Same)"
-echo "$HELLO_RANDOM_TEST_RUN_STANDARD - Hello World - Projects - RandomNumber - Run Test (Standard)"
-echo "$HELLO_RANDOM_TEST_RUN_LAYERED - Hello World - Projects - RandomNumber - Run Test (Layered)"
+echo "$PROJECTS_BUILT_OK - Projects - All - Builds Correctly"
+echo "$RANDOM_TEST_READERT_DIFFERENT - Projects - RandomNumber - ReaderT Test (Different)"
+echo "$RANDOM_TEST_READERT_SAME - Projects - RandomNumber - ReaderT Test (Same)"
+echo "$RANDOM_TEST_RUN_STANDARD - Projects - RandomNumber - Run Test (Standard)"
+echo "$RANDOM_TEST_RUN_LAYERED - Projects - RandomNumber - Run Test (Layered)"
 
 if [ $SYNTAX_BASIC == 0 ] &&
    [ $SYNTAX_FFI == 0 ] &&
@@ -160,11 +160,11 @@ if [ $SYNTAX_BASIC == 0 ] &&
    [ $HELLO_EXAMPLE_NUMBER_COMPARISON_READERT == 0 ] &&
    [ $HELLO_EXAMPLE_NUMBER_COMPARISON_FREE == 0 ] &&
    [ $HELLO_EXAMPLE_NUMBER_COMPARISON_RUN == 0 ] &&
-   [ $HELLO_PROJECTS_BUILT_OK == 0 ] &&
-   [ $HELLO_RANDOM_TEST_READERT_DIFFERENT == 0 ] &&
-   [ $HELLO_RANDOM_TEST_READERT_SAME == 0 ] &&
-   [ $HELLO_RANDOM_TEST_RUN_STANDARD == 0 ] &&
-   [ $HELLO_RANDOM_TEST_RUN_LAYERED == 0 ]
+   [ $PROJECTS_BUILT_OK == 0 ] &&
+   [ $RANDOM_TEST_READERT_DIFFERENT == 0 ] &&
+   [ $RANDOM_TEST_READERT_SAME == 0 ] &&
+   [ $RANDOM_TEST_RUN_STANDARD == 0 ] &&
+   [ $RANDOM_TEST_RUN_LAYERED == 0 ]
 then
   echo "Build Succeeded"
   exit 0;

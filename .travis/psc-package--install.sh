@@ -65,11 +65,11 @@ pwd
 psc-package install
 cd ../../
 
-cd 21-Hello-World/09-Projects/
+cd 22-Projects/
 pwd
 npm install benchmark
 spacchetti insdhall
 psc-package install
-cd ../../
+cd ../
 
 echo "... Finished ...."
