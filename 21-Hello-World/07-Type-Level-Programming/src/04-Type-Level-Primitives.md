@@ -23,10 +23,8 @@ In the below table, **"ValueTypeN" was abbreviated to VTN**
 | [Ordering](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Ordering) | `LT` `GT` `EQ` | [Ordering](https://pursuit.purescript.org/builtins/docs/Prim.Ordering) | `LT` `GT` `EQ` | [OProxy](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Ordering)
 | [String](https://pursuit.purescript.org/builtins/docs/Prim#t:String) | `"literal string"` | [Symbol](https://pursuit.purescript.org/builtins/docs/Prim#k:Symbol) | `"literal symbol"` | [SProxy](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Symbol#t:SProxy)
 | [Record](https://pursuit.purescript.org/builtins/docs/Prim#t:Record)<br>(closest idea) | `Record (keyN :: VTN, ...)` | [row kinds](https://github.com/purescript/documentation/blob/master/language/Types.md#rows) | `(keyN :: Kind, ...)` | [RProxy](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Type.Data.Row#t:RProxy)
-| [Boolean](https://pursuit.purescript.org/builtins/docs/Prim#t:Boolean) | `true`/`false` | [Done without using Kinds](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Boolean)^^<br><br>[Done using Kinds](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Boolean)^^ | `True`/`False` | [Kind-less BProxy](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Boolean#t:BProxy)<br><br>[Kind-full BProxy](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Boolean#t:BProxy)
+| [Boolean](https://pursuit.purescript.org/builtins/docs/Prim#t:Boolean) | `true`/`false` | [Boolean](https://pursuit.purescript.org/builtins/docs/Prim.Boolean) | `True`/`False` | [BProxy](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/4.0.0/docs/Type.Data.Boolean#t:BProxy)
 | List ( keyN :: VTN, ... )<br>(analogy; not real type) | `Nil`<br><br>`Cons a (ListR a)` | [RowList](https://pursuit.purescript.org/builtins/docs/Prim.RowList#k:RowList) | `Nil`<br><br>`Cons :: Symbol -> Type -> RowList` |  [RLProxy](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Type.Data.RowList#t:RLProxy)
-
-^^: [Adding a `Boolean` kind to `Prim` has been merged; it will apear in the next release](https://github.com/purescript/purescript/pull/3389)
 
 ## Type-Level Modules
 
@@ -34,7 +32,7 @@ Rather than explaining things, read through the source code of these modules and
 
 | Kind | Modules |
 | - | - |
-| Boolean | ["Kind-less" Data.Typelevel.Bool](https://pursuit.purescript.org/packages/purescript-typelevel/4.0.0/docs/Data.Typelevel.Bool)<br>["Kind-full Type.Data.Boolean](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Boolean)
+| Boolean | [Prim.Boolean](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Boolean)
 | Ordering | [Prim.Ordering](https://pursuit.purescript.org/builtins/docs/Prim.Ordering)<br>
 | Symbol | [Prim.Symbol](https://pursuit.purescript.org/builtins/docs/Prim.Symbol)<br> [Type.Data.Symbol](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Symbol)
 | Number | [Data.Typelevel.Number](https://pursuit.purescript.org/packages/purescript-typelevel/4.0.0/docs/Data.Typelevel.Num)<br>[Tanghulu](https://github.com/justinwoo/purescript-tanghulu)
