@@ -96,3 +96,5 @@ main = do
   let globalEnvironmentInfo = -- mutable state, read-only values, etc.
   assert (runTest program globalEnvironmentInfo) == correctValue
 ```
+
+For another example, see [the Monad Reader Example](https://gist.github.com/rlucha/696ca604c9744ad11aff7d46b1706de7)
