@@ -43,6 +43,7 @@ TODO, but the general idea is:
 
 TODO, but the general idea is:
 - Paradigm shifts, such as the one demonstrated by this video using C++, are what enable programs with less problems: [Logging a function's name each time it is called: migrating an OO solution to an FP solution](https://www.youtube.com/embed/i9CU4CuHADQ?start=540)
+- [JavaScript, TypeScript, and PureScript](https://www.youtube.com/watch?v=JTEfpNtEoSA) or "Why TypeScript only 'pretends' to have types."
 - [Purescript: Tomrrow's Javascript Today](https://www.youtube.com/watch?time_continue=22&v=5AtyWgQ3vv0)
 - [Phil Freeman's post: 'Why You Should Use PureScript'](https://gist.github.com/paf31/adfd15fbb1ac8b99fc68be2c9aca8427)
 - type-level programming
