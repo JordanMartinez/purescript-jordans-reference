@@ -96,6 +96,7 @@ In addition, PureScript can compile to other languages besides Javascript. That 
     - See [How to create 3D Games with PureScript Native and C++](https://twitter.com/lettier/status/1074863932328853505)
 - [Erlang](https://github.com/purerl/purescript)
 - [Swift](https://github.com/paulyoung/pureswift)
+- [Go](https://github.com/purescript-go/purs)
 
 #### If I learn PureScript, can I get a good developer job?
 
