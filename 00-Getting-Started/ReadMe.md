@@ -91,13 +91,7 @@ PureScript supports a number of features (e.g. powerful type system) that simply
 
 To fully support this claim, it would help to compare various ecosystem's "features." Unfortunately, since I'm not familiar with every other language mentioned, it's very difficult for me to do that.
 
-In addition, PureScript can compile to other languages besides Javascript. That means you can write the same code to solve your business problem and run it on multiple platforms besides `Node.js` or the Browser, depending on which one is the best fit for your purposes:
-- [Pure-C (C)](https://github.com/pure-c/purec)
-- [Purescript Native (C++)](https://github.com/andyarvanitis/purescript-native)
-    - See [How to create 3D Games with PureScript Native and C++](https://twitter.com/lettier/status/1074863932328853505)
-- [Erlang](https://github.com/purerl/purescript)
-- [Swift](https://github.com/paulyoung/pureswift)
-- [Go](https://github.com/purescript-go/purs)
+In addition, PureScript can compile to other languages besides Javascript. That means you can write the same code to solve your business problem and run it on multiple platforms besides `Node.js` or the Browser, depending on which one is the best fit for your purposes. For a complete listing, as well as how ready they are for production, see [Alternate Backends](https://github.com/purescript/documentation/blob/master/ecosystem/Alternate-backends.md).
 
 #### If I learn PureScript, can I get a good developer job?
 
