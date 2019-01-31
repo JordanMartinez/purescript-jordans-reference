@@ -74,6 +74,6 @@ cache:
     - 21-Hello-World/07-Type-Level-Programming/output
     - 21-Hello-World/08-Application-Structure/.psc-package
     - 21-Hello-World/08-Application-Structure/output
-    - 21-Hello-World/09-Projects/.psc-package
-    - 21-Hello-World/09-Projects/output
-    - 21-Hello-World/09-Projects/node_modules
+    - 22-Projects/.psc-package
+    - 22-Projects/output
+    - 22-Projects/node_modules
