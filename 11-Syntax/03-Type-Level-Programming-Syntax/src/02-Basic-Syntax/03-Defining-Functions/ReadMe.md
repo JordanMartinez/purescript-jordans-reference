@@ -152,7 +152,7 @@ The issue lies in step 2: the instance head is checked before the instance conte
 "Backtracking" could be implemented in the compiler by using instance guards, but this has not yet been done. For the current progress on this issue, see [the related Purescript issue](https://github.com/purescript/purescript/issues/3120).
 
 To understand unification at a deeper level, see these links:
-- [Type Checking](https://www.youtube.com/watch?v=r030JkmMLMI). This video **quickly** explains some of the notation used in the paper below, but not all of it.
+- [Type Inference from Scratch](https://www.youtube.com/watch?v=ytPAlhnAKro). This video explains the ideas behind the notation used in the paper below.
 - [Introduction to Type Inference](https://www.youtube.com/watch?v=il3gD7XMdmA). This video will explain a few more pieces of the notation used in the paper below as well as the problems that arise in type inference. Unfortunately, the teacher goes through concepts quickly and runs out of time, so not everything is immediately understandable through the first viewing.
 - [Phil's overview of the Purescript Type's System](https://www.youtube.com/embed/SPpIbiZFPRY?start=2258), where he shows how the compiler unifies types using the same notation above.
 - [The original paper describing instance chains](http://web.cecs.pdx.edu/~mpj/pubs/instancechains.pdf).

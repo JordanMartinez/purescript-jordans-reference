@@ -15,6 +15,11 @@ This folder's purposes are
 
 Note: each 'project' folder in the `src` folder has a corresponding folder in the `test` and `benchmark` folders. When reading through a project's files, read through its `src` folder's content before its `test` folder's content, followed by its `benchmark` folder's content.
 
+## Other "Example Projects"
+
+- [hdgarrood's 'MultiPac' project](https://github.com/hdgarrood/multipac)
+- [thomashoneyman's 'Real World App' project](https://github.com/thomashoneyman/purescript-halogen-realworld)
+
 ## Clarifying Our Terminology
 
 When overviewing the design process of the program, we'll use the following terminology to refer to the various layers of our program:

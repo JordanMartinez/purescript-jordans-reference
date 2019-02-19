@@ -14,13 +14,10 @@ This question can be answered by explaining three things:
 
 ### Why one should use Javascript to build programs...
 
-TODO, but the general idea:
 - The web browser is the new ["dumb terminal"](https://www.youtube.com/embed/YI34UIMgkxs?start=1762&end=1828) / platform-independent OS:
     - [What can web do today?](https://whatwebcando.today/)
-- Progressive web applications are better than native web apps in a few important ways
-- WebAssembly
-- The points mentioned in this article: [Learn Javascript in 2018](https://hackernoon.com/learn-to-code-in-2018-get-hired-and-have-fun-along-the-way-b338247eed6a)
 - [Why Founders Should Start With a Website, Not a Mobile App](https://www.atrium.co/blog/founders-should-build-website-not-mobile-app/)
+- The points mentioned in this article: [Learn Javascript in 2018](https://hackernoon.com/learn-to-code-in-2018-get-hired-and-have-fun-along-the-way-b338247eed6a)
 
 ### ...but not write Javascript to build it...
 
@@ -43,6 +40,7 @@ TODO, but the general idea is:
 
 TODO, but the general idea is:
 - Paradigm shifts, such as the one demonstrated by this video using C++, are what enable programs with less problems: [Logging a function's name each time it is called: migrating an OO solution to an FP solution](https://www.youtube.com/embed/i9CU4CuHADQ?start=540)
+- [JavaScript, TypeScript, and PureScript](https://www.youtube.com/watch?v=JTEfpNtEoSA) or "Why TypeScript only 'pretends' to have types."
 - [Purescript: Tomrrow's Javascript Today](https://www.youtube.com/watch?time_continue=22&v=5AtyWgQ3vv0)
 - [Phil Freeman's post: 'Why You Should Use PureScript'](https://gist.github.com/paf31/adfd15fbb1ac8b99fc68be2c9aca8427)
 - type-level programming
@@ -90,12 +88,7 @@ PureScript supports a number of features (e.g. powerful type system) that simply
 
 To fully support this claim, it would help to compare various ecosystem's "features." Unfortunately, since I'm not familiar with every other language mentioned, it's very difficult for me to do that.
 
-In addition, PureScript can compile to other languages besides Javascript. That means you can write the same code to solve your business problem and run it on multiple platforms besides `Node.js` or the Browser, depending on which one is the best fit for your purposes:
-- [Pure-C (C)](https://github.com/pure-c/purec)
-- [Purescript Native (C++)](https://github.com/andyarvanitis/purescript-native)
-    - See [How to create 3D Games with PureScript Native and C++](https://twitter.com/lettier/status/1074863932328853505)
-- [Erlang](https://github.com/purerl/purescript)
-- [Swift](https://github.com/paulyoung/pureswift)
+In addition, PureScript can compile to other languages besides Javascript. That means you can write the same code to solve your business problem and run it on multiple platforms besides `Node.js` or the Browser, depending on which one is the best fit for your purposes. For a complete listing, as well as how ready they are for production, see [Alternate Backends](https://github.com/purescript/documentation/blob/master/ecosystem/Alternate-backends.md).
 
 #### If I learn PureScript, can I get a good developer job?
 
