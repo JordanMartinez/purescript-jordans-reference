@@ -66,6 +66,7 @@ Since Purescript is heavily inspired by and very similar to Haskell, one can lea
 | Read and do the exercises from [The Haskell Book](http://haskellbook.com/) | The "standard" for teaching Haskell and FP concepts in general: good explanations; good exercises; teaches "programming in the small" | Costs money; costs time; the exercises will stretch you
 | Read and do the exercises from [Haskell Cookbook](https://leanpub.com/haskellcookbook), and then its follow up book [Haskell Cookbook 2](https://leanpub.com/haskellcookbook2) | Free/Cheap; simpler than the Haskell book; gets to ideas faster; teaches "programming in the large" | May be harder for a new beginner (I haven't read it yet)
 | Watch the Intro to FP course on edX.org [here](https://www.edx.org/course/introduction-functional-programming-delftx-fp101x-0) | Free (or paid) | (Haven't done it so I don't know)
+| Read through the articles on or pay for training from [FP Complete's opinionated Haskell website](https://haskell.fpcomplete.com/) | Free / Paid | (Haven't done it so I don't know)
 
 ### Miscellaneous Links
 
