@@ -9,6 +9,7 @@ Now might be a good time to re-read these articles:
 - [the Capability Design Pattern](https://www.tweag.io/posts/2018-10-04-capability.html)
 - [A Modern Architecture for FP: Part 1](http://degoes.net/articles/modern-fp)
 - [A Modern Architecture for FP: Part 2](http://degoes.net/articles/modern-fp-part-2)
+- [Freer Monads, More Better Programs](reasonablypolymorphic.com/blog/freer-monads/index.html)
 
 ## Evaluating MTL and Free
 
