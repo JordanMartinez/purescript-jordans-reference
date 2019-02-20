@@ -12,16 +12,28 @@ In imperative programming, one often writes some sequential code like:
 Since each line depends on the line before it,
   this implies sequential computation, or Monads. We have "do" notation
   to imitate this style of code
+
+Recall the type signature of `bind`...
+      bind :: m a -> (a -> m b) -> m b
+... and that ">>=" is an alias for `bind`
+
+Thus, these two expressions are the same:
+    bind computation (\result -> newComputationUsing result)
+    computation >>= (\result -> newComputationUsing result)
 -}
 
--- example:
--- computation >>= (\result -> newComputationUsing result)
-
-do1_1Line :: Box Unit
-do1_1Line = get4 >>= (\x -> add4To x >>= (\y -> toString y >>= (\z -> print z)))
--- which is better understood as
-do1_indented :: Box Unit
-do1_indented =
+do1_bind :: Box Unit
+do1_bind =
+  bind get4 (\x ->
+    bind (add4To x) (\y ->
+      bind (toString y) (\z ->
+        print z
+      )
+    )
+  )
+-- which is better understood by replacing `bind` with ">>=" as
+do1_alias :: Box Unit
+do1_alias =
   get4 >>= (\x ->
     -- only call `add4To x` if `get4` actually produces something
     add4To x >>= (\y ->
@@ -34,17 +46,25 @@ do1_indented =
 do1_do_notation :: Box Unit
 do1_do_notation = do
   x     <- get4
-  -- only call `add4To x` if `get4` actually produces something
   y     <- add4To x
   z     <- toString y
-  -- last line in do notation must not end with `value <- expression`
-  -- but should just end in `expression`
+  -- last line in do notation must not end with `value <- computation`
+  -- but should just end in `computation`
   print z
 
-do2_indented :: Box Unit
-do2_indented =
+-- Just like in regular functions, we could use 'let-in` syntax
+do2_bind :: Box Unit
+do2_bind =
+  bind get4 (\x ->
+      let y = x + 4
+      in bind (toString y) (\z -> print z)
+    )
+-- which is better understood by replacing `bind` with ">>=" as
+do2_alias :: Box Unit
+do2_alias =
   get4 >>= (\x ->
-      -- This let-in syntax is not very readable either here...
+      -- While replacing 'bind' with '>>=' is better,
+      -- this let-in syntax is still not very readable here...
       let y = x + 4
       in toString y >>= (\z -> print z)
     )
@@ -56,20 +76,40 @@ do2_do_notation = do
   z <- toString y
   print z
 
-do3_ignore_syntax_indented :: Box Unit
-do3_ignore_syntax_indented =
+do3_ignoreValue_bind :: Box Unit
+do3_ignoreValue_bind =
+  bind get4 (\x ->
+    bind (takeValueAndIgnoreResult x) (\_ {- this underscore is 'unit' -} ->
+      print x
+    )
+  )
+-- which is better understood by replacing `bind` with ">>=" as in
+do3_ignoreValue_alias :: Box Unit
+do3_ignoreValue_alias =
   get4 >>= (\x -> takeValueAndIgnoreResult x >>= (\_ -> print x))
 -- gets turned into...
-do3_ignore_syntax :: Box Unit
-do3_ignore_syntax = do
+do3_ignoreValue_do_notation :: Box Unit
+do3_ignoreValue_do_notation = do
   x     <- get4
   _     <- takeValueAndIgnoreResult x
 
   print x
 
-do4_discard_syntax_1Line :: Box Unit
-do4_discard_syntax_1Line =
-  (Box unit) >>= (\unit_ -> (Box unit) >>= (\unit__ -> print 5))
+do4_discard_bind :: Box Unit
+do4_discard_bind =
+  bind (Box unit) (\unit_ ->
+    bind (Box unit) (\unit__ ->
+      print 5
+    )
+  )
+-- which is better understood by replacing `bind` with ">>=" as in
+do4_discard_alias :: Box Unit
+do4_discard_alias =
+  (Box unit) >>= (\unit_ ->
+    (Box unit) >>= (\unit__ ->
+        print 5
+    )
+  )
 -- can be written as...
 do4_discard_syntax :: Box Unit
 do4_discard_syntax = do                                           {-
@@ -87,18 +127,21 @@ do4_discard_syntax = do                                           {-
       four <- Box 4
       unit <- Box unit  -- here, we could omit the "unit <-" syntax
       five <- Box 5
+              Box unit -- same thing
 
   If we had accidentally written code that amounted to this...
 
       four <- Box 4
-      unit <- Box 10
+              Box 10 -- notice how there is no "10 <-" fragment
       five <- Box 5
 
   ... the compiler would notify us that we had discarded a non-unit value
-      "Could not find instance of Discard for Int"
+      (i.e. 10):
+        "Could not find instance of Discard for Int"
 
-  Why does it do this? To highlight accidentally dropping results
-  If you want to intentionally drop a result, use `void $ monad`            -}
+  Why does it do this? To highlight that we have accidentally dropped the
+  result of the computation. If you want to intentionally drop a result,
+  use `void $ monad` or the "_ <- computation" syntax                         -}
   x <- (Box 5)
   (Box unit) -- since it returns unit, it's ok to use discard here
 
