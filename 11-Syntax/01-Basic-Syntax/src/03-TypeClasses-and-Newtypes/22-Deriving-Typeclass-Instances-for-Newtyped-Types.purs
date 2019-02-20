@@ -61,7 +61,7 @@ class Newtype_ new old | new -> old where
 
 newtype EmailAddress3 = EmailAddress3 String
 
--- no need to indicate what "_" is since compiler can figure it out
+-- no need to indicate what "_" is since the compiler can figure it out
 derive instance newtypeEmailAddress :: Newtype EmailAddress3 _
 
 -- Newtype provides other useful functions.
