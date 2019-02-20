@@ -32,6 +32,7 @@ newtype FirstName = FirstName String
 -- This is boilerplate since we unpack the instance and delegate the function
 -- to the wrapped type's implementation. It's also inefficient in terms of
 -- evaluation. So, we have a better way to do this.
+-- We use add 'derive newtype' in front of the instance:
 
 -- 1st approach
 newtype EmailAddress2 = EmailAddress2 String
