@@ -36,7 +36,7 @@ NPM will then be used to install these 3 packages
 
 To install them, run this command:
 ```bash
-npm i -g purescript@0.12.1 pulp psc-package-bin-simple
+npm i -g purescript@0.12.2 pulp psc-package-bin-simple
 ```
 
 <hr>
