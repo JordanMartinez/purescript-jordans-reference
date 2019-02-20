@@ -56,16 +56,16 @@ main = do
   log $ "Value is: " <> show value
 
 -- Box's type class instances
-instance monad :: Monad Box -- instance needed for some reason!
+instance monadBox :: Monad Box -- instance needed for some reason!
 
-instance functor :: Functor Box where
+instance functorBox :: Functor Box where
   map f (Box a) = Box (f a)
 
-instance apply :: Apply Box where
+instance applyBox :: Apply Box where
   apply (Box f) (Box a) = Box (f a)
 
-instance applicative :: Applicative Box where
+instance applicativeBox :: Applicative Box where
   pure a = Box a
 
-instance bind :: Bind Box where
+instance bindBox :: Bind Box where
   bind (Box a) f = f a

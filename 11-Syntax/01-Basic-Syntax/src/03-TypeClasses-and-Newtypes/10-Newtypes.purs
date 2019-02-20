@@ -8,7 +8,7 @@ data Box a = Box a
 class Show_ a where
   show_ :: a -> String
 
-instance boxShow :: (Show a) => Show (Box a) where
+instance showBox :: (Show a) => Show (Box a) where
   show (Box a) = "Box(" <> show a <> ")"
 
 {-
@@ -24,7 +24,7 @@ newtype NewTypeName = OnlyAllowsOneConstructor WhichOnlyTakesOneArgument_TheWrap
 -- For example....
 newtype Box2 a = Box2 (Box a)
 
-instance box2Show :: (Show a) => Show (Box2 (Box a)) where
+instance showBox2 :: (Show a) => Show (Box2 (Box a)) where
   show (Box2 (Box a)) = "Box with value of [" <> show a <> "] inside of it."
 
 -- Or, to add more context to a type...

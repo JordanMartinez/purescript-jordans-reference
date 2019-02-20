@@ -55,8 +55,8 @@ derive instance ordType2 :: Ord Type2
 -- In other cases (like higher-kinded types),
 -- we can use type class constraints to derive them:
 data Box a = Box a
-derive instance eqMaybe :: Eq a => Eq (Box a)
-derive instance ordMaybe :: Ord a => Ord (Box a)
+derive instance eqBox :: Eq a => Eq (Box a)
+derive instance ordBox :: Ord a => Ord (Box a)
 
 {-
 Note: this works for only two reasons:

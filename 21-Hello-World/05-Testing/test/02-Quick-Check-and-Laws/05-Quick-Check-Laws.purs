@@ -30,7 +30,7 @@ data Box a = Box a
 -- (instances appear at the bottom of the file)
 
 -- ... and an Arbitrary for our Box type
-instance arb :: (Arbitrary a) => Arbitrary (Box a) where
+instance arbitraryBox :: (Arbitrary a) => Arbitrary (Box a) where
   arbitrary = map pure arbitrary
 
 -- ... and a helper function for checking all of them at once
@@ -74,40 +74,40 @@ main = do
 
 -- Box's instances
 
-instance eq :: (Eq a) => Eq (Box a) where
+instance eqBox :: (Eq a) => Eq (Box a) where
   eq (Box a1) (Box a2) = eq a1 a2
 
-instance ord :: (Ord a) => Ord (Box a) where
+instance ordBox :: (Ord a) => Ord (Box a) where
   compare (Box a1) (Box a2) = compare a1 a2
 
-instance functor :: Functor Box where
+instance functorBox :: Functor Box where
   map :: forall a b. (a -> b) -> Box a -> Box  b
   map f (Box a) = Box (f a)
 
-instance apply :: Apply Box where
+instance applyBox :: Apply Box where
   apply :: forall a b. Box (a -> b) -> Box a -> Box  b
   apply (Box f) (Box a) = Box (f a)
 
-instance bind :: Bind Box where
+instance bindBox :: Bind Box where
   bind :: forall a b. Box a -> (a -> Box b) -> Box b
   bind (Box a) f = f a
 
-instance applicative :: Applicative Box where
+instance applicativeBox :: Applicative Box where
   pure :: forall a. a -> Box a
   pure a =  Box a
 
-instance monad :: Monad Box
+instance monadBox :: Monad Box
 
 -- Fruit's type, arbitrary, and instances
 
 data Fruit = Apple | Orange
 
-instance fruitArb :: Arbitrary Fruit where
+instance aribtraryFruit :: Arbitrary Fruit where
   arbitrary = elements $ Apple :| [Orange]
 
-derive instance fruitEq :: Eq Fruit
+derive instance eqFruit :: Eq Fruit
 
-instance fruitOrd :: Ord Fruit where
+instance ordFruit :: Ord Fruit where
   compare Apple Orange = LT
   compare Orange Apple = GT
   compare _ _ = EQ

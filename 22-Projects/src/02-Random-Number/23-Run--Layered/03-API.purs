@@ -42,7 +42,7 @@ data API_F a
 -}
 
 data GetUserInputF a = GetUserInputF String (String -> a)
-derive instance guif :: Functor GetUserInputF
+derive instance functorGetUserInputF :: Functor GetUserInputF
 
 _getUserInput :: SProxy "getUserInput"
 _getUserInput = SProxy
@@ -55,7 +55,7 @@ getUserInput msg = lift _getUserInput (GetUserInputF msg identity)
 ---
 
 data CreateRandomIntF a = CreateRandomIntF Bounds (Int -> a)
-derive instance criF :: Functor CreateRandomIntF
+derive instance functorCreateRandomIntF :: Functor CreateRandomIntF
 
 _createRandomInt :: SProxy "createRandomInt"
 _createRandomInt = SProxy
@@ -132,7 +132,7 @@ recursivelyRunUntilPure computation = do
     Right a -> pure a
 
 data InputError = NotAnInt String
-instance ies :: Show InputError where
+instance showInputError :: Show InputError where
   show (NotAnInt s) = "User inputted a non-integer value: " <> s
 
 inputIsInt :: String -> Either InputError Int

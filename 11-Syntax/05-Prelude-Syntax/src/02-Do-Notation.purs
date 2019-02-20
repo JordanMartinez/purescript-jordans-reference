@@ -131,15 +131,15 @@ do_full_syntax = do
 -- needed to make this file compile
 data Box a = Box a
 
-derive instance boxFunctor :: Functor Box
+derive instance functorBox :: Functor Box
 
-instance boxApply :: Apply Box where
+instance applyBox :: Apply Box where
   apply (Box f) (Box a) = Box (f a)
 
-instance boxApplicative :: Applicative Box where
+instance applicativeBox :: Applicative Box where
   pure a = Box a
 
-instance boxBind :: Bind Box where
+instance bindBox :: Bind Box where
   bind (Box a) f = f a
 
 get4 :: Box Int

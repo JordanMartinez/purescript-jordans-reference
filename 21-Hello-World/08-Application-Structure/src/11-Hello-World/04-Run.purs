@@ -39,7 +39,7 @@ program = do
 --   define a type alias that makes using the data type in rows easier
 --   and write their smart constructors.
 data LogToScreen a = LogToScreen String a
-derive instance ltsf :: Functor LogToScreen
+derive instance functorLogToScreen :: Functor LogToScreen
 
 _logToScreen :: SProxy "logToScreen"
 _logToScreen = SProxy

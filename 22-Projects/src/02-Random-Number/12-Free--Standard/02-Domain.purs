@@ -18,7 +18,7 @@ data API_F a
   | GetUserInput String (String -> a)
   | GenRandomInt Bounds (Int -> a)
 
-derive instance f :: Functor API_F
+derive instance functorAPI_F :: Functor API_F
 
 -- `Free` stuff
 
