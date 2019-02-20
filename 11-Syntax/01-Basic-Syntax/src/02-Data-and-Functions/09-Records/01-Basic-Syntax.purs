@@ -63,8 +63,8 @@ Don't confuse the two operators that go in-between field and value!
 "field OPERATOR value" where OPERATOR is
   "=" means "update the field of a record that already exists":
           record { field = newValue }
-  ":" means "create the field of a new record":
-          record { field: initialValue }
+  ":" means "create a new record by specifying the field's value":
+                 { field: initialValue }
 """
 
 -- needed to compile
