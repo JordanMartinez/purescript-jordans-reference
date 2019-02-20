@@ -27,7 +27,8 @@ type RecordType_Desugared = Record ( field1 :: String
 type RecordType = { field1 :: String
                -- , ...
                   , fieldN :: Int
-                  , function :: String -> String }
+                  , function :: String -> String
+                  }
 
 getField :: RecordType -> String
 getField obj = obj.field1
