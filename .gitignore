@@ -8,6 +8,7 @@
 /.purs*
 /.psa*
 
+/**/.psc-ide-port
 /**/.psc-package/
 /**/.psci*
 /**/.psa*
