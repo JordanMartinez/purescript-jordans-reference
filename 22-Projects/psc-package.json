@@ -18,6 +18,17 @@
     "effect",
     "prelude",
     "transformers",
-    "benchotron"
+    "yargs",
+    "node-fs-aff",
+    "node-buffer",
+    "node-path",
+    "node-process",
+    "st",
+    "control",
+    "string-parsers",
+    "debug",
+
+    "benchotron",
+    "tree"
   ]
 }
