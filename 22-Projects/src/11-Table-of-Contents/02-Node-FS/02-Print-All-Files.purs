@@ -7,16 +7,11 @@ import Effect.Console (log)
 import Effect.Aff (Aff, launchAff_)
 import Node.FS.Stats as Stats
 import Node.FS.Aff as FS
-import Node.Encoding (Encoding(UTF8))
-import Node.Path (FilePath, normalize, dirname, basename, extname, relative, concat, sep)
+import Node.Path (FilePath, normalize, sep)
 import Node.Globals (__dirname)
-import Data.Foldable (foldl, elem, intercalate)
-import Data.Traversable (for)
-import Data.String (length)
+import Data.Foldable (foldl, intercalate)
 import Control.MonadPlus ((<|>))
 import Data.List.Types (List(..), (:))
-import Data.List as List
-import Data.Array as Array
 import Data.Maybe (Maybe(..))
 import Data.Either (Either(..))
 
@@ -26,7 +21,7 @@ import Node.Yargs.Applicative (flag, yarg, runY)
 -- For any bindings or custom things you need outside of the basic
 -- things that the above module provides, you'll need to use
 -- Node.Yargs.Setup
-import Node.Yargs.Setup (example, usage, version)
+import Node.Yargs.Setup (example, usage)
 
 main :: Effect Unit
 main = do

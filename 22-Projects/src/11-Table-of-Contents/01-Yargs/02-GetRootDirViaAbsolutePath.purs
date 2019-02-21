@@ -6,10 +6,8 @@ import Data.Maybe (Maybe(..))
 import Effect (Effect)
 import Effect.Console (log)
 
-import Node.Yargs.Applicative (flag, yarg, runY)
-import Node.Yargs.Setup (example, usage, version)
-import Node.Path (FilePath, normalize, dirname, basename, extname, relative, concat, sep)
-import Node.Globals (__dirname)
+import Node.Yargs.Applicative (yarg, runY)
+import Node.Yargs.Setup (example, usage)
 
 -- Since the path to this repository will change depending on which
 -- local computer runs this program, we'll ask the user to

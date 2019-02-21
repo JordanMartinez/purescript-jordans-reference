@@ -9,6 +9,8 @@ import Data.Maybe (Maybe, maybe)
 import Data.Monoid (power)
 import Data.Tree (Tree)
 import Data.Tree.Zipper (fromTree, toTree, modifyValue, down, next, root)
+import Effect (Effect)
+import Effect.Console (log)
 
 -- Serves only to make this file runnable
 main :: Effect Unit

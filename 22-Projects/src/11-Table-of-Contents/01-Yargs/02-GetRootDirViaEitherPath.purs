@@ -12,8 +12,8 @@ import Node.Yargs.Applicative (flag, yarg, runY)
 -- For any bindings or custom things you need outside of the basic
 -- things that the above module provides, you'll need to use
 -- Node.Yargs.Setup
-import Node.Yargs.Setup (example, usage, version)
-import Node.Path (FilePath, normalize, dirname, basename, extname, relative, concat, sep)
+import Node.Yargs.Setup (example, usage)
+import Node.Path (FilePath, normalize, sep)
 import Node.Globals (__dirname)
 
 -- The previous file's code works, but using an absolute path is rather verbose.
