@@ -193,7 +193,7 @@ Impure ( Identity (bind (Pure a) f))
 Impure ( Identity (Pure (f a)))
 ```
 
-### Definition of Free Monad
+## Definition of Free Monad
 
 Putting it all together, we get this:
 ```purescript

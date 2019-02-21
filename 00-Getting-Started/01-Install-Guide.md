@@ -1,6 +1,6 @@
 # Install Guide
 
-### Getting Additional Help
+## Getting Additional Help
 
 Throughout your learning process, it will be helpful to ask others for help. The two places this is often done is on the ML forum and the Slack group chat. If you encounter problems when installing anything below, ask for help on the Slack group's `#purescript-beginner` channel and you should receive help.
 

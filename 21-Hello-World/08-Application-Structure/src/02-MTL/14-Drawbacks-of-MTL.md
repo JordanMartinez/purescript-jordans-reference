@@ -6,7 +6,7 @@ Note:
 - Some of the below flaws may be specific only to Haskell and not Purescript.
 - In the below sources, any mention of Haskell's `IORef` is equivalent to Purescript's `Ref`: a global mutable variable.
 
-### `MonadState` Allows Only One State Manipulation Type
+## `MonadState` Allows Only One State Manipulation Type
 
 First, due to the functional dependency from `m` to `s` in `MonadState`'s definition, it's impossible to do two different state manipulations within the same function. For example...
 ```purescript
@@ -50,17 +50,17 @@ f = do
 
 However, I'm not sure what are the pros/cons of this approach, but this is similar to how `Run` (explained in the `Free` folder) enables two different state manipulations.
 
-### `MonadState` & `MonadWriter` lose their state on a runtime error
+## `MonadState` & `MonadWriter` lose their state on a runtime error
 
 If a runtime error occurs in a computation that uses `MonadState` or `MonadWriter`, then the states in both `MonadState` and `MonadWriter` are lost (because the computation halts).
 
-### `WriterT` & `RWST` has a "space leak" problem
+## `WriterT` & `RWST` has a "space leak" problem
 
 This is largely due to `WriterT`'s usage of `Monoid`. The 'fix' is to drop some of its features and use a `StateT` instead. See [Writer Monads and Space Leaks - Infinite Negative Utility](https://blog.infinitenegativeutility.com/2016/7/writer-monads-and-space-leaks)
 
 Since `RWST` also encodes things via `WriterT`, it also suffers from this problem.
 
-### N-squared-ish Monad Transformer Instances
+## N-squared-ish Monad Transformer Instances
 
 Whenever one wants to define a new monad transformer (e.g. `MonadAuthenticate`) to encode some effect, one must define ~`n^2` instances:
 - 1 `MonadAuthenticate` instance for each `[Word]T` type via `MonadTrans` to lift the monadic newtyped `AuthenticateT` function.
@@ -88,7 +88,7 @@ In short, we define that many instances so that the order of the monad stack doe
 
 Note: I say roughly **~**`n^2` because apparently there are some cases where "lifting" a function would break a law (or something).
 
-### Monad transformer stacks' type signatures get complicated quickly
+## Monad transformer stacks' type signatures get complicated quickly
 
 Related to the previous point, but the type signatures start getting crazy very quickly. For new beginners who are just learning about monad transformers, this can be quite offsetting:
 ```purescript

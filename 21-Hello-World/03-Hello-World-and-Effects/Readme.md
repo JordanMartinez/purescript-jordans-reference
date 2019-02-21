@@ -7,7 +7,7 @@ This folder accomplishes the following goals:
 
 These examples are compilable, enabling the reader to do two things.
 
-### REPL
+## REPL
 
 First, one can interact with the code in the REPL via the command `pulp repl`. Once initialized, one can import a module into the REPL and play with the code from there (e.g. run `main`).
 
@@ -18,7 +18,7 @@ import HelloWorld
 main
 ```
 
-### Compilation
+## Compilation
 
 Second, one can compile the examples and view their resulting Javascript files, the unoptimized and optimized version:
 

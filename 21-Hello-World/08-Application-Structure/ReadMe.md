@@ -33,6 +33,6 @@ To get a general idea for the concept this folder is going to try to teach:
 - Watch [Functional Architecture - The Pits of Success](https://www.youtube.com/watch?v=US8QG9I1XW0)
 - Optional but also worth watching: [Boundaries](https://www.destroyallsoftware.com/talks/boundaries)
 
-### A Word of Thanks
+## A Word of Thanks
 
 While trying to learn this myself, I benefited from looking at the code in stepchownfun's BSD-3 licensed project, [`effects`](https://github.com/stepchowfun/effects), as a guide when I did not completely understand something myself.
