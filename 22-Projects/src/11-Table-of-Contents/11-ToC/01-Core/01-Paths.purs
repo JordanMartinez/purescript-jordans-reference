@@ -4,9 +4,13 @@ module Projects.ToC.Core.Paths
   , DirectoryPath(..)
   , FilePath
   , WebUrl
+  , PathUri
+  , AddPath
+  , addPath'
   , RootToParentDir(..)
   ) where
 
+import Data.Semigroup ((<>))
 import Data.Generic.Rep (class Generic)
 import Data.Generic.Rep.Show (genericShow)
 import Data.Show (class Show)
@@ -32,5 +36,23 @@ instance showDirectoryPath :: Show DirectoryPath where
 type FilePath = String
 
 type WebUrl = String
+
+-- | Works with `AddPath` to efficiently add a file path to both its
+-- | file-system version and its website url version
+type PathUri = { fs :: FilePath
+               , url :: WebUrl
+               }
+
+type AddPath = PathUri -> FilePath -> PathUri
+
+-- | Creates an `AddPath` given a backend-specific way to get the file separator
+-- | character.
+addPath' :: String -> AddPath
+addPath' fsSeparator =
+  (\pUri path ->
+    { fs: pUri.fs <> fsSeparator <> path
+    , url: pUri.url <> "/" <> path
+    }
+  )
 
 newtype RootToParentDir = RootToParentDir String
