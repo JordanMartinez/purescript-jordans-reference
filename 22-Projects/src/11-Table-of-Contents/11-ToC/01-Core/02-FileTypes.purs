@@ -20,7 +20,7 @@ import Projects.ToC.Core.Paths (DirectoryPath)
 -- |                            "#" <> anchorLink <> ")"
 -- | )
 -- | ```
-type GenHeaderLink = Int -> String -> String
+type GenHeaderLink = Int -> String
 
 -- | A file that includes headers within it.
 type FileWithHeaders =

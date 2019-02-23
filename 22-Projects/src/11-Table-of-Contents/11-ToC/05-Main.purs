@@ -13,12 +13,12 @@ import Node.Globals (__dirname)
 import Node.Path (extname, normalize, sep)
 import Node.Yargs.Applicative (flag, yarg, runY)
 import Node.Yargs.Setup (example, usage)
-import Projects.ToC.Core.Paths (FilePath)
 import Projects.ToC.API.AppM (runAppM)
+import Projects.ToC.Core.Paths (FilePath, addPath')
 import Projects.ToC.Domain.BusinessLogic (Env, program, LogLevel(..))
+import Projects.ToC.OSFFI (endOfLine)
 import Projects.ToC.Parser (extractAllCodeHeaders, extractAllMarkdownHeaders)
 import Projects.ToC.Renderer (RootURL(..), renderGHPath, renderToCFile)
-import Projects.ToC.OSFFI (endOfLine)
 
 main :: Effect Unit
 main = do
@@ -113,10 +113,10 @@ setupProgram useAbsolutePath rootDirectory outputPath
                              , repo: ghProjectName
                              , ref: ghBranchName
                              }
-  let parseContent extName content =
+  let parseContent fileUrl extName content =
         case extName of
-          ".purs" -> extractAllCodeHeaders $ split (Pattern endOfLine) content
-          ".md" -> extractAllMarkdownHeaders $ split (Pattern endOfLine) content
+          ".purs" -> extractAllCodeHeaders fileUrl $ split (Pattern endOfLine) content
+          ".md" -> extractAllMarkdownHeaders fileUrl $ split (Pattern endOfLine) content
           _ -> Nil
   let level =
         case logLevel of
@@ -125,7 +125,8 @@ setupProgram useAbsolutePath rootDirectory outputPath
           _ -> Error
 
   runProgram
-    { rootDir: rootDir
+    { rootUri: { fs: rootDir, url: rootURL }
+    , addPath: addPath' sep
     , matchesTopLevelDir: (\path -> notElem path excludedTopLevelDirs)
     , includeRegularDir: (\path -> notElem path excludedRegularDir)
     , includeFile: (\path -> elem (extname path) includedFileExtensions)

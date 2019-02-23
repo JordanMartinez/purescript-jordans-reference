@@ -16,16 +16,17 @@ import Data.List (reverse)
 import Data.List.Types (List(..), (:))
 import Data.Maybe (Maybe(..), maybe)
 import Data.Tree (Tree)
-import Node.Path ( extname, sep)
+import Node.Path (extname)
 import Projects.ToC.Core.FileTypes (GenHeaderLink, Directory(..), ParsedDirContent, TopLevelDirectory(..))
-import Projects.ToC.Core.Paths (FileExtension, DirectoryPath(..), RootToParentDir(..), PathType(..), FilePath)
+import Projects.ToC.Core.Paths (AddPath, DirectoryPath(..), FileExtension, FilePath, PathType(..), PathUri, WebUrl)
 
-type Env = { rootDir :: FilePath
+type Env = { rootUri :: PathUri
+           , addPath :: AddPath
            , matchesTopLevelDir :: FilePath -> Boolean
            , includeRegularDir :: FilePath -> Boolean
            , includeFile :: FilePath -> Boolean
            , outputFile :: FilePath
-           , parseContent :: FileExtension -> String -> List (Tree GenHeaderLink)
+           , parseContent :: WebUrl -> FileExtension -> String -> List (Tree GenHeaderLink)
            , renderToCFile :: List TopLevelDirectory -> String
            , logLevel :: LogLevel
            }
@@ -65,10 +66,10 @@ getTopLevelDirs :: forall m.
                    ReadPath m => m (List FilePath)
 getTopLevelDirs = do
   env <- ask
-  paths <- readDir env.rootDir
+  paths <- readDir env.rootUri.fs
   foldl (\listInMonad path -> do
-    let fullPath = env.rootDir <> path
-    pathType <- readPathType fullPath
+    let fullPath = env.addPath env.rootUri path
+    pathType <- readPathType fullPath.fs
     case pathType of
       Just Dir | env.matchesTopLevelDir path ->
         (\list -> path : list) <$> listInMonad
@@ -82,23 +83,22 @@ parseTopLevelDirContent :: forall m.
                            ReadPath m =>
                            m (List TopLevelDirectory) -> FilePath -> m (List TopLevelDirectory)
 parseTopLevelDirContent listInMonad p = do
-  let dirPath = (DirectoryPath p)
+  env <- ask
   logInfo $ "Parsing toplevel content for path: " <> p
-  children <- recursivelyGetAndParseFiles (RootToParentDir "") dirPath
+  children <- recursivelyGetAndParseFiles $ env.addPath env.rootUri p
   logInfo $ "Finished parsing toplevel content for path: " <> p
-  listInMonad <#> (\list -> (TopLevelDirectory dirPath children) : list)
+  listInMonad <#> (\list -> (TopLevelDirectory (DirectoryPath p) children) : list)
 
 recursivelyGetAndParseFiles :: forall m.
                                Monad m =>
                                MonadAsk Env m =>
                                LogToConsole m =>
                                ReadPath m =>
-                               RootToParentDir -> DirectoryPath -> m ParsedDirContent
-recursivelyGetAndParseFiles (RootToParentDir rtpDir) (DirectoryPath path) = do
+                               PathUri -> m ParsedDirContent
+recursivelyGetAndParseFiles fullPathUri = do
   env <- ask
-  let absoluteDirPath = env.rootDir <> rtpDir <> path
-  logDebug $ "Reading dir: " <> absoluteDirPath
-  unparsedPaths <- readDir absoluteDirPath
+  logDebug $ "Reading dir: " <> fullPathUri.fs
+  unparsedPaths <- readDir fullPathUri.fs
 
   {-
     We're going to do 2 things in the next few lines of code
@@ -123,29 +123,28 @@ recursivelyGetAndParseFiles (RootToParentDir rtpDir) (DirectoryPath path) = do
     append it to our final list, so that it is first.
   -}
   rec <- foldl (\recInMonad p -> do
-    let fullDirPath = absoluteDirPath <> sep
-    let fullChildPath = fullDirPath <> p
-    pathType <- readPathType fullChildPath
+    let fullChildPath = env.addPath fullPathUri p
+    pathType <- readPathType fullChildPath.fs
     case pathType of
       Just Dir -> do
         if env.includeRegularDir p
           then do
-            logDebug $ "Directory found: " <> fullChildPath
-            let rootToParent = rtpDir <> path <> sep
+            logDebug $ "Directory found: " <> fullChildPath.fs
+            children <- recursivelyGetAndParseFiles fullChildPath
             let dirPath = DirectoryPath p
-            children <- recursivelyGetAndParseFiles (RootToParentDir rootToParent) dirPath
             recInMonad <#> (\rec -> rec { list = (Left $ Directory dirPath children) : rec.list })
           else do
-            logDebug $ "Ignoring directory: " <> fullChildPath
+            logDebug $ "Ignoring directory: " <> fullChildPath.fs
             recInMonad
       Just File -> do
         if env.includeFile p
           then do
-            logDebug $ "File found: " <> fullChildPath
-            content <- readFile fullChildPath
+            logDebug $ "File found: " <> fullChildPath.fs
+            -- TODO: check file's URL to ensure it's valid before parsing it for headers.
+            content <- readFile fullChildPath.fs
             let fileWithHeaders = Right $
                   { fileName: p
-                  , headers: env.parseContent (extname p) content
+                  , headers: env.parseContent fullChildPath.url (extname p) content
                   }
             recInMonad <#> (\rec ->
               if p == "ReadMe.md" || p == "Readme.md"
@@ -153,13 +152,13 @@ recursivelyGetAndParseFiles (RootToParentDir rtpDir) (DirectoryPath path) = do
                 else rec { list = fileWithHeaders : rec.list }
               )
           else do
-            logDebug $ "Ignoring file: " <> fullChildPath
+            logDebug $ "Ignoring file: " <> fullChildPath.fs
             recInMonad
       _ -> do
-        logDebug $ "Ignoring unknown path type: " <> fullChildPath
+        logDebug $ "Ignoring unknown path type: " <> fullChildPath.fs
         recInMonad
   ) (pure { list: Nil, readMe: Nothing }) unparsedPaths
-  logDebug $ "Finished reading dir: " <> absoluteDirPath
+  logDebug $ "Finished reading dir: " <> fullPathUri.fs
   -- now we append the readme to the front of the list, if it exists,
   -- and use "pure" to lift the final list into the monad we're using.
   let reversedList = reverse rec.list

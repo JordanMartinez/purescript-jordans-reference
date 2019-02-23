@@ -51,7 +51,7 @@ renderContent r@(RootURL rootURL) (RootToParentDir dirPath) depth content =
         fullFilePath = rootURL <> dirPath <> file.fileName
       in
         indentedBulletList depth (hyperLink (replaceDashesWithSpace file.fileName) fullFilePath) <>
-        (foldl (\acc next -> acc <> (renderHeaderTree (depth + 1) fullFilePath next)) "" file.headers)
+        (foldl (\acc next -> acc <> (renderHeaderTree (depth + 1) next)) "" file.headers)
     Left (Directory (DirectoryPath path) children) ->
       let
         rootToParent = RootToParentDir $ dirPath <> path <> "/"
@@ -59,12 +59,12 @@ renderContent r@(RootURL rootURL) (RootToParentDir dirPath) depth content =
         indentedBulletList depth (replaceDashesWithSpace path) <>
         foldl (\acc next -> acc <> (renderContent r rootToParent (depth + 1) next)) "" children
 
-renderHeaderTree :: Int -> String -> Tree GenHeaderLink -> String
-renderHeaderTree d filePath next =
+renderHeaderTree :: Int -> Tree GenHeaderLink -> String
+renderHeaderTree d next =
   let
     genHeaderLink = head next
   in
-    genHeaderLink d filePath <>
+    genHeaderLink d <>
     tailRec go {level: d, drawn: "", current: tail next }
 
   where
@@ -73,7 +73,7 @@ renderHeaderTree d filePath next =
     go {level: l, drawn: s, current: c:cs } =
       let
         genHeaderLink' = head c
-        drawn = genHeaderLink' l filePath
+        drawn = genHeaderLink' l
       in
         Loop { level: l
              , drawn: s <> drawn <> (tailRec go {level: l + 1, drawn: "", current: (tail c)})

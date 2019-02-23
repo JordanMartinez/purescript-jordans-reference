@@ -14,6 +14,7 @@ import Data.String as String
 import Data.Tree (Tree)
 import Data.Tree.Zipper (Loc, fromTree, insertAfter, insertChild, lastChild, root, toTree, value)
 import Projects.ToC.Core.FileTypes (GenHeaderLink)
+import Projects.ToC.Core.Paths (WebUrl)
 import Projects.ToC.Domain.Markdown (indentedBulletList, hyperLink)
 import Text.Parsing.StringParser (Parser, runParser)
 import Text.Parsing.StringParser.CodePoints (regex, string, eof)
@@ -28,8 +29,8 @@ type CodeHeaderInfo = { level :: Int
                       , text :: String
                       }
 
-extractAllCodeHeaders :: Array String -> List (Tree GenHeaderLink)
-extractAllCodeHeaders lines =
+extractAllCodeHeaders :: WebUrl -> Array String -> List (Tree GenHeaderLink)
+extractAllCodeHeaders absoluteFileUrl lines =
   let
     result = foldlWithIndex (\index acc nextLine ->
         case runParser codeLineWithMarkdownHeaders nextLine of
@@ -44,16 +45,16 @@ extractAllCodeHeaders lines =
     listOfLocs = maybe result.list (\loc -> loc : result.list) result.loc
   in (reverse listOfLocs) <#> (\loc ->
         (toTree loc) <#> (\rec ->
-          (\indentNumber absoluteUrlToFile ->
+          (\indentNumber ->
             indentedBulletList
               (indentNumber + rec.level - 2)
-              (hyperLink rec.text (absoluteUrlToFile <> "#L" <> show rec.lineNumber))
+              (hyperLink rec.text (absoluteFileUrl <> "#L" <> show rec.lineNumber))
           )
         )
       )
 
-extractAllMarkdownHeaders :: Array String -> List (Tree GenHeaderLink)
-extractAllMarkdownHeaders lines =
+extractAllMarkdownHeaders :: WebUrl -> Array String -> List (Tree GenHeaderLink)
+extractAllMarkdownHeaders absoluteFileUrl lines =
   let
     result = foldlWithIndex (\index acc nextLine ->
         case runParser plainTextLinewithMarkdownHeaders nextLine of
@@ -68,12 +69,12 @@ extractAllMarkdownHeaders lines =
 
   in (reverse listOfLocs) <#> (\loc ->
         (toTree loc) <#> (\rec ->
-          (\indentNumber absoluteUrlToFile ->
+          (\indentNumber ->
             indentedBulletList
               (indentNumber + rec.level - 2)
               ( hyperLink
                   rec.text
-                  (absoluteUrlToFile <> "#" <> rec.anchor)
+                  (absoluteFileUrl <> "#" <> rec.anchor)
               )
           )
         )
