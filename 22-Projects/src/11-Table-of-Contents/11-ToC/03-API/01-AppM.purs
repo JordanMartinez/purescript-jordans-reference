@@ -13,7 +13,7 @@ import Node.Encoding (Encoding(..))
 import Node.FS.Aff as FS
 import Node.FS.Stats as Stats
 import Node.Path (FilePath)
-import Projects.ToC.Core.FileTypes (DirectoryPath(..), PathType(..))
+import Projects.ToC.Core.Paths (DirectoryPath(..), PathType(..))
 import Projects.ToC.Domain.BusinessLogic (class GetTopLevelDirs, class LogToConsole, class ReadPath, class WriteToFile, Env, LogLevel)
 import Type.Equality (class TypeEquals, from)
 

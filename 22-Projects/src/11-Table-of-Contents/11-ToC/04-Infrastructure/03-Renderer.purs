@@ -13,12 +13,12 @@ import Data.Foldable (foldl)
 import Data.List (List(..), (:))
 import Data.String (Pattern(..), Replacement(..), replace, replaceAll, toLower)
 import Data.Tree (Tree)
-import Projects.ToC.Core.FileTypes (GenHeaderLink, Directory(..), DirectoryPath(..), ParsedContent, TopLevelDirectory(..))
+import Projects.ToC.Core.FileTypes (GenHeaderLink, Directory(..), ParsedContent, TopLevelDirectory(..))
 import Projects.ToC.Core.GitHubLinks (GitHubRepo)
 import Projects.ToC.Markdown (anchorLink, bulletList, emptyLine, h1, h2, hyperLink, indentedBulletList)
+import Projects.ToC.Core.Paths (DirectoryPath(..), RootToParentDir(..))
 
 newtype RootURL = RootURL String
-newtype RootToParentDir = RootToParentDir String
 
 renderToCFile :: RootURL -> List TopLevelDirectory -> String
 renderToCFile rootURL results =

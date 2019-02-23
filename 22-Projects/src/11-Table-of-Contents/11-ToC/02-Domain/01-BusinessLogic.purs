@@ -1,7 +1,5 @@
 module Projects.ToC.Domain.BusinessLogic
   ( Env
-  , FileExtension
-  , RootToParentDir(..)
   , program
   , class GetTopLevelDirs, getTopLevelDirs
   , class ReadPath, readDir, readFile, readPathType
@@ -20,10 +18,8 @@ import Data.List.Types (List(..), (:))
 import Data.Maybe (Maybe(..), maybe)
 import Data.Tree (Tree)
 import Node.Path (FilePath, extname, sep)
-import Projects.ToC.Core.FileTypes (GenHeaderLink, Directory(..), DirectoryPath(..), ParsedDirContent, PathType(..), TopLevelDirectory(..))
-
-type FileExtension = String
-newtype RootToParentDir = RootToParentDir FilePath
+import Projects.ToC.Core.FileTypes (GenHeaderLink, Directory(..), ParsedDirContent, TopLevelDirectory(..))
+import Projects.ToC.Core.Paths (FileExtension, DirectoryPath(..), RootToParentDir(..), PathType(..))
 
 type Env = { rootDir :: FilePath
            , matchesTopLevelDir :: FilePath -> Boolean
