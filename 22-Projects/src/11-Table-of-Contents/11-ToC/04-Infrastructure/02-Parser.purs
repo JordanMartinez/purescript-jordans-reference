@@ -13,7 +13,7 @@ import Data.Maybe (Maybe(..), maybe)
 import Data.String as String
 import Data.Tree (Tree)
 import Data.Tree.Zipper (Loc, fromTree, insertAfter, insertChild, lastChild, root, toTree, value)
-import Projects.ToC.Core.FileTypes (GenHeaderLink)
+import Projects.ToC.Core.FileTypes (HeaderInfo)
 import Projects.ToC.Core.Paths (WebUrl)
 import Projects.ToC.Domain.Markdown (indentedBulletList, hyperLink)
 import Text.Parsing.StringParser (Parser, runParser)
@@ -29,7 +29,7 @@ type CodeHeaderInfo = { level :: Int
                       , text :: String
                       }
 
-extractAllCodeHeaders :: WebUrl -> Array String -> List (Tree GenHeaderLink)
+extractAllCodeHeaders :: WebUrl -> Array String -> List (Tree HeaderInfo)
 extractAllCodeHeaders absoluteFileUrl lines =
   let
     result = foldlWithIndex (\index acc nextLine ->
@@ -45,15 +45,14 @@ extractAllCodeHeaders absoluteFileUrl lines =
     listOfLocs = maybe result.list (\loc -> loc : result.list) result.loc
   in (reverse listOfLocs) <#> (\loc ->
         (toTree loc) <#> (\rec ->
-          (\indentNumber ->
-            indentedBulletList
-              (indentNumber + rec.level - 2)
-              (hyperLink rec.text (absoluteFileUrl <> "#L" <> show rec.lineNumber))
-          )
+          { level: rec.level
+          , text: rec.text
+          , url: absoluteFileUrl <> "#L" <> show rec.lineNumber
+          }
         )
       )
 
-extractAllMarkdownHeaders :: WebUrl -> Array String -> List (Tree GenHeaderLink)
+extractAllMarkdownHeaders :: WebUrl -> Array String -> List (Tree HeaderInfo)
 extractAllMarkdownHeaders absoluteFileUrl lines =
   let
     result = foldlWithIndex (\index acc nextLine ->
@@ -69,14 +68,10 @@ extractAllMarkdownHeaders absoluteFileUrl lines =
 
   in (reverse listOfLocs) <#> (\loc ->
         (toTree loc) <#> (\rec ->
-          (\indentNumber ->
-            indentedBulletList
-              (indentNumber + rec.level - 2)
-              ( hyperLink
-                  rec.text
-                  (absoluteFileUrl <> "#" <> rec.anchor)
-              )
-          )
+          { level: rec.level
+          , text: rec.text
+          , url: absoluteFileUrl <> "#" <> rec.anchor
+          }
         )
       )
 

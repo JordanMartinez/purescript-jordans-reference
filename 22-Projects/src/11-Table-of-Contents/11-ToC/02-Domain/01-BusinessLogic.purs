@@ -17,7 +17,7 @@ import Data.List.Types (List(..), (:))
 import Data.Maybe (Maybe(..), maybe)
 import Data.Tree (Tree)
 import Node.Path (extname)
-import Projects.ToC.Core.FileTypes (GenHeaderLink, Directory(..), ParsedDirContent, TopLevelDirectory(..))
+import Projects.ToC.Core.FileTypes (Directory(..), ParsedDirContent, TopLevelDirectory(..), HeaderInfo)
 import Projects.ToC.Core.Paths (AddPath, DirectoryPath(..), FileExtension, FilePath, PathType(..), PathUri, WebUrl)
 
 type Env = { rootUri :: PathUri
@@ -26,7 +26,7 @@ type Env = { rootUri :: PathUri
            , includeRegularDir :: FilePath -> Boolean
            , includeFile :: FilePath -> Boolean
            , outputFile :: FilePath
-           , parseContent :: WebUrl -> FileExtension -> String -> List (Tree GenHeaderLink)
+           , parseContent :: WebUrl -> FileExtension -> String -> List (Tree HeaderInfo)
            , renderToCFile :: List TopLevelDirectory -> String
            , logLevel :: LogLevel
            }
@@ -142,9 +142,10 @@ recursivelyGetAndParseFiles fullPathUri = do
             logDebug $ "File found: " <> fullChildPath.fs
             -- TODO: check file's URL to ensure it's valid before parsing it for headers.
             content <- readFile fullChildPath.fs
+            let headers = env.parseContent fullChildPath.url (extname p) content
             let fileWithHeaders = Right $
                   { fileName: p
-                  , headers: env.parseContent fullChildPath.url (extname p) content
+                  , headers: headers
                   }
             recInMonad <#> (\rec ->
               if p == "ReadMe.md" || p == "Readme.md"

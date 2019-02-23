@@ -113,10 +113,10 @@ setupProgram useAbsolutePath rootDirectory outputPath
                              , repo: ghProjectName
                              , ref: ghBranchName
                              }
-  let parseContent fileUrl extName content =
+  let parseContent depth fileUrl extName content =
         case extName of
-          ".purs" -> extractAllCodeHeaders fileUrl $ split (Pattern endOfLine) content
-          ".md" -> extractAllMarkdownHeaders fileUrl $ split (Pattern endOfLine) content
+          ".purs" -> extractAllCodeHeaders depth fileUrl $ split (Pattern endOfLine) content
+          ".md" -> extractAllMarkdownHeaders depth fileUrl $ split (Pattern endOfLine) content
           _ -> Nil
   let level =
         case logLevel of

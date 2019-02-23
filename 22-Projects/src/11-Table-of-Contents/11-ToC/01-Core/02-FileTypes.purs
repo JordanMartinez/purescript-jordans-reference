@@ -1,5 +1,5 @@
 module Projects.ToC.Core.FileTypes
-  ( GenHeaderLink
+  ( HeaderInfo
   , FileWithHeaders
   , Directory(..)
   , ParsedContent
@@ -12,20 +12,15 @@ import Data.List.Types (List)
 import Data.Tree (Tree)
 import Projects.ToC.Core.Paths (DirectoryPath)
 
--- | a function takes the URL to a file and produces a markdown hyperlink
--- | for one of its headers. In other words:
--- | ```purescript
--- |  (\indentNumber absoluteURLToFile ->
--- |     "[" <> headerText <> "](#" <> absoluteURLToFile <>
--- |                            "#" <> anchorLink <> ")"
--- | )
--- | ```
-type GenHeaderLink = Int -> String
+type HeaderInfo = { level :: Int
+                  , text :: String
+                  , url :: String
+                  }
 
 -- | A file that includes headers within it.
 type FileWithHeaders =
   { fileName :: String
-  , headers :: List (Tree GenHeaderLink)
+  , headers :: List (Tree HeaderInfo)
   }
 
 -- | A directory that includes either instances of FileWithHeaders with
