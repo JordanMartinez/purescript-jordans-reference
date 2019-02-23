@@ -1,7 +1,6 @@
 module Projects.ToC.Domain.BusinessLogic
   ( Env
   , program
-  , class GetTopLevelDirs, getTopLevelDirs
   , class ReadPath, readDir, readFile, readPathType
   , class WriteToFile, writeToFile
   , class LogToConsole, log
@@ -35,14 +34,13 @@ program :: forall m.
            Monad m =>
            MonadAsk Env m =>
            LogToConsole m =>
-           GetTopLevelDirs m =>
            ReadPath m =>
            WriteToFile m =>
            m Unit
 program = do
   topLevelDirs <- getTopLevelDirs
   logInfo $ "Top level dirs are: "
-  logInfo $ intercalate "\n" ((\(DirectoryPath p) -> p) <$> topLevelDirs) <> "\n"
+  logInfo $ intercalate "\n" topLevelDirs <> "\n"
   results <- foldl parseTopLevelDirContent (pure Nil) topLevelDirs
   logInfo "Rendering parsed content..."
   output <- asks $ (\env -> env.renderToCFile results)
@@ -50,18 +48,40 @@ program = do
   writeToFile output
   logInfo "Finished."
 
+-- | Gets the list of top-level directory paths where the first path is
+-- | at the bottom of the list and the last path is at the top:
+-- | `last path : ... : first path : Nil`
+-- |
+-- | The list should only contain the paths of top-level directories whose
+-- | files (recusively) should be parsed.
+getTopLevelDirs :: forall m.
+                   Monad m =>
+                   MonadAsk Env m =>
+                   ReadPath m => m (List FilePath)
+getTopLevelDirs = do
+  env <- ask
+  paths <- readDir env.rootDir
+  foldl (\listInMonad path -> do
+    let fullPath = env.rootDir <> path
+    pathType <- readPathType fullPath
+    case pathType of
+      Just Dir | env.matchesTopLevelDir path ->
+        (\list -> path : list) <$> listInMonad
+      _ -> listInMonad
+  ) (pure Nil) paths
+
 parseTopLevelDirContent :: forall m.
                            Monad m =>
                            MonadAsk Env m =>
                            LogToConsole m =>
                            ReadPath m =>
-                           m (List TopLevelDirectory) -> DirectoryPath -> m (List TopLevelDirectory)
+                           m (List TopLevelDirectory) -> FilePath -> m (List TopLevelDirectory)
 parseTopLevelDirContent listInMonad p = do
-  let (DirectoryPath pString) = p
-  logInfo $ "Parsing toplevel content for path: " <> pString
-  children <- recursivelyGetAndParseFiles (RootToParentDir "") p
-  logInfo $ "Finished parsing toplevel content for path: " <> pString
-  listInMonad <#> (\list -> (TopLevelDirectory p children) : list)
+  let dirPath = (DirectoryPath p)
+  logInfo $ "Parsing toplevel content for path: " <> p
+  children <- recursivelyGetAndParseFiles (RootToParentDir "") dirPath
+  logInfo $ "Finished parsing toplevel content for path: " <> p
+  listInMonad <#> (\list -> (TopLevelDirectory dirPath children) : list)
 
 recursivelyGetAndParseFiles :: forall m.
                                Monad m =>
@@ -150,15 +170,6 @@ class (Monad m) <= ReadPath m where
 
 class (Monad m) <= WriteToFile m where
   writeToFile :: String -> m Unit
-
--- | Gets the list of top-level directory paths where the first path is
--- | at the bottom of the list and the last path is at the top:
--- | `last path : ... : first path : Nil`
--- |
--- | The list should only contain the paths of top-level directories whose
--- | files (recusively) should be parsed.
-class (Monad m) <= GetTopLevelDirs m where
-  getTopLevelDirs :: m (List DirectoryPath)
 
 data LogLevel
   = Error

@@ -4,7 +4,6 @@ import Prelude
 
 import Control.Monad.Reader.Trans (class MonadAsk, ReaderT, ask, asks, runReaderT)
 import Data.Maybe (Maybe(..))
-import Data.List (List(..), foldl, (:))
 import Effect.Aff (Aff)
 import Effect.Aff.Class (class MonadAff, liftAff)
 import Effect.Class (class MonadEffect, liftEffect)
@@ -13,8 +12,8 @@ import Node.Encoding (Encoding(..))
 import Node.FS.Aff as FS
 import Node.FS.Stats as Stats
 import Node.Path (FilePath)
-import Projects.ToC.Core.Paths (DirectoryPath(..), PathType(..))
-import Projects.ToC.Domain.BusinessLogic (class GetTopLevelDirs, class LogToConsole, class ReadPath, class WriteToFile, Env, LogLevel)
+import Projects.ToC.Core.Paths (PathType(..))
+import Projects.ToC.Domain.BusinessLogic (class LogToConsole, class ReadPath, class WriteToFile, Env, LogLevel)
 import Type.Equality (class TypeEquals, from)
 
 newtype AppM a = AppM (ReaderT Env Aff a)
@@ -68,29 +67,3 @@ instance writeToFileAppM :: WriteToFile AppM where
     env <- ask
     liftAff do
       FS.writeTextFile UTF8 env.outputFile content
-
-instance getTopLevelDirsAppM :: GetTopLevelDirs AppM where
-  getTopLevelDirs :: AppM (List DirectoryPath)
-  getTopLevelDirs = do
-    env <- ask
-    liftAff do
-      paths <- FS.readdir env.rootDir
-      foldl (\listInAff path -> do
-        let fullPath = env.rootDir <> path
-        stat <- FS.stat fullPath
-        if (Stats.isDirectory stat && env.matchesTopLevelDir path)
-          then
-            (\list -> (DirectoryPath path) : list) <$> listInAff
-          else
-            listInAff
-      ) (pure Nil) paths
-
-      {- Note: The above "foldl" code could have also been written like this:
-      foldl (\listInAff path -> do
-        let fullPath = env.rootDir <> path
-        ifM
-          ((\s -> Stats.isDirectory s && env.matchesTopLevelDir path) <$> FS.stat fullPath)
-          ((\list -> (DirectoryPath path) : list) <$> listInAff)
-          listInAff
-      ) (pure Nil) paths
-      -}
