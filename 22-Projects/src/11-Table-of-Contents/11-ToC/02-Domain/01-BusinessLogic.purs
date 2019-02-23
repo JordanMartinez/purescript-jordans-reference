@@ -41,11 +41,16 @@ program = do
   topLevelDirs <- getTopLevelDirs
   logInfo $ "Top level dirs are: "
   logInfo $ intercalate "\n" topLevelDirs <> "\n"
+
+  logInfo "Parsing top level directories..."
   results <- foldl parseTopLevelDirContent (pure Nil) topLevelDirs
+
   logInfo "Rendering parsed content..."
   output <- asks $ (\env -> env.renderToCFile results)
+
   logInfo "Writing content to file..."
   writeToFile output
+
   logInfo "Finished."
 
 -- | Gets the list of top-level directory paths where the first path is
