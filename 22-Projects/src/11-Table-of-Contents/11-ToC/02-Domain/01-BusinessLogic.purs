@@ -131,8 +131,9 @@ recursivelyGetAndParseFiles fullPathUri = do
           then do
             logDebug $ "Directory found: " <> fullChildPath.fs
             children <- recursivelyGetAndParseFiles fullChildPath
-            let dirPath = DirectoryPath p
-            recInMonad <#> (\rec -> rec { list = (Left $ Directory dirPath children) : rec.list })
+            recInMonad <#> (\rec -> 
+              rec { list = (Left $ Directory (DirectoryPath p) children) : rec.list }
+            )
           else do
             logDebug $ "Ignoring directory: " <> fullChildPath.fs
             recInMonad
