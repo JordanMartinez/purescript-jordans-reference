@@ -16,9 +16,9 @@ import Data.List (reverse)
 import Data.List.Types (List(..), (:))
 import Data.Maybe (Maybe(..), maybe)
 import Data.Tree (Tree)
-import Node.Path (FilePath, extname, sep)
+import Node.Path ( extname, sep)
 import Projects.ToC.Core.FileTypes (GenHeaderLink, Directory(..), ParsedDirContent, TopLevelDirectory(..))
-import Projects.ToC.Core.Paths (FileExtension, DirectoryPath(..), RootToParentDir(..), PathType(..))
+import Projects.ToC.Core.Paths (FileExtension, DirectoryPath(..), RootToParentDir(..), PathType(..), FilePath)
 
 type Env = { rootDir :: FilePath
            , matchesTopLevelDir :: FilePath -> Boolean

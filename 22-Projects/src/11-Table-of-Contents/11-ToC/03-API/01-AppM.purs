@@ -11,8 +11,7 @@ import Effect.Console as Console
 import Node.Encoding (Encoding(..))
 import Node.FS.Aff as FS
 import Node.FS.Stats as Stats
-import Node.Path (FilePath)
-import Projects.ToC.Core.Paths (PathType(..))
+import Projects.ToC.Core.Paths (PathType(..), FilePath)
 import Projects.ToC.Domain.BusinessLogic (class LogToConsole, class ReadPath, class WriteToFile, Env, LogLevel)
 import Type.Equality (class TypeEquals, from)
 

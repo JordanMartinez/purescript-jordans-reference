@@ -2,12 +2,14 @@ module Projects.ToC.Core.Paths
   ( FileExtension
   , PathType(..)
   , DirectoryPath(..)
+  , FilePath
+  , WebUrl
   , RootToParentDir(..)
   ) where
 
-import Data.Show (class Show)
 import Data.Generic.Rep (class Generic)
 import Data.Generic.Rep.Show (genericShow)
+import Data.Show (class Show)
 
 -- | Indicates whether a path is a directory or a file.
 data PathType
@@ -26,5 +28,9 @@ derive instance genericDirectoryPath :: Generic DirectoryPath _
 
 instance showDirectoryPath :: Show DirectoryPath where
   show x = genericShow x
+
+type FilePath = String
+
+type WebUrl = String
 
 newtype RootToParentDir = RootToParentDir String
