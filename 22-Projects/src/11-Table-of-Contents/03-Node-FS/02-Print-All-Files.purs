@@ -1,70 +1,65 @@
 module Learn.NodeFS.PrintAllFiles where
 
 import Prelude
-import Effect (Effect)
-import Effect.Class (liftEffect)
-import Effect.Console (log)
-import Effect.Aff (Aff, launchAff_)
-import Node.FS.Stats as Stats
-import Node.FS.Aff as FS
-import Node.Path (FilePath, normalize, sep)
-import Node.Globals (__dirname)
-import Data.Foldable (foldl, intercalate)
+
 import Control.MonadPlus ((<|>))
+import Data.Array (cons, snoc)
+import Data.Either (Either(..))
+import Data.Foldable (foldl, intercalate)
 import Data.List.Types (List(..), (:))
 import Data.Maybe (Maybe(..))
-import Data.Either (Either(..))
-
--- This module provides an easier interface to Yargs
-import Node.Yargs.Applicative (flag, yarg, runY)
-
--- For any bindings or custom things you need outside of the basic
--- things that the above module provides, you'll need to use
--- Node.Yargs.Setup
+import Data.String.Utils (startsWith)
+import Effect (Effect)
+import Effect.Aff (Aff, launchAff_)
+import Effect.Class (liftEffect)
+import Effect.Console (log)
+import Node.FS.Aff as FS
+import Node.FS.Stats as Stats
+import Node.Path (FilePath, concat, normalize, sep)
+import Node.Process (cwd)
+import Node.Yargs.Applicative (yarg, runY)
 import Node.Yargs.Setup (example, usage)
 
 main :: Effect Unit
 main = do
   let usageAndExample =
-              usage "This program will print the paths of a directory's \
-                    \contents (other directories or files)."
+              usage "This program will recursively print the paths of a \
+                    \directory's files."
            <> example
-                "node dist/table-of-contents/nodefs-syntax.js -r --rootDir '../"
+                "node dist/table-of-contents/nodefs-syntax.js -r './src'"
                 "If run in the 'Projects' folder, outputs paths of repository's\
                 \top-level files and folders."
-           <> example
-                "node dist/table-of-contents/nodefs-syntax.js \
-                  \--rootDir \"/home/user/projects/purescript-reference/22-Projects\""
-                "Prints all paths of files in repo to console."
 
   runY usageAndExample $ printAllFilesRecursively
-              <$> flag "r" ["use-relative-path"] (Just "Specifies that the rootdir argument is a relative path.")
-              <*> yarg "rootdir" []
-                    (Just "Indicates the root directory for this repository on a local computer.")
-                    (Right "You need to provide an absolute path to the root directory of this repository.")
+              <$> yarg "r" ["root-dir"]
+                    (Just "Indicates the root directory for this repository on \
+                          \a local computer. The default is '.' or the current \
+                          \working directory.")
+                    (Left ".")
                     true
 
-printAllFilesRecursively :: Boolean -> String -> Effect Unit
-printAllFilesRecursively pathIsRelative pathToDir = do
+printAllFilesRecursively :: String -> Effect Unit
+printAllFilesRecursively rootDir = do
   -- Effect monadic context:
-  let absolutePath =
-        if pathIsRelative then normalize (__dirname <> sep <> pathToDir) else pathToDir
+  currentWorkingDir <- cwd
   log "Root directory is:"
-  log absolutePath
+  log $ if rootDir == "." || (rootDir # startsWith ("." <> sep))
+      then normalize $ concat [currentWorkingDir, rootDir]
+      else rootDir
 
   log "Printing all paths within the root directory and all of its directories recursively:"
   launchAff_ do
     -- Aff monadic context:
-    allFiles <- recursivelyIterateDir absolutePath ""
+    allFiles <- recursivelyIterateDir rootDir []
     liftEffect $ log $ "Files:\n" <>
       -- Combine all the paths (i.e. String instances) together but stick
       -- a "\n" character in-between each.
       intercalate "\n" allFiles
 
-recursivelyIterateDir :: FilePath -> FilePath -> Aff (List FilePath)
+recursivelyIterateDir :: FilePath -> Array FilePath -> Aff (List FilePath)
 recursivelyIterateDir baseDir baseToParentDir = do
-  let folderPath = baseDir <> baseToParentDir
-  paths <- FS.readdir folderPath
+  let folderPath = baseDir `cons` baseToParentDir
+  paths <- FS.readdir $ concat folderPath
 
   {-
     In this next code block, we want to convert a path to the full path,
@@ -91,28 +86,28 @@ recursivelyIterateDir baseDir baseToParentDir = do
   -}
   foldl (accumulator baseDir baseToParentDir) (pure Nil) paths
 
-accumulator :: FilePath -> FilePath -> Aff (List FilePath) -> FilePath -> Aff (List FilePath)
+accumulator :: FilePath -> Array FilePath -> Aff (List FilePath) -> FilePath -> Aff (List FilePath)
 accumulator
   -- pass in the arguments from before, so we can re-use them here...
   baseDir baseToParentDir
 
   -- these arguments are the actual accumulator part
   listInAffMonad p = do
-    let relativePath = baseToParentDir <> p
-    let fullPath = baseDir <> relativePath
+    let relativePath = baseToParentDir `snoc` p
+    let fullPath = baseDir `cons` relativePath
 
-    ifM (Stats.isFile <$> FS.stat fullPath)
+    ifM (Stats.isFile <$> (FS.stat $ concat fullPath))
 
         -- path is a file (base case)
         (
           -- (\list -> cons relativePath list) <$> listInAffMonad
-          (relativePath : _) <$> listInAffMonad
+          ((concat relativePath) : _) <$> listInAffMonad
         )
 
         -- path is a directory (recursive case)
         (do
           -- get all file paths for this directory path
-          children <- recursivelyIterateDir baseDir (relativePath <> sep)
+          children <- recursivelyIterateDir baseDir relativePath
           -- Semigroup's `append`/`<>` is for types with kind `Type` (e.g. String)
           -- Alt's `alt`/`<|>` is the same as Semigroup but for
           --    types with kind "Type -> Type" (e.g. List)
