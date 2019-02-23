@@ -117,7 +117,6 @@ recursivelyGetAndParseFiles (RootToParentDir rtpDir) (DirectoryPath path) = do
           then do
             log $ "File found: " <> fullChildPath
             content <- readFile fullChildPath
-            -- TODO: parseContent needs to be fixed now, so that it will return 'fileWithHeaders' in correct type
             let fileWithHeaders = Right $
                   { fileName: p
                   , headers: env.parseContent (extname p) content

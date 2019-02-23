@@ -59,7 +59,6 @@ renderContent r@(RootURL rootURL) (RootToParentDir dirPath) depth content =
         indentedBulletList depth (replaceDashesWithSpace path) <>
         foldl (\acc next -> acc <> (renderContent r rootToParent (depth + 1) next)) "" children
 
--- TODO: header tree is not rendered with indentation
 renderHeaderTree :: Int -> String -> Tree GenHeaderLink -> String
 renderHeaderTree d filePath next =
   let
