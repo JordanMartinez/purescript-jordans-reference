@@ -29,6 +29,7 @@
     "debug",
 
     "benchotron",
-    "tree"
+    "tree",
+    "string-utils"
   ]
 }
