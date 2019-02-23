@@ -14,7 +14,7 @@ import Data.String as String
 import Data.Tree (Tree)
 import Data.Tree.Zipper (Loc, fromTree, insertAfter, insertChild, lastChild, root, toTree, value)
 import Projects.ToC.Core.FileTypes (GenHeaderLink)
-import Projects.ToC.Markdown (indentedBulletList, hyperLink)
+import Projects.ToC.Domain.Markdown (indentedBulletList, hyperLink)
 import Text.Parsing.StringParser (Parser, runParser)
 import Text.Parsing.StringParser.CodePoints (regex, string, eof)
 import Text.Parsing.StringParser.Combinators (choice, many, many1, sepBy1)
