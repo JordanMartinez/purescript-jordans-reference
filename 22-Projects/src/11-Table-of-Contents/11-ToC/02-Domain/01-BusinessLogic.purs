@@ -54,7 +54,6 @@ parseTopLevelDirContent :: forall m.
                            Monad m =>
                            MonadAsk Env m =>
                            LogToConsole m =>
-                           LogToConsole m =>
                            ReadPath m =>
                            m (List TopLevelDirectory) -> DirectoryPath -> m (List TopLevelDirectory)
 parseTopLevelDirContent listInMonad p = do
