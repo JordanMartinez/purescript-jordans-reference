@@ -14,7 +14,7 @@ import Node.FS.Aff as FS
 import Node.FS.Stats as Stats
 import Node.Path (FilePath)
 import Projects.ToC.Core.FileTypes (DirectoryPath(..), PathType(..))
-import Projects.ToC.Domain.BusinessLogic (class GetTopLevelDirs, class LogToConsole, class ReadPath, class WriteToFile, Env)
+import Projects.ToC.Domain.BusinessLogic (class GetTopLevelDirs, class LogToConsole, class ReadPath, class WriteToFile, Env, LogLevel)
 import Type.Equality (class TypeEquals, from)
 
 newtype AppM a = AppM (ReaderT Env Aff a)
@@ -34,8 +34,11 @@ derive newtype instance monadEffectAppM :: MonadEffect AppM
 derive newtype instance monadAffAppM :: MonadAff AppM
 
 instance logToConsoleAppM :: LogToConsole AppM where
-  log :: String -> AppM Unit
-  log msg = liftEffect $ Console.log msg
+  log :: LogLevel -> String -> AppM Unit
+  log lvl msg =
+    ifM (asks (\env -> lvl <= env.logLevel))
+        (liftEffect $ Console.log msg)
+        (pure unit)
 
 instance readPathAppM :: ReadPath AppM where
   readDir :: FilePath -> AppM (Array FilePath)

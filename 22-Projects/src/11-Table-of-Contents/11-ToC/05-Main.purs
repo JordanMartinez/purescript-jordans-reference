@@ -14,7 +14,7 @@ import Node.Path (FilePath, extname, normalize, sep)
 import Node.Yargs.Applicative (flag, yarg, runY)
 import Node.Yargs.Setup (example, usage)
 import Projects.ToC.API.AppM (runAppM)
-import Projects.ToC.Domain.BusinessLogic (Env, program)
+import Projects.ToC.Domain.BusinessLogic (Env, program, LogLevel(..))
 import Projects.ToC.Parser (extractAllCodeHeaders, extractAllMarkdownHeaders)
 import Projects.ToC.Renderer (RootURL(..), renderGHPath, renderToCFile)
 import Projects.ToC.OSFFI (endOfLine)
@@ -90,14 +90,21 @@ main = do
                     \producing the hyperlinks to files and their headers. \
                     \By default, this is 'development'")
               (Left "development") true
+        <*> yarg "log-level" []
+              (Just "The amount of information to log to the screen. \
+                    \Valid options are 'error', 'info', and 'debug'. \
+                    \Default is 'info'.")
+              (Left "info") true
 
 setupProgram :: Boolean -> FilePath -> FilePath ->
                 Array String -> Array String -> Array String ->
                 String -> String -> String ->
+                String ->
                 Effect Unit
 setupProgram useAbsolutePath rootDirectory outputPath
              excludedTopLevelDirs excludedRegularDir includedFileExtensions
              ghUsername ghProjectName ghBranchName
+             logLevel
              = do
   let rootDir = if useAbsolutePath then rootDirectory else normalize $ __dirname <> sep <> rootDirectory
   let outputFile = if useAbsolutePath then outputPath else normalize $ __dirname <> sep <> outputPath
@@ -110,6 +117,12 @@ setupProgram useAbsolutePath rootDirectory outputPath
           ".purs" -> extractAllCodeHeaders $ split (Pattern endOfLine) content
           ".md" -> extractAllMarkdownHeaders $ split (Pattern endOfLine) content
           _ -> Nil
+  let level =
+        case logLevel of
+          "info" -> Info
+          "debug" -> Debug
+          _ -> Error
+
   runProgram
     { rootDir: rootDir
     , matchesTopLevelDir: (\path -> notElem path excludedTopLevelDirs)
@@ -118,6 +131,7 @@ setupProgram useAbsolutePath rootDirectory outputPath
     , parseContent: parseContent
     , renderToCFile: renderToCFile (RootURL rootURL)
     , outputFile: outputFile
+    , logLevel: level
     }
 
 runProgram :: Env -> Effect Unit

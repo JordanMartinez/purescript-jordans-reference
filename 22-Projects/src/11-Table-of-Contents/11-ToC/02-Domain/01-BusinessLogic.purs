@@ -7,6 +7,7 @@ module Projects.ToC.Domain.BusinessLogic
   , class ReadPath, readDir, readFile, readPathType
   , class WriteToFile, writeToFile
   , class LogToConsole, log
+  , LogLevel(..)
   ) where
 
 import Prelude
@@ -31,6 +32,7 @@ type Env = { rootDir :: FilePath
            , outputFile :: FilePath
            , parseContent :: FileExtension -> String -> List (Tree GenHeaderLink)
            , renderToCFile :: List TopLevelDirectory -> String
+           , logLevel :: LogLevel
            }
 
 program :: forall m.
@@ -43,10 +45,14 @@ program :: forall m.
            m Unit
 program = do
   topLevelDirs <- getTopLevelDirs
-  log $ "Top level dirs are: " <> intercalate "\n" (show <$> topLevelDirs)
+  logInfo $ "Top level dirs are: "
+  logInfo $ intercalate "\n" ((\(DirectoryPath p) -> p) <$> topLevelDirs) <> "\n"
   results <- foldl parseTopLevelDirContent (pure Nil) topLevelDirs
+  logInfo "Rendering parsed content..."
   output <- asks $ (\env -> env.renderToCFile results)
+  logInfo "Writing content to file..."
   writeToFile output
+  logInfo "Finished."
 
 parseTopLevelDirContent :: forall m.
                            Monad m =>
@@ -56,10 +62,10 @@ parseTopLevelDirContent :: forall m.
                            ReadPath m =>
                            m (List TopLevelDirectory) -> DirectoryPath -> m (List TopLevelDirectory)
 parseTopLevelDirContent listInMonad p = do
-  let pString = show p
-  log $ "Parsing toplevel content for path: " <> pString
+  let (DirectoryPath pString) = p
+  logInfo $ "Parsing toplevel content for path: " <> pString
   children <- recursivelyGetAndParseFiles (RootToParentDir "") p
-  log $ "Finished parsing toplevel content for path: " <> pString <> "\n"
+  logInfo $ "Finished parsing toplevel content for path: " <> pString
   listInMonad <#> (\list -> (TopLevelDirectory p children) : list)
 
 recursivelyGetAndParseFiles :: forall m.
@@ -71,7 +77,7 @@ recursivelyGetAndParseFiles :: forall m.
 recursivelyGetAndParseFiles (RootToParentDir rtpDir) (DirectoryPath path) = do
   env <- ask
   let absoluteDirPath = env.rootDir <> rtpDir <> path
-  log $ "Reading dir: " <> absoluteDirPath
+  logDebug $ "Reading dir: " <> absoluteDirPath
   unparsedPaths <- readDir absoluteDirPath
 
   {-
@@ -104,18 +110,18 @@ recursivelyGetAndParseFiles (RootToParentDir rtpDir) (DirectoryPath path) = do
       Just Dir -> do
         if env.includeRegularDir p
           then do
-            log $ "Directory found: " <> fullChildPath
+            logDebug $ "Directory found: " <> fullChildPath
             let rootToParent = rtpDir <> path <> sep
             let dirPath = DirectoryPath p
             children <- recursivelyGetAndParseFiles (RootToParentDir rootToParent) dirPath
             recInMonad <#> (\rec -> rec { list = (Left $ Directory dirPath children) : rec.list })
           else do
-            log $ "Ignoring directory: " <> fullChildPath
+            logDebug $ "Ignoring directory: " <> fullChildPath
             recInMonad
       Just File -> do
         if env.includeFile p
           then do
-            log $ "File found: " <> fullChildPath
+            logDebug $ "File found: " <> fullChildPath
             content <- readFile fullChildPath
             let fileWithHeaders = Right $
                   { fileName: p
@@ -127,13 +133,13 @@ recursivelyGetAndParseFiles (RootToParentDir rtpDir) (DirectoryPath path) = do
                 else rec { list = fileWithHeaders : rec.list }
               )
           else do
-            log $ "Ignoring file: " <> fullChildPath
+            logDebug $ "Ignoring file: " <> fullChildPath
             recInMonad
       _ -> do
-        log $ "Ignoring unknown path type: " <> fullChildPath
+        logDebug $ "Ignoring unknown path type: " <> fullChildPath
         recInMonad
   ) (pure { list: Nil, readMe: Nothing }) unparsedPaths
-  log $ "Finished reading dir: " <> absoluteDirPath
+  logDebug $ "Finished reading dir: " <> absoluteDirPath
   -- now we append the readme to the front of the list, if it exists,
   -- and use "pure" to lift the final list into the monad we're using.
   let reversedList = reverse rec.list
@@ -159,5 +165,22 @@ class (Monad m) <= WriteToFile m where
 class (Monad m) <= GetTopLevelDirs m where
   getTopLevelDirs :: m (List DirectoryPath)
 
+data LogLevel
+  = Error
+  | Info
+  | Debug
+
+derive instance eqLogLevel :: Eq LogLevel
+derive instance ordLogLevel :: Ord LogLevel
+
 class (Monad m) <= LogToConsole m where
-  log :: String -> m Unit
+  log :: LogLevel -> String -> m Unit
+
+logError :: forall m. LogToConsole m => String -> m Unit
+logError msg = log Error msg
+
+logInfo :: forall m. LogToConsole m => String -> m Unit
+logInfo msg = log Info msg
+
+logDebug :: forall m. LogToConsole m => String -> m Unit
+logDebug msg = log Debug msg
