@@ -11,8 +11,8 @@ import Effect.Console as Console
 import Node.Encoding (Encoding(..))
 import Node.FS.Aff as FS
 import Node.FS.Stats as Stats
-import Projects.ToC.Core.Paths (PathType(..), FilePath)
-import Projects.ToC.Domain.BusinessLogic (class LogToConsole, class ReadPath, class WriteToFile, Env, LogLevel)
+import Projects.ToC.Core.Paths (PathType(..), FilePath, WebUrl)
+import Projects.ToC.Domain.BusinessLogic (class LogToConsole, class ReadPath, class WriteToFile, class SendHttpRequest, Env, LogLevel)
 import Type.Equality (class TypeEquals, from)
 
 newtype AppM a = AppM (ReaderT Env Aff a)
@@ -66,3 +66,8 @@ instance writeToFileAppM :: WriteToFile AppM where
     env <- ask
     liftAff do
       FS.writeTextFile UTF8 env.outputFile content
+
+instance sentHttpRequestAppM :: SendHttpRequest AppM where
+  sendRequest :: WebUrl -> AppM Boolean
+  sendRequest _ = do
+    pure true

@@ -4,30 +4,33 @@ module Projects.ToC.Domain.BusinessLogic
   , class ReadPath, readDir, readFile, readPathType
   , class WriteToFile, writeToFile
   , class LogToConsole, log
+  , class SendHttpRequest, sendRequest
   , LogLevel(..)
   ) where
 
 import Prelude
 
 import Control.Monad.Reader (class MonadAsk, ask, asks)
-import Data.Either (Either(..))
+import Data.Either (Either(..), either)
 import Data.Foldable (foldl, intercalate)
-import Data.List (reverse)
+import Data.List (null, sortBy)
 import Data.List.Types (List(..), (:))
-import Data.Maybe (Maybe(..), maybe)
+import Data.Maybe (Maybe(..))
+import Data.Traversable (for)
 import Data.Tree (Tree)
 import Node.Path (extname)
-import Projects.ToC.Core.FileTypes (Directory(..), ParsedDirContent, TopLevelDirectory(..), HeaderInfo)
-import Projects.ToC.Core.Paths (AddPath, DirectoryPath(..), FileExtension, FilePath, PathType(..), PathUri, WebUrl)
+import Projects.ToC.Core.FileTypes (Directory(..), HeaderInfo, ParsedDirContent, TopLevelDirectory(..))
+import Projects.ToC.Core.Paths (AddPath, DirectoryPath(..), FileExtension, FilePath, PathType(..), WebUrl, addPath')
 
-type Env = { rootUri :: PathUri
-           , addPath :: AddPath
+type Env = { rootDir :: FilePath
+           , rootUrl :: WebUrl
+           , addFilePath :: AddPath
            , matchesTopLevelDir :: FilePath -> Boolean
            , includeRegularDir :: FilePath -> Boolean
            , includeFile :: FilePath -> Boolean
            , outputFile :: FilePath
-           , parseContent :: WebUrl -> FileExtension -> String -> List (Tree HeaderInfo)
-           , renderToCFile :: List TopLevelDirectory -> String
+           , parseContent :: FileExtension -> String -> List (Tree HeaderInfo)
+           , renderToC :: AddPath -> WebUrl -> List TopLevelDirectory -> { content :: String, links :: List WebUrl }
            , logLevel :: LogLevel
            }
 
@@ -37,6 +40,7 @@ program :: forall m.
            LogToConsole m =>
            ReadPath m =>
            WriteToFile m =>
+           SendHttpRequest m =>
            m Unit
 program = do
   topLevelDirs <- getTopLevelDirs
@@ -47,12 +51,25 @@ program = do
   results <- foldl parseTopLevelDirContent (pure Nil) topLevelDirs
 
   logInfo "Rendering parsed content..."
-  output <- asks $ (\env -> env.renderToCFile results)
+  env <- ask
+  let output = env.renderToC (addPath' "/") env.rootUrl results
 
-  logInfo "Writing content to file..."
-  writeToFile output
+  logInfo "Verifying that all links work..."
+  badLinks <- verifyLinks output.links
+  if null badLinks
+    then do
+      logInfo "All links are valid."
+      logInfo "Writing content to file..."
+      writeToFile output.content
 
-  logInfo "Finished."
+      logInfo "Finished."
+    else do
+      logError "Error. The following links did not return an 'OK' / \
+               \200 Status Code. Bad links will be printed and program \
+               \will exit."
+      void $ for badLinks (\link ->
+        logError $ "Invalid Link: " <> link
+      )
 
 -- | Gets the list of top-level directory paths where the first path is
 -- | at the bottom of the list and the last path is at the top:
@@ -66,10 +83,10 @@ getTopLevelDirs :: forall m.
                    ReadPath m => m (List FilePath)
 getTopLevelDirs = do
   env <- ask
-  paths <- readDir env.rootUri.fs
+  paths <- readDir env.rootDir
   foldl (\listInMonad path -> do
-    let fullPath = env.addPath env.rootUri path
-    pathType <- readPathType fullPath.fs
+    let fullPath = env.addFilePath env.rootDir path
+    pathType <- readPathType fullPath
     case pathType of
       Just Dir | env.matchesTopLevelDir path ->
         (\list -> path : list) <$> listInMonad
@@ -85,7 +102,7 @@ parseTopLevelDirContent :: forall m.
 parseTopLevelDirContent listInMonad p = do
   env <- ask
   logInfo $ "Parsing toplevel content for path: " <> p
-  children <- recursivelyGetAndParseFiles $ env.addPath env.rootUri p
+  children <- recursivelyGetAndParseFiles $ env.addFilePath env.rootDir p
   logInfo $ "Finished parsing toplevel content for path: " <> p
   listInMonad <#> (\list -> (TopLevelDirectory (DirectoryPath p) children) : list)
 
@@ -94,77 +111,73 @@ recursivelyGetAndParseFiles :: forall m.
                                MonadAsk Env m =>
                                LogToConsole m =>
                                ReadPath m =>
-                               PathUri -> m ParsedDirContent
+                               FilePath -> m ParsedDirContent
 recursivelyGetAndParseFiles fullPathUri = do
   env <- ask
-  logDebug $ "Reading dir: " <> fullPathUri.fs
-  unparsedPaths <- readDir fullPathUri.fs
+  logDebug $ "Reading dir: " <> fullPathUri
+  unparsedPaths <- readDir fullPathUri
 
-  {-
-    We're going to do 2 things in the next few lines of code
-      - primary:
-          Walk the file tree and only include the directories and files
-            that should be included.
-          When we come across a file that should be included, we'll attempt
-            to parse it for any headers.
-      - secondary:
-          sort the output, so that the order of content in the ToC appears like so:
-            1. ReadMe.md (if it exists)
-            2. Numerical paths (e.g. paths starting with 01..99)
-            3. All other paths
+  list <- foldl (accumulate env) (pure Nil) unparsedPaths
+  logDebug $ "Finished reading dir: " <> fullPathUri
+  pure $ list # sortBy \l r ->
+    let
+      getPath = either (\(Directory (DirectoryPath p) _)-> p) _.fileName
+      left = getPath l
+      right = getPath r
+    in
+      if left == "ReadMe.md" || left == "Readme.md"
+        then LT
+        else compare left right
 
-    The 'numerical paths' will naturally be read by the filesystem
-    before the 'all other paths'. While one could go further and insure that
-    the files are sorted no matter what, I'm not going to do that here
-    because it is outside the scope of this project.
-
-    Thus, we only need to account for the ReadMe file. To do this,
-    we'll store the ReadMe file separately from the other files and then
-    append it to our final list, so that it is first.
-  -}
-  rec <- foldl (\recInMonad p -> do
-    let fullChildPath = env.addPath fullPathUri p
-    pathType <- readPathType fullChildPath.fs
-    case pathType of
-      Just Dir -> do
-        if env.includeRegularDir p
-          then do
-            logDebug $ "Directory found: " <> fullChildPath.fs
-            children <- recursivelyGetAndParseFiles fullChildPath
-            recInMonad <#> (\rec -> 
-              rec { list = (Left $ Directory (DirectoryPath p) children) : rec.list }
-            )
-          else do
-            logDebug $ "Ignoring directory: " <> fullChildPath.fs
-            recInMonad
-      Just File -> do
-        if env.includeFile p
-          then do
-            logDebug $ "File found: " <> fullChildPath.fs
-            -- TODO: check file's URL to ensure it's valid before parsing it for headers.
-            content <- readFile fullChildPath.fs
-            let headers = env.parseContent fullChildPath.url (extname p) content
-            let fileWithHeaders = Right $
-                  { fileName: p
-                  , headers: headers
-                  }
-            recInMonad <#> (\rec ->
-              if p == "ReadMe.md" || p == "Readme.md"
-                then rec { readMe = Just fileWithHeaders }
-                else rec { list = fileWithHeaders : rec.list }
+  where
+    -- | Walk the file tree and only include the directories and files
+    -- | that should be included. When we come across a file that should be
+    -- | included, we'll attempt to parse it for any headers.
+    accumulate :: Env ->
+                  m ParsedDirContent ->
+                  FilePath ->
+                  m ParsedDirContent
+    accumulate env listInMonad p = do
+      let fullChildPath = env.addFilePath fullPathUri p
+      pathType <- readPathType fullChildPath
+      case pathType of
+        Just Dir
+          | env.includeRegularDir p -> do
+              logDebug $ "Directory found: " <> fullChildPath
+              children <- recursivelyGetAndParseFiles fullChildPath
+              listInMonad <#> (\list ->
+                (Left $ Directory (DirectoryPath p) children) : list
               )
-          else do
-            logDebug $ "Ignoring file: " <> fullChildPath.fs
-            recInMonad
-      _ -> do
-        logDebug $ "Ignoring unknown path type: " <> fullChildPath.fs
-        recInMonad
-  ) (pure { list: Nil, readMe: Nothing }) unparsedPaths
-  logDebug $ "Finished reading dir: " <> fullPathUri.fs
-  -- now we append the readme to the front of the list, if it exists,
-  -- and use "pure" to lift the final list into the monad we're using.
-  let reversedList = reverse rec.list
-  pure $ maybe reversedList (\readMe -> readMe : reversedList) rec.readMe
+          | otherwise -> do
+              logDebug $ "Ignoring directory: " <> fullChildPath
+              listInMonad
+        Just File
+          | env.includeFile p -> do
+              logDebug $ "File found: " <> fullChildPath
+              content <- readFile fullChildPath
+              let headers = env.parseContent (extname p) content
+              let fileWithHeaders = Right $
+                    { fileName: p
+                    , headers: headers
+                    }
+              listInMonad <#> (\list -> fileWithHeaders : list )
+          | otherwise -> do
+              logDebug $ "Ignoring file: " <> fullChildPath
+              listInMonad
+        _ -> do
+          logDebug $ "Ignoring unknown path type: " <> fullChildPath
+          listInMonad
+
+verifyLinks :: forall m.
+               Monad m =>
+               SendHttpRequest m =>
+               List WebUrl -> m (List WebUrl)
+verifyLinks list =
+  foldl (\listInMonad nextLink ->
+    ifM (sendRequest nextLink)
+        listInMonad
+        (listInMonad <#> (\l -> nextLink : l))
+  ) (pure Nil) list
 
 -- | Reads the filesystem path from the root d
 class (Monad m) <= ReadPath m where
@@ -176,6 +189,9 @@ class (Monad m) <= ReadPath m where
 
 class (Monad m) <= WriteToFile m where
   writeToFile :: String -> m Unit
+
+class (Monad m) <= SendHttpRequest m where
+  sendRequest :: WebUrl -> m Boolean
 
 data LogLevel
   = Error

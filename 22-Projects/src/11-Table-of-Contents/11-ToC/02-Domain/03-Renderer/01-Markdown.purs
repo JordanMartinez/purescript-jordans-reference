@@ -1,4 +1,4 @@
-module Projects.ToC.Domain.Markdown
+module Projects.ToC.Domain.Renderer.Markdown
   ( h1
   , h2
   , anchorLink

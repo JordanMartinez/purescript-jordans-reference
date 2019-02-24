@@ -1,4 +1,4 @@
-module Projects.ToC.Parser (extractAllCodeHeaders, extractAllMarkdownHeaders) where
+module Projects.ToC.Domain.Parser (extractPurescriptHeaders, extractMarkdownHeaders) where
 
 import Prelude
 
@@ -14,49 +14,21 @@ import Data.String as String
 import Data.Tree (Tree)
 import Data.Tree.Zipper (Loc, fromTree, insertAfter, insertChild, lastChild, root, toTree, value)
 import Projects.ToC.Core.FileTypes (HeaderInfo)
-import Projects.ToC.Core.Paths (WebUrl)
-import Projects.ToC.Domain.Markdown (indentedBulletList, hyperLink)
 import Text.Parsing.StringParser (Parser, runParser)
 import Text.Parsing.StringParser.CodePoints (regex, string, eof)
 import Text.Parsing.StringParser.Combinators (choice, many, many1, sepBy1)
 
-type MarkdownHeaderInfo = { level :: Int
-                          , text :: String
-                          , anchor :: String
-                          }
-type CodeHeaderInfo = { level :: Int
-                      , lineNumber :: Int
-                      , text :: String
-                      }
+extractPurescriptHeaders :: Array String -> List (Tree HeaderInfo)
+extractPurescriptHeaders = extractHeaders (\lineNumber -> psLineWithMarkdownHeaders lineNumber)
 
-extractAllCodeHeaders :: WebUrl -> Array String -> List (Tree HeaderInfo)
-extractAllCodeHeaders absoluteFileUrl lines =
+extractMarkdownHeaders :: Array String -> List (Tree HeaderInfo)
+extractMarkdownHeaders = extractHeaders (\_ -> plainTextLinewithMarkdownHeaders)
+
+extractHeaders :: (Int -> Parser HeaderInfo) -> Array String -> List (Tree HeaderInfo)
+extractHeaders parser lines =
   let
     result = foldlWithIndex (\index acc nextLine ->
-        case runParser codeLineWithMarkdownHeaders nextLine of
-          Left _ -> acc
-          Right createCodeHeader ->
-            let codeHeader = createCodeHeader (index + 1)
-            in maybe
-                (acc { loc = Just $ fromTree (codeHeader :< Nil) })
-                (\loc' -> recursiveCheck acc.list loc' codeHeader _.level)
-                acc.loc
-        ) { list: Nil, loc: Nothing } lines
-    listOfLocs = maybe result.list (\loc -> loc : result.list) result.loc
-  in (reverse listOfLocs) <#> (\loc ->
-        (toTree loc) <#> (\rec ->
-          { level: rec.level
-          , text: rec.text
-          , url: absoluteFileUrl <> "#L" <> show rec.lineNumber
-          }
-        )
-      )
-
-extractAllMarkdownHeaders :: WebUrl -> Array String -> List (Tree HeaderInfo)
-extractAllMarkdownHeaders absoluteFileUrl lines =
-  let
-    result = foldlWithIndex (\index acc nextLine ->
-        case runParser plainTextLinewithMarkdownHeaders nextLine of
+        case runParser (parser index) nextLine of
           Left _ -> acc
           Right header ->
             maybe
@@ -66,14 +38,7 @@ extractAllMarkdownHeaders absoluteFileUrl lines =
         ) { list: Nil, loc: Nothing } lines
     listOfLocs = maybe result.list (\loc -> loc : result.list) result.loc
 
-  in (reverse listOfLocs) <#> (\loc ->
-        (toTree loc) <#> (\rec ->
-          { level: rec.level
-          , text: rec.text
-          , url: absoluteFileUrl <> "#" <> rec.anchor
-          }
-        )
-      )
+  in toTree <$> (reverse listOfLocs)
 
 recursiveCheck :: forall a. List (Loc a) -> Loc a -> a -> (a -> Int) -> { list :: List (Loc a), loc :: Maybe (Loc a) }
 recursiveCheck list stored next getHeaderLevel =
@@ -98,8 +63,8 @@ recursiveCheck' stored next getHeaderLevel =
         Nothing -> insertChild (next :< Nil) stored
         Just child -> recursiveCheck' child next getHeaderLevel
 
-codeLineWithMarkdownHeaders :: Parser (Int -> CodeHeaderInfo)
-codeLineWithMarkdownHeaders = ado
+psLineWithMarkdownHeaders :: Int -> Parser HeaderInfo
+psLineWithMarkdownHeaders ln = ado
   -- account for possibility of spaces preceding any text
   ignorePossibleTabsAndSpaces
   -- it is a single-line comment...
@@ -110,9 +75,9 @@ codeLineWithMarkdownHeaders = ado
   ignorePossibleTabsAndSpaces
   headerText <- regex ".*"
   eof
-  in (\ln -> { level: headerLevel, lineNumber: ln, text: headerText })
+  in { level: headerLevel, text: headerText, anchor: "#L" <> show ln }
 
-plainTextLinewithMarkdownHeaders :: Parser MarkdownHeaderInfo
+plainTextLinewithMarkdownHeaders :: Parser HeaderInfo
 plainTextLinewithMarkdownHeaders = ado
   -- account for possibility of whitespace preceding any text
   ignorePossibleTabsAndSpaces
@@ -121,10 +86,7 @@ plainTextLinewithMarkdownHeaders = ado
   ignorePossibleTabsAndSpaces
   headerText <- regex ".*"
   eof
-  in { level: headerLevel
-     , text: headerText
-     , anchor: produceLink headerText
-     }
+  in { level: headerLevel, text: headerText, anchor: "#" <> produceLink headerText }
 
 produceLink :: String -> String
 produceLink headerText =

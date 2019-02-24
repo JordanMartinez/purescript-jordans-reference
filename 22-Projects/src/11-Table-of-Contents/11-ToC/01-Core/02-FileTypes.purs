@@ -14,7 +14,7 @@ import Projects.ToC.Core.Paths (DirectoryPath)
 
 type HeaderInfo = { level :: Int
                   , text :: String
-                  , url :: String
+                  , anchor :: String
                   }
 
 -- | A file that includes headers within it.

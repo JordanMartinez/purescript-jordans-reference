@@ -4,7 +4,6 @@ module Projects.ToC.Core.Paths
   , DirectoryPath(..)
   , FilePath
   , WebUrl
-  , PathUri
   , AddPath
   , addPath'
   , RootToParentDir(..)
@@ -37,22 +36,11 @@ type FilePath = String
 
 type WebUrl = String
 
--- | Works with `AddPath` to efficiently add a file path to both its
--- | file-system version and its website url version
-type PathUri = { fs :: FilePath
-               , url :: WebUrl
-               }
-
-type AddPath = PathUri -> FilePath -> PathUri
+type AddPath = String -> FilePath -> String
 
 -- | Creates an `AddPath` given a backend-specific way to get the file separator
 -- | character.
 addPath' :: String -> AddPath
-addPath' fsSeparator =
-  (\pUri path ->
-    { fs: pUri.fs <> fsSeparator <> path
-    , url: pUri.url <> "/" <> path
-    }
-  )
+addPath' separator = (\uri path -> uri <> separator <> path)
 
 newtype RootToParentDir = RootToParentDir String
