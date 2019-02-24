@@ -23,6 +23,7 @@
     "node-buffer",
     "node-path",
     "node-process",
+    "node-http",
     "st",
     "control",
     "string-parsers",
