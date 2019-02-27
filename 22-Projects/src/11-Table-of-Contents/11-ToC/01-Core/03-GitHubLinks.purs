@@ -12,4 +12,4 @@ type GitHubRepo = { username :: String
 
 renderGHPath :: GitHubRepo -> String
 renderGHPath gh =
-  "https://www.github.com/" <> gh.username <> "/" <> gh.repo <> "/blob/" <> gh.ref
+  "https://github.com/" <> gh.username <> "/" <> gh.repo <> "/blob/" <> gh.ref
