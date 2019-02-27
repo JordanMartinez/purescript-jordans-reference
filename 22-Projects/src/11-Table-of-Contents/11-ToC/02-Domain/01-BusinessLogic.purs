@@ -3,8 +3,8 @@ module Projects.ToC.Domain.BusinessLogic
   , program
   , class ReadPath, readDir, readFile, readPathType
   , class WriteToFile, writeToFile
-  , class LogToConsole, log
-  , class SendHttpRequest, sendRequest
+  , class LogToConsole, log, logInfo, logError, logDebug
+  , class VerifyLinks, verifyLinks
   , LogLevel(..)
   ) where
 
@@ -40,7 +40,7 @@ program :: forall m.
            LogToConsole m =>
            ReadPath m =>
            WriteToFile m =>
-           SendHttpRequest m =>
+           VerifyLinks m =>
            m Unit
 program = do
   topLevelDirs <- getTopLevelDirs
@@ -168,17 +168,6 @@ recursivelyGetAndParseFiles fullPathUri = do
           logDebug $ "Ignoring unknown path type: " <> fullChildPath
           listInMonad
 
-verifyLinks :: forall m.
-               Monad m =>
-               SendHttpRequest m =>
-               List WebUrl -> m (List WebUrl)
-verifyLinks list =
-  foldl (\listInMonad nextLink ->
-    ifM (sendRequest nextLink)
-        listInMonad
-        (listInMonad <#> (\l -> nextLink : l))
-  ) (pure Nil) list
-
 -- | Reads the filesystem path from the root d
 class (Monad m) <= ReadPath m where
   readDir :: FilePath -> m (Array FilePath)
@@ -190,8 +179,8 @@ class (Monad m) <= ReadPath m where
 class (Monad m) <= WriteToFile m where
   writeToFile :: String -> m Unit
 
-class (Monad m) <= SendHttpRequest m where
-  sendRequest :: WebUrl -> m Boolean
+class (Monad m) <= VerifyLinks m where
+  verifyLinks :: List WebUrl -> m (List WebUrl)
 
 data LogLevel
   = Error
