@@ -2,22 +2,19 @@ module Projects.ToC.Main2 where
 
 import Prelude
 
-import Control.Comonad.Cofree (head, tail)
-import Control.Monad.Rec.Class (tailRec, Step(..))
 import Data.Foldable (foldl, elem, notElem)
-import Data.List (List(..), (:))
-import Data.Maybe (Maybe(..))
-import Data.String (Pattern(..), Replacement(..), replace, replaceAll, split, toLower)
+import Data.List (List(..))
+import Data.String (Pattern(..), split)
 import Data.Tree (Tree)
 import Effect (Effect)
 import Effect.Aff (launchAff_)
 import Node.Path (extname, sep)
 import Projects.ToC.API.AppM2 (runAppM2)
 import Projects.ToC.Core.FileTypes (HeaderInfo)
-import Projects.ToC.Core.Paths (FilePath, WebUrl)
-import Projects.ToC.Domain.FixedLogic (addPath', TopLevelContent, Env, program, LogLevel(..))
+import Projects.ToC.Core.Paths (FilePath)
+import Projects.ToC.Domain.FixedLogic (addPath', AllTopLevelContent, TopLevelContent, Env, program, LogLevel(..))
 import Projects.ToC.Domain.Parser (extractMarkdownHeaders, extractPurescriptHeaders)
-import Projects.ToC.Domain.Renderer.Markdown (anchorLink, bulletList, emptyLine, h1, h2, hyperLink, indentedBulletList)
+import Projects.ToC.Domain.Renderer.MarkdownRenderer (renderToC, renderTopLevel, renderDir, renderFile)
 import Projects.ToC.Infrastructure.OSFFI (endOfLine)
 
 main :: Effect Unit
@@ -154,19 +151,19 @@ main = do
     includedFileExtensions :: Array String
     includedFileExtensions = [".purs", ".md", ".js"]
 
-    foldTopLevelContentArray :: Array TopLevelContent -> TopLevelContent
+    foldTopLevelContentArray :: Array TopLevelContent -> AllTopLevelContent
     foldTopLevelContentArray array = do
       let rec = foldl (\acc next ->
                   if acc.init
                     then { init: false
-                         , toc: next.toc
+                         , tocHeader: next.tocHeader
                          , section: next.section
                          }
-                    else acc { toc = acc.toc <> next.toc
+                    else acc { tocHeader = acc.tocHeader <> next.tocHeader
                              , section = acc.section <> "\n" <> next.section
                              }
-                ) { init: true, toc: "", section: "" } array
-      { toc: rec.toc, section: rec.section }
+                ) { init: true, tocHeader: "", section: "" } array
+      { allToCHeaders: rec.tocHeader, allSections: rec.section }
 
     parseFile :: FilePath -> String -> List (Tree HeaderInfo)
     parseFile pathSeg fileContent =
@@ -174,85 +171,3 @@ main = do
         ".purs" -> extractPurescriptHeaders $ split (Pattern endOfLine) fileContent
         ".md" -> extractMarkdownHeaders $ split (Pattern endOfLine) fileContent
         _ -> Nil
-
-    renderToC :: TopLevelContent -> String
-    renderToC rec =
-          (h1 "Table of Contents") <>
-          emptyLine <>
-          rec.toc <>
-          emptyLine <>
-          rec.section
-
-    formatHyphensInName :: String -> String
-    formatHyphensInName =
-      replace (Pattern "--") (Replacement ": ") >>>
-      replaceAll (Pattern "-") (Replacement " ")
-
-    renderTopLevel :: FilePath -> Array String -> TopLevelContent
-    renderTopLevel pathSeg renderedPaths =
-      let pathWithHyphenFormat = formatHyphensInName pathSeg
-      in
-        { toc: bulletList (anchorLink pathWithHyphenFormat (toLower pathSeg))
-        , section: (h2 pathWithHyphenFormat) <>
-                   emptyLine <>
-                   (foldl (<>) "" renderedPaths)
-        }
-
-    renderDir :: Int -> FilePath -> Array String -> String
-    renderDir depth pathSeg renderedPaths =
-          indentedBulletList depth (formatHyphensInName pathSeg) <>
-          (foldl (<>) "" renderedPaths)
-
-    renderFile :: Int -> Maybe WebUrl -> FilePath -> List (Tree HeaderInfo) -> String
-    renderFile depth url pathSeg headers = do
-        let formattedName = formatHyphensInName pathSeg
-        let startingHeaderDepth = depth + 1
-        case url of
-          Just link -> do
-            let fileLink = hyperLink formattedName link
-            indentedBulletList depth fileLink <>
-            (renderHeaders (headerWithLink link) startingHeaderDepth)
-          Nothing ->
-            indentedBulletList depth formattedName <>
-            (renderHeaders headerNoLink startingHeaderDepth)
-
-      where
-        headerWithLink :: WebUrl -> Int -> HeaderInfo -> String
-        headerWithLink fileUrl d' h =
-          indentedBulletList d' (hyperLink h.text (fileUrl <> h.anchor))
-
-        headerNoLink :: Int -> HeaderInfo -> String
-        headerNoLink d' h =
-          indentedBulletList d' h.text
-
-        renderHeaders :: (Int -> HeaderInfo -> String) -> Int -> String
-        renderHeaders renderHeader topHeadersDepth =
-          tailRec goHeaderList { content: "", current: headers }
-
-          where
-            goHeaderList ::      { content :: String, current :: List (Tree HeaderInfo) }
-                         -> Step { content :: String, current :: List (Tree HeaderInfo) } String
-            goHeaderList { content: c, current: Nil } = Done c
-            goHeaderList { content: c, current: nextTree:remainingTrees } =
-              Loop { content: c <> renderHeaderTree renderHeader topHeadersDepth nextTree
-                   , current: remainingTrees
-                   }
-
-        renderHeaderTree :: (Int -> HeaderInfo -> String) ->
-                            Int -> Tree HeaderInfo -> String
-        renderHeaderTree renderHeader d currentTree = do
-            let root = head currentTree
-            let children = tail currentTree
-            renderHeader d root <>
-            tailRec goHeader { level: d, drawn: "", current: children }
-
-          where
-            goHeader :: _ -> Step _ String
-            goHeader {level: l, drawn: s, current: Nil} = Done s
-            goHeader {level: l, drawn: s, current: c:cs } =
-                Loop { level: l
-                     , drawn: s <>
-                              (renderHeader l (head c)) <>
-                              (tailRec goHeader {level: l + 1, drawn: "", current: tail c })
-                     , current: cs
-                     }

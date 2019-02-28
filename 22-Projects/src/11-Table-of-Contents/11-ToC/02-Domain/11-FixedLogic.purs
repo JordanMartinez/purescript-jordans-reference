@@ -1,6 +1,7 @@
 module Projects.ToC.Domain.FixedLogic
   ( UriPath
   , addPath'
+  , AllTopLevelContent
   , TopLevelContent
   , Env
   , program
@@ -32,7 +33,11 @@ addPath' fsSep rec path =
   , url: rec.url <> "/" <> path
   }
 
-type TopLevelContent = { toc :: String
+type AllTopLevelContent = { allToCHeaders :: String
+                          , allSections :: String
+                          }
+
+type TopLevelContent = { tocHeader :: String
                        , section :: String
                        }
 
