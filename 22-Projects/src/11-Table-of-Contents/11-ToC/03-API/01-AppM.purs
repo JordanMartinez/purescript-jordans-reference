@@ -7,15 +7,17 @@ import Control.Parallel (class Parallel, parallel)
 import Control.Parallel.Class (sequential)
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
-import Data.Options (Options)
+import Data.Options (Options, (:=))
+import Data.String.CodeUnits (length, drop)
 import Effect.Aff (Aff, ParAff, makeAff, nonCanceler)
 import Effect.Aff.Class (class MonadAff, liftAff)
 import Effect.Class (class MonadEffect, liftEffect)
 import Effect.Console as Console
+import Foreign.Object (insert, empty)
 import Node.Encoding (Encoding(..))
 import Node.FS.Aff as FS
 import Node.FS.Stats as Stats
-import Node.HTTP.Client (RequestOptions, Response, request, requestAsStream)
+import Node.HTTP.Client (RequestHeaders(..), RequestOptions, Response, headers, hostname, method, path, protocol, request, requestAsStream, statusCode)
 import Node.Stream (end)
 import Projects.ToC.Core.Paths (PathType(..), FilePath, WebUrl)
 import Projects.ToC.Domain.BusinessLogic (class Logger, class ReadPath, class VerifyLink, class WriteToFile, Env, LogLevel)
@@ -90,16 +92,17 @@ instance writeToFileAppM :: WriteToFile AppM where
 
 instance verifyLinksAppM :: VerifyLink AppM where
   verifyLink :: WebUrl -> AppM Boolean
-  verifyLink _ = pure true
-    -- let prefixLength = length "https://github.com"
-    -- let baseOpts =
-    --       method := "GET" <>
-    --       protocol := "https:" <>
-    --       hostname := "github.com" <>
-    --       headers := RequestHeaders ((insert "Keep-Alive" "timeout=4" <<< insert "Connection" "keep-alive") empty)
-    -- response <- liftAff $ mkRequestFromOpts $
-    --   baseOpts <> path := (drop prefixLength nextLink)
-    -- pure $ (statusCode response) == 200
+  verifyLink url = do
+    -- pure true
+    let prefixLength = length "https://github.com"
+    let baseOpts =
+          method := "GET" <>
+          protocol := "https:" <>
+          hostname := "github.com" <>
+          headers := RequestHeaders ((insert "Keep-Alive" "timeout=4" <<< insert "Connection" "keep-alive") empty)
+    response <- liftAff $ mkRequestFromOpts $
+      baseOpts <> path := (drop prefixLength url)
+    pure $ (statusCode response) == 200
 
 mkRequestFromOpts :: Options RequestOptions -> Aff Response
 mkRequestFromOpts opts = makeAff go
