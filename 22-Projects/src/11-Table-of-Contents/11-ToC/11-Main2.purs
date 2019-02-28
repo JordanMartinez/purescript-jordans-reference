@@ -155,10 +155,18 @@ main = do
     includedFileExtensions = [".purs", ".md", ".js"]
 
     foldTopLevelContentArray :: Array TopLevelContent -> TopLevelContent
-    foldTopLevelContentArray array =
-          foldl (\acc next -> { toc: acc.toc <> next.toc
-                              , section: acc.section <> "\n" <> next.section}
-                ) { toc: "", section: "" } array
+    foldTopLevelContentArray array = do
+      let rec = foldl (\acc next ->
+                  if acc.init
+                    then { init: false
+                         , toc: next.toc
+                         , section: next.section
+                         }
+                    else acc { toc = acc.toc <> next.toc
+                             , section = acc.section <> "\n" <> next.section
+                             }
+                ) { init: true, toc: "", section: "" } array
+      { toc: rec.toc, section: rec.section }
 
     parseFile :: FilePath -> String -> List (Tree HeaderInfo)
     parseFile pathSeg fileContent =
