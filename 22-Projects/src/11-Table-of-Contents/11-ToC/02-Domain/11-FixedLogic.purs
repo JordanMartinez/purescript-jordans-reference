@@ -13,10 +13,13 @@ module Projects.ToC.Domain.FixedLogic
 
 import Prelude
 
+import Data.List (List)
+import Data.Tree (Tree)
 import Control.Monad.Reader (class MonadAsk, ask)
 import Control.Parallel (class Parallel, parTraverse)
 import Data.Array (catMaybes)
 import Data.Maybe (Maybe(..))
+import Projects.ToC.Core.FileTypes (HeaderInfo)
 import Projects.ToC.Core.Paths (FilePath, PathType(..), WebUrl)
 
 type UriPath = { fs :: FilePath
@@ -39,10 +42,11 @@ type Env = { rootUri :: UriPath
            , includeRegularDir :: FilePath -> Boolean
            , includeFile :: FilePath -> Boolean
            , outputFile :: FilePath
+           , parseFile :: FilePath -> String -> List (Tree HeaderInfo)
            , renderToC :: Array TopLevelContent -> String
            , renderTopLevel :: FilePath -> Array String -> TopLevelContent
            , renderDir :: Int -> FilePath -> Array String -> String
-           , renderFile :: Int -> Maybe WebUrl -> FilePath -> String -> String
+           , renderFile :: Int -> Maybe WebUrl -> FilePath -> List (Tree HeaderInfo) -> String
            , logLevel :: LogLevel
            }
 
@@ -157,7 +161,8 @@ renderFile depth fullFilePath filePathSegment = do
   let url = if linkWorks then Just fullUrl else Nothing
   content <- readFile fullFsPath
   env <- ask
-  pure $ env.renderFile depth url filePathSegment content
+  let headers = env.parseFile filePathSegment content
+  pure $ env.renderFile depth url filePathSegment headers
 
 -- | Reads the filesystem path from the root d
 class (Monad m) <= ReadPath m where

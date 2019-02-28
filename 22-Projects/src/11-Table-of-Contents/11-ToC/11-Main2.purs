@@ -2,16 +2,23 @@ module Projects.ToC.Main2 where
 
 import Prelude
 
+import Control.Comonad.Cofree (head, tail)
+import Control.Monad.Rec.Class (tailRec, Step(..))
 import Data.Foldable (foldl, elem, notElem)
+import Data.List (List(..), (:))
 import Data.Maybe (Maybe(..))
+import Data.String (Pattern(..), Replacement(..), replace, replaceAll, split, toLower)
+import Data.Tree (Tree)
 import Effect (Effect)
 import Effect.Aff (launchAff_)
 import Node.Path (extname, sep)
 import Projects.ToC.API.AppM2 (runAppM2)
+import Projects.ToC.Core.FileTypes (HeaderInfo)
 import Projects.ToC.Core.Paths (FilePath, WebUrl)
-import Data.String (Pattern(..), Replacement(..), replace, replaceAll, toLower)
 import Projects.ToC.Domain.FixedLogic (addPath', TopLevelContent, Env, program, LogLevel(..))
+import Projects.ToC.Domain.Parser (extractMarkdownHeaders, extractPurescriptHeaders)
 import Projects.ToC.Domain.Renderer.Markdown (anchorLink, bulletList, emptyLine, h1, h2, hyperLink, indentedBulletList)
+import Projects.ToC.Infrastructure.OSFFI (endOfLine)
 
 main :: Effect Unit
 main = do
@@ -121,6 +128,7 @@ main = do
     , includeRegularDir: \path -> notElem path excludedRegularDir
     , includeFile: \path -> elem (extname path) includedFileExtensions
     , outputFile: "./table-of-contents.md"
+    , parseFile: parseFile
     , renderToC: \array -> renderToC $ foldTopLevelContentArray array
     , renderTopLevel: renderTopLevel
     , renderDir: renderDir
@@ -152,6 +160,13 @@ main = do
                               , section: acc.section <> "\n" <> next.section}
                 ) { toc: "", section: "" } array
 
+    parseFile :: FilePath -> String -> List (Tree HeaderInfo)
+    parseFile pathSeg fileContent =
+      case extname pathSeg of
+        ".purs" -> extractPurescriptHeaders $ split (Pattern endOfLine) fileContent
+        ".md" -> extractMarkdownHeaders $ split (Pattern endOfLine) fileContent
+        _ -> Nil
+
     renderToC :: TopLevelContent -> String
     renderToC rec =
           (h1 "Table of Contents") <>
@@ -180,16 +195,56 @@ main = do
           indentedBulletList depth (formatHyphensInName pathSeg) <>
           (foldl (<>) "" renderedPaths)
 
-    renderFile :: Int -> Maybe WebUrl -> FilePath -> String -> String
-    renderFile depth url pathSeg _ =
-        {-
-        fullFileUrl = addUrlPath urlSoFar file.fileName
-        fileLink = hyperLink (formatHyphensInName file.fileName) fullFileUrl
-        indentedBulletList depth fileLink
-        -}
-      case url of
-        Just link -> do
-          let fileLink = hyperLink (formatHyphensInName pathSeg) link
-          indentedBulletList depth fileLink
-        Nothing ->
-          indentedBulletList depth pathSeg
+    renderFile :: Int -> Maybe WebUrl -> FilePath -> List (Tree HeaderInfo) -> String
+    renderFile depth url pathSeg headers = do
+        let formattedName = formatHyphensInName pathSeg
+        let startingHeaderDepth = depth + 1
+        case url of
+          Just link -> do
+            let fileLink = hyperLink formattedName link
+            indentedBulletList depth fileLink <>
+            (renderHeaders (headerWithLink link) startingHeaderDepth)
+          Nothing ->
+            indentedBulletList depth formattedName <>
+            (renderHeaders headerNoLink startingHeaderDepth)
+
+      where
+        headerWithLink :: WebUrl -> Int -> HeaderInfo -> String
+        headerWithLink fileUrl d' h =
+          indentedBulletList d' (hyperLink h.text (fileUrl <> h.anchor))
+
+        headerNoLink :: Int -> HeaderInfo -> String
+        headerNoLink d' h =
+          indentedBulletList d' h.text
+
+        renderHeaders :: (Int -> HeaderInfo -> String) -> Int -> String
+        renderHeaders renderHeader topHeadersDepth =
+          tailRec goHeaderList { content: "", current: headers }
+
+          where
+            goHeaderList ::      { content :: String, current :: List (Tree HeaderInfo) }
+                         -> Step { content :: String, current :: List (Tree HeaderInfo) } String
+            goHeaderList { content: c, current: Nil } = Done c
+            goHeaderList { content: c, current: nextTree:remainingTrees } =
+              Loop { content: c <> renderHeaderTree renderHeader topHeadersDepth nextTree
+                   , current: remainingTrees
+                   }
+
+        renderHeaderTree :: (Int -> HeaderInfo -> String) ->
+                            Int -> Tree HeaderInfo -> String
+        renderHeaderTree renderHeader d currentTree = do
+            let root = head currentTree
+            let children = tail currentTree
+            renderHeader d root <>
+            tailRec goHeader { level: d, drawn: "", current: children }
+
+          where
+            goHeader :: _ -> Step _ String
+            goHeader {level: l, drawn: s, current: Nil} = Done s
+            goHeader {level: l, drawn: s, current: c:cs } =
+                Loop { level: l
+                     , drawn: s <>
+                              (renderHeader l (head c)) <>
+                              (tailRec goHeader {level: l + 1, drawn: "", current: tail c })
+                     , current: cs
+                     }
