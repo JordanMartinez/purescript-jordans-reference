@@ -14,9 +14,9 @@ module Projects.ToC.Domain.FixedLogic
 import Prelude
 
 import Control.Monad.Reader (class MonadAsk, ask)
+import Control.Parallel (class Parallel, parTraverse)
 import Data.Array (catMaybes)
 import Data.Maybe (Maybe(..))
-import Data.Traversable (for)
 import Projects.ToC.Core.Paths (FilePath, PathType(..), WebUrl)
 
 type UriPath = { fs :: FilePath
@@ -46,9 +46,10 @@ type Env = { rootUri :: UriPath
            , logLevel :: LogLevel
            }
 
-program :: forall m.
+program :: forall m f.
            Monad m =>
            MonadAsk Env m =>
+           Parallel f m =>
            Logger m =>
            ReadPath m =>
            WriteToFile m =>
@@ -58,9 +59,10 @@ program = do
   output <- renderFiles
   writeToFile output
 
-renderFiles :: forall m.
+renderFiles :: forall m f.
                Monad m =>
                MonadAsk Env m =>
+               Parallel f m =>
                Logger m =>
                ReadPath m =>
                WriteToFile m =>
@@ -75,7 +77,7 @@ renderFiles = do
   where
     renderSectionsOrNothing :: Env -> Array FilePath -> m (Array (Maybe TopLevelContent))
     renderSectionsOrNothing env paths =
-      for paths \topLevelPath -> do
+      paths # parTraverse \topLevelPath -> do
         let fullPath = env.addPath env.rootUri topLevelPath
         pathType <- readPathType fullPath.fs
         case pathType of
@@ -84,9 +86,10 @@ renderFiles = do
             pure $ Just output
           _ -> pure $ Nothing
 
-renderTopLevelSection :: forall m.
+renderTopLevelSection :: forall m f.
                          Monad m =>
                          MonadAsk Env m =>
+                         Parallel f m =>
                          Logger m =>
                          ReadPath m =>
                          WriteToFile m =>
@@ -94,13 +97,14 @@ renderTopLevelSection :: forall m.
                          UriPath -> FilePath -> m TopLevelContent
 renderTopLevelSection topLevelFullPath topLevelPathSegment = do
   unparsedPaths <- readDir topLevelFullPath.fs
-  renderedPaths <- catMaybes <$> for unparsedPaths (renderPath 0 topLevelFullPath)
+  renderedPaths <- catMaybes <$> parTraverse (renderPath 0 topLevelFullPath) unparsedPaths
   env <- ask
   pure $ env.renderTopLevel topLevelPathSegment renderedPaths
 
-renderPath :: forall m.
+renderPath :: forall m f.
               Monad m =>
               MonadAsk Env m =>
+              Parallel f m =>
               Logger m =>
               ReadPath m =>
               WriteToFile m =>
@@ -123,9 +127,10 @@ renderPath depth fullParentPath childPath = do
       | otherwise                 -> pure Nothing
     _ -> pure Nothing
 
-renderDir :: forall m.
+renderDir :: forall m f.
              Monad m =>
              MonadAsk Env m =>
+             Parallel f m =>
              Logger m =>
              ReadPath m =>
              WriteToFile m =>
@@ -134,7 +139,7 @@ renderDir :: forall m.
 renderDir depth fullDirPath dirPathSegment = do
   env <- ask
   unparsedPaths <- readDir fullDirPath.fs
-  renderedPaths <- catMaybes <$> for unparsedPaths (renderPath (depth + 1) fullDirPath)
+  renderedPaths <- catMaybes <$> parTraverse (renderPath (depth + 1) fullDirPath) unparsedPaths
   pure $ env.renderDir depth dirPathSegment renderedPaths
 
 renderFile :: forall m.

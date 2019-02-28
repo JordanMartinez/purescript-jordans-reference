@@ -1,4 +1,4 @@
-module Projects.ToC.Main.Again where
+module Projects.ToC.Main2 where
 
 import Prelude
 
@@ -7,7 +7,7 @@ import Data.Maybe (Maybe(..))
 import Effect (Effect)
 import Effect.Aff (launchAff_)
 import Node.Path (extname, sep)
-import Projects.ToC.API.AppMAgain (runAppM_Again)
+import Projects.ToC.API.AppM2 (runAppM2)
 import Projects.ToC.Core.Paths (FilePath, WebUrl)
 import Data.String (Pattern(..), Replacement(..), replace, replaceAll, toLower)
 import Projects.ToC.Domain.FixedLogic (addPath', TopLevelContent, Env, program, LogLevel(..))
@@ -129,7 +129,7 @@ main = do
     }
   where
     runProgram :: Env -> Effect Unit
-    runProgram env = launchAff_ (runAppM_Again env program)
+    runProgram env = launchAff_ (runAppM2 env program)
 
     excludedTopLevelDirs :: Array FilePath
     excludedTopLevelDirs = [ ".git", ".github", ".travis", "output"]
