@@ -21,6 +21,7 @@ import Projects.ToC.Core.Paths (PathType(..), FilePath, WebUrl)
 import Projects.ToC.Domain.BusinessLogic (class Logger, class ReadPath, class VerifyLink, class WriteToFile, Env, LogLevel)
 import Type.Equality (class TypeEquals, from)
 
+-- | The 'sequential' version of our application's monad.
 newtype AppM a = AppM (ReaderT Env Aff a)
 
 runAppM :: Env -> AppM ~> Aff
@@ -36,11 +37,15 @@ derive newtype instance bindAppM :: Bind AppM
 derive newtype instance monadAppM :: Monad AppM
 derive newtype instance monadEffectAppM :: MonadEffect AppM
 derive newtype instance monadAffAppM :: MonadAff AppM
+
+-- enables the `parTraverse` function we saw earlier.
 instance parallelAppM :: Parallel ParAppM AppM where
   parallel (AppM readerT) = ParAppM $ parallel readerT
 
   sequential (ParAppM readerT) = AppM $ sequential readerT
 
+-- | The 'parallel' version of our application's monad.
+-- | The base monad here is the parallel version of `Aff`: `ParAff`
 newtype ParAppM a = ParAppM (ReaderT Env ParAff a)
 
 derive newtype instance functorParAppM :: Functor ParAppM
