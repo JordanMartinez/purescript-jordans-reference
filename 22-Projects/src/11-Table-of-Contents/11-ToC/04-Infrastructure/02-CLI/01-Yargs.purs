@@ -119,6 +119,7 @@ setupEnv runProgramWithEnvironmentConfig
     , includeRegularDir: \path -> notElem path excludedRegularDir
     , includeFile: \path -> elem (extname path) includedFileExtensions
     , outputFile: outputFile
+    , sortPaths: sortPaths
     , parseFile: parseFile
     , renderToC: renderToC
     , renderTopLevel: renderTopLevel
@@ -138,6 +139,15 @@ setupEnv runProgramWithEnvironmentConfig
                              , repo: ghProjectName
                              , ref: ghBranchName
                              }
+
+    sortPaths :: FilePath -> FilePath -> Ordering
+    sortPaths l r =
+      -- ensure that ReadMe files always appear first
+      if l == "ReadMe.md" || l == "Readme.md"
+        then LT
+      else if r == "ReadMe.md" || r == "Readme.md"
+        then GT
+      else compare l r
 
     parseFile :: FilePath -> String -> List (Tree HeaderInfo)
     parseFile filePath content =

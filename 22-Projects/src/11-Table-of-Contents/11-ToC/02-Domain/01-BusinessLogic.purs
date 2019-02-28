@@ -14,7 +14,7 @@ import Prelude
 
 import Control.Monad.Reader (class MonadAsk, ask)
 import Control.Parallel (class Parallel, parTraverse)
-import Data.Array (catMaybes, intercalate)
+import Data.Array (catMaybes, intercalate, sortBy)
 import Data.List (List)
 import Data.Maybe (Maybe(..))
 import Data.Tree (Tree, showTree)
@@ -54,6 +54,7 @@ type TopLevelContent = { tocHeader :: String
 type Env = { rootUri :: UriPath
            , addPath :: AddPath
            , outputFile :: FilePath
+           , sortPaths :: FilePath -> FilePath -> Ordering
            , matchesTopLevelDir :: FilePath -> Boolean
            , includeRegularDir :: FilePath -> Boolean
            , includeFile :: FilePath -> Boolean
@@ -94,8 +95,9 @@ renderFiles :: forall m f.
 renderFiles = do
   env <- ask
   paths <- readDir env.rootUri.fs
-  logDebug $ "All possible top-level directories\n" <> intercalate "\n" paths
-  sections <- catMaybes <$> renderSectionsOrNothing env paths
+  let sortedPaths = sortBy env.sortPaths paths
+  logDebug $ "All possible top-level directories\n" <> intercalate "\n" sortedPaths
+  sections <- catMaybes <$> renderSectionsOrNothing env sortedPaths
   pure $ env.renderToC sections
 
   where
@@ -127,9 +129,10 @@ renderTopLevelSection :: forall m f.
                          VerifyLink m =>
                          UriPath -> FilePath -> m TopLevelContent
 renderTopLevelSection topLevelFullPath topLevelPathSegment = do
-  unparsedPaths <- readDir topLevelFullPath.fs
-  renderedPaths <- catMaybes <$> parTraverse (renderPath 0 topLevelFullPath) unparsedPaths
   env <- ask
+  unparsedPaths <- readDir topLevelFullPath.fs
+  let sortedPaths = sortBy env.sortPaths unparsedPaths
+  renderedPaths <- catMaybes <$> parTraverse (renderPath 0 topLevelFullPath) sortedPaths
   pure $ env.renderTopLevel topLevelPathSegment renderedPaths
 
 -- | Renders the given path, whether it is a directory or a file.
@@ -182,7 +185,8 @@ renderDir :: forall m f.
 renderDir depth fullDirPath dirPathSegment = do
   env <- ask
   unparsedPaths <- readDir fullDirPath.fs
-  renderedPaths <- catMaybes <$> parTraverse (renderPath (depth + 1) fullDirPath) unparsedPaths
+  let sortedPaths = sortBy env.sortPaths unparsedPaths
+  renderedPaths <- catMaybes <$> parTraverse (renderPath (depth + 1) fullDirPath) sortedPaths
   pure $ env.renderDir depth dirPathSegment renderedPaths
 
 -- | Renders the given file and all of its headers
