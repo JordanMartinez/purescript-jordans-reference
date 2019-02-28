@@ -21,13 +21,30 @@ formatHyphensInName =
   replace (Pattern "--") (Replacement ": ") >>>
   replaceAll (Pattern "-") (Replacement " ")
 
-renderToC :: AllTopLevelContent -> String
-renderToC rec =
+renderToC :: Array TopLevelContent -> String
+renderToC = renderToCContent <<< foldTopLevelContentArray
+
+renderToCContent :: AllTopLevelContent -> String
+renderToCContent rec =
       (h1 "Table of Contents") <>
       emptyLine <>
       rec.allToCHeaders <>
       emptyLine <>
       rec.allSections
+
+foldTopLevelContentArray :: Array TopLevelContent -> AllTopLevelContent
+foldTopLevelContentArray array = do
+  let rec = foldl (\acc next ->
+              if acc.init
+                then { init: false
+                     , tocHeader: next.tocHeader
+                     , section: next.section
+                     }
+                else acc { tocHeader = acc.tocHeader <> next.tocHeader
+                         , section = acc.section <> "\n" <> next.section
+                         }
+            ) { init: true, tocHeader: "", section: "" } array
+  { allToCHeaders: rec.tocHeader, allSections: rec.section }
 
 renderTopLevel :: FilePath -> Array String -> TopLevelContent
 renderTopLevel pathSeg renderedPaths =

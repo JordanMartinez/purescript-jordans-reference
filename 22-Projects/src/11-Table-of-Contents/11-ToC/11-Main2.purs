@@ -2,7 +2,7 @@ module Projects.ToC.Main2 where
 
 import Prelude
 
-import Data.Foldable (foldl, elem, notElem)
+import Data.Foldable (elem, notElem)
 import Data.List (List(..))
 import Data.String (Pattern(..), split)
 import Data.Tree (Tree)
@@ -12,7 +12,7 @@ import Node.Path (extname, sep)
 import Projects.ToC.API.AppM2 (runAppM2)
 import Projects.ToC.Core.FileTypes (HeaderInfo)
 import Projects.ToC.Core.Paths (FilePath, addPath')
-import Projects.ToC.Domain.FixedLogic (AllTopLevelContent, TopLevelContent, Env, program, LogLevel(..))
+import Projects.ToC.Domain.FixedLogic (Env, program, LogLevel(..))
 import Projects.ToC.Domain.Parser (extractMarkdownHeaders, extractPurescriptHeaders)
 import Projects.ToC.Domain.Renderer.MarkdownRenderer (renderToC, renderTopLevel, renderDir, renderFile)
 import Projects.ToC.Infrastructure.OSFFI (endOfLine)
@@ -126,7 +126,7 @@ main = do
     , includeFile: \path -> elem (extname path) includedFileExtensions
     , outputFile: "./table-of-contents.md"
     , parseFile: parseFile
-    , renderToC: \array -> renderToC $ foldTopLevelContentArray array
+    , renderToC: renderToC
     , renderTopLevel: renderTopLevel
     , renderDir: renderDir
     , renderFile: renderFile
@@ -150,20 +150,6 @@ main = do
 
     includedFileExtensions :: Array String
     includedFileExtensions = [".purs", ".md", ".js"]
-
-    foldTopLevelContentArray :: Array TopLevelContent -> AllTopLevelContent
-    foldTopLevelContentArray array = do
-      let rec = foldl (\acc next ->
-                  if acc.init
-                    then { init: false
-                         , tocHeader: next.tocHeader
-                         , section: next.section
-                         }
-                    else acc { tocHeader = acc.tocHeader <> next.tocHeader
-                             , section = acc.section <> "\n" <> next.section
-                             }
-                ) { init: true, tocHeader: "", section: "" } array
-      { allToCHeaders: rec.tocHeader, allSections: rec.section }
 
     parseFile :: FilePath -> String -> List (Tree HeaderInfo)
     parseFile pathSeg fileContent =
