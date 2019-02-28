@@ -1,3 +1,4 @@
+-- | Helper module for easily creating correctly-formatted Markdown text.
 module Projects.ToC.Domain.Renderer.Markdown
   ( h1
   , h2

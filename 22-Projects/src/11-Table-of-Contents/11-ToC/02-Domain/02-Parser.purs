@@ -31,17 +31,28 @@ extractHeaders parser lines =
         case runParser (parser index) nextLine of
           Left _ -> acc
           Right header ->
+            -- If the accumulator does not yet have a 'current header',
+            -- Then store the just-parsed header as the 'current header'.
+            -- Otherwise, attempt to nest the just-parsed header with
+            -- the current header.
             maybe
               (acc { loc = Just $ fromTree (header :< Nil) })
-              (\loc' -> recursiveCheck acc.list loc' header _.level)
+              (\loc' -> attemptHeaderNesting acc.list loc' header _.level)
               acc.loc
         ) { list: Nil, loc: Nothing } lines
     listOfLocs = maybe result.list (\loc -> loc : result.list) result.loc
 
   in toTree <$> (reverse listOfLocs)
 
-recursiveCheck :: forall a. List (Loc a) -> Loc a -> a -> (a -> Int) -> { list :: List (Loc a), loc :: Maybe (Loc a) }
-recursiveCheck list stored next getHeaderLevel =
+attemptHeaderNesting :: forall a. List (Loc a) -> Loc a -> a -> (a -> Int) -> { list :: List (Loc a), loc :: Maybe (Loc a) }
+attemptHeaderNesting list stored next getHeaderLevel =
+  -- If the next header's level is less than or equal to the current one,
+  -- then it can't be nested, so add the current header to the real
+  -- accumulator (list) and set the next header to the current header value.
+  -- Otherwise, check whether the current header has a child.
+  -- If it does not, then the next header is the only child of the current one.
+  -- Otherwise, continue to the next level of the current header and try
+  -- to further nest the header.
   if (getHeaderLevel next) <= (getHeaderLevel $ value stored)
     then { list: stored : list
          , loc: Just $ fromTree (next :< Nil)
@@ -51,17 +62,19 @@ recursiveCheck list stored next getHeaderLevel =
          , loc: Just $
             case lastChild stored of
               Nothing -> insertChild (next :< Nil) stored
-              Just child -> root $ recursiveCheck' child next getHeaderLevel
+              Just child -> root $ recursivelyNestHeader child next getHeaderLevel
          }
 
-recursiveCheck' :: forall a. Loc a -> a -> (a -> Int) -> Loc a
-recursiveCheck' stored next getHeaderLevel =
+recursivelyNestHeader :: forall a. Loc a -> a -> (a -> Int) -> Loc a
+recursivelyNestHeader stored next getHeaderLevel =
+  -- Same as above, except that in the first case (header cannot be nested),
+  -- we add it as another child to the current header's list of children.
   if (getHeaderLevel next) <= (getHeaderLevel $ value stored)
     then insertAfter (next :< Nil) stored
     else
       case lastChild stored of
         Nothing -> insertChild (next :< Nil) stored
-        Just child -> recursiveCheck' child next getHeaderLevel
+        Just child -> recursivelyNestHeader child next getHeaderLevel
 
 psLineWithMarkdownHeaders :: Int -> Parser HeaderInfo
 psLineWithMarkdownHeaders ln = ado

@@ -29,12 +29,34 @@ type TopLevelContent = { tocHeader :: String
                        , section :: String
                        }
 
+-- | The Environment type specifies the following ideas:
+-- | - a backend-independent way to create file system paths. For example,
+-- |   one could run the program via Node, C++, C, Erlang, or another such
+-- |   backend:
+-- |    - `rootUri`
+-- |    - `addPath`
+-- |    - `outputFile`
+-- | - functions which determine which directories and files to include/exclude:
+-- |    - `matchesTopLevelDir`
+-- |    - `includeRegularDir`
+-- |    - `includeFile`
+-- | - functions for parsing a file's content. One could use a different parser
+-- |   library is so desired:
+-- |    - `parseFile`
+-- | - functions that render the conten. One could render it as Markdown or
+-- |   as HTML:
+-- |    - `renderToC`
+-- |    - `renderTopLevel`
+-- |    - `renderDir`
+-- |    - `renderFile`
+-- | - A level that indicates how much information to log to the console
+-- |    - `logLevel`
 type Env = { rootUri :: UriPath
            , addPath :: AddPath
+           , outputFile :: FilePath
            , matchesTopLevelDir :: FilePath -> Boolean
            , includeRegularDir :: FilePath -> Boolean
            , includeFile :: FilePath -> Boolean
-           , outputFile :: FilePath
            , parseFile :: FilePath -> String -> List (Tree HeaderInfo)
            , renderToC :: Array TopLevelContent -> String
            , renderTopLevel :: FilePath -> Array String -> TopLevelContent
@@ -56,6 +78,8 @@ program = do
   output <- renderFiles
   writeToFile output
 
+-- | Recursively walks the file tree, starting at the root directory
+-- | and renders each file and directory that should be included.
 renderFiles :: forall m f.
                Monad m =>
                MonadAsk Env m =>
@@ -72,8 +96,11 @@ renderFiles = do
   pure $ env.renderToC sections
 
   where
+    -- | More or less maps the unrendered top-level directory array into
+    -- | rendered top-level directory array.
     renderSectionsOrNothing :: Env -> Array FilePath -> m (Array (Maybe TopLevelContent))
     renderSectionsOrNothing env paths =
+      -- the function that follows 'parTraverse' is done in parallel
       paths # parTraverse \topLevelPath -> do
         let fullPath = env.addPath env.rootUri topLevelPath
         pathType <- readPathType fullPath.fs
@@ -83,6 +110,8 @@ renderFiles = do
             pure $ Just output
           _ -> pure $ Nothing
 
+-- | Renders a single top-level directory, using its already-rendered
+-- | child paths.
 renderTopLevelSection :: forall m f.
                          Monad m =>
                          MonadAsk Env m =>
@@ -98,6 +127,7 @@ renderTopLevelSection topLevelFullPath topLevelPathSegment = do
   env <- ask
   pure $ env.renderTopLevel topLevelPathSegment renderedPaths
 
+-- | Renders the given path, whether it is a directory or a file.
 renderPath :: forall m f.
               Monad m =>
               MonadAsk Env m =>
@@ -124,6 +154,7 @@ renderPath depth fullParentPath childPath = do
       | otherwise                 -> pure Nothing
     _ -> pure Nothing
 
+-- | Renders the given directory and all of its already-rendered child paths
 renderDir :: forall m f.
              Monad m =>
              MonadAsk Env m =>
@@ -139,6 +170,7 @@ renderDir depth fullDirPath dirPathSegment = do
   renderedPaths <- catMaybes <$> parTraverse (renderPath (depth + 1) fullDirPath) unparsedPaths
   pure $ env.renderDir depth dirPathSegment renderedPaths
 
+-- | Renders the given file and all of its headers
 renderFile :: forall m.
               Monad m =>
               MonadAsk Env m =>
@@ -157,7 +189,9 @@ renderFile depth fullFilePath filePathSegment = do
   let headers = env.parseFile filePathSegment content
   pure $ env.renderFile depth url filePathSegment headers
 
--- | Reads the filesystem path from the root d
+-- | A monad that has the capability of determining the path type of a path,
+-- | reading a directory for its child paths, and reading a file for its
+-- | content.
 class (Monad m) <= ReadPath m where
   readDir :: FilePath -> m (Array FilePath)
 
@@ -165,12 +199,16 @@ class (Monad m) <= ReadPath m where
 
   readPathType :: FilePath -> m (Maybe PathType)
 
+-- | A monad that has the capability of writing content to a given file path.
 class (Monad m) <= WriteToFile m where
   writeToFile :: String -> m Unit
 
+-- | A monad that has the capability of sending HTTP requests, which are
+-- | used to verify that the URL is valid and receives a 200 OK code.
 class (Monad m) <= VerifyLink m where
   verifyLink :: WebUrl -> m Boolean
 
+-- | The amount and type of information to log.
 data LogLevel
   = Error
   | Info
@@ -179,14 +217,19 @@ data LogLevel
 derive instance eqLogLevel :: Eq LogLevel
 derive instance ordLogLevel :: Ord LogLevel
 
+-- | A monad that has the capability of logging messages, whether to the
+-- | console or a file.
 class (Monad m) <= Logger m where
   log :: LogLevel -> String -> m Unit
 
+-- | Logs a message using the Error level
 logError :: forall m. Logger m => String -> m Unit
 logError msg = log Error msg
 
+-- | Logs a message using the Info level
 logInfo :: forall m. Logger m => String -> m Unit
 logInfo msg = log Info msg
 
+-- | Logs a message using the Debug level
 logDebug :: forall m. Logger m => String -> m Unit
 logDebug msg = log Debug msg
