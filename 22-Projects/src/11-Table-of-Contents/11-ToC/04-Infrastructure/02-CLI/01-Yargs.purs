@@ -1,3 +1,4 @@
+-- | Provides a CLI interface to our program via the Yargs library.
 module Projects.ToC.Infrastructure.CLI.Yargs (runProgramViaCLI) where
 
 import Prelude
@@ -32,6 +33,10 @@ usageAndExample =
          "Produces a Table of Contents file in the shell's current working \
          \directory."
     <> example
+         "node 22-Projects/dist/table-of-contents/ghtoc.js \
+            \-r \".\" -o \"./table-of-contents.md\" --log-level info"
+         "Runs the program with the log level set to 'info'"
+    <> example
          "node ghtoc.js -r \"/home/user/purescript-jordans-reference/\" \
          \-o \"/home/user/purescript-jordans-reference/table-of-contents.md\""
          "Produces a Table of Contents file using absolute paths."
@@ -44,7 +49,7 @@ usageAndExample =
 
 runProgramViaCLI :: (Env -> Effect Unit) -> Effect Unit
 runProgramViaCLI runOnceEnvConfigured = do
-  runY usageAndExample $ (setupProgram runOnceEnvConfigured)
+  runY usageAndExample $ (setupEnv runOnceEnvConfigured)
         <$> yarg "r" ["root-dir"]
               (Just "The local computer's file path to the root directory that \
                     \contains this repository.")
@@ -93,13 +98,13 @@ runProgramViaCLI runOnceEnvConfigured = do
                     \Default is 'error'.")
               (Left "error") true
 
-setupProgram :: (Env -> Effect Unit) ->
-                FilePath -> FilePath ->
-                Array String -> Array String -> Array String ->
-                String -> String -> String ->
-                String ->
-                Effect Unit
-setupProgram runProgramWithEnvironmentConfig
+setupEnv :: (Env -> Effect Unit) ->
+            FilePath -> FilePath ->
+            Array String -> Array String -> Array String ->
+            String -> String -> String ->
+            String ->
+            Effect Unit
+setupEnv runProgramWithEnvironmentConfig
              rootDirectory outputFile
              excludedTopLevelDirs excludedRegularDir includedFileExtensions
              ghUsername ghProjectName ghBranchName
