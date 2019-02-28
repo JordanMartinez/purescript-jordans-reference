@@ -1,18 +1,14 @@
 module Projects.ToC.Core.Paths
   ( FileExtension
   , PathType(..)
-  , DirectoryPath(..)
   , FilePath
   , WebUrl
+  , UriPath
   , AddPath
   , addPath'
-  , RootToParentDir(..)
   ) where
 
 import Data.Semigroup ((<>))
-import Data.Generic.Rep (class Generic)
-import Data.Generic.Rep.Show (genericShow)
-import Data.Show (class Show)
 
 -- | Indicates whether a path is a directory or a file.
 data PathType
@@ -23,24 +19,20 @@ data PathType
 -- | character. For example, ".purs", ".md", etc.
 type FileExtension = String
 
--- | Indicates that a String is a part of the absolute path name for a file.
--- | For example, "child" in "root/parent/child/folder/file.txt"
-newtype DirectoryPath = DirectoryPath String
-
-derive instance genericDirectoryPath :: Generic DirectoryPath _
-
-instance showDirectoryPath :: Show DirectoryPath where
-  show x = genericShow x
-
 type FilePath = String
 
 type WebUrl = String
 
-type AddPath = String -> FilePath -> String
+type UriPath = { fs :: FilePath
+               , url :: WebUrl
+               }
+
+type AddPath = UriPath -> FilePath -> UriPath
 
 -- | Creates an `AddPath` given a backend-specific way to get the file separator
 -- | character.
-addPath' :: String -> AddPath
-addPath' separator = (\uri path -> uri <> separator <> path)
-
-newtype RootToParentDir = RootToParentDir String
+addPath' :: String -> UriPath -> FilePath -> UriPath
+addPath' fsSep rec path =
+  { fs: rec.fs <> fsSep <> path
+  , url: rec.url <> "/" <> path
+  }

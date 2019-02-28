@@ -1,7 +1,5 @@
 module Projects.ToC.Domain.FixedLogic
-  ( UriPath
-  , addPath'
-  , AllTopLevelContent
+  ( AllTopLevelContent
   , TopLevelContent
   , Env
   , program
@@ -14,24 +12,14 @@ module Projects.ToC.Domain.FixedLogic
 
 import Prelude
 
-import Data.List (List)
-import Data.Tree (Tree)
 import Control.Monad.Reader (class MonadAsk, ask)
 import Control.Parallel (class Parallel, parTraverse)
 import Data.Array (catMaybes)
+import Data.List (List)
 import Data.Maybe (Maybe(..))
+import Data.Tree (Tree)
 import Projects.ToC.Core.FileTypes (HeaderInfo)
-import Projects.ToC.Core.Paths (FilePath, PathType(..), WebUrl)
-
-type UriPath = { fs :: FilePath
-               , url :: WebUrl
-               }
-
-addPath' :: String -> UriPath -> FilePath -> UriPath
-addPath' fsSep rec path =
-  { fs: rec.fs <> fsSep <> path
-  , url: rec.url <> "/" <> path
-  }
+import Projects.ToC.Core.Paths (FilePath, PathType(..), WebUrl, UriPath, AddPath)
 
 type AllTopLevelContent = { allToCHeaders :: String
                           , allSections :: String
@@ -42,7 +30,7 @@ type TopLevelContent = { tocHeader :: String
                        }
 
 type Env = { rootUri :: UriPath
-           , addPath :: UriPath -> FilePath -> UriPath
+           , addPath :: AddPath
            , matchesTopLevelDir :: FilePath -> Boolean
            , includeRegularDir :: FilePath -> Boolean
            , includeFile :: FilePath -> Boolean
