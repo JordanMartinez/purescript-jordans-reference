@@ -76,7 +76,9 @@ program :: forall m f.
            m Unit
 program = do
   output <- renderFiles
+  logInfo "Finished rendering files. Now writing to file."
   writeToFile output
+  logInfo "Done."
 
 -- | Recursively walks the file tree, starting at the root directory
 -- | and renders each file and directory that should be included.
