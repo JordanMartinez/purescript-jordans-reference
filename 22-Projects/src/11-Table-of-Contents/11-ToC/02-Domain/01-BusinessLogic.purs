@@ -14,10 +14,10 @@ import Prelude
 
 import Control.Monad.Reader (class MonadAsk, ask)
 import Control.Parallel (class Parallel, parTraverse)
-import Data.Array (catMaybes)
+import Data.Array (catMaybes, intercalate)
 import Data.List (List)
 import Data.Maybe (Maybe(..))
-import Data.Tree (Tree)
+import Data.Tree (Tree, showTree)
 import Projects.ToC.Core.FileTypes (HeaderInfo)
 import Projects.ToC.Core.Paths (FilePath, PathType(..), WebUrl, UriPath, AddPath)
 
@@ -92,6 +92,7 @@ renderFiles :: forall m f.
 renderFiles = do
   env <- ask
   paths <- readDir env.rootUri.fs
+  logDebug $ "All possible top-level directories\n" <> intercalate "\n" paths
   sections <- catMaybes <$> renderSectionsOrNothing env paths
   pure $ env.renderToC sections
 
@@ -106,7 +107,9 @@ renderFiles = do
         pathType <- readPathType fullPath.fs
         case pathType of
           Just Dir | env.matchesTopLevelDir topLevelPath -> do
+            logDebug $ "Rendering top-level directory (start): " <> fullPath.fs
             output <- renderTopLevelSection fullPath topLevelPath
+            logDebug $ "Rendering top-level directory (done) : " <> fullPath.fs
             pure $ Just output
           _ -> pure $ Nothing
 
@@ -144,15 +147,25 @@ renderPath depth fullParentPath childPath = do
   case pathType of
     Just Dir
       | env.includeRegularDir childPath -> do
+          logDebug $ "Rendering directory (start): " <> fullChildPath.fs
           output <- renderDir depth fullChildPath childPath
+          logDebug $ "Rendering directory (done) : " <> fullChildPath.fs
           pure $ Just output
-      | otherwise                       -> pure Nothing
+      | otherwise                       -> do
+          logDebug $ "Excluding directory: " <> fullChildPath.fs
+          pure Nothing
     Just File
       | env.includeFile childPath -> do
+          logDebug $ "Rendering File (start): " <> fullChildPath.fs
           output <- renderFile depth fullChildPath childPath
+          logDebug $ "Rendering File (done) : " <> fullChildPath.fs
           pure $ Just output
-      | otherwise                 -> pure Nothing
-    _ -> pure Nothing
+      | otherwise                 -> do
+          logDebug $ "Excluding File: " <> fullChildPath.fs
+          pure Nothing
+    _ -> do
+      logInfo $ "Unknown path type: " <> fullChildPath.fs
+      pure Nothing
 
 -- | Renders the given directory and all of its already-rendered child paths
 renderDir :: forall m f.
@@ -183,10 +196,19 @@ renderFile depth fullFilePath filePathSegment = do
   let fullFsPath = fullFilePath.fs
   let fullUrl = fullFilePath.url
   linkWorks <- verifyLink fullUrl
-  let url = if linkWorks then Just fullUrl else Nothing
+  url <- if linkWorks
+          then do
+            logInfo $ "Successful link for: " <> fullFsPath
+            pure $ Just fullUrl
+          else do
+            logError $ "File with invalid link: " <> fullFsPath
+            logError $ "Link was: " <> fullUrl
+            pure Nothing
   content <- readFile fullFsPath
   env <- ask
   let headers = env.parseFile filePathSegment content
+  logDebug $ "Headers for file:"
+  logDebug $ intercalate "\n" (showTree <$> headers)
   pure $ env.renderFile depth url filePathSegment headers
 
 -- | A monad that has the capability of determining the path type of a path,
