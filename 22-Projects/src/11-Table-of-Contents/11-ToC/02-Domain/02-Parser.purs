@@ -16,7 +16,7 @@ import Data.Tree.Zipper (Loc, fromTree, insertAfter, insertChild, lastChild, roo
 import Projects.ToC.Core.FileTypes (HeaderInfo)
 import Text.Parsing.StringParser (Parser, runParser)
 import Text.Parsing.StringParser.CodePoints (regex, string, eof)
-import Text.Parsing.StringParser.Combinators (choice, many, many1, sepBy1)
+import Text.Parsing.StringParser.Combinators (choice, lookAhead, many, many1, sepBy1)
 
 extractPurescriptHeaders :: Array String -> List (Tree HeaderInfo)
 extractPurescriptHeaders = extractHeaders (\lineNumber -> psLineWithMarkdownHeaders lineNumber)
@@ -84,15 +84,14 @@ plainTextLinewithMarkdownHeaders = ado
   -- only include headers with level 2 or more
   headerLevel <- String.length <$> regex "#{2,}"
   ignorePossibleTabsAndSpaces
-  headerText <- regex ".*"
+  -- capture header text without changing the position of where we are
+  -- in the string
+  headerText <- lookAhead $ regex ".*"
+  -- extract all the 'words' from the header text and change the position
+  headerAnchor <- wordParser
+  -- ensure this is the end of the line
   eof
-  in { level: headerLevel, text: headerText, anchor: "#" <> produceLink headerText }
-
-produceLink :: String -> String
-produceLink headerText =
-  case runParser wordParser headerText of
-    Left error -> show error
-    Right wordList -> intercalate "-" wordList
+  in { level: headerLevel, text: headerText, anchor: "#" <> (intercalate "-" headerAnchor) }
 
   where
     -- | Removes all non-whitespace characters that are not
