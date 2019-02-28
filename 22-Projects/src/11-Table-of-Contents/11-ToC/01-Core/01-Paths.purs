@@ -1,6 +1,5 @@
 module Projects.ToC.Core.Paths
-  ( FileExtension
-  , PathType(..)
+  ( PathType(..)
   , FilePath
   , WebUrl
   , UriPath
@@ -10,14 +9,9 @@ module Projects.ToC.Core.Paths
 
 import Data.Semigroup ((<>))
 
--- | Indicates whether a path is a directory or a file.
 data PathType
   = Dir
   | File
-
--- | Indicates that a String is a file extension that includes the '.'
--- | character. For example, ".purs", ".md", etc.
-type FileExtension = String
 
 type FilePath = String
 
