@@ -13,7 +13,7 @@ import Data.String (Pattern(..), Replacement(..), replace, replaceAll, toLower)
 import Data.Tree (Tree)
 import Projects.ToC.Core.FileTypes (HeaderInfo)
 import Projects.ToC.Core.Paths (FilePath, WebUrl)
-import Projects.ToC.Domain.FixedLogic (AllTopLevelContent, TopLevelContent)
+import Projects.ToC.Domain.BusinessLogic (AllTopLevelContent, TopLevelContent)
 import Projects.ToC.Domain.Renderer.Markdown (anchorLink, bulletList, emptyLine, h1, h2, indentedBulletList, hyperLink)
 
 formatHyphensInName :: String -> String

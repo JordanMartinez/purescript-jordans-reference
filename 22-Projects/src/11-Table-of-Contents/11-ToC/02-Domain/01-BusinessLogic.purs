@@ -1,4 +1,4 @@
-module Projects.ToC.Domain.FixedLogic
+module Projects.ToC.Domain.BusinessLogic
   ( AllTopLevelContent
   , TopLevelContent
   , Env
