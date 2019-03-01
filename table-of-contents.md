@@ -822,6 +822,9 @@
             - [08 Analysis.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/02-Random-Number/23-Run--Layered/08-Analysis.md)
     - 11 Table of Contents
         - [ReadMe.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/11-Table-of-Contents/ReadMe.md)
+            - [Compilation Instructions](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/11-Table-of-Contents/ReadMe.md#Compilation-Instructions)
+            - [Pre-reqs](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/11-Table-of-Contents/ReadMe.md#Pre-reqs)
+            - [Standard](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/11-Table-of-Contents/ReadMe.md#Standard)
         - [01 Design Thought Process.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/11-Table-of-Contents/01-Design-Thought-Process.md)
             - [Specification](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/11-Table-of-Contents/01-Design-Thought-Process.md#Specification)
             - [Table of Contents](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/11-Table-of-Contents/01-Design-Thought-Process.md#Table-of-Contents)
@@ -853,7 +856,6 @@
                 - [01 Paths.purs](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/11-Table-of-Contents/11-ToC/01-Core/01-Paths.purs)
                 - [02 FileTypes.purs](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/11-Table-of-Contents/11-ToC/01-Core/02-FileTypes.purs)
                 - [03 GitHubLinks.purs](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/11-Table-of-Contents/11-ToC/01-Core/03-GitHubLinks.purs)
-            - [01 Main.purs](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/11-Table-of-Contents/11-ToC/01-Main.purs)
             - 02 Domain
                 - [01 BusinessLogic.purs](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/11-Table-of-Contents/11-ToC/02-Domain/01-BusinessLogic.purs)
                 - [02 Parser.purs](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/11-Table-of-Contents/11-ToC/02-Domain/02-Parser.purs)
@@ -867,6 +869,7 @@
                 - [01 OS FFI.purs](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/11-Table-of-Contents/11-ToC/04-Infrastructure/01-OS-FFI.purs)
                 - 02 CLI
                     - [01 Yargs.purs](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/src/11-Table-of-Contents/11-ToC/04-Infrastructure/02-CLI/01-Yargs.purs)
+            - 05 Main.purs
 - test
     - [ReadMe.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/development/22-Projects/test/ReadMe.md)
     - 02 Random Number
