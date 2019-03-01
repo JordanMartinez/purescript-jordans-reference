@@ -76,7 +76,7 @@ type Environment = { hardCodedInt :: HardCodedInt }
 --   define a type alias that makes using the data type in rows easier
 --   and write their smart constructors.
 data LogToScreen a = LogToScreen String a
-derive instance ltsf :: Functor LogToScreen
+derive instance functorLogToScreen :: Functor LogToScreen
 
 _logToScreen :: SProxy "logToScreen"
 _logToScreen = SProxy
@@ -87,7 +87,7 @@ logToScreen :: forall r. String -> Run (LOG_TO_SCREEN + r) Unit
 logToScreen msg = lift _logToScreen $ LogToScreen msg unit
 ----
 data GenerateRandomInt a = GenerateRandomInt (Int -> a)
-derive instance grif :: Functor GenerateRandomInt
+derive instance functorGenerateRandomInt :: Functor GenerateRandomInt
 
 _generateRandomInt :: SProxy "generateRandomInt"
 _generateRandomInt = SProxy

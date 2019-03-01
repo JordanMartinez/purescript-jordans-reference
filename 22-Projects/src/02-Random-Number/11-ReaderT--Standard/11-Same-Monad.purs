@@ -53,15 +53,15 @@ runAppT env (AppT m) = runReaderT m env
 -- We need to add `m` to AppT so that it's kind is correct: Type -> Type
 -- However, to guarantee that this type is the Monad that ReaderT
 -- expects, we need to add these constraints as well.
-derive newtype instance a1 :: (Functor m) => Functor (AppT m)
-derive newtype instance a2 :: (Applicative m) => Applicative (AppT m)
-derive newtype instance a3 :: (Apply m) => Apply (AppT m)
-derive newtype instance a4 :: (Bind m) => Bind (AppT m)
-derive newtype instance a5 :: (Monad m) => Monad (AppT m)
-derive newtype instance a6 :: MonadTrans AppT
+derive newtype instance functorAppT :: (Functor m) => Functor (AppT m)
+derive newtype instance applicativeAppT :: (Applicative m) => Applicative (AppT m)
+derive newtype instance applyAppT :: (Apply m) => Apply (AppT m)
+derive newtype instance bindAppT :: (Bind m) => Bind (AppT m)
+derive newtype instance monadAppT :: (Monad m) => Monad (AppT m)
+derive newtype instance monadTransAppT :: MonadTrans AppT
 
 -- Defining this here because we'll use it in the Test module
-derive newtype instance a7 :: (MonadState s m) => MonadState s (AppT m)
+derive newtype instance monadStateAppT :: (MonadState s m) => MonadState s (AppT m)
 
 -- everything else below is the same as before.
 instance monadAskAppT :: (Monad m, TypeEquals e (Environment m)) => MonadAsk e (AppT m) where
@@ -69,17 +69,17 @@ instance monadAskAppT :: (Monad m, TypeEquals e (Environment m)) => MonadAsk e (
 
 --------------------------------
 
-instance notifyUserInstance :: (Monad m) => NotifyUser (AppT m) where
+instance notifyUserAppT :: (Monad m) => NotifyUser (AppT m) where
   notifyUser msg = do
     env <- ask
     lift $ env.notifyUser msg
 
-instance getUserInputInstance :: (Monad m) => GetUserInput (AppT m) where
+instance getUserInputAppT :: (Monad m) => GetUserInput (AppT m) where
   getUserInput prompt = do
     env <- ask
     lift $ env.getUserInput prompt
 
-instance createRandomIntInstance :: (Monad m) => CreateRandomInt (AppT m) where
+instance createRandomIntAppT :: (Monad m) => CreateRandomInt (AppT m) where
   createRandomInt bounds = do
     env <- ask
     lift $ unBounds bounds (\l u -> env.createRandomInt l u)

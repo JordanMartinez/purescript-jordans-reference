@@ -1,6 +1,6 @@
 # Purescript-Jordans-Reference
 
-This repo is my way of trying to use the [Feynman Technique](https://medium.com/taking-note/learning-from-the-feynman-technique-5373014ad230) to help me learn Purescript and its ecosystem. It includes a number of links and other resources I've gathered or created. These have been gathered into the following folders
+This repo is my way of trying to use the [Feynman Technique](https://medium.com/taking-note/learning-from-the-feynman-technique-5373014ad230) to help me learn Purescript and its ecosystem. It includes a number of links and other resources I've gathered or created. These have been gathered into the following folders. (For a full overview of this repo's contents, see the [Table of Contents.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/latestRelease/table-of-contents.md) file.)
 
 - 00-Getting-Started
     - Why learn/use PureScript?

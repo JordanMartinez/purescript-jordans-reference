@@ -40,13 +40,16 @@ whereFunction2 a = validFunctionPosition1 <> validFunctionPosition2 <> validValu
 
 letInFunction1 :: String -> String
 letInFunction1 expression =
+  -- this format makes it harder to add a new binding if more are needed
   let binding = expression
   in bodyOfFunctionThatUses binding
 
 letInFunction2 :: String -> String
 letInFunction2 expression =
+  -- this format makes it easy to add a new binding
   let
-    binding = expression
+    binding = expression                                                    {-
+    binding2 = some other expression                                        -}
   in
     bodyOfFunctionThatUses binding
 

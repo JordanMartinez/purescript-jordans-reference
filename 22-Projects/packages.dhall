@@ -136,6 +136,31 @@ in  let additions =
              ]
              "https://github.com/hdgarrood/purescript-benchotron.git"
              "v7.0.0"
-       }
+
+         {- The main 'purescript-tree' package on Pursuit is outdated and only works
+            for the `0.11.7` release. Fortunately, 'pt2121' forked the repo and updated
+            it to `0.12.0`. So, we need to use that person's fork of the repo. -}
+       , tree =
+           mkPackage
+             [ "prelude"
+             , "console"
+             , "lists"
+             , "free"
+             ]
+             "https://github.com/pt2121/purescript-tree"
+             "v1.3.3"
+        , string-utils =
+           mkPackage
+            [ "either"
+            , "arrays"
+            , "maybe"
+            , "prelude"
+            , "integers"
+            , "partial"
+            , "strings"
+            ]
+            "https://github.com/menelaos/purescript-stringutils.git"
+            "v0.0.8"
+        }
 
 in  upstream ⫽ overrides ⫽ additions

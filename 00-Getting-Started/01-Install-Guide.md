@@ -1,6 +1,6 @@
 # Install Guide
 
-### Getting Additional Help
+## Getting Additional Help
 
 Throughout your learning process, it will be helpful to ask others for help. The two places this is often done is on the ML forum and the Slack group chat. If you encounter problems when installing anything below, ask for help on the Slack group's `#purescript-beginner` channel and you should receive help.
 
@@ -36,7 +36,7 @@ NPM will then be used to install these 3 packages
 
 To install them, run this command:
 ```bash
-npm i -g purescript@0.12.1 pulp psc-package-bin-simple
+npm i -g purescript@0.12.2 pulp psc-package-bin-simple
 ```
 
 <hr>
@@ -88,6 +88,20 @@ The Atom package, `ide-purescript`, is configured to `Bower`, but we'll be using
 4. Click on the `Settings` button in the entry that appears
 5. Check the `Add psc-package sources` checkbox
 6. Change the `build command` to: `pulp --psc-package build -- --json-errors`
+
+### Getting IDE support (autocomplete, documentation-on-hover, etc.) in Atom
+
+While this repository's contents are useful for learning various lessons, IDE support (autocomplete, documentation, etc.) will only work if you open this repository's contents in a specific way when using Atom. Follow the instructions below:
+1. Click "File" and click "Open Folder..." (shortcut: `CTRL+O`)
+2. In the folder chooser, choose one of this repo's project folders (i.e. a folder with a `.psc-package` file and `src` folder)
+3. Click on "Packages" and click on "PureScript" and then on "Build". The IDE server will start running and rebuild just that project.
+    - Autocomplete, importing, and documentation will now work.
+
+#### Dealing with IDE Server issues in Atom
+
+Sometimes when editing a file, the IDE server will go out-of-sync. For example, you might change the definition of a type and the IDE doesn't realize that occured, so it will tell you that you have used a type incorrectly. In such cases, rebuild the project using Step 3 above and thinigs should correct themselves from there.
+
+In situations where I have used the same names for things, the autocomplete might actually import a function or type with the same name as the one you want but from a different module. So, if you have weird compiler errors, check the imports to insure the IDE server didn't accidentally import something incorrect or from the wrong location.
 
 ## Setting up Module Linker
 

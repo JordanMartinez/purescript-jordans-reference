@@ -23,5 +23,11 @@ functionName age = "body"
 -- ... but to do the above, one should use `newtype` instead,
 --   which is explained later.
 
+-- a type alias can also take a type parameter
+type ConvertAToString a = (a -> String)
+
+example :: forall a. a -> ConvertAToString a -> String
+example a convertAToString = convertAToString a
+
 -- required to get this to compile correctly
 data RunTimeType

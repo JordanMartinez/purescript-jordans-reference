@@ -21,17 +21,17 @@ import Prelude
 
 data Box a = Box a
 
-instance boxFunctor :: Functor Box where
+instance functorBox :: Functor Box where
   map :: forall a b. (a -> b) -> Box a -> Box b
   map f (Box a) = Box (f a)
 -- infixl 4 map as <$>
 
-instance boxApply :: Apply Box where
+instance applyBox :: Apply Box where
   apply :: forall a b. Box (a -> b) -> Box a -> Box b
   apply (Box f) (Box a) = Box (f a)
 -- infixl 4 apply as <*>
 
-instance boxApplicative :: Applicative Box where
+instance applicativeBox :: Applicative Box where
   pure :: forall a. a -> Box a
   pure a = Box a
 ------------------------------

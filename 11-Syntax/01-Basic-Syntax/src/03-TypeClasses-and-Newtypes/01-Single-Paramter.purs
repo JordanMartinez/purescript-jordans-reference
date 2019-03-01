@@ -20,6 +20,10 @@ class ToInt a where
 instance typeClassNameDefinitionForSomeType :: TypeClassName SomeType where
   functionName type_ = ReturnType
 
+-- Note: type class' instances unfortunately must be named due to the
+-- JavaScript backend. One should use the following naming scheme:
+--    [TypeClassName][ParemeterTypeName]
+
 instance toIntBoolean :: ToInt Boolean where
   toInt true = 1
   toInt false = 0
@@ -32,7 +36,7 @@ test = (toInt true) == 0
 class TypeClassDefiningValue a where
   value :: a
 
-instance intValue :: TypeClassDefiningValue Int where
+instance typeClassDefiningValueInt :: TypeClassDefiningValue Int where
   value = 42
 
 -- Type classes usually only specify one function, but sometimes
@@ -42,14 +46,14 @@ class ZeroAppender a where
   append :: a -> a -> a
   zeroValue :: a
 
-instance intZeroAppender :: ZeroAppender Int where
+instance zeroAppenderInt :: ZeroAppender Int where
   append = (+)
   zeroValue = 0
 
 warning_orphanInstance :: String
 warning_orphanInstance = """
 
-Be aware of what an 'orphan instance' is. 
+Be aware of what an 'orphan instance' is.
 
 See the following link for more info:
 https://github.com/purescript/documentation/blob/master/errors/OrphanInstance.md

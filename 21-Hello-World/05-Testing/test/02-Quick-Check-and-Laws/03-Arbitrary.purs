@@ -31,7 +31,7 @@ data Fruit
   | Banana
   | Orange
 
-instance fruitArb :: Arbitrary Fruit where
+instance arbitraryFruit :: Arbitrary Fruit where
   arbitrary = elements $ Apple :| [Banana, Orange]
 
 -- ... the below (useless) code would compile
@@ -56,7 +56,7 @@ constant :: Fruit -> Gen FrequentApple
 constant fruit = elements $ singleton $ FrequentApple fruit
 
 -- write its instance
-instance frequentApple :: Arbitrary FrequentApple where
+instance arbitraryFrequentApple :: Arbitrary FrequentApple where
   arbitrary = frequency $
     (Tuple 6.0 (constant Apple)) :|
     (Tuple 2.0 (constant Banana)) :
@@ -75,7 +75,7 @@ runApple (FrequentApple fruit) = fruit
 -- Likewise, we can use the type's arbitrary to create a newtype's arbitrary
 newtype SmallInt = SmallInt Int
 
-instance arbSmallInt :: Arbitrary SmallInt where
+instance arbitrarySmallInt :: Arbitrary SmallInt where
   arbitrary = (SmallInt <<< (_ / 1000)) <$> arbitrary -- Arbitrary Int
 
 runInt :: SmallInt -> Int

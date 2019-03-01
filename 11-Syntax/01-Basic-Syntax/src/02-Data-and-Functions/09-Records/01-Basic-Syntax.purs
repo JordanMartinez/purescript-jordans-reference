@@ -27,7 +27,8 @@ type RecordType_Desugared = Record ( field1 :: String
 type RecordType = { field1 :: String
                -- , ...
                   , fieldN :: Int
-                  , function :: String -> String }
+                  , function :: String -> String
+                  }
 
 getField :: RecordType -> String
 getField obj = obj.field1
@@ -62,8 +63,8 @@ Don't confuse the two operators that go in-between field and value!
 "field OPERATOR value" where OPERATOR is
   "=" means "update the field of a record that already exists":
           record { field = newValue }
-  ":" means "create the field of a new record":
-          record { field: initialValue }
+  ":" means "create a new record by specifying the field's value":
+                 { field: initialValue }
 """
 
 -- needed to compile

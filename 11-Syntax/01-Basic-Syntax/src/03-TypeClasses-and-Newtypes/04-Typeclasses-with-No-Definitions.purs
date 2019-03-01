@@ -23,7 +23,7 @@ class (ToString a) <= ToString_50CharLimit a -- no "where" keyword here!
 
 -- Assuming we've already written the `ToString` instance,
 -- to create an instance for the above type class, we'd write:
-instance int50CharLimit :: ToString_50CharLimit Int -- no "where" keyword!
+instance toString_50CharLimitInt :: ToString_50CharLimit Int -- no "where" keyword!
 -- This instance means the developer who wrote it asserts that
 -- the given type, Int, satisfies the given law.
 
@@ -85,5 +85,5 @@ useBoxable a = unwrapFromBox (wrapIntoBox a)
 
 -- Necessary to compile
 
-instance intToString :: ToString Int where
+instance toStringInt :: ToString Int where
   toString = show

@@ -50,7 +50,7 @@ data TheType = TheType
 class SuperTypeClass a where
   fn :: a -> String
 
-instance supertypeclassTheTypeInstance :: SuperTypeClass TheType where
+instance superTypeClassTheTypeInstance :: SuperTypeClass TheType where
   fn _ = "body"
 
 class SuperTypeClass1 a where

@@ -88,21 +88,21 @@ instance monadAskAppM :: TypeEquals e Environment => MonadAsk e AppM where
   ask = AppM $ asks from
 
 -- - write instances for capabilities above, so that AppM can use them
-instance logCapability :: LogToScreen AppM where
+instance logToScreenAppM :: LogToScreen AppM where
   logToScreen :: String -> AppM Unit
   logToScreen message = liftEffect $ Console.log message
 
-instance generatorCapability :: GenerateRandomInt AppM where
+instance generateRandomIntAppM :: GenerateRandomInt AppM where
   generateRandomInt :: AppM Int
   generateRandomInt = liftEffect $ randomInt bottom top
 
 -- - derive instances for AppM, so that it is a Monad via ReaderT
-derive newtype instance a1 :: Functor AppM
-derive newtype instance a2 :: Applicative AppM
-derive newtype instance a3 :: Apply AppM
-derive newtype instance a4 :: Bind AppM
-derive newtype instance a5 :: Monad AppM
-derive newtype instance a6 :: MonadEffect AppM
+derive newtype instance functorAppM :: Functor AppM
+derive newtype instance applicativeAppM :: Applicative AppM
+derive newtype instance applyAppM :: Apply AppM
+derive newtype instance bindAppM :: Bind AppM
+derive newtype instance monadAppM :: Monad AppM
+derive newtype instance monadEffectAppM :: MonadEffect AppM
 
 -----------------------------------------
 -- Infrastructure: any other code (i.e. databases, frameworks, libraries)

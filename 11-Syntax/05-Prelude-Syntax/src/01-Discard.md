@@ -1,6 +1,6 @@
 # Discard
 
-There is a type class in Prelude called [`Discard`](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Bind#t:Discard) that does not appear in our diagram of Prelude's type classes. It is implemented only by `Unit`. One could implement it for another type, but that's probably not desirable:
+There is a type class in Prelude called [`Discard`](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Bind#t:Discard) that does not appear in our diagram of Prelude's type classes. It is implemented only by `Unit`.:
 ```purescript
 -- Pseudo-Syntax: combines the class and its only instance into one block:
 class Discard Unit where
@@ -8,4 +8,4 @@ class Discard Unit where
   discard = bind
 ```
 
-This may seem like a pointless type class, but it becomes important when we talk about do notation (next).
+This seemingly pointless type class insures that you do not accidentally "throw away" the result of a computation when you did not intend to do so (covered next in 'do notation'). One should almost never implement it for another type, unless one knows what they are doing and they have a very rare use case for it.

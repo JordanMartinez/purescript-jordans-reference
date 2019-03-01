@@ -68,19 +68,19 @@ type Environment = { hardCodedInt :: HardCodedInt }
 -- - declare what the capabilities/effects are as data types with
 --     derived instances for `Functor` and write their smart constructors.
 data LogToScreen a = LogToScreen String a
-derive instance ltsf :: Functor LogToScreen
+derive instance functorLogToScreen :: Functor LogToScreen
 
 logToScreen :: String -> Free AllEffects Unit
 logToScreen message = liftF $ inj $ LogToScreen message unit
 -----
 data GenerateRandomInt a = GenerateRandomInt (Int -> a)
-derive instance grif :: Functor GenerateRandomInt
+derive instance functorGenerateRandomInt :: Functor GenerateRandomInt
 
 generateRandomInt :: Free AllEffects Int
 generateRandomInt = liftF $ inj $ GenerateRandomInt identity
 -----
 newtype Reader e a = Reader (e -> a)
-derive instance rf :: Functor (Reader e)
+derive instance functorReader :: Functor (Reader e)
 
 ask :: Free AllEffects Environment
 ask = liftF $ inj $ Reader identity

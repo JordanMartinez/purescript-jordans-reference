@@ -54,7 +54,7 @@ runProgram :: RealCompiler -> HighestLevelProgram e -> Effect e
 -- without rewriting any of the domain-specific code.
 ```
 
-### Free Applicative
+## Free Applicative
 
 Since each `~>` acts like a compiler that compiles the higher-level language (input) into a lower-level language (output), one can also "optimize" a compiler's output in some cases via `FreeAp`, the Free Applicative type. Unfortunately, this is not covered here (_yet_), but one should be aware of it. John De Goes overviews this idea below.
 

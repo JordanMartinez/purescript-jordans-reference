@@ -34,13 +34,13 @@ newtype AppM a = AppM (ReaderT Environment Aff a)
 runAppM :: Environment -> AppM ~> Aff
 runAppM env (AppM m) = runReaderT m env
 
-derive newtype instance a1 :: Functor AppM
-derive newtype instance a2 :: Applicative AppM
-derive newtype instance a3 :: Apply AppM
-derive newtype instance a4 :: Bind AppM
-derive newtype instance a5 :: Monad AppM
-derive newtype instance a6 :: MonadEffect AppM
-derive newtype instance a7 :: MonadAff AppM
+derive newtype instance functorAppM :: Functor AppM
+derive newtype instance applicativeAppM :: Applicative AppM
+derive newtype instance applyAppM :: Apply AppM
+derive newtype instance bindAppM :: Bind AppM
+derive newtype instance monadAppM :: Monad AppM
+derive newtype instance monadEffectAppM :: MonadEffect AppM
+derive newtype instance monadAffAppM :: MonadAff AppM
 
 -- Since Environment is type, we need to use TypeEquals
 -- to make this work without newtyping Envirnoment
@@ -49,19 +49,19 @@ instance monadAskAppM :: TypeEquals e Environment => MonadAsk e AppM where
 
 -------------------------
 
-instance notifyUser :: NotifyUser AppM where
+instance notifyUserAppM :: NotifyUser AppM where
   notifyUser :: String -> AppM Unit
   notifyUser msg = do
     env <- ask
     liftAff $ env.notifyUser msg
 
-instance getUserInputToInfrastructure :: GetUserInput AppM where
+instance getUserInputAppM :: GetUserInput AppM where
   getUserInput :: String -> AppM String
   getUserInput prompt = do
     env <- ask
     liftAff $ env.getUserInput prompt
 
-instance createRandomIntToInfrastructure :: CreateRandomInt AppM where
+instance createRandomIntAppM :: CreateRandomInt AppM where
   createRandomInt :: Bounds -> AppM Int
   createRandomInt bounds = do
     env <- ask

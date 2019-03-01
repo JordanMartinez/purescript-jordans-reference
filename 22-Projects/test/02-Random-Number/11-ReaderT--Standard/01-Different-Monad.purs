@@ -86,11 +86,11 @@ Below, only a few things differ from the production monad:
 
 ---------------------------------------------                         -}
 
-derive newtype instance a1 :: Functor TestM
-derive newtype instance a2 :: Applicative TestM
-derive newtype instance a3 :: Apply TestM
-derive newtype instance a4 :: Bind TestM
-derive newtype instance a5 :: Monad TestM
+derive newtype instance functorTestM :: Functor TestM
+derive newtype instance applicativeTestM :: Applicative TestM
+derive newtype instance applyTestM :: Apply TestM
+derive newtype instance bindTestM :: Bind TestM
+derive newtype instance monadTestM :: Monad TestM
 
 instance monadAskTestM :: TypeEquals e Environment => MonadAsk e TestM where
   ask = TestM $ asks from
@@ -118,17 +118,17 @@ Thus, we must resort to this code:
 
 which means `MonadAsk` for our test monad is rather pointless
 -}
-instance notifyUser :: NotifyUser TestM where
+instance notifyUserTestM :: NotifyUser TestM where
   notifyUser :: String -> TestM Unit
   notifyUser msg =
     TestM $ ReaderT (\env -> env.notifyUser msg)
 
-instance getUserInputToInfrastructure :: GetUserInput TestM where
+instance getUserInputTestM :: GetUserInput TestM where
   getUserInput :: String -> TestM String
   getUserInput prompt =
     TestM $ ReaderT (\env -> env.getUserInput prompt)
 
-instance createRandomIntToInfrastructure :: CreateRandomInt TestM where
+instance createRandomIntTestM :: CreateRandomInt TestM where
   createRandomInt :: Bounds -> TestM Int
   createRandomInt bounds =
     TestM $ ReaderT (\env -> unBounds bounds (\l u -> env.createRandomInt l u))

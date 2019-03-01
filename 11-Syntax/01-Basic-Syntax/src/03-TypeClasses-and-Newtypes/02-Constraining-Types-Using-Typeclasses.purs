@@ -41,7 +41,7 @@ class Show_ a where -- this is the same signature for Show found in Prelude
 data Boxx a = Boxx a
 
 -- If we want to implement the `Show` typeclass for it, we are limited to this:
-instance boxxShow :: Show (Boxx a) where
+instance showBoxx :: Show (Boxx a) where
   show (Boxx _) = "Box(<unknown value>)"
 
 {-
@@ -57,7 +57,7 @@ data Box a = Box a
 {- example: Read the following as:
 "I can 'show' a Box only if the type stored in the Box can also be shown."
 -}
-instance boxShow :: (Show a) => Show (Box a) where
+instance showBox :: (Show a) => Show (Box a) where
   show (Box a) = "Box(" <> show a <> ")"
 
 -- We have names for specific parts of the instance

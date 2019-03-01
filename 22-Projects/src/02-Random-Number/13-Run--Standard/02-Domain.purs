@@ -25,7 +25,7 @@ data API_F a
 -}
 
 data NotifyUserF a = NotifyUserF String a
-derive instance nuf :: Functor NotifyUserF
+derive instance functorNotifyUserF :: Functor NotifyUserF
 
 _notifyUser :: SProxy "notifyUser"
 _notifyUser = SProxy
@@ -38,7 +38,7 @@ notifyUser msg = lift _notifyUser (NotifyUserF msg unit)
 ---
 
 data GetUserInputF a = GetUserInputF String (String -> a)
-derive instance guif :: Functor GetUserInputF
+derive instance functorGetUserInputF :: Functor GetUserInputF
 
 _getUserInput :: SProxy "getUserInput"
 _getUserInput = SProxy
@@ -51,7 +51,7 @@ getUserInput msg = lift _getUserInput (GetUserInputF msg identity)
 ---
 
 data CreateRandomIntF a = CreateRandomIntF Bounds (Int -> a)
-derive instance criF :: Functor CreateRandomIntF
+derive instance functorCreateRandomIntF :: Functor CreateRandomIntF
 
 _createRandomInt :: SProxy "createRandomInt"
 _createRandomInt = SProxy

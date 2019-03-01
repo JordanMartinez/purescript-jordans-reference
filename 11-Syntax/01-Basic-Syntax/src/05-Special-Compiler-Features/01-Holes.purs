@@ -1,11 +1,16 @@
 module Syntax.SpecialCompilerFeatures.Holes where
 
 {-
-Sometimes, when writing code, we're not always sure what function/value
-we should use. In such cases, we can use a feature called "holes"
-to ask the compiler to tell us what it thinks should go there.
+Sometimes, when writing code, we're not always sure which function/value
+we should use. In such cases, we can use a feature called
+"Typed Holes" / "Type Directed Search" to ask the compiler to tell us
+what it thinks should go there.
+
 This feature can often be very helpful when debugging a compiler error
 or when exploring a new library for the first time.
+
+To utilize this syntax, replace the spot where that function/value would go
+with "?name" where 'name' can be anything you want.
 -}
 
 warning :: String
@@ -22,12 +27,16 @@ warning =
 
   Uncomment the following lines and then build the folder to see how it works
   """
--- toString :: Int -> String
--- toString i = ?placeholder_name i
 
--- While this file has 2 "holes," the second one will not be reported by
--- the compiler because it produces an error at the first hole. Thus,
+-- This example will show what the type signature for "?placeholder_name"
+-- should be.
+
+-- example1 :: Int -> String
+-- example1 i = ?placeholder_name i
+
+-- Caveats: While this file has 2 "holes," the second one will not be reported
+-- by the compiler because it produces an error at the first hole. Thus,
 -- this feature can only be used once in a project per compilation.
 
--- someValue :: String
--- someValue = "hello" ?I_Don't_know " world"
+-- example2 :: String
+-- example2 = "hello" ?I_Don't_know " world"

@@ -52,7 +52,12 @@ type MyType = String
 newtype SmallInt = SmallInt Int
 
 -- | type class documentation
-class MyClass a b | a -> b
+class MyClass a b | a -> b where
+  -- | Unfortunately, functions/values inside a type class cannot yet
+  -- | be documented because of a compiler bug:
+  -- | See https://github.com/purescript/purescript/issues/3507
+  myFunction :: a -> b
 
 -- | instance documentation
-instance example :: MyClass String Int
+instance example :: MyClass String Int where
+  myFunction _ = 4
