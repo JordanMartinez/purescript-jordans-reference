@@ -14,6 +14,19 @@ The libraries we will cover here are:
 
 Run the following while in the `Projects/` folder.
 
+### Pre-reqs
+
+```bash
+pulp --psc-package run -m Learn.Yargs.Syntax
+pulp --psc-package run -m Learn.Yargs.GetRootDirViaAbsolutePath
+pulp --psc-package run -m Learn.Yargs.GetRootDirViaEitherPath
+pulp --psc-package run -m Learn.NodeFS.Syntax
+pulp --psc-package run -m Learn.NodeFS.PrintAllFiles
+pulp --psc-package run -m Learn.Tree.Syntax
+pulp --psc-package run -m Learn.StringParsers.Syntax
+pulp --psc-package run -m Learn.Http.Syntax
+```
+
 ### Standard
 
 ```bash
