@@ -7,7 +7,7 @@ This folder will show how to build a "guess the random number" game. Here's an o
 
 ## Compilation Instructions
 
-Run the following while in the `Hello World/Projects/` folder. The web-based games can be opened via `Hello World/Projects/dist/random-number/<FP structure approach>/index.html`.
+Run the following while in the `Projects/` folder. The web-based games can be opened via `dist/random-number/<FP structure approach>/index.html`.
 
 ### Standard
 
