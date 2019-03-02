@@ -38,8 +38,8 @@ Since `Coproduct` is just a newtype wrapper over an `Either`, it suffers from th
 [`VariantF`](https://pursuit.purescript.org/packages/purescript-variant/5.0.0/docs/Data.Functor.Variant#t:VariantF) builds upon `Variant`. To refresh our memory, `Variant`...
 - enables us to write nested `Either`s using row kinds via `# Type` that is refactor-proof due to row polymorphism (i.e. "open" data type).
 - has two core methods:
-    - `inj` (inject): puts an instance into a `Variant`
-    - `prj` (project): extracts an instance from a `Variant` if it exists
+    - `inj` (inject): puts a value into a `Variant`
+    - `prj` (project): extracts a value from a `Variant` if it exists
 - requires the use of `Symbol` and `SProxy` to specify which field within the row is being used
 
 `VariantF` adds the additional requirement of using a proxy called `FProxy` to wrap a type-level higher-kinded type:

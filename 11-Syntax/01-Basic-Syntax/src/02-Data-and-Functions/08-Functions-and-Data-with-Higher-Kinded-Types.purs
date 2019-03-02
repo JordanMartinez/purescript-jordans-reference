@@ -35,7 +35,7 @@ Read
 as
   "f is a higher-kinded type
     that needs one type, `a`, specified
-    before it can be a concrete instance"
+    before it can be a concrete value"
 
 When using higher-kinded types, convention is to start with `f` and continue
 down the alphabet for each higher-kinded type thereafter (e.g. `g`, `h`, etc.). -}
@@ -116,7 +116,7 @@ box3Example = boxFunction (Box3 3) unwrapBox3 (_ + 1) rewrapBox3 -- Box3 4
 -- Higher kinded types can also occur in data declarations:
 data Type_with_HKT hkt a = Type_With_HKT_Constructor (hkt a)
 {-
-Thus we could have multiple instances of this specific type, depending on what
+Thus we could have multiple values of this specific type, depending on what
 type the `hkt` is:
   Type_With_HKT Array Int
   Type_With_HKT Box Int

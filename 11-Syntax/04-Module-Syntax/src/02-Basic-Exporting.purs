@@ -13,18 +13,18 @@ module Syntax.Module.Exporting
   -- the keyword 'module'
   , module ExportedModule
 
-  -- The type is exported, but no one can create an instance of it
+  -- The type is exported, but no one can create a value of it
   -- outside of this module
   , ExportDataType1_ButNotItsConstructors
 
   -- The type is exported and only one of its constructors is exported. Thus,
-  -- everyone else can create an instance of `Constructor2A' but not
+  -- everyone else can create a `Constructor2A' value but not
   -- `Constructor2B`. That one can only be created inside this module.
   , ExportDataType2_AndOneOfItsConstructors(Constructor2A)
 
   -- The type is exported and some of its constructors are exported. Thus,
-  -- everyone else can create an instance of `Constructor3A'
-  -- and `Constructor3B`, but not `Constructor3C`, which
+  -- everyone else can create a `Constructor3A' value
+  -- and a `Constructor3B` value, but not a `Constructor3C` value, which
   --  can only be created inside this module.
   , ExportDataType3_AndSomeOfItsConstructors(Constructor3A, Constructor3B)
 
@@ -44,7 +44,7 @@ module Syntax.Module.Exporting
 
   -- Kinds require the `kind` keyword to precede them
   , kind ExportedKind
-  , ExportedKindInstance
+  , ExportedKindValue
   ) where
 
 -- imports go here
@@ -89,4 +89,4 @@ infixr 4 type ExportedTypeAlias_InfixNotation as <|<>|>
 
 foreign import kind ExportedKind
 
-foreign import data ExportedKindInstance :: ExportedKind
+foreign import data ExportedKindValue :: ExportedKind

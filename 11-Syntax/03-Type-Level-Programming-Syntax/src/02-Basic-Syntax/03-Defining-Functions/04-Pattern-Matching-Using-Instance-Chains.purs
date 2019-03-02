@@ -4,18 +4,18 @@ module Syntax.TypeLevel.Functions.PatternMatching.InstanceChains where
 So far, our type-level function's pattern matches use literal values.
 
 Whenever we write...
-   instance match_2 :: TL_Function InputInstance1 OutputInstance1
-   instance match_1 :: TL_Function InputInstance2 OutputInstance2
+   instance match_2 :: TL_Function InputValue1 OutputValue1
+   instance match_1 :: TL_Function InputValue2 OutputValue2
 
 ... it's the equivalent of writing
 
    tl_Function :: Input -> Output
-   tl_Function InputInstance1 = OutputInstance1
-   tl_Function InputInstance2 = OutputInstance2
+   tl_Function InputValue1 = OutputValue1
+   tl_Function InputValue2 = OutputValue2
 
 -}
 
--- Let's say we have the given value-level and type-level types/instances:
+-- Let's say we have the given value-level and type-level types/values:
 data Fruit
   = Apple
   | Orange
@@ -42,7 +42,7 @@ fruitToInt :: Fruit -> ZeroOrOne
 fruitToInt Apple                    = Zero
 fruitToInt _ {- Orange .. Cherry -} = One
 
--- we can use a feature called "Instance Chains:"
+-- we can use a feature called "Value Chains:"
 
 class FruitToInt (a :: FruitKind) (i :: ZeroOrOneKind)
   | a -> i                                                                {-

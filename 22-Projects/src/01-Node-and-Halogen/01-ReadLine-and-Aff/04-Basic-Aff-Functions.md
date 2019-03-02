@@ -22,8 +22,8 @@ For our purposes, we need an `Aff` to run inside of an `Effect` monad context. I
 runAff_ :: forall a. (Either Error a -> Effect Unit) -> Aff a -> Effect Unit
 ```
 Breaking this down, `runAff_` takes two arguments (explained in reverse):
-- an `Aff` instance to run in the `Effect` monad context
-- a function for handling the asynchronous computation that failed with an `Error` instance or a successful output instance, `a`.
+- an `Aff` value to run in the `Effect` monad context
+- a function for handling the asynchronous computation that failed with an `Error` value or a successful output value, `a`.
 
 Using it should look something like:
 ```purescript
@@ -31,18 +31,18 @@ runAff_ (\either -> case either of
     Left error -> log $ show error
     Right a -> -- do something with 'a' or run cleanup code
   )
-  affInstance
+  affValue
 ```
 We could make the code somewhat easier by using `Data.Either (either)`
 ```purescript
 runAff_ (either
-          (\error -> log $ show error   ) -- Left instance
-          (\a -> {- usage or cleanup -} ) -- Right instance
+          (\error -> log $ show error   ) -- Left value
+          (\a -> {- usage or cleanup -} ) -- Right value
   )
-  affInstance
+  affValue
 ```
 
-Next, we need to create an `Aff` instance, hence a function that returns an `Aff a`. Looking through Pursuit again, `makeAff` is the only function that does this:
+Next, we need to create an `Aff` value, hence a function that returns an `Aff a`. Looking through Pursuit again, `makeAff` is the only function that does this:
 ```purescript
 makeAff :: forall a. ((Either Error a -> Effect Unit) -> Effect Canceler) -> Aff a
 ```
@@ -59,8 +59,8 @@ output an `Aff a`
 
 To create this type signature, we'll write something like this:
 ```purescript
-affInstance :: Aff String
-affInstance = makeAff go
+affValue :: Aff String
+affValue = makeAff go
   where
   go :: (Either Error a -> Effect Unit) -> Effect Canceler
   go runAffFunction = -- implementation
@@ -82,8 +82,8 @@ voidLeft box b = (\_ -> b) <$> box
 
 Updating our code to use these two ideas, we now have:
 ```purescript
-affInstance :: Aff String
-affInstance = makeAff go
+affValue :: Aff String
+affValue = makeAff go
   where
   go :: (Either Error a -> Effect Unit) -> Effect Canceler
   go runAff_RequiredFunction = (effectBox runAff_RequiredFunction) $> nonCanceler
@@ -106,8 +106,8 @@ effectBox raRF =
 ```
 Putting it all together and excluding the required arguments, we get:
 ```purescript
-affInstance :: Aff String
-affInstance = makeAff go
+affValue :: Aff String
+affValue = makeAff go
   where
   go :: (Either Error a -> Effect Unit) -> Effect Canceler
   go runAffFunction = (effectBox runAffFunction) $> nonCanceler

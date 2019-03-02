@@ -1,6 +1,6 @@
 # List
 
-Rather than using `Array` to store multiple instances of some type, FP programmers usually use `List`. Why? The former is not recursive-friendly whereas the latter is.
+Rather than using `Array` to store multiple values of some type, FP programmers usually use `List`. Why? The former is not recursive-friendly whereas the latter is.
 
 Understand the upcoming definition using this diagram:
 ```
@@ -31,7 +31,7 @@ infixr 6 Cons as :
 | - | - | - |
 | [purescript-list](https://pursuit.purescript.org/packages/purescript-lists/5.0.0) | `List a` | Immutable strict singly-linked list
 
-| Usage | Instances & their Usage
+| Usage | Values & their Usage
 | - | -
 | Recursive-friendly, not-best-performant list type | <ul><li>`Nil` - Indicates the end of a List in pattern matching</li><li>`Cons a (List a)` - stores one value of the list (head) and the tail, which is either the rest of the list (another `Cons`) or the end of the list (`Nil`).</li></ul>
 

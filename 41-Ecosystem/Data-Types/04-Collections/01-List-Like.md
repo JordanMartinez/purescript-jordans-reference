@@ -15,7 +15,7 @@ https://pursuit.purescript.org/packages/purescript-arrays/5.0.0/docs/Data.Array.
 | - | - | - |
 | [purescript-arrays](https://pursuit.purescript.org/packages/purescript-arrays/5.0.0/docs/Data.Array)<br>(Utils library) | `Array a` | Immutable strict size-NOT-known-at-compile-time array
 
-| Usage | Instances & their Usage
+| Usage | Values & their Usage
 | - | -
 | Recursive-resistant, great-performant list type | --
 | A "type class wrapper type" | Easily implement instances for some type classes by wrapping a type in `Array` |
@@ -57,7 +57,7 @@ infixr 6 Cons as :
 | - | - | - |
 | [purescript-list](https://pursuit.purescript.org/packages/purescript-lists/5.0.0) | `List a` | Immutable strict singly-linked list
 
-| Usage | Instances & their Usage
+| Usage | Values & their Usage
 | - | -
 | Recursive-friendly, not-best-performant list type | <ul><li>`Nil` - Indicates the end of a List in pattern matching</li><li>`Cons a (List a)` - stores one value of the list (head) and the tail, either the rest of the list (another `Cons`) or the end of the list (`Nil`).</li></ul>
 | A "type class wrapper type" | Easily implement instances for some type classes by wrapping a type in `List` |
@@ -85,7 +85,7 @@ infixr 6 cons as :
 | - | - | - |
 | [purescript-list](https://pursuit.purescript.org/packages/purescript-lists/5.3.0/docs/Data.List.Lazy.Types#t:List) | `List a` | Immutable lazy singly-linked list
 
-| Usage | Instances & their Usage
+| Usage | Values & their Usage
 | - | -
 | Recursive-friendly, not-best-performant list type | <ul><li>`Nil` - Indicates the end of a List in pattern matching</li><li>`Cons a (List a)` - stores one value of the list (head) and the tail, either the rest of the list (another `Cons`) or the end of the list (`Nil`).</li></ul>
 | A "type class wrapper type" | Easily implement instances for some type classes by wrapping a type in `List` |

@@ -29,7 +29,7 @@ go iface = case _ of
     -- the others
 ```
 
-Unfortunately, we cannot translate the `NotifyUser` instance to the `Infrastructure`-level. It needs to be translated through an unnecessary API-language data structure.
+Unfortunately, we cannot translate the `NotifyUser` value to the `Infrastructure`-level. It needs to be translated through an unnecessary API-language data structure.
 
 ## Tightly-Coupled Code
 

@@ -13,18 +13,18 @@ module Syntax.Module.FullExample
   -- the keyword 'module'
   , module ExportedModule
 
-  -- The type is exported, but no one can create an instance of it
+  -- The type is exported, but no one can create an value of it
   -- outside of this module
   , ExportDataType1_ButNotItsConstructors
 
   -- The type is exported and only one of its constructors is exported. Thus,
-  -- everyone else can create an instance of `Constructor2A' but not
-  -- `Constructor2B`. That one can only be created inside this module.
+  -- everyone else can create a `Constructor2A' value but not a
+  -- `Constructor2B` value. That one can only be created inside this module.
   , ExportDataType2_AndOneOfItsConstructors(Constructor2A)
 
   -- The type is exported and some of its constructors are exported. Thus,
-  -- everyone else can create an instance of `Constructor3A'
-  -- and `Constructor3B`, but not `Constructor3C`, which
+  -- everyone else can create a `Constructor3A' value
+  -- and a `Constructor3B` value, but not a `Constructor3C` value, which
   --  can only be created inside this module.
   , ExportDataType3_AndSomeOfItsConstructors(Constructor3A, Constructor3B)
 
@@ -49,7 +49,7 @@ module Syntax.Module.FullExample
 
   -- Kinds require the `kind` keyword to precede them
   , kind ExportedKind
-  , ExportedKindInstance
+  , ExportedKindValue
   ) where
 
 -- imports go here
@@ -98,8 +98,8 @@ import Module2 (anInt2) as Exports
 import Module3 (anInt3) as Exports
 import Module4.SubModule1 (someFunction) as Exports
 
--- import a kind and its instance
-import ModuleKind (kind ImportedKind, ImportedKindInstance)
+-- import a kind and its value
+import ModuleKind (kind ImportedKind, ImportedKindValue)
 
 import Prelude
 
@@ -159,4 +159,4 @@ infixr 4 type ExportedTypeAlias_InfixNotation as <|<>|>
 
 foreign import kind ExportedKind
 
-foreign import data ExportedKindInstance :: ExportedKind
+foreign import data ExportedKindValue :: ExportedKind

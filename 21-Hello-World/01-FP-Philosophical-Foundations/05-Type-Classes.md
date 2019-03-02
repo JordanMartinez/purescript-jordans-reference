@@ -4,9 +4,9 @@
 
 In short, type classes are usually "encodings" of various concepts from Category Theory. Category Theory (herafter referred to as 'CT') is all about functions and their compositions. Fortunately, a programmer often has an easier time understanding CT than a mathematician. Why? AFAIK, a mathematician learning CT feels something like this:
 
-> A programmer is told to write the implementation for a function. When shown the function, he sees a type signature, `QLD -> M42X`. He asks his boss, "What are the instances of the `QLD` type!? What are the instances of the `M42X` type!?" His boss replies, "You cannot know, nor will you ever know. Now get to work." Terrified, he tries writing something and hopes the compiler will issue a warning that gives him a hint." After compilining, the console mockingly reads, "Error. Try again." How does he implement the function?
+> A programmer is told to write the implementation for a function. When shown the function, he sees a type signature, `QLD -> M42X`. He asks his boss, "What are the values of the `QLD` type!? What are the values of the `M42X` type!?" His boss replies, "You cannot know, nor will you ever know. Now get to work." Terrified, he tries writing something and hopes the compiler will issue a warning that gives him a hint." After compilining, the console mockingly reads, "Error. Try again." How does he implement the function?
 
-The issue described above is that a mathematician cannot "peek" through the type to see what its instances are whereas a programmer can. Once a programmer knows that `QLD` is a type alias for `Apple`, whose only instance is `Apple` and `M42X` is a type alias for `String`, a programmer knows that the function is as simple as writing `functionName Apple = "Apple"`:
+The issue described above is that a mathematician cannot "peek" through the type to see what its values are whereas a programmer can. Once a programmer knows that `QLD` is a type alias for `Apple`, whose only value is `Apple` and `M42X` is a type alias for `String`, a programmer knows that the function is as simple as writing `functionName Apple = "Apple"`:
 
 ```purescript
 data Apple = Apple
@@ -146,7 +146,7 @@ As can be inferred by how dictionaries work, type classes provide a "convenience
 
 This understanding is crucial for understanding a debate: must type classes always have laws? The following is a summary (somewhat biased) of [this Reddit thread](https://www.reddit.com/r/haskell/comments/5gospp/dont_use_typeclasses_to_define_default_values/)
 
-Those that say "yes" likely value the benefit of laws. Laws guarantee relationships between functions and values. In short, it's easier to understand and reason about code that uses lots of generic types (e.g. `forall a. a -> String`) if one knows that functions that operate on instances of `a` or values that provide an `a` instance adheres to certain laws.
+Those that say "yes" likely value the benefit of laws. Laws guarantee relationships between functions and values. In short, it's easier to understand and reason about code that uses lots of generic types (e.g. `forall a. a -> String`) if one knows that functions that operate on values of `a` or values that provide an `a` value adhere to certain laws.
 
 Those that say "no" likely value the benefit of overloading a function name with different implementations. For example, what if one wanted to provide a default value of some type? Reusing the function name "default" is pretty easy to understand. However, what laws does it abide by? Without a deeper context, it's hard, if not impossible, to say.
 

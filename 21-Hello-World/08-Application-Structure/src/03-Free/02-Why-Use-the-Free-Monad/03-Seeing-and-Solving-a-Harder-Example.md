@@ -106,9 +106,9 @@ To summarize, we need to
 
 ## Solving the Problem
 
-We'll show you how the paper solved this, starting with the type's instance and then showing the actual type declaration/definition:
+We'll show you how the paper solved this, starting with the type's value and then showing the actual type declaration/definition:
 ```purescript
--- Instance of our Expression type with Placeholder commented out
+-- Value of our Expression type with Placeholder commented out
 {- Placeholder ( -} Right ( Left ( Add (
   {- (Placeholder -} ( Left  (Value 1))   -- )
   {- (Placeholder -} ( Right ( Right ( Multiply
@@ -117,7 +117,7 @@ We'll show you how the paper solved this, starting with the type's instance and 
                       )))  -- )
                     )))  -- )
 
--- A full instance
+-- A full value
 Placeholder ( Right ( Left ( Add (
   (Placeholder ( Left (Value 1)))
   (Placeholder ( Right ( Right ( Multiply
@@ -158,7 +158,7 @@ However, this is just a more verbose form of [`Coproduct`](https://pursuit.pures
 ```purescript
 newtype Coproduct f g a = Coproduct (Either (f a) (g a))
 ```
-Indeed, just as there was a library for nested `Either`s via `purescript-either`, there is also a library for nested `Coproduct`s: [`purescript-functors`](https://pursuit.purescript.org/packages/purescript-functors/3.0.1/docs/Data.Functor.Coproduct#t:Coproduct), which also includes [convenience functions and types for dealing with nested versions of `Coproduct`](https://pursuit.purescript.org/packages/purescript-functors/3.0.1/docs/Data.Functor.Coproduct.Nested) as well as [inject instances into and project instances out of it](https://pursuit.purescript.org/packages/purescript-functors/3.0.1/docs/Data.Functor.Coproduct.Inject).
+Indeed, just as there was a library for nested `Either`s via `purescript-either`, there is also a library for nested `Coproduct`s: [`purescript-functors`](https://pursuit.purescript.org/packages/purescript-functors/3.0.1/docs/Data.Functor.Coproduct#t:Coproduct), which also includes [convenience functions and types for dealing with nested versions of `Coproduct`](https://pursuit.purescript.org/packages/purescript-functors/3.0.1/docs/Data.Functor.Coproduct.Nested) as well as [inject values into and project values out of it](https://pursuit.purescript.org/packages/purescript-functors/3.0.1/docs/Data.Functor.Coproduct.Inject).
 
 To help us understand how to read and write `Coproduct`, let's compare the `Coproduct` version to its equivalent `Either` version:
 ```purescript

@@ -80,7 +80,7 @@ projectFruit variant = prj (SProxy :: SProxy "fieldName") variant
 
 The other functions that `Variant` provides can be see via its [docs](https://pursuit.purescript.org/packages/purescript-variant/5.0.0/docs/Data.Variant#v:on). I created the following table after looking at the project's [test's source code](https://github.com/natefaubion/purescript-variant/blob/v5.0.0/test/Variant.purs). Some functions seem to exist to fit different people's syntax preferences:
 
-| Exhaustively pattern matches types by... | Allows "open" `Variant` instances? | Corresponding function's syntax
+| Exhaustively pattern matches types by... | Allows "open" `Variant` values? | Corresponding function's syntax
 | - | - | - |
 | Providing default value for missing cases | Yes | `default defaultValue <combinator chain> variantArg` |
 | Matching all cases | No | `match { eachField: (\a -> {- body for each field -}) } variantArg` |

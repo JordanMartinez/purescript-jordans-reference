@@ -1,22 +1,22 @@
 # Appendable
 
-These type classes often take two instances of a given type and 'append' them into one instance. In other words:
+These type classes often take two values of a given type and 'append' them into one value. In other words:
 ```purescript
 append :: forall a. a -> a -> a
 append a1 a2 = --definition
 ```
-The definition of "appending" depends on the context and the type. One could also think of these type classes as "reducing" two instances of the same type down into one instance of the same type.
+The definition of "appending" depends on the context and the type. One could also think of these type classes as "reducing" two value of the same type down into one value of the same type.
 
 ## Examples
 
-One example is `String`. Two String instances can be 'appended/reduced' into one instance by
+One example is `String`. Two String values can be 'appended/reduced' into one value by
 - concatting them together: `append "hello " "world" == "hello world"`
 
-Another example is `Boolean`. Two Boolean instances can be 'appended/reduced' into one instance via the usual suspects:
+Another example is `Boolean`. Two Boolean values can be 'appended/reduced' into one value via the usual suspects:
 - `true && true == true`
 - `false || true == true`
 
-A third example is `Int`. Two instances of `Int` can be 'appended/reduced' into one instance. How? One could
+A third example is `Int`. Two values of `Int` can be 'appended/reduced' into one value. How? One could
 - add them: `1 + 1`
 - multiple them: `2 * 2`
 

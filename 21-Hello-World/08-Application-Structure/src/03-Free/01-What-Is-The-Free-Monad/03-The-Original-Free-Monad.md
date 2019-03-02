@@ -7,7 +7,7 @@ data Free f a
   = Pure a
   | Impure (f (Free f a))
 ```
-Let's say that `Identity` is our `f`/`Functor` type. What does a concrete instance of the `Free` data type look like?
+Let's say that `Identity` is our `f`/`Functor` type. What does a concrete value of the `Free` data type look like?
 ```purescript
 Impure ( Identity (
   Impure ( Identity (
@@ -17,7 +17,7 @@ Impure ( Identity (
   ))
 ))
 ```
-In other words, `Free` is just a data structure of nested `Identity` instances where the final `Identity` instance wraps a value:
+In other words, `Free` is just a data structure of nested `Identity` values where the final `Identity` value wraps a value:
 ```purescript
 {- Impure ( -} Identity (
   {- Impure ( -} Identity (
@@ -38,11 +38,11 @@ instance functor :: (Functor f) => Functor (Free f) where
   map f (Pure a) = Pure (f a)
   map f (Impure f_of_Free) =
     Impure (f_of_Free <#> (
-      -- recursively call `map` on nested `Impure` instances
-      -- until we get a `Pure` instance of Free
+      -- recursively call `map` on nested `Impure` values
+      -- until we get a `Pure` value of Free
       \pure_A -> map f pure_A
       -- which applies the function to the a
-      -- and then rewraps the `Impure` instances
+      -- and then rewraps the `Impure` values
     ))
 ```
 Let's see `map` in action via a graph reduction:
@@ -55,7 +55,7 @@ map f (
     ))
   ))
 )
--- Recursively apply `map` until we get a `Pure` instance
+-- Recursively apply `map` until we get a `Pure` value
 -- 1.
       (
   Impure ( map f Identity (
@@ -117,17 +117,17 @@ instance apply :: (Functor f) => Apply (Free f) where
   apply (Pure f) (Pure a) = Pure (f a)
   apply (Impure f_of_Free_F) pure_A =
     Impure (f_of_Free_F <#> (
-      -- recursively call `apply` on nested `Impure` instances
-      -- until we get a `Pure` instance of Free
+      -- recursively call `apply` on nested `Impure` values
+      -- until we get a `Pure` value of Free
         \pure_F -> apply pure_F pure_A
-      -- apply the function and then rewrap `Impure` instances
+      -- apply the function and then rewrap `Impure` values
     ))
   apply pure_F (Impure f_of_Free)  =
     Impure (f_of_Free <#> (
-      -- recursively call `apply` on nested `Impure` instances
-      -- until we get a `Pure` instance of Free
+      -- recursively call `apply` on nested `Impure` values
+      -- until we get a `Pure` value of Free
         \pure_A -> apply pure_F pure_A
-      -- apply the function and then rewrap `Impure` instances
+      -- apply the function and then rewrap `Impure` values
     ))
 ```
 Let's see `apply` in action via a graph reduction:
@@ -138,7 +138,7 @@ Let's see `apply` in action via a graph reduction:
 --    "Left" Impure            "Right" Impure
 apply (Impure (Identity (Pure f))) (Impure (Identity (Pure a)))
 -- Use `map` to recursively call `apply` on the left Impure until we get the
--- Pure instance
+-- Pure value
 Impure ((Identity (Pure f)) <#> (\pure_F  -> apply pure_F (Impure (Identity (Pure a)))))
 Impure (Identity ((Pure f)   #  (\pure_F  -> apply pure_F (Impure (Identity (Pure a)))))
 -- apply `Pure f` to the function
@@ -148,7 +148,7 @@ Impure (Identity (                           apply (Pure f) (Impure (Identity (P
 Impure (Identity (apply (Pure f) (Impure (Identity (Pure a)))))
 
 -- Now use `map` to recursiveely call `apply` on the right Impure until we get
--- Pure instance
+-- Pure value
 Impure (Identity (Impure ((Identity (Pure a) <#> (\pure_A  -> apply (Pure f) pure_A))))
 Impure (Identity (Impure (Identity ((Pure a)  #  (\pure_A  -> apply (Pure f) pure_A))))
 -- apply `Pure a` to the function
@@ -167,10 +167,10 @@ instance bind :: (Functor f) => Bind (Free f) where
   bind (Pure a) f = f a
   bind (Impure f_of_Free) f =
     Impure (f_of_Free <#> (
-      -- recursively call `bind` on nested `Impure` instances
-      -- until we get a `Pure` instance of Free
+      -- recursively call `bind` on nested `Impure` values
+      -- until we get a `Pure` value of Free
       \pure_A -> bind pure_A f
-      -- apply the function and then rewrap `Impure` instances
+      -- apply the function and then rewrap `Impure` values
     ))
 ```
 Let's see `bind` in action via a graph reduction:
@@ -178,7 +178,7 @@ Let's see `bind` in action via a graph reduction:
 -- Start!
 bind (Impure ( Identity (Pure a))) f
 
--- Recursively call `bind` via `map` until reach a `Pure` instance:
+-- Recursively call `bind` via `map` until reach a `Pure` value:
 bind (Impure ( Identity  (Pure a))) f
       Impure ((Identity  (Pure a)) <#> (\pure_a -> bind pure_a f) )
       Impure ( Identity ((Pure a)   #  (\pure_a -> bind pure_a f)))
@@ -208,38 +208,38 @@ instance functor :: (Functor f) => Functor (Free f) where
   map f (Pure a) = Pure (f a)
   map f (Impure f_of_Free) =
     Impure (f_of_Free <#> (
-      -- recursively call `map` on nested `Impure` instances
-      -- until we get a `Pure` instance of Free
+      -- recursively call `map` on nested `Impure` values
+      -- until we get a `Pure` value of Free
       \pure_A -> map f pure_A
       -- which applies the function to the a
-      -- and then rewraps the `Impure` instances
+      -- and then rewraps the `Impure` values
     ))
 
 instance apply :: (Functor f) => Apply (Free f) where
   apply (Pure f) (Pure a) = Pure (f a)
   apply (Impure f_of_Free_F) pure_A =
     Impure (f_of_Free_F <#> (
-      -- recursively call `apply` on nested `Impure` instances
-      -- until we get a `Pure` instance of Free
+      -- recursively call `apply` on nested `Impure` values
+      -- until we get a `Pure` value of Free
         \pure_F -> apply pure_F pure_A
-      -- apply the function and then rewrap `Impure` instances
+      -- apply the function and then rewrap `Impure` values
     ))
   apply pure_F (Impure f_of_Free)  =
     Impure (f_of_Free <#> (
-      -- recursively call `apply` on nested `Impure` instances
-      -- until we get a `Pure` instance of Free
+      -- recursively call `apply` on nested `Impure` values
+      -- until we get a `Pure` value of Free
         \pure_A -> apply pure_F pure_A
-      -- apply the function and then rewrap `Impure` instances
+      -- apply the function and then rewrap `Impure` values
     ))
 
 instance bind :: (Functor f) => Bind (Free f) where
   bind (Pure a) f = f a
   bind (Impure f_of_Free) f =
     Impure (f_of_Free <#> (
-      -- recursively call `bind` on nested `Impure` instances
-      -- until we get a `Pure` instance of Free
+      -- recursively call `bind` on nested `Impure` values
+      -- until we get a `Pure` value of Free
       \pure_A -> bind pure_A f
-      -- apply the function and then rewrap `Impure` instances
+      -- apply the function and then rewrap `Impure` values
     ))
 ```
 

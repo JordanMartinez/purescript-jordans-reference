@@ -5,14 +5,14 @@
 Normally, when we define a function for value-level programming, it looks like this:
 ```purescript
 function :: InputType -> OutputType
-function InputInstance = OutputInstance
+function InputValue = OutputValue
 ```
 
-In other words, when given `InputInstance`, return `OutputInstance`. The direction of this "relationship" is ALWAYS in one direction: to the right (i.e. `->`).
+In other words, when given `InputValue`, return `OutputValue`. The direction of this "relationship" is ALWAYS in one direction: to the right (i.e. `->`).
 
 When we define a function for type-level programming, we're not defining a function that takes some input and returns an output. Rather, we are defining a "relationship" between some input(s) and some output(s). In other words, these "relationships" can be applied in multiple directions to create multiple functions. One could say that type-level functions work in **multiple directions**. To put it another way...:
-- `function InputInstance` outputs `OutputInstance`
-- `function OutputInstance` outputs `InputInstance`
+- `function InputValue` outputs `OutputValue`
+- `function OutputValue` outputs `InputValue`
 
 Let's give a much clearer example by solving an equation:
 ```
@@ -62,7 +62,7 @@ Then, we could use this one relationship as three different functions:
 addTwoIntK :: forall x y total
             . AddOrSubtract x y total
            => IProxy x -> IProxy y -> IProxy total
-addTwoIntK _ _ = IProxyInstance
+addTwoIntK _ _ = IProxyValue
 
 -- given two IntK values, I can subtract one from another by
 -- returning `x`/`y`, which is "calculated"
@@ -70,12 +70,12 @@ addTwoIntK _ _ = IProxyInstance
 subtractIntK_1 :: forall x y total
                 . AddOrSubtract x y total
                => IProxy x -> IProxy total -> IProxy y
-subtractIntK_1 _ _ = IProxyInstance
+subtractIntK_1 _ _ = IProxyValue
 
 subtractIntK_2 :: forall x y total
                 . AddOrSubtract x y total
                => IProxy y -> IProxy total -> IProxy x
-subtractIntK_2 _ _ = IProxyInstance
+subtractIntK_2 _ _ = IProxyValue
 ```
 
 ## Unification

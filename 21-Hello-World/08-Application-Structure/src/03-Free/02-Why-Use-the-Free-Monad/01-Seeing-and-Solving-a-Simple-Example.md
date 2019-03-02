@@ -54,7 +54,7 @@ data Fruit2
 
 data FruitGrouper = -- ???
 ```
-How should `FruitGrouper` be defined? An instance of `FruitGrouper` should only be one of 3 instances:
+How should `FruitGrouper` be defined? A value of `FruitGrouper` should only be one of 3 values:
 1. FruitGrouper Apple
 2. FruitGrouper Banana
 3. FruitGrouper Orange

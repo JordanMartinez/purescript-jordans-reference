@@ -3,7 +3,7 @@ module Syntax.TypeLevel.Reification where
 -- ignore this
 import Prelude (class Show)
 
--- Reification = value-level instance -> type-level instance
+-- Reification = value-level value -> type-level value
 
 -- Given a yes/no data type
 --
@@ -16,36 +16,36 @@ ignoreMe =
     yesno_to_string_function   a_yesno_value_determined_at_runtime
 
 {-
-This function does not know which instance of the YesNo type
+This function does not know which value of the YesNo type
 (i.e. `Yes` or `No`) it will be when the program is executed.
-However, since the function knows how to map both instances
-of the YesNo type into an instance of a String type, it doesn't matter.
+However, since the function knows how to map both values
+of the YesNo type into an value of a String type, it doesn't matter.
 
 Similarly, for type-level programming, we won't always know which
-instance of the value-level type it will be. However, if we know how to
-reify every instance of that value-level type into an instance of
+value of the value-level type it will be. However, if we know how to
+reify every value of that value-level type into an value of
 a type-level type, it doesn't matter.
 
 Reification works by using callback functions:
 -}
 
 -- Given the following code, which
---   - defines the type-Level YesNo and its two instances
---   - defines a Proxy type and its two instances
---   - defines the reflection function for both instances ...
+--   - defines the type-Level YesNo and its two values
+--   - defines a Proxy type and its two values
+--   - defines the reflection function for both values ...
 data YesNo = Yes | No
 
 foreign import kind YesNoKind
 foreign import data YesK :: YesNoKind
 foreign import data NoK  :: YesNoKind
 
-data YesNoProxy (b :: YesNoKind) = YesNoProxyInstance
+data YesNoProxy (b :: YesNoKind) = YesNoProxyValue
 
 yesK :: YesNoProxy YesK
-yesK = YesNoProxyInstance
+yesK = YesNoProxyValue
 
 noK :: YesNoProxy NoK
-noK = YesNoProxyInstance
+noK = YesNoProxyValue
 
 class IsYesNoKind (b :: YesNoKind) where
   reflectYesNo :: YesNoProxy b -> YesNo
@@ -59,14 +59,14 @@ instance noYesNo :: IsYesNoKind NoK where
 -- We can reify a YesNo by
 --   - defining a type class that constrains a type
 --       to only have kind "YesNoKind"
---   - declaring a single and only instance of that type class
+--   - declaring a single and only value of that type class
 --   - define a callback function that recives the corresponding
---       type-level instance as its only argument
+--       type-level value as its only argument
 --       (where we do type-level programming):
 
 class IsYesNoKind b <= YesNoKindConstraint b
 
--- every instance of our type-level type satisfies the constraint
+-- every value of our type-level type satisfies the constraint
 -- no other instance should exist.
 instance typeConstraint :: IsYesNoKind b => YesNoKindConstraint b
 
@@ -94,7 +94,7 @@ I currently think:
   two different functions. The below functions are too simple to
   demonstrate why this may be useful, but imagine an entire chain of
   type-level programming before the value potentially gets reflected back as a
-  value-level instance:
+  value-level value:
 
   - if YesNo is Yes, we could use the function
 

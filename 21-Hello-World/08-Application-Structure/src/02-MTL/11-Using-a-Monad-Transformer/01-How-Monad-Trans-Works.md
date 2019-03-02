@@ -40,8 +40,8 @@ class LiftSIntoT s t where
     - [ContT's MonadState Implementation](https://github.com/purescript/purescript-transformers/blob/v4.1.0/src/Control/Monad/Cont/Trans.purs#L68)
 
 Looking at those implementations above, we can see a general pattern (there are some exceptions to this due to how the types need to be handled, but this is generally true):
-- Require one of the types in the instance to be an instance of `MonadState`
-- Implement it by lifting that instance into the monad and delegate that monad's implementation to that instance. Again, the monadic newtyped functions are merely handling the "behind the scenes" stuff of the effects. At the end of the day, it's still the base monad that actually makes the whole thing work.
+- Require one of the types in the instance context to be an instance of `MonadState`
+- Implement the type class by lifting the instance into the monad and delegate that monad's implementation to that instance. Again, the monadic newtyped functions are merely handling the "behind the scenes" stuff of the effects. At the end of the day, it's still the base monad that actually makes the whole thing work.
 
 Thus, `[Word]T` provides a default implementation for `Monad[Word]` and makes it possible to grant the base monad its capability.
 

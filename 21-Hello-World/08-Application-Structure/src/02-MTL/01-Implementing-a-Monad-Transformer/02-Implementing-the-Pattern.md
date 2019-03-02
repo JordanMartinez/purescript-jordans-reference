@@ -9,11 +9,11 @@ Here's the solution we came up with:
 (Tuple y originalStack_withoutXorY) = pop(originalStack_withoutX);
 
 // and generalizing it to a pattern, we get
-(Tuple value1,  instance2        ) = stateManipulation(instance1);
-(Tuple value2,  instance3        ) = stateManipulation(instance2);
-(Tuple value3,  instance4        ) = stateManipulation(instance3);
+(Tuple value1,  value2        ) = stateManipulation(value1);
+(Tuple value2,  value3        ) = stateManipulation(value2);
+(Tuple value3,  value4        ) = stateManipulation(value3);
 // ...
-(Tuple value_N, instance_N_plus_1) = stateManipulation(instanceN);
+(Tuple value_N, value_N_plus_1) = stateManipulation(valueN);
 ```
 Turning this into Purescript syntax, we get:
 ```purescript
