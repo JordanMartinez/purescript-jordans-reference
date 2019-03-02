@@ -61,7 +61,7 @@ runProgramViaCLI runOnceEnvConfigured = do
         <*> yarg "t" ["exclude-top-level-dirs"]
               (Just "An array of top-level directories (case-sensitive) to exclude. \
                     \By default, this is '.git', '.github', '.travis' and 'output'")
-              (Left [ ".git", ".github", ".travis", "output"]) true
+              (Left [ ".git", ".github", ".procedures", ".travis", "output"]) true
         <*> yarg "d" ["exclude-regular-dirs"]
               (Just "An array of directories (case-sensitive) to exclude \
                     \when recursively examining the directories and files of \
