@@ -1,8 +1,4 @@
 {-
-WARNING! This notation will currently cause the doc-generation to fail.
-See this issue for more details until the bug is fixed:
-https://github.com/purescript/purescript/issues/3414
-
 Link to original issue's comment
 where this is fully explained:
 https://github.com/purescript/purescript/pull/2889#issuecomment-301260299
