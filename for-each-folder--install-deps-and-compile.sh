@@ -89,7 +89,7 @@ cd ../../
 cd 22-Projects/
 pwd
 rm -rf .psc-package/ .pulp-cache/  output/
-npm install benchmark
+npm install benchmark yargs
 spacchetti insdhall
 psc-package install && pulp --psc-package build --src-path "benchmark" --include "src:test"
 
