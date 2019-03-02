@@ -20,7 +20,7 @@ cd playground
 #   "Build-Tools" folder
 
 # 3. Create a new psc-package.json file using psc-package
-psc-package init --set psc-0.12.2 --source https://github.com/purescript/package-sets.git
+psc-package init --set psc-0.12.3-20190227 --source https://github.com/purescript/package-sets.git
 
 # 4. Install the psci-support package using this command:
 psc-package install psci-support
@@ -163,7 +163,7 @@ The REPL only accepts single-line Purescript code. If anything requires you to w
 The workflow goes something like this:
 1. Type in the paste command: `:paste`
 2. Do one of the following
-    - input multi-line expressions (e.g. a type class and its function, a data type and its instances, a function's type signature and its implementation, etc.).
+    - input multi-line expressions (e.g. a type class and its function, a data type and its values, a function's type signature and its implementation, etc.).
     - paste some external code into the REPL
 3. Type `CTRL+D`/`CMD+D` to indicate that you are finished.
 

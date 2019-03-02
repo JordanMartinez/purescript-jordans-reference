@@ -69,16 +69,16 @@ first  Either         Left first  Right
 ```
 Thus, to access `last`, we need to call `Right (Right (Right (Right last)))`
 
-**Second**, using an instance that is wrapped in a nested data structure leads to boilerplate.
+**Second**, using a value that is wrapped in a nested data structure leads to boilerplate.
 
-Here's an example of putting an instance of one of the nested types into the data structure. One needs to write a variant for each type position in our data structure:
+Here's an example of putting a value of one of the nested types into the data structure. One needs to write a variant for each type position in our data structure:
 ```purescript
 putInsideOf :: forall first second third fourth last
              . last
             -> Either first (Either second (Either third (Either fourth last)))
 putInsideOf last = Right (Right (Right (Right last)))
 ```
-If we want to extract an instance of a type that is in our nested `Either` instance, we need to return `Maybe TheType` because the instance may be of a different type in the nested `Either` instance. Using `Maybe` makes our code pure:
+If we want to extract a value of a type that is in our nested `Either` value, we need to return `Maybe TheType` because the value may be of a different type in the nested `Either` value. Using `Maybe` makes our code pure:
 ```purescript
 extractFrom :: forall first second third fourth last
            . Either first (Either second (Either third (Either fourth last)))
@@ -107,8 +107,8 @@ data NestedEither a b
   | Right (NestedEither b c)
 ```
 ...because we enter an infinte loop:
-1. To define `c` in the `Right` instance's `NestedEither b c` argument, we need the type declaraction, `data NestedEither a b` to include the third type, `c`. Thus, we go to step 2.
-2. We update the type to `data NestedEither a b c`. However, now the `NestedEither b c` in `Right` instance has only two types, not three. Thus, it no longer adheres to its own declaration (i.e. `NestedEither b c ?` vs `NestedEither a b c`). To add the type, we need it to be different than the others to enable the recursive idea of a nested `Either`, so we'll call it `d`. Thus, we return to step 1 except `c` is now `d` in that example.
+1. To define `c` in the `Right` value's `NestedEither b c` argument, we need the type declaraction, `data NestedEither a b` to include the third type, `c`. Thus, we go to step 2.
+2. We update the type to `data NestedEither a b c`. However, now the `NestedEither b c` in `Right` value has only two types, not three. Thus, it no longer adheres to its own declaration (i.e. `NestedEither b c ?` vs `NestedEither a b c`). To add the type, we need it to be different than the others to enable the recursive idea of a nested `Either`, so we'll call it `d`. Thus, we return to step 1 except `c` is now `d` in that example.
 
 Still, we can clean up the verbosity/readability of nested `Either`s by creating an infix notation for it:
 ```purescript
@@ -132,7 +132,7 @@ putInsideOf :: forall first second third fourth last
             -> Either first (Either second (Either third (Either fourth last)))
 putInsideOf last = Right (Right (Right (Right last)))
 ```
-... we want `putInsideOf` to mean "if I have a data structure with nested types, take one of those types instances and put it into that data structure." In other words, we want to `inject` some instance into a data structure:
+... we want `putInsideOf` to mean "if I have a data structure with nested types, take one of those types values and put it into that data structure." In other words, we want to `inject` some value into a data structure:
 ```purescript
 inject :: forall theType theNestedEitherType
         . theType
@@ -146,7 +146,7 @@ extractFrom :: forall first second third fourth last
 extractFrom (Right (Right (Right (Right last)))) = Just (f last)
 extractFrom _ _ = Nothing
 ```
-... we want `extractFrom` to mean "If I have a data structure with nested types, I want to extract the instance of a specific type out of that structure via `Just` or get `Nothing` if the instance does not exist." In other words, we want to `project` some type's instance from the data structure into the world:
+... we want `extractFrom` to mean "If I have a data structure with nested types, I want to extract the value of a specific type out of that structure via `Just` or get `Nothing` if the value does not exist." In other words, we want to `project` some type's value from the data structure into the world:
 ```purescript
 project :: forall nestedType theType
          . nestedType

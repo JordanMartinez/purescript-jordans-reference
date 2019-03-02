@@ -27,7 +27,7 @@ infix 4 append as <>
 instance a :: Semigroup Int where
   append i1 i2 = i1 + i2
 ```
-`Semigroup` requires its implementation to adhere to the law of association, meaning that, when `append` is used on the output of a previous `append` and some other instance, the location of the parenthenses don't matter:
+`Semigroup` requires its implementation to adhere to the law of association, meaning that, when `append` is used on the output of a previous `append` and some other value, the location of the parenthenses don't matter:
 ```purescript
 1 <> 2 <> 3 <> 4 <> 5 <> 6 <> 7 <> 8
 
@@ -134,7 +134,7 @@ append (1 : 2 : 3 : 4 : Nil) (5 : Nil)                                    -- 13
 ```
 The law of associativity guarantees that the output of a non/left/right-associative function will always be the same. However, the above code demonstrates that one direction of function application (right association) can be faster than another (left association).
 
-So, let's think about why this occured. Due to the way the type is defined, `List` must use recursion to get to its tail `Nil` before it can replace that tail, `Nil`, with the list to which it is being appended. Since `List` and `Free` are structured similarly, then `Free` will also suffer the same performance costs if it uses a left-associative function to reach its tail, `Pure`. So, which function does `Free` use that acts just like `append`? The `bind` function. Every `bind`/`>>=` call will iterate through the entire `Free` structure, apply the function to its `Pure a` instance and then rewrap everything in an `Impure` instance.:
+So, let's think about why this occured. Due to the way the type is defined, `List` must use recursion to get to its tail `Nil` before it can replace that tail, `Nil`, with the list to which it is being appended. Since `List` and `Free` are structured similarly, then `Free` will also suffer the same performance costs if it uses a left-associative function to reach its tail, `Pure`. So, which function does `Free` use that acts just like `append`? The `bind` function. Every `bind`/`>>=` call will iterate through the entire `Free` structure, apply the function to its `Pure a` value and then rewrap everything in an `Impure` value:
 ```purescript
 -- Thus, this code...
 freeMonad >>= f >>= g >>= h >>= ...
@@ -143,7 +143,7 @@ freeMonad >>= f >>= g >>= h >>= ...
 ```
 When we call `freeMonad >>= f`, we iterate through `freeMonad`'s entire structure. When we take that output and `bind`/`>>=` it to `g`, we iterate through `freeMonad`'s entire structure plus any new nesting values that `f` added to it. When we take that output and `bind`/`>>=` it to `h`, the total cost is `freeMonad + f's additional structure + g's additional structure`. As a result, `Free`'s performance suffers because of its recursive nature.
 
-Is recursion by itself bad? No, recursion can be quite helpful; it's not the problem. Rather, the problem with `List`'s left-associative `<>` function is the slow recursive-time access to `List`'s tail. Since `List` represents a sequence of values, we can fix the `append` problem by using a different sequence-like data structure that grants fast constant-time access to its tail. Similarly, to fix the problem with `Free`, we should define it differently, so that the "data structure" to which it is similar also has constant-time tail access (i.e. constant time access to its `Pure` instance).
+Is recursion by itself bad? No, recursion can be quite helpful; it's not the problem. Rather, the problem with `List`'s left-associative `<>` function is the slow recursive-time access to `List`'s tail. Since `List` represents a sequence of values, we can fix the `append` problem by using a different sequence-like data structure that grants fast constant-time access to its tail. Similarly, to fix the problem with `Free`, we should define it differently, so that the "data structure" to which it is similar also has constant-time tail access (i.e. constant time access to its `Pure` value).
 
 This sounds easy until you remember what `bind`'s type signature allows:
 `bind :: forall a b. m a -> (a -> m b) -> m b`.

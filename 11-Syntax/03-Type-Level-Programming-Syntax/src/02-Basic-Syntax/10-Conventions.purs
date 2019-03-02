@@ -13,15 +13,15 @@ module Syntax.TypeLevel.Conventions where
 type Value_Level_Type = String
 
 foreign import kind KindName
-foreign import data Instance :: KindName
+foreign import data Value :: KindName
 
 -- The Proxy type usually has the first letter of the value-level type
--- ("K" for "KindName") followed by "Proxy". The instance name
+-- ("K" for "KindName") followed by "Proxy". The value name
 -- is the same as its type.
 data KProxy (a :: KindName) = KProxy
 
 -- NANS
-inst :: KProxy Instance
+inst :: KProxy Value
 inst = KProxy
 
 -- The class name is usually "Is[KindName]"
@@ -29,14 +29,14 @@ class IsKindName (a :: KindName) where
   -- and the reflect function is usually "reflect[KindName]"
   reflectKindName :: KProxy a -> Value_Level_Type
 
-instance reflectInstance :: IsKindName Instance where
-  reflectKindName _ = "value-level instance"
+instance reflectValue :: IsKindName Value where
+  reflectKindName _ = "value-level value"
 
 -- NANS
 class IsKindName a <= ConstrainedToKindName a
 
 -- NANS
-instance constraintInstance :: ConstrainedToKindName Instance
+instance constraintValue :: ConstrainedToKindName Value
 
 -- Usually reify[KindName]
 reifyKindName :: forall r

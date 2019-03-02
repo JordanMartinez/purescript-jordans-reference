@@ -28,7 +28,7 @@ mkString Cherry          = "cherry"
 mkString Tomato          = "tomato"
 
 -- The above pattern match is "exhaustive" because there are no other
--- Fruit instances against which one could match.
+-- Fruit values against which one could match.
 
 -- Pattern Matching: Literal values and catching all values
 
@@ -74,12 +74,12 @@ f patternMatch = bodyToRunIfPatternWasMatched
 -- Example
 
 f the pattern match     = description of what was matched -}
-f (Inner 0)             = "an instance of type Inner whose value is 0"
-f (Inner int)           = "an instance of type Inner, binding its value to 'int' \
+f (Inner 0)             = "a value of type Inner whose value is 0"
+f (Inner int)           = "a value of type Inner, binding its value to 'int' \
                           \name for usage in function body"
-f (Outer (Inner int))   = "an instance of type Outer, whose Inner value is bound \
+f (Outer (Inner int))   = "a value of type Outer, whose Inner value is bound \
                           \to `int` name for usage in function body"
-f object@(AnInt 4)      = "an instance of type AnInt whose value is '4', \
+f object@(AnInt 4)      = "a value of type AnInt whose value is '4', \
                           \binding the entire object to the `object` name for \
                           \usage in function body"
 f _                     = "ignores input and matches everything; \

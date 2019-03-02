@@ -8,7 +8,7 @@ This folder is still a work in progress!
 
 In programming, there are usually two terms we use to describe "when" a problem/bug/error can occur:
 - Compile-time: Turns source code into machine code. Compiler errors occur due to types not aligning.
-- Runtime: Executes machine code. Runtime errors occur due to instances of types not working as verified by the compiler (e.g. you expected an instance of `String` at runtime but got `null`).
+- Runtime: Executes machine code. Runtime errors occur due to values of types not working as verified by the compiler (e.g. you expected a value of `String` at runtime but got `null`).
 
 ### Definition
 
@@ -56,7 +56,7 @@ This is exactly what the library [Vec](https://pursuit.purescript.org/packages/p
 ## Issues with Type-Level Programming
 
 - While type-level programming may improve your program's runtime speed or further force you to use safe code, it will increase the time it takes to compile your program
-- Creating an type-level instance for a kind can get really tedious and boilerplatey. Either reuse ones that exist or publish your own for the benefit of the entire community.
+- Creating an type-level value for a kind can get really tedious and boilerplatey. Either reuse ones that exist or publish your own for the benefit of the entire community.
 
 ## Other Learning Sources
 

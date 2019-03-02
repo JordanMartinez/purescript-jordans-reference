@@ -4,7 +4,7 @@
 
 In programming, there are usually two terms we use to describe "when" a problem/bug/error can occur:
 - Compile-time: Turns source code into machine code. Compiler errors occur due to types not aligning.
-- Runtime: Executes machine code. Runtime errors occur due to instances of types not working as expected/verified by the compiler (e.g. you expected a `String` at runtime but got `null`).
+- Runtime: Executes machine code. Runtime errors occur due to values of types not working as expected/verified by the compiler (e.g. you expected a `String` at runtime but got `null`).
 
 ## Definition
 
@@ -22,21 +22,21 @@ In programming, there are usually two terms we use to describe "when" a problem/
 When we define a type like so...
 ```purescript
 data MyType
-  = Instance1
-  | Instance2
+  = Value1
+  | Value2
 ```
-... we are saying there is a set or domain called `MyType` that has two members, `Instance1` and `Instance2`.
+... we are saying there is a set or domain called `MyType` that has two members, `Value1` and `Value2`.
 Thus, when we write...
 ```purescript
-ins1 :: MyType
-ins1 = Instance1
+value1 :: MyType
+value1 = Value1
 ```
 ... we could also write it with more type information:
 ```purescript
-ins1 :: MyType
-ins1 = (Instance1 :: MyType)
+value1 :: MyType
+value1 = (Value1 :: MyType)
 ```
-The syntax `(Instance1 :: MyType)` means `Instance1` is an instance of the `MyType` type (or `Instance1` is a member of the `MyType` set/domain)
+The syntax `(Value1 :: MyType)` means `Value1` is a value of the `MyType` type (or `Value1` is a member of the `MyType` set/domain)
 
 ### Functions Reexamined
 
@@ -60,7 +60,7 @@ stringify Orange = "Orange"
 ```
 The function, `stringify`, doesn't "do" anything: it doesn't modify its arguments, nor does it really "use" its arguments in some manner. Rather, it merely defines what to output when given some input.
 
-In this way, functions merely specify how to map instances of some type (e.g. Fruit) to instances of another type (e.g. String). This idea is the heart of Category Theory. Thus, types and functions go hand-in-hand.
+In this way, functions merely specify how to map values of some type (e.g. Fruit) to values of another type (e.g. String). This idea is the heart of Category Theory. Thus, types and functions go hand-in-hand.
 
 ## Kinds Redefined
 
@@ -87,7 +87,7 @@ Sometimes, pictures say a lot more than words:
 ![comparing-kinds-with-types](../images/Comparing-Kinds-With-Types.svg "Comparing Kinds with Types")
 
 We can now modify the definition to account for this new understanding:
-> Kinds = "How many more type-level types do I need defined before I have a 'concrete' type-level type? Also, `kind Type` is a type-level type whose 'instances'/'members' are value-level types.
+> Kinds = "How many more type-level types do I need defined before I have a 'concrete' type-level type? Also, `kind Type` is a type-level type whose 'values'/'members' are value-level types.
 
 ### Summary of Inferred Kinds
 
@@ -110,12 +110,12 @@ Returning to a table we showed previously, we'll add the header that we removed 
 
 Type-Level programming has 2-3 stages:
 - Creation
-    - Define a type-level instance by declaring a literal value
-    - **Reification** - convert a value-level (i.e. runtime value) instance into a type-level instance via a `Proxy` type
-- (optional) Modify that instance during compile-time
+    - Define a type-level value by declaring a literal one
+    - **Reification** - convert a value-level (i.e. runtime value) value into a type-level value via a `Proxy` type
+- (optional) Modify that value during compile-time
 - Terminal
     - Constrain types, so that an impossible state/code fails with a compiler error
-    - **Reflection** - convert a type-level instance stored in a `Proxy` type into a value-level instance
+    - **Reflection** - convert a type-level value stored in a `Proxy` type into a value-level value
 
 ## Related Papers
 

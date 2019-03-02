@@ -4,7 +4,7 @@ Since we'll be doing graph reductions later that will get somewhat complicated, 
 ```purescript
 data Expression f = In (f (Expression f))
 
--- A full instance
+-- A full value
 In ( Right ( Left ( Add (
   (In ( Left (Value 1)))
   (In ( Right ( Right ( Multiply
@@ -24,16 +24,16 @@ map f (Add e1 e2) = Add (f e1) (f e2)
 map :: (e -> z) -> Multiply e -> Multiply z
 map f (Multiply e1 e2) = Multiply (f e1) (f e2)
 ```
-However, `Value` implements it differently in an important way. Since `Value`'s generic type, `e`, is never used in its instance and since the instance can only wrap an `Int` type, one cannot really "map" a `Value` (i.e. change the inner `Int` type) to anything else. Rather, they can only change `Value`'s `e` type:
+However, `Value` implements it differently in an important way. Since `Value`'s generic type, `e`, is never used in its value and since the `Value` constructor can only wrap an `Int` type, one cannot really "map" a `Value` (i.e. change the inner `Int` type) to anything else. Rather, they can only change `Value`'s `e` type:
 ```purescript
-data Value e = ValueInstance Int
-map :: (e -> z) -> Value e         ->             Value z
-map    _          (ValueInstance x)             = ValueInstance x
---               ((ValueInstance x) :: Value e) ((ValueInstance x) :: Value z)
+data Value e = ValueConstructor Int
+map :: (e -> z) -> Value e            ->             Value z
+map    _          (ValueConstructor x)             = ValueConstructor x
+--               ((ValueConstructor x) :: Value e) ((ValueConstructor x) :: Value z)
 -- We have to extract the `x` and rewrap it in a different
 -- `Value z` type.
 ```
-Thus, `Value` is a no-op `Functor`: using `map` on it just returns the same instance.
+Thus, `Value` is a no-op `Functor`: using `map` on it just returns the same value.
 
 An `Either` that wraps higher-kinded types implements `Functor` as we would expect:
 ```purescript
@@ -49,7 +49,7 @@ instance f :: (Functor f, Functor g) => Functor Coproduct f g e where
 
 We will soon see why it matters that these types are `Functor`s.
 
-Let's write a function that can evaluate the simplest version of our nested data structure. We'll exclude `Add` and `Multiply` and only focus on `Value`. To simulate the `Left` instance in `Either (Value e) (SomethingElse e)`, we'll use `BoxF`:
+Let's write a function that can evaluate the simplest version of our nested data structure. We'll exclude `Add` and `Multiply` and only focus on `Value`. To simulate the `Left` value in `Either (Value e) (SomethingElse e)`, we'll use `BoxF`:
 ```purescript
 data BoxF f a = BoxF (f a)
 
@@ -61,7 +61,7 @@ valueExample :: forall e. Expression (BoxF (Value e))
 valueExample = In (BoxF (Value 2))
 ```
 
-What do we need to do to take `valueExample` and evaluate it to `2`? We need a way to remove the intermediary instances: `In`, `BoxF`, and `Value`. There are two ways this could be done:
+What do we need to do to take `valueExample` and evaluate it to `2`? We need a way to remove the intermediary values: `In`, `BoxF`, and `Value`. There are two ways this could be done:
 1. We implement 3 different functions that all unwrap the wrapper type.
 2. We implement a type class that specifies an 'unwrap' function that each implements.
 
@@ -89,12 +89,12 @@ This solution works until we make our code more complicatd by composing `Add` wi
 ```purescript
 addExample :: Expression (Coproduct Value Add e)
 addExample =
-  In (Right (Add            -- Coproduct's wrapper instance
+  In (Right (Add            -- Coproduct's wrapper value
     (In (Left (Value 2)))   -- is excluded for simplicity
     (In (Left (Value 4)))   -- since it's just an `Either`
   ))
 ```
-Returning to the `Eval` type class, how would we define an instance for `Add`?
+Returning to the `Eval` type class, how would we implement an instance for `Add`?
 ```purescript
 class (Functor f) <= Evaluate f where
   evaluate :: forall a. f a -> Int
@@ -103,16 +103,16 @@ instance a :: Evaluate Add where
   evaluate (Add x y) = -- ???
 ```
 The difficulty above lies in one problem: what is `x` and `y` for `Add`? We might immediately presume that they are another `Expression`. However, the `e` in `Add e` could be anything. Moreover, the `Eval` type class does not force that `e` to be anything in particular. Here's the dilemma we run into now:
-- If we use a type class constraint to make `a` be an `Evaluate`, so that we could implement `Add`'s Evaluate instance as `(eval x) + (eval y)`, then that will force `Value`'s `e` type to also satisfy that constraint. How then would we create an instance for `Value`?
+- If we use a type class constraint to make `a` be an `Evaluate`, so that we could implement `Add`'s Evaluate instance as `(eval x) + (eval y)`, then that will force `Value`'s `e` type to also satisfy that constraint. How then would we implement an instance for `Value`?
 - If we don't constrain the `a` to be an `Evaluate`, we cannot evaluate `addExample`.
 
 So, let's look at what we need to do to evaluate `Add`. We need to
-- remove the `In` instances at every other point: `In (f (In (f (In (Value)))))`
-- remove the intermediary `Left`/`Right` instances
+- remove the `In` values at every other point: `In (f (In (f (In (Value)))))`
+- remove the intermediary `Left`/`Right` values
 - convert `Value x` to `x`
 - convert `Add x y` to `x + y`
 
-Starting with an easier problem, we could guarantee that all `In` instances are removed by calling an unwrapping function, `removeIn`, followed by a `map` call:
+Starting with an easier problem, we could guarantee that all `In` values are removed by calling an unwrapping function, `removeIn`, followed by a `map` call:
 ```purescript
 removeIn :: Expression f -> f
 removeIn (In f) = map removeIn f
@@ -140,15 +140,15 @@ Right $ map removeIn (Add
 Right $ Add
   (removeIn (In (Left (Value 2))))
   (removeIn (In (Left (Value 4))))
--- call removeIn on both instances
+-- call removeIn on both values
 Right $ Add
   (map removeIn (Left (Value 2)))
   (map removeIn (Left (Value 4)))
--- call map on both Left instances
+-- call map on both Left values
 Right $ Add
   (Left $ map removeIn (Value 2))
   (Left $ map removeIn (Value 4))
--- call map on both Value instances, which does nothing...
+-- call map on both `Value` values, which does nothing...
 Right $ Add
   (Left $ (Value 2))
   (Left $ (Value 4))
@@ -158,7 +158,7 @@ Right (Add
   (Left (Value 4))
 )
 ```
-This approach effectively removes all `In` instances. However, we are still left with the same problem above: converting an `Add` expression into an `Int` value by defining an `Evaluate` instance.
+This approach effectively removes all `In` values. However, we are still left with the same problem above: converting an `Add` expression into an `Int` value by defining an `Evaluate` instance.
 
 However, the reduction of our graph shows something important. What is the type signature for the result of our reduction? We can see it below:
 ```purescript
@@ -199,35 +199,35 @@ evaluate (Add
 )
 -- Compiler error! Expected `Add Int` but got `Add (Either (Value e) (Add e))
 ```
-The problem with this approach is that the nested `Value int` instances were not evaluated before we evaluated the `Add`. If we could somehow change how our code works, we need something more like this:
+The problem with this approach is that the nested `Value int` values were not evaluated before we evaluated the `Add`. If we could somehow change how our code works, we need something more like this:
 ```purescript
 -- Start!
 evaluate (Right (Add
   (evaluate (Left (Value 2)))
   (evaluate (Left (Value 4)))
 ))
--- Evaluate both Left instances
+-- Evaluate both Left values
 evaluate (Right (Add
   (evaluate (Value 2))
   (evaluate (Value 4))
 ))
--- Evaluate both Value instances
+-- Evaluate both Value values
 evaluate (Right (Add
   (2)
   (4)
 ))
 -- Since Add is now of type `Add Int`,
--- evaluate the Right instance
+-- evaluate the Right value
 evaluate (Add
   (2)
   (4)
 )
--- Now evaluate the `Add Int` instance
+-- Now evaluate the `Add Int` value
 2 + 4
 -- Reduce
 6
 ```
-So, how do we use the `removeIn` approach to remove the `In` instances and also evaluate `Value int` before evaluating `Add`, so that the types are correct by the time it happens? We make just a slight change to `removeIn`. It will now take an "unwrapping" function that gets applied to the result of our mapping. To make it adhere to the paper, we'll rename it to "fold" and explain that name later:
+So, how do we use the `removeIn` approach to remove the `In` values and also evaluate `Value int` before evaluating `Add`, so that the types are correct by the time it happens? We make just a slight change to `removeIn`. It will now take an "unwrapping" function that gets applied to the result of our mapping. To make it adhere to the paper, we'll rename it to "fold" and explain that name later:
 ```purescript
 fold :: Functor f => (f a -> a) -> Expression f -> a
 fold function (In f) = function (map (fold function) f)
@@ -246,27 +246,27 @@ evaluate (map (fold evaluate) (Right (Add
   (In (Left (Val 2)))
   (In (Left (Val 3)))
 )))
--- apply map to Right instance by delegating it to Add instance
+-- apply map to Right value by delegating it to Add value
 evaluate (Right $ map (fold evaluate) (Add
   (In (Left (Val 2)))
   (In (Left (Val 3)))
 ))
--- apply map to Add instance by delegating it to both expressions
+-- apply map to Add value by delegating it to both expressions
 evaluate (Right $ Add
   (fold evaluate (In (Left (Val 2))))
   (fold evaluate (In (Left (Val 3))))
 )
--- apply fold to `In` instance
+-- apply fold to `In` value
 evaluate (Right $ Add
   (evaluate (map (fold evaluate) (Left (Val 2))))
   (evaluate (map (fold evaluate) (Left (Val 3))))
 )
--- apply map to Left instance, which delegates to Value instance
+-- apply map to Left value, which delegates to `Value` value
 evaluate (Right $ Add
   (evaluate (Left $ map (fold evaluate) (Val 2)))
   (evaluate (Left $ map (fold evaluate) (Val 3)))
 )
--- apply map to Value instance (no-op!)
+-- apply map to `Value` value (no-op!)
 evaluate (Right $ Add
   (evaluate (Left $ (Val 2)))
   (evaluate (Left $ (Val 3)))
@@ -276,12 +276,12 @@ evaluate (Right $ Add
   (evaluate (Left (Val 2)))
   (evaluate (Left (Val 3)))
 )
--- evaluate the Left instance
+-- evaluate the Left value
 evaluate (Right $ Add
   (evaluate (Val 2))
   (evaluate (Val 3))
 )
--- evaluate the Value instance
+-- evaluate the Value value
 evaluate (Right $ Add
   (2)
   (3)
@@ -290,9 +290,9 @@ evaluate (Right $ Add
 evaluate (Right $ Add (2) (3))
 -- remove the $ and extra parenthesis
 evaluate (Right (Add 2 3))
--- evaluate the Right instance
+-- evaluate the Right value
 evaluate (Add 2 3)
--- evaluate the Add instance
+-- evaluate the Add value
 2 + 3
 -- add them up
 5
@@ -300,13 +300,13 @@ evaluate (Add 2 3)
 
 ## Explaining Terms
 
-So why the name `fold`? One can "fold" a data structure to reduce it down to one value. For example, if one had a list of integers, `List Int`, one could fold the list to a single `Int` instance using a function. This idea can be used to generate a sum of all of its integers.
+So why the name `fold`? One can "fold" a data structure to reduce it down to one value. For example, if one had a list of integers, `List Int`, one could fold the list to a single `Int` value using a function. This idea can be used to generate a sum of all of its integers.
 
 There's another term we did not explain but which appears in the paper: `algebra`. An [`Algebra`](https://pursuit.purescript.org/packages/purescript-matryoshka/0.3.0/docs/Matryoshka.Algebra#t:Algebra) is merely a special name for a function with a specific type signature: `(f a -> a)`. It's our `evaluate` function.
 
 ## All Code So Far and Evaluate
 
-**I have not checked whether this code works, but it will serve to give you an idea for how it works.** 
+**I have not checked whether this code works, but it will serve to give you an idea for how it works.**
 ```purescript
 -- File 1
 data Value e = Value Int

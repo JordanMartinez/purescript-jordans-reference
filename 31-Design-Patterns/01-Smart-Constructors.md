@@ -1,6 +1,6 @@
 # Smart Constructors
 
-Smart constructors are a solution to the problem of how to create a valid instance of some type when the type's definition allows invalid instances.
+Smart constructors are a solution to the problem of how to create a valid value of some type when the type's definition does not allow invalid values.
 
 ## The Problem
 
@@ -40,7 +40,7 @@ example (DumbConstructor "fire") -- throws an error
 
 ## The Solution
 
-The solution is to not export the types' constructors and instead export "smart constructors," which are functions that create a correct instance of the type. The only way to get an instance of the type is to use one of these functions:
+The solution is to not export the types' constructors and instead export "smart constructors," which are functions that create a correct value of the type. The only way to get a valu of the type is to use one of these functions:
 ```purescript
 module Example.SmallInt (SmallInt, zero, one) where
 
@@ -81,10 +81,10 @@ example DumbConstructor "orange" = 2
 example DumbConstructor "banana" = 42
 example DumbConstructor _ = error "We can guarantee that this will never occur!"
 ```
-Since "DumbConstructor" isn't exported, one is forced to use the apple, orange, or banana smart constructors to get an instance of `TheType`. Thus, it prevents one from creating incorrect "TheType" instances.
+Since "DumbConstructor" isn't exported, one is forced to use the apple, orange, or banana smart constructors to get a value of `TheType`. Thus, it prevents one from creating incorrect "TheType" values.
 ```purescript
-preventBadInstances :: Array Int
-preventBadInstances =
+preventBadValues :: Array Int
+preventBadValues =
   [ example apple  -- returns 1
   , example orange -- returns 2
   , example banana -- returns 42

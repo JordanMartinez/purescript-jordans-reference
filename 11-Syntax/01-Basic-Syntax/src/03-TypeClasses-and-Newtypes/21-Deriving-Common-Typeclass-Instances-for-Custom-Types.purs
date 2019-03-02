@@ -5,7 +5,7 @@ import Prelude
 
 -- Given the following type classes, Eq and Ord
 
--- | Determines whether two instances of the same type are equal
+-- | Determines whether two values of the same type are equal
 class Eq_ a where
   eq_ :: a -> a -> Boolean
 

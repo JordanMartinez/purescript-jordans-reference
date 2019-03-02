@@ -26,12 +26,12 @@ class (Functor f) <= Show2 f where                                {-
   show2 :: AllExpressionTypes -> String                                   -}
   show2 :: f (Expression f)   -> String
 ```
-With that being our expression type, what would instances for `Value`, `Add`, and `Multiply` look like that fit that signature?
+With that being our expression type, what would values for `Value`, `Add`, and `Multiply` look like that fit that signature?
 ```purescript
 -- Value
 (Value 5)
 
--- Value does not use the `In` instance here
+-- Value does not use the `In` value here
 -- so its implementation is trivial
 instance vs :: Show2 Value where
   show2 (Value x) = show x
@@ -52,7 +52,7 @@ Multiply
     (In (Left (Value 2)))
   ))))
 ```
-`Add` and `Multiply` both have an `In` instance and an `Either` instance separating the next expression. We can remove the `In` instance using a function. However, removing the `Either` instance would be best left to an instance of our own type class that just delegates it to the underlying expression.
+`Add` and `Multiply` both have an `In` value and an `Either` value separating the next expression. We can remove the `In` value using a function. However, removing the `Either` value would be best left to an instance of our own type class that just delegates it to the underlying expression.
 ```purescript
 removeInAndShow :: Show2 f => Expression f -> String
 removeInAndShow (In t) = show2 t
@@ -61,7 +61,7 @@ instance es :: (Show2 f, Show2 g) => Show2 (Either f g) where
   show2 (Left f)  = show2 f
   show2 (Right g) = show2 g
 
--- Now we can define the instances for Add and Multiply
+-- Now we can define the values for Add and Multiply
 instance as :: Show2 Add where
   show2 (Add x y) =
     "(" <> removeInAndShow x <> " + " <> removeInAndShow y <> ")"

@@ -9,7 +9,7 @@ This usually occurs for one of two reasons:
 
 1. They specify another law on top of the previous type class.
 
-For example, the `ToString` type class converts any instance into a String.
+For example, the `ToString` type class converts any type's value into a String.
 -}
 class ToString a where
   toString :: a -> String

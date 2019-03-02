@@ -14,11 +14,11 @@ The first one is easy to understand and is used frequently. However, we have nev
 
 In my current understanding, I'd guess that these likely do not appear that often in type-level code, but they may be critical for some use cases.
 
-## Type-Level Types, Instances, and Proxies
+## Type-Level Types, Values, and Proxies
 
 In the below table, **"ValueTypeN" was abbreviated to VTN**
 
-| Value-Level Type | Value-Level Instance(s) | Kind Name<br>(Corresponding Type&#8209;Level Type) | Kind Instances | Proxy |
+| Value-Level Type | Value-Level Value(s) | Kind Name<br>(Corresponding Type&#8209;Level Type) | Kind Values | Proxy |
 | - | - | - | - | - |
 | [Ordering](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Ordering) | `LT` `GT` `EQ` | [Ordering](https://pursuit.purescript.org/builtins/docs/Prim.Ordering) | `LT` `GT` `EQ` | [OProxy](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Ordering)
 | [String](https://pursuit.purescript.org/builtins/docs/Prim#t:String) | `"literal string"` | [Symbol](https://pursuit.purescript.org/builtins/docs/Prim#k:Symbol) | `"literal symbol"` | [SProxy](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Symbol#t:SProxy)

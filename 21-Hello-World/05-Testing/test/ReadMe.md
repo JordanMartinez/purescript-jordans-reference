@@ -2,13 +2,13 @@
 
 ## What is Unit Testing
 
-Unit- / behavior- / example-testing verifies that a function (e.g. `reverse`) that receives a specific instance (e.g. `"apple"`) of some data type (e.g. `String`) will output a specific instance (e.g. `"elppa"`) of the same/different data type. In code:
+Unit- / behavior- / example-testing verifies that a function (e.g. `reverse`) that receives a specific value (e.g. `"apple"`) of some data type (e.g. `String`) will output a specific value (e.g. `"elppa"`) of the same/different data type. In code:
 ```purescript
 unitTest :: Boolean
 unitTest = (reverse "apple") == "elppa"
 ```
 
-If we want to test `reverse` for a different instance of `String` (e.g. "pineapple"), we would need to write a second test:
+If we want to test `reverse` for a different value of `String` (e.g. "pineapple"), we would need to write a second test:
 ```purescript
 unitTest2 :: Boolean
 unitTest2 = (reverse "pineapple") == "elppaenip"
@@ -32,14 +32,14 @@ For more details, see these links:
 2. **Poor tester creativity**
     - A test-writer may forget to write or not be "creative" enough to realize that he/she should write the one test that exposes a bug in the code.
 3. **Poor data generation**
-    - Some data instances are hard to create, such as those that interact with a large and complicated database. If one tries to model that data and the model is off even slightly, the tests aren't verifying anything.
-4. **'Large' bug-exposing instances don't "shrink" to 'small' instances.**
-    - Some tests that expose a bug use a "large" and complicated instance of some data type. Unfortunately, they don't help us figure out what is the 'smallest' version of some instance that reproduces the bug.
+    - Some values are hard to create, such as those that interact with a large and complicated database. If one tries to model that data and the model is off even slightly, the tests aren't verifying anything.
+4. **'Large' bug-exposing values don't "shrink" to 'small' values.**
+    - Some tests that expose a bug use a "large" and complicated value of some data type. Unfortunately, they don't help us figure out what is the 'smallest' version of some value that reproduces the bug.
     - For example, if one was testing a function that took numbers that are larger than 1 million, it can be hard to determine what is causing the bug with a number like 8,423,522 whereas a number like 1,000,001 might make it much clearer.
 
 ## What is Property Testing and Why It Succeeds
 
-Property-testing verifies that a function (e.g. `reverse`) that receives **any** instance of some data type (e.g. `String`) will output an expected instance of the same/different data type; the expected instance is calculated using the given input.
+Property-testing verifies that a function (e.g. `reverse`) that receives **any** value of some data type (e.g. `String`) will output an expected value of the same/different data type; the expected value is calculated using the given input.
 
 One might immediately think of this code before realizing that it doesn't work:
 ```purescript
@@ -52,22 +52,22 @@ propertyTest :: String -> Boolean
 propertyTest input = (reverse (reverse input)) == input
 ```
 
-In a few lines, we have made it possible to test every possible instance of `String` on the function `reverse`. We spent only a few seconds and got 100% coverage (solving the above Problem 1). Moreover, the test doesn't require any creativity on our part. Whether the `String` instance uses alphabetical characters, or numbers, or special symbols, or even characters from Asian languages, the test covers all of them (solving the above Problem 2)
+In a few lines, we have made it possible to test every possible value of `String` on the function `reverse`. We spent only a few seconds and got 100% coverage (solving the above Problem 1). Moreover, the test doesn't require any creativity on our part. Whether the `String` value uses alphabetical characters, or numbers, or special symbols, or even characters from Asian languages, the test covers all of them (solving the above Problem 2)
 
-The only problem left remaining is the data generation. While we may have a function that can test reverse, its useless unless we can generate random `String` instances. Fortunately, a good property-testing library (like QuickCheck) provides the necessary API to generate such data according to one's needs (solving the above Problem 3).
+The only problem left remaining is the data generation. While we may have a function that can test reverse, its useless unless we can generate random `String` values. Fortunately, a good property-testing library (like QuickCheck) provides the necessary API to generate such data according to one's needs (solving the above Problem 3).
 
 Lastly, Problem 4 is solved with a feature called "shrinking." While a unit test cannot shrink `8,423,522` to `1,000,001`, a property test can. This feature exists in the originaly Haskell library, but unfortunately, it does not yet seem to exist in Purescript's port of the library.
 
 ## The Trustworthiness of Property Testing
 
-In some cases, such as `Boolean`, one has a finite number of input instances to verify:
+In some cases, such as `Boolean`, one has a finite number of input values to verify:
 ```purescript
 testBooleanWithAnd :: Boolean -> Boolean
 testBooleanWithAnd randomBoolean = (randomBoolean && true) == randomBoolean
 ```
-After proving that the above property is true for both the `true` and `false` instances of `Boolean`, one does not need to retest it again with either instances. In such a case, the test can be proven exhaustively and one's certainty in the code is 100%.
+After proving that the above property is true for both the `true` and `false` values of `Boolean`, one does not need to retest it again with either values. In such a case, the test can be proven exhaustively and one's certainty in the code is 100%.
 
-On another hand, to successfully prove that `reverse` works as expected, one would need to test an infinite number of `String` instances. Since we don't have enough time for that, we usually stop testing it after 100 tests pass successfully. 100 tests does not guarantee that our function is correct as there could still be a case where it fails. However, it makes us highly confident in it. The option to increase the number of tests is always present if that's not enough for you.
+On another hand, to successfully prove that `reverse` works as expected, one would need to test an infinite number of `String` values. Since we don't have enough time for that, we usually stop testing it after 100 tests pass successfully. 100 tests does not guarantee that our function is correct as there could still be a case where it fails. However, it makes us highly confident in it. The option to increase the number of tests is always present if that's not enough for you.
 
 ## The Limits of Property Testing
 

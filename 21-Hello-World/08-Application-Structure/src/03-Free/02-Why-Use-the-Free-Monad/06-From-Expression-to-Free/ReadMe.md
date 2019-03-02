@@ -57,7 +57,7 @@ Purescript's `Free` monad is implemented in the "reflection without remorse" sty
 
 ### LiftF
 
-The `Free` monad has its own way of injecting an instance into it called [`liftF`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:liftF). It can be understood like this:
+The `Free` monad has its own way of injecting a value into it called [`liftF`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:liftF). It can be understood like this:
 ```purescript
 -- Before
 someValue :: forall a. a -> Expression SomeFunctor

@@ -8,7 +8,7 @@ We can now return to the original question we raised at the start of the `Free` 
 
 Unfortunately, this `Coproduct` + `Free` approach only works on `Free` monads; it does not work for other non-`Free` monads. As the paper says, the `ListT` and `StateT` monads are not free monads. Why? Let's consider the `StateT` monad. The issue at hand are its laws. If I call `set 4` and then later call `get`, `get` should return `4`. By using `Free` as we have so far, we cannot uphold that law.
 
-So, how do we get around that limitation? We can define a type that has an instance for `Functor` and whose instances represent terms in a language (similar to our `Add`, `Multiply`, `Value` language) that provides the operations we would expect from such a monad. The paper's example shows how one could create a `State` monad using this approach. Since it will follow much of what we have already covered before, we'll just show the Purescript version of their code.
+So, how do we get around that limitation? We can define a type that has an instance for `Functor` and whose values represent terms in a language (similar to our `Add`, `Multiply`, `Value` language) that provides the operations we would expect from such a monad. The paper's example shows how one could create a `State` monad using this approach. Since it will follow much of what we have already covered before, we'll just show the Purescript version of their code.
 ```purescript
 data Add      theRestOfTheComputation = Add Int theRestOfTheComputation
 data GetValue theRestOfTheComputation = GetValue (Int -> theRestOfTheComputation)
@@ -104,7 +104,7 @@ data Language theRestOfTheComputation
   -- Use both
   | Function_With_Getter Arg_Passed_to_Interpreter (Value_Provided_By_Interpreter -> theRestOfTheComputation)
 ```
-So far, we've only defined a data type with one instance and composed those data types together. However, what if we treated a data type as a "family" of operations where each instance in that data type was an operation? Then our data types might look like this:
+So far, we've only defined a data type with one value and composed those data types together. However, what if we treated a data type as a "family" of operations where each value in that data type was an operation? Then our data types might look like this:
 ```purescript
 -- A "language" that supports the capabilities of reading from
 -- a file and writing to a file

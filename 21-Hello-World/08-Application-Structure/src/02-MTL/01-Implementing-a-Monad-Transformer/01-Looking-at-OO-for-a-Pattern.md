@@ -75,18 +75,18 @@ y = nextInt(random);
 // A random number can sometimes be the same one as before,
 // but this shouldn't always be true
 
-// To make `x /= y`, we need a new `random` instance, something like:
+// To make `x /= y`, we need a new `random` value, something like:
 x = nextInt(random1);
 y = nextInt(random2);
 ```
 The solution is to make `nextInt` return two things via the `Tuple a b` type
 - the random int value
-- a new instance of `random`
+- a new value of `random`
 ```javascript
 (Tuple x random2) = nextInt(random1);
 (Tuple y random3) = nextInt(random2);
 ```
-where `Tuple a b` is just a box that holds two instances of the same/different types:
+where `Tuple a b` is just a box that holds two values of the same/different types:
 ```purescript
 data Tuple a b = Tuple a b
 ```
@@ -140,11 +140,11 @@ Here's the solution we came up with:
 (Tuple y originalStack_withoutXorY) = pop(originalStack_withoutX);
 
 // and generalizing it to a pattern, we get
-(Tuple value1,  instance2        ) = stateManipulation(instance1);
-(Tuple value2,  instance3        ) = stateManipulation(instance2);
-(Tuple value3,  instance4        ) = stateManipulation(instance3);
+(Tuple value1,  value2        ) = stateManipulation(value1);
+(Tuple value2,  value3        ) = stateManipulation(value2);
+(Tuple value3,  value4        ) = stateManipulation(value3);
 // ...
-(Tuple value_N, instance_N_plus_1) = stateManipulation(instanceN);
+(Tuple value_N, value_N_plus_1) = stateManipulation(valueN);
 ```
 Turning this into Purescript syntax, we get:
 ```purescript

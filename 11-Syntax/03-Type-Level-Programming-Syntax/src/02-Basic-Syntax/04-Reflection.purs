@@ -4,31 +4,31 @@ module Syntax.TypeLevel.Reflection where
 import Prelude (class Show)
 
 -- Reflection syntax
---  Converting a type-level instance into a value-level instance
+--  Converting a type-level value into a value-level value
 
 -- This code...
 ----------------------------
 type Value_Level_Type = String -- for easier readability
 
-data CustomType = TypeInstance
+data CustomType = TypeValue
 
 reflectVL :: CustomType -> Value_Level_Type
-reflectVL TypeInstance = "value-level instance"
+reflectVL TypeValue = "value-level value"
 ----------------------------
 -- ... converts to...
 ----------------------------
 foreign import kind CustomKind
-foreign import data CustomKindInstance :: CustomKind
+foreign import data CustomKindValue :: CustomKind
 
-data CustomKindProxy (a :: CustomKind) = CustomKindProxyInstance
+data CustomKindProxy (a :: CustomKind) = CustomKindProxyValue
 
--- "type-level instance to value-level instance"
+-- "type-level value to value-level value"
 class TLI_to_VLI (a :: CustomKind) where
   reflectCustomKind :: CustomKindProxy a -> Value_Level_Type
 
-instance tli_to_vlI :: TLI_to_VLI CustomKindInstance where {-
-  reflectCustomKind CustomKindProxyInstance = "value-level instance" -}
-  reflectCustomKind _                       = "value-level instance"
+instance tli_to_vlI :: TLI_to_VLI CustomKindValue where {-
+  reflectCustomKind CustomKindProxyValue = "value-level value" -}
+  reflectCustomKind _                       = "value-level value"
 ----------------------------
 
 -- An example using the Boolean-like data type YesNo:
@@ -37,27 +37,27 @@ data YesNo = Yes | No
 foreign import kind YesNoKind
 foreign import data YesK :: YesNoKind
 foreign import data NoK  :: YesNoKind
-data YesNoProxy (a :: YesNoKind) = YesNoProxyInstance
+data YesNoProxy (a :: YesNoKind) = YesNoProxyValue
 
 {-
 Read yesK and yesK as:
-  yesK = (YesNoProxyInstance :: YesNoProxy Yes) - an instance of type "YesNoProxy Yes"
-  noK  = (YesNoProxyInstance :: YesNoProxy No)  - an instance of type "YesNoProxy No" -}
+  yesK = (YesNoProxyValue :: YesNoProxy Yes) - a value of type "YesNoProxy Yes"
+  noK  = (YesNoProxyValue :: YesNoProxy No)  - a value of type "YesNoProxy No" -}
 yesK :: YesNoProxy YesK
-yesK = YesNoProxyInstance
+yesK = YesNoProxyValue
 
 noK :: YesNoProxy NoK
-noK = YesNoProxyInstance
+noK = YesNoProxyValue
 
 class IsYesNoKind (a :: YesNoKind) where
   reflectYesNo :: YesNoProxy a -> YesNo
 
 instance yesTL_VL :: IsYesNoKind YesK where
--- reflectYesNo (YesNoProxyInstance :: YesNoProxy Yes) = Yes
+-- reflectYesNo (YesNoProxyValue :: YesNoProxy Yes) = Yes
    reflectYesNo _                                      = Yes
 
 instance noTL_VL :: IsYesNoKind NoK where
--- reflectYesNo (YesNoProxyInstance :: YesNoProxy No) = No
+-- reflectYesNo (YesNoProxyValue :: YesNoProxy No) = No
    reflectYesNo _                                     = No
 
 
@@ -73,9 +73,9 @@ else instance isYes_catchall :: IsYes a where
   isYes _ = No
 
 -- Using instance chains here is more convenient if we had
--- a lot more type-level instances than just 2. In some cases,
+-- a lot more type-level values than just 2. In some cases,
 -- it is needed in cases where a type-level type can have an
--- infinite number of instances, such as a type-level String
+-- infinite number of values, such as a type-level String
 
 -- Open a REPL, import this module, and then run this code:
 --    reflectYesNo yesK

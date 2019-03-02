@@ -79,7 +79,7 @@ higherKindedBy1R a = BoxOfTwo a "a string value"
 concreteType :: BoxOfTwo Int String
 concreteType = BoxOfTwo 3 "a string value"
 ```
-Generic types can also be split across the instances:
+Generic types can also be split across the values of a type:
 ```purescript
 -- It's either an A or it's a B, but not both!
 data Either a b
@@ -101,7 +101,7 @@ higherKindedBy1L_useB b = Right b
 higherKindedBy1L_ignoreBoth :: a -> b -> Either Int b
 higherKindedBy1L_ignoreBoth a b = Left 3
 ```
-`Either` (where the `a` and `b` are not yet specified) has kind `Type -> Type -> Type` because it cannot become a concrete type until both `a` and `b` types are defined, even if only constructing one of its instances whose generic type is known.
+`Either` (where the `a` and `b` are not yet specified) has kind `Type -> Type -> Type` because it cannot become a concrete type until both `a` and `b` types are defined, even if only constructing one of its values whose generic type is known.
 
 ## Table of Inferred Types
 

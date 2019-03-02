@@ -67,7 +67,7 @@ cd ../../
 
 cd 22-Projects/
 pwd
-npm install benchmark
+npm install benchmark yargs
 spacchetti insdhall
 psc-package install
 cd ../

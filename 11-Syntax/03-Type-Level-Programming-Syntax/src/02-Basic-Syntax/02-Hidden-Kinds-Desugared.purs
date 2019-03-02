@@ -13,7 +13,7 @@ data MyType_Kind_Shown (aType :: Type)
 
 class MyClass_Kind_Shown (aType :: Type)
 -- (atype :: Type) can be read as
--- "a type-level instance, bound to the name `aType`, that has kind `Type`"
+-- "a type-level value, bound to the name `aType`, that has kind `Type`"
 
 {-
 We'll need a way to convert
@@ -34,8 +34,8 @@ data ValueLevel_to_TypeLevel_Function (input :: Type) (output :: Kind)
 
 -- To fix this, we use a Proxy type,
 --    a value-level type that wraps a kind:
-data Proxy (kindInstance :: Kind) = ProxyInstance
+data Proxy (kindValue :: Kind) = ProxyValue
 
 -- The above definition will make more sense in the future.
 
--- We can use Proxy to create type-level instance values
+-- We can use Proxy to create type-level values

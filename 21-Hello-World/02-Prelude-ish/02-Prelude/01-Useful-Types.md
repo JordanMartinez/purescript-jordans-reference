@@ -4,7 +4,7 @@ The following is not an exact copy of the code, but accurate enough to get the i
 
 ## Void
 
-A type with no instances that is useful for proving that a type can never exist or a computation path can never occur
+A type with no values that is useful for proving that a type can never exist or a computation path can never occur
 
 ```purescript
 -- Data.Void (Void, absurd)
@@ -28,7 +28,7 @@ function Right i = i
 
 ## Unit
 
-A type with 1 instance, Unit, though most will see it used via `unit`. It usually indicates a "side effect", mutation, or impure code.
+A type with 1 value, Unit, though most will see it used via `unit`. It usually indicates a "side effect", mutation, or impure code.
 ```purescript
 -- Data.Unit (Unit, unit)
 

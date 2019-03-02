@@ -1,22 +1,22 @@
 module Syntax.TypeLevel.Functions.SingleArgSyntax where
 
--- Given the following value-level and type-level types/instances...
+-- Given the following value-level and type-level types/values...
 
-data InputType = InputInstance
-data OutputType = OutputInstance
+data InputType = InputValue
+data OutputType = OutputValue
 
 foreign import kind InputKind
-foreign import data InputInstanceK :: InputKind
+foreign import data InputValueK :: InputKind
 
 foreign import kind OutputKind
-foreign import data OutputInstanceK :: OutputKind
+foreign import data OutputValueK :: OutputKind
 
 -- ... a value-level function...
 
 -- function's type signature
 function :: InputType -> OutputType
 -- function's implementation
-function InputInstance = OutputInstance
+function InputValue = OutputValue
 
 -- ... can be converted to a type-level function using
 --   - type classes
@@ -31,4 +31,4 @@ class TypeLevelFunction (input :: InputKind) (output :: OutputKind)
   , output -> input
 
 -- the implementation for both functions (since this is a simple example)
-instance implementation :: TypeLevelFunction InputInstanceK OutputInstanceK
+instance implementation :: TypeLevelFunction InputValueK OutputValueK

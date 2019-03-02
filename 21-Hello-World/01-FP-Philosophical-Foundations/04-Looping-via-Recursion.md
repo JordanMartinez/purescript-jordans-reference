@@ -84,8 +84,8 @@ data List a
   | Cons a (List a) -- head of a linked list & rest of list
 
 data Maybe a
-  = Nothing   -- could not find instance of type A
-  | Just a    -- found instance of type A
+  = Nothing   -- could not find a value of type A
+  | Just a    -- found a value of type A
 
 findFirst :: forall a. List a -> (a -> Boolean) -> Maybe a
 findFirst list condition = findFirst' list condition Nothing
@@ -119,8 +119,8 @@ data List a
   | Cons a (List a) -- head of a linked list & rest of list
 
 data Maybe a
-  = Nothing   -- could not find instance of type A
-  | Just a    -- found instance of type A
+  = Nothing   -- could not find a value of type A
+  | Just a    -- found a value of type A
 
 findFirst :: forall a. List a -> (a -> Boolean) -> Maybe a
 findFirst Nil condition = Nothing

@@ -2,7 +2,7 @@
 
 ## MonadThrow
 
-`MonadThrow` is used to immediately stop `bind`'s sequential computation and return an instance of its error type because of some unforeseeable error (e.g. business logic error).
+`MonadThrow` is used to immediately stop `bind`'s sequential computation and return a value of its error type because of some unforeseeable error (e.g. business logic error).
 
 It's default implmentation is `ExceptT`:
 ```purescript
@@ -18,7 +18,7 @@ class (Monad m) => MonadThrow e (ExceptT e m) where
 
 ## MonadError
 
-`MonadError` extends `MonadThrow` by enabling a monad to catch the thrown error, attempt to handle it (by changing the error type to an output type), and then continue `bind`'s sequential computation. If `catchError` can't handle the error, `bind`'s sequential computation will still stop at that point and return the instance of the error type.
+`MonadError` extends `MonadThrow` by enabling a monad to catch the thrown error, attempt to handle it (by changing the error type to an output type), and then continue `bind`'s sequential computation. If `catchError` can't handle the error, `bind`'s sequential computation will still stop at that point and return the value of the error type.
 
 ```purescript
 newtype ExceptT e m a = ExceptT (m (Either e a))
@@ -37,7 +37,7 @@ class (Monad m) => MonadError e (ExceptT e m) where
 
 `MonadError` has 3 functions:
 - `catchJust`: catch only the errors you want to try to handle and ignore the others
-- `try`: expose the error instance (if computation fails) for usage in the do notation
+- `try`: expose the error value (if computation fails) for usage in the do notation
 - `withResource`: whether a computation fails or succeeds, clean up resources after it is done
 
 ## Do Notation

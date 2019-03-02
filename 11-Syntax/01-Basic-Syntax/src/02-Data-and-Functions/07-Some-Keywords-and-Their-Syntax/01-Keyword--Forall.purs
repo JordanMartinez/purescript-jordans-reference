@@ -6,8 +6,8 @@ import Prelude
 When using generic data types in functions, such as the one below...
 genericFunction0 :: a -> a
   Read:
-    Given an instance of any type,
-  this function will return an instance of the same type. -}
+    Given a value of any type,
+  this function will return a value of the same type. -}
 
 -- ... we need to explicitly say the function works for for all types
 -- using the "forall a. Function Type Signature" syntax:
@@ -38,7 +38,7 @@ forAllUnicodeStyle :: ∀ a. a -> a
 forAllUnicodeStyle a = a
 
 
--- Sometimes, we'll see multiple instances of 'forall' in the same type signature.
+-- Sometimes, we'll see multiple 'forall' in the same type signature.
 --
 --    f :: forall a b. a -> b -> (forall c. c -> String) -> String
 --
