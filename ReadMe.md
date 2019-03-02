@@ -2,6 +2,8 @@
 
 This repo is my way of trying to use the [Feynman Technique](https://medium.com/taking-note/learning-from-the-feynman-technique-5373014ad230) to help me learn Purescript and its ecosystem. It includes a number of links and other resources I've gathered or created. These have been gathered into the following folders. (For a full overview of this repo's contents, see the [Table of Contents.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/latestRelease/table-of-contents.md) file.)
 
+All code uses PureScript `0.12.3`
+
 - 00-Getting-Started
     - Why learn/use PureScript?
     - How to install Purscript & set up an editor (using Atom)
@@ -10,7 +12,7 @@ This repo is my way of trying to use the [Feynman Technique](https://medium.com/
 - 01-Build-Tools - how to use the tools in the ecosystem to manage dependencies, compile source code, and build projects
     - Overview of the dependency managers
     - Other build tools
-- 11-Syntax - Purescript's syntax explained using meta-language and verified by the compiler (PS versions: `0.12.2`)
+- 11-Syntax - Purescript's syntax explained using meta-language and verified by the compiler
     - Basic Syntax
     - Foreign Function Interface Syntax
     - Type-Level Programming Syntax
