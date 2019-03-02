@@ -1,6 +1,6 @@
 {
   "name": "untitled",
-  "set": "psc-psc-0.12.3-20190227",
+  "set": "psc-0.12.3-20190227",
   "source": "https://github.com/purescript/package-sets.git",
   "depends": [
     "psci-support",
