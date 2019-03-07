@@ -29,6 +29,9 @@ Replace the function/value you want the compiler to suggest for you with
 the above syntax.
 -}
 
+-- Note to self: don't delete this as functions from Prelude will be suggested below
+import Prelude
+
 warning :: String
 warning =
   """
@@ -41,7 +44,8 @@ warning =
   Since this outputs a compiler error, we have to comment out the following code
   to make this project build on Travis CI and on local computers
 
-  Uncomment the following lines and then build the folder to see how it works
+  Uncomment the following examples, one at a time, and then build the folder to
+  see how it works
   """
 
 -- This example will show what the type signature for "?placeholder_name"
@@ -54,8 +58,9 @@ warning =
 -- by the compiler because it produces an error at the first hole. Thus,
 -- this feature can only be used once in a project per compilation.
 
+-- notice the infix notation used here via the backticks
 -- example2 :: String
--- example2 = "hello" ?I_Don't_know " world"
+-- example2 = "hello" `?I_Don't_know` " world"
 
 -- example3 :: Int
 -- example3 = 1 + ?what_could_this_be
