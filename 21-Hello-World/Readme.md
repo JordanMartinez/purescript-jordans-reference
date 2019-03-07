@@ -53,6 +53,10 @@ Besides this repo, we have a few choices in terms of understanding functional pr
 - The `Purescript By Example` book. (See `ROOT_FOLDER/Getting Started/Other Important Info.md` for links and clarifications around it)
 - [Purescript Resources](https://purescript-resources.readthedocs.io/en/latest/index.html) - Justin Woo's Read the Docs (RTD) work
 
+### JavaScript
+
+[Make the Leap from JavaScript to PureScript](https://medium.com/@kelleyalex/index-make-the-leap-from-javascript-to-purescript-a1566d657e9c)
+
 ### Haskell
 
 Since Purescript is heavily inspired by and very similar to Haskell, one can learn a lot about Purescript by learning from these Haskell learning resources. Note: the Haskell names and type classes do not always correspond to the Purescript versions.
