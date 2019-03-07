@@ -50,3 +50,8 @@ validateData a =
          <*> (isValid a.arg2 *> pure a.arg2)
     --   <*> (isValid a.argN *> pure a.argN)
 ```
+
+<hr>
+
+I'm not sure how useful this will be, but I thought I'd put it here:
+[Lazy Validation](https://ro-che.info/articles/2019-03-02-lazy-validation-applicative)
