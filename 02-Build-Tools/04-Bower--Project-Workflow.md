@@ -10,33 +10,6 @@ bower init
 pulp init
 ```
 
-## Bower: Addressing Common Problems
-
-### The Solution to Most Bower Problems
-
-At various times, you might encounter a problem with Bower due to its cache mechanism. When in doubt, run the following command and see if that fixes your issue:
-```bash
-# Deletes the 'bower_components' and 'output' directories,
-# ensuring that the cache mechanism is not corrupting your build
-# and that the next build will be completely fresh.
-rm -rf bower_components/ output/
-```
-
-### A Note on Breaking Compiler Changes
-
-The following issue is happening less and less frequently due to the PureScript language stabilizing, but it still needs to be stated.
-
-#### Annoyance Defined
-
-If a compiler release that includes breaking changes was released recently, it will take some time for libraries in the ecosystem to become compatible with that release. If you are using Bower as your dependency manager, it may try to install libraries that are and are not compatible with the new release, creating problems.
-
-#### Recommended Guidelines
-
-In such circumstances, follow these guidelines to help find the correct version of a library:
-- Go to Pursuit and look at the library's package page. Choose one of the library's versions and compare that version's publish date with the date of the compiler release. Those that occur after the compiler release are likely compatible with the new release.
-- Since `purescript-prelude` is a dependency for most libraries, see which version of `purescript-prelude` the library uses. That should indicate whether it's compatible with a new compiler release or not.
-- If all else fails, check the library's last few commit messages in its repository for any messages about updating to the new compiler release.
-
 ## Install dependencies
 
 ```bash
