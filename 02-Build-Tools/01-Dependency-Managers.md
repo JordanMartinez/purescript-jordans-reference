@@ -12,9 +12,13 @@ Long answer:
 - Should one or both packages export something that exposes `parent` and our code uses it, this will produce a runtime error, either because some API doesn't exist (e.g. one version changed/removed some API) or because a pattern match didn't work (e.g. an `instanceOf` check failed due to seeing different types defined in the `parent` package)
 - Bower uses "flat" dependencies, so it will notify you that such an issue exists by asking you to choose the library version you want to use to resolve the issue.
 
-However, `bower` isn't the only package manager one can use. `psc-package` is also used throughout the community.
+## Two Solutions: Bower and Psc-Package
 
-## Which dependency manager should I use: Bower or PSC-Package?
+There are two solutions to dependency management where each has a different 'target audience' per say:
+1. Bower (library developers)
+2. Psc-package (application developers)
+
+The community needs both solutions for reasons that will be explained later.
 
 One can refer to each with a "crude name" that summarizes them:
 - Typical package manager (Bower)
@@ -29,6 +33,8 @@ Those names, plus these flowcharts, will help one get an overview of how they wo
 ### Psc-Package Flowchart
 
 ![psc-package-flowchart](./psc-package-flowchart.svg)
+
+## Dependency Managers Compared
 
 Now for a side-by-side comparison (an "apples to oranges" comparison)
 
@@ -68,9 +74,9 @@ In such circumstances, follow these guidelines to help find the correct version 
 - Since `purescript-prelude` is a dependency for most libraries, see which version of `purescript-prelude` the library uses. That should indicate whether it's compatible with a new compiler release or not.
 - If all else fails, check the library's last few commit messages in its repository for any messages about updating to the new compiler release.
 
-### Why Spacchetti?
+## Explaining Psc-Package
 
-#### Psc-Package Terms
+### Psc-Package Terms
 
 A **package** in this context is 4 things:
 1. a Git repo
@@ -82,9 +88,9 @@ Thus, a package is a unique named `repo-tag-dependencies` combination (e.g. `pre
 
 A **package set** consists of a set of packages. It's a JSON file that maps a package name to its corresponding repo-tag-dependencies combination.
 
-#### The Cause of the Pain Point
+### The Cause of the Pain Point
 
-When using Bower, you have no idea whether a package (code that was released at some tag) will compile with some other package. This pain point arises most often when a breaking changes compiler release is made. AFAIK, Phil Freeman (creator of PureScript) and others created `psc-package` to help fix this problem / start migrating to a non-Bower solution. Currently, Justin Woo maintains it.
+When using Bower, you have no idea whether a version of some dependency will compile with some other package. This pain point arises most often when a breaking changes compiler release is made. AFAIK, Phil Freeman (creator of PureScript) and others created `psc-package` to help fix this problem / start migrating to a non-Bower solution. Currently, Justin Woo maintains it.
 
 Justin has defined [an "official" / "standard" package set](https://github.com/purescript/package-sets/blob/master/packages.json) that `psc-package` uses to download and compile one's dependencies. Why? So that he can prove via CI that all the packages in the set work/compile together without issue. This addresses the pain point from Bower. Moreover, it also stops each developer who uses `psc-package` from wasting time verifying the same package set locally as it can be done only once in Justin's repo.
 
