@@ -18,4 +18,6 @@ Here's a comparison table between the three:
 According to @garyb, one of the core contributors to Purescript:
 > Originally StrongCheck (SC) was fully stack safe where there were some cases that QuickCheck (QC) was not, but QC is now too. I wouldn't use SC now unless I needed `smallCheck` (exhaustive testing) or `statCheck` (statistical testing) as it is significantly slower, to the point of it being annoying on some tests
 
+Consider also reading through [QuickCheck, Hedgehog, and Validity](https://www.fpcomplete.com/blog/quickcheck-hedgehog-validity), an article on Haskell's different testing libraries.
+
 Lastly, QuickCheck's `Gen` type and combinators are used in `Benchotron`, the Purescript benchmarking library (covered next)
