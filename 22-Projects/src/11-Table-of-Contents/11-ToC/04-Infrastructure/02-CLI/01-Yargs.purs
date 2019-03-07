@@ -72,7 +72,7 @@ runProgramViaCLI runOnceEnvConfigured = do
                 -- project-specific files
                 , "benchmark-results"
                 -- repo-specific files
-                , "images", "modules-used-in-examples", "resources"
+                , "assets", "modules-used-in-examples"
                 ]) true
         <*> yarg "f" ["include-files-with-extensions"]
               (Just "An array of file extensions that indicate which files \

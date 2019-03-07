@@ -123,7 +123,7 @@ Our program consists of six stages
 6. Write the final content to the output file.
 
 The following image is the general flow of the program:
-![Control-Flow](./images/Control-Flow.svg)
+![Control-Flow](./assets/Control-Flow.svg)
 
 In addition to the above, we'll also have a parser and a renderer. Both will be provided via the `Env` type, so that we can easily use a different parser approach or a different output type.
 

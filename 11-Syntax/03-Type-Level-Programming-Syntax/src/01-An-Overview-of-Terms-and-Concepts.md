@@ -84,7 +84,7 @@ This definition sufficed when we were learning only value-level programming. In 
 | Type | The "kind" (i.e. type-level type) that indicates a value-level type for value-level programming |
 
 Sometimes, pictures say a lot more than words:
-![comparing-kinds-with-types](../images/Comparing-Kinds-With-Types.svg "Comparing Kinds with Types")
+![comparing-kinds-with-types](../assets/Comparing-Kinds-With-Types.svg "Comparing Kinds with Types")
 
 We can now modify the definition to account for this new understanding:
 > Kinds = "How many more type-level types do I need defined before I have a 'concrete' type-level type? Also, `kind Type` is a type-level type whose 'values'/'members' are value-level types.

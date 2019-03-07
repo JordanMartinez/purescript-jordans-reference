@@ -3,7 +3,7 @@
 ## Relationships
 
 Below is a dependency graph / type class categorization of the type classes found in Prelude. The usage frequency key is my current understanding and may be inaccurate for the "somewhat"/"rare" type classes:
-![prelude-typeclasses](./images/Prelude-Typeclasses.svg "Relationships and Categorization of Prelude's Type")
+![prelude-typeclasses](./assets/Prelude-Typeclasses.svg "Relationships and Categorization of Prelude's Type")
 
 ## Tricks for Implementing a Type Class Instance
 
