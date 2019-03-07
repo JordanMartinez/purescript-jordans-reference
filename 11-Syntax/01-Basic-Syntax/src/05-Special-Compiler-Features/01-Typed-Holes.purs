@@ -1,6 +1,19 @@
 module Syntax.SpecialCompilerFeatures.Holes where
 
 {-
+
+Original credit: @paf31 / @kritzcreek
+
+Link: https://github.com/paf31/24-days-of-purescript-2016/blob/master/23.markdown
+
+Changes made:
+- use meta-language to explain syntax and give a few very simple examples
+
+Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
+https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US
+
+----------------------------------
+
 Sometimes, when writing code, we're not always sure which function/value
 we should use. In such cases, we can use a feature called
 "Typed Holes" / "Type Directed Search" to ask the compiler to tell us
@@ -9,8 +22,11 @@ what it thinks should go there.
 This feature can often be very helpful when debugging a compiler error
 or when exploring a new library for the first time.
 
-To utilize this syntax, replace the spot where that function/value would go
-with "?name" where 'name' can be anything you want.
+Syntax:
+`?placeholderName`
+
+Replace the function/value you want the compiler to suggest for you with
+the above syntax.
 -}
 
 warning :: String
@@ -40,3 +56,6 @@ warning =
 
 -- example2 :: String
 -- example2 = "hello" ?I_Don't_know " world"
+
+-- example3 :: Int
+-- example3 = 1 + ?what_could_this_be
