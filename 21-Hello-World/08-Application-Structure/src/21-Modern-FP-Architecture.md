@@ -10,6 +10,7 @@ Now might be a good time to re-read these articles:
 - [A Modern Architecture for FP: Part 1](http://degoes.net/articles/modern-fp)
 - [A Modern Architecture for FP: Part 2](http://degoes.net/articles/modern-fp-part-2)
 - [Freer Monads, More Better Programs](reasonablypolymorphic.com/blog/freer-monads/index.html)
+- [Freer doesn't come for free](https://medium.com/barely-functional/freer-doesnt-come-for-free-c9fade793501)
 
 ## Evaluating MTL and Free
 
