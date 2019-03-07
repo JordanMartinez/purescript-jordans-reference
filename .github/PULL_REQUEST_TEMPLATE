@@ -5,6 +5,7 @@ Instructions
 - PRs should be merged into the `latestRelease` branch
     - allows me to continue working on `development` branch without needing to worry about merge conflicts until later
     - allows me to force-push to the `development` branch if need be without overwriting your commits
+- Any images, GraphML files, etc. should go in a folder called "assets" that is a sibling to the files where it is used. Then all references will abide by this pattern `./assets/imageName.png`
 
 Once the above has been done, open a PR and delete this content.
 
