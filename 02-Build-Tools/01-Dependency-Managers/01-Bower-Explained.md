@@ -12,6 +12,8 @@ When developing a library, one needs to refer to specific versions of dependenci
 
 If one uses `psc-package`, they can modify the "binary" of the dependency without changing the version to which it refers. For application developers, this can be desirable. Not so for library developers.
 
+Note: it is still possible for one to use `bower` for application development. Some people think it's better suited for this than `spago`. Others disagree. Learn about both and make your decision.
+
 ### Why doesn't Purescript use `npm`?
 
 The following provides a much shorter explanation of [Why the PureScript Community Uses Bower](https://harry.garrood.me/blog/purescript-why-bower/)
