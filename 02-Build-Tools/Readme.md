@@ -22,7 +22,7 @@ Bodil Stokke (with later contributions from Harry Garrood) later wrote a tool ca
 - publish libraries and their docs
 - easily bump the project's version
 
-### Phase 2: Experimentation
+### Phase 2: The `psc-package` Experiment
 
 `Bower` worked fine, but there were a few user-interface issues that made it difficult to use, especially when a new PureScript release was made that included breaking changes.
 
@@ -38,7 +38,7 @@ See the below image to visualize this:
 
 ![Build Tool Relationships - No Spago "Build Tool Relationships"](./assets/Build-Tool-Relationships--no-Spago.svg)
 
-### Phase 3: Integration
+### Phase 3: Improving The `psc-package` Developer Workflow
 
 From the above image, one should infer that using `pulp` and `bower` was overall easier to use and explain. To use `psc-package` effectively, one needed to use multiple tools.
 
