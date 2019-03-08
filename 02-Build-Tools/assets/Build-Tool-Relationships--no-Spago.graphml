@@ -15,7 +15,6 @@
   <graph edgedefault="directed" id="G">
     <data key="d0"/>
     <node id="n0">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="49.19999999999993" width="143.15234375" x="345.30488281250007" y="451.7999999999999"/>
@@ -35,7 +34,6 @@
       </data>
     </node>
     <node id="n1">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="74.19999999999993" width="179.345703125" x="237.60820312500005" y="118.79999999999973"/>
@@ -56,7 +54,6 @@
       </data>
     </node>
     <node id="n2">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="49.19999999999993" width="191.837890625" x="469.6810546875" y="353.79999999999995"/>
@@ -76,7 +73,6 @@
       </data>
     </node>
     <node id="n3">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="49.19999999999993" width="238.66015625" x="207.95097656250005" y="353.79999999999995"/>
@@ -96,7 +92,6 @@
       </data>
     </node>
     <node id="n4">
-      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="84.19999999999993" width="111.541015625" x="636.3953458835" y="108.79999999999973"/>
@@ -119,7 +114,6 @@ initial build tool)<y:LabelModel>
     </node>
     <node id="n5" yfiles.foldertype="group">
       <data key="d4"/>
-      <data key="d5"/>
       <data key="d6">
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
@@ -149,7 +143,6 @@ initial build tool)<y:LabelModel>
       </data>
       <graph edgedefault="directed" id="n5:">
         <node id="n5::n0">
-          <data key="d5"/>
           <data key="d6">
             <y:ShapeNode>
               <y:Geometry height="30.0" width="152.19921875" x="145.21660156250005" y="29.99999999999966"/>
@@ -167,7 +160,6 @@ initial build tool)<y:LabelModel>
           </data>
         </node>
         <node id="n5::n1">
-          <data key="d5"/>
           <data key="d6">
             <y:ShapeNode>
               <y:Geometry height="30.0" width="219.283203125" x="145.21660156250005" y="-23.00000000000034"/>
@@ -185,25 +177,6 @@ initial build tool)<y:LabelModel>
           </data>
         </node>
         <node id="n5::n2">
-          <data key="d5"/>
-          <data key="d6">
-            <y:ShapeNode>
-              <y:Geometry height="30.0" width="84.212890625" x="394.49980468750005" y="29.99999999999966"/>
-              <y:Fill color="#C0C0C0" transparent="false"/>
-              <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="17.96875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="74.212890625" x="5.0" y="6.015625">Deprecated<y:LabelModel>
-                  <y:SmartNodeLabelModel distance="4.0"/>
-                </y:LabelModel>
-                <y:ModelParameter>
-                  <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
-                </y:ModelParameter>
-              </y:NodeLabel>
-              <y:Shape type="rectangle"/>
-            </y:ShapeNode>
-          </data>
-        </node>
-        <node id="n5::n3">
-          <data key="d5"/>
           <data key="d6">
             <y:ShapeNode>
               <y:Geometry height="30.0" width="114.845703125" x="394.49980468750005" y="-23.00000000000034"/>
@@ -222,29 +195,7 @@ initial build tool)<y:LabelModel>
         </node>
       </graph>
     </node>
-    <node id="n6">
-      <data key="d5"/>
-      <data key="d6">
-        <y:ShapeNode>
-          <y:Geometry height="59.39999999999998" width="129.376953125" x="35.873632812500034" y="126.1999999999997"/>
-          <y:Fill color="#CCFFCC" transparent="false"/>
-          <y:BorderStyle color="#000000" raised="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="59.875" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="119.376953125" x="5.0" y="-0.23750000000001137">purp
-
-(build tool focused 
-on psc-package)<y:LabelModel>
-              <y:SmartNodeLabelModel distance="4.0"/>
-            </y:LabelModel>
-            <y:ModelParameter>
-              <y:SmartNodeLabelModelParameter labelRatioX="0.0" labelRatioY="0.0" nodeRatioX="0.0" nodeRatioY="0.0" offsetX="0.0" offsetY="0.0" upX="0.0" upY="-1.0"/>
-            </y:ModelParameter>
-          </y:NodeLabel>
-          <y:Shape type="rectangle"/>
-        </y:ShapeNode>
-      </data>
-    </node>
     <edge id="e0" source="n4" target="n0">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -257,7 +208,6 @@ on psc-package)<y:LabelModel>
       </data>
     </edge>
     <edge id="e1" source="n4" target="n2">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -270,7 +220,6 @@ on psc-package)<y:LabelModel>
       </data>
     </edge>
     <edge id="e2" source="n4" target="n3">
-      <data key="d9"/>
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
@@ -282,32 +231,7 @@ on psc-package)<y:LabelModel>
         </y:PolyLineEdge>
       </data>
     </edge>
-    <edge id="e3" source="n6" target="n3">
-      <data key="d9"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="standard"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e4" source="n6" target="n0">
-      <data key="d9"/>
-      <data key="d10">
-        <y:PolyLineEdge>
-          <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="100.56210937500003" y="476.39999999999986"/>
-          </y:Path>
-          <y:LineStyle color="#000000" type="line" width="1.0"/>
-          <y:Arrows source="none" target="standard"/>
-          <y:BendStyle smoothed="false"/>
-        </y:PolyLineEdge>
-      </data>
-    </edge>
-    <edge id="e5" source="n1" target="n3">
-      <data key="d9"/>
+    <edge id="e3" source="n1" target="n3">
       <data key="d10">
         <y:PolyLineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0"/>

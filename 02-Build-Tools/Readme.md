@@ -28,21 +28,17 @@ Bodil Stokke (with later contributions from Harry Garrood) later wrote a tool ca
 
 As a result, `psc-package` was developed as an experimental dependency manager. It solved some of the problems that `bower` faced. `pulp` later supported `psc-package`, so that one could benefit from the simple developer workflow.
 
-However, `psc-package` encountered its own problems, too. People could not easily create and modify something called a "local package set" (explained later in the `Psc-Package-Explained.md` file).
+However, `psc-package` encountered its own problems, too. People could not easily create and modify something called a "local package set" (a term that is explained later in the `Psc-Package-Explained.md` file).
 
 To resolve these problems, Justin Woo started a project called `spacchetti` (he likes to name his projects via food puns), which made it much easier to create and modify a "local package set."
-
-Since `pulp` seemed to work primarily with `bower`, Justin Woo also created a project called `purp`, which was basically `pulp` but designed to only use `psc-package` as its dependency manager.
 
 See the below image to visualize this:
 
 ![Build Tool Relationships - No Spago "Build Tool Relationships"](./assets/Build-Tool-Relationships--no-Spago.svg)
 
-### Phase 3: Improving The `psc-package` Developer Workflow
+### Phase 3: Improving the `psc-package` Developer Workflow via `Spago`
 
-From the above image, one should infer that using `pulp` and `bower` was overall easier to use and explain. To use `psc-package` effectively, one needed to use multiple tools.
-
-Thus, Justin Woo and Fabrizo Ferrai started a project called `spago` to provide a seamless developer workflow for `psc-package` and its related projects (similar to what `pulp` did for `bower`).
+From the above image, one should infer that using `pulp` and `bower` was overall easier to use and explain. Thus, Justin Woo and Fabrizo Ferrai started a project called `spago`. `spago` "absorbed" `psc-package` and `spacchetti` into one program and now provides a seamless developer workflow.
 
 The below image summarizes the current state:
 
@@ -55,7 +51,6 @@ The below image summarizes the current state:
 | purs | PureScript Compiler | Used to be called `psc` | -- |
 | psvm-js | PureScript Version Manager | -- | https://github.com/ThomasCrevoisier/psvm-js
 | bower | Dependency Manager | -- | https://bower.io/ |
-| psc-package | Dependency Manager | -- | https://github.com/purescript/psc-package |
 | pulp | Build Tool | Front-end to `purs`. Builds & publishes projects | https://github.com/purescript-contrib/pulp |
 | spago | Build Tool | Front-end to `purs` and `psc-package` projects | https://github.com/spacchetti/spago
 | pscid | `pulp --watch build` on steroids | Seems to be a more recent version of `psc-pane` (see below) and uses `psa` | https://github.com/kRITZCREEK/pscid
@@ -65,6 +60,7 @@ The following seem to be deprecated or no longer used:
 
 | Name | Type/Usage | Comments | URL |
 | - | - | - | - |
+| psc-package | Dependency Manager | -- | https://github.com/purescript/psc-package |
 | psc-pane | Simplistic auto-reloading REPL-based IDE | No longer used? Last updated 1 year ago... | https://github.com/anttih/psc-pane
 | gulp-purescript | Gulp-based Build Tool | No longer used? Last updated 1 year ago... | https://github.com/purescript-contrib/gulp-purescript |
 | Purify | -- | Deprecated in light of psc-package | -- |
