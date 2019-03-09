@@ -51,8 +51,11 @@ Here's a "big picture" flowchart for what a person does and how it fits into the
 
 ## Problem Points?
 
-None really. However, here are some things to keep in mind.
-
-- You cannot use this workflow to develop libraries. Use `pulp` and `bower` for that.
-- Just like `bower`, you still need to use `npm` to install JavaScript libraries for any PureScript bindings.
-- Forgetting to "freeze" your `packages.dhall` file poses a security risk.
+- Major
+    - You cannot use this workflow to develop libraries. Use `pulp` and `bower` for that.
+    - There is no `docs` command yet. One has to pass in the correct arguments to `purs` (see https://github.com/spacchetti/spago/issues/89 for more info).
+    - Forgetting to "freeze" your `packages.dhall` file poses a security risk.
+- Minor / has workarounds
+    - There is no `watch` argument, making it possible to rebuild the project whenever a file changes (see https://github.com/spacchetti/spago/issues/65). To workaround this, one can use other programs that call `spago build` or whatever command you need.
+    - There is no built-in `browserify` command (like `pulp`). So, you need to execute that command (or `parcel`) yourself.
+    - Just like `bower`, you still need to use `npm` to install JavaScript libraries for any PureScript bindings. To understand why, see https://github.com/spacchetti/spago#why-cant-spago-also-install-my-npm-dependencies
