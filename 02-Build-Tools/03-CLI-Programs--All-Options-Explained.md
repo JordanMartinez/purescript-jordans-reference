@@ -9,8 +9,8 @@ The following libraries have been documented in this manner:
 
 Download [Freeplane](https://www.freeplane.org/) to read through the documentation in a mind-map format
 
-![Purescript-Build-Tools.mm](./Purescript-Build-Tools.mm)
+![Purescript-Build-Tools.mm](./assets/Purescript-Build-Tools.mm)
 
 Otherwise, read through the SVG file:
 
-![build-tools-cli-options](./Build-Tools-CLI-Options.svg)
+![build-tools-cli-options](./assets/Build-Tools-CLI-Options.svg)
