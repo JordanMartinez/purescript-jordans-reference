@@ -21,7 +21,7 @@ nano packages.dhall
 # 2b) When finished, either verify that a single patched/added package
 #       works with the rest of the set...
 spago verify singlePackageName
-#       or re-verify the packaget set
+#       or re-verify the entire packaget set
 spago verify-set
 ```
 
