@@ -27,6 +27,7 @@ TODO, but the general idea is:
 - a linter is just a basic static type checker
 - easier to write, read, and understand a 'safer language' that compiles to efficient Javascript
 - alternatives: Typescript, Coffeescript, Elm, etc.
+- [TypeScript vs PureScript: Not All Compilers Are Created Equal](https://blog.logrocket.com/typescript-vs-purescript-not-all-compilers-are-created-equal-c16dadaa7d3e)
 - [OO "design patterns" in FP languages](http://blog.ezyang.com/2010/05/design-patterns-in-haskel/)
 
 ## ...and write Purescript instead of alternatives
