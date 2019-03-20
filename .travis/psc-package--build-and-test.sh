@@ -85,19 +85,19 @@ HELLO_APP_STRUCT_BUILT_OK=$?
 
 # Run the example programs
 ## Hello World
-pulp --psc-package run -m Examples.HelloWorld.ReaderT
+spago run -m Examples.HelloWorld.ReaderT
 HELLO_EXAMPLE_HELLO_WORLD_READERT=$?
-pulp --psc-package run -m Examples.HelloWorld.Free
+spago run -m Examples.HelloWorld.Free
 HELLO_EXAMPLE_HELLO_WORLD_FREE=$?
-pulp --psc-package run -m Examples.HelloWorld.Run
+spago run -m Examples.HelloWorld.Run
 HELLO_EXAMPLE_HELLO_WORLD_RUN=$?
 
 ## Number Comparison
-pulp --psc-package run -m Examples.NumberComparison.ReaderT
+spago run -m Examples.NumberComparison.ReaderT
 HELLO_EXAMPLE_NUMBER_COMPARISON_READERT=$?
-pulp --psc-package run -m Examples.NumberComparison.Free
+spago run -m Examples.NumberComparison.Free
 HELLO_EXAMPLE_NUMBER_COMPARISON_FREE=$?
-pulp --psc-package run -m Examples.NumberComparison.Run
+spago run -m Examples.NumberComparison.Run
 HELLO_EXAMPLE_NUMBER_COMPARISON_RUN=$?
 
 cd ../../
