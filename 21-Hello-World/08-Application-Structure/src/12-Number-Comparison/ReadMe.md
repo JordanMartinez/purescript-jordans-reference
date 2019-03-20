@@ -13,7 +13,7 @@ The upcoming projects will build on this pattern and include tests/benchmarks th
 Run the following while in the `Hello World/Application Structure/` folder.
 
 ```bash
-pulp --psc-package run -m Examples.NumberComparison.ReaderT
-pulp --psc-package run -m Examples.NumberComparison.Free
-pulp --psc-package run -m Examples.NumberComparison.Run
+spago run -m Examples.NumberComparison.ReaderT
+spago run -m Examples.NumberComparison.Free
+spago run -m Examples.NumberComparison.Run
 ```

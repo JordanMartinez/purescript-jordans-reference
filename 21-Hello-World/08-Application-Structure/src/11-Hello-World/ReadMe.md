@@ -9,7 +9,7 @@ This is as simple as can be: the program prints "hello world" to the console and
 Run the following while in the `Hello World/Application Structure/` folder.
 
 ```bash
-pulp --psc-package run -m Examples.HelloWorld.ReaderT
-pulp --psc-package run -m Examples.HelloWorld.Free
-pulp --psc-package run -m Examples.HelloWorld.Run
+spago run -m Examples.HelloWorld.ReaderT
+spago run -m Examples.HelloWorld.Free
+spago run -m Examples.HelloWorld.Run
 ```
