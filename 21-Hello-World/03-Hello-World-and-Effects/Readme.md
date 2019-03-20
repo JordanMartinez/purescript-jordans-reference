@@ -27,4 +27,14 @@ Second, one can compile the examples and view their resulting Javascript files, 
 | Command | `spago make-module --main [moduleName] --to dist/module.js` | `spago bundle --main [moduleName] --to dist/app.js`
 | Javascript files' location | `dist/module.js` | `dist/app.js` |
 
+To run each program in this directory, use these commands:
+```bash
+spago run --main HelloWorld
+spago run --main HelloNumber
+spago run --main HelloDoNotation
+spago run --main RandomNumber
+spago run --main CurrentDateAndTime
+spago run --main TimeoutAndInterval
+```
+
 Now go to the `src/` directory and read through the code files in numerical order.
