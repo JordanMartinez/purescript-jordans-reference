@@ -80,7 +80,7 @@ cd ../../
 
 cd 21-Hello-World/08-Application-Structure/
 pwd
-pulp --psc-package build
+spago build
 HELLO_APP_STRUCT_BUILT_OK=$?
 
 # Run the example programs

@@ -61,7 +61,7 @@ cd ../../
 
 cd 21-Hello-World/08-Application-Structure/
 pwd
-psc-package install
+spago install
 cd ../../
 
 cd 22-Projects/
