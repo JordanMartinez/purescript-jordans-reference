@@ -45,7 +45,7 @@ cd ../../
 
 cd 21-Hello-World/03-Hello-World-and-Effects/
 pwd
-pulp --psc-package build
+spago build
 HELLO_EFFECTS=$?
 cd ../../
 

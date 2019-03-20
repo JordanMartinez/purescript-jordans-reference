@@ -35,7 +35,7 @@ cd ../../
 
 cd 21-Hello-World/03-Hello-World-and-Effects/
 pwd
-psc-package install
+spago install
 cd ../../
 
 cd 21-Hello-World/04-Debugging/
