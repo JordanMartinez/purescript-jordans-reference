@@ -25,13 +25,13 @@ cd ../../
 
 cd 11-Syntax/03-Type-Level-Programming-Syntax/
 pwd
-pulp --psc-package build
+spago build
 SYNTAX_TLP=$?
 cd ../../
 
 cd 11-Syntax/04-Module-Syntax/
 pwd
-pulp --psc-package build
+spago build
 SYNTAX_MODULE=$?
 cd ../../
 

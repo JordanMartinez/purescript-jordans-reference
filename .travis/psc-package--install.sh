@@ -23,7 +23,7 @@ cd ../../
 
 cd 11-Syntax/04-Module-Syntax/
 pwd
-psc-package install
+spago install
 cd ../../
 
 cd 11-Syntax/05-Prelude-Syntax/
