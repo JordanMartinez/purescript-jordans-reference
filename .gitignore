@@ -17,6 +17,7 @@
 /**/dist/**/*.js
 /**/node_modules/
 /**/package-lock.json
+/**/.spago/
 
 # For the benchmarking folder
 /**/tmp/
