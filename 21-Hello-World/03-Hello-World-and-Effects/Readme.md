@@ -20,12 +20,11 @@ main
 
 ## Compilation
 
-Second, one can compile the examples and view their resulting Javascript files, the unoptimized and optimized version:
+Second, one can compile the examples and view their resulting Javascript files, a file for a module or a file that bundles everything into an executable:
 
-| | Unoptimized | Optimized |
+| | Module | Executable File |
 | - | - | - |
-| Command | `pulp --psc-package build --main [moduleName]` | `pulp --psc-package build --main [moduleName] --to dist/[fileName].js`
-| Javascript files' location | `output/[moduleName]/index.js` | `dist/[fileName].js` |
-| Example Command<hr>Output Location | `pulp --psc-package build --main HelloWorld`<hr>`output/HelloWorld/index.js` | `pulp --psc-package build --main HelloWorld --to dist/HelloWorld.js`<hr>`dist/HelloWorld.js`
+| Command | `spago make-module --main [moduleName] --to dist/module.js` | `spago bundle --main [moduleName] --to dist/app.js`
+| Javascript files' location | `dist/module.js` | `dist/app.js` |
 
 Now go to the `src/` directory and read through the code files in numerical order.
