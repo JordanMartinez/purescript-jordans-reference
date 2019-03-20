@@ -9,11 +9,11 @@ These examples are compilable, enabling the reader to do two things.
 
 ## REPL
 
-First, one can interact with the code in the REPL via the command `pulp repl`. Once initialized, one can import a module into the REPL and play with the code from there (e.g. run `main`).
+First, one can interact with the code in the REPL via the command `spago repl`. Once initialized, one can import a module into the REPL and play with the code from there (e.g. run `main`).
 
 For example, one might input the following command sequence:
 ```bash
-pulp repl
+spago repl
 import HelloWorld
 main
 ```
