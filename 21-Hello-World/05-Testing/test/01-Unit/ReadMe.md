@@ -21,11 +21,11 @@ To run the tests in this folder, use the following commands:
 # Assuming you are in the top-level "Testing" folder
 
 # To run each self-contained file...
-pulp --psc-package test --main Test.Spec.Examples.SelfContained.ConsoleReporter
-pulp --psc-package test --main Test.Spec.Examples.SelfContained.DotReporter
-pulp --psc-package test --main Test.Spec.Examples.SelfContained.SpecReporter
-pulp --psc-package test --main Test.Spec.Examples.SelfContained.TapReporter
+spago test --main Test.Spec.Examples.SelfContained.ConsoleReporter
+spago test --main Test.Spec.Examples.SelfContained.DotReporter
+spago test --main Test.Spec.Examples.SelfContained.SpecReporter
+spago test --main Test.Spec.Examples.SelfContained.TapReporter
 
 # To run the Modulated runner file
-pulp --psc-package test --main Test.Spec.Examples.Modulated.Runner
+spago test --main Test.Spec.Examples.Modulated.Runner
 ```
