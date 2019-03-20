@@ -57,10 +57,12 @@ cd ../../
 
 cd 21-Hello-World/05-Testing/
 pwd
-# This fold includes tests that are designed to fail. So, rather than
+# This folder includes tests that are designed to fail. So, rather than
 # determining whether they succeeded, we just determine whether this
 # folder builds correctly.
-spago build --src-path "test"
+#
+# No need to specify a path to 'test' because it's already included by default
+spago build
 HELLO_TESTING=$?
 cd ../../
 
