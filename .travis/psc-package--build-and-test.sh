@@ -74,7 +74,7 @@ cd ../../
 
 cd 21-Hello-World/07-Type-Level-Programming/
 pwd
-pulp --psc-package build
+spago build
 HELLO_TLP=$?
 cd ../../
 

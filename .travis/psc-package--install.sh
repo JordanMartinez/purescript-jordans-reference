@@ -56,7 +56,7 @@ cd ../../
 
 cd 21-Hello-World/07-Type-Level-Programming/
 pwd
-psc-package install
+spago install
 cd ../../
 
 cd 21-Hello-World/08-Application-Structure/
