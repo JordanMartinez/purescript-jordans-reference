@@ -13,7 +13,7 @@ cd ../../
 
 cd 11-Syntax/02-Foreign-Function-Interface/
 pwd
-psc-package install
+spago install
 cd ../../
 
 cd 11-Syntax/03-Type-Level-Programming-Syntax/

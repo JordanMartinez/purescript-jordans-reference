@@ -53,7 +53,7 @@ cache:
   directories:
     - 11-Syntax/01-Basic-Syntax/.spago
     - 11-Syntax/01-Basic-Syntax/output
-    - 11-Syntax/02-Foreign-Function-Interface/.psc-package
+    - 11-Syntax/02-Foreign-Function-Interface/.spago
     - 11-Syntax/02-Foreign-Function-Interface/output
     - 11-Syntax/03-Type-Level-Programming-Syntax/.psc-package
     - 11-Syntax/03-Type-Level-Programming-Syntax/output

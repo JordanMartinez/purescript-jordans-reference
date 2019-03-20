@@ -19,7 +19,7 @@ cd ../../
 
 cd 11-Syntax/02-Foreign-Function-Interface/
 pwd
-pulp --psc-package build
+spago build
 SYNTAX_FFI=$?
 cd ../../
 
