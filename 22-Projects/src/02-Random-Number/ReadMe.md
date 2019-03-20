@@ -7,7 +7,9 @@ This folder will show how to build a "guess the random number" game. Here's an o
 
 ## Compilation Instructions
 
-Run the following while in the `Projects/` folder. The web-based games can be opened via `dist/random-number/<FP structure approach>/index.html`.
+Run the following while in the `Projects/` folder.
+
+The web-based games require a 2-step process of first running the `spago` command followed by the `parcel` command. The games can be opened and played via `dist/random-number/<FP structure approach>/index.html`.
 
 ### Standard
 
@@ -18,9 +20,14 @@ spago run -m Games.RandomNumber.Free.Standard.Infrastructure.Console
 spago run -m Games.RandomNumber.Run.Standard.Infrastructure.Console
 
 ## Browser-based implementation
-pulp --psc-package browserify -O -m Games.RandomNumber.ReaderT.Standard.Infrastructure.Halogen.Web --to dist/random-number/readerT--standard/app.js
-pulp --psc-package browserify -O -m Games.RandomNumber.Free.Standard.Infrastructure.Halogen.Web --to dist/random-number/free--standard/app.js
-pulp --psc-package browserify -O -m Games.RandomNumber.Run.Standard.Infrastructure.Halogen.Web --to dist/random-number/run--standard/app.js
+spago bundle --main Games.RandomNumber.ReaderT.Standard.Infrastructure.Halogen.Web --to dist/random-number/readerT--standard/app.js
+parcel build -o dist/random-number/readerT--standard/app.js dist/random-number/readerT--standard/index.html
+
+spago bundle --main Games.RandomNumber.Free.Standard.Infrastructure.Halogen.Web --to dist/random-number/free--standard/app.js
+parcel build -o dist/random-number/free--standard/index.html
+
+spago bundle --main Games.RandomNumber.Run.Standard.Infrastructure.Halogen.Web --to dist/random-number/run--standard/app.js
+parcel build -o dist/random-number/run--standard/app.js dist/random-number/run--standard/index.html
 
 ## Test
 spago test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
@@ -41,8 +48,11 @@ spago run -m Games.RandomNumber.Run.Layered.ChangeImplementation
 spago run -m Games.RandomNumber.Run.Layered.AddDomainTerm
 
 ## Browser-based implementation
-pulp --psc-package browserify -O -m Games.RandomNumber.Free.Layered.Infrastructure.Halogen.Web --to dist/random-number/free--layered/app.js
-pulp --psc-package browserify -O -m Games.RandomNumber.Run.Layered.Infrastructure.Halogen.Web --to dist/random-number/run--layered/app.js
+spago build --main Games.RandomNumber.Free.Layered.Infrastructure.Halogen.Web --to dist/random-number/free--layered/app.js
+parcel build -o dist/random-number/free--layered/app.js dist/random-number/free--layered/index.html
+
+spago build --main Games.RandomNumber.Run.Layered.Infrastructure.Halogen.Web --to dist/random-number/run--layered/app.js
+parcel build -o dist/random-number/run--layered/app.js dist/random-number/run--layered/index.html
 
 ## Test
 spago test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
