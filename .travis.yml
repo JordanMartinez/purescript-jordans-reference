@@ -59,7 +59,7 @@ cache:
     - 11-Syntax/03-Type-Level-Programming-Syntax/output
     - 11-Syntax/04-Module-Syntax/.spago
     - 11-Syntax/04-Module-Syntax/output
-    - 11-Syntax/05-Prelude-Syntax/.psc-package
+    - 11-Syntax/05-Prelude-Syntax/.spago
     - 11-Syntax/05-Prelude-Syntax/output
     - 21-Hello-World/03-Hello-World-and-Effects/.psc-package
     - 21-Hello-World/03-Hello-World-and-Effects/output

@@ -37,7 +37,7 @@ cd ../../
 
 cd 11-Syntax/05-Prelude-Syntax/
 pwd
-pulp --psc-package build
+spago build
 SYNTAX_PRELUDE=$?
 cd ../../
 

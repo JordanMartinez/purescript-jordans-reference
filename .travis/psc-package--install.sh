@@ -28,7 +28,7 @@ cd ../../
 
 cd 11-Syntax/05-Prelude-Syntax/
 pwd
-psc-package install
+spago install
 cd ../../
 
 ## Hello World
