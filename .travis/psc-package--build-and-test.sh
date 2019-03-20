@@ -13,7 +13,7 @@
 
 cd 11-Syntax/01-Basic-Syntax/
 pwd
-pulp --psc-package build
+spago build
 SYNTAX_BASIC=$?
 cd ../../
 

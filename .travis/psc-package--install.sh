@@ -8,7 +8,7 @@
 
 cd 11-Syntax/01-Basic-Syntax/
 pwd
-psc-package install
+spago install
 cd ../../
 
 cd 11-Syntax/02-Foreign-Function-Interface/
