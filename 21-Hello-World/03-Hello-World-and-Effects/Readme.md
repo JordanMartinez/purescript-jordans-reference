@@ -35,6 +35,8 @@ spago run --main HelloDoNotation
 spago run --main RandomNumber
 spago run --main CurrentDateAndTime
 spago run --main TimeoutAndInterval
+spago run --main MutableState.Global
+spago run --main MutableState.Local
 ```
 
 Now go to the `src/` directory and read through the code files in numerical order.

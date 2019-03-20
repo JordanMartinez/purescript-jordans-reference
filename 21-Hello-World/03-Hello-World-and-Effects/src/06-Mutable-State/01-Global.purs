@@ -1,4 +1,4 @@
-module ConsoleLessons.MutableState.Global where
+module MutableState.Global where
 
 import Prelude
 import Effect (Effect)
@@ -10,7 +10,7 @@ import Effect.Ref as Ref
 main :: Effect Unit
 main = do
   box <- Ref.new 0
-  
+
   x0 <- Ref.read box
   log $ "x0 should be 0: " <> show x0
 
