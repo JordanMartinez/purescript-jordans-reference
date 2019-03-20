@@ -29,6 +29,8 @@ Second, one can compile the examples and view their resulting Javascript files, 
 
 To run each program in this directory, use these commands:
 ```bash
+# Syntax
+# spago run --main Module.Path.To.Main.Module
 spago run --main HelloWorld
 spago run --main HelloNumber
 spago run --main HelloDoNotation
