@@ -19,6 +19,10 @@
 /**/package-lock.json
 /**/.spago/
 
+# Ignore Parcel's files and directories
+/**/dist/**/*.js.map
+/**/.cache/
+
 # For the benchmarking folder
 /**/tmp/
 # Since we need to use Spacchetti to install Benchotron
