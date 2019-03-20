@@ -61,3 +61,10 @@ This is exactly what the library [Vec](https://pursuit.purescript.org/packages/p
 ## Other Learning Sources
 
 Consider purchasing the `Thinking with Types` book mentioned in `ROOT_FOLDER/Syntax/Type-Level Programming Syntax/ReadMe.md`
+
+## Compilation Instructions
+
+```bash
+spago run -m TLP.SymbolExample
+spago run -m TLP.RowExample
+```
