@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This file uses psc-package and pulp to build/test each folder's contents
+# This file uses `spago` to build/test each folder's contents
 # The exit code from the build/test command is stored via "$?"
 # At the end of this file, all exit codes are displayed and this shell
 # exits with 0 if everything worked correctly. Otherwise, it exits with 1.

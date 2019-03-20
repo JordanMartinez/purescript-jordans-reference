@@ -36,18 +36,18 @@ install:
   # Move that binary into $HOME/bin/ so that it is on the PATH
   - npm i -g purescript@0.12.3 spago
   # ^ Use NPM to install most packages
-  - chmod +x .travis/psc-package--print-versions.sh
-  - ./.travis/psc-package--print-versions.sh
+  - chmod +x .travis/spago--print-versions.sh
+  - ./.travis/spago--print-versions.sh
   # ^ Crudely print installed packages' versions
-  - chmod +x .travis/psc-package--install.sh
-  - ./.travis/psc-package--install.sh
+  - chmod +x .travis/spago--install.sh
+  - ./.travis/spago--install.sh
   # ^ Install each folder's contents using custom script
 
 before_script:
-  - chmod +x .travis/psc-package--build-and-test.sh
+  - chmod +x .travis/spago--build-and-test.sh
 
 script:
-  - ./.travis/psc-package--build-and-test.sh
+  - ./.travis/spago--build-and-test.sh
 
 cache:
   directories:
