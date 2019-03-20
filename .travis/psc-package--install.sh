@@ -67,8 +67,7 @@ cd ../../
 cd 22-Projects/
 pwd
 npm install benchmark yargs
-spacchetti insdhall
-psc-package install
+spago install
 cd ../
 
 echo "... Finished ...."

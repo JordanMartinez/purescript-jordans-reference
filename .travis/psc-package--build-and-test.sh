@@ -105,17 +105,17 @@ cd ../../
 cd 22-Projects/
 pwd
 # Build but do not run benchmark tests
-pulp --psc-package build --src-path "benchmark" --include "src:test"
+spago build -p "benchmark/**/*.purs"
 PROJECTS_BUILT_OK=$?
 
 # Node-based tests
-pulp --psc-package test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
+spago test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
 RANDOM_TEST_READERT_DIFFERENT=$?
-pulp --psc-package test -m Test.Games.RandomNumber.ReaderT.Standard.SameMonad
+spago test -m Test.Games.RandomNumber.ReaderT.Standard.SameMonad
 RANDOM_TEST_READERT_SAME=$?
-pulp --psc-package test -m Test.Games.RandomNumber.Run.Standard.Infrastructure
+spago test -m Test.Games.RandomNumber.Run.Standard.Infrastructure
 RANDOM_TEST_RUN_STANDARD=$?
-pulp --psc-package test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
+spago test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
 RANDOM_TEST_RUN_LAYERED=$?
 cd ../
 
