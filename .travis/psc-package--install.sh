@@ -51,8 +51,7 @@ cd ../../
 cd 21-Hello-World/06-Benchmarking/
 pwd
 npm install benchmark
-spacchetti insdhall
-psc-package install
+spago install
 cd ../../
 
 cd 21-Hello-World/07-Type-Level-Programming/

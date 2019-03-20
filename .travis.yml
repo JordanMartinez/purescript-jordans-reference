@@ -67,7 +67,7 @@ cache:
     - 21-Hello-World/04-Debugging/output
     - 21-Hello-World/05-Testing/.spago
     - 21-Hello-World/05-Testing/output
-    - 21-Hello-World/06-Benchmarking/.psc-package
+    - 21-Hello-World/06-Benchmarking/.spago
     - 21-Hello-World/06-Benchmarking/output
     - 21-Hello-World/06-Benchmarking/node_modules
     - 21-Hello-World/07-Type-Level-Programming/.psc-package

@@ -68,7 +68,7 @@ cd ../../
 
 cd 21-Hello-World/06-Benchmarking/
 pwd
-pulp --psc-package build --src-path "benchmark"
+spago build --path "benchmark/**/*.purs"
 HELLO_BENCHMARK=$?
 cd ../../
 

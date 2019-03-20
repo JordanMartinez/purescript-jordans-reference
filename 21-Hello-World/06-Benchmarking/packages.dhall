@@ -1,5 +1,5 @@
 {-
-Welcome to Spacchetti local packages!
+Welcome to your new Dhall package-set!
 
 Below are instructions for how to edit this file for most use
 cases, so that you don't need to know Dhall to use it.
@@ -35,107 +35,107 @@ Replace the overrides' "{=}" (an empty record) with the following idea
 The "//" or "⫽" means "merge these two records and
   when they have the same value, use the one on the right:"
 -------------------------------
-in let override =
-     { packageName =
-         upstream.packageName ⫽ { updateEntity1 = "new value", updateEntity2 = "new value" }
-     , packageName =
-         upstream.packageName ⫽ { version = "v4.0.0" }
-     , packageName =
-         upstream.packageName // { repo = "https://www.example.com/path/to/new/repo.git" }
-     }
+let override =
+  { packageName =
+      upstream.packageName // { updateEntity1 = "new value", updateEntity2 = "new value" }
+  , packageName =
+      upstream.packageName // { version = "v4.0.0" }
+  , packageName =
+      upstream.packageName // { repo = "https://www.example.com/path/to/new/repo.git" }
+  }
 -------------------------------
 
 Example:
 -------------------------------
-in let overrides =
-     { halogen =
-         upstream.halogen ⫽ { version = "master" }
-     , halogen-vdom =
-         upstream.halogen-vdom ⫽ { version = "v4.0.0" }
-     }
+let overrides =
+  { halogen =
+      upstream.halogen // { version = "master" }
+  , halogen-vdom =
+      upstream.halogen-vdom // { version = "v4.0.0" }
+  }
 -------------------------------
 
 ### Additions
 
 Purpose:
-- Add packages that aren't alread included in the default package set
+- Add packages that aren't already included in the default package set
 
 Syntax:
 Replace the additions' "{=}" (an empty record) with the following idea:
 -------------------------------
-in let additions =
-     { "package-name" =
-          mkPackage
-            [ "dependency1"
-            , "dependency2"
-            ]
-            "https://example.com/path/to/git/repo.git"
-            "tag ('v4.0.0') or branch ('master')"
-     , "package-name" =
-          mkPackage
-            [ "dependency1"
-            , "dependency2"
-            ]
-            "https://example.com/path/to/git/repo.git"
-            "tag ('v4.0.0') or branch ('master')"
-     , etc.
-     }
+let additions =
+  { "package-name" =
+       mkPackage
+         [ "dependency1"
+         , "dependency2"
+         ]
+         "https://example.com/path/to/git/repo.git"
+         "tag ('v4.0.0') or branch ('master')"
+  , "package-name" =
+       mkPackage
+         [ "dependency1"
+         , "dependency2"
+         ]
+         "https://example.com/path/to/git/repo.git"
+         "tag ('v4.0.0') or branch ('master')"
+  , etc.
+  }
 -------------------------------
 
 Example:
 -------------------------------
-in let additions =
-     { benchotron =
-         mkPackage
-           [ "arrays"
-           , "exists"
-           , "profunctor"
-           , "strings"
-           , "quickcheck"
-           , "lcg"
-           , "transformers"
-           , "foldable-traversable"
-           , "exceptions"
-           , "node-fs"
-           , "node-buffer"
-           , "node-readline"
-           , "datetime"
-           , "now"
-           ]
-           "https://github.com/hdgarrood/purescript-benchotron.git"
-           "v7.0.0"
-     }
+let additions =
+  { benchotron =
+      mkPackage
+        [ "arrays"
+        , "exists"
+        , "profunctor"
+        , "strings"
+        , "quickcheck"
+        , "lcg"
+        , "transformers"
+        , "foldable-traversable"
+        , "exceptions"
+        , "node-fs"
+        , "node-buffer"
+        , "node-readline"
+        , "datetime"
+        , "now"
+        ]
+        "https://github.com/hdgarrood/purescript-benchotron.git"
+        "v7.0.0"
+  }
 -------------------------------
 -}
 
-    let mkPackage =
-          https://raw.githubusercontent.com/justinwoo/spacchetti/241018/src/mkPackage.dhall
+let mkPackage =
+      https://raw.githubusercontent.com/purescript/package-sets/psc-0.12.3-20190315/src/mkPackage.dhall sha256:0b197efa1d397ace6eb46b243ff2d73a3da5638d8d0ac8473e8e4a8fc528cf57
 
-in  let upstream =
-          https://raw.githubusercontent.com/justinwoo/spacchetti/241018/src/packages.dhall
+let upstream =
+      https://raw.githubusercontent.com/purescript/package-sets/psc-0.12.3-20190315/src/packages.dhall sha256:08714bc666b16834f0f4cf86d408745ce005c43e3343821e4c3864ef28709177
 
-in  let overrides = {=}
+let overrides = {=}
 
-in  let additions =
-       { benchotron =
-           mkPackage
-             [ "arrays"
-             , "exists"
-             , "profunctor"
-             , "strings"
-             , "quickcheck"
-             , "lcg"
-             , "transformers"
-             , "foldable-traversable"
-             , "exceptions"
-             , "node-fs"
-             , "node-buffer"
-             , "node-readline"
-             , "datetime"
-             , "now"
-             ]
-             "https://github.com/hdgarrood/purescript-benchotron.git"
-             "v7.0.0"
-       }
+let additions =
+    { benchotron =
+        mkPackage
+          [ "arrays"
+          , "exists"
+          , "profunctor"
+          , "strings"
+          , "quickcheck"
+          , "lcg"
+          , "transformers"
+          , "foldable-traversable"
+          , "exceptions"
+          , "node-fs"
+          , "node-buffer"
+          , "node-readline"
+          , "datetime"
+          , "now"
+          ]
+          "https://github.com/hdgarrood/purescript-benchotron.git"
+          "v7.0.0"
+    }
 
-in  upstream ⫽ overrides ⫽ additions
+in  upstream // overrides // additions
