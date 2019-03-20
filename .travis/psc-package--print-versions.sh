@@ -15,14 +15,8 @@ npm --version
 echo "Purescript:"
 purs --version
 
-echo "Pulp:"
-pulp --version
-
-echo "Psc-Package:"
-psc-package --version
-
-echo "Spacchetti:"
-spacchetti version
+echo "Spago:"
+spago --version
 
 echo "=============================="
 echo ""
