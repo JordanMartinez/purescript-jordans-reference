@@ -51,7 +51,7 @@ cd ../../
 
 cd 21-Hello-World/04-Debugging/
 pwd
-pulp --psc-package build
+spago build
 HELLO_DEBUGGING=$?
 cd ../../
 

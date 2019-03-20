@@ -63,7 +63,7 @@ cache:
     - 11-Syntax/05-Prelude-Syntax/output
     - 21-Hello-World/03-Hello-World-and-Effects/.spago
     - 21-Hello-World/03-Hello-World-and-Effects/output
-    - 21-Hello-World/04-Debugging/.psc-package
+    - 21-Hello-World/04-Debugging/.spago
     - 21-Hello-World/04-Debugging/output
     - 21-Hello-World/05-Testing/.psc-package
     - 21-Hello-World/05-Testing/output

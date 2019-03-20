@@ -40,7 +40,7 @@ cd ../../
 
 cd 21-Hello-World/04-Debugging/
 pwd
-psc-package install
+spago install
 cd ../../
 
 cd 21-Hello-World/05-Testing/
