@@ -60,7 +60,7 @@ pwd
 # This fold includes tests that are designed to fail. So, rather than
 # determining whether they succeeded, we just determine whether this
 # folder builds correctly.
-pulp --psc-package build --src-path "test"
+spago build --src-path "test"
 HELLO_TESTING=$?
 cd ../../
 

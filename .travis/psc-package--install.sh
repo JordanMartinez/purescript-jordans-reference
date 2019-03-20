@@ -45,7 +45,7 @@ cd ../../
 
 cd 21-Hello-World/05-Testing/
 pwd
-psc-package install
+spago install
 cd ../../
 
 cd 21-Hello-World/06-Benchmarking/
