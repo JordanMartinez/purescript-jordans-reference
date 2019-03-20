@@ -17,21 +17,21 @@ Run the following while in the `Projects/` folder.
 ### Pre-reqs
 
 ```bash
-pulp --psc-package run -m Learn.Yargs.Syntax
-pulp --psc-package run -m Learn.Yargs.GetRootDirViaAbsolutePath
-pulp --psc-package run -m Learn.Yargs.GetRootDirViaEitherPath
-pulp --psc-package run -m Learn.NodeFS.Syntax
-pulp --psc-package run -m Learn.NodeFS.PrintAllFiles
-pulp --psc-package run -m Learn.Tree.Syntax
-pulp --psc-package run -m Learn.StringParsers.Syntax
-pulp --psc-package run -m Learn.Http.Syntax
+spago run -m Learn.Yargs.Syntax
+spago run -m Learn.Yargs.GetRootDirViaAbsolutePath
+spago run -m Learn.Yargs.GetRootDirViaEitherPath
+spago run -m Learn.NodeFS.Syntax
+spago run -m Learn.NodeFS.PrintAllFiles
+spago run -m Learn.Tree.Syntax
+spago run -m Learn.StringParsers.Syntax
+spago run -m Learn.Http.Syntax
 ```
 
 ### Standard
 
 ```bash
 # Build the program
-pulp --psc-package build -m Projects.ToC.Main --to dist/table-of-contents/ghtoc.js
+spago bundle --main Projects.ToC.Main --to dist/table-of-contents/ghtoc.js
 
 # Change directory to be at the root directory
 cd ../
