@@ -13,6 +13,6 @@ Note: one could also use `React`, but I'm not including it here.
 ## Compilation Instructions
 
 ```bash
-pulp --psc-package run -m ConsoleLessons.ReadLine.Effect
-pulp --psc-package run -m ConsoleLessons.ReadLine.AffMonad
+spago run -m ConsoleLessons.ReadLine.Effect
+spago run -m ConsoleLessons.ReadLine.AffMonad
 ```
