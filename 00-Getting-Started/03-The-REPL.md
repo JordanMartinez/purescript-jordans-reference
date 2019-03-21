@@ -19,30 +19,32 @@ cd playground
 # Note: the following commands will be explained more in the
 #   "Build-Tools" folder
 
-# 3. Create a new psc-package.json file using psc-package
-psc-package init --set psc-0.12.3-20190227 --source https://github.com/purescript/package-sets.git
+# 3. Create a new Spago-based project
+spago init
 
 # 4. Install the psci-support package using this command:
-psc-package install psci-support
+spago install psci-support
 
 # 5. Create the `.purs-repl` file that
 # imports `Prelude` when the REPL starts:
 echo "import Prelude" > .purs-repl
+
+# 5. Build the project
+spago build
 ```
 You should now have a folder structure like the following:
 ```
 playground\
-  .psc-package\
+  .spago\
   .psci-modules\
   .purs-repl
-  psc-package.json
+  packages.dhall
+  spago.dhall
 ```
 
 ## Starting the REPL
 
-Once the above three requirements have been met, you can start the REPL using one of two commands:
-- `psc-package repl`
-- `pulp repl` (this project will use this command)
+Use `spago repl`
 
 ## Using the REPL
 

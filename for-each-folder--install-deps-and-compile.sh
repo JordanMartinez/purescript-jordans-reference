@@ -2,12 +2,13 @@
 
 # This file will re-install and compile all the code in every folder
 # in this project. It assumes that one has already installed
-# purescript, spago, dhall-to-json.
+# purescript, spago, and dhall-to-json.
 #
 # Use it to update your entire project on new releases
 
-# Due to migrating to spago, these commands will also clean up
-# any files/directories related to `pulp` and `psc-package`:
+# Due to migrating to spago (done in `ps-0.12.x-v0.12.0` release of this repo),
+# this command will also clean up any files/directories related to
+# `pulp` and `psc-package`:
 #    rm -rf .psc-package/ .pulp-cache/ .psc-package.json
 #
 # The above line will be removed in a later release.
