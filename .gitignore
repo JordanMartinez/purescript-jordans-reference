@@ -21,6 +21,7 @@
 
 # Ignore Parcel's files and directories
 /**/dist/**/*.js.map
+/**/dist/**/index.html
 /**/.cache/
 
 # Ignore any project-related files stored in temporary folder
