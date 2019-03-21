@@ -13,51 +13,37 @@ Throughout your learning process, it will be helpful to ask others for help. The
 
 We'll show how to install the following programs:
 - `purescript` - the PureScript language & compiler
-- `pulp` - a build tool for PureScript
-- `psc-package` - a dependency manager for PureScript
-
-We'll also show how to install two other entities related to `psc-package`. However, these aren't required/used in this project until the `Hello World/Benchmarking` folder. What they are and why one will should install them if using `psc-package` as their dependency manager is covered more fully in `Build Tools/Tool Comparisons/Dependency Managers.md`:
-- `spacchetti` - a project that speeds up tedious tasks that arise when using `psc-package`
-- `dhall-to-json` - a configuration language that `spacchetti` uses for outputting well-typed JSON
+- `spago` - a dependency manager and build tool for PureScript
+- `dhall-to-json` - a dependency that `spago` uses for outputting well-typed JSON
+- `parcel` - a build tool for bundling a PureScript application into a multiple JS backends (node, browser, electron)
 
 ### Installation
 
-Justin Woo explains how to set up one's environment for the `0.12.x` release but has not been updated for two things. First, the PureScript release at the time was `0.12.0` but now `0.12.3` is out. Second, he did not include instructions for setting up [`spacchetti`](https://github.com/justinwoo/spacchetti) and its counterpart, `dhall-to-json`.
+Justin Woo explains how to set up one's environment for the `0.12.x` release but has not been updated for two things. First, the PureScript release at the time was `0.12.0` but now `0.12.3` is out. Second, the instructions use `pulp` and `psc-package`, a different build tool workflow than the one we'll use here.
 
-If you just want to get things set up ASAP, follow the below summary of his article's instructions. If you want to understand why you should do these commands, read [his article here](https://qiita.com/kimagure/items/570e6f2bbce5b4724564):
-1. Install Node 8 or greater: https://nodejs.org/en/download/
+If you just want to get things set up ASAP, follow the below summary of his article's instructions (using `spago` instead of the other tools). If you want to understand why you should do these commands, read [his article here](https://qiita.com/kimagure/items/570e6f2bbce5b4724564):
+1. Install Node 10 or greater: https://nodejs.org/en/download/
 2. Set your npm prefix: `npm set prefix ~/.npm`
+    - Note: this prevents having to use `sudo` when using NPM to install things since it's default prefix is in a place that requires admin privileges
 3. Set your PATH: `export PATH="$HOME/.npm/bin:$PATH"`
 
-NPM will then be used to install these 3 packages
-- `purescript` - the PureScript binary
-- `pulp` - a build tool for PureScript
-- `psc-package` - a dependency manager for PureScript
-
-To install them, run this command:
+NPM will then be used to install 3 of the above requirements. Run this command:
 ```bash
-npm i -g purescript@0.12.3 pulp psc-package-bin-simple
+npm i -g purescript@0.12.3 spago parcel
 ```
 
-<hr>
-
-To install `spacchetti`, use NPM:
-```bash
-npm i -g spacchetti-cli-bin-simple
-```
-
-To install `dhall-to-json` for your platform, see their [Getting Started](https://github.com/dhall-lang/dhall-lang/wiki/Getting-started%3A-Generate-JSON-or-YAML#installation).
+`dhall-to-json` (we're using version `1.20.1`) requires separate installation. To install `dhall-to-json` for your platform, see their [Getting Started](https://github.com/dhall-lang/dhall-lang/wiki/Getting-started%3A-Generate-JSON-or-YAML#installation).
 
 ### Versions Used in this Project
 
 The following commands should now work (the versions beside them are the versions I used when writing this project):
 ```bash
 purs --version        # 0.12.3
-pulp --version        # 12.3.0
-psc-package --version # 0.3.2
+spago version         # 0.7.1.0
+parcel --version      # 1.12.0
 
-## If Spacchetti was installed...
-spacchetti version    # 0.5.0.0
+# dhall-to-json does not have a version command
+# but we're using `1.20.1` in this project.
 ```
 
 ### Building This Project
@@ -86,14 +72,14 @@ The Atom package, `ide-purescript`, is configured to `Bower`, but we'll be using
 2. Click on the `Packages` tab
 3. Search for `ide-purescript`
 4. Click on the `Settings` button in the entry that appears
-5. Check the `Add psc-package sources` checkbox
-6. Change the `build command` to: `pulp --psc-package build -- --json-errors`
+5. Check the `Add spago sources` checkbox
+6. Change the `build command` to: `spago build -- --json-errors`
 
 ### Getting IDE support (autocomplete, documentation-on-hover, etc.) in Atom
 
 While this repository's contents are useful for learning various lessons, IDE support (autocomplete, documentation, etc.) will only work if you open this repository's contents in a specific way when using Atom. Follow the instructions below:
 1. Click "File" and click "Open Folder..." (shortcut: `CTRL+O`)
-2. In the folder chooser, choose one of this repo's project folders (i.e. a folder with a `.psc-package` file and `src` folder)
+2. In the folder chooser, choose one of this repo's project folders (i.e. a folder with a `spago.dhall` file and `src` folder)
 3. Click on "Packages" and click on "PureScript" and then on "Build". The IDE server will start running and rebuild just that project.
     - Autocomplete, importing, and documentation will now work.
 
