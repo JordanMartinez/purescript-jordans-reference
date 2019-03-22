@@ -27,6 +27,7 @@ spago verify-set
 
 ## Freeze the Package Set
 
+Note: Spago does this automatically now. So, one likely does not need to do this anymore. It is provided for context.
 ```bash
 # 3) Freeze the package set to prevent security issues.
 #     For a deeper explanation on what happens here,
@@ -50,12 +51,10 @@ spago install packageName1 packageName2 # ...
 spago repl
 
 # Build the docs
-# Note: no corresponding command for this yet, but it's a WIP.
-# See: https://github.com/spacchetti/spago/issues/89
+spago docs
 
 # Automatically re-build project whenever a source/test file is changed/saved
-# No corresponding command for this yet.
-# See: https://github.com/spacchetti/spago/issues/65
+spago build --watch
 ```
 
 ### Build the Code
@@ -65,17 +64,38 @@ spago repl
 # compile the code
 spago build
 
-# Build a developer-level executable file (excludes "dead-code elimination")
+# Build a developer-level executable file
 spago bundle --main Module.Path.To.Main --to dist/index.js
 node dist/index.js
 
-# Build a production-level Node-backend file (includes "dead-code elimination")
-# via Parcel
-spago make-module --main Module.Path.To.Main --to dist/make-module-output.js
-parcel build -t "node" -o dist/node-executable-file.js dist/make-module-output.js
+# Build a production-level Node-backend file via Parcel
+spago bundle --main Module.Path.To.Main --to dist/bundle-output.js
+parcel build dist/bundle-output.js --target "node" -o app.js
+```
 
-# Build a production-level browser-backend file (includes "dead-code elimination")
-# via Parcel
-spago make-module --main Module.Path.To.Main --to dist/make-module-output.js
-parcel build -t "browser" -o dist/browser-file.js dist/make-module-output.js
+To build a production-level browser-backend file...
+```bash
+# Build a production-level browser-backend file
+spago bundle --main Module.Path.To.Main --to dist/app.js
+```
+Create an HTML file (dist/example.html) that references the 'app.js' file
+```html
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!-- Insert your title here -->
+    <title>Some Title</title>
+  </head>
+  <body>
+    <!-- Reference the outputted bundle here -->
+    <script src="/app.js" charset="utf-8"></script>
+  </body>
+</html>
+```
+Then use parcel to do minification and open the resulting web page
+```bash
+parcel build dist/example.html --target "browser" -o index.html --open
+# it'll create a few files in the `dist/` folder and one open the resulting
+# "dist/index.html" file via your default web browser
 ```
