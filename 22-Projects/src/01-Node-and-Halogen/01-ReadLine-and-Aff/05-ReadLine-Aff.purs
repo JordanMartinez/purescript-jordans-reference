@@ -50,7 +50,7 @@ question' message interface = makeAff go
 
 main :: Effect Unit
 main = do
-  log "\n\n" -- separate pulp output from program
+  log "\n\n" -- separate output from program
 
   interface <- createInterface
 

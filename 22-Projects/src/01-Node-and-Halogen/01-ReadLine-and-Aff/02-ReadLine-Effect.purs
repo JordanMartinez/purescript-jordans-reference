@@ -30,7 +30,7 @@ question' iface message useAnswer = question message useAnswer iface
 
 main :: Effect Unit
 main = do
-  log "\n\n" -- separate pulp output from program output
+  log "\n\n" -- separate output from program output
 
   interface <- createInterface
   useInterface interface
