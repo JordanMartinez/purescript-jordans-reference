@@ -8,32 +8,22 @@ Since we'll be benchmarking our projects here, I should also note that Nate has 
 
 ## Compilation Instructions
 
-Note: I assume you have already locally installed `Benchmark.js` and used spacchetti to create your own package set that includes `Benchotron`.
-
-Install [`Benchmark.js`](https://benchmarkjs.com/) locally via the command below:
+1. Install [`Benchmark.js`](https://benchmarkjs.com/) locally via the command below:
 ```bash
 # Note: This must be installed locally for the code to work.
 # If you install it globally, Node won't be able to find `benchmark`.
 npm install benchmark
 ```
-
-Since `benchotron` is not in the default package set (yet), you'll need to use `spacchetti` to create your own local custom package set by following these instructions:
+2. Now run `spago build` to install and compile the project:
 ```bash
-# I've already ran `spacchetti local-setup`
-# and configured the 'packages.dhall' file.
-# See this folder as an example of what you would need to do
-# if you had to do it on your own.
-
-# So, we just need to install the local custom package set
-spacchetti insdhall
-psc-package install
+spago build
 ```
 
 ## Generating benchmark results
 
-1. Run one of the below commands
+1. Run the benchmark
 ```bash
-pulp --psc-package run -m Performance.Games.RandomNumber.Benchmark --src-path "benchmark" --include "src:test"
+spago run -m Performance.Games.RandomNumber.Benchmark -p "benchmark/**/*.purs"
 ```
 2. It will output a file in the freshly-created `tmp` directory
 3. Upload the outputted file to [hdgarrood's Benchotron SVG Renderer](http://harry.garrood.me/purescript-benchotron-svg-renderer/)
