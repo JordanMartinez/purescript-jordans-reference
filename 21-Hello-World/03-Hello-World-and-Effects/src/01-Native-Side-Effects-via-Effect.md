@@ -62,9 +62,9 @@ The whole idea of `Effect` is to use `unsafePerformEffect` as little as possible
 The entry point into each program written in Purescript is the `main` function. It's type signature must be: `main :: Effect Unit`.
 
 The following explanation is not what happens in practice, but understanding it this way will help one understand the concepts it represents:
-> When one writes `pulp --psc-package build`, one could say that, conceptually, pulp will compile `unsafePerformEffect main` into Javascript and the resulting Javascript is what gets run by the RunTime System (RTS) when the program is executed.^^
+> When one executes the command `spago bundle`, one could say that, conceptually, spago will compile `unsafePerformEffect main` into Javascript and the resulting Javascript is what gets run by the RunTime System (RTS) when the program is executed.
 
-In other words, pulp "creates" a function called `runProgram` and tells the RunTime System (RTS) to execute it
+In other words, spago "creates" a function called `runProgram` and tells the RunTime System (RTS) to execute it
 ```purescript
 runProgram :: Unit
 runProgram = unsafePerformEffect main
@@ -73,5 +73,3 @@ runProgram = unsafePerformEffect main
 This limits our impure code as much as possible to the program's start. Hopefully, everything else in our code is pure.
 
 However, one might still call `unsafePerformEffect` in otherwise pure code in situations where they know what they are doing. In other words, they know the pros & cons, costs & benefits of doing so, and are willing to pay for those costs to acheive their benefits.
-
-^^ `pulp --psc-package build` or `pulp --psc-package browserify` both, by default, add in the necessary code to automatically execute `main` via a `runProgram`-like addition. If someone is building a library, this is undesirable. Thus, to stop this from occurring, one needs to pass the flag `--skip-entry-point` to these commands.
