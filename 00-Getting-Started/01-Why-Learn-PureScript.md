@@ -1,11 +1,26 @@
 # Why Learn PureScript?
 
-This question can be answered by explaining three things:
+All languages make tradeoffs in various areas and on various spectrums:
+- learning curve
+- abstractions
+- syntax
+- errors
+- type systems
+- etc.
+
+The question is "Which combination of tradeoffs provides the most benefits in prioritized areas?" "Good" languages happen to select specific tradeoffs that make the language well-suited for specific problems. For example, Python is well-suited for creating dirty one-time-run scripts to do tedious work on a computer. While Python can be used to create a financial or medical applications that need to extremely fast and secure, it would be better to use a different language that is better suited for such a task, such as Rust.
+
+PureScript has chosen tradeoffs that its developers think are the best for creating simple to complex front-end applications that "just work;" that are easy to refactor, debug, and test; and help make developers more productive rather than less.
+
+It can be said that other front-end languages buy "popularity" at the cost of "power and productivity."
+PureScript buys "power and productivity" at the cost of "popularity."
+
+To fully answer "Why learn PureScript?" we must answer three other questions:
 - Why one should use Javascript to build programs...
 - ...but not write Javascript to build it...
 - ...and write Purescript instead of alternatives
 
-Then I'll address answer a few questions various audiences may have
+Then I'll answer a few questions various audiences may have in the FAQ section
 
 ## Why one should use Javascript to build programs...
 
@@ -16,49 +31,100 @@ Then I'll address answer a few questions various audiences may have
 
 ## ...but not write Javascript to build it...
 
-The benefits of strong types:
-- Types == UML diagrams
-- The types guide how something should be implemented
-- The compiler can infer runtime code
-- Certain classes of bugs are eliminated
+- [JavaScript is a Dysfunctional Programming Language](https://medium.com/javascript-non-grata/javascript-is-a-dysfunctional-programming-language-a1f4866e186f)
+- [Top 10 Things Wrong with JavaScript](https://medium.com/javascript-non-grata/the-top-10-things-wrong-with-javascript-58f440d6b3d8)
+- [Why JavaScript Sucks](https://whydoesitsuck.com/why-does-javascript-suck/)
 
-TODO, but the general idea is:
-- dynamic typing -> runtime errors
+Some other ideas that are relevant:
+- dynamic typing leads to errors that do not appear until after you have already shipped the code to your customers
 - a linter is just a basic static type checker
-- easier to write, read, and understand a 'safer language' that compiles to efficient Javascript
-- alternatives: Typescript, Coffeescript, Elm, etc.
-- [TypeScript vs PureScript: Not All Compilers Are Created Equal](https://blog.logrocket.com/typescript-vs-purescript-not-all-compilers-are-created-equal-c16dadaa7d3e)
-- [OO "design patterns" in FP languages](http://blog.ezyang.com/2010/05/design-patterns-in-haskel/)
+- it is sometimes easier to write, read, and understand a 'safer language' that compiles to efficient Javascript than to write, read, and understand JavaScript itself (as the above articles show)
 
 ## ...and write Purescript instead of alternatives
 
 **TL;DR**
 
-TODO, but the general idea is:
-- Paradigm shifts, such as the one demonstrated by this video using C++, are what enable programs with less problems: [Logging a function's name each time it is called: migrating an OO solution to an FP solution](https://www.youtube.com/embed/i9CU4CuHADQ?start=540)
-- [JavaScript, TypeScript, and PureScript](https://www.youtube.com/watch?v=JTEfpNtEoSA) or "Why TypeScript only 'pretends' to have types."
-- [Purescript: Tomrrow's Javascript Today](https://www.youtube.com/watch?time_continue=22&v=5AtyWgQ3vv0)
+- [Purescript: Tomorrow's Javascript Today](https://www.youtube.com/watch?time_continue=22&v=5AtyWgQ3vv0)
 - [Phil Freeman's post: 'Why You Should Use PureScript'](https://gist.github.com/paf31/adfd15fbb1ac8b99fc68be2c9aca8427)
-- [A Secret Weapon for Startups -- Functional Programming?](https://www.ramanan.com/personal-blog/2019/2/25/functional-programming-and-venture-capital)
-- type-level programming
-- compiles to other languages beside Javascript: C, C++, Erlang, and Swift
+- See the [Purescript version of 'Real World App'](https://github.com/thomashoneyman/purescript-halogen-realworld)
 
-- The strong, static type system of the language
-    - allows you to model a domain at a 1-to-1 ratio (Can I model the domain idea, "'Fido' is a dog who likes bacon and is friends with Mark," as such and not as "'Fido' is a dog. Dog1 likes bacon. Mark is friends with Dog1. Sometimes, 'Dog1' refers to 'Fido' but other times it refers to nothing and produces an error."?)
-    - will prevent you from releasing bug-filled code to a customer. (Can I guarantee that the code "just works" or cannot be built at all?)
-    - forces you to handle errors correctly the first time rather than permit you to throw them under the rug because you are lazy or foolish (Can I guarantee all possible errors will not create future problems that lead to short-term hard-to-understand code that rarely gets cleaned up and ultimately costs the company more time to fix than if it had just been written correctly the first time?)
-    - provides a kind of always-up-to-date/never-out-of-sync documentation (Can I write code and documentation simultaneously rather than writing code and its documentation as two separate tasks where the latter must always be kept in-sync with the former?)
-    - makes it easier for a programmer to understand code because it decreases the possibilities of what can occur (Can I make it impossible for this code to do anything else besides what this concept's law allows?)
-- The language forces you to structure your code in a way that makes it
+For those that say "PureScript is dead, bad, stupid, not worth learning, etc." In response to these things, I'd recommend you watch [The Hard Parts of Open Source](https://www.youtube.com/watch?v=o_4EX4dPppA)
+
+### Language Comparisons
+
+For a full list of possible alternatives to JavaScript, see [CoffeeScript's wiki's list of 'Languages that compile to JavaScript'](https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS)
+
+Note: the below comparisons are still a WIP. They will be biased towards PureScript and will not yet fairly represent the corresponding side in some situations. Consider this a starting point for your own research.
+
+#### PureScript vs TypeScript
+
+One of the main issues with JavaScript is a poor type system. TypeScript seems to address this issue (just consider its name), but not quite as well as PureScript does.
+
+- [TypeScript vs PureScript: Not All Compilers Are Created Equal](https://blog.logrocket.com/typescript-vs-purescript-not-all-compilers-are-created-equal-c16dadaa7d3e)
+- [JavaScript, TypeScript, and PureScript](https://www.youtube.com/watch?v=JTEfpNtEoSA) or "Why TypeScript only 'pretends' to have types."
+
+#### PureScript vs Elm
+
+**TL;DR**: Since Elm is founded on the similar philosophical foundations, one can use Elm and gain benefits similar to using PureScript. Elm sacrifices powerful language features to gain a simpler learning curve. Thus, it's more suited for simple applications. PureScript buys powerful language features at the cost of a harder learning curve. Thus, it's more suited for complex applications.
+
+TODO, but the general idea is:
+- Benefits of Elm:
+    - Good documentation and error messages, making it easier for JavaScript-background developers to learn
+    - Works very well for simple applications without complex business logic
+    - Uses a simpler type system than PureScript to insure correctness
+- Costs of Elm:
+    - Incurs a lot of boilerplate code to do anything
+    - Due to its simpler type system, it lacks more powerful abstractions, such as type classes. Thus, ideas that take a few lines of code in PureScript take much longer or cannot be done in Elm.
+    - Elm is works very well for simple applications, but incurs a lot of boilerplate code. For some applications, it's all that's needed
+
+#### PureScript vs GHCJS
+
+Haskell, which heavily influenced PureScript, has an option for compiling Haskell to JavaScript via GHCJS. However, that comes with its own tradeoffs. PureScript was developed partly because those tradeoffs were too costly.
+
+See [PS or ghcjs for Frontend with Haskell backend](https://discourse.purescript.org/t/ps-or-ghcjs-for-frontend-with-haskell-backend/666/2) for my summary of the main issues at play here.
+
+### The Strengths of PureScript
+
+Above, I stated that PureScript makes specific tradeoffs. I'd like to cover what some of those tradeoffs are and why they are good. (These ideas will be further explained in the "FP Philosophical Foundations" folder that appears later in this repository.)
+
+### Strongly Adheres to the Functional Programming Paradigm
+
+- [A Secret Weapon for Startups -- Functional Programming?](https://www.ramanan.com/personal-blog/2019/2/25/functional-programming-and-venture-capital)
+- Paradigm shifts, such as the one demonstrated by this video using C++, are what enable programs with less problems: [Logging a function's name each time it is called: migrating an "object-oriented paradigm" solution to an "functional paradigm" solution](https://www.youtube.com/embed/i9CU4CuHADQ?start=540). As will be explained later, this is what is known as the "Writer Monad."
+- [Object-oriented "design patterns" in FP languages](http://blog.ezyang.com/2010/05/design-patterns-in-haskel/) are often just functions in disguise. Rather than learning the 20 different design patterns, one can learn how functions work and can be used to create really beautiful concepts and solutions.
+- [Functional Architecture: The Pits of Success](https://www.youtube.com/watch?v=US8QG9I1XW0). To summarize this video, FP languages force you to structure your code in a way that makes it:
     - easy to test in an unbiased way (Can I prove that the logic/algorithm that solves the business problem is correct and works according to the specification despite any programmer's laziness or lack of foresight in thinking of a possible scenario where the code could fail?)
     - easy to add/change/remove a "backend" to account for trends, new insights, or faster code (Without introducing a new bug or deleting a current feature, can I switch from Company A's database to Company B's database without rewriting more than 30 lines of code?)
     - unconcerning to allow a new developer to work on the code, knowing that he/she cannot screw up anything major (Can the Lead/Senior Developer take the weekend off and return, knowing that it's extraordinarily difficult for developers with little experience to break something?)
 
-See the [Purescript version of Real World App](https://github.com/thomashoneyman/purescript-halogen-realworld)
+### Powerful Static Type System
 
-Some might say that PureScript is dead, bad, stupid, not worth learning, etc. In response to these things, I'd recommend you watch [The Hard Parts of Open Source](https://www.youtube.com/watch?v=o_4EX4dPppA)
+- This video explains how a type system with `algebraic data types` comes with a number of benefits (note: it uses a different syntax than PureScript: [Domain Modeling Made Functional](https://www.youtube.com/watch?v=Up7LcbGZFuo). To summarize it, `algebraid data types`
+    - allow you to model a domain at a 1-to-1 ratio
+    - make impossible states impossible
+    - become your always-up-to-date UML diagrams
+    - make it easy for new developers to learn how the code is structured
+    - guide how business logic should be implemented
+- The compiler (via its warning and error messages) is your friend, not your enemy. I was not able to find a good concise explanation, but here's a few reasons why. It
+    - prevents you from releasing bug-filled code to a customer. (Can I guarantee that the code "just works" or cannot be built at all?)
+    - forces you to handle most errors correctly the first time rather than permit you to throw them under the rug because you are lazy or foolish (Can I guarantee all possible errors will not create future problems that lead to short-term hard-to-understand code that rarely gets cleaned up and ultimately costs the company more time to fix than if it had just been written correctly the first time?)
+    - helps you figure out which type to use when the types get complicated (explained later in this repository: `Hello World/Debugging/`)
+- This video explains how a type system with `type classes` allow one to re-use "dumb old data structures" (i.e. `algebraic data types`) rather than create many new data structures that differ only one slight way: [Type Classes vs the World](https://www.youtube.com/watch?v=hIZxTQP1ifo). To summarize it, `type classes`
+    - allow you to write declarative code ("this is what will be true") rather than imperative code ("this is how to make truth true (hopefully, you got it right)")
+    - enables the compiler to infer runtime code
 
-## Answering Miscellaneous Questions People May Have
+### Immutable Persistent Data Structures by Default
+
+TODO, but the general idea is:
+- Such data structures are easier to use and reason about because they don't change
+
+### Multiple Backends with Easy Foreign Function Interface
+
+TODO, but the general idea is:
+- [PureScript compiles to other languages besides JavaScript](https://github.com/purescript/documentation/blob/master/ecosystem/Alternate-backends.md). Thus, writing one library in PureScript will work in multiple languages
+- one can easily migrate from some other language or framework (e.g. TypeScript, Angular, etc.) to PureScript in a modular, piece-by-piece fashion
+
+## FAQ: Answering Miscellaneous Questions People May Have
 
 This part's explanation depends on your particular background. For example, here are a few different kinds of people that might be reading this file:
 - A developer who is already competent/productive in Javascript or a compile-to-Javascript language (e.g. Coffeescript, Typescript, etc.)
