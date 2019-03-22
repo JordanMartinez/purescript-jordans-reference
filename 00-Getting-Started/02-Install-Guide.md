@@ -80,12 +80,24 @@ The Atom package, `ide-purescript`, is configured to `Bower`, but we'll be using
 While this repository's contents are useful for learning various lessons, IDE support (autocomplete, documentation, etc.) will only work if you open this repository's contents in a specific way when using Atom. Follow the instructions below:
 1. Click "File" and click "Open Folder..." (shortcut: `CTRL+O`)
 2. In the folder chooser, choose one of this repo's project folders (i.e. a folder with a `spago.dhall` file and `src` folder)
-3. Click on "Packages" and click on "PureScript" and then on "Build". The IDE server will start running and rebuild just that project.
+3. Click on "Packages" and click on "PureScript" and then on "Build". The IDE server will start running and rebuild just that project.*
     - Autocomplete, importing, and documentation will now work.
+
+* This is a command you will use frequently, so consider adding a keyboard shortcut for it.
+1. Open the Atom settings dialog (`CTRL+,`)
+2. Click on the "KeyBindings" tab
+3. Click on the "your keymap file" hyperlink that appears before the bindings
+4. Follow the instructions for adding your personal shortcut for the `ide-purescript:build` command.
+
+For mine, I did:
+```cson
+'.platform-linux atom-workspace atom-text-editor:not([mini])':
+  'ctrl-shift-b': 'ide-purescript:build'
+```
 
 #### Dealing with IDE Server issues in Atom
 
-Sometimes when editing a file, the IDE server will go out-of-sync. For example, you might change the definition of a type and the IDE doesn't realize that occured, so it will tell you that you have used a type incorrectly. In such cases, rebuild the project using Step 3 above and thinigs should correct themselves from there.
+Sometimes when editing a file, the IDE server will go out-of-sync. For example, you might change the definition of a type and the IDE doesn't realize that occured, so it will tell you that you have used a type incorrectly. In such cases, rebuild the project using Step 3 (or your keyboard shortcut) above and things should correct themselves from there.
 
 In situations where I have used the same names for things, the autocomplete might actually import a function or type with the same name as the one you want but from a different module. So, if you have weird compiler errors, check the imports to insure the IDE server didn't accidentally import something incorrect or from the wrong location.
 
