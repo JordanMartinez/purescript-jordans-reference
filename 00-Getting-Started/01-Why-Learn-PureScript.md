@@ -108,6 +108,7 @@ Above, I stated that PureScript makes specific tradeoffs. I'd like to cover what
     - become your always-up-to-date UML diagrams
     - make it easy for new developers to learn how the code is structured
     - guide how business logic should be implemented
+- The PureScript compiler infers most of your types for you. For those who are curious and want to understand how that works, see this video: [Type Inference From Scratch](https://www.youtube.com/watch?v=ytPAlhnAKro)
 - The compiler (via its warning and error messages) is your friend, not your enemy. I was not able to find a good concise explanation, but here's a few reasons why. It
     - prevents you from releasing bug-filled code to a customer. (Can I guarantee that the code "just works" or cannot be built at all?)
     - forces you to handle most errors correctly the first time rather than permit you to throw them under the rug because you are lazy or foolish (Can I guarantee all possible errors will not create future problems that lead to short-term hard-to-understand code that rarely gets cleaned up and ultimately costs the company more time to fix than if it had just been written correctly the first time?)
