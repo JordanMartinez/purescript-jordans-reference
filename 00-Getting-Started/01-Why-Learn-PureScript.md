@@ -20,7 +20,10 @@ To fully answer "Why learn PureScript?" we must answer three other questions:
 - ...but not write Javascript to build it...
 - ...and write Purescript instead of alternatives
 
-Then I'll answer a few questions various audiences may have in the FAQ section
+Then I'll answer a few possible questions the below audiences may have in the FAQ section:
+- A developer who is already competent/productive in Javascript or a compile-to-Javascript language (e.g. Coffeescript, Typescript, etc.)
+- A developer who is only starting to learn web technologies, but has heard that Javascript is horrible and is investigating other compile-to-Javascript languages.
+- A business person who knows very little about programming or programming languages but who wants to know more about what options are available and what their pros/cons are.
 
 ## Why one should use Javascript to build programs...
 
@@ -126,7 +129,7 @@ TODO, but the general idea is:
 
 ## FAQ: Answering Miscellaneous Questions People May Have
 
-This part's explanation depends on your particular background. For example, here are a few different kinds of people that might be reading this file:
+This explanation depends on your particular background. As stated above, I'm focusing on these audiences:
 - A developer who is already competent/productive in Javascript or a compile-to-Javascript language (e.g. Coffeescript, Typescript, etc.)
 - A developer who is only starting to learn web technologies, but has heard that Javascript is horrible and is investigating other compile-to-Javascript languages.
 - A business person who knows very little about programming or programming languages but who wants to know more about what options are available and what their pros/cons are.
