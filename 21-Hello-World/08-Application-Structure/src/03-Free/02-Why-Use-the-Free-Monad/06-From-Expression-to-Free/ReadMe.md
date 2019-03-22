@@ -96,5 +96,5 @@ add x y = wrap $ AddF x y
 
 You can run the upcoming code examples using these instructions:
 ```bash
-pulp --psc-package run -m Free.AddAndMultiply
+spago run -m Free.AddAndMultiply
 ```
