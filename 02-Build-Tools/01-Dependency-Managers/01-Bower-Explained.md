@@ -10,7 +10,7 @@ A typical dependency manager that downloads dependencies from a centralized repo
 
 When developing a library, one needs to refer to specific versions of dependencies that do not change over time.
 
-If one uses `psc-package`, they can modify the "binary" of the dependency without changing the version to which it refers. For application developers, this can be desirable. Not so for library developers.
+If one uses `spago`, they can modify the "binary" of the dependency without changing the version to which it refers. For application developers, this can be desirable. Not so for library developers.
 
 Note: it is still possible for one to use `bower` for application development. Some people think it's better suited for this than `spago`. Others disagree. Learn about both and make your decision.
 

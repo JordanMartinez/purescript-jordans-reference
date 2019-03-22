@@ -67,7 +67,7 @@ Atom setup instructions:
     - language-purescript
 3. Configure `ide-purescript`
 
-The Atom package, `ide-purescript`, is configured to `Bower`, but we'll be using `psc-package` as our dependency manager for this project. Follow these instructions
+The Atom package, `ide-purescript`, is configured to `Bower`, but we'll be using `spago` as our dependency manager for this project. Follow these instructions
 1. Open Atom's settings dialog (`CTRL+,`)
 2. Click on the `Packages` tab
 3. Search for `ide-purescript`

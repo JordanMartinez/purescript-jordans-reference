@@ -5,11 +5,12 @@ REPL stands for Read, Evaluate, Print, Loop.
 ## Preparing a Folder for the REPL
 
 In order to start the REPL, there are three requirements:
-- a `psc-package.json` file exists in the current folder or one of its parents.
-- the `psci-support` package has been installed (it appears in the the `psc-package.json` file's `depends` field).
+- a `packages.dhall` file exists in the current folder or one of its parents.
+- a `spago.dhall` file exists in the current folder or one of its parents.
+- the `psci-support` package has been installed (it appears in the the `spago.dhall` file's `dependencies` field).
 - a `.purs-repl` file exists in the current folder or one of its parents. (Not an actual requirement for starting the REPL, but prevents issues a newcomer will otherwise encounter if they don't know anything about Purescript / FP languages.)
 
-Follow these instructions to create a new `psc-package.json` file:
+Follow these instructions to create a new project with these requirements:
 ```bash
 # 1. Make a new directory
 mkdir playground

@@ -6,8 +6,8 @@
 # exits with 0 if everything worked correctly. Otherwise, it exits with 1.
 #
 # Run this from the root of this project. In other words
-#   `chmod +x .travis/psc-package--build-and-test.sh`
-#   `./.travis/psc-package--build-and-test.sh`
+#   `chmod +x .travis/spago--build-and-test.sh`
+#   `./.travis/spago--build-and-test.sh`
 
 ## Syntax
 

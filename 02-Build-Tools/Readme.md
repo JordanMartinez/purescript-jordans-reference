@@ -3,9 +3,9 @@
 This folder accomplishes the following:
 
 - Explain the various tools used throughout the ecosystem and their usages/differences:
-    - Document the differences between `Bower` and `psc-package` dependency managers
-    - Document the difference between `pulp` and `purs-loader` build tools
-- Document the CLI options for the most popular tools (e.g. purs, pulp, psc-package, etc.)
+    - Document the differences between `Bower` and `Spago` dependency managers
+    - Document the difference between `Pulp` and `Spago` build tools
+- Document the CLI options for the most popular tools (e.g. purs, pulp, spago, etc.)
 - Document a typical workflow from project start to finish (creation, fast-feedback development, initial publishing, 'bump' publishing)
 
 ## History: How We Got Here
@@ -65,4 +65,4 @@ The following seem to be deprecated or no longer used:
 | gulp-purescript | Gulp-based Build Tool | No longer used? Last updated 1 year ago... | https://github.com/purescript-contrib/gulp-purescript |
 | Purify | -- | Deprecated in light of psc-package | -- |
 
-For this repo, we will be using `spago` for our build tool and `psc-package` for our dependency manager.
+For this repo, we will be using `spago` for our build tool and dependency manager.

@@ -47,7 +47,7 @@ spago install packageName1 packageName2 # ...
 
 ```bash
 # Open the REPL to play with a few ideas or run simple tests
-spago repl        # via psc-package
+spago repl
 
 # Build the docs
 # Note: no corresponding command for this yet, but it's a WIP.
