@@ -57,7 +57,9 @@ For those that say "PureScript is dead, bad, stupid, not worth learning, etc." I
 
 For a full list of possible alternatives to JavaScript, see [CoffeeScript's wiki's list of 'Languages that compile to JavaScript'](https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS)
 
-Note: the below comparisons are still a WIP. They will be biased towards PureScript and will not yet fairly represent the corresponding side in some situations. Consider this a starting point for your own research.
+**Note**: the below comparisons are still a WIP. To fully support this claim, it would help to compare each languages' various "overall rating" on various aspects. Unfortunately, since I'm not familiar with every other language mentioned, it's very difficult for me to do that. If you are familiar with such languages, consider opening an issue on this repo and discussing it with me.
+
+In short, the below comparison will be biased towards PureScript and will not yet fairly represent the corresponding side in some situations. Consider this a starting point for your own research.
 
 #### PureScript vs TypeScript
 
@@ -127,7 +129,7 @@ TODO, but the general idea is:
 ### Multiple Backends with Easy Foreign Function Interface
 
 TODO, but the general idea is:
-- [PureScript compiles to other languages besides JavaScript](https://github.com/purescript/documentation/blob/master/ecosystem/Alternate-backends.md). Thus, writing one library in PureScript will work in multiple languages
+- [PureScript compiles to other languages besides JavaScript](https://github.com/purescript/documentation/blob/master/ecosystem/Alternate-backends.md). Thus, writing one library in PureScript will work in multiple languages, and one can choose the backend that best solves their problem.
 - one can easily migrate from some other language or framework (e.g. TypeScript, Angular, etc.) to PureScript in a modular, piece-by-piece fashion
 
 ## FAQ: Answering Miscellaneous Questions People May Have
@@ -153,13 +155,9 @@ Let's answer these one at a time. **Each answer is my opinion and could be backe
 
 ### Is the price of the steep learning curve worth the benefits of using PureScript in code?
 
-Yes.
+Yes, but you won't really see why until you have learned it. PureScript (and FP languages in general) will expand your understanding of what programming can be and do.
 
-PureScript supports a number of features (e.g. powerful type system) that simply do not exist in other compile-to-Javascript languages. These features grant additional power, preciseness, readability.
-
-To fully support this claim, it would help to compare various ecosystem's "features." Unfortunately, since I'm not familiar with every other language mentioned, it's very difficult for me to do that.
-
-In addition, PureScript can compile to other languages besides Javascript. That means you can write the same code to solve your business problem and run it on multiple platforms besides `Node.js` or the Browser, depending on which one is the best fit for your purposes. For a complete listing, as well as how ready they are for production, see [Alternate Backends](https://github.com/purescript/documentation/blob/master/ecosystem/Alternate-backends.md).
+As always, some people prefer some languages over others and some languages are better suited for some problems as others. Feel free to disagree with me.
 
 ### If I learn PureScript, can I get a good developer job?
 
