@@ -227,7 +227,7 @@ Some facts:
 
 ### How mature is the Ecosystem? Will I need to initially spend time writing/improving/documenting libraries for this language or can I immediately use libraries that are stable and mature?
 
-It's lacking in a few areas but solid in others. See [awesome-purescript](https://github.com/passy/awesome-purescript); the documentation site, [Pursuit](http://pursuit.purescript.org/); and also this project's `Ecosystem` folder (still a WIP).
+It's primarily good for front-end work and not so much (yet) for back-end work. When it is lacking, one will likely need to use FFI to utilize JS libraries. See [awesome-purescript](https://github.com/passy/awesome-purescript); the documentation site, [Pursuit](http://pursuit.purescript.org/); and also this project's `Ecosystem` folder (still a WIP).
 
 Also, attempting to port over Haskell libraries to this language are harder at times and have unexpected performance. Why? Because Haskell is a lazily-evaluated language, but PureScript is a strictly-evaluated language.
 
@@ -239,13 +239,13 @@ See the `Syntax/Foreign Function Interface` folder for examples of how easy bind
 
 ### How easy/pleasant is it to use the language's build tools (e.g. compiler, linter/type checker, dependency manager, etc.) and text editor tools (e.g. ease of setup, refactoring support, pop-up documentation, etc.)?
 
-The build tools are pretty good. One will typically use a `Bower`-based workflow or a `psc-package`-based workflow. These are explained in `Build Tools/Tool Comparisons/Dependency Managers.md`.
+The build tools are pretty good. One will typically use a `pulp + Bower`-based workflow or a `spago`-based workflow. These are explained in `Build Tools/Tool Comparisons/Dependency Managers.md`.
 
 See the `Build Tools/` folder for more up-to-date information. Likewise, see [Editor and Tool Support](https://github.com/purescript/documentation/blob/master/ecosystem/Editor-and-tool-support.md) for other editor-related configurations.
 
 ### How friendly, helpful, responsive, inspiring, determined, and collaborative are the people who use and contribute to this language and its ecosystem?
 
-People usually get help from some of the core contributors or other well-informed people via the `#purescript` and `#purescript-beginners`. For longer threads, some post on the [PureScript Discorse Forum](https://discourse.purescript.org)
+People usually get help from some of the core contributors or other well-informed people via the `#purescript` and `#purescript-beginners`. No question is too stupid. For longer threads, some post on the [PureScript Discorse Forum](https://discourse.purescript.org).
 
 The language's development is currently slow because each core contributor have full-time jobs and contribute in their spare time, not because they don't want to.
 
