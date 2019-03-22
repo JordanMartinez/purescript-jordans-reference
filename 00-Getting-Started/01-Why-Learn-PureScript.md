@@ -181,7 +181,7 @@ You might want to learn it **later** for these reasons:
 
 ### How long will it take me before I can write idiomatic code and be productive in PureScript?
 
-The average time for learning FP languages in general is usually 6 months due to the following reasons:
+The average time for learning FP languages in general is usually 6 months due to the below reasons. This repository hopes to speed that process up, but, as always, people learn at different paces:
 - Many tutorials/guides assume their readers already know foundational principles. New learners who read them often do not know, nor are even aware of, those foundational principles.
     - This project's `Hello World/FP Philosophical Foundations` folder exists to counter this issue
 - No one really explains what the "big picture" that FP programming is all about. Thus, it's hard to see how some concept fits in the larger scheme of things.
