@@ -157,8 +157,8 @@ In addition, PureScript can compile to other languages besides Javascript. That 
 
 ### If I learn PureScript, can I get a good developer job?
 
-- A number of jobs listed on [Functional Jobs](https://functionaljobs.com/jobs/search/?q=PureScript) use PureScript in their website-related projects
-- A number of companies use it in production: Conde Nast, Awake Security, Lumi, SlamData, CitizenNet, Habito, CollegeVine, etc.
+- See the community-curated list of [companies who use PureScript in production right now](https://github.com/ajnsit/purescript-companies).
+- Check for PureScript jobs listed on [Functional Jobs](https://functionaljobs.com/jobs/search/?q=PureScript)
 - See [Do you have a PureScript app in production?](https://discourse.purescript.org/t/do-you-have-a-purescript-app-in-production/20)
 
 ### Should I learn PureScript now or wait until sometime later?
