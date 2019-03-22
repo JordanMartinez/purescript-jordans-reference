@@ -27,14 +27,14 @@ main = launchAff_ do
   -- uses request, which allows modification of headers
   --   (such as 'Connection: keep-alive' to speed-up response times)
   -- but requires uri to be broken up into smaller chunks
-  printOptsResponse $ requestOpts "/JordanMartinez"
-  printOptsResponse $ requestOpts "/JordanMartinez/purescript-jordans-reference"
+  printOptsResponse $ requestOpts "github.com" "/JordanMartinez"
+  printOptsResponse $ requestOpts "google.com" ""
 
   where
-    requestOpts path =
+    requestOpts domain path =
       Client.method := "GET" <>
       Client.protocol := "https:" <>
-      Client.hostname := "github.com" <>
+      Client.hostname := domain <>
       Client.path := path <>
       Client.headers := RequestHeaders ((insert "Keep-Alive" "timeout=4" <<< insert "Connection" "keep-alive") empty)
 

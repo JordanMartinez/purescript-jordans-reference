@@ -14,16 +14,40 @@ The libraries we will cover here are:
 
 Run the following while in the `Projects/` folder.
 
+The Yargs-based projects will need to use `node` to run the JavaScript program because `spago run -- arg1` passes `arg1` to the `purs compile` command, not the actual program being run.
+
 ### Pre-reqs
 
 ```bash
-spago run -m Learn.Yargs.Syntax
-spago run -m Learn.Yargs.GetRootDirViaAbsolutePath
-spago run -m Learn.Yargs.GetRootDirViaEitherPath
+# Learn Yargs files
+# Shows what happens when not all required arguments are provided
+spago bundle -m Learn.Yargs -t dist/table-of-contents/learnYargs.js
+node dist/table-of-contents/learnYargs.js
+# Shows what actual 'program' using values looks like
+spago bundle -m Learn.Yargs -t dist/table-of-contents/learnYargs.js
+node dist/table-of-contents/learnYargs.js -c "test" -d "test"
+
+spago bundle -m Learn.Yargs.GetRootDirViaAbsolutePath -t dist/table-of-contents/getRootViaAbsPath.js
+node dist/table-of-contents/getRootViaAbsPath.js --rootDir <your absolute root dir argument here>
+
+spago bundle -m Learn.Yargs.GetRootDirViaEitherPath -t dist/table-of-contents/getRootViaEitherPath.js --rootDir <your absolute root dir argument here>
+# use absolute path
+node dist/table-of-contents/getRootViaEitherPath.js --rootDir <your absolute dir argument here>
+# use relative path
+node dist/table-of-contents/getRootViaEitherPath.js -r --rootDir "."
+
 spago run -m Learn.NodeFS.Syntax
+
 spago run -m Learn.NodeFS.PrintAllFiles
+# To run the above with your own argument, use this instead:
+spago bundle -m Learn.NodeFS.PrintAllFiles -t dist/table-of-contents/printAllFiles.js
+node dist/table-of-contents/printAllFiles.js --rootDir <your relative/absolute directory path argument here>
+
+# All others
 spago run -m Learn.Tree.Syntax
+
 spago run -m Learn.StringParsers.Syntax
+
 spago run -m Learn.Http.Syntax
 ```
 

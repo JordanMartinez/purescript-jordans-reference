@@ -43,9 +43,11 @@ flag_ _ _ _ = true
 {-
 Run the following code using this command to see the difference:
 - Shows what error message / help looks like:
-    $> pulp --psc-package run -m Learn.Yargs -- -c "test" -d "test"
+    $> spago bundle -m Learn.Yargs -t dist/table-of-contents/learnYargs.js
+    $> node dist/table-of-contents/learnYargs.js
 - Shows what actual 'program' using values looks like
-    $> pulp --psc-package run -m Learn.Yargs -- -c "test" -d "test"       -}
+    $> spago bundle -m Learn.Yargs -t dist/table-of-contents/learnYargs.js
+    $> node dist/table-of-contents/learnYargs.js -c "test" -d "test"       -}
 main :: Effect Unit
 main = do
   -- Note: only one example works at a time. So, if you copied the below code,
