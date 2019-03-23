@@ -1,26 +1,33 @@
 # Lazy vs Strict
 
-A computation can either be lazy or strict:
+A computation can either be lazy or strict. Before giving the below table, let's give a real-life example.
+
+This is "Strict evaluation." Your parent tells you to _immediately_ do some chore (e.g. wash dishes, etc.). You go and do so. Sometimes, you learn that this was necessary. Other times, you learn that the dishes were already washed by someone else. Despite telling your parent that they don't need to be washed, your parent insists and overrules you. This especially annoys you on days where "washing the dishes" will take a long time.
+
+This is "Lazy evaluation." Your parent tells you to _remember_ to do some chore but not to start until they tell you. On some days, they never tell you to start because the task wasn't needed after all. You love those days. On other days, they tell you to start in the morning, the afternoon, or the evening.
 
 | Term | Definition | Pros | Cons
 | - | - | - | - |
-| Strict | computes its results immediately | Expensive computations can be run at the most optimum time | Wastes CPU cycles and memory for storing/evaluating expensive compuations that are unneeded/unused |
+| Strict | computes its results immediately | Expensive computations can be run at the most optimum time | Wastes CPU cycles and memory for storing/evaluating expensive computations that are unneeded/unused |
 | Lazy | defers compututation until its needed | Saves CPU cycles and memory: unneeded/unused computations are never computed | When computations will occur every time, this adds unneeded overhead
 
-To make something lazy, we add `Unit ->` in front of it. This is called a `thunk`: a computation that we know how to do but have not yet executed yet. When we are ready to execute it, we call it `forcing the thunk`.
+To make something lazy, we turn it into a function. This function takes one argument (`Unit`) and returns the value we desire. This is called a `thunk`: a computation that we know how to do but have not yet executed yet. To run the code stored in the `thunk`, we use the phrase `forcing the thunk`.
 ```purescript
+-- Given an Int, I can return another Int
 strictlyCompute :: Int -> Int
 strictlyCompute x = x + 4
 
 -- otherwise known as 'thunking'
+-- Given an Int, I can return a 'thunk.' When
+-- this thunk is evaluated, it will return an Int.
 lazilyCompute :: Int -> (Unit -> Int)
-lazilyCompute x = (\_ -> x + 4)
+lazilyCompute x = (\unitValue__neverUsed -> x + 4)
 
 forceThunk :: (Unit -> Int) -> Int
 forceThunk thunk = thunk unit
 
 -- somewhere in our code
-thunk = lazyComputation 5
+thunk = lazilyCompute 5
 
 -- somewhere else in our code, when we finally need it
 result = forceThunk thunk
