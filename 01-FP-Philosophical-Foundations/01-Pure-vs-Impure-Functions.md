@@ -29,7 +29,7 @@ Pure functions have 3 properties, but the third (marked with `*`) is expanded to
 
 <hr>
 
-In many OO languages, pure and impure code are mixed everywhere, making it hard to understand what a function does without examining its body. In FP languages, pure and impure code are separated cleanly, making it easier to understand the code does without looking at its implementation.
+In many OO languages, pure and impure code are mixed everywhere, making it hard to understand what a function does without examining its body. In FP languages, pure and impure code are separated cleanly, making it easier to understand what the code does without looking at its implementation.
 
 Programs written in an FP language usually have just one entry point via the `main` function. `Main` is an impure function that calls pure code.
 
@@ -37,27 +37,38 @@ Sometimes, FP programmers will still write impure code, but they will restrict t
 
 ### Graph Reduction
 
-Since FP functions are pure, one can replace the left-hand side (LHS) of a function with its right-hand side (RHS), or the body/implementation of the function. This concept is known as **referential transparency**:
+In source code, we can describe the various parts of a function based on which side of the `=` character the content appears:
+- Left-Hand Side (LHS): the function name and all of its arguments
+- Right-Hand Side (RHS): the body or implementation of the function\
+
 ```purescript
-function :: Int -> Int -> Int
-function n m = n + m
-
-function 4 3
--- replace LHS with RHS
-4 + 3
-7
-
-(\arg1 arg2 arg3 -> arg1 + arg2 + arg3) 1 2 3
--- replace LHS with RHS
-(\     arg2 arg3 -> 1    + arg2 + arg3)   2 3
-(\          arg3 -> 1    +    2 + arg3)     3
-(\               -> 1    +    2 +    3)
-                    1    +    2 +    3
-                    1    +    5
-                    6
+|         LHS         |    |     RHS     |
+functionName int1 int2   =   int1 + int2
 ```
 
+When using pure functions, one can replace the LHS with the RHS, and the program will still work the same. This concept is known as **referential transparency**:
+```purescript
+functionName 4 3
+-- replace LHS with RHS
+4 + 3
+-- reduce into final form
+7
+-- Calling `function 4 3` could be removed and replaced
+-- with `7` and the program would work the same
 
+-- Similarly, the below function (a longer form syntactically) and its arguments
+-- could be replaced with `6` and the program would work fine.
+(\arg1 arg2 arg3 -> arg1 + arg2 + arg3) 1 2 3
+-- replace LHS with RHS
+(\     arg2 arg3 ->    1 + arg2 + arg3)   2 3
+(\          arg3 ->    1 +    2 + arg3)     3
+(\               ->    1 +    2 +    3)
+                       1 +    2 +    3
+                       1 +    5
+                       6
+```
+
+Although the above examples are very simple functions, imagine if one's entire program was one function that exhibited this behavior. If so, it would be very easy to understand and reason one's way through such a program.
 
 ## Execution vs Description and Interpretation
 
@@ -69,18 +80,29 @@ executeCode = 3
 -------------------------------
 
 -- FP languages
+-- a type with only one value, Unit
 data Unit = Unit
 
+-- Rather than write "Unit", we can now write 'unit' to refer to that value.
 unit :: Unit
 unit = Unit
 
-type ComputationThatReturns a = (Unit -> a))
+-- A function that takes a 'unit' as an input type and returns a 'someValue' type
+-- The type of 'someValue' will be defined later.
+type ComputationThatReturns someValue = (Unit -> someValue)
 
 describeCode :: ComputationThatReturns Int
-describeCode = (\_ -> 3)
+describeCode unitValue__neverUsed = 3
 
 interpretDescription :: ComputationThatReturns Int -> Int
 interpretDescription compute = compute unit
+-- using a graph reduction, this ends up looking like:
+--
+-- compute unit
+-- (\unitValue__neverUsed -> 3) unit
+-- (                      -> 3)
+--                           3
+-- 3
 ```
 
-In short, FP programs are "descriptions" of what to do (i.e. data structures) that are later "interpreted" (i.e. executed) by a RunTime System (RTS).
+In short, FP programs are "descriptions" of what to do that are later "interpreted" (i.e. executed) by a RunTime System (RTS).
