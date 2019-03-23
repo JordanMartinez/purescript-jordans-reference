@@ -1,9 +1,5 @@
 ## Data Types
 
-### Algebraic Data Types
-
-Although this video's sound quality is horrible, it is still a very clear explanation behind the idea: [The Algebra of Algebraic Data Types](https://www.youtube.com/watch?v=YScIPA8RbVE)
-
 ### Principles
 
 In order to abide by the principle of pure functions, FP Data Types tend to adhere to two principles:
