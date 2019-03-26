@@ -1,30 +1,27 @@
 # Type Classes
 
-## A Short Intro to Category Theory
+## What Problem Do Type Classes Solve?
 
-In short, type classes are usually "encodings" of various concepts from Category Theory. Category Theory (herafter referred to as 'CT') is all about functions and their compositions. Fortunately, a programmer often has an easier time understanding CT than a mathematician. Why? AFAIK, a mathematician learning CT feels something like this:
+Type classes are usually "encodings" of various concepts from Category Theory. Category Theory (herafter referred to as 'CT') is all about the various ways we can compose functions and do so while adhering to specific laws. It's typically used for control flow (e.g. FP-style "if then else" statements).
 
-> A programmer is told to write the implementation for a function. When shown the function, he sees a type signature, `QLD -> M42X`. He asks his boss, "What are the values of the `QLD` type!? What are the values of the `M42X` type!?" His boss replies, "You cannot know, nor will you ever know. Now get to work." Terrified, he tries writing something and hopes the compiler will issue a warning that gives him a hint." After compilining, the console mockingly reads, "Error. Try again." How does he implement the function?
+Type classes make developers productive. They enable programmers...
+    - to write 1 line of code that is the equivalent of writing 100s of lines of code.
+    - to define complicated control flows that highlight the important parts and minimize the irrelevant boilerplatey parts (e.g. nested "if then else" statements)
+    - to use (in general) 5 ["dumb reusable data types"](https://youtu.be/hIZxTQP1ifo?t=1225) to solve most of our problems:
+      - Maybe - a box that is either empty or has a value.
+      - Either - a sum type: either has a Left value or a Right value
+      - Tuple - a product type: has both an A value and a B value
+      - List - self-explanatory
+      - Tree - self-explanatory
 
-The issue described above is that a mathematician cannot "peek" through the type to see what its values are whereas a programmer can. Once a programmer knows that `QLD` is a type alias for `Apple`, whose only value is `Apple` and `M42X` is a type alias for `String`, a programmer knows that the function is as simple as writing `functionName Apple = "Apple"`:
-
-```purescript
-data Apple = Apple
-type QLD = Apple
-type M42X = String
-
-functionName :: QLD -> M42X
-functionName Apple = "Apple"
-```
-
-## Type Classes As Category Theory Terms
+## Type Classes as Encodings of Mathematical Concepts
 
 Putting it differently, if `Some type` can implement some `function(s)/value(s) with a specified type signature` in such a way that the implementation adheres to `specific laws`, one can say it **has** an instance of `some CT concept/term`. Some types cannot satisfy some CT terms' conditions, others can satisfy them in only one way; and still others can satisfy them in multiple ways. Thus, one does not say "`Type X` **is** an instance of [some CT Term]." Rather, one says "`Type X` **has** an instance of [some CT Term]." To see this concept in a clearer way and using pictures, see https://www.youtube.com/watch?v=iJ7V1KXJpsE
 
 Thus, type classes abstract general concepts into an "interface" that can be implemented by various data types. They are usually an encapsulation of 2-3 things:
 
 1. (Always) The definition of type signatures for a single/multiple functions/values.
-    - Functions may be put into infix notation using aliases to make it easier to write them.
+    - Functions may be put into infix notation using symbolic aliases (e.g. `<$>`) to make it easier to write them.
 2. (Almost Always) The laws by which implementations of a type class must abide.
     - These laws guarantee certain properties, increasing developers' confidence that their code works as expected.
     - They also help one to know how to refactor code. Given `left-hand-side == right-hand-side`, evaluating code on the left may be more expensive (memory, time, IO, etc.) than the code on the right.
@@ -49,7 +46,7 @@ class Functor f where
 and it uses the alias `<$>` for `map` to enable one to write `function <$> f_a` instead of `map function f_a`
 
 (2) It also specifies the laws to which a correct implementation will adhere when implementing `map`:
-- identity: `map id fa == fa` where `id` is `(\x -> x)`. In other words, if the function returns what it is given, then I should get back the same data structure that I put into `map`.
+- identity: `map (\x -> x) fa == fa`. In other words, if the function returns what it is given, then I should get back the same data structure that I put into `map`.
 - composition: `map (function2 <<< function1) fa == (map function2) <<< (map function1 fa)` where `f <<< g a` is `f(g(a))`. In other words, rather than unwrapping and rewrapping the value stored in a Functor (e.g. Box) twice, I can unwrap it only once.
 
 (3) Once `map` has been implemented correctly, Functor provides the following derived functions:
