@@ -1,22 +1,32 @@
-module Syntax.Typeclass.SuperTypeClasses where
+module Syntax.Typeclass.RequiredTypeClasses where
 
 import Prelude
 
--- A type class can extend another type class to add more functionality.
--- Instances can use functions from `SuperTypeClass` in their `Class` instance
-class SuperTypeClass a <= ActualTypeClass a where
+{-
+Type classes can also have relationships with other type classes.
+
+While the syntax looks hierarchial (i.e. parent-child relationships),
+they aren't necessarily hierarchial. Rather, one should see them as
+"conditional," which will be shown soon.
+-}
+
+-- Here's the syntax. It reads,
+--    "Type 'a' can have an instance of the type class,
+--    'ActualTypeClass.' However, it must also have an instance
+--    of the type class, 'RequiredTypeClass.'"
+class RequiredTypeClass a <= ActualTypeClass a where
   functionName :: a -> ReturnType
 
 -- examples
--- the super type class of 'PlusFive'
+-- the required type class of 'PlusFive'
 class ToInt a where
   toInt :: a -> Int
 
 class ToInt a <= PlusFive a where
   plusFive :: a -> Int
 
--- writing an instance of ActualTypeClass does not require a constraint
--- from SuperTypeClass in its type signature as this is already known due
+-- Writing an instance of ActualTypeClass does not require a constraint
+-- from RequiredTypeClass in its type signature as this is already known due
 -- to `ActualTypeClass`'s definition
 instance actualTypeClass :: ActualTypeClass TheType where
   functionName _ = "body"
@@ -38,23 +48,47 @@ test2 :: Boolean
 test2 =
   (plusFive false) == 5
 
--- A type class can also extend multiple typeclasses:
+-- Now let's explain what we mean by "conditional."
+instance toIntInt :: ToInt Int where
+  -- notice how the required type class, `ToInt`, is using functions
+  -- from its extension type class, `PlusFive`.
+  toInt x = plusFive x
 
-class (SuperTypeClass1 a, SuperTypeClass2 a {-, ... -}) <= TheTypeClass a where
+instance plusFiveInt :: PlusFive Int where
+  plusFive b = 5 + b
+
+-- If a type implements instances for a number of type classes, its instances
+-- can use any of these type class' functions/values. Still,
+-- one of those instances will actually need to be independent from the
+-- others (i.e. it doesn't use any functions/values from other type classes).
+
+
+
+-- A type class can also combine multiple typeclasses. Sometimes,
+-- they will add additional functionality or laws. Other times,
+-- they simply combine two or more type classes into one.
+
+class RequiredTypeClass1 a where
+  fn1 :: a -> String
+
+class RequiredTypeClass2 a where
+  fn2 :: a -> String
+
+-- Example of combining and adding additional functionality:
+class (RequiredTypeClass1 a, RequiredTypeClass2 a {-, ... -}) <= TheTypeClass a where
   function :: a -> a
+
+-- Example of only combining and not adding any additional functionality.
+-- Sometimes, this will add another law; other times, it only combines
+-- multiple type clases together:
+class (RequiredTypeClass1 a, RequiredTypeClass2 a {-, ... -}) <= CombineOnly a
 
 -- necessary to make file compile
 type ReturnType = String
 data TheType = TheType
 
-class SuperTypeClass a where
+class RequiredTypeClass a where
   fn :: a -> String
 
-instance superTypeClassTheTypeInstance :: SuperTypeClass TheType where
+instance requiredTypeClassTheTypeInstance :: RequiredTypeClass TheType where
   fn _ = "body"
-
-class SuperTypeClass1 a where
-  fn1 :: a -> String
-
-class SuperTypeClass2 a where
-  fn2 :: a -> String

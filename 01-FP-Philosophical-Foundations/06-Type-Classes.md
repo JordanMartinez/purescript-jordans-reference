@@ -56,47 +56,19 @@ and it uses the alias `<$>` for `map` to enable one to write `function <$> f_a` 
 - mapFlipped
 - flap
 
-## Clarifying Type Class Relationships
+## Type Classes and Dual Relationships
 
-### Parent-Child-Like Relationships
+Each type class from CT has a corresponding "dual." While there are better ways to explain duals, the basic idea is that the "direction" of the function's arrow gets flipped. When this happens, we usually prefix them with "Co" (e.g. the `product` type's "dual" is the `coproduct` type (i.e. a sum type); the `Monad`'s "dual" is `Comonad`) Likewise, the laws of some type class are the "flipped" version of the laws of its dual.
 
-While type classes are written using "parent-child"-like syntax...
-
-```purescript
-class SomeChildTypeClass a
-
-class (SomeChildTypeClass a) <= SomeParentTypeClass a
-
-class (OneChild a, AnotherChild a) <= ParentThatCombines a
-```
-
-...this relationship is only syntactical. In reality, **these parent-child-like relationships are not necessarily hierarchial (the type must satisfy the child before the possibility of satisfying the parent exists) but conditional (the type must satisfy both the child and parent type classes' type signatures and laws by compile-time)**.
-
-This leads to the following possibilities. If a type has an instance for `ParentTypeClass`, then...
-- the type's implementation for `ChildTypeClass` must satisfy additional law(s).
-- the type's implementation for `ChildTypeClass` can be done more easily / better by using functions/values from `ParentTypeClass`.
-
-In addition, some derived functions for `ParentTypeClass` are only possible if the implementation can use functions from two or more `ChildTypeClass`es
-
-Thus, a parent type class can
-1. extend a child type class with additional functions/values
-2. restrict a child type class' implementation by imposing additional laws
-3. does 1 and 2 in the same type class
-4. combine two or more type classes, so that using the parent type class exposes all the functions/values of its children type classes, but does not add any new functions/values or impose any new laws upon its implementations.
-
-### Dual Relationships
-
-Each type class from CT has a corresponding Dual. While there are better ways to explain duals, the basic idea is that the function arrow's "direction" gets flipped. Likewise, the laws of some type class are the "flipped" version of the laws of its dual.
-
-For example, `Example'` is the dual of `Example`:
+For example, a function like `toB` would have its arrow flipped to produce `toA`::
 
 ```purescript
-class Example a where
-  toB :: a -> b
+toB :: a -> b
+toB = -- function's implementation
 
-class Example' b where
-      -- a <- b
-  toA :: b -> a
+    -- a <- b
+toA :: b -> a
+toA = -- function's implementation
 ```
 
 ## Non-Category Theory Usages of Type Classes
@@ -112,28 +84,13 @@ Some type classes are purposefully designed to be lawless because they are used 
 
 ### Debate: Must Type Classes Always Be Lawful?
 
-As can be inferred by how dictionaries work, type classes provide a "convenience" of sorts: rather than forcing the developer to pass in an implementation of the function, `(a -> Boolean)`, the compiler can infer what that function's implementation is **as long as it can infer the type of `a` in `class ToBoolean a`**.
+Type classes provide a "convenience" of sorts: rather than forcing the developer to pass in an implementation of the function, `(a -> Boolean)`, the compiler can infer what that function's implementation is **as long as it can infer what the type of `a` is**.
 
 This understanding is crucial for understanding a debate: must type classes always have laws? The following is a summary (somewhat biased) of [this Reddit thread](https://www.reddit.com/r/haskell/comments/5gospp/dont_use_typeclasses_to_define_default_values/)
 
-Those that say "yes" likely value the benefit of laws. Laws guarantee relationships between functions and values. In short, it's easier to understand and reason about code that uses lots of generic types (e.g. `forall a. a -> String`) if one knows that functions that operate on values of `a` or values that provide an `a` value adhere to certain laws.
+Those that say "yes" likely value the benefit of laws. Laws guarantee relationships between functions and values. In short, it's easier to understand and reason about code that uses lots of generic types (e.g. `forall a. a -> String`) if one knows that functions that operate on values of the type, `a`, or values that provide an `a` value adhere to certain laws.
 
 Those that say "no" likely value the benefit of overloading a function name with different implementations. For example, what if one wanted to provide a default value of some type? Reusing the function name "default" is pretty easy to understand. However, what laws does it abide by? Without a deeper context, it's hard, if not impossible, to say.
-
-```purescript
-class Default a where
-  default :: a
-
-instance regularInt :: Default Int where
-  default = 0
-
--- in case some prior definition somehow 'got it wrong'
--- one can use newtypes to deal with that
-newtype SpecialInt = SpecialInt Int
-
-instance specialInt :: Default SpecialInt where
-  default = SpecialInt 7
-```
 
 The counterargument from those that say "laws must be required" is: "one usually hasn't thought through their design that deeply yet." As an example, is `Default Int` just a different name for `Monoid`'s `mempty`, (i.e. `0` in addition (`1 + 0 == 1` and `0 + 1 == 1`)? Is their approach to their design actually flawed because there is a "better" way and they just haven't realized it yet?
 
