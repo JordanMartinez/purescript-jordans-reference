@@ -2,7 +2,7 @@
 
 In most OO languages, one writes loops using `while` and `for`. Looping in that matter makes it very easy to introduce impure code. So, in FP languages, one writes loops using recursion, pattern-matching, and tail-call optimization. The rest of this file will compare OO code to its FP counterpart
 
-## For `i` until `condition`
+## For `i` until `condition` do `computation` and then increment `i`
 
 ```javascript
 // factorial
