@@ -1,6 +1,12 @@
 # Composition Everywhere
 
-By "composition," we mean, "Assemble a few low-level pieces into a higher-level piece." Here are some examples:
+**TL;DR**
+
+Watch [The Power of Composition](https://youtu.be/vDe-4o8Uwl8?t=8)
+
+<hr>
+
+By "composition," we mean, "Assemble a few low-level reusable pieces into a higher-level piece." Here are some examples:
 - (Classic example) [Legos](https://www.wikiwand.com/en/Lego). Using small blocks of plastic, people can create all sorts of interesting things.
 - Furniture. Using wood, metal, fabric, glass, and nails, people can create tables, chairs, desks, cabinets, etc.
 
