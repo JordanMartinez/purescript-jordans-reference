@@ -1,6 +1,6 @@
-## Data Types
+# Data Types
 
-### Principles
+## Principles
 
 In order to abide by the principle of pure functions, FP Data Types tend to adhere to two principles:
 
@@ -35,7 +35,7 @@ x /= y
 (indexAt 2 x) isTheSameObjectAs (indexAt 2 y)
 ```
 
-### Big O Notation
+## Big O Notation
 
 FP data types have `amortized` costs. In other words, most of the time, using a function on a data structure will be quick, but every now and then that function will take longer. Amortized cost is the overall "average" cost of using some function.
 
