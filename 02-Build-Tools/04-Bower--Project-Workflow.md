@@ -6,7 +6,6 @@
 
 One of two ways
 ```bash
-bower init
 pulp init
 ```
 
@@ -15,8 +14,9 @@ pulp init
 ```bash
 # Need to install NPM packages and initialize them
 npm install npm-package1 npm-package2
-npm init
+npm install
 bower install package1 package2 --save
+bower install
 ```
 
 ### Write the Code
@@ -35,7 +35,7 @@ pulp --watch --before 'clear' test
 pulp browserify --to dist/fileName.js # if program
 pulp browserify --no-main-check --to dist/fileName.js # if library
 
-# Run the program
+# Run the program and pass args to the underlying program
 pulp run -- arg1PassedToProgram arg2PassedToProgram
 ```
 ### Publish the Package for the First Time
