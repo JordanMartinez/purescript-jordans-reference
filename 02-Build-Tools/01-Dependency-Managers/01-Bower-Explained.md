@@ -28,6 +28,8 @@ Long answer:
 
 ## Problem Points?
 
+Besides those stated below, you must use `npm` to install any JavaScript libraries for bindings. This is true for `bower` and `spago` alike.
+
 ### Solution to Most Common Bower Problem: The Cache Mechanism
 
 When in doubt, run the following command, reinstall things, and see if that fixes your issue:
