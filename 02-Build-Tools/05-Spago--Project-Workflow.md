@@ -9,7 +9,7 @@ The below example uses `spago` as the build tool and dependency manager.
 spago init
 ```
 
-If you need to override/add packages to the standard package set, proceed to `Configure the Package Set`. Otherwise, continue to `Freeze the Package Set`
+If you need to override/add packages to the standard package set, proceed to `Configure the Package Set`. Otherwise, continue to `Install Dependencies`
 
 ### Configure the Packaget Set
 
@@ -36,7 +36,7 @@ Note: Spago does this automatically now. So, one likely does not need to do this
 spago freeze
 ```
 
-## Install dependencies
+## Install Dependencies
 
 One of two ways
 ```bash
@@ -96,6 +96,6 @@ Create an HTML file (dist/example.html) that references the 'app.js' file
 Then use parcel to do minification and open the resulting web page
 ```bash
 parcel build dist/example.html --target "browser" -o index.html --open
-# it'll create a few files in the `dist/` folder and one open the resulting
+# it'll create a few files in the `dist/` folder and open the resulting
 # "dist/index.html" file via your default web browser
 ```
