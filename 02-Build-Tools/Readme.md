@@ -38,7 +38,7 @@ See the below image to visualize this:
 
 ### Phase 3: Improving the `psc-package` Developer Workflow via `Spago`
 
-From the above image, one should infer that using `pulp` and `bower` was overall easier to use and explain. Thus, Justin Woo and Fabrizo Ferrai started a project called `spago`. `spago` "absorbed" `psc-package` and `spacchetti` into one program and now provides a seamless developer workflow.
+From the above image, one should infer that using `pulp` and `bower` was overall easier to use and explain. Thus, Justin Woo and Fabrizo Ferrai started a project called `spago`. `spago` evolved out of `spacchetti` and reimplemented parts of `psc-package` into one program with a seamless developer workflow. While `psc-package` can still be used, it's better to use `spago`.
 
 The below image summarizes the current state:
 
