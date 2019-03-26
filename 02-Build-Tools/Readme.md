@@ -10,6 +10,8 @@ This folder accomplishes the following:
 
 ## History: How We Got Here
 
+The following explanation does not cover all the tools used in PureScript's ecosystem. However it provides context for later files.
+
 ### Phase 1: Initial Tooling
 
 PureScript's compiler was originally called `psc` (<strong>P</strong>ure<strong>S</strong>cript <strong>C</strong>ompiler) before later being renamed to `purs`. (We'll see this `psc` name reappear elsewhere in a related project).
