@@ -1179,22 +1179,22 @@
       <text x="794.0749" xml:space="preserve" y="4298.4346" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Let's say we have two types, "Individuals" and "Companies"</text>
     </g>
     <g fill="rgb(255,204,0)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-538,-147)" stroke="rgb(255,204,0)">
-      <rect x="827.3347" width="294.7051" height="257.2" y="4585.3622" clip-path="url(#clipPath2)" stroke="none"/>
+      <rect x="778.3649" width="392.6445" height="257.2" y="4585.3622" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-538,-147)" stroke-linecap="butt">
-      <rect fill="none" x="827.3347" width="294.7051" height="257.2" y="4585.3622" clip-path="url(#clipPath2)"/>
+      <rect fill="none" x="778.3649" width="392.6445" height="257.2" y="4585.3622" clip-path="url(#clipPath2)"/>
       <text x="834.3347" xml:space="preserve" y="4606.3667" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Let's say we developed software for the above</text>
       <text x="849.4811" xml:space="preserve" y="4620.3354" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">individuals and companies and wanted to</text>
       <text x="837.7682" xml:space="preserve" y="4634.3042" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">create a program that properly charges them</text>
       <text x="938.154" xml:space="preserve" y="4648.2729" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">for our fees.</text>
       <text x="972.78" xml:space="preserve" y="4662.2417" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none"> </text>
-      <text x="836.8132" xml:space="preserve" y="4676.2104" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">To combine the two together into a new type </text>
-      <text x="855.405" xml:space="preserve" y="4690.1792" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">called "Customers", we would combine </text>
-      <text x="884.2272" xml:space="preserve" y="4704.1479" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">the types together using "OR"</text>
+      <text x="811.0173" xml:space="preserve" y="4676.2104" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">If we wanted to define a new type called "Customers,"</text>
+      <text x="847.5944" xml:space="preserve" y="4690.1792" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">that allows us to choose between the two,</text>
+      <text x="826.2663" xml:space="preserve" y="4704.1479" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">we would combine the types together using "OR"</text>
       <text x="879.7067" xml:space="preserve" y="4718.1167" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">and their values using addition.</text>
       <text x="972.78" xml:space="preserve" y="4732.0854" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none"> </text>
       <text x="883.9196" xml:space="preserve" y="4746.0542" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">One can read "Customers" as </text>
-      <text x="839.5554" xml:space="preserve" y="4760.0229" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">"An 'Individual' value OR a 'Company' Value"</text>
+      <text x="785.3649" xml:space="preserve" y="4760.0229" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">"A choice of either an 'Individual' value OR a 'Company' Value"</text>
       <text x="972.78" xml:space="preserve" y="4773.9917" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none"> </text>
       <text x="846.5046" xml:space="preserve" y="4787.9604" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Because "Individual" has 4 possible values</text>
       <text x="859.3893" xml:space="preserve" y="4801.9292" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">and "Company" has 4 possible values,</text>
@@ -2267,7 +2267,7 @@
       <rect fill="none" x="688.2491" width="402.5938" height="48.56" y="10285.16" clip-path="url(#clipPath2)"/>
       <text x="695.2491" xml:space="preserve" y="10299.626" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Let's consider a function that has the type "Boolean -&gt; Boolean"</text>
       <text x="887.6387" xml:space="preserve" y="10313.5947" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none"> </text>
-      <text x="722.6768" xml:space="preserve" y="10327.5635" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">How many possible "values" (aka arrows) does it have?</text>
+      <text x="767.0352" xml:space="preserve" y="10327.5635" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">How many possible arrows does it have?</text>
     </g>
     <g fill="rgb(255,204,0)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-538,-147)" stroke="rgb(255,204,0)">
       <rect x="692.9467" width="380.3984" height="56.24" y="10537.96" clip-path="url(#clipPath2)" stroke="none"/>
