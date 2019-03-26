@@ -24,7 +24,12 @@ To change x's `2` to `4`, we would create a new 'version' of 'x'
 Nil ← 1 ← 2 ← 3 = x
       ↑
       4 ← 3 = y
+```
+Using a more visual diagram:
 
+![Immutable-Persistent-Via-List](./assets/Immutable-Persistent-via-List.svg)
+
+```purescript
 -- At the end of the computation, these are true:
 x == x
 x /= y
