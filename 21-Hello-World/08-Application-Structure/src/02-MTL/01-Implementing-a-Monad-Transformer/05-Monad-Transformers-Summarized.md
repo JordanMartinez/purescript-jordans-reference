@@ -14,7 +14,7 @@ Third, the general pattern (there are exceptions!) that we will see reappear whe
 Putting it into a table, we get this:
 
 | Type Class | Sole Implementation<br>(`m` is undefined)<br><br>function that runs it | Sole Implementation<br>(`m` is `Identity`)<br><br>function that runs it |
-| - | - | - | - |
+| - | - | - |
 | `Monad[Word]`<br>(General Pattern) | `[Word]T`<br><br>`run[Word]` | `[Word]`<br><br>`run[Word]` |
 | `MonadState` |  `StateT`<br><br>`runState` | `State`<br><br>`runState` |
 | `MonadReader` | `ReaderT`<br><br>`runReader` | `Reader`<br><br>`runReader` |
