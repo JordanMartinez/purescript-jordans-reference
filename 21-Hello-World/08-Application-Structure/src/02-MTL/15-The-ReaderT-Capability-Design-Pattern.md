@@ -103,5 +103,5 @@ For another example, see [the Monad Reader Example](https://gist.github.com/rluc
 
 | Scope of Code | Example | Use |
 | - | - | - |
-| Programming in the large<br>Application Structure | Connecting impure effects to their pure type classes via an API layer | `ReaderT`
+| Programming in the large<br>(e.g. Application Structure) | Connecting impure effects to their pure type classes via an API layer | `ReaderT`
 | Programming in the small | Doing one particular computation that uses a number of effects | `mtl`
