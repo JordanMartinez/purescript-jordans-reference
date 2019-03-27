@@ -2,6 +2,18 @@
 
 ## What Problem Do Type Classes Solve?
 
+Code reuse. Rather than writing the same code 25 different times where it differs in only one way each time, we can write code once and "parameterize it" in 25+ different ways.
+
+To see a bottom-up explanation of this idea, read through the bullet points below and then watch the video.
+- This video finishes explaining what type classes are around 22:54.
+- The parts that follow are more advanced concepts. They explain how to make "real world code" easily testable via type classes and interpreters. You might not understand those explanations until you are more familiar with PureScript syntax.
+- The presentation ends at 1:03:58. Nate starts answering people's questions after that.
+- Nate's answers to various questions ends at 1:13:12 and the rest of the video are people talking about various PureScript things.
+
+Video: [Code Reuse in PureScript: Functions, Type Classes, and Interpreters](https://youtu.be/GlUcCPmH8wI?t=24) (actual video title on YouTube: "PS Unscripted - Code Reuse in PS: Fns, Classes, and Interpreters")
+
+## Where Do Type Classes Come From?
+
 Type classes are usually "encodings" of various concepts from Category Theory. Category Theory (herafter referred to as 'CT') is all about the various ways we can compose functions and do so while adhering to specific laws. It's typically used for control flow (e.g. FP-style "if then else" statements).
 
 Type classes make developers productive. They enable programmers...
