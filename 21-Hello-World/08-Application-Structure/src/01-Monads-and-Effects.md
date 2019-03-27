@@ -125,13 +125,7 @@ Related to `Terse`, we shouldn't have to annotate code (e.g. wrapping `value` wi
 
 ## Modeling Effects
 
-There are a number of ways to model effects, but these four in [stepchownfun's `effects` project](https://github.com/stepchowfun/effects) give a general idea:
-- `Bespoke monad` - design and use your own hand-crafted monadic type that has an instance for every effect you need
-- `MTL` - uses nested functions in a stack-like way, where lower ones are "**lifted**" into higher ones
-- `Free` - uses nested data structures in a stack-like way where lower ones are "**interpreted**" into higher ones
-- `Eff`- ???
-
-In this folder, we'll only cover `MTL` and `Free`. The article to which we referred above overviews more ideas, but that is not our current focus. It might be worth returning to it after one has read through the rest of this folder.
+In this folder, we'll only cover `MTL`/`ReaderT Design Pattern` and `Free`/`Run`. The article to which we referred above overviews more ideas, but that is not our current focus. It might be worth returning to it after one has read through the rest of this folder.
 
 ### Composing Monads
 
@@ -146,78 +140,79 @@ bind             (Box 4)   (\four -> Box (show four)) == Box "5"
 
 We saw the same problem earlier when we wanted to run an `Effect` monad inside of a `Box` monad. We fixed it by "lifting" the `Effect` monad into the `Box` monad via a [`NaturalTransformation`](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.NaturalTransformation#t:NaturalTransformation)/`~>`. This was abstracted into a type class specific for `Effect ~> someOtherMonad` in [`MonadEffect`](https://pursuit.purescript.org/packages/purescript-effect/2.0.0/docs/Effect.Class#t:MonadEffect).
 
-`MTL` and `Free` use different approaches to solving this problem and its solution is what creates the Onion Architecture-like idea we mentioned before.
+`MTL` and `Free` use different approaches to solving this problem and its solution is what creates the Onion Architecture-like idea we mentioned before. As we saw earlier in Nate's video in this folder's ReadMe, `mtl` is the "Final Encoding" style and `Free`/`Run` is the "Initial Encoding" style.
 
 **The following ideas are quick overviews of each approach. Their terminology and exact details will be explained in their upcoming folder. It is not meant to be clearly understandable at first.**
 
 #### MTL Approach
 
-In the `MTL`-approach, one models the above effects using functions (we'll show how later). Since each function is a different monadic type, they do not compose. Thus, one gets around this monad-composition problem by creating a "stack" of monad transformers (i.e. functions). Following the previous idea, we can define **something similar to** a `NaturalTransformation` that "lifts" one monadic function (e.g. a function that implements `MonadReader`) into another monadic function (e.g. a function that implements `MonadState`). Using a visual, it produces this diagram (read from bottom to top):
+In the `MTL`-approach, one models the above effects using functions (we'll show how later). Since monad transformers augment some "base" monad, it creates a stack-like picture (read from bottom to top):
 ```
-MonadState_TargetMonad
+BaseMonad
       ^
-      | gets lifted into
+      | augments
       |
-MonadReader_SourceMonad
+Pure MonadState
 ```
-Generalizing this idea, we must ultimately create a "stack" of these function-based monad-transformers that lift one monadic function type somewhere in the "stack" all the way up and into the monadic function type at the top of the stack. Using a visual, it produces this diagram (read from bottom to top):
+
+Since each function is a different monadic type, they do not compose. Thus, one gets around this monad-composition problem by creating a "stack" of nested monad transformers (i.e. functions). Following the previous idea, we can define **something similar to** a `NaturalTransformation` that "lifts" the effects of one monadic function (e.g. a function that implements `MonadReader`) into another monadic function (e.g. a function that implements `MonadState`), which augments the base monad. Using a visual, it produces this diagram (read from bottom to top):
 ```
-Index0_TopMonad
+BaseMonad
+      ^
+      | augments
+      |
+Pure MonadState_TargetMonad
       ^
       | gets lifted into
       |
-Index1_NextMonad
+Pure MonadReader_SourceMonad
+```
+Generalizing this idea, we must ultimately create a "stack" of these function-based monad-transformers. Using a visual, it produces this diagram (read from bottom to top):
+```
+BaseMonad
+      ^
+      | augments
+      |
+Pure MonadState
       ^
       | gets lifted into
       |
-Index2_NextMonad
+Pure MonadWriter
       ^
       | gets lifted into
       |
-Index3_NextMonad
-      ^
-      | gets lifted into
-      |
-Index4_NextMonad
-      ^
-      | gets lifted into
-      |
-Index5_BottomMonad
+Pure MonadReader
 ```
 
 This idea is at the heart of the type class called `MonadTrans`. Again, you should feel somewhat confused right now and a bit overwhelmed. However, we'll refer to these ideas later to help explain why we make some of the design choices that we do. By the end of this folder, this will all make sense.
 
 #### Free
 
-In the `Free`-approach, one models the above effects using data structures (again, we'll show how later). Since each data structure is a different monadic type, they do not compose. Thus, one gets around this monad-composition problem by creating a "stack" of data structures. Following the previous idea, we can define **something similar to** a `NaturalTransformation` that "interprets" one monadic data structure (e.g. a data type that implements `MonadReader`) into another monadic data structure (e.g. a data type that implements `MonadState`). Using a visual, it produces this diagram (read from bottom to top):
+In the `Free`-approach, one models the above effects using data structures (again, we'll show how later). Essentially, one uses domain-specific languages (DSLs) created via data structures to define an Abstract Syntax Tree (AST). Such a tree describe a computation but does not run them. Later on, an AST is "interpreted" (via a `NaturalTransformation`/`~>`) into a final base monad that actually runs the computation. Using a visual, it produces this diagram (read top to bottom):
 ```
-MonadState_TargetMonad
-      ^
-      | gets **interpreted as**
+Pure High-Level Language
       |
-MonadReader_SourceMonad
+      | gets interpreted into
+      |
+     \ /
+Base Monad
 ```
-Generalizing this idea, we must ultimately create a "stack" of these data-structure-based monads that takes one monadic data type somewhere in the "stack" and interprets it as the monadic data structure type at the top of the stack. Using a visual, it produces this diagram (read from bottom to top):
+Due to how interpreters work, one can define high-level ASTs that are interpreted into lower-level ASTs before being run by a base monad. Using a visual, it produces this diagram (read from bottom to top):
 ```
-Index0_TopMonad
-      ^
-      | which gets **interpreted as**
+Pure AST via High-Level Language
       |
-Index1_NextMonad
-      ^
-      | which gets **interpreted as**
+      | gets interpreted into
       |
-Index2_NextMonad
-      ^
-      | which gets **interpreted as**
+     \ /
+Pure AST via Medium-Level Language
       |
-Index3_NextMonad
-      ^
-      | which gets **interpreted as**
+      | gets interpreted into
       |
-Index4_NextMonad
-      ^
-      | gets **interpreted as**
+     \ /
+Pure AST via Low-Level Language
       |
-Index5_BottomMonad
+      | gets interpreted into
+      |
+     \ /
+Base Monad
 ```
