@@ -171,3 +171,9 @@ which outputs:
 
 : Nil)
 ```
+
+## Concluding Thoughts
+
+Different monadic types lead to different control flow statements. We've only shown a few here.
+
+We will see more control flow options in the `Application Structure` folder, but there's more ground-work to cover before it'll make sense.
