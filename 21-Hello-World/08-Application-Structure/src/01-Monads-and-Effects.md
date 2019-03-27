@@ -99,7 +99,7 @@ f' :: forall m.
 Composable means using two or more effects in the same function should be lawful.
 
 For example
-- `set`ting some state to `5` and later `get`ting that state should return `5`, not `8`, no matter what happens in-between those two calls (e.g. printing some value to the console).
+- `set`ting some state to `5` and later `get`ting that state should return `5`, not `8`, no matter what other effects or computations we run in-between those two calls (e.g. printing some value to the console).
 - `catch`ing an error cannot occur unless an error was `throw`n prior to it.
 - `ask`ing for a configuration value should return the same value each time no matter what happens before/after that call.
 
