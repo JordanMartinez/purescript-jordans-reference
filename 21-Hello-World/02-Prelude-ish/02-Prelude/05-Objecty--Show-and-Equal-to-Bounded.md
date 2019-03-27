@@ -7,6 +7,10 @@ In Java, every object has 3 functions:
 
 However, some types do not need these functions (e.g. singletons, lambda functions, etc.). Furthermore, `equals` should only work between objects of the same type (i.e. `4 == "4"` shouldn't compile).
 
+In PureScript, we can only determine whether a value of type `A` is equal to another value of type `A` if it has an `Eq` instance. Similarly, values of a given type can only be "ordered" if the type has an instance of the `Ord` type class.
+
+Whether a type implements a type class or not restricts or increases what one can do with it.
+
 ## Show, Equal, Ord, Bounded
 
 Since the documentation for these type classes are clear, we will redirect you to them instead of repeating them here:
