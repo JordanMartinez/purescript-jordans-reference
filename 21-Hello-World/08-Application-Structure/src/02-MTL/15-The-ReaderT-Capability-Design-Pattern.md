@@ -98,3 +98,10 @@ main = do
 ```
 
 For another example, see [the Monad Reader Example](https://gist.github.com/rlucha/696ca604c9744ad11aff7d46b1706de7)
+
+## When to Use it: ReaderT vs MTL?
+
+| Scope of Code | Example | Use |
+| - | - | - |
+| Programming in the large<br>Application Structure | Connecting impure effects to their pure type classes via an API layer | `ReaderT`
+| Programming in the small | Doing one particular computation that uses a number of effects | `mtl`
