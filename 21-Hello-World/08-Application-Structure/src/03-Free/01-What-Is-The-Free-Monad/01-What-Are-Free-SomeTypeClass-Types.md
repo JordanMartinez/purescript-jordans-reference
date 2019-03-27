@@ -9,7 +9,9 @@ Moreover, some type classes comebine two or more type classes together
 
 Thus, `SomeTypeClass` isn't so much a 'thing' as much as it is an expectation. We don't say that `f` **is** a `SomeTypeClass` (for it could implement it in various ways); rather, we are really saying that `f` **has** an instance that implements `SomeTypeClass`'s `specialFunction` function in such a way that it adheres to `SomeTypeClass`'s laws. As we saw from the MTL folder, even `StateT`, a newtyped function, can be called a `Functor` because it meets all of these requirements.
 
-However, whenever we had a type that we wanted to use in a `Functor`-like way, we needed to define its `Functor` instance before we could use it in that way. In other words, we have to write a lot of boilerplate code. What if we could grant `Functor`-like capabailities for any type without implementing such an instance? That is the idea behind "free" type classes.
+However, whenever we had a type that we wanted to use in a `Functor`-like way, we needed to define its `Functor` instance before we could use it in that way. In other words, we have to write a lot of boilerplate code.
+
+What if we could grant `Functor`-like capabailities for any type without implementing such an instance? That is the idea behind "free" type classes.
 
 Essentially, a "free" `TypeClassName` is a box-like type, `Wrapper`, that grants `TypeClassName`-capabilities to some other type, `A`, by providing the necessary structure for implementing a law-abiding `TypeClassName` instance for `Wrapper`.
 
