@@ -68,9 +68,9 @@ What is `finalRow` when `row1` is `(name :: String, age :: Int)` and `row2` is `
 
 There are generally five stages when writing a type-level expression:
 1. Write the needed type-level function's type signature without any proxies, type class constraints, forall syntax, etc.
-2. Wrap the types in their Proxy objects where needed
-3. Add constraints to "compute" specific values in the type-level expression
-4. Add the forall syntax
+2. Add constraints to "compute" specific values in the type-level expression
+3. Wrap the types in their `Proxy` types where needed
+4. Add the `forall` syntax
 5. Write the value-level code that makes it work/compile
     - add `IsKind` constraints when needed
     - use `unsafeCoerce` when needed (explained more in next section)
@@ -90,16 +90,17 @@ class Append (left :: Symbol) (right :: Symbol) (appended :: Symbol)
 combineSymbol :: left -> right -> combination
 combineSymbol l r = -- TODO
 
--- 2. Add in the Proxy objects
-combineSymbol :: SProxy left -> SProxy right -> SProxy combination
+-- 2. Add the type class constraints to compute type-level values
+combineSymbol :: Append left right combination
+              => left -> right -> combination
 combineSymbol l r = -- TODO
 
--- 3. Add the type class constraints
+-- 3. Add in the `Proxy` types
 combineSymbol :: Append left right combination
               => SProxy left -> SProxy right -> SProxy combination
 combineSymbol l r = -- TODO
 
--- 4. Add the forall syntax
+-- 4. Add the `forall` syntax
 combineSymbol :: forall left right combination
                . Append left right combination
               => SProxy left -> SProxy right -> SProxy combination
