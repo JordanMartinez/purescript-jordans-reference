@@ -59,10 +59,10 @@ attemptHeaderNesting list stored next getHeaderLevel =
          }
     else
          { list: list
-         , loc: Just $
+         , loc: Just $ root $
             case lastChild stored of
               Nothing -> insertChild (next :< Nil) stored
-              Just child -> root $ recursivelyNestHeader child next getHeaderLevel
+              Just child -> recursivelyNestHeader child next getHeaderLevel
          }
 
 recursivelyNestHeader :: forall a. Loc a -> a -> (a -> Int) -> Loc a
