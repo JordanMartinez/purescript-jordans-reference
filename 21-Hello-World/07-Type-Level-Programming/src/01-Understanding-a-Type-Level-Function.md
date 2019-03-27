@@ -47,9 +47,9 @@ Rows can make our life easier in a number of ways. We'll see some examples befor
 
 ## Reading a Type-Level Function
 
-1. Ignore the type class constraints and look solely at the function's arguments.
-2. Ignore the `IsKind` (e.g. `IsSymbol`/`IsOrdering`) type class constraints and look at the type class constraints that actually compute something (e.g. `Add`, `Append`, `Compare`, `Cons`, etc.)
-3. Once you determine how the type-level expression computes, now look at the `IsKind` constraints and the value-level code to see how one gets the function to type check.
+1. Ignore the type class constraints and look solely at the function's arguments. Now you know what the starting "inputs" and final "outputs" of the function are.
+2. Ignore the `IsKind` (e.g. `IsSymbol`/`IsOrdering`) type class constraints and look at the type class constraints that actually compute something (e.g. `Add`, `Append`, `Compare`, `Cons`, etc.) Now you have an understanding of what the type-level function does.
+3. Look at the `IsKind` constraints and any `Proxy` types to see how the function type checks.
 
 For example, look at [Prim.Row](https://pursuit.purescript.org/builtins/docs/Prim.Row) to understand the relationships used below and then use the above guidelines to understand this type-level computation:
 ```purescript
