@@ -5,6 +5,14 @@ This folder will show how to build a "guess the random number" game. Here's an o
 - Shared Code: the domain types, data structures, and their related functions that are used across all the other folders. This folder excludes any infrastructure/framework code (e.g. `Node.ReadLine`/`Halogen`).
 - Folders for each application structure
 
+## Libraries Used
+
+`Total Number: 2`
+
+Be familiar with the contents of the below folders in the `Libraries` folder before reading this folder's content:
+- ReadLine and Aff
+- Halogen
+
 ## Compilation Instructions
 
 Run the following while in the `Projects/` folder.
