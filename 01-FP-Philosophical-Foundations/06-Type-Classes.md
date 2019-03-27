@@ -14,12 +14,12 @@ Video: [Code Reuse in PureScript: Functions, Type Classes, and Interpreters](htt
 
 ## Where Do Type Classes Come From?
 
-Type classes are usually "encodings" of various concepts from Category Theory. Category Theory (herafter referred to as 'CT') is all about the various ways we can compose functions and do so while adhering to specific laws. It's typically used for control flow (e.g. FP-style "if then else" statements).
+Type classes are usually "encodings" of various concepts from Category Theory. Category Theory (herafter referred to as 'CT') is all about the various ways we can compose functions and do so while adhering to specific laws. It's typically used for control flow (e.g. FP-style "if then else" statements, loops, etc.).
 
 Type classes make developers productive. They enable programmers...
     - to write 1 line of code that is the equivalent of writing 100s of lines of code.
     - to define complicated control flows that highlight the important parts and minimize the irrelevant boilerplatey parts (e.g. nested "if then else" statements)
-    - to use (in general) 5 ["dumb reusable data types"](https://youtu.be/hIZxTQP1ifo?t=1225) to solve most of our problems:
+    - to use (in general) 5 ["dumb reusable data types"](https://www.youtube.com/embed/hIZxTQP1ifo?start=1225&end=1334) to solve most of our problems:
       - Maybe - a box that is either empty or has a value.
       - Either - a sum type: either has a Left value or a Right value
       - Tuple - a product type: has both an A value and a B value
