@@ -236,34 +236,34 @@
       <text x="1257.7538" xml:space="preserve" y="684.0445" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Derivable Instances?</text>
     </g>
     <g fill="rgb(255,204,0)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-562,-455)" stroke="rgb(255,204,0)">
-      <rect x="1194.2227" width="43.4316" height="30" y="530" clip-path="url(#clipPath2)" stroke="none"/>
+      <rect x="1176.5303" width="78.8164" height="30" y="530" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-562,-455)" stroke-linecap="butt">
-      <rect fill="none" x="1194.2227" width="43.4316" height="30" y="530" clip-path="url(#clipPath2)"/>
-      <text x="1201.2227" xml:space="preserve" y="549.1543" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Type</text>
+      <rect fill="none" x="1176.5303" width="78.8164" height="30" y="530" clip-path="url(#clipPath2)"/>
+      <text x="1183.5303" xml:space="preserve" y="549.1543" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Type Class</text>
     </g>
     <g fill="rgb(255,204,0)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-562,-455)" stroke="rgb(255,204,0)">
-      <rect x="1284.3447" width="75.9629" height="30" y="530" clip-path="url(#clipPath2)" stroke="none"/>
+      <rect x="1302.9052" width="136.8418" height="30" y="530" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-562,-455)" stroke-linecap="butt">
-      <rect fill="none" x="1284.3447" width="75.9629" height="30" y="530" clip-path="url(#clipPath2)"/>
-      <text x="1291.3447" xml:space="preserve" y="549.1543" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Supertype</text>
+      <rect fill="none" x="1302.9052" width="136.8418" height="30" y="530" clip-path="url(#clipPath2)"/>
+      <text x="1309.9053" xml:space="preserve" y="549.1543" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Required Type Class</text>
       <rect fill="none" x="1216.2226" width="103.5898" height="30" y="470" clip-path="url(#clipPath2)"/>
       <text x="1223.2225" xml:space="preserve" y="489.1543" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Arrows Legend</text>
     </g>
     <g fill="rgb(255,204,0)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-562,-455)" stroke="rgb(255,204,0)">
-      <rect x="1169.7891" width="67.8652" height="30" y="604.8902" clip-path="url(#clipPath2)" stroke="none"/>
+      <rect x="1150.1895" width="107.0645" height="30" y="604.8902" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-562,-455)" stroke-linecap="butt">
-      <rect fill="none" x="1169.7891" width="67.8652" height="30" y="604.8902" clip-path="url(#clipPath2)"/>
-      <text x="1176.7891" xml:space="preserve" y="624.0445" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">OneType</text>
+      <rect fill="none" x="1150.1895" width="107.0645" height="30" y="604.8902" clip-path="url(#clipPath2)"/>
+      <text x="1157.1895" xml:space="preserve" y="624.0445" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">One Type Class</text>
     </g>
     <g fill="rgb(255,204,0)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-562,-455)" stroke="rgb(255,204,0)">
-      <rect x="1282.3698" width="91.2148" height="30" y="604.8902" clip-path="url(#clipPath2)" stroke="none"/>
+      <rect x="1348.7702" width="130.4141" height="30" y="604.8902" clip-path="url(#clipPath2)" stroke="none"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-562,-455)" stroke-linecap="butt">
-      <rect fill="none" x="1282.3698" width="91.2148" height="30" y="604.8902" clip-path="url(#clipPath2)"/>
-      <text x="1289.3699" xml:space="preserve" y="624.0445" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">AnotherType</text>
+      <rect fill="none" x="1348.7702" width="130.4141" height="30" y="604.8902" clip-path="url(#clipPath2)"/>
+      <text x="1355.7703" xml:space="preserve" y="624.0445" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">Another Type Class</text>
     </g>
     <g fill="rgb(255,204,153)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,-562,-455)" stroke="rgb(255,204,153)">
       <rect x="1070.3623" width="97.168" height="30" y="752.3049" clip-path="url(#clipPath2)" stroke="none"/>
@@ -338,15 +338,15 @@
       <path d="M659.0068 883.5025 L665.7086 894.6418 L666.2557 888.8366 L671.6354 886.5875 Z" clip-path="url(#clipPath2)" stroke="none"/>
       <path fill="none" d="M728.2435 913.5025 L772.9479 830.545" clip-path="url(#clipPath2)"/>
       <path d="M776.743 823.5025 L766.6488 831.6943 L772.4736 831.4254 L775.452 836.4382 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <path fill="none" d="M1276.3447 545 L1237.6543 545" clip-path="url(#clipPath2)"/>
-      <path d="M1284.3447 545 L1272.3447 540 L1275.3447 545 L1272.3447 550 Z" clip-path="url(#clipPath2)" stroke="none"/>
-      <text x="1238.4233" xml:space="preserve" y="519.1543" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">inherits</text>
+      <path fill="none" d="M1294.9053 545 L1255.3467 545" clip-path="url(#clipPath2)"/>
+      <path d="M1302.9053 545 L1290.9053 540 L1293.9053 545 L1290.9053 550 Z" clip-path="url(#clipPath2)" stroke="none"/>
+      <text x="1254.4053" xml:space="preserve" y="519.1543" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">requires</text>
     </g>
     <g stroke-linecap="round" transform="matrix(1,0,0,1,-562,-455)" stroke-dashoffset="2" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" stroke-dasharray="0,8" stroke-width="2" stroke-miterlimit="1.45">
-      <path fill="none" d="M1282.3699 619.8902 L1237.6543 619.8902" clip-path="url(#clipPath2)"/>
+      <path fill="none" d="M1348.7703 619.8902 L1257.2539 619.8902" clip-path="url(#clipPath2)"/>
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" font-family="sans-serif" transform="matrix(1,0,0,1,-562,-455)" stroke-linecap="butt">
-      <text x="1191.3929" xml:space="preserve" y="594.0445" clip-path="url(#clipPath2)" stroke="none">is frequently used with</text>
+      <text x="1234.3929" xml:space="preserve" y="594.0445" clip-path="url(#clipPath2)" stroke="none">is frequently used with</text>
     </g>
   </g>
 </svg>
