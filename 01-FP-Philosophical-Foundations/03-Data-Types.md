@@ -44,4 +44,4 @@ x /= y
 
 FP data types have `amortized` costs. In other words, most of the time, using a function on a data structure will be quick, but every now and then that function will take longer. Amortized cost is the overall "average" cost of using some function.
 
-These costs can be minimized by making data structures `lazy` or by writing impure code in a specific non-leaking context.
+These costs can be minimized by making data structures `lazy` or by writing impure code in a way that doesn't "leak" its impurity into the surrounding context.
