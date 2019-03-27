@@ -16,6 +16,8 @@ In the functional paradigm, programs are structured in such a way that they look
 - [A Quick Introduction to Onion Architecture](https://www.youtube.com/embed/R2pW09tMCnE?start=6&end=527)
 - [Domain-Driven Design through Onion Architecture](https://www.youtube.com/watch?v=pL9XeNjy_z4)
 
+[Functional Architecture - The Pits of Success](https://www.youtube.com/watch?v=US8QG9I1XW0) explains that FP pushes one towards this architecture whereas other languages pushes one away from it
+
 When we structure our code according to the below table, it provides a number of benefits
 - top-down domain-driven design: your data types and your function's type signatures are often your always-up-to-date documentation
 - "impure" computations (i.e. computations that do things like state manipulation, reading from a file, network activities) are expressed as a "pure" computation, making them much easier to test
@@ -30,8 +32,10 @@ When we structure our code according to the below table, it provides a number of
 | Layer 0 | Machine Code<br>(no equivalent onion term) | the "base" monad that runs the program (e.g. production: `Effect`/`Aff`; test: `Identity`)
 
 To get a general idea for the concept this folder is going to try to teach:
-- Watch [Functional Architecture - The Pits of Success](https://www.youtube.com/watch?v=US8QG9I1XW0)
-- Optional but also worth watching: [Boundaries](https://www.destroyallsoftware.com/talks/boundaries)
+- Watch the second half of [Code Reuse in PureScript: Functions, Type Classes, and Interpreters](https://youtu.be/GlUcCPmH8wI?t=1977) and focus on the following section:
+    - 'Which code is more reusable' (45:28 - 50:29):
+        - Final Encoding = Provide an implementation as an argument = monad transformers (what we cover first in this folder)
+        - Initial Encoding = Interpret a result = `Free` monad (what we cover second in this folder)
 
 Another learning resource that is still a work-in-progress but which will explain more than this work is 'Functional Design and Architecture':
 - [Reddit post introducing it](https://np.reddit.com/r/haskell/comments/avaxda/the_campaign_for_my_book_functional_design_and/?st=jsowhkm4&sh=d2be89c4)
