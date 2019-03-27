@@ -20,6 +20,9 @@ import Node.Process (cwd)
 import Node.Yargs.Applicative (yarg, runY)
 import Node.Yargs.Setup (example, usage)
 
+-- NOTE: this file uses Yargs. Overview that to fully understand
+-- what is going on in the below code.
+
 main :: Effect Unit
 main = do
   let usageAndExample =
