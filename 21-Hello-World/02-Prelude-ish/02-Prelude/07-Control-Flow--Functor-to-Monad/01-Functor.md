@@ -142,5 +142,6 @@ See the docs above for their definitions and read through the source code:
         - (`voidLeft` / `$>`): `(Box 4) $> "a" == (Box "a")`
         - (`voidRight` / `<$`): `"a" <$ (Box 4) == (Box "a")`
     - `Unit` (`void`): `void (Box 4) == (Box unit)`
+        - **Note:** `void` is used heavily to make it work with the `Discard` type class in `do` notation.
 - Flip the order of map's arguments (`mapFlipped` / `<#>`)
 - Generalize `flip`, so that it works for all types (`flap` / `<@>`)
