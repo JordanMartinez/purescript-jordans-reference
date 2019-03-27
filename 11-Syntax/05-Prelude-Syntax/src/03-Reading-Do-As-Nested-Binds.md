@@ -6,9 +6,12 @@ data Maybe a
   = Nothing
   | Just a
 
-instance b :: Bind Maybe where
-  bind (Just a) f = f a     -- when given a Just, run the function on its contents
-  bind Nothing f = Nothing  -- when given a Nothing, stop all future computations.
+instance bindMonad :: Bind Maybe where
+  bind :: forall a b. Maybe a -> (a -> Maybe b) -> Maybe b
+  -- when given a Nothing, stop all future computations and return immediately.
+  bind Nothing _ = Nothing
+  -- when given a Just, run the function on its contents
+  bind (Just a) f = f a
 
 half :: Int -> Maybe Int
 half x | x % 2 == 0 = Just (x / 2)

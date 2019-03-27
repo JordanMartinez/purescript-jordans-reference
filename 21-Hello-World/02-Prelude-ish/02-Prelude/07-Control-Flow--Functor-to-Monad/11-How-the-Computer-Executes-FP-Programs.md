@@ -135,4 +135,6 @@ Now go read the code snippet above again and write it out!
 
 ## Do and Ado Notation
 
-At this point, you should look back at the `Syntax/Prelude-Syntax` folder and read through its files.
+At this point, you should look back at the `Syntax/Prelude-Syntax` folder and read through its files. Feel free to ignore the `Qualified Do/Ado Explained` file and those that follow.
+
+Once finished, read the next file.
