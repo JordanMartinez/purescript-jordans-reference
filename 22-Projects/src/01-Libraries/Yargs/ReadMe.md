@@ -8,20 +8,20 @@ To run the examples, use
 ```bash
 # Learn Yargs files
 # Shows what happens when not all required arguments are provided
-spago bundle -m Learn.Yargs -t dist/table-of-contents/learnYargs.js
-node dist/table-of-contents/learnYargs.js
+spago bundle -m Learn.Yargs -t dist/libraries/yargs/learnYargs.js
+node dist/libraries/yargs/learnYargs.js
 
 # Shows what actual 'program' using values looks like
-spago bundle -m Learn.Yargs -t dist/table-of-contents/learnYargs.js
-node dist/table-of-contents/learnYargs.js -c "test" -d "test"
+spago bundle -m Learn.Yargs -t dist/libraries/yargs/learnYargs.js
+node dist/libraries/yargs/learnYargs.js -c "test" -d "test"
 
-spago bundle -m Learn.Yargs.GetRootDirViaAbsolutePath -t dist/table-of-contents/getRootViaAbsPath.js
-node dist/table-of-contents/getRootViaAbsPath.js --rootDir <your absolute root dir argument here>
+spago bundle -m Learn.Yargs.GetRootDirViaAbsolutePath -t dist/libraries/yargs/getRootViaAbsPath.js
+node dist/libraries/yargs/getRootViaAbsPath.js --rootDir <your absolute root dir argument here>
 
 # Shows what actual 'program' using values looks like
-spago bundle -m Learn.Yargs.GetRootDirViaEitherPath -t dist/table-of-contents/getRootViaEitherPath.js --rootDir <your absolute root dir argument here>
+spago bundle -m Learn.Yargs.GetRootDirViaEitherPath -t dist/libraries/yargs/getRootViaEitherPath.js --rootDir <your absolute root dir argument here>
 # use absolute path
-node dist/table-of-contents/getRootViaEitherPath.js --rootDir <your absolute dir argument here>
+node dist/libraries/yargs/getRootViaEitherPath.js --rootDir <your absolute dir argument here>
 # use relative path
-node dist/table-of-contents/getRootViaEitherPath.js -r --rootDir "."
+node dist/libraries/yargs/getRootViaEitherPath.js -r --rootDir "."
 ```
