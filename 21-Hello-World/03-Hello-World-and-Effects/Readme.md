@@ -20,9 +20,9 @@ main
 
 ## Compilation
 
-Second, one can compile the examples and view their resulting Javascript files, a file for a module or a file that bundles everything into an executable:
+Second, one can compile the examples and view their resulting Javascript files. One can view just the module (i.e. the JavaScript code generated from a single PS file) or the entire program as an executable file (i.e. the JavaScript code generated from a call to file's `main` function):
 
-| | Module | Executable File |
+| | Single Module | Entire Program |
 | - | - | - |
 | Command | `spago make-module --main [moduleName] --to dist/module.js` | `spago bundle --main [moduleName] --to dist/app.js`
 | Javascript files' location | `dist/module.js` | `dist/app.js` |
