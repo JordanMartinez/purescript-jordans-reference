@@ -2,13 +2,13 @@
 
 (The following section is copied from [here](https://github.com/purescript/documentation/blob/master/guides/Eff.md) and slightly edited. I would add the license for that here, but it's not listed. Since the documentation is supposed to be public anyways, I doubt this is an issue.)
 
-When we talk about side-effects, we are referring to two possible meanings. The first are "non-native" side-effects that use techniques like monoids, monads, applicatives, and arrows. The second are "native side-effects", which are effects provided by the RunTime System (RTS) and which can't be emulated by pure functions.
+When we talk about side-effects, we are referring to two possible meanings. The first are "non-native" side-effects that we can emulate using pure functions (e.g. state manipulation on immutable data structures, returning additional output from a computation, etc.). The second are "native side-effects", which are effects provided by the RunTime System (RTS) and which can't be emulated by pure functions.
 
 Some examples of native effects are:
 - Shared
     - Random number generation
     - Exceptions
-    - Reading/writing mutable state
+    - Reading/writing _mutable_ state
     - Writing/reading to/from local storage
 - Node only:
     - Console IO
