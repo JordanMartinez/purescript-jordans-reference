@@ -48,7 +48,7 @@ To understand what we mean by "effects" (and due to license-related things), rea
 
 ### Examples of Effects
 
-Effects can be grouped together into functions that define computations which `bind` executes in a sequential manner. These type classes are specialized; they are designed to do one thing very very well.
+Effects can be grouped together into type class functions that define computations which `bind` executes in a sequential manner. These type classes are specialized; they are designed to do one thing very very well.
 
 So what kind of "effects" can we have? Let's now give some examples via the table of `Monad Transformers` (defined next) below:
 
