@@ -20,7 +20,7 @@ Putting it into a table, we get this:
 | `MonadReader` | `ReaderT`<br><br>`runReader` | `Reader`<br><br>`runReader` |
 | `MonadWriter` | `WriterT`<br><br>`runWriter` | `Writer`<br><br>`runWriter` |
 | `MonadCont` | `ContT`<br><br>`runCont` | `Cont`<br><br>`runCont` |
-| `MonadError`<br><br>(Exception!) | `ExceptT`<br><br>`runExcept` | `Except`<br><br>`runExcept` |
+| `MonadError` | `ExceptT`<br><br>`runExceptT` | `Except`<br><br>`runExcept` |
 
 Putting it differently, we get this:
 
