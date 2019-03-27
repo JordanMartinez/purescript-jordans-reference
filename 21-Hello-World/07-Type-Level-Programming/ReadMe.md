@@ -1,23 +1,6 @@
 # Type-Level Programming
 
-This folder is still a work in progress!
-
-## Introduction
-
-### Comparison
-
-In programming, there are usually two terms we use to describe "when" a problem/bug/error can occur:
-- Compile-time: Turns source code into machine code. Compiler errors occur due to types not aligning.
-- Runtime: Executes machine code. Runtime errors occur due to values of types not working as verified by the compiler (e.g. you expected a value of `String` at runtime but got `null`).
-
-### Definition
-
-| Term | Definition | "Runtime"
-| - | - | - |
-| Value-Level Programming | Writing source code that gets executed during runtime | Node / Browser
-| Type-Level Programming | Writing source code that gets executed during compile-time | Type Checker / Type Class Constraint Solver^
-
-^ First heard of this from @natefaubion when he mentioned it in the #purescript Slack channel
+This folder assumes you have read through and are familiar with `Type Level Syntax`. If you aren't, go and read through that first.
 
 ## Example
 
