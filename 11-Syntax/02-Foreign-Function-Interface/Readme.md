@@ -4,8 +4,6 @@
 
 Besides compiling to Javascript, Purescript can also compile to other languages. See [this link](https://github.com/purescript/documentation/blob/master/ecosystem/Alternate-backends.md) for a full list (may be outdated)
 
-Since it's not yet in the above link, there's also [a C backend](https://github.com/pure-c/pure-c) (WIP)
-
 ## Syntax
 
 This folder documents the pattern to follow to write correct FFI code. However, once [FFI-Easy](https://pursuit.purescript.org/packages/purescript-easy-ffi/2.1.2) gets updated to `0.12.0`, we could write the following code:
