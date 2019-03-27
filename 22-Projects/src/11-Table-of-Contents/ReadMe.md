@@ -18,6 +18,8 @@ Be familiar with the contents of the below folders in the `Libraries` folder bef
 
 Run the following while in the `Projects/` folder.
 
+Currently, only the ReaderT implementation exists and there are no tests or benchmarks.
+
 ### Standard
 
 ```bash
