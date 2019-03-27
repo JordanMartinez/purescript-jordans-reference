@@ -47,7 +47,9 @@ Some other ideas that are relevant:
 
 **TL;DR**
 
+- [The Power of Composition](https://youtu.be/vDe-4o8Uwl8?t=8)
 - [Purescript: Tomorrow's Javascript Today](https://www.youtube.com/watch?time_continue=22&v=5AtyWgQ3vv0)
+- [Code Reuse in PureScript: Functions, Type Classes, and Interpreters](https://youtu.be/GlUcCPmH8wI?t=24)
 - [Phil Freeman's post: 'Why You Should Use PureScript'](https://gist.github.com/paf31/adfd15fbb1ac8b99fc68be2c9aca8427)
 - See the [Purescript version of 'Real World App'](https://github.com/thomashoneyman/purescript-halogen-realworld)
 
