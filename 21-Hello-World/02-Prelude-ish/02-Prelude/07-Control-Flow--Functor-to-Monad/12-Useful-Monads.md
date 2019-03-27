@@ -2,13 +2,15 @@
 
 **Note:** This file's contents assumes you have read through and are somewhat familiar with the contents of the file, `Syntax/Prelude Syntax/Reading Do as Nested Binds.md`.
 
-So far, we have only shown you the `Box` monad to help you get used to the syntax and see the logic for how it works. (The `Box` type is a learner-friendly name for the `Identity` monad, which we'll cover later in the `Application Structure` folder.)
+So far, we have only shown you the `Box` monad to help you get used to the syntax and see the logic for how `Monad` and `bind`/`>>=` works. (The `Box` type is a learner-friendly name for the `Identity` monad, which we'll cover later in the `Application Structure` folder.)
 
 However, `Monads` are used to compose different functions. Whereas the `Box`/`Identity` monad only produces one output, the below types can produce 2 outputs. Functions that produce 2 outputs don't typically compose. However, the `Monad` type class enables us to compose them using "railway-oriented programming" (~Scott Wlaschin).
 
+When we compose different monadic types, we get different control flows. The `do` notation helps us avoid the [Pyramid of Doom](https://www.wikiwand.com/en/Pyramid_of_doom_(programming)) boilerplate code and emphasizes developer intent.
+
 ## The Maybe Monad
 
-In JavaScript, we might write this code, which leads to the [Pyramid of Doom](https://www.wikiwand.com/en/Pyramid_of_doom_(programming)):
+In JavaScript, we might write this code:
 ```javascript
 let a = computation();
 if (a == null) {
@@ -37,9 +39,11 @@ data Maybe a
 
 instance bindMonad :: Bind Maybe where
   bind :: forall a b. Maybe a -> (a -> Maybe b) -> Maybe b
-  -- when given a Nothing, stop all future computations and return immediately.
+  -- when given a Nothing, stop all possible future computations
+  -- and return immediately.
   bind Nothing _ = Nothing
   -- when given a Just, run the function on its contents
+  -- and continue any Monadic computations
   bind (Just a) f = f a
 
 someComputation :: Maybe ReturnValue
@@ -74,7 +78,7 @@ if (isError(a)) {
 }
 ```
 
-In PureScript, we write this code:
+In PureScript, we would write this code:
 
 ```purescript
 data Either a b
@@ -83,9 +87,11 @@ data Either a b
 
 instance bindEither :: Bind (Either a) where
   bind :: forall b c. Either a b -> (b -> Either a c) -> Either a c
-  -- when given a Left, stop all future computations and return immediately.
+  -- when given a Left, stop all possible future computations
+  -- and return immediately.
   bind l@(Left _) _ = l
   -- when given a Right, run the function on its contents
+  -- and continue any Monadic computations
   bind (Right a) f = f a
 
 someComputation :: Either ErrorType ReturnValue
@@ -97,3 +103,71 @@ someComputation = do
 ```
 
 If a `Left` value is given at any point in the nested-`bind` computations, it will short-circuit and return immediately.
+
+## The List Monad
+
+In JavaScript, we would might write this code:
+```javascript
+let list1 = [1, 2, 3];
+let list2 = [2, 3, 4];
+let list3 = [3, 4, 5];
+var finalList = [];
+
+for (i in list1) {
+  for (h in list2) {
+    for (j in list3) {
+      finalList = finalList.add(i + h + j);
+    }
+  }
+}
+return finalList;
+```
+
+In PureScript, we would write this code:
+
+```purescript
+data List a
+  = Nil
+  | Cons a (List a)
+
+-- bind implementation not shown here
+instance bindList :: Bind List where
+  bind :: forall a b. List a -> (a -> List b) -> List b
+  -- when given a Nil (end of list), stop all potential future computations and return immediately.
+  bind Nil _ = Nil
+  -- when given a non-empty list, run the future computations on the head
+  -- and then prepend it to the rest of the computations on the tail.
+  bind (head : tail) f = f head <> bind tail f
+
+someComputation :: List Int
+someComputation = do
+  a <- (1 : 2 : 3 : Nil)
+  b <- (2 : 3 : 4 : Nil)
+  c <- (3 : 4 : 5 : Nil)
+  pure (a + b + c)
+```
+which outputs:
+```purescript
+-- a = 1, b = 2
+( 6 : 7 : 8
+-- a = 1, b = 3
+: 7 : 8 : 9
+-- a = 1, b = 4
+: 8 : 9 : 10
+
+-- a = 2, b = 2
+: 7 : 8 : 9
+-- a = 2, b = 3
+: 8 : 9 : 10
+-- a = 2, b = 4
+: 9 : 10 : 11
+
+-- a = 3, b = 2
+: 8 : 9 : 10
+-- a = 3, b = 3
+: 9 : 10 : 11
+-- a = 3, b = 4
+: 10 : 11 : 12
+
+: Nil)
+```
