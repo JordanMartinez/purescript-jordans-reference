@@ -39,7 +39,7 @@ type Rows1To3__Closed = (Row1 + Row2 + Row3 + ())
 type OpenRecord r = Record (name :: String, age :: Int | r)
 
 -- If we want to compute something using OpenRecord,
--- we might need to close it:
+-- we might need to close it by making the `r` an empty row:
 finalEval :: OpenRecord () -> Output
 ```
 
