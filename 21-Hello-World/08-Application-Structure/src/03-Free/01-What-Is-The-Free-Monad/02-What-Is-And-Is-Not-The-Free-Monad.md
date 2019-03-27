@@ -50,11 +50,14 @@ instance apply :: Apply Identity where
 instance bind :: Bind Identity where
   bind (Identity a) f = f a
 ```
-We can see here that `Identity` is a free `Functor`, `Apply`, `Applicative`, `Bind`, and therefore `Monad` for any type with kind `Type`. However, that's not what others mean when they talk about **the** free `Functor`, `Applicative`, and `Monad` types. Those "free" types make any type with kind `Type -> Type` a functor, applicative, and monad. AFAIK, these types were not discovered at the same time by the same people. Rather, they were discovered over time as solutions to specific problems. See below for these types:
+We can see here that `Identity` is a free `Functor`, `Apply`, `Applicative`, `Bind`, and therefore `Monad` for any type with kind `Type`.
+
+However, that's not what others mean when they talk about **the** free `Monad` type. The `Free` monad makes any `Functor` (i.e. type with kind `Type -> Type`) a monad.
+
+There are other "free" type classes (mentioned below). AFAIK, these types were not discovered at the same time by the same people. Rather, they were discovered over time as solutions to specific problems. See below for these types:
 - Coyoneda - [docs](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Data.Coyoneda#t:Coyoneda) & [source code](https://github.com/purescript/purescript-free/blob/v5.1.0/src/Data/Coyoneda.purs#L32) - a free `Functor` for any type of kind `Type -> Type`.
 - FreeAp - [docs](https://pursuit.purescript.org/packages/purescript-freeap/5.0.1/docs/Control.Applicative.Free) & [source code](https://github.com/ethul/purescript-freeap/blob/v5.0.1/src/Control/Applicative/Free.purs#L22-L25) - a free `Applicative` for any type of kind `Type -> Type`. Here's the [related paper](https://arxiv.org/pdf/1403.0749.pdf), which will likely make more sense once we explain how the `Free` monad works.
-- Free (the original) - a free `Monad` for any `Functor`. Its implementation suffers from big performance problems when run.
+- Free (the original version) - a free `Monad` for any `Functor`. Its implementation suffers from big performance problems when run.
 - Free (reflection without remorse) - [docs](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#t:Free) & [source code](https://github.com/purescript/purescript-free/blob/v5.1.0/src/Control/Monad/Free.purs#L37-L37) - a free `Monad` for any `Functor`. Its implementation removes the performance penalties of the original version and includes all of the optimizations discovered by Oleg Kiselyov (as stated by someone on the Slack channel).
-- Freer (Functor-less Free) - a free monad for any type of kind `Type -> Type`. (the `Functor` constraint is satisfied via `Coyoneda`). There does not appear to be a Purescript library for this yet.
 
 At this time, `Coyoneda` and `FreeAp` will not be discussed in this folder. Rather, the upcoming files will focus entirely on the `Free` monad.
