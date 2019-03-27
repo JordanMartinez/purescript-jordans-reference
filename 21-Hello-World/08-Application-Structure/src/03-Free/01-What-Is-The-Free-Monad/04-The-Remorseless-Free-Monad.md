@@ -11,7 +11,7 @@ Surpisingly, these two "free" types bear a similar resemblence:
 data List a   = Nil    | Cons    a (List a  )
 data Free f a = Pure a | Impure (f (Free f a))
 ```
-`Free` is essentially the same as `List`, except that it stores a higher-kinded type (kind `Type -> Type`) rather than a concrete type (kind `Type`)
+A list is just an unbalanced tree. Thus, `Free` is essentially the same as `List`, except that it stores a higher-kinded type (kind `Type -> Type`) rather than a concrete type (kind `Type`)
 
 This similarity will be used to explain why `Free` has performance problems.
 
