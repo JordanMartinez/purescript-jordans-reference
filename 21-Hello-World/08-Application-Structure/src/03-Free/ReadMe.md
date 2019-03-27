@@ -1,15 +1,23 @@
 # Free
 
-The fact that "`bind` forces us to return the same monad type" created a problem for us when we wanted to run a sequential computation using multiple effects (e.g. `MonadState` and `MonadReader` in the same computation). In the `MTL` approach, we got around that problem (i.e. were able to "compose monads") by nesting monads inside one another. However, what if we didn't fight against `bind` and simply used just one monad? That's one of the ideas behind "`Free` monad" approach.
+## Overview
 
-This approach separates the "description" of a computation from its "execution"/"interpretation". Essentially, rather than building a large function that is composed of smaller functions (i.e. `MTL`) that runs once the initial arguments are given to it, the `Free` approach will create a large deeply-nested data structure that consists of computation descriptions, which are later "interpreted" via a `NaturalTransformation` into a single monad (i.e. `Effect`) that runs those computations. In other words, something akin to `executeProgram :: Free DomainSpecificLanguage output -> Effect output`.
+This folder will do 4 things:
+- explain what the Free monad is
+- explain how it can be used to create a pure AST and interpret that AST into an impure but useful computation
+- explain why one should use `Run` instead of `Free`
+- explain the limitations of `Free`/`Run`.
 
-What are the advantages that `Free` provides? Due to the different "interpreters" that one can write, it's very easy to:
-- run the program via an `Effect`-based interpreter
-- pretty-print something
-- test that a computation produces Y outputs given X inputs
+The below summary and the rest of this folder's contents are quickly explained by Nate in his overview of `Free` and `CoFree`: [Unrolling Free & Cofree (stop at 1:19:23)](https://www.youtube.com/watch?v=eKkxmVFcd74&t=18) (Actual YouTube video name is "PS Unscripted - Free from Tree & Halogen VDOM")
 
-What are the disadvantages?
-- In Haskell, `Free` is slower (though I am not sure how much slower) than the `MTL` approach because it can heavily optimize the `MTL` code in the compilation process, something it can't do as well for `Free`. That is not the case with Purescript, whose compiler could still be optimized in a number of ways. I'm not sure whether one is faster than another and what are the other pros/cons one would need to think about when doing that.
+The `Free` approach deals with the "`bind` forces us to return the same monad type" problem by using only one monad. Rather than building a large function that is composed of smaller functions (i.e. `MTL`) that runs once the initial arguments are given to it, the `Free` approach will create an Abstract Sytax Tree (AST) that describes the desired computation in a pure way. This tree is later "interpreted" via a `NaturalTransformation` into a base monad (i.e. `Effect`) that runs those computations in an inpure way. In other words, something akin to
+```purescript
+type DSL = DomainSpecificLanguage
+type AbstractSyntaxTree output = Free DSL output
 
-This folder will teach readers with no prior understanding the fundamental concepts of the `Free` monad and a basic understanding of how to use it.
+defineProgram :: AbstractSyntaxTree
+defineProgram = -- implementation
+
+runProgram :: AbstractSyntaxTree ~> Effect
+runProgram = -- implementation
+```
