@@ -8,7 +8,7 @@ Documented version: `0.12.3`
 
 ![CLI Options: Purs (svg)](./assets/CLI-Options--Purs.svg)
 
-## Purs (PureScript Compiler)
+## Spago (PureScript Build Tool & Dependency Manager)
 
 Documented version: `0.7.2.0`
 

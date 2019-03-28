@@ -25,7 +25,7 @@ spago verify singlePackageName
 spago verify-set
 ```
 
-## Freeze the Package Set
+### Freeze the Package Set
 
 Note: Spago does this automatically now. So, one likely does not need to do this anymore. It is provided for context.
 ```bash
@@ -44,7 +44,7 @@ One of two ways
 spago install packageName1 packageName2 # ...
 ```
 
-### Write the Code
+## Write the Code
 
 ```bash
 # Open the REPL to play with a few ideas or run simple tests
@@ -57,7 +57,7 @@ spago docs
 spago build --watch
 ```
 
-### Build the Code
+## Build the Code
 
 ```bash
 # Install all dependencies (if not done so already) and
