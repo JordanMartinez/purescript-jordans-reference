@@ -141,8 +141,8 @@ f theString = wrap (unwrap theString)
 From the Slack channel, garyb mentioned passing the `--verbose-errors` flag to the compiler. **This will output a LOT of information**, but it's that or nothing. To do that, run this code:
 
 ```bash
-pulp --psc-package build -- --verbose-errors
-pulp --psc-package build -- -v
+spago build -- --verbose-errors
+spago build -- -v
 ```
 
 # Improve Error Messages when using `unsafePartial` to un-Partial Functions

@@ -51,6 +51,28 @@ instance bind :: Bind Box where
   bind                (Box a)    f            = f a
 ```
 
+`bind`'s type signature is weird. How did we ever come up with that? To understand it (and understand why we have the below 'derived functions'), watch [Category Theory 10.1: Monads](https://youtu.be/gHiyzctYqZ0?t=725) and refer to the code below for help in understanding it:
+```haskell
+-- >=> the "fish operator" is
+-- called "composeKleisli"
+infix composeKleisli 6 >=>
+
+-- see "(a -> m b)" as the definition
+-- of `pure` from the `Applicative` type class.
+composeKleisli :: forall m a b c. Functor f => (a -> m b) -> (b -> m c) -> (a -> m c)
+composeKleisli f g =
+  \a ->
+    let mb = f a
+    in (bind mb g)
+
+  where
+    bind :: m b -> (b -> m c) -> m c
+    bind functor function = join (map function functor)
+
+    join :: m (m a) -> m a
+    join = -- implementation
+```
+
 ## Laws
 
 ### Associativity

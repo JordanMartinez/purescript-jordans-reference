@@ -14,13 +14,13 @@ Third, the general pattern (there are exceptions!) that we will see reappear whe
 Putting it into a table, we get this:
 
 | Type Class | Sole Implementation<br>(`m` is undefined)<br><br>function that runs it | Sole Implementation<br>(`m` is `Identity`)<br><br>function that runs it |
-| - | - | - | - |
+| - | - | - |
 | `Monad[Word]`<br>(General Pattern) | `[Word]T`<br><br>`run[Word]` | `[Word]`<br><br>`run[Word]` |
 | `MonadState` |  `StateT`<br><br>`runState` | `State`<br><br>`runState` |
 | `MonadReader` | `ReaderT`<br><br>`runReader` | `Reader`<br><br>`runReader` |
 | `MonadWriter` | `WriterT`<br><br>`runWriter` | `Writer`<br><br>`runWriter` |
 | `MonadCont` | `ContT`<br><br>`runCont` | `Cont`<br><br>`runCont` |
-| `MonadError`<br><br>(Exception!) | `ExceptT`<br><br>`runExcept` | `Except`<br><br>`runExcept` |
+| `MonadError` | `ExceptT`<br><br>`runExceptT` | `Except`<br><br>`runExcept` |
 
 Putting it differently, we get this:
 
@@ -29,10 +29,11 @@ Putting it differently, we get this:
 | `oldState -> monad (Tuple (output, newState))`<br>(state manipulation) | StateT
 | `monad (Tuple (output, accumulatedValue)` | WriterT
 | `globalValue -> monad outputThatUsesGlobalValue` | ReaderT
-| Either e a | ExceptT
-| function $ arg | ContT
-| Maybe a | MaybeT
-| List a | ListT
+| `Either e a`<br>computation that handles partial functions | ExceptT
+| `function $ arg` | ContT
+| `Maybe a`<br>computation that might return a value or not | MaybeT
+| `List a`<br>computation that returns a (possibly empty) list of values | ListT
 
-
-Finally, if we want to add more effects than just state manipulation, we can create a "stack" of monad transformers that all work together to transform some base monad: impure computatons via `Effect`/`Aff` or pure computations via `Identity`. This is the heart of the `MonadTrans`, which will be covered later in this folder.
+The "base monad" that usually inhibits `m` at the end of the "stack" of nested monad transformers is usually one of two things:
+- `Effect`/`Aff`: impure computations that actually make our business logic useful
+- `Identity`/`Free`: pure computations that test our business logic.

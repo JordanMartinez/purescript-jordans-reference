@@ -48,7 +48,7 @@ To understand what we mean by "effects" (and due to license-related things), rea
 
 ### Examples of Effects
 
-Effects can be grouped together into functions that define computations which `bind` executes in a sequential manner. These type classes are specialized; they are designed to do one thing very very well.
+Effects can be grouped together into type class functions that define computations which `bind` executes in a sequential manner. These type classes are specialized; they are designed to do one thing very very well.
 
 So what kind of "effects" can we have? Let's now give some examples via the table of `Monad Transformers` (defined next) below:
 
@@ -57,14 +57,14 @@ So what kind of "effects" can we have? Let's now give some examples via the tabl
 | Provides for later usage a read-only value/function that may change between different program runs<br>(e.g. "settings" values; dependency injection) | <ul><li>`getSettingValue`</li><li>`getConfigValueStoredOnFile`</li><li>`getNumberOfPlayersInGame`</li></ul> | [`MonadAsk`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Class#t:MonadAsk)
 | Modifies the state of a data structure<br>(e.g. changing the nth value in a list)| <ul><li>`pop stack`</li><li>`replaceAt index treeOfStrings "some value"`</li><li>`(\int -> int + 1)`</li></ul> | [`MonadState`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.State.Class#t:MonadState)
 | Returns a computation's output and additional data that is generated during the computation | <ul><li>[See this SO answer](https://stackoverflow.com/a/27651976)</li><li>[See this Reddit thread](https://www.reddit.com/r/haskell/comments/3faa02/what_are_some_real_world_uses_of_writer/)</li></ul> | [`MonadTell`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Writer.Class#t:MonadTell)
-| Stops computation because of an unforeseeable error<br>(e.g. "business logic error") | -- | [`MonadThrow`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Error.Class#t:MonadThrow)
+| Stops computation because of a possible error<br>(e.g. "file does not exist") | -- | [`MonadThrow`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Error.Class#t:MonadThrow)
 | Deals with "callback hell"<br>(e.g. [de-invert inversion of control](http://www.thev.net/PaulLiu/invert-inversion.html)) | -- | [`MonadCont`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Cont.Class#t:MonadCont)
 
 | When we want to extend the functionality of... | ... with the ability to... | ... we can use its extension type class called...
 | - | - | - |
 | MonadAsk | Modify the read-only value for one computation<br>(e.g. `makeFontSizeMoreAccessible getFontSize displayPage`) | [`MonadReader`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Class#t:MonadReader)
 | MonadTell | Modify or use the additional non-output data before completing a computation | [`MonadWriter`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Writer.Class#t:MonadWriter)
-| MonadThrow | Catch and handle the error that was thrown<br>(e.g. log debug output to see why business logic was wrong) | [`MonadError`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Error.Class#t:MonadError)
+| MonadThrow | Catch and handle the error that was thrown<br>(e.g. create the missing file) | [`MonadError`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Error.Class#t:MonadError)
 
 Note: **Monad Transformers** are thus named because they "transform" some other monad by augmenting it with additional functions. One monad (e.g. `Box`) can only use `bind` and `pure` to do sequential computation. However, we can "transform" `Box`, so that it now has state-manipulating functions like `get`/`set`/`modify`. In Haskell, "**mtl**" is a library that provides default implementations for each monad transformer mentioned above in such a way that one can compose multiple effects in any order. In Purescript, the library is called `purescript-transformers`.
 
@@ -99,7 +99,7 @@ f' :: forall m.
 Composable means using two or more effects in the same function should be lawful.
 
 For example
-- `set`ting some state to `5` and later `get`ting that state should return `5`, not `8`, no matter what happens in-between those two calls (e.g. printing some value to the console).
+- `set`ting some state to `5` and later `get`ting that state should return `5`, not `8`, no matter what other effects or computations we run in-between those two calls (e.g. printing some value to the console).
 - `catch`ing an error cannot occur unless an error was `throw`n prior to it.
 - `ask`ing for a configuration value should return the same value each time no matter what happens before/after that call.
 
@@ -125,13 +125,7 @@ Related to `Terse`, we shouldn't have to annotate code (e.g. wrapping `value` wi
 
 ## Modeling Effects
 
-There are a number of ways to model effects, but these four in [stepchownfun's `effects` project](https://github.com/stepchowfun/effects) give a general idea:
-- `Bespoke monad` - design and use your own hand-crafted monadic type that has an instance for every effect you need
-- `MTL` - uses nested functions in a stack-like way, where lower ones are "**lifted**" into higher ones
-- `Free` - uses nested data structures in a stack-like way where lower ones are "**interpreted**" into higher ones
-- `Eff`- ???
-
-In this folder, we'll only cover `MTL` and `Free`. The article to which we referred above overviews more ideas, but that is not our current focus. It might be worth returning to it after one has read through the rest of this folder.
+In this folder, we'll only cover `MTL`/`ReaderT Design Pattern` and `Free`/`Run`. The article to which we referred above overviews more ideas, but that is not our current focus. It might be worth returning to it after one has read through the rest of this folder.
 
 ### Composing Monads
 
@@ -146,78 +140,79 @@ bind             (Box 4)   (\four -> Box (show four)) == Box "5"
 
 We saw the same problem earlier when we wanted to run an `Effect` monad inside of a `Box` monad. We fixed it by "lifting" the `Effect` monad into the `Box` monad via a [`NaturalTransformation`](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.NaturalTransformation#t:NaturalTransformation)/`~>`. This was abstracted into a type class specific for `Effect ~> someOtherMonad` in [`MonadEffect`](https://pursuit.purescript.org/packages/purescript-effect/2.0.0/docs/Effect.Class#t:MonadEffect).
 
-`MTL` and `Free` use different approaches to solving this problem and its solution is what creates the Onion Architecture-like idea we mentioned before.
+`MTL` and `Free` use different approaches to solving this problem and its solution is what creates the Onion Architecture-like idea we mentioned before. As we saw earlier in Nate's video in this folder's ReadMe, `mtl` is the "Final Encoding" style and `Free`/`Run` is the "Initial Encoding" style.
 
 **The following ideas are quick overviews of each approach. Their terminology and exact details will be explained in their upcoming folder. It is not meant to be clearly understandable at first.**
 
 #### MTL Approach
 
-In the `MTL`-approach, one models the above effects using functions (we'll show how later). Since each function is a different monadic type, they do not compose. Thus, one gets around this monad-composition problem by creating a "stack" of monad transformers (i.e. functions). Following the previous idea, we can define **something similar to** a `NaturalTransformation` that "lifts" one monadic function (e.g. a function that implements `MonadReader`) into another monadic function (e.g. a function that implements `MonadState`). Using a visual, it produces this diagram (read from bottom to top):
+In the `MTL`-approach, one models the above effects using functions (we'll show how later). Since monad transformers augment some "base" monad, it creates a stack-like picture (read from bottom to top):
 ```
-MonadState_TargetMonad
+BaseMonad
       ^
-      | gets lifted into
+      | augments
       |
-MonadReader_SourceMonad
+Pure MonadState
 ```
-Generalizing this idea, we must ultimately create a "stack" of these function-based monad-transformers that lift one monadic function type somewhere in the "stack" all the way up and into the monadic function type at the top of the stack. Using a visual, it produces this diagram (read from bottom to top):
+
+Since each function is a different monadic type, they do not compose. Thus, one gets around this monad-composition problem by creating a "stack" of nested monad transformers (i.e. functions). Following the previous idea, we can define **something similar to** a `NaturalTransformation` that "lifts" the effects of one monadic function (e.g. a function that implements `MonadReader`) into another monadic function (e.g. a function that implements `MonadState`), which augments the base monad. Using a visual, it produces this diagram (read from bottom to top):
 ```
-Index0_TopMonad
+BaseMonad
+      ^
+      | augments
+      |
+Pure MonadState_TargetMonad
       ^
       | gets lifted into
       |
-Index1_NextMonad
+Pure MonadReader_SourceMonad
+```
+Generalizing this idea, we must ultimately create a "stack" of these function-based monad-transformers. Using a visual, it produces this diagram (read from bottom to top):
+```
+BaseMonad
+      ^
+      | augments
+      |
+Pure MonadState
       ^
       | gets lifted into
       |
-Index2_NextMonad
+Pure MonadWriter
       ^
       | gets lifted into
       |
-Index3_NextMonad
-      ^
-      | gets lifted into
-      |
-Index4_NextMonad
-      ^
-      | gets lifted into
-      |
-Index5_BottomMonad
+Pure MonadReader
 ```
 
 This idea is at the heart of the type class called `MonadTrans`. Again, you should feel somewhat confused right now and a bit overwhelmed. However, we'll refer to these ideas later to help explain why we make some of the design choices that we do. By the end of this folder, this will all make sense.
 
 #### Free
 
-In the `Free`-approach, one models the above effects using data structures (again, we'll show how later). Since each data structure is a different monadic type, they do not compose. Thus, one gets around this monad-composition problem by creating a "stack" of data structures. Following the previous idea, we can define **something similar to** a `NaturalTransformation` that "interprets" one monadic data structure (e.g. a data type that implements `MonadReader`) into another monadic data structure (e.g. a data type that implements `MonadState`). Using a visual, it produces this diagram (read from bottom to top):
+In the `Free`-approach, one models the above effects using data structures (again, we'll show how later). Essentially, one uses domain-specific languages (DSLs) created via data structures to define an Abstract Syntax Tree (AST). Such a tree describe a computation but does not run them. Later on, an AST is "interpreted" (via a `NaturalTransformation`/`~>`) into a final base monad that actually runs the computation. Using a visual, it produces this diagram (read top to bottom):
 ```
-MonadState_TargetMonad
-      ^
-      | gets **interpreted as**
+Pure High-Level Language
       |
-MonadReader_SourceMonad
+      | gets interpreted into
+      |
+     \ /
+Base Monad
 ```
-Generalizing this idea, we must ultimately create a "stack" of these data-structure-based monads that takes one monadic data type somewhere in the "stack" and interprets it as the monadic data structure type at the top of the stack. Using a visual, it produces this diagram (read from bottom to top):
+Due to how interpreters work, one can define high-level ASTs that are interpreted into lower-level ASTs before being run by a base monad. Using a visual, it produces this diagram (read from bottom to top):
 ```
-Index0_TopMonad
-      ^
-      | which gets **interpreted as**
+Pure AST via High-Level Language
       |
-Index1_NextMonad
-      ^
-      | which gets **interpreted as**
+      | gets interpreted into
       |
-Index2_NextMonad
-      ^
-      | which gets **interpreted as**
+     \ /
+Pure AST via Medium-Level Language
       |
-Index3_NextMonad
-      ^
-      | which gets **interpreted as**
+      | gets interpreted into
       |
-Index4_NextMonad
-      ^
-      | gets **interpreted as**
+     \ /
+Pure AST via Low-Level Language
       |
-Index5_BottomMonad
+      | gets interpreted into
+      |
+     \ /
+Base Monad
 ```

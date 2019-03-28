@@ -39,7 +39,7 @@ type Rows1To3__Closed = (Row1 + Row2 + Row3 + ())
 type OpenRecord r = Record (name :: String, age :: Int | r)
 
 -- If we want to compute something using OpenRecord,
--- we might need to close it:
+-- we might need to close it by making the `r` an empty row:
 finalEval :: OpenRecord () -> Output
 ```
 
@@ -47,9 +47,9 @@ Rows can make our life easier in a number of ways. We'll see some examples befor
 
 ## Reading a Type-Level Function
 
-1. Ignore the type class constraints and look solely at the function's arguments.
-2. Ignore the `IsKind` (e.g. `IsSymbol`/`IsOrdering`) type class constraints and look at the type class constraints that actually compute something (e.g. `Add`, `Append`, `Compare`, `Cons`, etc.)
-3. Once you determine how the type-level expression computes, now look at the `IsKind` constraints and the value-level code to see how one gets the function to type check.
+1. Ignore the type class constraints and look solely at the function's arguments. Now you know what the starting "inputs" and final "outputs" of the function are.
+2. Ignore the `IsKind` (e.g. `IsSymbol`/`IsOrdering`) type class constraints and look at the type class constraints that actually compute something (e.g. `Add`, `Append`, `Compare`, `Cons`, etc.) Now you have an understanding of what the type-level function does.
+3. Look at the `IsKind` constraints and any `Proxy` types to see how the function type checks.
 
 For example, look at [Prim.Row](https://pursuit.purescript.org/builtins/docs/Prim.Row) to understand the relationships used below and then use the above guidelines to understand this type-level computation:
 ```purescript
@@ -68,9 +68,9 @@ What is `finalRow` when `row1` is `(name :: String, age :: Int)` and `row2` is `
 
 There are generally five stages when writing a type-level expression:
 1. Write the needed type-level function's type signature without any proxies, type class constraints, forall syntax, etc.
-2. Wrap the types in their Proxy objects where needed
-3. Add constraints to "compute" specific values in the type-level expression
-4. Add the forall syntax
+2. Add constraints to "compute" specific values in the type-level expression
+3. Wrap the types in their `Proxy` types where needed
+4. Add the `forall` syntax
 5. Write the value-level code that makes it work/compile
     - add `IsKind` constraints when needed
     - use `unsafeCoerce` when needed (explained more in next section)
@@ -90,16 +90,17 @@ class Append (left :: Symbol) (right :: Symbol) (appended :: Symbol)
 combineSymbol :: left -> right -> combination
 combineSymbol l r = -- TODO
 
--- 2. Add in the Proxy objects
-combineSymbol :: SProxy left -> SProxy right -> SProxy combination
+-- 2. Add the type class constraints to compute type-level values
+combineSymbol :: Append left right combination
+              => left -> right -> combination
 combineSymbol l r = -- TODO
 
--- 3. Add the type class constraints
+-- 3. Add in the `Proxy` types
 combineSymbol :: Append left right combination
               => SProxy left -> SProxy right -> SProxy combination
 combineSymbol l r = -- TODO
 
--- 4. Add the forall syntax
+-- 4. Add the `forall` syntax
 combineSymbol :: forall left right combination
                . Append left right combination
               => SProxy left -> SProxy right -> SProxy combination

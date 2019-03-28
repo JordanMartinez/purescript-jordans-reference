@@ -9,12 +9,9 @@ This folder helps you debug problems in your code by
 
 You should **NOT** use the REPL for these lessons.
 
-Rather, you should use pulp to run them using this syntax:
+Rather, you should use spago to run them using this syntax:
 ```bash
-# Syntax
-pulp --psc-package run --main ModuleName
-# Example for "OverviewAPI"...
-pulp --psc-package run --main Debugging.OverviewAPI
+spago run --main Debugging.OverviewAPI
 ```
 
 When compiling these examples, you will likely see a warning like below:

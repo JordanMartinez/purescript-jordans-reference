@@ -26,7 +26,16 @@ instance f :: Functor Box where
   map                 f         (Box a) =  Box (f a)
 ```
 
-One could also see `map` as "lifting" a function into a context, our Box-like type:
+Put differently, `Functor` solves a specific problem. If I have a function of type `(a -> b)`, I cannot use that function on values of `a` if they are stored in a box-like type:
+```purescript
+function :: Int -> String
+function 0 = "0"
+function _ = "1"
+
+function 5 -- This works!
+function (Box 5) -- compiler error! Oh noes!
+```
+One could also see `map` as "transforming" a function, so that it also operates on Box-like types:
 ```purescript
 map :: forall a b. (a -> b) -> (Box a -> Box b)
 map f = (\(Box a) -> Box (f b))
@@ -133,5 +142,6 @@ See the docs above for their definitions and read through the source code:
         - (`voidLeft` / `$>`): `(Box 4) $> "a" == (Box "a")`
         - (`voidRight` / `<$`): `"a" <$ (Box 4) == (Box "a")`
     - `Unit` (`void`): `void (Box 4) == (Box unit)`
+        - **Note:** `void` is used heavily to make it work with the `Discard` type class in `do` notation.
 - Flip the order of map's arguments (`mapFlipped` / `<#>`)
 - Generalize `flip`, so that it works for all types (`flap` / `<@>`)

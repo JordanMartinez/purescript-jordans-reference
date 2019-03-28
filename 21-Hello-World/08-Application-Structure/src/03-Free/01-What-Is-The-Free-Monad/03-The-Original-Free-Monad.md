@@ -17,7 +17,7 @@ Impure ( Identity (
   ))
 ))
 ```
-In other words, `Free` is just a data structure of nested `Identity` values where the final `Identity` value wraps a value:
+In other words, `Free` is just a tree-like data structure of nested `Identity` values (the branches in our tree) that eventually wrap a final value (the leaf in our tree). In our current example, the tree is unbalanced, so that it appears more like a linked-list than a tree:
 ```purescript
 {- Impure ( -} Identity (
   {- Impure ( -} Identity (

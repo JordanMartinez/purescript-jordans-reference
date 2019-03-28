@@ -20,38 +20,26 @@ This benchotron graph...
 
 `Benchotron` is a Purescript library that provides bindings to [`Benchmark.js`](https://benchmarkjs.com/). Follow these commands to set up this folder:
 
-1. If it exists, delete this folder's `.psc-package` folder (Step 4 won't work if you have already set up a package set in this folder)
-
-2. Install [`Benchmark.js`](https://benchmarkjs.com/) locally via the command below:
+1. Install [`Benchmark.js`](https://benchmarkjs.com/) locally via the command below:
 ```bash
 # Note: This must be installed locally for the code to work.
 # If you install it globally, Node won't be able to find `benchmark`.
 npm install benchmark
 ```
 
-3. Use `spacchetti` to create your own local custom package set that includes `Benchotron` by following these instructions (that library does not yet exist in the default package set):
+2. Use `spago` to build the program::
 ```bash
-# I've already ran `spacchetti local-setup`
-# and configured the 'packages.dhall' file.
-# See this folder as an example of what you would need to do
-# if you had to do it on your own.
-
-# So, we just need to install the local custom package set
-spacchetti insdhall
+# 'spago build' includes a call to 'spago install'
+spago build
 ```
 
-4. Install that package set using psc-package:
-```bash
-psc-package install
-```
-
-You can now use `benchotron` via psc-package.
+You can now use `benchotron` via spago.
 
 ## Generating benchmark results
 
 1. Run the below command
 ```bash
-pulp --psc-package run --src-path "benchmark" -m Benchmarking.Syntax.Benchotron
+spago run --path "benchmark/**/*.purs" --main Benchmarking.Syntax.Benchotron
 ```
 2. It will output a file in the freshly-created `tmp` directory
 3. Upload the outputted file to [this link](http://harry.garrood.me/purescript-benchotron-svg-renderer/)
@@ -61,5 +49,5 @@ pulp --psc-package run --src-path "benchmark" -m Benchmarking.Syntax.Benchotron
 
 In real-world projects, one would run this command:
 ```bash
-pulp --psc-package run -m Performance.ModulePath.To.MainModule --src-path "benchmark" --include "src:test"
+spago run --path "benchmark/**/*.purs" --main Performance.ModulePath.To.MainModule
 ```

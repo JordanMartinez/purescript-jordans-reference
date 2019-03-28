@@ -3,7 +3,7 @@
 ## Relationships
 
 Below is a dependency graph / type class categorization of the type classes found in Prelude. The usage frequency key is my current understanding and may be inaccurate for the "somewhat"/"rare" type classes:
-![prelude-typeclasses](./images/Prelude-Typeclasses.svg "Relationships and Categorization of Prelude's Type")
+![prelude-typeclasses](./assets/Prelude-Type-Classes.svg "Relationships and Categorization of Prelude's Type")
 
 ## Tricks for Implementing a Type Class Instance
 
@@ -20,7 +20,7 @@ Granted, an `Eq` instance can be derived by the compiler. However, assuming this
 1. We could implement only `eq` and implement `notEq` by inverting `eq`'s result.
 2. We could implement only `notEq` and implement `eq` by inverting `notEq`'s result
 
-Second, sometimes, a function in a type class can be defined using a function from a super type class. Take, for example, the `Ord` type class:
+Second, sometimes, a function in a type class can be defined using a function from a required type class. Take, for example, the `Ord` type class:
 ```purescript
 data Ordering
   = LT

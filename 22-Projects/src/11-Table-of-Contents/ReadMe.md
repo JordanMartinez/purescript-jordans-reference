@@ -2,36 +2,29 @@
 
 In this folder, we will build a program that can recursively parse this project's files and automatically create a Table of Contents file.
 
-The libraries we will cover here are:
-- `purescript-yargs` - bindings to a JavaScript command line parser library
-- `purescript-node-fs-aff` - bindings to Node's file system API
-- `purescript-tree` - A Rose Tree
-- `purescript-string-parsers` - Parser library when content is known to be a `String`.
-- `purescript-node-http` - bindings to Node's http API
-- `purescript-parallel` - TODO - execute parallel computations
+## Libraries Used
+
+`Total Number: 2`
+
+Be familiar with the contents of the below folders in the `Libraries` folder before reading this folder's content:
+- Yargs
+- Node-FS
+- Tree
+- String-Parsers
+- HTTP
+- Parallel - TODO
 
 ## Compilation Instructions
 
 Run the following while in the `Projects/` folder.
 
-### Pre-reqs
-
-```bash
-pulp --psc-package run -m Learn.Yargs.Syntax
-pulp --psc-package run -m Learn.Yargs.GetRootDirViaAbsolutePath
-pulp --psc-package run -m Learn.Yargs.GetRootDirViaEitherPath
-pulp --psc-package run -m Learn.NodeFS.Syntax
-pulp --psc-package run -m Learn.NodeFS.PrintAllFiles
-pulp --psc-package run -m Learn.Tree.Syntax
-pulp --psc-package run -m Learn.StringParsers.Syntax
-pulp --psc-package run -m Learn.Http.Syntax
-```
+Currently, only the ReaderT implementation exists and there are no tests or benchmarks.
 
 ### Standard
 
 ```bash
 # Build the program
-pulp --psc-package build -m Projects.ToC.Main --to dist/table-of-contents/ghtoc.js
+spago bundle --main Projects.ToC.Main --to dist/table-of-contents/ghtoc.js
 
 # Change directory to be at the root directory
 cd ../

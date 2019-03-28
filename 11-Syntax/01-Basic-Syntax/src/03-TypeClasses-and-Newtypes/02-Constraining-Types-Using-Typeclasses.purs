@@ -64,7 +64,8 @@ instance showBox :: (Show a) => Show (Box a) where
 instance instancePartNames :: (InstanceContext a) => A_TypeClass (InstanceHead a) where
   function2 _ = "body"
 
--- usage
+-- Implicit Usage: Since we know that the values below are of type "Box Int"
+-- We can use "show" without constraining any types.
 test1 :: Boolean
 test1 =
   show (Box 4) == "Box(4)"
@@ -72,6 +73,20 @@ test1 =
 test2 :: Boolean
 test2 =
   show (Box (Box 5)) == "Box(Box(5))"
+
+-- Explicit Usage: The only thing we know about 'a' is that it can be shown.
+showIt :: forall a. Show a => a -> String
+showIt showableThing = show showableThing
+
+-- All of these work because they all have a Show instance.
+test3 :: String
+test3 = showIt 4
+
+test4 :: String
+test4 = showIt (Box 5)
+
+test5 :: String
+test5 = showIt (Box (Box (Box 5)))
 
 -- necessary to make file compile
 class TypeClass1 a where

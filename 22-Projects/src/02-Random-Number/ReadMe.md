@@ -5,45 +5,79 @@ This folder will show how to build a "guess the random number" game. Here's an o
 - Shared Code: the domain types, data structures, and their related functions that are used across all the other folders. This folder excludes any infrastructure/framework code (e.g. `Node.ReadLine`/`Halogen`).
 - Folders for each application structure
 
+## Libraries Used
+
+`Total Number: 2`
+
+Be familiar with the contents of the below folders in the `Libraries` folder before reading this folder's content:
+- ReadLine and Aff
+- Halogen
+
 ## Compilation Instructions
 
-Run the following while in the `Projects/` folder. The web-based games can be opened via `dist/random-number/<FP structure approach>/index.html`.
+Run the following while in the `Projects/` folder.
+
+The web-based games require a 2-step process of first running the `spago` command followed by the `parcel` command. The below `parcel` commands are rather verbose because of how this folder is structured. See the overview of the first instance of the command in the below compilation instructions.
+
+The games can be opened and played via `dist/random-number/<FP structure approach>/index.html`.
 
 ### Standard
 
 ```bash
 ## Node-Based implementation
-pulp --psc-package run -m Games.RandomNumber.ReaderT.Standard.Infrastructure.Console
-pulp --psc-package run -m Games.RandomNumber.Free.Standard.Infrastructure.Console
-pulp --psc-package run -m Games.RandomNumber.Run.Standard.Infrastructure.Console
+spago run -m Games.RandomNumber.ReaderT.Standard.Infrastructure.Console
+spago run -m Games.RandomNumber.Free.Standard.Infrastructure.Console
+spago run -m Games.RandomNumber.Run.Standard.Infrastructure.Console
 
 ## Browser-based implementation
-pulp --psc-package browserify -O -m Games.RandomNumber.ReaderT.Standard.Infrastructure.Halogen.Web --to dist/random-number/readerT--standard/app.js
-pulp --psc-package browserify -O -m Games.RandomNumber.Free.Standard.Infrastructure.Halogen.Web --to dist/random-number/free--standard/app.js
-pulp --psc-package browserify -O -m Games.RandomNumber.Run.Standard.Infrastructure.Halogen.Web --to dist/random-number/run--standard/app.js
+spago bundle --main Games.RandomNumber.ReaderT.Standard.Infrastructure.Halogen.Web --to dist/random-number/readerT--standard/app.js
+# Read the below as:
+# "Use 'example.html' to figure out the dependency tree, which will pick up
+# our 'app.js' bundle from Spago. Parcel will output a minified version
+# of the `app.js` bundle to the path:
+# 'dist/random-number/readert--standard/app.someHash.js'.
+# Then, the `example.html` file will be copied to `index.html` and the `app.js`
+# reference will be changed to the parcel-ed `app.someHash.js` reference.
+#
+# Since we have the '--open' flag enabled and specify the port to `1111,`
+# your web browser will open 'localhost:1111', which automatically serves the
+# 'index.html' file that parcel outputted.
+#
+# From here, you can modify your code, re-bundle with spago, and Parcel
+# will hotload the changes."
+parcel dist/random-number/readerT--standard/example.html --open -p 1111 -d dist/random-number/readerT--standard/ -o index.html
+
+spago bundle --main Games.RandomNumber.Free.Standard.Infrastructure.Halogen.Web --to dist/random-number/free--standard/app.js
+parcel build dist/random-number/free--standard/example.html --open -p 1112 -d dist/random-number/free--standard/ -o index.html
+
+spago bundle --main Games.RandomNumber.Run.Standard.Infrastructure.Halogen.Web --to dist/random-number/run--standard/app.js
+parcel build dist/random-number/run--standard/example.html --open -p 1113 -d dist/random-number/run--standard/ -o index.html
 
 ## Test
-pulp --psc-package test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
-pulp --psc-package test -m Test.Games.RandomNumber.ReaderT.Standard.SameMonad
-pulp --psc-package test -m Test.Games.RandomNumber.Run.Standard.Infrastructure
-pulp --psc-package test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
+spago test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
+spago test -m Test.Games.RandomNumber.ReaderT.Standard.SameMonad
+spago test -m Test.Games.RandomNumber.Run.Standard.Infrastructure
+spago test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
 ```
 
 ### Layered
 
 ```bash
 ## Node-Based implementation
-pulp --psc-package run -m Games.RandomNumber.Free.Layered.Infrastructure.Console
-pulp --psc-package run -m Games.RandomNumber.Run.Layered.Infrastructure.Console
+spago run -m Games.RandomNumber.Free.Layered.Infrastructure.Console
+spago run -m Games.RandomNumber.Run.Layered.Infrastructure.Console
 
 ### Changes in Run folder
-pulp --psc-package run -m Games.RandomNumber.Run.Layered.ChangeImplementation
-pulp --psc-package run -m Games.RandomNumber.Run.Layered.AddDomainTerm
+spago run -m Games.RandomNumber.Run.Layered.ChangeImplementation
+spago run -m Games.RandomNumber.Run.Layered.AddDomainTerm
 
 ## Browser-based implementation
-pulp --psc-package browserify -O -m Games.RandomNumber.Free.Layered.Infrastructure.Halogen.Web --to dist/random-number/free--layered/app.js
-pulp --psc-package browserify -O -m Games.RandomNumber.Run.Layered.Infrastructure.Halogen.Web --to dist/random-number/run--layered/app.js
+spago build --main Games.RandomNumber.Free.Layered.Infrastructure.Halogen.Web --to dist/random-number/free--layered/app.js
+parcel build dist/random-number/free--layered/example.html --open -p 1114 -d dist/random-number/free--layered/ -o index.html
+
+spago build --main Games.RandomNumber.Run.Layered.Infrastructure.Halogen.Web --to dist/random-number/run--layered/app.js
+parcel build dist/random-number/run--layered/example.html --open -p 1115 -d dist/random-number/run--layered/ -o index.html
 
 ## Test
-pulp --psc-package test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
+spago test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
 ```

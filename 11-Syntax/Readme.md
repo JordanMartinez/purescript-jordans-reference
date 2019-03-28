@@ -34,11 +34,11 @@ type SomeTypeName = String
 ```
 
 If you want to play around with the syntax, follow these instructions:
-1. Go to a directory that has a `psc-package.json` file (otherwise, the rest of these commands won't work)
-2. Install the dependencies: `psc-package install`
+1. Go to a directory that has a `spago.dhall` file (otherwise, the rest of these commands won't work)
+2. Install the dependencies: `spago install`
 3. Start a REPL or build the files with watching (refer to the table below)
 
 | Command | Ideal Usage | Other Comments
 | - | - | - |
-| `pulp repl` | Play with &lt;10 lines of syntax | Edit `.purs-repl` and add `import ModuleName` to automatically import that module whenver you run this command
-| `pulp --psc-package --watch build` | Test out 10+ lines of syntax | Saving a file after running this command will re-compile the project |
+| `spago repl` | Play with &lt;10 lines of syntax | Edit `.purs-repl` and add `import ModuleName` to automatically import that module whenver you run this command
+| `spago build --watch` | Test out 10+ lines of syntax | Saving a file after running this command will re-compile the project |

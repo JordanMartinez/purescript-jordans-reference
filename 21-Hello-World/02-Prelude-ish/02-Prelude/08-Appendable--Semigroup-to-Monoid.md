@@ -47,4 +47,4 @@ Some of these type classes also specify specific helper types (sub bullets under
 - [Field](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Field)
 
 
-These type classes do not define any derived functions.
+For derived functions (if any), see the type classes' docs.

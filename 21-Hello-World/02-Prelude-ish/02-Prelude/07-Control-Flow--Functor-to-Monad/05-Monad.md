@@ -6,7 +6,7 @@ Monad = Sequential Computation (`Bind`) + Lift a Value/Function into Box-like Ty
 
 ## Definition
 
-See its docs:[Monad](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Monad)
+See its docs: [Monad](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Monad)
 
 ```purescript
 class (Applicative m, Bind m) <= Monad m

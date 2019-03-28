@@ -22,7 +22,7 @@ A game consists of four stages:
 4. output whether the player won/lost
 
 The following image is the general flow of the program:
-![Control-Flow](./images/Control-Flow.svg)
+![Control-Flow](./assets/Control-Flow.svg)
 
 ## Level 2 / API
 

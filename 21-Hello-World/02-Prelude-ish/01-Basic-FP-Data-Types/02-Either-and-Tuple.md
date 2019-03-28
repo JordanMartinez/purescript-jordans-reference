@@ -31,7 +31,7 @@ These types are 'closed' (to see what open/closed sum/product types mean, see "E
 | Used to indicate one type or a second type | <ul><li>`Left a` - an value of `a`</li><li>`Right b` - an value of `b`</li></ul>
 | Error handing (when we care about the error) | <ul><li>`Left ErrorType` - the error type that is returned when a computation fails</li><li>`Right OutputType` - the output type when a computation succeeds</li></ul>
 
-### Tuple
+## Tuple
 
 ```purescript
 data Tuple a b = Tuple a b

@@ -34,46 +34,46 @@ install:
   - mv $HOME/dhall-json/bin/dhall-to-json $HOME/bin/
   # ^ dhall-json comes with two binaries, but we only need 'dhall-to-json'
   # Move that binary into $HOME/bin/ so that it is on the PATH
-  - npm i -g purescript@0.12.3 pulp psc-package-bin-simple spacchetti-cli-bin-simple
+  - npm i -g purescript@0.12.3 spago
   # ^ Use NPM to install most packages
-  - chmod +x .travis/psc-package--print-versions.sh
-  - ./.travis/psc-package--print-versions.sh
+  - chmod +x .travis/spago--print-versions.sh
+  - ./.travis/spago--print-versions.sh
   # ^ Crudely print installed packages' versions
-  - chmod +x .travis/psc-package--install.sh
-  - ./.travis/psc-package--install.sh
+  - chmod +x .travis/spago--install.sh
+  - ./.travis/spago--install.sh
   # ^ Install each folder's contents using custom script
 
 before_script:
-  - chmod +x .travis/psc-package--build-and-test.sh
+  - chmod +x .travis/spago--build-and-test.sh
 
 script:
-  - ./.travis/psc-package--build-and-test.sh
+  - ./.travis/spago--build-and-test.sh
 
 cache:
   directories:
-    - 11-Syntax/01-Basic-Syntax/.psc-package
+    - 11-Syntax/01-Basic-Syntax/.spago
     - 11-Syntax/01-Basic-Syntax/output
-    - 11-Syntax/02-Foreign-Function-Interface/.psc-package
+    - 11-Syntax/02-Foreign-Function-Interface/.spago
     - 11-Syntax/02-Foreign-Function-Interface/output
-    - 11-Syntax/03-Type-Level-Programming-Syntax/.psc-package
+    - 11-Syntax/03-Type-Level-Programming-Syntax/.spago
     - 11-Syntax/03-Type-Level-Programming-Syntax/output
-    - 11-Syntax/04-Module-Syntax/.psc-package
+    - 11-Syntax/04-Module-Syntax/.spago
     - 11-Syntax/04-Module-Syntax/output
-    - 11-Syntax/05-Prelude-Syntax/.psc-package
+    - 11-Syntax/05-Prelude-Syntax/.spago
     - 11-Syntax/05-Prelude-Syntax/output
-    - 21-Hello-World/03-Hello-World-and-Effects/.psc-package
+    - 21-Hello-World/03-Hello-World-and-Effects/.spago
     - 21-Hello-World/03-Hello-World-and-Effects/output
-    - 21-Hello-World/04-Debugging/.psc-package
+    - 21-Hello-World/04-Debugging/.spago
     - 21-Hello-World/04-Debugging/output
-    - 21-Hello-World/05-Testing/.psc-package
+    - 21-Hello-World/05-Testing/.spago
     - 21-Hello-World/05-Testing/output
-    - 21-Hello-World/06-Benchmarking/.psc-package
+    - 21-Hello-World/06-Benchmarking/.spago
     - 21-Hello-World/06-Benchmarking/output
     - 21-Hello-World/06-Benchmarking/node_modules
-    - 21-Hello-World/07-Type-Level-Programming/.psc-package
+    - 21-Hello-World/07-Type-Level-Programming/.spago
     - 21-Hello-World/07-Type-Level-Programming/output
-    - 21-Hello-World/08-Application-Structure/.psc-package
+    - 21-Hello-World/08-Application-Structure/.spago
     - 21-Hello-World/08-Application-Structure/output
-    - 22-Projects/.psc-package
+    - 22-Projects/.spago
     - 22-Projects/output
     - 22-Projects/node_modules

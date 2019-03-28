@@ -12,4 +12,4 @@ In short, the decision was made to drop `Eff`'s "extensible effects". Presumably
 
 The `Aff` monad was introduced and in use before this decision was made. Thus,  history explains the naming behind `Aff`: if `Eff` was for synchronous **eff**ects, then `Aff` is for **a**sychronous e**ff**ects.
 
-`Aff` is more powerful than `Effect`. For a good introduction to `Aff`, see [this video](https://www.youtube.com/watch?v=dbM72ap30TE).
+`Aff` is more powerful than `Effect`. For a good introduction to `Aff`, see [Async Programming in PureScript](https://www.youtube.com/watch?v=dbM72ap30TE) (actual video on YouTube is titled: "LA PureScript Meetup 12/05/17").

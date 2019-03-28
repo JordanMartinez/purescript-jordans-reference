@@ -1,23 +1,6 @@
 # Type-Level Programming
 
-This folder is still a work in progress!
-
-## Introduction
-
-### Comparison
-
-In programming, there are usually two terms we use to describe "when" a problem/bug/error can occur:
-- Compile-time: Turns source code into machine code. Compiler errors occur due to types not aligning.
-- Runtime: Executes machine code. Runtime errors occur due to values of types not working as verified by the compiler (e.g. you expected a value of `String` at runtime but got `null`).
-
-### Definition
-
-| Term | Definition | "Runtime"
-| - | - | - |
-| Value-Level Programming | Writing source code that gets executed during runtime | Node / Browser
-| Type-Level Programming | Writing source code that gets executed during compile-time | Type Checker / Type Class Constraint Solver^
-
-^ First heard of this from @natefaubion when he mentioned it in the #purescript Slack channel
+This folder assumes you have read through and are familiar with `Type Level Syntax`. If you aren't, go and read through that first.
 
 ## Example
 
@@ -28,9 +11,9 @@ In programming, there are usually two terms we use to describe "when" a problem/
 
 Let's explain a problem that highlights the third point: storing more information about data-structures. Below is one problem that occurs at the runtime that can be fixed with type-level programming.
 
-An `Array` is a very fast data structure, but it's problematic because we never know the exact size of it at compile-time. Functions that operate on `Array` where its length/size is important are "partial functions," functions that may not give you a valid output but may instead throw an error. In other words, all your confidence that your code works as expected is thrown into the trash.
+An `Array` is a very fast data structure, but it's problematic because we never know its exact size at compile-time. In other words, we don't get a compiler error if we reference an invalid spot in the array, and we won't know about the bug until it occurs when running the program. In short, this kind of function will always be a partial function.
 
-An example is getting an element in an `Array` at index `n`. If the array is empty or of size `n - 1`, the function can only throw an error. If it has `n` or more elements, it can return that element.
+Here's an example in code. If the array is empty or only has `n - 1` elements, the function can only throw an error when we try to reference a non-existent element at index `n`. If the array has `n` or more elements, it can return that element.
 ```purescript
 elemAtIndex :: forall a. Partial => Int -> Array a -> a
 elemAtIndex idx [] = Partial.crash "cannot get " <> show idx <> "th element of an empty array"
@@ -39,7 +22,7 @@ elemAtIndex index fullArray = unsafePartial $ unsafeIndex fullArray index
 
 ### A Solution
 
-However, what if we could modify the type of `Array`, so that it included the size of that array at compile-time? Then, the type-checker could insure that the "elemAtIndex" function described above only receives correct arguments (i.e. specific types) that make the function "total," meaning the function will always return a valid output and never throw an error. If it receives an invalid argument, it results in a compiler error.
+What if we could modify the type of `Array`, so that it included the size of that array at compile-time? Then, the type-checker could insure that the "elemAtIndex" function described above only receives correct arguments (i.e. specific types) that make the function "total," meaning the function will always return a valid output and never throw an error. If it receives an invalid argument, it results in a compiler error and we can fix the bug before shipping the code to customers.
 
 ```purescript
 -- This entire block of code is pseduo syntax and does not actually work!
@@ -55,9 +38,16 @@ This is exactly what the library [Vec](https://pursuit.purescript.org/packages/p
 
 ## Issues with Type-Level Programming
 
-- While type-level programming may improve your program's runtime speed or further force you to use safe code, it will increase the time it takes to compile your program
-- Creating an type-level value for a kind can get really tedious and boilerplatey. Either reuse ones that exist or publish your own for the benefit of the entire community.
+- When using type-level programming, the compiler has to do more work. Thus, it will increase the time it takes to compile your program.
+- Creating a type-level value for a kind can get really tedious and boilerplatey. Either reuse ones that exist in libraries or publish your own library for the benefit of the entire community.
 
 ## Other Learning Sources
 
 Consider purchasing the `Thinking with Types` book mentioned in `ROOT_FOLDER/Syntax/Type-Level Programming Syntax/ReadMe.md`
+
+## Compilation Instructions
+
+```bash
+spago run -m TLP.SymbolExample
+spago run -m TLP.RowExample
+```

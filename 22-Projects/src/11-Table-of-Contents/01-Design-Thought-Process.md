@@ -15,7 +15,7 @@ Principles
 
 Outcome 1
 - When running the program, the user can easily configure which foldlers/files to include/exclude
-    - For folders, we can use a blacklist filter: if a folder name matches an excluded folder (e.g. `output/`, `.psc-package`, etc.), we'll skip it and all of its contents.
+    - For folders, we can use a blacklist filter: if a folder name matches an excluded folder (e.g. `output/`, `.spago`, etc.), we'll skip it and all of its contents.
     - For files, we can use a whitelist filter: if a file's extension matches a specific one, we should include it. For our purposes, we're only concerned about Markdown, PureScript, and JavaScript files (ie.g. `*.md`, `*.purs`, and `*.js`).
 - The program outputs or overwrites the ToC file with content (see below for example). When a URL is clicked, it will open the corresponding page for this repo on GitHub...
     - Why GitHub and not something else? Because this repo is hosted on GitHub
@@ -123,7 +123,7 @@ Our program consists of six stages
 6. Write the final content to the output file.
 
 The following image is the general flow of the program:
-![Control-Flow](./images/Control-Flow.svg)
+![Control-Flow](./assets/Control-Flow.svg)
 
 In addition to the above, we'll also have a parser and a renderer. Both will be provided via the `Env` type, so that we can easily use a different parser approach or a different output type.
 

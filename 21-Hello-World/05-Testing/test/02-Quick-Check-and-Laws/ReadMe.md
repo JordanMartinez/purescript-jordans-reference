@@ -14,13 +14,13 @@ For a longer explanation of the original Haskell QuickCheck:
 Use these commands to compare the test results:
 ```bash
 # Unit Tests
-pulp --psc-package test -m Test.Spec.Examples.SelfContained.ConsoleReporter
-pulp --psc-package test -m Test.Spec.Examples.SelfContained.DotReporter
-pulp --psc-package test -m Test.Spec.Examples.SelfContained.SpecReporter
-pulp --psc-package test -m Test.Spec.Examples.SelfContained.TapReporter
+spago test -m Test.Spec.Examples.SelfContained.ConsoleReporter
+spago test -m Test.Spec.Examples.SelfContained.DotReporter
+spago test -m Test.Spec.Examples.SelfContained.SpecReporter
+spago test -m Test.Spec.Examples.SelfContained.TapReporter
 
-pulp --psc-package test -m Test.Spec.Examples.Modulated.Runner
+spago test -m Test.Spec.Examples.Modulated.Runner
 
 # Quick Check
-pulp --psc-package test -m Test.QuickCheckSyntax
+spago test -m Test.QuickCheckSyntax
 ```

@@ -1,24 +1,28 @@
-/bower_components/
-/node_modules/
-/.pulp-cache/
-/output/
-/generated-docs/
-/.psc-package/
-/.psc*
-/.purs*
-/.psa*
-
+# PS IDE file
 /**/.psc-ide-port
-/**/.psc-package/
+
+# PSCI Modules for REPL
 /**/.psci*
+
+# Not used here, but still include it anyways: (PSA build tool)
 /**/.psa*
+
+# Output of building PS (docs, compilation, bundling)
+/**/generated-docs/
 /**/output/
-/**/.pulp-cache/
 /**/dist/**/*.js
+
+# Node related things
 /**/node_modules/
 /**/package-lock.json
 
-# For the benchmarking folder
+# Spago related things
+/**/.spago/
+
+# Ignore Parcel's files and directories
+/**/dist/**/*.js.map
+/**/dist/**/index.html
+/**/.cache/
+
+# Ignore any project-related files stored in temporary folder
 /**/tmp/
-# Since we need to use Spacchetti to install Benchotron
-/**/*Benchmarking/packages.json
