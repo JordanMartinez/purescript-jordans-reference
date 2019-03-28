@@ -106,7 +106,7 @@ renderFile depth url pathSeg headers = do
         let root = head currentTree
         let children = tail currentTree
         renderHeader d root <>
-        tailRec goHeader { level: d, drawn: "", current: children }
+        tailRec goHeader { level: d + 1, drawn: "", current: children }
 
       where
         goHeader :: _ -> Step _ String
