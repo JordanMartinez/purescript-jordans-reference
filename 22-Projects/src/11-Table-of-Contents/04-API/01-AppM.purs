@@ -92,8 +92,10 @@ instance writeToFileAppM :: WriteToFile AppM where
 
 instance verifyLinksAppM :: VerifyLink AppM where
   verifyLink :: WebUrl -> AppM Boolean
+  -- uncomment this when wish to disable the URL checking temporarily
+  -- verifyLink _ = do
+  --   pure true
   verifyLink url = do
-    -- pure true
     let prefixLength = length "https://github.com"
     let baseOpts =
           method := "GET" <>
