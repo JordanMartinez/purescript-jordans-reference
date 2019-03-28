@@ -68,7 +68,9 @@ runProgramViaCLI runOnceEnvConfigured = do
                     \the top-level directories.")
               (Left
                 -- PS-related directories
-                [ ".spago", "generated-docs", ".psci_modules", "node_modules", "output", "tmp", "dist"
+                [ ".spago", "generated-docs", ".psci_modules",  "output", "tmp"
+                -- NPM and Parcel related things
+                , ".cache", "node_modules", "dist"
                 -- project-specific files
                 , "benchmark-results"
                 -- repo-specific files
