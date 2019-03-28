@@ -138,8 +138,10 @@ let additions =
           "v7.0.0"
 
       {- The main 'purescript-tree' package on Pursuit is outdated and only works
-         for the `0.11.7` release. Fortunately, 'pt2121' forked the repo and updated
-         it to `0.12.0`. So, we need to use that person's fork of the repo. -}
+         for the `0.11.7` release. Fortunately, 'dwhitney' forked the repo and updated
+         it to `0.12.0`. However, I then learned that that fork had a bug.
+         So, I created my own fork and fixed the bug and made a tag with the fix
+         in `v1.3.4` So, we need to use my fork of the repo. -}
     , tree =
         mkPackage
           [ "prelude"
@@ -147,8 +149,8 @@ let additions =
           , "lists"
           , "free"
           ]
-          "https://github.com/pt2121/purescript-tree"
-          "v1.3.3"
+          "https://github.com/JordanMartinez/purescript-tree"
+          "v1.3.4"
      , string-utils =
         mkPackage
          [ "either"
