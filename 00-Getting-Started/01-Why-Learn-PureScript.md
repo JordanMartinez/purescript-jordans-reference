@@ -94,7 +94,7 @@ See [PS or ghcjs for Frontend with Haskell backend](https://discourse.purescript
 
 Above, I stated that PureScript makes specific tradeoffs. I'd like to cover what some of those tradeoffs are and why they are good. (These ideas will be further explained in the "FP Philosophical Foundations" folder that appears later in this repository.)
 
-### Strongly Adheres to the Functional Programming Paradigm
+#### Strongly Adheres to the Functional Programming Paradigm
 
 - [A Secret Weapon for Startups -- Functional Programming?](https://www.ramanan.com/personal-blog/2019/2/25/functional-programming-and-venture-capital)
 - Paradigm shifts, such as the one demonstrated by this video using C++, are what enable programs with less problems: [Logging a function's name each time it is called: migrating an "object-oriented paradigm" solution to an "functional paradigm" solution](https://www.youtube.com/embed/i9CU4CuHADQ?start=540). As will be explained later, this is what is known as the "Writer Monad."
@@ -104,7 +104,7 @@ Above, I stated that PureScript makes specific tradeoffs. I'd like to cover what
     - easy to add/change/remove a "backend" to account for trends, new insights, or faster code (Without introducing a new bug or deleting a current feature, can I switch from Company A's database to Company B's database without rewriting more than 30 lines of code?)
     - unconcerning to allow a new developer to work on the code, knowing that he/she cannot screw up anything major (Can the Lead/Senior Developer take the weekend off and return, knowing that it's extraordinarily difficult for developers with little experience to break something?)
 
-### Powerful Static Type System
+#### Powerful Static Type System
 
 - This video explains how a type system with `algebraic data types` comes with a number of benefits (note: it uses a different syntax than PureScript: [Domain Modeling Made Functional](https://www.youtube.com/watch?v=Up7LcbGZFuo). To summarize it, `algebraid data types`
     - allow you to model a domain at a 1-to-1 ratio
@@ -121,14 +121,14 @@ Above, I stated that PureScript makes specific tradeoffs. I'd like to cover what
     - allow you to write declarative code ("this is what will be true") rather than imperative code ("this is how to make truth true (hopefully, you got it right)")
     - enables the compiler to infer runtime code
 
-### Immutable Persistent Data Structures by Default
+#### Immutable Persistent Data Structures by Default
 
 TODO, but the general idea is:
 - Immutable data structures are the default and always work as such (unlike some other languages)
 - Mutable data structures are opt-in
 - Such data structures are easier to use and reason about because they don't change
 
-### Multiple Backends with Easy Foreign Function Interface
+#### Multiple Backends with Easy Foreign Function Interface
 
 TODO, but the general idea is:
 - [PureScript compiles to other languages besides JavaScript](https://github.com/purescript/documentation/blob/master/ecosystem/Alternate-backends.md). Thus, writing one library in PureScript will work in multiple languages, and one can choose the backend that best solves their problem.
