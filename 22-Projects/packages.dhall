@@ -109,16 +109,16 @@ let additions =
 -}
 
 let mkPackage =
-      https://raw.githubusercontent.com/purescript/package-sets/psc-0.12.3-20190315/src/mkPackage.dhall sha256:0b197efa1d397ace6eb46b243ff2d73a3da5638d8d0ac8473e8e4a8fc528cf57
+      https://raw.githubusercontent.com/purescript/package-sets/psc-0.12.3-20190323-2/src/mkPackage.dhall sha256:0b197efa1d397ace6eb46b243ff2d73a3da5638d8d0ac8473e8e4a8fc528cf57
 
 let upstream =
-      https://raw.githubusercontent.com/purescript/package-sets/psc-0.12.3-20190315/src/packages.dhall sha256:08714bc666b16834f0f4cf86d408745ce005c43e3343821e4c3864ef28709177
+      https://raw.githubusercontent.com/purescript/package-sets/psc-0.12.3-20190323-2/src/packages.dhall sha256:75491c6ef6587959ebf80bb1ac4d706dfac83d8100230cf85dc4efe6cf918460
 
 let overrides = {=}
 
 let additions =
-    { benchotron =
-        mkPackage
+      { benchotron =
+          mkPackage
           [ "arrays"
           , "exists"
           , "profunctor"
@@ -136,33 +136,23 @@ let additions =
           ]
           "https://github.com/hdgarrood/purescript-benchotron.git"
           "v7.0.0"
-
-      {- The main 'purescript-tree' package on Pursuit is outdated and only works
-         for the `0.11.7` release. Fortunately, 'dwhitney' forked the repo and updated
-         it to `0.12.0`. However, I then learned that that fork had a bug.
-         So, I created my own fork and fixed the bug and made a tag with the fix
-         in `v1.3.4` So, we need to use my fork of the repo. -}
-    , tree =
-        mkPackage
-          [ "prelude"
-          , "console"
-          , "lists"
-          , "free"
-          ]
+      , tree =
+          mkPackage
+          [ "prelude", "console", "lists", "free" ]
           "https://github.com/JordanMartinez/purescript-tree"
           "v1.3.4"
-     , string-utils =
-        mkPackage
-         [ "either"
-         , "arrays"
-         , "maybe"
-         , "prelude"
-         , "integers"
-         , "partial"
-         , "strings"
-         ]
-         "https://github.com/menelaos/purescript-stringutils.git"
-         "v0.0.8"
-     }
+      , string-utils =
+          mkPackage
+          [ "either"
+          , "arrays"
+          , "maybe"
+          , "prelude"
+          , "integers"
+          , "partial"
+          , "strings"
+          ]
+          "https://github.com/menelaos/purescript-stringutils.git"
+          "v0.0.8"
+      }
 
 in  upstream // overrides // additions
