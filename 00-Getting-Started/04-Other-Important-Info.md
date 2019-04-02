@@ -20,3 +20,8 @@ If you're coming to PureScript with a Haskell background, be sure to consult the
 - Some libraries have not been updated to `0.12.x` (released on `2018/05/21`) and are still on the `0.11.7` release. Some still work; others won't. In this work, we will insure that you do not use any such libraries, but be aware of that if you browse the docs on your own.
 - Lastly, Bower, the dependency manager used to publish docs to Pursuit, [is currently causing an issue](https://github.com/purescript-contrib/pulp/issues/351) that has prevented some libraries (e.g. Halogen) from uploading their latest versions' documentation. In these cases, we will forewarn you. Fortunately, `spago docs` will produce a local version of the source code's documentation that looks similar to Pursuit. It does not support all the features of Pursuit, but it's better than nothing. To do that, follow these commands:
     - `spago docs && <your default web browser> generated-docs/index.html` where `<your default web browser` is `firefox` or whatever you use.
+
+**Undocumented Pursuit Tip**
+
+To get the latest version of the Pursuit docs of a package's function, package's type, or the package itself, simply remove the version in the url. Pursuit will load the latest version of that package:
+https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.Eq
