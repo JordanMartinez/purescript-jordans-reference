@@ -6,3 +6,5 @@ See [Introduction to Recursion Schemes](https://blog.sumtypeofway.com/an-introdu
 
 See [Basic Catamorphisms](https://recursion-schemes-by-example.chrispenner.ca/articles/recursive/basic-catamorphisms)
 See [F-Algebras](https://recursion-schemes-by-example.chrispenner.ca/articles/recursive/f-algebras)
+
+See [Recursion Scheme Cookbook](https://github.com/vil1/recursion-schemes-cookbook), a documentation project that helps explain SlamData's [Matyroshka (purescript)](https://github.com/slamdata/purescript-matryoshka) library.
