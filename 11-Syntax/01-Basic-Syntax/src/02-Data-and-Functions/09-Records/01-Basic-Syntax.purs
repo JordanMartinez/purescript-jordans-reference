@@ -1,5 +1,7 @@
 module Syntax.Record.Basic where
 
+import Prelude
+
 -- Records have a different kind than "Type".
 
 -- "# Type" stands for a "row" of types.
@@ -66,6 +68,20 @@ Don't confuse the two operators that go in-between field and value!
   ":" means "create a new record by specifying the field's value":
                  { field: initialValue }
 """
+
+-- We can also pattern match on a record. The field names must match
+-- the field names of the record
+allLabels_patternMatch :: Int
+allLabels_patternMatch =
+  let { field1, field2 } = { field1: 3, field2: 5 }
+  in field1 + field2
+
+someLabels_patternMatch :: String
+someLabels_patternMatch =
+  -- notice how we don't include 'field2' here
+  -- in the pattern match
+  let { field1 } = { field1: "a", field2: "b" }
+  in field1
 
 -- needed to compile
 type ValueType = String

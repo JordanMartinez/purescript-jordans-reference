@@ -16,7 +16,7 @@ echo "Purescript:"
 purs --version
 
 echo "Spago:"
-spago --version
+spago version
 
 echo "=============================="
 echo ""
