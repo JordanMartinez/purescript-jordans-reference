@@ -12,23 +12,26 @@ Be familiar with the contents of the below folders in the `Libraries` folder bef
 - Tree
 - String-Parsers
 - HTTP
-- Parallel - TODO
 
 ## Compilation Instructions
 
 Run the following while in the `Projects/` folder.
 
-Currently, only the ReaderT implementation exists and there are no tests or benchmarks.
+Currently, only there are no tests or benchmarks.
 
 ### Standard
 
 ```bash
-# Build the program
-spago bundle --main ToC.Main --to dist/table-of-contents/ghtoc.js
+# Build the program using either the ReaderT or Run implementation
+spago bundle --main ToC.ReaderT.Main --to dist/table-of-contents/readert-ghtoc.js
+
+spago bundle --main ToC.Run.Main --to dist/table-of-contents/run-ghtoc.js
 
 # Change directory to be at the root directory
 cd ../
 
-# Then run it using these commands:
-node 22-Projects/dist/table-of-contents/ghtoc.js -r "." -o "./table-of-contents.md" --log-level "info"
+# Then run it using one of commands:
+node 22-Projects/dist/table-of-contents/readert-ghtoc.js -r "." -o "./table-of-contents.md" --log-level "info"
+
+node 22-Projects/dist/table-of-contents/run-ghtoc.js -r "." -o "./table-of-contents.md" --log-level "info"
 ```
