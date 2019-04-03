@@ -1,9 +1,21 @@
 # Random Number
 
-This folder will show how to build a "guess the random number" game. Here's an overview of its contents:
+This folder will show how to build a "guess the random number" game. It's main purpose is to explore the various ways one can structure an application, including a few experimental ones.
+
+Here's an overview of its contents:
 - Design process and properties we wish to employ
-- Shared Code: the domain types, data structures, and their related functions that are used across all the other folders. This folder excludes any infrastructure/framework code (e.g. `Node.ReadLine`/`Halogen`).
-- Folders for each application structure
+- Shared Code: the domain types, data structures, and their related functions that are used across all the other folders. To help reduce duplicate code, some parts of the Infrastructure will appear here as well.
+- A folder for each application structure.
+
+## Purpose: Exploring The Various Ways One Can Structure the Application
+
+Normally, one will use the 'standard' way of structuring their application: via `ReaderT design pattern` or `Run`. Since readers might still be unfamiliar with `Run`, I will also include `Free`. In the upcoming projects, only `ReaderT` and `Run` will be used.
+
+I also include the "layered compilers" idea mentioned in the `Hello World/Application Structure/Free` folder. This is purely an experimental idea that shows what one _can_ do, but not necessarily "best practices" per say. It might help one write a program when the specifications are still not well-understood. Or it might just be pointless boilerplate-y work.
+
+By "layered compilers," I mean defining a monad with a higher-level language (e.g. Domain) that gets interpreted  (`Free`/`Run`) into another monad with a lower-level language (e.g. API).
+
+Since "layered compilers" is rather long, I'll just use "layered" in folders' and modules' names.
 
 ## Libraries Used
 
