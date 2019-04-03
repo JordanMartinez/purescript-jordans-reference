@@ -1,10 +1,10 @@
-module Games.RandomNumber.Run.Layered.API
+module Games.RandomNumber.Run.Layered.LowLevelDomain
   ( GetUserInputF(..), GET_USER_INPUT, _getUserInput, getUserInput
   , CreateRandomIntF(..), CREATE_RANDOM_INT, _createRandomInt, createRandomInt
   , getIntFromUser, recursivelyRunUntilPure
   , defineBoundsToAPI, defineTotalGuessesToAPI, makeGuessToAPI, genRandomIntToAPI
 
-  , runDomain
+  , runHighLevelDomain
   ) where
 
 import Prelude
@@ -19,7 +19,7 @@ import Games.RandomNumber.Core ( Bounds, mkBounds, mkGuess, mkRandomInt
                                , mkRemainingGuesses, totalPossibleGuesses
                                )
 
-import Games.RandomNumber.Run.Layered.Domain (
+import Games.RandomNumber.Run.Layered.HighLevelDomain (
   NOTIFY_USER, notifyUser
 , DefineBoundsF(..), _defineBounds, DEFINE_BOUNDS
 , DefineTotalGuessesF(..), _defineTotalGuesses, DEFINE_TOTAL_GUESSES
@@ -140,17 +140,17 @@ inputIsInt s = case fromString s of
   Just i -> Right i
   Nothing -> Left $ NotAnInt s
 
-runDomain :: forall r
-           . Run (NOTIFY_USER +
+runHighLevelDomain :: forall r
+                    . Run (NOTIFY_USER +
 
-                  DEFINE_BOUNDS + DEFINE_TOTAL_GUESSES + GEN_RANDOM_INT +
-                  MAKE_GUESS +
+                           DEFINE_BOUNDS + DEFINE_TOTAL_GUESSES + GEN_RANDOM_INT +
+                           MAKE_GUESS +
 
-                  GET_USER_INPUT + CREATE_RANDOM_INT + r)
-          ~> Run (NOTIFY_USER + -- note that NotifyUser is not interpreted yet
+                           GET_USER_INPUT + CREATE_RANDOM_INT + r)
+                   ~> Run (NOTIFY_USER + -- note that NotifyUser is not interpreted yet
 
-                  GET_USER_INPUT + CREATE_RANDOM_INT + r)
-runDomain = interpret (
+                           GET_USER_INPUT + CREATE_RANDOM_INT + r)
+runHighLevelDomain = interpret (
   send
     # on _defineBounds defineBoundsToAPI
     # on _defineTotalGuesses defineTotalGuessesToAPI

@@ -4,26 +4,20 @@ module Test.Games.RandomNumber.Run.Layered.Infrastructure
   ) where
 
 import Prelude
-import Data.Tuple (Tuple, snd)
-import Data.Maybe (fromJust)
+
 import Data.Array (uncons)
 import Data.Functor.Variant (on)
-import Partial.Unsafe (unsafePartial)
+import Data.Maybe (fromJust)
+import Data.Tuple (Tuple, snd)
 import Effect (Effect)
 import Games.RandomNumber.Core (GameResult)
-import Games.RandomNumber.Run.Layered.Domain (
-  game
-, NotifyUserF(..), _notifyUser, NOTIFY_USER
-)
-import Games.RandomNumber.Run.Layered.API (
-  runDomain
-, GetUserInputF(..), _getUserInput, GET_USER_INPUT
-, CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT
-)
+import Games.RandomNumber.Run.Layered.HighLevelDomain (game, NotifyUserF(..), _notifyUser, NOTIFY_USER)
+import Games.RandomNumber.Run.Layered.LowLevelDomain (runHighLevelDomain, GetUserInputF(..), _getUserInput, GET_USER_INPUT, CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT)
+import Partial.Unsafe (unsafePartial)
 import Run (Run, interpret, send, extract)
 import Run.State (STATE, runState, get, put)
-import Test.QuickCheck (quickCheck, quickCheck',(<?>))
 import Test.Games.RandomNumber.Generators (TestData(..))
+import Test.QuickCheck (quickCheck, quickCheck', (<?>))
 import Type.Row (type (+))
 
 
@@ -45,7 +39,7 @@ main = do
 produceGameResult :: Int -> Array String -> GameResult
 produceGameResult random userInputs =
   game
-    # runDomain
+    # runHighLevelDomain
     # runAPI random
     # runInfrastructure userInputs
     # extractStateOutput

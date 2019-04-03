@@ -7,18 +7,18 @@ module Games.RandomNumber.Run.Layered.Infrastructure.Halogen.Terminal (terminal)
 
 import Prelude
 import Data.Array (snoc)
-import Data.Functor.Variant (VariantF, on, inj, case_)
+import Data.Functor.Variant (case_, inj, on)
 import Data.Maybe (Maybe(..))
 import Effect.Aff (Aff)
 import Effect.Aff.Class as AffClass
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
 import Games.RandomNumber.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
-import Games.RandomNumber.Run.Layered.Domain (NotifyUserF(..), _notifyUser, NOTIFY_USER)
-import Games.RandomNumber.Run.Layered.API (GetUserInputF(..), _getUserInput, GET_USER_INPUT)
+import Games.RandomNumber.Run.Layered.HighLevelDomain (NotifyUserF(..), _notifyUser)
+import Games.RandomNumber.Run.Layered.LowLevelDomain (GetUserInputF(..), _getUserInput)
+import Games.RandomNumber.Run.Layered.API (TerminalQuery)
 import Halogen as H
 import Halogen.HTML as HH
-import Type.Row (type (+))
 
 -- | Store the messages that should appear in the terminal (history).
 -- | When `getInput == Nothing`, just display the terminal.
@@ -30,7 +30,7 @@ type State = { history :: Array String
 
 -- | Rather than defining a new query language here,
 -- | we'll just reuse **a subset** of our API language.
-type Query = VariantF (NOTIFY_USER + GET_USER_INPUT + ())
+type Query = TerminalQuery
 
 -- | No need to raise any messages to listeners outside of this
 -- | root component as we'll be emitting messages via AVars.
