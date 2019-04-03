@@ -1,4 +1,4 @@
-module ToC.Domain.BusinessLogic
+module ToC.ReaderT.Domain
   ( AllTopLevelContent
   , TopLevelContent
   , Env

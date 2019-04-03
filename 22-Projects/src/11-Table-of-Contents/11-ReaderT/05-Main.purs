@@ -1,12 +1,12 @@
-module ToC.Main where
+module ToC.ReaderT.Main where
 
 import Prelude
 
 import Effect (Effect)
 import Effect.Aff (launchAff_)
-import ToC.API.AppM (runAppM)
-import ToC.Domain.BusinessLogic (program)
-import ToC.Infrastructure.CLI.Yargs (runProgramViaCLI)
+import ToC.ReaderT.Domain (program)
+import ToC.ReaderT.API (runAppM)
+import ToC.ReaderT.Infrastructure.Yargs (runProgramViaCLI)
 
 -- | Sets up the environment value via a CLI library
 -- | and then runs the program using that value.

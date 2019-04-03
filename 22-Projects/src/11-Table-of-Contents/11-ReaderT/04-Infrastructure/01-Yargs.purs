@@ -1,5 +1,5 @@
 -- | Provides a CLI interface to our program via the Yargs library.
-module ToC.Infrastructure.CLI.Yargs (runProgramViaCLI) where
+module ToC.ReaderT.Infrastructure.Yargs (runProgramViaCLI) where
 
 import Prelude
 
@@ -18,7 +18,7 @@ import Node.Yargs.Setup (YargsSetup, example, usage)
 import ToC.Core.FileTypes (HeaderInfo)
 import ToC.Core.GitHubLinks (renderGHPath)
 import ToC.Core.Paths (FilePath, WebUrl, addPath')
-import ToC.Domain.BusinessLogic (Env, LogLevel(..))
+import ToC.ReaderT.Domain (Env, LogLevel(..))
 import ToC.Domain.Parser (extractMarkdownHeaders, extractPurescriptHeaders)
 import ToC.Domain.Renderer.MarkdownRenderer (renderToC, renderTopLevel, renderDir, renderFile)
 import ToC.Infrastructure.OSFFI (endOfLine)
