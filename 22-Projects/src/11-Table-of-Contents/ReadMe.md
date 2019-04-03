@@ -17,7 +17,7 @@ Be familiar with the contents of the below folders in the `Libraries` folder bef
 
 Run the following while in the `Projects/` folder.
 
-Currently, only there are no tests or benchmarks.
+Currently, there are no tests or benchmarks.
 
 ```bash
 # Build the program using either the ReaderT or Run implementation
