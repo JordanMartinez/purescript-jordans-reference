@@ -9,16 +9,14 @@ module ToC.Run.Domain
 import Prelude
 
 import Data.Array (catMaybes, intercalate, sortBy)
-import Data.List (List)
 import Data.Maybe (Maybe(..))
 import Data.Symbol (SProxy(..))
 import Data.Traversable (traverse)
-import Data.Tree (Tree, showTree)
-import Data.Variant.Internal (FProxy(..))
-import Run (Run(..), lift)
+import Data.Tree (showTree)
+import Data.Variant.Internal (FProxy)
+import Run (Run, lift)
 import Run.Reader (READER, ask)
-import ToC.Core.FileTypes (HeaderInfo)
-import ToC.Core.Paths (FilePath, PathType(..), WebUrl, UriPath, AddPath)
+import ToC.Core.Paths (FilePath, PathType(..), UriPath, WebUrl)
 import ToC.Core.RenderTypes (TopLevelContent)
 import ToC.Domain.Types (Env, LogLevel(..))
 import Type.Row (type (+))
@@ -226,17 +224,22 @@ renderFile :: forall r.
 renderFile depth fullFilePath filePathSegment = do
   let fullFsPath = fullFilePath.fs
   let fullUrl = fullFilePath.url
-  linkWorks <- verifyLink fullUrl
-  url <- if linkWorks
-          then do
-            logInfo $ "Successful link for: " <> fullFsPath
-            pure $ Just fullUrl
-          else do
-            logError $ "File with invalid link: " <> fullFsPath
-            logError $ "Link was: " <> fullUrl
-            pure Nothing
-  content <- readFile fullFsPath
   env <- ask
+  url <-
+    if env.shouldVerifyLinks
+      then do
+        linkWorks <- verifyLink fullUrl
+        if linkWorks
+            then do
+              logInfo $ "Successful link for: " <> fullFsPath
+              pure $ Just fullUrl
+            else do
+              logError $ "File with invalid link: " <> fullFsPath
+              logError $ "Link was: " <> fullUrl
+              pure Nothing
+      else do
+        pure $ Just fullUrl
+  content <- readFile fullFsPath
   let headers = env.parseFile filePathSegment content
   logDebug $ "Headers for file:"
   logDebug $ intercalate "\n" (showTree <$> headers)

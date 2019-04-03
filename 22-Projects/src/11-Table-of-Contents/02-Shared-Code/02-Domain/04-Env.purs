@@ -31,6 +31,7 @@ import ToC.Core.RenderTypes (TopLevelContent)
 -- |    - `renderFile`
 -- | - A level that indicates how much information to log to the console
 -- |    - `logLevel`
+-- | - A flag that indicates whether to verify links or not
 type Env = { rootUri :: UriPath
            , addPath :: AddPath
            , outputFile :: FilePath
@@ -44,6 +45,7 @@ type Env = { rootUri :: UriPath
            , renderDir :: Int -> FilePath -> Array String -> String
            , renderFile :: Int -> Maybe WebUrl -> FilePath -> List (Tree HeaderInfo) -> String
            , logLevel :: LogLevel
+           , shouldVerifyLinks :: Boolean
            }
 
 -- | The amount and type of information to log.

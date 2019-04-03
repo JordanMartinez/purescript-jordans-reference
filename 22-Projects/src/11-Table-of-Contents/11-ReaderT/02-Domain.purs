@@ -147,17 +147,22 @@ renderFile :: forall m.
 renderFile depth fullFilePath filePathSegment = do
   let fullFsPath = fullFilePath.fs
   let fullUrl = fullFilePath.url
-  linkWorks <- verifyLink fullUrl
-  url <- if linkWorks
-          then do
-            logInfo $ "Successful link for: " <> fullFsPath
-            pure $ Just fullUrl
-          else do
-            logError $ "File with invalid link: " <> fullFsPath
-            logError $ "Link was: " <> fullUrl
-            pure Nothing
-  content <- readFile fullFsPath
   env <- ask
+  url <-
+    if env.shouldVerifyLinks
+      then do
+        linkWorks <- verifyLink fullUrl
+        if linkWorks
+            then do
+              logInfo $ "Successful link for: " <> fullFsPath
+              pure $ Just fullUrl
+            else do
+              logError $ "File with invalid link: " <> fullFsPath
+              logError $ "Link was: " <> fullUrl
+              pure Nothing
+      else do
+        pure $ Just fullUrl
+  content <- readFile fullFsPath
   let headers = env.parseFile filePathSegment content
   logDebug $ "Headers for file:"
   logDebug $ intercalate "\n" (showTree <$> headers)

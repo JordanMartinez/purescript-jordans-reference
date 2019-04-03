@@ -13,7 +13,7 @@ import Data.String.Utils (endsWith)
 import Data.Tree (Tree)
 import Effect (Effect)
 import Node.Path (extname, sep)
-import Node.Yargs.Applicative (runY, yarg)
+import Node.Yargs.Applicative (flag, runY, yarg)
 import Node.Yargs.Setup (YargsSetup, example, usage)
 import ToC.Core.FileTypes (HeaderInfo)
 import ToC.Core.GitHubLinks (renderGHPath)
@@ -99,18 +99,21 @@ runProgramViaCLI runOnceEnvConfigured = do
                     \Valid options are 'error', 'info', and 'debug'. \
                     \Default is 'error'.")
               (Left "error") true
+        <*> flag "skip-url-verification" []
+              (Just "Do not verify whether hyperlinks work, \
+                    \but still render the ToC file with them.")
 
 setupEnv :: (Env -> Effect Unit) ->
             FilePath -> FilePath ->
             Array String -> Array String -> Array String ->
             String -> String -> String ->
-            String ->
+            String -> Boolean ->
             Effect Unit
 setupEnv runProgramWithEnvironmentConfig
              rootDirectory outputFile
              excludedTopLevelDirs excludedRegularDir includedFileExtensions
              ghUsername ghProjectName ghBranchName
-             logLevel
+             logLevel skipVerification
              = do
   runProgramWithEnvironmentConfig
     { rootUri: { fs: rootDir
@@ -128,6 +131,7 @@ setupEnv runProgramWithEnvironmentConfig
     , renderDir: renderDir
     , renderFile: renderFile
     , logLevel: level
+    , shouldVerifyLinks: not skipVerification
     }
   where
     rootDir :: FilePath
