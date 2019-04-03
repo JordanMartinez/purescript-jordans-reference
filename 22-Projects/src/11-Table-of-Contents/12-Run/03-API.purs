@@ -2,11 +2,10 @@ module ToC.Run.API (runDomain) where
 
 import Prelude
 
-import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
-import Data.Options (Options, (:=))
+import Data.Options ((:=))
 import Data.String.CodeUnits (length, drop)
-import Effect.Aff (Aff, makeAff, nonCanceler)
+import Effect.Aff (Aff)
 import Effect.Aff.Class (liftAff)
 import Effect.Class (liftEffect)
 import Effect.Console as Console
@@ -14,12 +13,12 @@ import Foreign.Object (insert, empty)
 import Node.Encoding (Encoding(..))
 import Node.FS.Aff as FS
 import Node.FS.Stats as Stats
-import Node.HTTP.Client (RequestHeaders(..), RequestOptions, Response, headers, hostname, method, path, protocol, request, requestAsStream, statusCode)
-import Node.Stream (end)
+import Node.HTTP.Client (RequestHeaders(..), headers, hostname, method, path, protocol, statusCode)
 import Run (Run, case_, interpret, on)
 import Run.Reader (READER, runReader)
 import ToC.Core.Paths (PathType(..), FilePath)
 import ToC.Domain.Types (Env, LogLevel)
+import ToC.Infrastructure.Http (mkRequestFromOpts)
 import ToC.Run.Domain (ReadPathF(..), _readPath, READ_PATH, WriteToFileF(..), _writeToFile, WRITE_TO_FILE, LoggerF(..), _logger, LOGGER, VerifyLinkF(..), _verifyLink, VERIFY_LINK)
 import Type.Row (type (+))
 
@@ -86,11 +85,3 @@ runDomain env program =
       when (level <= envLvl) do
         liftEffect $ Console.log msg
       pure next
-
-mkRequestFromOpts :: Options RequestOptions -> Aff Response
-mkRequestFromOpts opts = makeAff go
-  where
-  go :: _
-  go raRF = nonCanceler <$ do
-        req <- request opts (raRF <<< Right)
-        end (requestAsStream req) (pure unit)

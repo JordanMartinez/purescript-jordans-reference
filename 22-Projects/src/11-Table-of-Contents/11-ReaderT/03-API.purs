@@ -3,11 +3,10 @@ module ToC.ReaderT.API (AppM(..), runAppM) where
 import Prelude
 
 import Control.Monad.Reader.Trans (class MonadAsk, ReaderT, ask, asks, runReaderT)
-import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
-import Data.Options (Options, (:=))
+import Data.Options ((:=))
 import Data.String.CodeUnits (length, drop)
-import Effect.Aff (Aff, makeAff, nonCanceler)
+import Effect.Aff (Aff)
 import Effect.Aff.Class (class MonadAff, liftAff)
 import Effect.Class (class MonadEffect, liftEffect)
 import Effect.Console as Console
@@ -15,10 +14,10 @@ import Foreign.Object (insert, empty)
 import Node.Encoding (Encoding(..))
 import Node.FS.Aff as FS
 import Node.FS.Stats as Stats
-import Node.HTTP.Client (RequestHeaders(..), RequestOptions, Response, headers, hostname, method, path, protocol, request, requestAsStream, statusCode)
-import Node.Stream (end)
+import Node.HTTP.Client (RequestHeaders(..), headers, hostname, method, path, protocol, statusCode)
 import ToC.Core.Paths (PathType(..), FilePath, WebUrl)
-import ToC.Domain.Types (Env, LogLevel(..))
+import ToC.Domain.Types (Env, LogLevel)
+import ToC.Infrastructure.Http (mkRequestFromOpts)
 import ToC.ReaderT.Domain (class Logger, class ReadPath, class VerifyLink, class WriteToFile)
 import Type.Equality (class TypeEquals, from)
 
@@ -90,11 +89,3 @@ instance verifyLinksAppM :: VerifyLink AppM where
     response <- liftAff $ mkRequestFromOpts $
       baseOpts <> path := (drop prefixLength url)
     pure $ (statusCode response) == 200
-
-mkRequestFromOpts :: Options RequestOptions -> Aff Response
-mkRequestFromOpts opts = makeAff go
-  where
-  go :: _
-  go raRF = nonCanceler <$ do
-        req <- request opts (raRF <<< Right)
-        end (requestAsStream req) (pure unit)
