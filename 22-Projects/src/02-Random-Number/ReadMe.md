@@ -41,12 +41,12 @@ The games can be opened and played via `dist/random-number/<FP structure approac
 ### Standard
 
 ```bash
-## Node-Based implementation
+# == Node-Based implementation ==
 spago run -m Games.RandomNumber.ReaderT.Standard.Infrastructure.Console
 spago run -m Games.RandomNumber.Free.Standard.Infrastructure.Console
 spago run -m Games.RandomNumber.Run.Standard.Infrastructure.Console
 
-## Browser-based implementation
+# == Browser-based implementation ==
 spago bundle --main Games.RandomNumber.ReaderT.Standard.Infrastructure.Halogen.Web --to dist/random-number/readerT--standard/app.js
 # Read the below as:
 # "Use 'example.html' to figure out the dependency tree, which will pick up
@@ -70,7 +70,7 @@ parcel build dist/random-number/free--standard/example.html --open -p 1112 -d di
 spago bundle --main Games.RandomNumber.Run.Standard.Infrastructure.Halogen.Web --to dist/random-number/run--standard/app.js
 parcel build dist/random-number/run--standard/example.html --open -p 1113 -d dist/random-number/run--standard/ -o index.html
 
-## Test
+# == Test ==
 spago test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
 spago test -m Test.Games.RandomNumber.ReaderT.Standard.SameMonad
 spago test -m Test.Games.RandomNumber.Run.Standard.Infrastructure
@@ -80,21 +80,21 @@ spago test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
 ### Layered
 
 ```bash
-## Node-Based implementation
+# == Node-Based implementation ==
 spago run -m Games.RandomNumber.Free.Layered.Infrastructure.Console
 spago run -m Games.RandomNumber.Run.Layered.Infrastructure.Console
 
-### Changes in Run folder
+# === Changes in Run folder: Node-based ===
 spago run -m Games.RandomNumber.Run.Layered.ChangeImplementation
 spago run -m Games.RandomNumber.Run.Layered.AddDomainTerm
 
-## Browser-based implementation
+# === Changes in Run folder: Browser-based ===
 spago build --main Games.RandomNumber.Free.Layered.Infrastructure.Halogen.Web --to dist/random-number/free--layered/app.js
 parcel build dist/random-number/free--layered/example.html --open -p 1114 -d dist/random-number/free--layered/ -o index.html
 
 spago build --main Games.RandomNumber.Run.Layered.Infrastructure.Halogen.Web --to dist/random-number/run--layered/app.js
 parcel build dist/random-number/run--layered/example.html --open -p 1115 -d dist/random-number/run--layered/ -o index.html
 
-## Test
+# == Test ==
 spago test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
 ```
