@@ -8,7 +8,7 @@ Since we'll be benchmarking our projects here, I should also note that Nate has 
 
 ## Generating benchmark results
 
-1. Run the benchmark via one of the commands in the next section
+1. Bundle and run the benchmark via one of the commands in the next section
 2. It will output a file in the freshly-created `tmp` directory
 3. Upload the outputted file to [hdgarrood's Benchotron SVG Renderer](http://harry.garrood.me/purescript-benchotron-svg-renderer/)
 4. Download the graph as an SVG or PNG
@@ -18,5 +18,6 @@ Since we'll be benchmarking our projects here, I should also note that Nate has 
 Commands to Run a Benchmark:
 ```bash
 # Random Number Game
-spago run -m Performance.RandomNumber.Benchmark -p "benchmark/**/*.purs"
+spago bundle -p "benchmark/**/*.purs" -m Performance.RandomNumber.Benchmark -t dist/benchmarks/random-number.js
+node dist/benchmarks/random-number.js
 ```
