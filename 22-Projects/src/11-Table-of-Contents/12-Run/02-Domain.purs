@@ -1,9 +1,9 @@
 module ToC.Run.Domain
   ( program
   , ReadPathF(..), _readPath, READ_PATH, readDir, readFile, readPathType
-  , WriteToFileF, _writeToFile, WRITE_TO_FILE, writeToFile
-  , LoggerF, _logger, LOGGER, log, logInfo, logError, logDebug
-  , VerifyLinkF, _verifyLink, VERIFY_LINK, verifyLink
+  , WriteToFileF(..), _writeToFile, WRITE_TO_FILE, writeToFile
+  , LoggerF(..), _logger, LOGGER, log, logInfo, logError, logDebug
+  , VerifyLinkF(..), _verifyLink, VERIFY_LINK, verifyLink
   ) where
 
 import Prelude

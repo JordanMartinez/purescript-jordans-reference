@@ -1,5 +1,5 @@
 -- | Provides a CLI interface to our program via the Yargs library.
-module ToC.ReaderT.Infrastructure.Yargs (runProgramViaCLI) where
+module ToC.Infrastructure.Yargs (runProgramViaCLI) where
 
 import Prelude
 
