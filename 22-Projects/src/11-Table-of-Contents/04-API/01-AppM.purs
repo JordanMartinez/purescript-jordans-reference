@@ -1,15 +1,13 @@
-module Projects.ToC.API.AppM (ParAppM(..), AppM(..), runAppM) where
+module Projects.ToC.API.AppM (AppM(..), runAppM) where
 
 import Prelude
 
 import Control.Monad.Reader.Trans (class MonadAsk, ReaderT, ask, asks, runReaderT)
-import Control.Parallel (class Parallel, parallel)
-import Control.Parallel.Class (sequential)
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
 import Data.Options (Options, (:=))
 import Data.String.CodeUnits (length, drop)
-import Effect.Aff (Aff, ParAff, makeAff, nonCanceler)
+import Effect.Aff (Aff, makeAff, nonCanceler)
 import Effect.Aff.Class (class MonadAff, liftAff)
 import Effect.Class (class MonadEffect, liftEffect)
 import Effect.Console as Console
@@ -39,20 +37,6 @@ derive newtype instance bindAppM :: Bind AppM
 derive newtype instance monadAppM :: Monad AppM
 derive newtype instance monadEffectAppM :: MonadEffect AppM
 derive newtype instance monadAffAppM :: MonadAff AppM
-
--- enables the `parTraverse` function we saw earlier.
-instance parallelAppM :: Parallel ParAppM AppM where
-  parallel (AppM readerT) = ParAppM $ parallel readerT
-
-  sequential (ParAppM readerT) = AppM $ sequential readerT
-
--- | The 'parallel' version of our application's monad.
--- | The base monad here is the parallel version of `Aff`: `ParAff`
-newtype ParAppM a = ParAppM (ReaderT Env ParAff a)
-
-derive newtype instance functorParAppM :: Functor ParAppM
-derive newtype instance applyParAppM :: Apply ParAppM
-derive newtype instance applicativeParAppM :: Applicative ParAppM
 
 instance logToConsoleAppM :: Logger AppM where
   log :: LogLevel -> String -> AppM Unit
