@@ -1,3 +1,4 @@
+-- | This modules simply re-exports all the underlying 'Core' submodules
 module Games.RandomNumber.Core (module Exports) where
 
 import Games.RandomNumber.Core.Bounded (
