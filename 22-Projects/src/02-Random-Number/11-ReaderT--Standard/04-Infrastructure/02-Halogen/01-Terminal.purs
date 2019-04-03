@@ -12,7 +12,7 @@ import Effect.Aff (Aff)
 import Effect.Aff.Class as AffClass
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
-import Games.RandomNumber.ReaderT.Standard.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
+import Games.RandomNumber.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
 import Halogen as H
 import Halogen.HTML as HH
 

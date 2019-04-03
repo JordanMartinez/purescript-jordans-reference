@@ -1,4 +1,4 @@
-module Games.RandomNumber.Free.Standard.Infrastructure.Halogen.Terminal (terminal) where
+module Games.RandomNumber.Free.Layered.Infrastructure.Halogen.Terminal (terminal) where
 
 import Prelude
 import Data.Array (snoc)
@@ -8,9 +8,9 @@ import Effect.Aff.Class as AffClass
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
 import Effect.Random (randomInt)
+import Games.RandomNumber.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
 import Games.RandomNumber.Core (unBounds)
-import Games.RandomNumber.Free.Standard.Domain (API_F(..))
-import Games.RandomNumber.Free.Standard.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
+import Games.RandomNumber.Free.Layered.API (API_F(..))
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE

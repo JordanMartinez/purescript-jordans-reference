@@ -11,18 +11,16 @@ import Prelude
 import Type.Row (type (+))
 import Data.Functor.Variant (on)
 import Run (Run, interpret, case_)
-import Data.Either (Either(..))
 import Effect.Random (randomInt)
 import Effect.Class (liftEffect)
 import Effect (Effect)
 import Effect.Console (log)
-import Effect.Aff (Aff, runAff_, makeAff)
+import Effect.Aff (Aff, runAff_)
 import Node.ReadLine (
   Interface
 , createConsoleInterface, noCompletion
 , close
 )
-import Node.ReadLine as NR
 
 import Games.RandomNumber.Core (unBounds)
 import Games.RandomNumber.Run.Layered.Domain (
@@ -34,6 +32,7 @@ import Games.RandomNumber.Run.Layered.API (
 , GetUserInputF(..), _getUserInput, GET_USER_INPUT
 , CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT
 )
+import Games.RandomNumber.Infrastructure.ReadLineAff (question)
 
 -- Algebras
 
@@ -44,7 +43,7 @@ notifyUserToInfrastructure (NotifyUserF msg next) = do
 
 getUserInputToInfrastructure :: Interface -> GetUserInputF ~> Aff
 getUserInputToInfrastructure iface (GetUserInputF prompt reply) = do
-  answer <- question prompt iface
+  answer <- question iface prompt
   pure (reply answer)
 
 createRandomIntToInfrastructure :: CreateRandomIntF ~> Aff
@@ -54,12 +53,6 @@ createRandomIntToInfrastructure (CreateRandomIntF bounds reply) = do
   pure (reply random)
 
 -- Code
-
-question :: String -> Interface -> Aff String
-question message interface = do
-  makeAff go
-  where
-    go handler = NR.question message (handler <<< Right) interface $> mempty
 
 runAPI :: Interface
        -> Run (NOTIFY_USER + GET_USER_INPUT + CREATE_RANDOM_INT + ())

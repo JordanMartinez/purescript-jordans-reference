@@ -2,27 +2,20 @@ module Games.RandomNumber.Free.Layered.Infrastructure.Console (main) where
 
 import Prelude
 import Control.Monad.Free (foldFree)
-import Data.Either (Either(..))
 import Effect.Random (randomInt)
 import Effect.Class (liftEffect)
 import Effect (Effect)
 import Effect.Console (log)
-import Effect.Aff (Aff, runAff_, makeAff)
+import Effect.Aff (Aff, runAff_)
 import Node.ReadLine ( Interface
                      , createConsoleInterface, noCompletion
                      , close
                      )
-import Node.ReadLine as NR
 
 import Games.RandomNumber.Core (unBounds)
 import Games.RandomNumber.Free.Layered.Domain (game)
 import Games.RandomNumber.Free.Layered.API (API_F(..), API, runDomain)
-
-question :: String -> Interface -> Aff String
-question message interface = do
-  makeAff go
-  where
-    go handler = NR.question message (handler <<< Right) interface $> mempty
+import Games.RandomNumber.Infrastructure.ReadLineAff (question)
 
 -- API to Infrastructure
 runAPI :: Interface -> API ~> Aff
@@ -35,7 +28,7 @@ runAPI iface_ = foldFree (go iface_)
       liftEffect $ log msg
       pure next
     GetUserInput prompt reply -> do
-      answer <- question prompt iface
+      answer <- question iface prompt
 
       pure (reply answer)
     GenRandomInt bounds reply -> do

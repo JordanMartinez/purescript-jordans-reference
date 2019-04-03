@@ -1,35 +1,27 @@
 module Games.RandomNumber.ReaderT.Standard.Infrastructure.Console
-  ( question
-  , runAPI
+  ( runAPI
 
   , main
   )
   where
 
 import Prelude
-import Data.Either (Either(..))
 import Effect.Random (randomInt)
 import Effect (Effect)
 import Effect.Console (log)
 import Effect.Class (liftEffect)
-import Effect.Aff (Aff, runAff_, makeAff)
+import Effect.Aff (Aff, runAff_)
 import Node.ReadLine (
   Interface
 , createConsoleInterface, noCompletion
 , close
 )
-import Node.ReadLine as NR
 
 import Games.RandomNumber.ReaderT.Standard.Domain (game)
 import Games.RandomNumber.ReaderT.Standard.API (AppM, runAppM)
+import Games.RandomNumber.Infrastructure.ReadLineAff (question)
 
 -- Code for Infrastructure
-
-question :: Interface -> String -> Aff String
-question interface message = do
-  makeAff go
-  where
-    go handler = NR.question message (handler <<< Right) interface $> mempty
 
 runAPI :: Interface -> AppM ~> Aff
 runAPI iface =

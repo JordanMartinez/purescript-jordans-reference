@@ -1,31 +1,15 @@
 module Games.RandomNumber.Run.Standard.Infrastructure.Console
   ( main
-  , question
   ) where
 
 import Prelude
-import Data.Either (Either(..))
 import Effect (Effect)
-import Effect.Aff (Aff, runAff_, makeAff)
-import Node.ReadLine (
-  Interface
-, createConsoleInterface, noCompletion
-, close
-)
-import Node.ReadLine as NR
+import Effect.Aff (runAff_)
+import Node.ReadLine (close, createConsoleInterface, noCompletion)
 
 import Games.RandomNumber.Run.Standard.Domain (game)
-import Games.RandomNumber.Run.Standard.API (
-  runDomain
-)
-
--- Code
-
-question :: String -> Interface -> Aff String
-question message interface = do
-  makeAff go
-  where
-    go handler = NR.question message (handler <<< Right) interface $> mempty
+import Games.RandomNumber.Run.Standard.API (runDomain)
+import Games.RandomNumber.Infrastructure.ReadLineAff (question)
 
 main :: Effect Unit
 main = do
@@ -33,4 +17,4 @@ main = do
 
   runAff_
     (\_ -> close interface)
-    (runDomain (\prompt -> question prompt interface) game)
+    (runDomain (\prompt -> question interface prompt) game)

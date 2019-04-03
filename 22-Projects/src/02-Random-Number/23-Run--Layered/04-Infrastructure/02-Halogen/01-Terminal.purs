@@ -13,7 +13,7 @@ import Effect.Aff (Aff)
 import Effect.Aff.Class as AffClass
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
-import Games.RandomNumber.Run.Layered.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
+import Games.RandomNumber.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
 import Games.RandomNumber.Run.Layered.Domain (NotifyUserF(..), _notifyUser, NOTIFY_USER)
 import Games.RandomNumber.Run.Layered.API (GetUserInputF(..), _getUserInput, GET_USER_INPUT)
 import Halogen as H
