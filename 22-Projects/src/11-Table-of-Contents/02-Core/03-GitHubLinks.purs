@@ -1,10 +1,10 @@
-module Projects.ToC.Core.GitHubLinks
+module ToC.Core.GitHubLinks
   ( GitHubRepo
   , renderGHPath
   ) where
 
 import Data.Semigroup ((<>))
-import Projects.ToC.Core.Paths (WebUrl)
+import ToC.Core.Paths (WebUrl)
 
 -- | All the info needed to render the URL to a file in the given
 -- | GitHub repository.

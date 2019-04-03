@@ -1,4 +1,4 @@
-module Projects.ToC.Domain.Parser (extractPurescriptHeaders, extractMarkdownHeaders) where
+module ToC.Domain.Parser (extractPurescriptHeaders, extractMarkdownHeaders) where
 
 import Prelude
 
@@ -13,7 +13,7 @@ import Data.Maybe (Maybe(..), maybe)
 import Data.String as String
 import Data.Tree (Tree)
 import Data.Tree.Zipper (Loc, fromTree, insertAfter, insertChild, lastChild, root, toTree, value)
-import Projects.ToC.Core.FileTypes (HeaderInfo)
+import ToC.Core.FileTypes (HeaderInfo)
 import Text.Parsing.StringParser (Parser, runParser)
 import Text.Parsing.StringParser.CodePoints (regex, string, eof)
 import Text.Parsing.StringParser.Combinators (choice, lookAhead, many, many1, sepBy1)

@@ -1,4 +1,4 @@
-module Projects.ToC.API.AppM (AppM(..), runAppM) where
+module ToC.API.AppM (AppM(..), runAppM) where
 
 import Prelude
 
@@ -17,8 +17,8 @@ import Node.FS.Aff as FS
 import Node.FS.Stats as Stats
 import Node.HTTP.Client (RequestHeaders(..), RequestOptions, Response, headers, hostname, method, path, protocol, request, requestAsStream, statusCode)
 import Node.Stream (end)
-import Projects.ToC.Core.Paths (PathType(..), FilePath, WebUrl)
-import Projects.ToC.Domain.BusinessLogic (class Logger, class ReadPath, class VerifyLink, class WriteToFile, Env, LogLevel)
+import ToC.Core.Paths (PathType(..), FilePath, WebUrl)
+import ToC.Domain.BusinessLogic (class Logger, class ReadPath, class VerifyLink, class WriteToFile, Env, LogLevel)
 import Type.Equality (class TypeEquals, from)
 
 -- | The 'sequential' version of our application's monad.

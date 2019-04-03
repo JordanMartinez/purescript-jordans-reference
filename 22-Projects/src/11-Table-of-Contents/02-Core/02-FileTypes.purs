@@ -1,4 +1,4 @@
-module Projects.ToC.Core.FileTypes
+module ToC.Core.FileTypes
   ( HeaderInfo
   ) where
 

@@ -1,4 +1,4 @@
-module Projects.ToC.Core.Paths
+module ToC.Core.Paths
   ( PathType(..)
   , FilePath
   , WebUrl

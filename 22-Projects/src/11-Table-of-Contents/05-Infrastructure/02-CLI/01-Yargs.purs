@@ -1,5 +1,5 @@
 -- | Provides a CLI interface to our program via the Yargs library.
-module Projects.ToC.Infrastructure.CLI.Yargs (runProgramViaCLI) where
+module ToC.Infrastructure.CLI.Yargs (runProgramViaCLI) where
 
 import Prelude
 
@@ -15,13 +15,13 @@ import Effect (Effect)
 import Node.Path (extname, sep)
 import Node.Yargs.Applicative (runY, yarg)
 import Node.Yargs.Setup (YargsSetup, example, usage)
-import Projects.ToC.Core.FileTypes (HeaderInfo)
-import Projects.ToC.Core.GitHubLinks (renderGHPath)
-import Projects.ToC.Core.Paths (FilePath, WebUrl, addPath')
-import Projects.ToC.Domain.BusinessLogic (Env, LogLevel(..))
-import Projects.ToC.Domain.Parser (extractMarkdownHeaders, extractPurescriptHeaders)
-import Projects.ToC.Domain.Renderer.MarkdownRenderer (renderToC, renderTopLevel, renderDir, renderFile)
-import Projects.ToC.Infrastructure.OSFFI (endOfLine)
+import ToC.Core.FileTypes (HeaderInfo)
+import ToC.Core.GitHubLinks (renderGHPath)
+import ToC.Core.Paths (FilePath, WebUrl, addPath')
+import ToC.Domain.BusinessLogic (Env, LogLevel(..))
+import ToC.Domain.Parser (extractMarkdownHeaders, extractPurescriptHeaders)
+import ToC.Domain.Renderer.MarkdownRenderer (renderToC, renderTopLevel, renderDir, renderFile)
+import ToC.Infrastructure.OSFFI (endOfLine)
 
 usageAndExample :: YargsSetup
 usageAndExample =

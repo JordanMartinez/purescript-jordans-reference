@@ -24,7 +24,7 @@ Currently, only the ReaderT implementation exists and there are no tests or benc
 
 ```bash
 # Build the program
-spago bundle --main Projects.ToC.Main --to dist/table-of-contents/ghtoc.js
+spago bundle --main ToC.Main --to dist/table-of-contents/ghtoc.js
 
 # Change directory to be at the root directory
 cd ../

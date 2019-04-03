@@ -1,4 +1,4 @@
-module Projects.ToC.Domain.BusinessLogic
+module ToC.Domain.BusinessLogic
   ( AllTopLevelContent
   , TopLevelContent
   , Env
@@ -18,8 +18,8 @@ import Data.List (List)
 import Data.Maybe (Maybe(..))
 import Data.Traversable (traverse)
 import Data.Tree (Tree, showTree)
-import Projects.ToC.Core.FileTypes (HeaderInfo)
-import Projects.ToC.Core.Paths (FilePath, PathType(..), WebUrl, UriPath, AddPath)
+import ToC.Core.FileTypes (HeaderInfo)
+import ToC.Core.Paths (FilePath, PathType(..), WebUrl, UriPath, AddPath)
 
 type AllTopLevelContent = { allToCHeaders :: String
                           , allSections :: String

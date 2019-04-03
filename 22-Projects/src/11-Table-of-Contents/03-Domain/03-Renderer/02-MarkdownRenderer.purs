@@ -1,5 +1,5 @@
-module Projects.ToC.Domain.Renderer.MarkdownRenderer
-  ( module Projects.ToC.Domain.Renderer.MarkdownRenderer
+module ToC.Domain.Renderer.MarkdownRenderer
+  ( module ToC.Domain.Renderer.MarkdownRenderer
   ) where
 
 import Prelude
@@ -11,10 +11,10 @@ import Data.List (List(..), (:))
 import Data.Maybe (Maybe(..))
 import Data.String (Pattern(..), Replacement(..), replace, replaceAll, toLower)
 import Data.Tree (Tree)
-import Projects.ToC.Core.FileTypes (HeaderInfo)
-import Projects.ToC.Core.Paths (FilePath, WebUrl)
-import Projects.ToC.Domain.BusinessLogic (AllTopLevelContent, TopLevelContent)
-import Projects.ToC.Domain.Renderer.Markdown (anchorLink, bulletList, emptyLine, h1, h2, indentedBulletList, hyperLink)
+import ToC.Core.FileTypes (HeaderInfo)
+import ToC.Core.Paths (FilePath, WebUrl)
+import ToC.Domain.BusinessLogic (AllTopLevelContent, TopLevelContent)
+import ToC.Domain.Renderer.Markdown (anchorLink, bulletList, emptyLine, h1, h2, indentedBulletList, hyperLink)
 
 formatHyphensInName :: String -> String
 formatHyphensInName =
