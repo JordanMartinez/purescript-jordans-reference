@@ -23,7 +23,7 @@ spago build
 
 1. Run the benchmark
 ```bash
-spago run -m Performance.Games.RandomNumber.Benchmark -p "benchmark/**/*.purs"
+spago run -m Performance.RandomNumber.Benchmark -p "benchmark/**/*.purs"
 ```
 2. It will output a file in the freshly-created `tmp` directory
 3. Upload the outputted file to [hdgarrood's Benchotron SVG Renderer](http://harry.garrood.me/purescript-benchotron-svg-renderer/)

@@ -1,9 +1,9 @@
-module Games.RandomNumber.Free.Layered.HighLevelDomain (RandomNumberGameF(..), Game, game) where
+module RandomNumber.Free.Layered.HighLevelDomain (RandomNumberGameF(..), Game, game) where
 
 import Prelude
 
 import Control.Monad.Free (Free, liftF)
-import Games.RandomNumber.Core (Bounds, RandomInt, Guess, RemainingGuesses, outOfGuesses, decrement, (==#), GameResult(..))
+import RandomNumber.Core (Bounds, RandomInt, Guess, RemainingGuesses, outOfGuesses, decrement, (==#), GameResult(..))
 
 -- | Defines the operations we'll need to run
 -- | a Random Number Guessing game

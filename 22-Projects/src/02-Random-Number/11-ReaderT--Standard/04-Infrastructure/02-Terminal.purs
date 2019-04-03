@@ -1,7 +1,7 @@
 -- | This file will be reused in each application structure's folder.
 -- | It will only change slightly in that the `Query` type will change
 -- | and the `eval` function will be updated to work with that new `Query` type.
-module Games.RandomNumber.Infrastructure.Halogen.Terminal (terminal, Query(..)) where
+module RandomNumber.Infrastructure.Halogen.Terminal (terminal, Query(..)) where
 
 import Prelude
 import Data.Array (snoc)
@@ -10,7 +10,7 @@ import Effect.Aff (Aff)
 import Effect.Aff.Class as AffClass
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
-import Games.RandomNumber.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
+import RandomNumber.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
 import Halogen as H
 import Halogen.HTML as HH
 

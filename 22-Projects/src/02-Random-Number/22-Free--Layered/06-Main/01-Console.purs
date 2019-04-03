@@ -1,13 +1,13 @@
-module Games.RandomNumber.Free.Layered.Main.Console (main) where
+module RandomNumber.Free.Layered.Main.Console (main) where
 
 import Prelude
 import Effect (Effect)
 import Effect.Aff (runAff_)
 import Node.ReadLine (close, createConsoleInterface, noCompletion)
 
-import Games.RandomNumber.Free.Layered.HighLevelDomain (game)
-import Games.RandomNumber.Free.Layered.LowLevelDomain (runHighLevelDomain)
-import Games.RandomNumber.Free.Layered.API (runLowLevelDomainInConsole)
+import RandomNumber.Free.Layered.HighLevelDomain (game)
+import RandomNumber.Free.Layered.LowLevelDomain (runHighLevelDomain)
+import RandomNumber.Free.Layered.API (runLowLevelDomainInConsole)
 
 main :: Effect Unit
 main = do

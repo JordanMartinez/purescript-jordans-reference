@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.Standard.Domain
+module RandomNumber.Run.Standard.Domain
   ( NotifyUserF(..), NOTIFY_USER, _notifyUser, notifyUser
   , GetUserInputF(..), GET_USER_INPUT, _getUserInput, getUserInput
   , CreateRandomIntF(..), CREATE_RANDOM_INT, _createRandomInt, createRandomInt
@@ -12,7 +12,7 @@ import Data.Maybe (Maybe(..))
 import Data.Symbol (SProxy(..))
 import Type.Row (type (+))
 import Run (Run, FProxy, lift)
-import Games.RandomNumber.Core ( Bounds, mkBounds, totalPossibleGuesses
+import RandomNumber.Core ( Bounds, mkBounds, totalPossibleGuesses
                                , RandomInt, mkRandomInt
                                , Guess, mkGuess
                                , RemainingGuesses, mkRemainingGuesses, outOfGuesses, decrement, (==#), GameResult(..))

@@ -1,4 +1,4 @@
-module Games.RandomNumber.ReaderT.Standard.Main.Console
+module RandomNumber.ReaderT.Standard.Main.Console
   ( runAPI
 
   , main
@@ -17,9 +17,9 @@ import Node.ReadLine (
 , close
 )
 
-import Games.RandomNumber.ReaderT.Standard.Domain (game)
-import Games.RandomNumber.ReaderT.Standard.API (AppM, runAppM)
-import Games.RandomNumber.Infrastructure.ReadLineAff (question)
+import RandomNumber.ReaderT.Standard.Domain (game)
+import RandomNumber.ReaderT.Standard.API (AppM, runAppM)
+import RandomNumber.Infrastructure.ReadLineAff (question)
 
 -- Code for Infrastructure
 

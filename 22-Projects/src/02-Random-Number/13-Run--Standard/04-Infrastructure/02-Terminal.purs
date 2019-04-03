@@ -18,7 +18,7 @@
 -- |
 -- | This small change means we have to use `case_ # on symbol function`
 -- | syntax from `purescript-variant`
-module Games.RandomNumber.Run.Standard.Infrastructure.Halogen.Terminal (Query, terminal) where
+module RandomNumber.Run.Standard.Infrastructure.Halogen.Terminal (Query, terminal) where
 
 import Prelude
 import Data.Array (snoc)
@@ -28,9 +28,9 @@ import Effect.Aff (Aff)
 import Effect.Aff.Class as AffClass
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
-import Games.RandomNumber.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
-import Games.RandomNumber.Run.Standard.Domain (NotifyUserF(..), _notifyUser, GetUserInputF(..), _getUserInput)
-import Games.RandomNumber.Run.Standard.API (TerminalQuery)
+import RandomNumber.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
+import RandomNumber.Run.Standard.Domain (NotifyUserF(..), _notifyUser, GetUserInputF(..), _getUserInput)
+import RandomNumber.Run.Standard.API (TerminalQuery)
 import Halogen as H
 import Halogen.HTML as HH
 

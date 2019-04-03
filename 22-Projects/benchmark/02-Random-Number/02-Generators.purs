@@ -1,4 +1,4 @@
-module Performance.Games.RandomNumber.Generators
+module Performance.RandomNumber.Generators
   ( WinData(..)
   , genWinData
 
@@ -9,10 +9,10 @@ module Performance.Games.RandomNumber.Generators
 import Prelude
 
 import Data.Array (snoc)
-import Games.RandomNumber.Core (GameResult(..))
+import RandomNumber.Core (GameResult(..))
 import Test.QuickCheck.Gen (Gen)
 
-import Test.Games.RandomNumber.Generators (
+import Test.RandomNumber.Generators (
   TestData(..)
 , genBounds
 , genIntWithinBounds

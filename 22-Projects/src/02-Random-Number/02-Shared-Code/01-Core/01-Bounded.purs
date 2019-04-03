@@ -1,4 +1,4 @@
-module Games.RandomNumber.Core.Bounded
+module RandomNumber.Core.Bounded
   ( Bounds, mkBounds, unBounds, totalPossibleGuesses
   , BoundsCreationError(..), BoundsCheckError(..)
 

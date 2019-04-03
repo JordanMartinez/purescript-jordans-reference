@@ -1,11 +1,11 @@
-module Games.RandomNumber.Free.Standard.Infrastructure.Halogen.Web where
+module RandomNumber.Free.Standard.Infrastructure.Halogen.Web where
 
 import Prelude
 
 import Effect (Effect)
-import Games.RandomNumber.Free.Standard.Domain (game)
-import Games.RandomNumber.Free.Standard.API (runDomainInHalogen)
-import Games.RandomNumber.Free.Standard.Infrastructure.Halogen.Terminal (terminal)
+import RandomNumber.Free.Standard.Domain (game)
+import RandomNumber.Free.Standard.API (runDomainInHalogen)
+import RandomNumber.Free.Standard.Infrastructure.Halogen.Terminal (terminal)
 import Halogen.Aff as HA
 import Halogen.VDom.Driver (runUI)
 

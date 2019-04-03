@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.Layered.HighLevelDomain
+module RandomNumber.Run.Layered.HighLevelDomain
   ( NotifyUserF(..), NOTIFY_USER, _notifyUser, notifyUser
   , DefineBoundsF(..), DEFINE_BOUNDS, _defineBounds, defineBounds
   , DefineTotalGuessesF(..), DEFINE_TOTAL_GUESSES, _defineTotalGuesses, defineTotalGuesses
@@ -12,7 +12,7 @@ import Prelude
 import Data.Symbol (SProxy(..))
 import Type.Row (type (+))
 import Run (Run, FProxy, lift)
-import Games.RandomNumber.Core ( Bounds
+import RandomNumber.Core ( Bounds
                                , RandomInt, Guess, (==#)
                                , RemainingGuesses, outOfGuesses, decrement
                                , GameResult(..)

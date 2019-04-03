@@ -14,7 +14,7 @@
 -- |
 -- | This small change means we have to update the `eval` function to
 -- | use the different language.
-module Games.RandomNumber.Free.Standard.Infrastructure.Halogen.Terminal (terminal) where
+module RandomNumber.Free.Standard.Infrastructure.Halogen.Terminal (terminal) where
 
 import Prelude
 import Data.Array (snoc)
@@ -23,8 +23,8 @@ import Effect.Aff (Aff)
 import Effect.Aff.Class as AffClass
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
-import Games.RandomNumber.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
-import Games.RandomNumber.Free.Standard.Domain (BackendEffectsF(..))
+import RandomNumber.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
+import RandomNumber.Free.Standard.Domain (BackendEffectsF(..))
 import Halogen as H
 import Halogen.HTML as HH
 

@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.Layered.AddAPITerm where
+module RandomNumber.Run.Layered.AddAPITerm where
 
 import Prelude
 
@@ -6,10 +6,10 @@ import Data.Functor.Variant (on)
 import Data.Symbol (SProxy(..))
 import Effect (Effect)
 import Effect.Aff (runAff_)
-import Games.RandomNumber.Core (Bounds, RandomInt, (==#), RemainingGuesses, outOfGuesses, decrement, unRemainingGuesses, GameResult(..))
-import Games.RandomNumber.Run.Layered.API (runLowLevelDomainInConsole)
-import Games.RandomNumber.Run.Layered.HighLevelDomain (DEFINE_BOUNDS, DEFINE_TOTAL_GUESSES, GEN_RANDOM_INT, MAKE_GUESS, NOTIFY_USER, defineBounds, defineTotalGuesses, game, genRandomInt, makeGuess, notifyUser)
-import Games.RandomNumber.Run.Layered.LowLevelDomain (CREATE_RANDOM_INT, GET_USER_INPUT, runHighLevelDomain)
+import RandomNumber.Core (Bounds, RandomInt, (==#), RemainingGuesses, outOfGuesses, decrement, unRemainingGuesses, GameResult(..))
+import RandomNumber.Run.Layered.API (runLowLevelDomainInConsole)
+import RandomNumber.Run.Layered.HighLevelDomain (DEFINE_BOUNDS, DEFINE_TOTAL_GUESSES, GEN_RANDOM_INT, MAKE_GUESS, NOTIFY_USER, defineBounds, defineTotalGuesses, game, genRandomInt, makeGuess, notifyUser)
+import RandomNumber.Run.Layered.LowLevelDomain (CREATE_RANDOM_INT, GET_USER_INPUT, runHighLevelDomain)
 import Node.ReadLine (createConsoleInterface, noCompletion, close)
 import Run (FProxy, Run, interpret, lift, send)
 import Type.Row (type (+))

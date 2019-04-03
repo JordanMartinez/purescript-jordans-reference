@@ -1,4 +1,4 @@
-module Games.RandomNumber.ReaderT.Standard.Domain
+module RandomNumber.ReaderT.Standard.Domain
   ( class NotifyUser, notifyUser
   , class GetUserInput, getUserInput
   , class CreateRandomInt, createRandomInt
@@ -10,7 +10,7 @@ import Prelude
 import Data.Maybe (Maybe(..))
 import Data.Either (Either(..))
 import Data.Int (fromString)
-import Games.RandomNumber.Core ( Bounds, mkBounds, totalPossibleGuesses
+import RandomNumber.Core ( Bounds, mkBounds, totalPossibleGuesses
                                , RandomInt, mkRandomInt
                                , Guess, mkGuess, (==#)
                                , RemainingGuesses, mkRemainingGuesses, outOfGuesses, decrement

@@ -42,12 +42,12 @@ The games can be opened and played via `dist/random-number/<FP structure approac
 
 ```bash
 # == Node-Based implementation ==
-spago run -m Games.RandomNumber.ReaderT.Standard.Main.Console
-spago run -m Games.RandomNumber.Free.Standard.Main.Console
-spago run -m Games.RandomNumber.Run.Standard.Main.Console
+spago run -m RandomNumber.ReaderT.Standard.Main.Console
+spago run -m RandomNumber.Free.Standard.Main.Console
+spago run -m RandomNumber.Run.Standard.Main.Console
 
 # == Browser-based implementation ==
-spago bundle --main Games.RandomNumber.ReaderT.Standard.Main.Halogen --to dist/random-number/readerT--standard/app.js
+spago bundle --main RandomNumber.ReaderT.Standard.Main.Halogen --to dist/random-number/readerT--standard/app.js
 # Read the below as:
 # "Use 'example.html' to figure out the dependency tree, which will pick up
 # our 'app.js' bundle from Spago. Parcel will output a minified version
@@ -64,37 +64,37 @@ spago bundle --main Games.RandomNumber.ReaderT.Standard.Main.Halogen --to dist/r
 # will hotload the changes."
 parcel dist/random-number/readerT--standard/example.html --open -p 1111 -d dist/random-number/readerT--standard/ -o index.html
 
-spago bundle --main Games.RandomNumber.Free.Standard.Main.Halogen --to dist/random-number/free--standard/app.js
+spago bundle --main RandomNumber.Free.Standard.Main.Halogen --to dist/random-number/free--standard/app.js
 parcel build dist/random-number/free--standard/example.html --open -p 1112 -d dist/random-number/free--standard/ -o index.html
 
-spago bundle --main Games.RandomNumber.Run.Standard.Main.Halogen --to dist/random-number/run--standard/app.js
+spago bundle --main RandomNumber.Run.Standard.Main.Halogen --to dist/random-number/run--standard/app.js
 parcel build dist/random-number/run--standard/example.html --open -p 1113 -d dist/random-number/run--standard/ -o index.html
 
 # == Test ==
-spago test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
-spago test -m Test.Games.RandomNumber.ReaderT.Standard.SameMonad
-spago test -m Test.Games.RandomNumber.Run.Standard.Infrastructure
-spago test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
+spago test -m Test.RandomNumber.ReaderT.Standard.DifferentMonad
+spago test -m Test.RandomNumber.ReaderT.Standard.SameMonad
+spago test -m Test.RandomNumber.Run.Standard.Infrastructure
+spago test -m Test.RandomNumber.Run.Layered.Infrastructure
 ```
 
 ### Layered
 
 ```bash
 # == Node-Based implementation ==
-spago run -m Games.RandomNumber.Free.Layered.Main.Console
-spago run -m Games.RandomNumber.Run.Layered.Main.Console
+spago run -m RandomNumber.Free.Layered.Main.Console
+spago run -m RandomNumber.Run.Layered.Main.Console
 
 # === Changes in Run folder: Node-based ===
-spago run -m Games.RandomNumber.Run.Layered.ChangeImplementation
-spago run -m Games.RandomNumber.Run.Layered.AddDomainTerm
+spago run -m RandomNumber.Run.Layered.ChangeImplementation
+spago run -m RandomNumber.Run.Layered.AddDomainTerm
 
 # === Changes in Run folder: Browser-based ===
-spago build --main Games.RandomNumber.Free.Layered.Main.Halogen --to dist/random-number/free--layered/app.js
+spago build --main RandomNumber.Free.Layered.Main.Halogen --to dist/random-number/free--layered/app.js
 parcel build dist/random-number/free--layered/example.html --open -p 1114 -d dist/random-number/free--layered/ -o index.html
 
-spago build --main Games.RandomNumber.Run.Layered.Main.Halogen --to dist/random-number/run--layered/app.js
+spago build --main RandomNumber.Run.Layered.Main.Halogen --to dist/random-number/run--layered/app.js
 parcel build dist/random-number/run--layered/example.html --open -p 1115 -d dist/random-number/run--layered/ -o index.html
 
 # == Test ==
-spago test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
+spago test -m Test.RandomNumber.Run.Layered.Infrastructure
 ```

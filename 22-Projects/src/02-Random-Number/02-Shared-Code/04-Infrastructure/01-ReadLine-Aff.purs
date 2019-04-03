@@ -1,4 +1,4 @@
-module Games.RandomNumber.Infrastructure.ReadLineAff (question) where
+module RandomNumber.Infrastructure.ReadLineAff (question) where
 
 import Prelude
 import Data.Either (Either(..))

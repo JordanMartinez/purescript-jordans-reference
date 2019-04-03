@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.Layered.API
+module RandomNumber.Run.Layered.API
   ( runLowLevelDomainInConsole
   , TerminalQuery
   , runLowLevelDomainInHalogen
@@ -11,10 +11,10 @@ import Effect.Aff (Aff)
 import Effect.Class (liftEffect)
 import Effect.Console (log)
 import Effect.Random (randomInt)
-import Games.RandomNumber.Core (unBounds)
-import Games.RandomNumber.Infrastructure.ReadLineAff (question)
-import Games.RandomNumber.Run.Layered.HighLevelDomain (NotifyUserF(..), _notifyUser, NOTIFY_USER)
-import Games.RandomNumber.Run.Layered.LowLevelDomain (GetUserInputF(..), _getUserInput, GET_USER_INPUT, CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT)
+import RandomNumber.Core (unBounds)
+import RandomNumber.Infrastructure.ReadLineAff (question)
+import RandomNumber.Run.Layered.HighLevelDomain (NotifyUserF(..), _notifyUser, NOTIFY_USER)
+import RandomNumber.Run.Layered.LowLevelDomain (GetUserInputF(..), _getUserInput, GET_USER_INPUT, CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT)
 import Node.ReadLine (Interface)
 import Run (Run, interpret, case_)
 import Type.Row (type (+))

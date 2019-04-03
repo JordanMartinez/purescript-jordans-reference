@@ -1,4 +1,4 @@
-module Test.Games.RandomNumber.Run.Standard.Infrastructure
+module Test.RandomNumber.Run.Standard.Infrastructure
   ( main
   , produceGameResult
   ) where
@@ -10,8 +10,8 @@ import Data.Array (uncons)
 import Data.Functor.Variant (on)
 import Partial.Unsafe (unsafePartial)
 import Effect (Effect)
-import Games.RandomNumber.Core (GameResult)
-import Games.RandomNumber.Run.Standard.Domain (
+import RandomNumber.Core (GameResult)
+import RandomNumber.Run.Standard.Domain (
   game
 , NotifyUserF(..), _notifyUser, NOTIFY_USER
 , GetUserInputF(..), _getUserInput, GET_USER_INPUT
@@ -20,7 +20,7 @@ import Games.RandomNumber.Run.Standard.Domain (
 import Run (Run, interpret, send, extract)
 import Run.State (STATE, runState, get, put)
 import Test.QuickCheck (quickCheck, quickCheck',(<?>))
-import Test.Games.RandomNumber.Generators (TestData(..))
+import Test.RandomNumber.Generators (TestData(..))
 import Type.Row (type (+))
 
 

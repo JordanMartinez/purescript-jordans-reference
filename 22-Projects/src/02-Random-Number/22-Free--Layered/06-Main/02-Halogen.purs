@@ -1,12 +1,12 @@
-module Games.RandomNumber.Free.Layered.Main.Halogen where
+module RandomNumber.Free.Layered.Main.Halogen where
 
 import Prelude
 
 import Effect (Effect)
-import Games.RandomNumber.Free.Layered.HighLevelDomain (game)
-import Games.RandomNumber.Free.Layered.LowLevelDomain (runHighLevelDomain)
-import Games.RandomNumber.Free.Layered.API (runLowLevelDomainInHalogen)
-import Games.RandomNumber.Free.Layered.Infrastructure.Halogen.Terminal (terminal)
+import RandomNumber.Free.Layered.HighLevelDomain (game)
+import RandomNumber.Free.Layered.LowLevelDomain (runHighLevelDomain)
+import RandomNumber.Free.Layered.API (runLowLevelDomainInHalogen)
+import RandomNumber.Free.Layered.Infrastructure.Halogen.Terminal (terminal)
 import Halogen.Aff as HA
 import Halogen.VDom.Driver (runUI)
 

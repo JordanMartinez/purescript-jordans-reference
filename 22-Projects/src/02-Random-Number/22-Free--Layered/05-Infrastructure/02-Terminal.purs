@@ -4,15 +4,15 @@
 -- |
 -- | Before (Free standard):
 -- | ```
--- | import Games.RandomNumber.Free.Standard.Domain (BackendEffectsF(..))
+-- | import RandomNumber.Free.Standard.Domain (BackendEffectsF(..))
 -- | type Query a = BackendEffectsF a
 -- | ```
 -- | After (Free layered):
 -- | ```
--- | import Games.RandomNumber.Free.Layered.LowLevelDomain (BackendEffectsF(..))
+-- | import RandomNumber.Free.Layered.LowLevelDomain (BackendEffectsF(..))
 -- | type Query a = BackendEffectsF a
 -- | ```
-module Games.RandomNumber.Free.Layered.Infrastructure.Halogen.Terminal (terminal) where
+module RandomNumber.Free.Layered.Infrastructure.Halogen.Terminal (terminal) where
 
 import Prelude
 import Data.Array (snoc)
@@ -21,8 +21,8 @@ import Effect.Aff (Aff)
 import Effect.Aff.Class as AffClass
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
-import Games.RandomNumber.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
-import Games.RandomNumber.Free.Layered.LowLevelDomain (BackendEffectsF(..))
+import RandomNumber.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
+import RandomNumber.Free.Layered.LowLevelDomain (BackendEffectsF(..))
 import Halogen as H
 import Halogen.HTML as HH
 

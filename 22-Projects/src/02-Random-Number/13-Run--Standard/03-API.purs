@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.Standard.API
+module RandomNumber.Run.Standard.API
   ( runDomainInConsole
   , runDomainInHalogen
   , TerminalQuery
@@ -11,9 +11,9 @@ import Effect.Aff (Aff)
 import Effect.Class (liftEffect)
 import Effect.Console (log)
 import Effect.Random (randomInt)
-import Games.RandomNumber.Core (unBounds)
-import Games.RandomNumber.Infrastructure.ReadLineAff (question)
-import Games.RandomNumber.Run.Standard.Domain (NotifyUserF(..), _notifyUser, NOTIFY_USER, GetUserInputF(..), _getUserInput, GET_USER_INPUT, CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT)
+import RandomNumber.Core (unBounds)
+import RandomNumber.Infrastructure.ReadLineAff (question)
+import RandomNumber.Run.Standard.Domain (NotifyUserF(..), _notifyUser, NOTIFY_USER, GetUserInputF(..), _getUserInput, GET_USER_INPUT, CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT)
 import Node.ReadLine (Interface)
 import Run (Run, interpret, case_)
 import Type.Row (type (+))

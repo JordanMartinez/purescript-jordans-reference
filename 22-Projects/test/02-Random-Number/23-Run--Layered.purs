@@ -1,4 +1,4 @@
-module Test.Games.RandomNumber.Run.Layered.Infrastructure
+module Test.RandomNumber.Run.Layered.Infrastructure
   ( main
   , produceGameResult
   ) where
@@ -10,13 +10,13 @@ import Data.Functor.Variant (on)
 import Data.Maybe (fromJust)
 import Data.Tuple (Tuple, snd)
 import Effect (Effect)
-import Games.RandomNumber.Core (GameResult)
-import Games.RandomNumber.Run.Layered.HighLevelDomain (game, NotifyUserF(..), _notifyUser, NOTIFY_USER)
-import Games.RandomNumber.Run.Layered.LowLevelDomain (runHighLevelDomain, GetUserInputF(..), _getUserInput, GET_USER_INPUT, CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT)
+import RandomNumber.Core (GameResult)
+import RandomNumber.Run.Layered.HighLevelDomain (game, NotifyUserF(..), _notifyUser, NOTIFY_USER)
+import RandomNumber.Run.Layered.LowLevelDomain (runHighLevelDomain, GetUserInputF(..), _getUserInput, GET_USER_INPUT, CreateRandomIntF(..), _createRandomInt, CREATE_RANDOM_INT)
 import Partial.Unsafe (unsafePartial)
 import Run (Run, interpret, send, extract)
 import Run.State (STATE, runState, get, put)
-import Test.Games.RandomNumber.Generators (TestData(..))
+import Test.RandomNumber.Generators (TestData(..))
 import Test.QuickCheck (quickCheck, quickCheck', (<?>))
 import Type.Row (type (+))
 

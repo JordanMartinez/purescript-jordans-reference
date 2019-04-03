@@ -1,4 +1,4 @@
-module Test.Games.RandomNumber.ReaderT.Standard.SameMonad
+module Test.RandomNumber.ReaderT.Standard.SameMonad
   ( main
   , produceGameResult
   ) where
@@ -13,12 +13,12 @@ import Effect (Effect)
 import Control.Monad.State (State, runState)
 import Control.Monad.State.Class (get, put)
 
-import Games.RandomNumber.Core (GameResult)
-import Games.RandomNumber.ReaderT.Standard.Domain (game)
-import Games.RandomNumber.ReaderT.Standard.SameMonad (runAppT)
+import RandomNumber.Core (GameResult)
+import RandomNumber.ReaderT.Standard.Domain (game)
+import RandomNumber.ReaderT.Standard.SameMonad (runAppT)
 
 import Test.QuickCheck (quickCheck, quickCheck',(<?>))
-import Test.Games.RandomNumber.Generators (TestData(..))
+import Test.RandomNumber.Generators (TestData(..))
 
 
 main :: Effect Unit

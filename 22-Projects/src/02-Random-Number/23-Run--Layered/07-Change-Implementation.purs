@@ -1,14 +1,14 @@
-module Games.RandomNumber.Run.Layered.ChangeImplementation where
+module RandomNumber.Run.Layered.ChangeImplementation where
 
 import Prelude
 
 import Data.Functor.Variant (on)
 import Effect (Effect)
 import Effect.Aff (runAff_)
-import Games.RandomNumber.Core (Bounds, Guess, mkGuess)
-import Games.RandomNumber.Run.Layered.HighLevelDomain (game, NOTIFY_USER, notifyUser, DEFINE_BOUNDS, _defineBounds, DEFINE_TOTAL_GUESSES, _defineTotalGuesses, GEN_RANDOM_INT, _genRandomInt, MakeGuessF(..), MAKE_GUESS, _makeGuess)
-import Games.RandomNumber.Run.Layered.LowLevelDomain (recursivelyRunUntilPure, GET_USER_INPUT, getUserInput, getIntFromUser, CREATE_RANDOM_INT, defineBoundsToAPI, defineTotalGuessesToAPI, genRandomIntToAPI)
-import Games.RandomNumber.Run.Layered.API (runLowLevelDomainInConsole)
+import RandomNumber.Core (Bounds, Guess, mkGuess)
+import RandomNumber.Run.Layered.HighLevelDomain (game, NOTIFY_USER, notifyUser, DEFINE_BOUNDS, _defineBounds, DEFINE_TOTAL_GUESSES, _defineTotalGuesses, GEN_RANDOM_INT, _genRandomInt, MakeGuessF(..), MAKE_GUESS, _makeGuess)
+import RandomNumber.Run.Layered.LowLevelDomain (recursivelyRunUntilPure, GET_USER_INPUT, getUserInput, getIntFromUser, CREATE_RANDOM_INT, defineBoundsToAPI, defineTotalGuessesToAPI, genRandomIntToAPI)
+import RandomNumber.Run.Layered.API (runLowLevelDomainInConsole)
 import Node.ReadLine (createConsoleInterface, noCompletion, close)
 import Run (Run, interpret, send)
 import Type.Row (type (+))

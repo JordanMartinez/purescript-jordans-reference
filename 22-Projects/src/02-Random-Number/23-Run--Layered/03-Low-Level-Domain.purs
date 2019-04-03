@@ -1,4 +1,4 @@
-module Games.RandomNumber.Run.Layered.LowLevelDomain
+module RandomNumber.Run.Layered.LowLevelDomain
   ( GetUserInputF(..), GET_USER_INPUT, _getUserInput, getUserInput
   , CreateRandomIntF(..), CREATE_RANDOM_INT, _createRandomInt, createRandomInt
   , getIntFromUser, recursivelyRunUntilPure
@@ -15,11 +15,11 @@ import Run (Run, FProxy, lift, interpret, send)
 import Data.Int (fromString)
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
-import Games.RandomNumber.Core ( Bounds, mkBounds, mkGuess, mkRandomInt
+import RandomNumber.Core ( Bounds, mkBounds, mkGuess, mkRandomInt
                                , mkRemainingGuesses, totalPossibleGuesses
                                )
 
-import Games.RandomNumber.Run.Layered.HighLevelDomain (
+import RandomNumber.Run.Layered.HighLevelDomain (
   NOTIFY_USER, notifyUser
 , DefineBoundsF(..), _defineBounds, DEFINE_BOUNDS
 , DefineTotalGuessesF(..), _defineTotalGuesses, DEFINE_TOTAL_GUESSES

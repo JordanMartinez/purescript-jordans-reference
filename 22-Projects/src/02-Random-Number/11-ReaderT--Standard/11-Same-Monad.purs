@@ -1,4 +1,4 @@
-module Games.RandomNumber.ReaderT.Standard.SameMonad
+module RandomNumber.ReaderT.Standard.SameMonad
   ( Environment
   , AppT(..), runAppT
 
@@ -25,9 +25,9 @@ import Node.ReadLine (
 )
 import Type.Equality (class TypeEquals, from)
 
-import Games.RandomNumber.Core (unBounds)
-import Games.RandomNumber.Infrastructure.ReadLineAff (question)
-import Games.RandomNumber.ReaderT.Standard.Domain (
+import RandomNumber.Core (unBounds)
+import RandomNumber.Infrastructure.ReadLineAff (question)
+import RandomNumber.ReaderT.Standard.Domain (
   game
 , class NotifyUser
 , class GetUserInput

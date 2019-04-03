@@ -1,4 +1,4 @@
-module Games.RandomNumber.Free.Layered.API (runLowLevelDomainInConsole, runLowLevelDomainInHalogen) where
+module RandomNumber.Free.Layered.API (runLowLevelDomainInConsole, runLowLevelDomainInHalogen) where
 
 import Prelude
 
@@ -8,9 +8,9 @@ import Effect.Aff (Aff)
 import Effect.Class (liftEffect)
 import Effect.Console (log)
 import Effect.Random (randomInt)
-import Games.RandomNumber.Core (unBounds)
-import Games.RandomNumber.Free.Layered.LowLevelDomain (API, API_F, BackendEffectsF(..), GenRandomIntF(..))
-import Games.RandomNumber.Infrastructure.ReadLineAff (question)
+import RandomNumber.Core (unBounds)
+import RandomNumber.Free.Layered.LowLevelDomain (API, API_F, BackendEffectsF(..), GenRandomIntF(..))
+import RandomNumber.Infrastructure.ReadLineAff (question)
 import Node.ReadLine (Interface)
 
 -- Algebra used across both implementations

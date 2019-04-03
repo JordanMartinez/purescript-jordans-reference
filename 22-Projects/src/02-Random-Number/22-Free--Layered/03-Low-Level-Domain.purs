@@ -1,4 +1,4 @@
-module Games.RandomNumber.Free.Layered.LowLevelDomain (BackendEffectsF(..), GenRandomIntF(..), API_F(..), API, runHighLevelDomain) where
+module RandomNumber.Free.Layered.LowLevelDomain (BackendEffectsF(..), GenRandomIntF(..), API_F(..), API, runHighLevelDomain) where
 
 import Prelude
 
@@ -8,8 +8,8 @@ import Data.Functor.Coproduct (Coproduct)
 import Data.Functor.Coproduct.Inject (inj)
 import Data.Int (fromString)
 import Data.Maybe (Maybe(..))
-import Games.RandomNumber.Core (Bounds, mkBounds, mkGuess, mkRandomInt, mkRemainingGuesses, totalPossibleGuesses)
-import Games.RandomNumber.Free.Layered.HighLevelDomain (RandomNumberGameF(..), Game)
+import RandomNumber.Core (Bounds, mkBounds, mkGuess, mkRandomInt, mkRemainingGuesses, totalPossibleGuesses)
+import RandomNumber.Free.Layered.HighLevelDomain (RandomNumberGameF(..), Game)
 
 -- | Defines the effects we'll need to run
 -- | this game via Node or the Browser

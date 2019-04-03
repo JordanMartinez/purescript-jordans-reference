@@ -1,4 +1,4 @@
-module Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
+module Test.RandomNumber.ReaderT.Standard.DifferentMonad
   ( main
   , produceGameResult
   ) where
@@ -16,8 +16,8 @@ import Control.Monad.State (State, runState)
 import Control.Monad.State.Class (get, put)
 import Type.Equality (class TypeEquals, from)
 
-import Games.RandomNumber.Core (Bounds, unBounds, GameResult)
-import Games.RandomNumber.ReaderT.Standard.Domain (
+import RandomNumber.Core (Bounds, unBounds, GameResult)
+import RandomNumber.ReaderT.Standard.Domain (
   game
 , class NotifyUser
 , class GetUserInput
@@ -25,7 +25,7 @@ import Games.RandomNumber.ReaderT.Standard.Domain (
 )
 
 import Test.QuickCheck (quickCheck, quickCheck',(<?>))
-import Test.Games.RandomNumber.Generators (TestData(..))
+import Test.RandomNumber.Generators (TestData(..))
 
 
 main :: Effect Unit

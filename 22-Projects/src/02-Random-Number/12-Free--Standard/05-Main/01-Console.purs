@@ -1,12 +1,12 @@
-module Games.RandomNumber.Free.Standard.Infrastructure.Console (main) where
+module RandomNumber.Free.Standard.Infrastructure.Console (main) where
 
 import Prelude
 import Effect (Effect)
 import Effect.Aff (runAff_)
 import Node.ReadLine (close, createConsoleInterface, noCompletion)
 
-import Games.RandomNumber.Free.Standard.Domain (game)
-import Games.RandomNumber.Free.Standard.API (runDomainInConsole)
+import RandomNumber.Free.Standard.Domain (game)
+import RandomNumber.Free.Standard.API (runDomainInConsole)
 
 -- Level 0 / Machine Code
 main :: Effect Unit

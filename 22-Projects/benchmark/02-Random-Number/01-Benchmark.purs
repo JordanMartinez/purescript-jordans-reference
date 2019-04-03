@@ -1,4 +1,4 @@
-module Performance.Games.RandomNumber.Benchmark where
+module Performance.RandomNumber.Benchmark where
 
 import Prelude
 import Effect (Effect)
@@ -6,13 +6,13 @@ import Effect (Effect)
 import Benchotron.Core (Benchmark, benchFn, mkBenchmark)
 import Benchotron.UI.Console (runSuite)
 
-import Test.Games.RandomNumber.Generators (TestData(..))
-import Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad as DifferentMonad
-import Test.Games.RandomNumber.ReaderT.Standard.SameMonad as SameMonad
-import Test.Games.RandomNumber.Run.Standard.Infrastructure as StandardRun
-import Test.Games.RandomNumber.Run.Layered.Infrastructure as LayeredRun
+import Test.RandomNumber.Generators (TestData(..))
+import Test.RandomNumber.ReaderT.Standard.DifferentMonad as DifferentMonad
+import Test.RandomNumber.ReaderT.Standard.SameMonad as SameMonad
+import Test.RandomNumber.Run.Standard.Infrastructure as StandardRun
+import Test.RandomNumber.Run.Layered.Infrastructure as LayeredRun
 
-import Performance.Games.RandomNumber.Generators (WinData(..), LoseData(..), genWinData, genLoseData)
+import Performance.RandomNumber.Generators (WinData(..), LoseData(..), genWinData, genLoseData)
 
 main :: Effect Unit
 main = runSuite [winBench, loseBench]

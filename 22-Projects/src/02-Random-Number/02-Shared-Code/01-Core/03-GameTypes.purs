@@ -1,11 +1,11 @@
-module Games.RandomNumber.Core.GameTypes
+module RandomNumber.Core.GameTypes
   ( GameInfo, mkGameInfo
   , GameResult(..)
   ) where
 
 import Prelude
-import Games.RandomNumber.Core.Bounded (Bounds, RandomInt)
-import Games.RandomNumber.Core.RemainingGuesses (RemainingGuesses)
+import RandomNumber.Core.Bounded (Bounds, RandomInt)
+import RandomNumber.Core.RemainingGuesses (RemainingGuesses)
 
 type GameInfo = { bound :: Bounds
                 , number :: RandomInt
