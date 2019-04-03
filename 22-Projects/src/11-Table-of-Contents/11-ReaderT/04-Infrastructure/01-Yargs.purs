@@ -18,9 +18,9 @@ import Node.Yargs.Setup (YargsSetup, example, usage)
 import ToC.Core.FileTypes (HeaderInfo)
 import ToC.Core.GitHubLinks (renderGHPath)
 import ToC.Core.Paths (FilePath, WebUrl, addPath')
-import ToC.ReaderT.Domain (Env, LogLevel(..))
 import ToC.Domain.Parser (extractMarkdownHeaders, extractPurescriptHeaders)
 import ToC.Domain.Renderer.MarkdownRenderer (renderToC, renderTopLevel, renderDir, renderFile)
+import ToC.Domain.Types (Env, LogLevel(..))
 import ToC.Infrastructure.OSFFI (endOfLine)
 
 usageAndExample :: YargsSetup
