@@ -1,4 +1,4 @@
-module Games.RandomNumber.Free.Layered.Domain (RandomNumberGameF(..), Game, game) where
+module Games.RandomNumber.Free.Layered.HighLevelDomain (RandomNumberGameF(..), Game, game) where
 
 import Prelude
 

@@ -1,36 +1,46 @@
-module Games.RandomNumber.Free.Layered.API (API_F(..), API, runDomain) where
+module Games.RandomNumber.Free.Layered.LowLevelDomain (BackendEffectsF(..), GenRandomIntF(..), API_F(..), API, runHighLevelDomain) where
 
 import Prelude
 
 import Control.Monad.Free (Free, liftF, substFree)
-import Data.Int (fromString)
 import Data.Either (Either(..))
+import Data.Functor.Coproduct (Coproduct)
+import Data.Functor.Coproduct.Inject (inj)
+import Data.Int (fromString)
 import Data.Maybe (Maybe(..))
-import Games.RandomNumber.Core ( Bounds, mkBounds, mkGuess, mkRandomInt
-                               , mkRemainingGuesses, totalPossibleGuesses
-                               )
+import Games.RandomNumber.Core (Bounds, mkBounds, mkGuess, mkRandomInt, mkRemainingGuesses, totalPossibleGuesses)
+import Games.RandomNumber.Free.Layered.HighLevelDomain (RandomNumberGameF(..), Game)
 
-import Games.RandomNumber.Free.Layered.Domain (RandomNumberGameF(..), Game)
-
-data API_F a
+-- | Defines the effects we'll need to run
+-- | this game via Node or the Browser
+data BackendEffectsF a
   = Log String a
   | GetUserInput String (String -> a)
-  | GenRandomInt Bounds (Int -> a)
 
-derive instance functorAPI_F :: Functor API_F
+derive instance functorBackendEffectsF :: Functor BackendEffectsF
+
+-- | Defines the random number generating effects
+-- | that works regardless of which backend we use
+data GenRandomIntF a
+  = GenRandomInt Bounds (Int -> a)
+
+derive instance functorGenRandomIntF :: Functor GenRandomIntF
+
+-- Our entire API as a language
+type API_F = Coproduct BackendEffectsF GenRandomIntF
 
 -- `Free` stuff
 
 type API = Free API_F
 
 getUserInput :: String -> API String
-getUserInput prompt = liftF $ (GetUserInput prompt identity)
+getUserInput prompt = liftF $ inj (GetUserInput prompt identity)
 
 log :: String -> API Unit
-log msg = liftF $ (Log msg unit)
+log msg = liftF $ inj (Log msg unit)
 
 genRandomInt :: Bounds -> API Int
-genRandomInt bounds = liftF $ (GenRandomInt bounds identity)
+genRandomInt bounds = liftF $ inj (GenRandomInt bounds identity)
 
 recursivelyRunUntilPure :: forall e a. Show e => API (Either e a) -> API a
 recursivelyRunUntilPure computation = do
@@ -51,8 +61,8 @@ inputIsInt s = case fromString s of
   Nothing -> Left $ NotAnInt s
 
 -- domain -> API
-runDomain :: Game ~> API
-runDomain = substFree go
+runHighLevelDomain :: Game ~> API
+runHighLevelDomain = substFree go
 
   where
   getIntFromUser :: String -> API Int
