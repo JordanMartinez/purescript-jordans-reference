@@ -22,23 +22,23 @@ module Games.RandomNumber.Run.Standard.Infrastructure.Halogen.Terminal (Query, t
 
 import Prelude
 import Data.Array (snoc)
-import Data.Functor.Variant (VariantF, on, inj, case_)
+import Data.Functor.Variant (on, inj, case_)
 import Data.Maybe (Maybe(..))
 import Effect.Aff (Aff)
 import Effect.Aff.Class as AffClass
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
 import Games.RandomNumber.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
-import Games.RandomNumber.Run.Standard.Domain (NotifyUserF(..), _notifyUser, NOTIFY_USER, GetUserInputF(..), _getUserInput, GET_USER_INPUT)
+import Games.RandomNumber.Run.Standard.Domain (NotifyUserF(..), _notifyUser, GetUserInputF(..), _getUserInput)
+import Games.RandomNumber.Run.Standard.API (TerminalQuery)
 import Halogen as H
 import Halogen.HTML as HH
-import Type.Row (type (+))
 
 type State = { history :: Array String
              , getInput :: Maybe (AVar String)
              }
 
-type Query = VariantF (NOTIFY_USER + GET_USER_INPUT + ())
+type Query = TerminalQuery
 
 type Message = Void
 
