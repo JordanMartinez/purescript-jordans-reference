@@ -5,7 +5,12 @@ This folder will show how to build a "guess the random number" game. It's main p
 Here's an overview of its contents:
 - Design process and properties we wish to employ
 - Shared Code: the domain types, data structures, and their related functions that are used across all the other folders. To help reduce duplicate code, some parts of the Infrastructure will appear here as well.
-- A folder for each application structure.
+- A folder for each application structure:
+    - ReaderT design pattern
+    - Free
+    - Run
+    - Free (experimental approach via 'layered compiler' idea)
+    - Run (experimental approach via 'layered compiler' idea)
 
 ## Purpose: Exploring The Various Ways One Can Structure the Application
 
@@ -13,7 +18,7 @@ Normally, one will use the 'standard' way of structuring their application: via 
 
 I also include the "layered compilers" idea mentioned in the `Hello World/Application Structure/Free` folder. This is purely an experimental idea that shows what one _can_ do, but not necessarily "best practices" per say. It might help one write a program when the specifications are still not well-understood. Or it might just be pointless boilerplate-y work.
 
-By "layered compilers," I mean defining a monad with a higher-level language (e.g. Domain) that gets interpreted  (`Free`/`Run`) into another monad with a lower-level language (e.g. API).
+By "layered compilers," I mean defining a monad with a higher-level language (e.g. Domain) that gets interpreted  (`Free`/`Run`) into another monad with a lower-level language (e.g. API) recursively until the final low-level language is interpreted into an impure monad (e.g. `Effect` or `Aff`).
 
 Since "layered compilers" is rather long, I'll just use "layered" in folders' and modules' names.
 
