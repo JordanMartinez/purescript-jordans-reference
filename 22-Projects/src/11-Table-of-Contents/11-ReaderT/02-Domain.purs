@@ -1,7 +1,5 @@
 module ToC.ReaderT.Domain
-  ( AllTopLevelContent
-  , TopLevelContent
-  , Env
+  ( Env
   , program
   , class ReadPath, readDir, readFile, readPathType
   , class WriteToFile, writeToFile
@@ -20,14 +18,7 @@ import Data.Traversable (traverse)
 import Data.Tree (Tree, showTree)
 import ToC.Core.FileTypes (HeaderInfo)
 import ToC.Core.Paths (FilePath, PathType(..), WebUrl, UriPath, AddPath)
-
-type AllTopLevelContent = { allToCHeaders :: String
-                          , allSections :: String
-                          }
-
-type TopLevelContent = { tocHeader :: String
-                       , section :: String
-                       }
+import ToC.Core.RenderTypes (TopLevelContent)
 
 -- | The Environment type specifies the following ideas:
 -- | - a backend-independent way to create file system paths. For example,
