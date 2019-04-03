@@ -109,13 +109,13 @@ spago build -p "benchmark/**/*.purs"
 PROJECTS_BUILT_OK=$?
 
 # Node-based tests
-spago test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
+spago test -m Test.RandomNumber.ReaderT.Standard.DifferentMonad
 RANDOM_TEST_READERT_DIFFERENT=$?
-spago test -m Test.Games.RandomNumber.ReaderT.Standard.SameMonad
+spago test -m Test.RandomNumber.ReaderT.Standard.SameMonad
 RANDOM_TEST_READERT_SAME=$?
-spago test -m Test.Games.RandomNumber.Run.Standard.Infrastructure
+spago test -m Test.RandomNumber.Run.Standard.Infrastructure
 RANDOM_TEST_RUN_STANDARD=$?
-spago test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
+spago test -m Test.RandomNumber.Run.Layered.Infrastructure
 RANDOM_TEST_RUN_LAYERED=$?
 cd ../
 
