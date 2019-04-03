@@ -18,7 +18,7 @@ Normally, one will use the 'standard' way of structuring their application: via 
 
 I also include the "layered compilers" idea mentioned in the `Hello World/Application Structure/Free` folder. This is purely an experimental idea that shows what one _can_ do, but not necessarily "best practices" per say. It might help one write a program when the specifications are still not well-understood. Or it might just be pointless boilerplate-y work.
 
-By "layered compilers," I mean defining a monad with a higher-level language (e.g. Domain) that gets interpreted  (`Free`/`Run`) into another monad with a lower-level language (e.g. API) recursively until the final low-level language is interpreted into an impure monad (e.g. `Effect` or `Aff`).
+By "layered compilers," I mean defining a monad with a `Free`/`Run`-based higher-level language (e.g. Highest-level Domain) that gets interpreted another lower-level language (e.g. Lower-Level Domain) recursively until the final low-level language is interpreted into an impure monad (e.g. `Effect` or `Aff`).
 
 Since "layered compilers" is rather long, I'll just use "layered" in folders' and modules' names.
 
@@ -81,18 +81,18 @@ spago test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
 
 ```bash
 # == Node-Based implementation ==
-spago run -m Games.RandomNumber.Free.Layered.Infrastructure.Console
-spago run -m Games.RandomNumber.Run.Layered.Infrastructure.Console
+spago run -m Games.RandomNumber.Free.Layered.Main.Console
+spago run -m Games.RandomNumber.Run.Layered.Main.Console
 
 # === Changes in Run folder: Node-based ===
 spago run -m Games.RandomNumber.Run.Layered.ChangeImplementation
 spago run -m Games.RandomNumber.Run.Layered.AddDomainTerm
 
 # === Changes in Run folder: Browser-based ===
-spago build --main Games.RandomNumber.Free.Layered.Infrastructure.Halogen.Web --to dist/random-number/free--layered/app.js
+spago build --main Games.RandomNumber.Free.Layered.Main.Halogen --to dist/random-number/free--layered/app.js
 parcel build dist/random-number/free--layered/example.html --open -p 1114 -d dist/random-number/free--layered/ -o index.html
 
-spago build --main Games.RandomNumber.Run.Layered.Infrastructure.Halogen.Web --to dist/random-number/run--layered/app.js
+spago build --main Games.RandomNumber.Run.Layered.Main.Halogen --to dist/random-number/run--layered/app.js
 parcel build dist/random-number/run--layered/example.html --open -p 1115 -d dist/random-number/run--layered/ -o index.html
 
 # == Test ==
