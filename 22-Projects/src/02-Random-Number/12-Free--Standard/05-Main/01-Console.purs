@@ -6,8 +6,7 @@ import Effect.Aff (runAff_)
 import Node.ReadLine (close, createConsoleInterface, noCompletion)
 
 import Games.RandomNumber.Free.Standard.Domain (game)
-import Games.RandomNumber.Free.Standard.API (runDomain)
-import Games.RandomNumber.Infrastructure.ReadLineAff (question)
+import Games.RandomNumber.Free.Standard.API (runDomainInConsole)
 
 -- Level 0 / Machine Code
 main :: Effect Unit
@@ -16,4 +15,4 @@ main = do
 
   runAff_
     (\_ -> close interface)
-    (runDomain (\prompt -> question interface prompt) game)
+    (runDomainInConsole interface game)

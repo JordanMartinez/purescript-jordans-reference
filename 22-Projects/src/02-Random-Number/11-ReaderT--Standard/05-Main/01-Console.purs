@@ -1,4 +1,4 @@
-module Games.RandomNumber.ReaderT.Standard.Infrastructure.Console
+module Games.RandomNumber.ReaderT.Standard.Main.Console
   ( runAPI
 
   , main

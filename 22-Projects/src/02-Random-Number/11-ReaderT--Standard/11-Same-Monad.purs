@@ -2,7 +2,6 @@ module Games.RandomNumber.ReaderT.Standard.SameMonad
   ( Environment
   , AppT(..), runAppT
 
-  , question
   , runAPI
 
   , main
@@ -10,14 +9,13 @@ module Games.RandomNumber.ReaderT.Standard.SameMonad
   where
 
 import Prelude
-import Data.Either (Either(..))
 import Effect.Random (randomInt)
 import Control.Monad.Trans.Class (class MonadTrans, lift)
 import Control.Monad.Reader.Trans (ReaderT, runReaderT)
 import Control.Monad.Reader.Class (class MonadAsk, ask, asks)
 import Control.Monad.State.Class (class MonadState)
 import Effect (Effect)
-import Effect.Aff (Aff, runAff_, makeAff)
+import Effect.Aff (Aff, runAff_)
 import Effect.Console (log)
 import Effect.Class (liftEffect)
 import Node.ReadLine (
@@ -25,10 +23,10 @@ import Node.ReadLine (
 , createConsoleInterface, noCompletion
 , close
 )
-import Node.ReadLine as NR
 import Type.Equality (class TypeEquals, from)
 
 import Games.RandomNumber.Core (unBounds)
+import Games.RandomNumber.Infrastructure.ReadLineAff (question)
 import Games.RandomNumber.ReaderT.Standard.Domain (
   game
 , class NotifyUser
@@ -85,12 +83,6 @@ instance createRandomIntAppT :: (Monad m) => CreateRandomInt (AppT m) where
     lift $ unBounds bounds (\l u -> env.createRandomInt l u)
 
 -- Code for Infrastructure
-
-question :: Interface -> String -> Aff String
-question interface message = do
-  makeAff go
-  where
-    go handler = NR.question message (handler <<< Right) interface $> mempty
 
 runAPI :: Interface -> AppT Aff ~> Aff
 runAPI iface =

@@ -1,37 +1,45 @@
-module Games.RandomNumber.Free.Standard.Domain (API_F(..), Game, game) where
+module Games.RandomNumber.Free.Standard.Domain (BackendEffectsF(..), GenRandomIntF(..), API_F(..), Game, game) where
 
 import Prelude
 
 import Control.Monad.Free (Free, liftF)
 import Data.Either (Either(..))
+import Data.Functor.Coproduct (Coproduct)
+import Data.Functor.Coproduct.Inject (inj)
 import Data.Int (fromString)
 import Data.Maybe (Maybe(..))
-import Games.RandomNumber.Core ( Bounds, mkBounds, totalPossibleGuesses
-                               , RandomInt, mkRandomInt
-                               , Guess, mkGuess
-                               , RemainingGuesses, mkRemainingGuesses, outOfGuesses, decrement, (==#), GameResult(..))
+import Games.RandomNumber.Core (Bounds, mkBounds, totalPossibleGuesses, RandomInt, mkRandomInt, Guess, mkGuess, RemainingGuesses, mkRemainingGuesses, outOfGuesses, decrement, (==#), GameResult(..))
 
 -- | Defines the effects we'll need to run
--- | a Random Number Guessing game
-data API_F a
+-- | this game via Node or the Browser
+data BackendEffectsF a
   = Log String a
   | GetUserInput String (String -> a)
-  | GenRandomInt Bounds (Int -> a)
 
-derive instance functorAPI_F :: Functor API_F
+derive instance functorBackendEffectsF :: Functor BackendEffectsF
+
+-- | Defines the random number generating effects
+-- | that works regardless of which backend we use
+data GenRandomIntF a
+  = GenRandomInt Bounds (Int -> a)
+
+derive instance functorGenRandomIntF :: Functor GenRandomIntF
+
+-- Our entire API as a language
+type API_F = Coproduct BackendEffectsF GenRandomIntF
 
 -- `Free` stuff
 
 type Game = Free API_F
 
 getUserInput :: String -> Game String
-getUserInput prompt = liftF $ (GetUserInput prompt identity)
+getUserInput prompt = liftF $ inj (GetUserInput prompt identity)
 
 log :: String -> Game Unit
-log msg = liftF $ (Log msg unit)
+log msg = liftF $ inj (Log msg unit)
 
 genRandomInt :: Bounds -> Game Int
-genRandomInt bounds = liftF $ (GenRandomInt bounds identity)
+genRandomInt bounds = liftF $ inj (GenRandomInt bounds identity)
 
 game :: Game GameResult
 game = do

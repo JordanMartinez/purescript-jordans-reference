@@ -42,12 +42,12 @@ The games can be opened and played via `dist/random-number/<FP structure approac
 
 ```bash
 # == Node-Based implementation ==
-spago run -m Games.RandomNumber.ReaderT.Standard.Infrastructure.Console
-spago run -m Games.RandomNumber.Free.Standard.Infrastructure.Console
-spago run -m Games.RandomNumber.Run.Standard.Infrastructure.Console
+spago run -m Games.RandomNumber.ReaderT.Standard.Main.Console
+spago run -m Games.RandomNumber.Free.Standard.Main.Console
+spago run -m Games.RandomNumber.Run.Standard.Main.Console
 
 # == Browser-based implementation ==
-spago bundle --main Games.RandomNumber.ReaderT.Standard.Infrastructure.Halogen.Web --to dist/random-number/readerT--standard/app.js
+spago bundle --main Games.RandomNumber.ReaderT.Standard.Main.Halogen --to dist/random-number/readerT--standard/app.js
 # Read the below as:
 # "Use 'example.html' to figure out the dependency tree, which will pick up
 # our 'app.js' bundle from Spago. Parcel will output a minified version
@@ -64,10 +64,10 @@ spago bundle --main Games.RandomNumber.ReaderT.Standard.Infrastructure.Halogen.W
 # will hotload the changes."
 parcel dist/random-number/readerT--standard/example.html --open -p 1111 -d dist/random-number/readerT--standard/ -o index.html
 
-spago bundle --main Games.RandomNumber.Free.Standard.Infrastructure.Halogen.Web --to dist/random-number/free--standard/app.js
+spago bundle --main Games.RandomNumber.Free.Standard.Main.Halogen --to dist/random-number/free--standard/app.js
 parcel build dist/random-number/free--standard/example.html --open -p 1112 -d dist/random-number/free--standard/ -o index.html
 
-spago bundle --main Games.RandomNumber.Run.Standard.Infrastructure.Halogen.Web --to dist/random-number/run--standard/app.js
+spago bundle --main Games.RandomNumber.Run.Standard.Main.Halogen --to dist/random-number/run--standard/app.js
 parcel build dist/random-number/run--standard/example.html --open -p 1113 -d dist/random-number/run--standard/ -o index.html
 
 # == Test ==

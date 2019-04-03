@@ -19,7 +19,7 @@ data Language a
   | Clear a       -- clears out the input
   | Submit a      -- "submits" the input to the parent
 
-type CalcState = { input :: String      -- the curren tinput
+type CalcState = { input :: String      -- the current input
                  , avar :: AVar String
                  }
 type Msg_UserInput = String
