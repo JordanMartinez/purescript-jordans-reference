@@ -1,4 +1,4 @@
-module Learn.HttpSyntax where
+module Learn.Http.Syntax where
 
 import Prelude
 
