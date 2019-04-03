@@ -113,9 +113,9 @@ spago test -m Test.RandomNumber.ReaderT.Standard.DifferentMonad
 RANDOM_TEST_READERT_DIFFERENT=$?
 spago test -m Test.RandomNumber.ReaderT.Standard.SameMonad
 RANDOM_TEST_READERT_SAME=$?
-spago test -m Test.RandomNumber.Run.Standard.Infrastructure
+spago test -m Test.RandomNumber.Run.Standard
 RANDOM_TEST_RUN_STANDARD=$?
-spago test -m Test.RandomNumber.Run.Layered.Infrastructure
+spago test -m Test.RandomNumber.Run.Layered
 RANDOM_TEST_RUN_LAYERED=$?
 cd ../
 

@@ -1,4 +1,4 @@
-module Test.RandomNumber.Run.Standard.Infrastructure
+module Test.RandomNumber.Run.Standard
   ( main
   , produceGameResult
   ) where

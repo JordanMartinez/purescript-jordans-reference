@@ -114,7 +114,8 @@ spago build -p "benchmark/**/*.purs"
 # Node-based tests
 spago test -m Test.RandomNumber.ReaderT.Standard.DifferentMonad
 spago test -m Test.RandomNumber.ReaderT.Standard.SameMonad
-spago test -m Test.RandomNumber.Run.Standard.Infrastructure
+spago test -m Test.RandomNumber.Run.Standard
+spago test -m Test.RandomNumber.Run.Layered
 cd ../
 
 echo "... Finished ...."

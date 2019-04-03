@@ -73,8 +73,7 @@ parcel build dist/random-number/run--standard/example.html --open -p 1113 -d dis
 # == Test ==
 spago test -m Test.RandomNumber.ReaderT.Standard.DifferentMonad
 spago test -m Test.RandomNumber.ReaderT.Standard.SameMonad
-spago test -m Test.RandomNumber.Run.Standard.Infrastructure
-spago test -m Test.RandomNumber.Run.Layered.Infrastructure
+spago test -m Test.RandomNumber.Run.Standard
 ```
 
 ### Layered
@@ -96,5 +95,5 @@ spago build --main RandomNumber.Run.Layered.Main.Halogen --to dist/random-number
 parcel build dist/random-number/run--layered/example.html --open -p 1115 -d dist/random-number/run--layered/ -o index.html
 
 # == Test ==
-spago test -m Test.RandomNumber.Run.Layered.Infrastructure
+spago test -m Test.RandomNumber.Run.Layered
 ```

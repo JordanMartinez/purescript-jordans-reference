@@ -1,4 +1,4 @@
-module Test.RandomNumber.Run.Layered.Infrastructure
+module Test.RandomNumber.Run.Layered
   ( main
   , produceGameResult
   ) where
