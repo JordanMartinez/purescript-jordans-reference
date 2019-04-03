@@ -30,8 +30,10 @@ spago bundle --main ToC.Run.Main --to dist/table-of-contents/run-ghtoc.js
 # Change directory to be at the root directory
 cd ../
 
-# Then run it using one of commands:
-node 22-Projects/dist/table-of-contents/readert-ghtoc.js -r "." -o "./table-of-contents.md" --log-level "info"
+# Then run it using one of the below commands
+# To actually check whether the hyperlinks work, remove the
+# '--skip-url-verification' flag:
+node 22-Projects/dist/table-of-contents/readert-ghtoc.js -r "." -o "./table-of-contents.md" --log-level "info" --skip-url-verification
 
-node 22-Projects/dist/table-of-contents/run-ghtoc.js -r "." -o "./table-of-contents.md" --log-level "info"
+node 22-Projects/dist/table-of-contents/run-ghtoc.js -r "." -o "./table-of-contents.md" --log-level "info" --skip-url-verification
 ```
