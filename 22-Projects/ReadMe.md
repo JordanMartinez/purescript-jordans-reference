@@ -4,8 +4,9 @@ This folder's purposes are
 - to solidify one's understanding for how to write FP programs according to modern FP architecture principles.
     - Explain the throught-process behind designing some program by starting with the properties one wants to employ. This will include diagrams and other explanations.
     - Compare the various ways one can structure an FP program and analyze their pros/cons and other tradeoffs. The following approaches are covered here:
-        - ReaderT approach
-        - Run approach
+        - ReaderT approach (all folders)
+        - Run approach (all folders)
+        - other approaches (only in the `Random Number Game` folder).
     - Explain and show how to test and benchmark our code
 - to introduce the reader to a few commonly-used libraries in the "real world."
     - We'll introduce/overview the libraries we'll use in later projects before using them in those projects.
