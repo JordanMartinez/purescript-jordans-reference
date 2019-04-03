@@ -19,8 +19,6 @@ Run the following while in the `Projects/` folder.
 
 Currently, only there are no tests or benchmarks.
 
-### Standard
-
 ```bash
 # Build the program using either the ReaderT or Run implementation
 spago bundle --main ToC.ReaderT.Main --to dist/table-of-contents/readert-ghtoc.js
