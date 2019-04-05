@@ -6,7 +6,7 @@ import Data.List (List)
 import Data.Maybe (Maybe)
 import Data.Tree (Tree)
 import ToC.Core.FileTypes (HeaderInfo)
-import ToC.Core.Paths (AddPath, FilePath, WebUrl, UriPath)
+import ToC.Core.Paths (IncludeablePathType, AddPath, FilePath, WebUrl, UriPath)
 import ToC.Core.RenderTypes (TopLevelContent)
 
 -- | The Environment type specifies the following ideas:
@@ -16,10 +16,8 @@ import ToC.Core.RenderTypes (TopLevelContent)
 -- |    - `rootUri`
 -- |    - `addPath`
 -- |    - `outputFile`
--- | - functions which determine which directories and files to include/exclude:
--- |    - `matchesTopLevelDir`
--- |    - `includeRegularDir`
--- |    - `includeFile`
+-- | - a function to determine which directories and files to include/exclude:
+-- |    - `includepath`
 -- | - functions for parsing a file's content. One could use a different parser
 -- |   library is so desired:
 -- |    - `parseFile`
@@ -36,9 +34,7 @@ type Env = { rootUri :: UriPath
            , addPath :: AddPath
            , outputFile :: FilePath
            , sortPaths :: FilePath -> FilePath -> Ordering
-           , matchesTopLevelDir :: FilePath -> Boolean
-           , includeRegularDir :: FilePath -> Boolean
-           , includeFile :: FilePath -> Boolean
+           , includePath :: IncludeablePathType -> FilePath -> Boolean
            , parseFile :: FilePath -> String -> List (Tree HeaderInfo)
            , renderToC :: Array TopLevelContent -> String
            , renderTopLevel :: FilePath -> Array String -> TopLevelContent

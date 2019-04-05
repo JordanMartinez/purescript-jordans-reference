@@ -17,7 +17,7 @@ import Node.Yargs.Applicative (flag, runY, yarg)
 import Node.Yargs.Setup (YargsSetup, example, usage)
 import ToC.Core.FileTypes (HeaderInfo)
 import ToC.Core.GitHubLinks (renderGHPath)
-import ToC.Core.Paths (FilePath, WebUrl, addPath')
+import ToC.Core.Paths (FilePath, IncludeablePathType(..), WebUrl, addPath')
 import ToC.Domain.Parser (extractMarkdownHeaders, extractPurescriptHeaders)
 import ToC.Domain.Renderer.MarkdownRenderer (renderToC, renderTopLevel, renderDir, renderFile)
 import ToC.Domain.Types (Env, LogLevel(..))
@@ -120,9 +120,7 @@ setupEnv runProgramWithEnvironmentConfig
                , url: rootURL
                }
     , addPath: addPath' sep
-    , matchesTopLevelDir: \path -> notElem path excludedTopLevelDirs
-    , includeRegularDir: \path -> notElem path excludedRegularDir
-    , includeFile: \path -> elem (extname path) includedFileExtensions
+    , includePath: includePath
     , outputFile: outputFile
     , sortPaths: sortPaths
     , parseFile: parseFile
@@ -145,6 +143,12 @@ setupEnv runProgramWithEnvironmentConfig
                              , repo: ghProjectName
                              , ref: ghBranchName
                              }
+
+    includePath :: IncludeablePathType -> FilePath -> Boolean
+    includePath pathType path = case pathType of
+      TopLevelDirectory -> notElem path excludedTopLevelDirs
+      NormalDirectory -> notElem path excludedRegularDir
+      A_File -> elem (extname path) includedFileExtensions
 
     sortPaths :: FilePath -> FilePath -> Ordering
     sortPaths l r =

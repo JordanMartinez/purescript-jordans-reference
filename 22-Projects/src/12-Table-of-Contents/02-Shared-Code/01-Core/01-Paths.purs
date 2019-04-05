@@ -1,5 +1,6 @@
 module ToC.Core.Paths
   ( PathType(..)
+  , IncludeablePathType(..)
   , FilePath
   , WebUrl
   , UriPath
@@ -10,9 +11,19 @@ module ToC.Core.Paths
 import Data.Semigroup ((<>))
 
 -- | Backend-independent indicator for whether a path is a directory or a file.
+-- | Note: there is no distinction between a top-level directory and a regular
+-- | directory.
 data PathType
   = Dir
   | File
+
+-- | Similar to 'PathType' but does distinguish between a top-level and normal
+-- | directory. This is used to determine whether to include a path or not
+-- | when parsing content in the root directory.
+data IncludeablePathType
+  = TopLevelDirectory
+  | NormalDirectory
+  | A_File -- prevents naming conflict with "PathType's" "File" constructor.
 
 -- | Backend-independent type for a path on the file system. It could be
 -- | "path" in "root/parent/path/child.txt", "file.txt" in

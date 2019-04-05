@@ -13,7 +13,7 @@ import Data.Array (catMaybes, intercalate, sortBy)
 import Data.Maybe (Maybe(..))
 import Data.Traversable (traverse)
 import Data.Tree (showTree)
-import ToC.Core.Paths (FilePath, PathType(..), UriPath, WebUrl)
+import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), UriPath, WebUrl)
 import ToC.Core.RenderTypes (TopLevelContent)
 import ToC.Domain.Types (Env, LogLevel(..))
 
@@ -58,7 +58,7 @@ renderFiles = do
         let fullPath = env.addPath env.rootUri topLevelPath
         pathType <- readPathType fullPath.fs
         case pathType of
-          Just Dir | env.matchesTopLevelDir topLevelPath -> do
+          Just Dir | env.includePath TopLevelDirectory topLevelPath -> do
             logDebug $ "Rendering top-level directory (start): " <> fullPath.fs
             output <- renderTopLevelSection fullPath topLevelPath
             logDebug $ "Rendering top-level directory (done) : " <> fullPath.fs
@@ -95,7 +95,7 @@ renderPath depth fullParentPath childPath = do
   pathType <- readPathType fullChildPath.fs
   case pathType of
     Just Dir
-      | env.includeRegularDir childPath -> do
+      | env.includePath NormalDirectory childPath -> do
           logDebug $ "Rendering directory (start): " <> fullChildPath.fs
           output <- renderDir depth fullChildPath childPath
           logDebug $ "Rendering directory (done) : " <> fullChildPath.fs
@@ -104,7 +104,7 @@ renderPath depth fullParentPath childPath = do
           logDebug $ "Excluding directory: " <> fullChildPath.fs
           pure Nothing
     Just File
-      | env.includeFile childPath -> do
+      | env.includePath A_File childPath -> do
           logDebug $ "Rendering File (start): " <> fullChildPath.fs
           output <- renderFile depth fullChildPath childPath
           logDebug $ "Rendering File (done) : " <> fullChildPath.fs
