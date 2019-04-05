@@ -18,11 +18,11 @@ import ToC.Core.RenderTypes (TopLevelContent)
 -- |    - `outputFile`
 -- | - a function to determine which directories and files to include/exclude:
 -- |    - `includepath`
--- | - functions for parsing a file's content. One could use a different parser
+-- | - a function for parsing a file's content. One could use a different parser
 -- |   library is so desired:
 -- |    - `parseFile`
--- | - functions that render the conten. One could render it as Markdown or
--- |   as HTML:
+-- | - functions that render specific parts of the content. One could render
+-- |   it as Markdown or as HTML:
 -- |    - `renderToC`
 -- |    - `renderTopLevel`
 -- |    - `renderDir`
