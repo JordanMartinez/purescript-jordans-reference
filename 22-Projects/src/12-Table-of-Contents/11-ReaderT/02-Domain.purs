@@ -38,7 +38,6 @@ renderFiles :: forall m.
                MonadAsk Env m =>
                Logger m =>
                ReadPath m =>
-               WriteToFile m =>
                VerifyLink m =>
                m String
 renderFiles = do
@@ -73,7 +72,6 @@ renderTopLevelSection :: forall m.
                          MonadAsk Env m =>
                          Logger m =>
                          ReadPath m =>
-                         WriteToFile m =>
                          VerifyLink m =>
                          UriPath -> FilePath -> m TopLevelContent
 renderTopLevelSection topLevelFullPath topLevelPathSegment = do
@@ -89,7 +87,6 @@ renderPath :: forall m.
               MonadAsk Env m =>
               Logger m =>
               ReadPath m =>
-              WriteToFile m =>
               VerifyLink m =>
               Int -> UriPath -> FilePath -> m (Maybe String)
 renderPath depth fullParentPath childPath = do
@@ -125,7 +122,6 @@ renderDir :: forall m.
              MonadAsk Env m =>
              Logger m =>
              ReadPath m =>
-             WriteToFile m =>
              VerifyLink m =>
              Int -> UriPath -> FilePath -> m String
 renderDir depth fullDirPath dirPathSegment = do
@@ -141,7 +137,6 @@ renderFile :: forall m.
               MonadAsk Env m =>
               Logger m =>
               ReadPath m =>
-              WriteToFile m =>
               VerifyLink m =>
               Int -> UriPath -> FilePath -> m String
 renderFile depth fullFilePath filePathSegment = do
