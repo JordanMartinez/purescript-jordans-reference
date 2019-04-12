@@ -4,7 +4,7 @@
 
 Our program's logic/behavior can be broken up into two parts:
 1. The "main" business logic via the `Domain.purs` files
-2. The "outsourced" logic that gets passed into the program via the `Env` type. Specifically, I mean
+2. The "outsourced" logic that gets passed into the program via the `ProductionEnv` type. Specifically, I mean
     - the function that parses a file for headers
     - the renderer functions
 
@@ -29,9 +29,9 @@ The business logic in the random number game greatly adhered to properties. For 
 
 We described the properties by which the game's logic abides. Then, we used those properties to randomly generate an output and a number of inputs. We simulated the impure code (i.e. user input via a console) in a pure way via an underlying state monad. If the program was given our randomly-generated inputs, the properties guarantee that it will produce the output we previously generated. In code:
 ```
-runTest :: { inputs :: Array String, expectedOutput -> GameState } -> Boolean\
+runTest :: { inputs :: Array String, expectedOutput -> GameState } -> Boolean
 runTest generatedData =
-  (runState generatedData.inputs program) == generatedData.expectedOutput
+  (runState generatedData.inputs gameLogic) == generatedData.expectedOutput
 ```
 
 If we look through the [7 patterns of property-based testing](https://fsharpforfunandprofit.com/posts/property-based-testing-2/), we'll see that our program as a whole does not abide by such properties:
@@ -44,12 +44,12 @@ If we look through the [7 patterns of property-based testing](https://fsharpforf
 - "the more things change, the more they stay the same:" **No**
     - We're not running the same function twice, so this can't apply.
 - "solve a smaller problem first:" **No**
-    - This approach seems to assume that each step in the recursion is the same. However, the program does not render these three entities the same: file, normal directory, top-level directory.
+    - This approach seems to assume that each step in the recursion is the same. While our program is recursive in nature, each step in the recursio is not the same when rendering a file, a normal directory, and a top-level directory.
 - "hard to prove, easy to verify:" **No**
     - Our situation is not easy to verify
 - "the test oracle:" **yes, but not quite practical**
-    - the program currently uses a one-pass approach (root-to-files traversal parses file contents while files-to-root traversal renders that content) to produce the output.
-    - I could test this against a two-pass approach (first pass parses file and file system into data structure; second pass renders that data structure)
+    - the program currently uses a one-pass approach (the root-to-files traversal will parse file contents while the files-to-root traversal will render that content) to produce the output.
+    - I could test this against a two-pass approach (the first pass will parse the files and file system into a data structure; the second pass will render that data structure)
     - Unfortunately, I believe the one-pass approach is more understandable and easier to write than the two-pass approach.
 
 ### Decomposing Our Tests
@@ -62,13 +62,12 @@ Let's recall the questions we asked earlier:
 3. ("outsourced" logic) Does the file content parser correctly parse the file for its Markdown headers?
 4. ("outsourced" logic) Do the renderer functions correctly render the structure?
 
-I propose that we still use property-based testing, but change which parts of the program we test that with. Thus, I propose using a 3-prong approach to fully testing our program:
-1. (questions 1 & 2) test the main business logic using a 'fake' `Env` implementation and a state monad to simulate 'impure' code
-    - We'll mock the impure code using a state monad (similar to the random number game) and use a 'fake' implementation of the parser and renderer functions to help us test our code. (Note: this approach might not be 'best practices' as I'm 'hacking' my program's logic.)
-2. (questions 3 & 4) test the real `parser` and `renderer` functions
+I propose that we still use property-based testing, but change which parts of the program we test via property-testing. Thus, I propose using a 3-prong approach to fully testing our program:
+1. (questions 1 & 2) test the main business logic using a state monad to simulate 'impure' code / capability type classes (e.g. `FileParser`, `Renderer`, etc.).
+2. (questions 3 & 4) test the real `parser` and `renderer` functions using a variant of the "there and back again" approach.
     - `parser (stringify generatedData) == generatedData`
     - `render (parsify generatedData) == generatedData`
-3. (sanity check) test the real program via a unit/golden test on a small example
+3. (sanity check) test the real program via a golden test on a small example
 
 ## The Main Logic Tests
 
@@ -78,63 +77,73 @@ We have two questions we want to answer here.
 
 How should this work?
 
-First, all path names we'll use in our test program will be unique. The importance of this will be revealed in our next few points.
+Our test monad, `TestM`, will be a state monad (to store the final output of the program in addtion to other test things we may need) that is further augmented by the `ReaderT` monad transformer (since our program requires the `MonadAsk` type class). Whereas the production program augmented the `Env` type with `ProductionRows`, our test program will augment the `Env` type with `TestRows`. In code:
 
-Second, we'll use a 'fake' implementation of the `render` functions that only renders each path name (directories and files) on a single line. Through this approach, we can later parse the final output of our program and compare that with another value that represents what we expect the output to be.
+```purescript
+-- We'll explain what the real definition of `TestRows` will be later.
+-- This just serves to show where we're going.
+type TestRows = ( otherInfo :: Type
+                , otherStuff :: String
+                )
+type TestEnv = Env TestRows
+newtype TestM a = ReaderT TestEnv (State stateType) a
+```
 
-Third, we'll implement the impure code of our program via a state monad.
-
-To implement the impure effects via a state monad, we need to support a few operations:
+First, we'll implement most of the impure code of our program via the reader monad part:
 - reading a "directory" for its array of children
 - reading a "file" for its contents
 - determining the type of a "file path"
-- writing the final output to a "file"
 - verifying that a "link" works
 
-Each of the above capabilities can be defined by looking up their value that's stored in our state monad. The below code won't compile, but it communicates the general idea:
+Most of the above capabilities can be defined by looking up their value that's stored in our reader monad. The below code won't compile, but it communicates the general idea:
 ```purescript
 -- covers `readDir`, `readFile`, `readPathType`, `verifyLink`
 mostFunctions :: FilePath -> m resultType
 mostFunctions fullFilePath = do
-  state <- get
-  pure $ (lookup fullFilePath state.pathMap).correspondingValue
-
--- we'll just store the final output in our test's state
+  env <- ask
+  let correspondingValue = lookup fullFilePath env.pathMap
+  pure correspondingValue
+```
+We'll handle the "write output to file" part using the state monad:
+```purescript
 writeToFile :: String -> m Unit
 writeToFile content = do
   modify_ (\s -> s { output = content})
 ```
+Since the parser and renderer functions will not change between test runs, we'll implement them directly in `TestM`'s instance for their corresponding type classes rather than providing them via the `TestEnv` type and `ask`.
 
-Lastly, we'll test whether the program works correctly (answers question 1 & 2) by wrapping the 'program' logic in another monadic computation sequence. Since our program's logic (`program`) is itself a pure function, we can compose it with other pure functions to make a final pure monadic function. In code:
+Second, all path names we'll use in our test program will be unique. By upholding this assumption, it will make it easier to test
+
+Third, we'll use very simplistic `parser` and `renderer` functions.
+
+The `parser` function will look up a path in a map and return its list of headers (no real parsing will be done here).
+The `render` functions will only render each path name (normal directories, top-level directories, and files) on a single line, making it easy to parse that output later.
+
+Lastly, we'll test whether the program works correctly (answers question 1 & 2) by wrapping the 'program' logic in another monadic computation sequence. Since our program's logic (`program`) is itself a pure function when our base monad is a pure monad (i.e. `Identity` or `Trampoline`), we can compose it with other pure functions to make a final pure monadic function. In code:
 ```purescript
-runTest :: forall m.
-           -- capabilities that `program` requires,
-           -- which are implemented via the state monad
+theTest :: forall m.
            Monad m =>
+           -- capabilities that `program` requires,
+           -- which are implemented via the ReaderT part
            MonadAsk Env m =>
            Logger m =>
            ReadPath m =>
-           WriteToFile m =>
            VerifyLink m =>
 
            -- Monad state that simulates impure code
+           WriteToFile m =>
            MonadState AllStateData m =>
-
-           -- examine the output file to see whether it's correct
-           (String -> Boolean) ->
 
            -- Since the `m` here is a pure monad
            -- (i.e. either `Identity` or `Trampoline`),
            -- this is the same as returning 'Boolean',
            -- which indicates whether this test passed or not
-           m Boolean
-runTest shouldPass = do
-  -- run the program, which "writes" its output into the state
+           m String
+theTest = do
+  -- run the program, which will "write" its output into the state monad
   program
-  -- get the state
-  state <- get
-  -- check whether the final output is the same as the expected output
-  pure $ shouldPass state.content
+  -- get the final output
+  gets (\state -> state.content)
 ```
 
 Using the above approach, we can now answer the above two questions:
@@ -147,32 +156,26 @@ Yes if
 - we parse the output file to get those path names and convert them into a list of paths
 - we verify that each element in that list is inside of the original list of path names and their items appear in the same order
 
+In code:
 ```purescript
 quickCheckTest :: ?ToBeDetermined -> Boolean
 quickCheckTest generatedData =
-    either
-      -- if the parser fails, then we should fail this test, too
-      (const false)
-      -- if the parser succeeds, then we should check whether the contents
-      -- of the two lists are the same (same size, same items, same order).
-      (\outputtedList -> outputtedList == generatedData.expectedPathList)
-      parsedOutputContent
+    -- check whether the contents of the two lists are the same
+    -- (same size, same items, same order).
+    outputtedList == generatedData.expectedPathList
   where
-    -- gets the output file's contents
-    outputFile = runState allStateData (runReaderT env runTest)
-    -- parses that output file into a list of path names or fails with an error
-    parsedOutputContent = runParser parser outputFile
+    -- run the program using our TestM monad
+    programRun = runState allStateData (runReaderT generatedData.env theTest)
 
-    parseSingleLine :: Parser String
-    parseSingleLine = do
-      void $ optional $ string "\n"
-      regex "[^\n]+"
+    -- get the output file's content
+    outputFile =
+      -- pattern match to expose the content value
+      let (Tuple state content) = programRun
+      -- return that content value
+      in content
 
-    parser :: Parser (List String)
-    parser = do
-      list <- many parseSingleLine
-      eof
-      pure list
+    -- "parse" that output file into a list of path names
+    outputtedList = split (Pattern "\n") outputFile
 ```
 
 ### Generating Data for the Main Tests
