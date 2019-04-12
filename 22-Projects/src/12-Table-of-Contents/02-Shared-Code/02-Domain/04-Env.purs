@@ -2,12 +2,7 @@ module ToC.Domain.Types (Env,LogLevel(..)) where
 
 import Prelude
 
-import Data.List (List)
-import Data.Maybe (Maybe)
-import Data.Tree (Tree)
-import ToC.Core.FileTypes (HeaderInfo)
-import ToC.Core.Paths (IncludeablePathType, AddPath, FilePath, WebUrl, UriPath)
-import ToC.Core.RenderTypes (TopLevelContent)
+import ToC.Core.Paths (AddPath, FilePath, IncludeablePathType, UriPath)
 
 -- | The Environment type specifies the following ideas:
 -- | - a backend-independent way to create file system paths. For example,
@@ -19,17 +14,6 @@ import ToC.Core.RenderTypes (TopLevelContent)
 -- |      all others)
 -- | - a function to determine which directories and files to include/exclude:
 -- |    - `includepath`
--- | - a function for parsing a file's content. One could use a different parser
--- |   library is so desired:
--- |    - `parseFile`
--- | - functions that render specific parts of the content. One could render
--- |   it as Markdown or as HTML:
--- |    - `renderToC`
--- |    - `renderTopLevel`
--- |    - `renderDir`
--- |    - `renderFile`
--- | - A level that indicates how much information to log to the console
--- |    - `logLevel`
 -- | - A flag that indicates whether to verify links or not
 type Env r = { rootUri :: UriPath
              , addPath :: AddPath
