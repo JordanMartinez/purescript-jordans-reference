@@ -77,47 +77,64 @@ We have two questions we want to answer here.
 
 How should this work?
 
-Our test monad, `TestM`, will be a state monad (to store the final output of the program in addtion to other test things we may need) that is further augmented by the `ReaderT` monad transformer (since our program requires the `MonadAsk` type class). Whereas the production program augmented the `Env` type with `ProductionRows`, our test program will augment the `Env` type with `TestRows`. In code:
+First, all path names we'll use in our test program will be unique. By upholding this assumption, it will make it easier to test.
 
+Second, our test monad, `TestM`, will be a state monad (to store the final output of the program) that is further augmented by the `ReaderT` monad transformer (since our program requires the `MonadAsk` type class). Whereas the production program augmented the `Env` type with `ProductionRows`, our test program will augment the `Env` type with `TestRows`.
+
+Since the parser and renderer functions will not change between test runs, we'll implement them directly in `TestM`'s instance for their corresponding type classes rather than providing them via the `TestEnv` type and `ask`.
+
+In code:
 ```purescript
--- We'll explain what the real definition of `TestRows` will be later.
--- This just serves to show where we're going.
-type TestRows = ( otherInfo :: Type
-                , otherStuff :: String
+type IncludedOrNot = Boolean
+
+data FileSyStemInfo
+  = DirectoryInfo FilePath IncludedOrNot
+  | FileInfo FilePath IncludedOrNot (List (Tree HeaderInfo))
+
+type TestRows = ( fileSystem :: Tree FileSystemInfo
                 )
 type TestEnv = Env TestRows
-newtype TestM a = ReaderT TestEnv (State stateType) a
+newtype TestM a = TestM (ReaderT TestEnv (State String) a)
 ```
 
-First, we'll implement most of the impure code of our program via the reader monad part:
+We'll implement most of the impure code of our program via the reader monad part:
+- determining the type of a "path"
 - reading a "directory" for its array of children
-- reading a "file" for its contents
-- determining the type of a "file path"
 - verifying that a "link" works
 
-Most of the above capabilities can be defined by looking up their value that's stored in our reader monad. The below code won't compile, but it communicates the general idea:
+Most of the above capabilities can be defined by looking up their value that's stored in our reader monad. The below code communicates the general idea:
 ```purescript
--- covers `readDir`, `readFile`, `readPathType`, `verifyLink`
+-- covers `readDir`, `readPathType`, `verifyLink`
 mostFunctions :: FilePath -> m resultType
 mostFunctions fullFilePath = do
-  env <- ask
-  let correspondingValue = lookup fullFilePath env.pathMap
-  pure correspondingValue
+  fileSystem <- asks \e -> e.fileSystem
+  let fileSystemLoc = fromTree fileSystem
+
+  maybeInformation <- runMaybeT do
+    let pathSegments = split (Pattern separator) fullFilePath
+    lastPath <- last pathSegments
+    foundLoc <- findFromRoot lastPath fileSystemLoc
+    case value foundLoc of
+      DirectoryInfo path includedOrNot ->
+        -- path was a directory. Do something with it.
+      FileInfo path includedOrNot headers ->
+        -- path was a file. Do something with it.
+  pure $ fromMaybe defaultValue maybeInformation
+  -- or use the unsafe partial version to crash our test if it was
+  -- implemented incorrectly
+  -- pure $ unsafePartial $ fromJust maybeInformation
 ```
+
 We'll handle the "write output to file" part using the state monad:
 ```purescript
 writeToFile :: String -> m Unit
 writeToFile content = do
-  modify_ (\s -> s { output = content})
+  put content
 ```
-Since the parser and renderer functions will not change between test runs, we'll implement them directly in `TestM`'s instance for their corresponding type classes rather than providing them via the `TestEnv` type and `ask`.
 
-Second, all path names we'll use in our test program will be unique. By upholding this assumption, it will make it easier to test
+Third, we'll use very simplistic `readFile` and `parser` functions. `readFile` will return an empty string and `parseFile` will return an empty list.
 
-Third, we'll use very simplistic `parser` and `renderer` functions.
-
-The `parser` function will look up a path in a map and return its list of headers (no real parsing will be done here).
-The `render` functions will only render each path name (normal directories, top-level directories, and files) on a single line, making it easy to parse that output later.
+Fourth, the `render` functions will only render each path name (top-level directories, normal directories, and files) on a single line, making it easy to parse that output later.
 
 Lastly, we'll test whether the program works correctly (answers question 1 & 2) by wrapping the 'program' logic in another monadic computation sequence. Since our program's logic (`program`) is itself a pure function when our base monad is a pure monad (i.e. `Identity` or `Trampoline`), we can compose it with other pure functions to make a final pure monadic function. In code:
 ```purescript
@@ -131,8 +148,8 @@ theTest :: forall m.
            VerifyLink m =>
 
            -- Monad state that simulates impure code
+           MonadState String m =>
            WriteToFile m =>
-           MonadState AllStateData m =>
 
            -- Since the `m` here is a pure monad
            -- (i.e. either `Identity` or `Trampoline`),
@@ -165,7 +182,7 @@ quickCheckTest generatedData =
     outputtedList == generatedData.expectedPathList
   where
     -- run the program using our TestM monad
-    programRun = runState allStateData (runReaderT generatedData.env theTest)
+    programRun = runState "" (runReaderT generatedData.env theTest)
 
     -- get the output file's content
     outputFile =
