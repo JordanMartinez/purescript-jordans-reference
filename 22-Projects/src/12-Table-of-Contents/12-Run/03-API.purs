@@ -16,20 +16,23 @@ import Node.FS.Stats as Stats
 import Node.HTTP.Client (RequestHeaders(..), headers, hostname, method, path, protocol, statusCode)
 import Run (Run, case_, interpret, on)
 import Run.Reader (READER, runReader)
-import ToC.Core.Paths (PathType(..), FilePath)
-import ToC.Domain.Types (Env, LogLevel)
+import ToC.API (ProductionEnv)
+import ToC.Core.Paths (PathType(..))
 import ToC.Infrastructure.Http (mkRequestFromOpts)
-import ToC.Run.Domain (ReadPathF(..), _readPath, READ_PATH, WriteToFileF(..), _writeToFile, WRITE_TO_FILE, LoggerF(..), _logger, LOGGER, VerifyLinkF(..), _verifyLink, VERIFY_LINK)
+import ToC.Run.Domain (FILE_PARSER, FileParserF(..), LOGGER, LoggerF(..), READ_PATH, ReadPathF(..), RENDERER, RendererF(..), VERIFY_LINK, VerifyLinkF(..), WRITE_TO_FILE, WriteToFileF(..), _logger, _fileParser, _readPath, _renderer, _verifyLink, _writeToFile)
 import Type.Row (type (+))
 
-runDomain :: Env ->
-              Run ( reader :: READER Env
+runDomain :: ProductionEnv ->
+              Run ( reader :: READER ProductionEnv
                   | READ_PATH
+                  + FILE_PARSER
+                  + RENDERER
                   + WRITE_TO_FILE
                   + VERIFY_LINK
                   + LOGGER
                   + ()
                   )
+
               ~> Aff
 runDomain env program =
   program
@@ -40,9 +43,11 @@ runDomain env program =
     # interpret (
         case_
           # on _readPath readPathAlgebra
-          # on _writeToFile (writeToFileAlgebra env.outputFile)
+          # on _fileParser fileParserAlgebra
+          # on _renderer rendererAlgebra
+          # on _writeToFile writeToFileAlgebra
           # on _verifyLink verifyLinkAlgebra
-          # on _logger (loggerAlgebra env.logLevel)
+          # on _logger loggerAlgebra
       )
 
   where
@@ -63,9 +68,24 @@ runDomain env program =
             then Just File
           else Nothing
 
-    writeToFileAlgebra :: FilePath -> WriteToFileF ~> Aff
-    writeToFileAlgebra outputFile (WriteToFile content next) = do
-      FS.writeTextFile UTF8 outputFile content
+    fileParserAlgebra :: FileParserF ~> Aff
+    fileParserAlgebra (ParseFile path content reply) = do
+      pure $ reply $ env.parseFile path content
+
+    rendererAlgebra :: RendererF ~> Aff
+    rendererAlgebra = case _ of
+      RenderFile indent url path headers reply -> do
+        pure $ reply $ env.renderFile indent url path headers
+      RenderDir indent path renderedChildren reply -> do
+        pure $ reply $ env.renderDir indent path renderedChildren
+      RenderTopLevel path renderedChildren reply -> do
+        pure $ reply $ env.renderTopLevel path renderedChildren
+      RenderToC allContent reply -> do
+        pure $ reply $ env.renderToC allContent
+
+    writeToFileAlgebra :: WriteToFileF ~> Aff
+    writeToFileAlgebra (WriteToFile content next) = do
+      FS.writeTextFile UTF8 env.outputFile content
       pure next
 
     verifyLinkAlgebra :: VerifyLinkF ~> Aff
@@ -80,8 +100,8 @@ runDomain env program =
         baseOpts <> path := (drop prefixLength url)
       pure $ reply $ (statusCode response) == 200
 
-    loggerAlgebra :: LogLevel -> LoggerF ~> Aff
-    loggerAlgebra envLvl (Log level msg next) = do
-      when (level <= envLvl) do
+    loggerAlgebra :: LoggerF ~> Aff
+    loggerAlgebra (Log level msg next) = do
+      when (level <= env.logLevel) do
         liftEffect $ Console.log msg
       pure next

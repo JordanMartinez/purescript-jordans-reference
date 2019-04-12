@@ -1,6 +1,8 @@
 module ToC.Run.Domain
   ( program
   , ReadPathF(..), _readPath, READ_PATH, readDir, readFile, readPathType
+  , FileParserF(..), _fileParser, FILE_PARSER, parseFile
+  , RendererF(..), _renderer, RENDERER, renderFile, renderDir, renderTopLevel, renderToC
   , WriteToFileF(..), _writeToFile, WRITE_TO_FILE, writeToFile
   , LoggerF(..), _logger, LOGGER, log, logInfo, logError, logDebug
   , VerifyLinkF(..), _verifyLink, VERIFY_LINK, verifyLink
@@ -9,13 +11,15 @@ module ToC.Run.Domain
 import Prelude
 
 import Data.Array (catMaybes, intercalate, sortBy)
+import Data.List (List)
 import Data.Maybe (Maybe(..))
 import Data.Symbol (SProxy(..))
 import Data.Traversable (traverse)
-import Data.Tree (showTree)
+import Data.Tree (Tree, showTree)
 import Data.Variant.Internal (FProxy)
 import Run (Run, lift)
 import Run.Reader (READER, ask)
+import ToC.Core.FileTypes (HeaderInfo)
 import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), UriPath, WebUrl)
 import ToC.Core.RenderTypes (TopLevelContent)
 import ToC.Domain.Types (Env, LogLevel(..))
@@ -42,6 +46,45 @@ readFile path = lift _readPath (ReadFile path identity)
 
 readPathType :: forall r. FilePath -> Run (READ_PATH + r) (Maybe PathType)
 readPathType path = lift _readPath (ReadPathType path identity)
+
+
+data FileParserF a
+  = ParseFile FilePath String ((List (Tree HeaderInfo)) -> a)
+
+derive instance functorFileParserF :: Functor FileParserF
+
+_fileParser = SProxy :: SProxy "fileParser"
+
+type FILE_PARSER r = (fileParser :: FProxy FileParserF | r)
+
+parseFile :: forall r. FilePath -> String -> Run (FILE_PARSER + r) (List (Tree HeaderInfo))
+parseFile path content = lift _fileParser $ ParseFile path content identity
+
+
+data RendererF a
+  = RenderFile Int (Maybe WebUrl) FilePath (List (Tree HeaderInfo)) (String -> a)
+  | RenderDir Int FilePath (Array String) (String -> a)
+  | RenderTopLevel FilePath (Array String) (TopLevelContent -> a)
+  | RenderToC (Array TopLevelContent) (String -> a)
+
+derive instance functorRendererF :: Functor RendererF
+
+_renderer = SProxy :: SProxy "renderer"
+
+type RENDERER r = (renderer :: FProxy RendererF | r)
+
+renderFile :: forall r. Int -> Maybe WebUrl -> FilePath -> List (Tree HeaderInfo) -> Run (RENDERER + r) String
+renderFile depth url path headers = lift _renderer $ RenderFile depth url path headers identity
+
+renderDir :: forall r. Int -> FilePath -> Array String -> Run (RENDERER + r) String
+renderDir depth path renderedChildren = lift _renderer $ RenderDir depth path renderedChildren identity
+
+renderTopLevel :: forall r. FilePath -> Array String -> Run (RENDERER + r) TopLevelContent
+renderTopLevel path renderedChildren = lift _renderer $ RenderTopLevel path renderedChildren identity
+
+renderToC :: forall r. Array TopLevelContent -> Run (RENDERER + r) String
+renderToC array = lift _renderer $ RenderToC array identity
+
 
 data WriteToFileF a = WriteToFile String a
 
@@ -87,9 +130,11 @@ logInfo = log Info
 logDebug :: forall r. String -> Run (LOGGER + r) Unit
 logDebug = log Debug
 
-program :: forall r
-         . Run ( reader :: READER Env
+program :: forall r others
+         . Run ( reader :: READER (Env others)
                | READ_PATH
+               + FILE_PARSER
+               + RENDERER
                + WRITE_TO_FILE
                + VERIFY_LINK
                + LOGGER
@@ -104,9 +149,11 @@ program = do
 
 -- | Recursively walks the file tree, starting at the root directory
 -- | and renders each file and directory that should be included.
-renderFiles :: forall r
-             . Run ( reader :: READER Env
+renderFiles :: forall r others
+             . Run ( reader :: READER (Env others)
                    | READ_PATH
+                   + FILE_PARSER
+                   + RENDERER
                    + VERIFY_LINK
                    + LOGGER
                    + r
@@ -118,14 +165,16 @@ renderFiles = do
   let sortedPaths = sortBy env.sortPaths paths
   logDebug $ "All possible top-level directories\n" <> intercalate "\n" sortedPaths
   sections <- catMaybes <$> renderSectionsOrNothing env sortedPaths
-  pure $ env.renderToC sections
+  renderToC sections
 
   where
     -- | More or less maps the unrendered top-level directory array into
     -- | rendered top-level directory array.
-    renderSectionsOrNothing :: Env -> Array FilePath ->
-                               Run ( reader :: READER Env
+    renderSectionsOrNothing :: Env others -> Array FilePath ->
+                               Run ( reader :: READER (Env others)
                                    | READ_PATH
+                                   + FILE_PARSER
+                                   + RENDERER
                                    + VERIFY_LINK
                                    + LOGGER
                                    + r
@@ -145,10 +194,12 @@ renderFiles = do
 
 -- | Renders a single top-level directory, using its already-rendered
 -- | child paths.
-renderTopLevelSection :: forall r.
+renderTopLevelSection :: forall r others.
                          UriPath -> FilePath ->
-                         Run ( reader :: READER Env
+                         Run ( reader :: READER (Env others)
                              | READ_PATH
+                             + FILE_PARSER
+                             + RENDERER
                              + VERIFY_LINK
                              + LOGGER
                              + r
@@ -158,13 +209,15 @@ renderTopLevelSection topLevelFullPath topLevelPathSegment = do
   unparsedPaths <- readDir topLevelFullPath.fs
   let sortedPaths = sortBy env.sortPaths unparsedPaths
   renderedPaths <- catMaybes <$> traverse (renderPath 0 topLevelFullPath) sortedPaths
-  pure $ env.renderTopLevel topLevelPathSegment renderedPaths
+  renderTopLevel topLevelPathSegment renderedPaths
 
 -- | Renders the given path, whether it is a directory or a file.
-renderPath :: forall r.
+renderPath :: forall r others.
               Int -> UriPath -> FilePath ->
-              Run ( reader :: READER Env
+              Run ( reader :: READER (Env others)
                   | READ_PATH
+                  + FILE_PARSER
+                  + RENDERER
                   + VERIFY_LINK
                   + LOGGER
                   + r
@@ -177,7 +230,7 @@ renderPath depth fullParentPath childPath = do
     Just Dir
       | env.includePath NormalDirectory childPath -> do
           logDebug $ "Rendering directory (start): " <> fullChildPath.fs
-          output <- renderDir depth fullChildPath childPath
+          output <- renderDirectory depth fullChildPath childPath
           logDebug $ "Rendering directory (done) : " <> fullChildPath.fs
           pure $ Just output
       | otherwise                       -> do
@@ -186,7 +239,7 @@ renderPath depth fullParentPath childPath = do
     Just File
       | env.includePath A_File childPath -> do
           logDebug $ "Rendering File (start): " <> fullChildPath.fs
-          output <- renderFile depth fullChildPath childPath
+          output <- renderOneFile depth fullChildPath childPath
           logDebug $ "Rendering File (done) : " <> fullChildPath.fs
           pure $ Just output
       | otherwise                 -> do
@@ -197,31 +250,35 @@ renderPath depth fullParentPath childPath = do
       pure Nothing
 
 -- | Renders the given directory and all of its already-rendered child paths
-renderDir :: forall r.
+renderDirectory :: forall r others.
              Int -> UriPath -> FilePath ->
-             Run ( reader :: READER Env
+             Run ( reader :: READER (Env others)
                  | READ_PATH
+                 + FILE_PARSER
+                 + RENDERER
                  + VERIFY_LINK
                  + LOGGER
                  + r
                  ) String
-renderDir depth fullDirPath dirPathSegment = do
+renderDirectory depth fullDirPath dirPathSegment = do
   env <- ask
   unparsedPaths <- readDir fullDirPath.fs
   let sortedPaths = sortBy env.sortPaths unparsedPaths
   renderedPaths <- catMaybes <$> traverse (renderPath (depth + 1) fullDirPath) sortedPaths
-  pure $ env.renderDir depth dirPathSegment renderedPaths
+  renderDir depth dirPathSegment renderedPaths
 
 -- | Renders the given file and all of its headers
-renderFile :: forall r.
+renderOneFile :: forall r others.
               Int -> UriPath -> FilePath ->
-              Run ( reader :: READER Env
+              Run ( reader :: READER (Env others)
                   | READ_PATH
+                  + FILE_PARSER
+                  + RENDERER
                   + VERIFY_LINK
                   + LOGGER
                   + r
                   ) String
-renderFile depth fullFilePath filePathSegment = do
+renderOneFile depth fullFilePath filePathSegment = do
   let fullFsPath = fullFilePath.fs
   let fullUrl = fullFilePath.url
   env <- ask
@@ -240,7 +297,7 @@ renderFile depth fullFilePath filePathSegment = do
       else do
         pure $ Just fullUrl
   content <- readFile fullFsPath
-  let headers = env.parseFile filePathSegment content
+  headers <- parseFile filePathSegment content
   logDebug $ "Headers for file:"
   logDebug $ intercalate "\n" (showTree <$> headers)
-  pure $ env.renderFile depth url filePathSegment headers
+  renderFile depth url filePathSegment headers

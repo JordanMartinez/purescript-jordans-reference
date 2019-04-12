@@ -7,20 +7,20 @@ import Data.Either (Either(..))
 import Data.Foldable (elem, notElem)
 import Data.List (List(..))
 import Data.Maybe (Maybe(..))
-import Data.String (Pattern(..), split)
-import Data.String.CodeUnits (length, take)
+import Data.String (Pattern(..), length, split, take)
 import Data.String.Utils (endsWith)
 import Data.Tree (Tree)
 import Effect (Effect)
 import Node.Path (extname, sep)
 import Node.Yargs.Applicative (flag, runY, yarg)
 import Node.Yargs.Setup (YargsSetup, example, usage)
+import ToC.API (ProductionEnv)
 import ToC.Core.FileTypes (HeaderInfo)
 import ToC.Core.GitHubLinks (renderGHPath)
 import ToC.Core.Paths (FilePath, IncludeablePathType(..), WebUrl, addPath')
 import ToC.Domain.Parser (extractMarkdownHeaders, extractPurescriptHeaders)
-import ToC.Domain.Renderer.MarkdownRenderer (renderToC, renderTopLevel, renderDir, renderFile)
-import ToC.Domain.Types (Env, LogLevel(..))
+import ToC.Domain.Renderer.MarkdownRenderer (renderDir, renderFile, renderToC, renderTopLevel)
+import ToC.Domain.Types (LogLevel(..))
 import ToC.Infrastructure.OSFFI (endOfLine)
 
 usageAndExample :: YargsSetup
@@ -47,9 +47,10 @@ usageAndExample =
          "Produces a Table of Contents file whose hyperlinks use the \
          \'development' branch name instead of `latestRelease`."
 
-runProgramViaCLI :: (Env -> Effect Unit) -> Effect Unit
-runProgramViaCLI runOnceEnvConfigured = do
-  runY usageAndExample $ (setupEnv runOnceEnvConfigured)
+runProgramViaCLI :: (ProductionEnv -> Effect Unit)
+                 -> Effect Unit
+runProgramViaCLI programThatUsesProdEnv = do
+  runY usageAndExample $ (setupEnvThenRun programThatUsesProdEnv)
         <$> yarg "r" ["root-dir"]
               (Just "The local computer's file path to the root directory that \
                     \contains this repository.")
@@ -103,34 +104,34 @@ runProgramViaCLI runOnceEnvConfigured = do
               (Just "Do not verify whether hyperlinks work, \
                     \but still render the ToC file with them.")
 
-setupEnv :: (Env -> Effect Unit) ->
-            FilePath -> FilePath ->
-            Array String -> Array String -> Array String ->
-            String -> String -> String ->
-            String -> Boolean ->
-            Effect Unit
-setupEnv runProgramWithEnvironmentConfig
+setupEnvThenRun :: (ProductionEnv -> Effect Unit) ->
+                   FilePath -> FilePath ->
+                   Array String -> Array String -> Array String ->
+                   String -> String -> String ->
+                   String -> Boolean ->
+                   Effect Unit
+setupEnvThenRun runProgramUsingEnv
              rootDirectory outputFile
              excludedTopLevelDirs excludedRegularDir includedFileExtensions
              ghUsername ghProjectName ghBranchName
              logLevel skipVerification
-             = do
-  runProgramWithEnvironmentConfig
-    { rootUri: { fs: rootDir
-               , url: rootURL
-               }
-    , addPath: addPath' sep
-    , includePath: includePath
-    , outputFile: outputFile
-    , sortPaths: sortPaths
-    , parseFile: parseFile
-    , renderToC: renderToC
-    , renderTopLevel: renderTopLevel
-    , renderDir: renderDir
-    , renderFile: renderFile
-    , logLevel: level
-    , shouldVerifyLinks: not skipVerification
-    }
+             =
+    runProgramUsingEnv
+      { rootUri: { fs: rootDir
+                 , url: rootURL
+                 }
+      , addPath: addPath' sep
+      , includePath: includePath
+      , outputFile: outputFile
+      , sortPaths: sortPaths
+      , parseFile: parseFile
+      , renderToC: renderToC
+      , renderTopLevel: renderTopLevel
+      , renderDir: renderDir
+      , renderFile: renderFile
+      , logLevel: level
+      , shouldVerifyLinks: not skipVerification
+      }
   where
     rootDir :: FilePath
     rootDir =

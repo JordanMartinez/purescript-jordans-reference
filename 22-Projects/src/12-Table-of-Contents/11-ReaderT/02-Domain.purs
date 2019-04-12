@@ -2,6 +2,8 @@ module ToC.ReaderT.Domain
   ( program
   , class ReadPath, readDir, readFile, readPathType
   , class WriteToFile, writeToFile
+  , class FileParser, parseFile
+  , class Renderer, renderFile, renderDir, renderTopLevel, renderToC
   , class Logger, log, logInfo, logError, logDebug
   , class VerifyLink, verifyLink
   ) where
@@ -10,18 +12,22 @@ import Prelude
 
 import Control.Monad.Reader (class MonadAsk, ask)
 import Data.Array (catMaybes, intercalate, sortBy)
+import Data.List (List)
 import Data.Maybe (Maybe(..))
 import Data.Traversable (traverse)
-import Data.Tree (showTree)
+import Data.Tree (Tree, showTree)
+import ToC.Core.FileTypes (HeaderInfo)
 import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), UriPath, WebUrl)
 import ToC.Core.RenderTypes (TopLevelContent)
 import ToC.Domain.Types (Env, LogLevel(..))
 
-program :: forall m.
+program :: forall m r.
            Monad m =>
-           MonadAsk Env m =>
+           MonadAsk (Env r) m =>
            Logger m =>
            ReadPath m =>
+           FileParser m =>
+           Renderer m =>
            WriteToFile m =>
            VerifyLink m =>
            m Unit
@@ -33,11 +39,13 @@ program = do
 
 -- | Recursively walks the file tree, starting at the root directory
 -- | and renders each file and directory that should be included.
-renderFiles :: forall m.
+renderFiles :: forall m r.
                Monad m =>
-               MonadAsk Env m =>
+               MonadAsk (Env r) m =>
                Logger m =>
                ReadPath m =>
+               FileParser m =>
+               Renderer m =>
                VerifyLink m =>
                m String
 renderFiles = do
@@ -46,12 +54,12 @@ renderFiles = do
   let sortedPaths = sortBy env.sortPaths paths
   logDebug $ "All possible top-level directories\n" <> intercalate "\n" sortedPaths
   sections <- catMaybes <$> renderSectionsOrNothing env sortedPaths
-  pure $ env.renderToC sections
+  renderToC sections
 
   where
     -- | More or less maps the unrendered top-level directory array into
     -- | rendered top-level directory array.
-    renderSectionsOrNothing :: Env -> Array FilePath -> m (Array (Maybe TopLevelContent))
+    renderSectionsOrNothing :: Env r -> Array FilePath -> m (Array (Maybe TopLevelContent))
     renderSectionsOrNothing env paths =
       -- the function that follows 'parTraverse' is done in parallel
       paths # traverse \topLevelPath -> do
@@ -67,11 +75,13 @@ renderFiles = do
 
 -- | Renders a single top-level directory, using its already-rendered
 -- | child paths.
-renderTopLevelSection :: forall m.
+renderTopLevelSection :: forall m r.
                          Monad m =>
-                         MonadAsk Env m =>
+                         MonadAsk (Env r) m =>
                          Logger m =>
                          ReadPath m =>
+                         FileParser m =>
+                         Renderer m =>
                          VerifyLink m =>
                          UriPath -> FilePath -> m TopLevelContent
 renderTopLevelSection topLevelFullPath topLevelPathSegment = do
@@ -79,14 +89,16 @@ renderTopLevelSection topLevelFullPath topLevelPathSegment = do
   unparsedPaths <- readDir topLevelFullPath.fs
   let sortedPaths = sortBy env.sortPaths unparsedPaths
   renderedPaths <- catMaybes <$> traverse (renderPath 0 topLevelFullPath) sortedPaths
-  pure $ env.renderTopLevel topLevelPathSegment renderedPaths
+  renderTopLevel topLevelPathSegment renderedPaths
 
 -- | Renders the given path, whether it is a directory or a file.
-renderPath :: forall m.
+renderPath :: forall m r.
               Monad m =>
-              MonadAsk Env m =>
+              MonadAsk (Env r) m =>
               Logger m =>
               ReadPath m =>
+              FileParser m =>
+              Renderer m =>
               VerifyLink m =>
               Int -> UriPath -> FilePath -> m (Maybe String)
 renderPath depth fullParentPath childPath = do
@@ -97,7 +109,7 @@ renderPath depth fullParentPath childPath = do
     Just Dir
       | env.includePath NormalDirectory childPath -> do
           logDebug $ "Rendering directory (start): " <> fullChildPath.fs
-          output <- renderDir depth fullChildPath childPath
+          output <- renderDirectory depth fullChildPath childPath
           logDebug $ "Rendering directory (done) : " <> fullChildPath.fs
           pure $ Just output
       | otherwise                       -> do
@@ -106,7 +118,7 @@ renderPath depth fullParentPath childPath = do
     Just File
       | env.includePath A_File childPath -> do
           logDebug $ "Rendering File (start): " <> fullChildPath.fs
-          output <- renderFile depth fullChildPath childPath
+          output <- renderOneFile depth fullChildPath childPath
           logDebug $ "Rendering File (done) : " <> fullChildPath.fs
           pure $ Just output
       | otherwise                 -> do
@@ -117,29 +129,33 @@ renderPath depth fullParentPath childPath = do
       pure Nothing
 
 -- | Renders the given directory and all of its already-rendered child paths
-renderDir :: forall m.
-             Monad m =>
-             MonadAsk Env m =>
-             Logger m =>
-             ReadPath m =>
-             VerifyLink m =>
-             Int -> UriPath -> FilePath -> m String
-renderDir depth fullDirPath dirPathSegment = do
+renderDirectory :: forall m r.
+                   Monad m =>
+                   MonadAsk (Env r) m =>
+                   Logger m =>
+                   ReadPath m =>
+                   FileParser m =>
+                   Renderer m =>
+                   VerifyLink m =>
+                   Int -> UriPath -> FilePath -> m String
+renderDirectory depth fullDirPath dirPathSegment = do
   env <- ask
   unparsedPaths <- readDir fullDirPath.fs
   let sortedPaths = sortBy env.sortPaths unparsedPaths
   renderedPaths <- catMaybes <$> traverse (renderPath (depth + 1) fullDirPath) sortedPaths
-  pure $ env.renderDir depth dirPathSegment renderedPaths
+  renderDir depth dirPathSegment renderedPaths
 
 -- | Renders the given file and all of its headers
-renderFile :: forall m.
-              Monad m =>
-              MonadAsk Env m =>
-              Logger m =>
-              ReadPath m =>
-              VerifyLink m =>
-              Int -> UriPath -> FilePath -> m String
-renderFile depth fullFilePath filePathSegment = do
+renderOneFile :: forall m r.
+                  Monad m =>
+                  MonadAsk (Env r) m =>
+                  Logger m =>
+                  ReadPath m =>
+                  FileParser m =>
+                  Renderer m =>
+                  VerifyLink m =>
+                  Int -> UriPath -> FilePath -> m String
+renderOneFile depth fullFilePath filePathSegment = do
   let fullFsPath = fullFilePath.fs
   let fullUrl = fullFilePath.url
   env <- ask
@@ -158,10 +174,10 @@ renderFile depth fullFilePath filePathSegment = do
       else do
         pure $ Just fullUrl
   content <- readFile fullFsPath
-  let headers = env.parseFile filePathSegment content
+  headers <- parseFile filePathSegment content
   logDebug $ "Headers for file:"
   logDebug $ intercalate "\n" (showTree <$> headers)
-  pure $ env.renderFile depth url filePathSegment headers
+  renderFile depth url filePathSegment headers
 
 -- | A monad that has the capability of determining the path type of a path,
 -- | reading a directory for its child paths, and reading a file for its
@@ -172,6 +188,18 @@ class (Monad m) <= ReadPath m where
   readFile :: FilePath -> m String
 
   readPathType :: FilePath -> m (Maybe PathType)
+
+class (Monad m) <= FileParser m where
+  parseFile :: FilePath -> String -> m (List (Tree HeaderInfo))
+
+class (Monad m) <= Renderer m where
+  renderFile :: Int -> Maybe WebUrl -> FilePath -> List (Tree HeaderInfo) -> m String
+
+  renderDir :: Int -> FilePath -> Array String -> m String
+
+  renderTopLevel :: FilePath -> Array String -> m TopLevelContent
+
+  renderToC :: Array TopLevelContent -> m String
 
 -- | A monad that has the capability of writing content to a given file path.
 class (Monad m) <= WriteToFile m where

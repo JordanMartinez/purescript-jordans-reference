@@ -15,7 +15,8 @@ import ToC.Core.RenderTypes (TopLevelContent)
 -- |   backend:
 -- |    - `rootUri`
 -- |    - `addPath`
--- |    - `outputFile`
+-- | - a function for sorting paths (e.g. ReadMe.md file appears first before
+-- |      all others)
 -- | - a function to determine which directories and files to include/exclude:
 -- |    - `includepath`
 -- | - a function for parsing a file's content. One could use a different parser
@@ -30,19 +31,13 @@ import ToC.Core.RenderTypes (TopLevelContent)
 -- | - A level that indicates how much information to log to the console
 -- |    - `logLevel`
 -- | - A flag that indicates whether to verify links or not
-type Env = { rootUri :: UriPath
-           , addPath :: AddPath
-           , outputFile :: FilePath
-           , sortPaths :: FilePath -> FilePath -> Ordering
-           , includePath :: IncludeablePathType -> FilePath -> Boolean
-           , parseFile :: FilePath -> String -> List (Tree HeaderInfo)
-           , renderToC :: Array TopLevelContent -> String
-           , renderTopLevel :: FilePath -> Array String -> TopLevelContent
-           , renderDir :: Int -> FilePath -> Array String -> String
-           , renderFile :: Int -> Maybe WebUrl -> FilePath -> List (Tree HeaderInfo) -> String
-           , logLevel :: LogLevel
-           , shouldVerifyLinks :: Boolean
-           }
+type Env r = { rootUri :: UriPath
+             , addPath :: AddPath
+             , sortPaths :: FilePath -> FilePath -> Ordering
+             , includePath :: IncludeablePathType -> FilePath -> Boolean
+             , shouldVerifyLinks :: Boolean
+             | r
+             }
 
 -- | The amount and type of information to log.
 data LogLevel

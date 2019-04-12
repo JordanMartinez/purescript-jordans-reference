@@ -3,9 +3,11 @@ module ToC.ReaderT.API (AppM(..), runAppM) where
 import Prelude
 
 import Control.Monad.Reader.Trans (class MonadAsk, ReaderT, ask, asks, runReaderT)
+import Data.List (List(..))
 import Data.Maybe (Maybe(..))
 import Data.Options ((:=))
 import Data.String.CodeUnits (length, drop)
+import Data.Tree (Tree)
 import Effect.Aff (Aff)
 import Effect.Aff.Class (class MonadAff, liftAff)
 import Effect.Class (class MonadEffect, liftEffect)
@@ -16,18 +18,21 @@ import Node.FS.Aff as FS
 import Node.FS.Stats as Stats
 import Node.HTTP.Client (RequestHeaders(..), headers, hostname, method, path, protocol, statusCode)
 import ToC.Core.Paths (PathType(..), FilePath, WebUrl)
+import ToC.Core.FileTypes (HeaderInfo)
+import ToC.Core.RenderTypes (TopLevelContent, AllTopLevelContent)
 import ToC.Domain.Types (Env, LogLevel)
+import ToC.API (ProductionEnv)
 import ToC.Infrastructure.Http (mkRequestFromOpts)
-import ToC.ReaderT.Domain (class Logger, class ReadPath, class VerifyLink, class WriteToFile)
+import ToC.ReaderT.Domain (class Logger, class ReadPath, class VerifyLink, class WriteToFile, class FileParser, class Renderer)
 import Type.Equality (class TypeEquals, from)
 
--- | The 'sequential' version of our application's monad.
-newtype AppM a = AppM (ReaderT Env Aff a)
 
-runAppM :: Env -> AppM ~> Aff
+newtype AppM a = AppM (ReaderT ProductionEnv Aff a)
+
+runAppM :: ProductionEnv -> AppM ~> Aff
 runAppM env (AppM m) = runReaderT m env
 
-instance monadAskAppM :: TypeEquals e Env => MonadAsk e AppM where
+instance monadAskAppM :: TypeEquals e ProductionEnv => MonadAsk e AppM where
   ask = AppM $ asks from
 
 derive newtype instance functorAppM :: Functor AppM
@@ -66,6 +71,28 @@ instance readPathAppM :: ReadPath AppM where
         else if Stats.isFile stat
           then Just File
         else Nothing
+
+instance parseFileAppM :: FileParser AppM where
+  parseFile :: FilePath -> String -> AppM (List (Tree HeaderInfo))
+  parseFile path content =
+    asks (\e -> e.parseFile path content)
+
+instance rendererAppM :: Renderer AppM where
+  renderFile :: Int -> Maybe WebUrl -> FilePath -> List (Tree HeaderInfo) -> AppM String
+  renderFile indent url path headers =
+    asks (\e -> e.renderFile indent url path headers)
+
+  renderDir :: Int -> FilePath -> Array String -> AppM String
+  renderDir indent path childrenContent =
+    asks (\e -> e.renderDir indent path childrenContent)
+
+  renderTopLevel :: FilePath -> Array String -> AppM TopLevelContent
+  renderTopLevel path childrenContent =
+    asks (\e -> e.renderTopLevel path childrenContent)
+
+  renderToC :: Array TopLevelContent -> AppM String
+  renderToC allContent =
+    asks (\e -> e.renderToC allContent)
 
 instance writeToFileAppM :: WriteToFile AppM where
   writeToFile :: String -> AppM Unit
