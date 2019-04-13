@@ -1,69 +1,34 @@
-module Test.ToC.ReaderT (IncludedOrNot, VerifiedOrNot, FileSystemInfo(..), TestRows, TestEnv, TestState, TestM(..), runTestM, programAsTest, separator) where
+module Test.ToC.MainLogic.ReaderT (TestState, TestM(..), runTestM) where
 
 import Prelude
 
 import Control.Comonad.Cofree (head)
 import Control.Monad.Reader (class MonadAsk, ReaderT, asks, runReaderT)
-import Control.Monad.State (class MonadState, State, get, put, runState)
+import Control.Monad.State (class MonadState, StateT, put, runStateT)
+import Control.Monad.Trampoline (Trampoline, runTrampoline)
 import Data.Array (fold, foldl, last)
 import Data.List (List(..))
-import Data.Maybe (Maybe(..), fromJust)
+import Data.Maybe (Maybe(..))
 import Data.String (Pattern(..), split)
 import Data.Tree (Tree)
 import Data.Tree.Zipper (Loc, children, findFromRootWhere, fromTree, value)
-import Data.Tuple (Tuple)
-import Partial.Unsafe (unsafePartial)
+import Data.Tuple (Tuple(..))
+import Partial.Unsafe (unsafeCrashWith)
+import Test.ToC.MainLogic.Common (FileSystemInfo(..), TestEnv, separator, getPathName)
 import ToC.Core.FileTypes (HeaderInfo)
 import ToC.Core.Paths (FilePath, PathType(..), WebUrl)
 import ToC.Core.RenderTypes (TopLevelContent)
-import ToC.Domain.Types (Env)
-import ToC.ReaderT.Domain (class FileParser, class Logger, class ReadPath, class Renderer, class VerifyLink, class WriteToFile, program)
+import ToC.ReaderT.Domain (class FileParser, class Logger, class ReadPath, class Renderer, class VerifyLink, class WriteToFile)
 import Type.Equality (class TypeEquals, from)
-
-type IncludedOrNot = Boolean
-type VerifiedOrNot = Boolean
-
-data FileSystemInfo
-  = DirectoryInfo FilePath IncludedOrNot
-  | FileInfo FilePath IncludedOrNot (List (Tree HeaderInfo)) VerifiedOrNot
-
-type TestRows = ( fileSystem :: Tree FileSystemInfo
-                )
-type TestEnv = Env TestRows
 
 type TestState = String
 
-newtype TestM a = TestM (ReaderT TestEnv (State TestState) a)
+newtype TestM a = TestM (ReaderT TestEnv (StateT String Trampoline) a)
 
-runTestM :: forall a. TestEnv -> TestM a -> Tuple a String
+runTestM :: forall a. TestEnv -> TestM a -> String
 runTestM env (TestM program) =
-  runState (runReaderT program env) ""
-
-programAsTest :: forall m.
-                 Monad m =>
-                 -- capabilities that `program` requires,
-                 -- which are implemented via the ReaderT part
-                 MonadAsk TestEnv m =>
-                 Logger m =>
-                 ReadPath m =>
-                 FileParser m =>
-                 Renderer m =>
-                 VerifyLink m =>
-
-                 -- Monad state that simulates impure code
-                 WriteToFile m =>
-                 MonadState TestState m =>
-
-                 -- Since the `m` here is a pure monad
-                 -- (i.e. either `Identity` or `Trampoline`),
-                 -- this is the same as returning 'Boolean',
-                 -- which indicates whether this test passed or not
-                 m String
-programAsTest = do
-  -- run the program, which will "write" its output into the state monad
-  program
-  -- get the final output
-  get
+  let (Tuple unit_ content) = runTrampoline $ runStateT (runReaderT program env) ""
+  in content
 
 instance monadAskTestM :: TypeEquals e TestEnv => MonadAsk e TestM where
   ask = TestM $ asks from
@@ -74,15 +39,6 @@ derive newtype instance applicativeTestM :: Applicative TestM
 derive newtype instance bindTestM :: Bind TestM
 derive newtype instance monadTestM :: Monad TestM
 derive newtype instance monadStateTestM :: MonadState String TestM
-
--- helper functions
-separator :: String
-separator = "/"
-
-getPathName :: FileSystemInfo -> String
-getPathName = case _ of
-  DirectoryInfo name _ -> name
-  FileInfo name _ _ _ -> name
 
 -- implement type classes
 
@@ -96,13 +52,19 @@ instance readPathTestM :: ReadPath TestM where
       let maybeArrayPaths = getChildren fileSystemLoc
 
       -- catch possible bugs in our randomly-generated data
-      pure $ unsafePartial $ fromJust maybeArrayPaths
+      pure $ case maybeArrayPaths of
+        Just array -> array
+        Nothing ->
+          unsafeCrashWith "readDir failed. There is a problem with our generator."
 
     where
       getChildren :: Loc FileSystemInfo -> Maybe (Array FilePath)
       getChildren fileSystemLoc = do
+        -- let _ = spy "path" path
         let pathSegments = split (Pattern separator) path
+        -- let _ = spy "pathSegments" pathSegments
         lastPath <- last pathSegments
+        -- let _ = spy "lastPath" lastPath
         foundLoc <- findFromRootWhere (\a -> getPathName a == lastPath) fileSystemLoc
         case value foundLoc of
           DirectoryInfo _ _ -> do
@@ -161,7 +123,10 @@ instance verifyLinksTestM :: VerifyLink TestM where
       let maybeVerified = getFileLink fileSystemLoc
 
       -- catch possible bugs in our randomly-generated data
-      pure $ unsafePartial $ fromJust maybeVerified
+      pure $ case maybeVerified of
+        Just v -> v
+        Nothing ->
+          unsafeCrashWith "verifyLink failed. There is a problem with our generator"
     where
       getFileLink :: Loc FileSystemInfo -> Maybe Boolean
       getFileLink fileSystemLoc = do
