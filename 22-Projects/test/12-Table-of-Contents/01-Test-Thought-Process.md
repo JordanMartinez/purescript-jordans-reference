@@ -101,22 +101,24 @@ Most of the above capabilities can be defined by looking up their value that's s
 -- covers `readDir`, `readPathType`, `verifyLink`
 mostFunctions :: FilePath -> m resultType
 mostFunctions fullFilePath = do
-  fileSystem <- asks \e -> e.fileSystem
-  let fileSystemLoc = fromTree fileSystem
+    fileSystem <- asks \env -> env.fileSystem
+    let fileSystemLoc = fromTree fileSystem
+    let maybeInfoWeNeed = getInformation fileSystemLoc
 
-  maybeInformation <- runMaybeT do
-    let pathSegments = split (Pattern separator) fullFilePath
-    lastPath <- last pathSegments
-    foundLoc <- findFromRoot lastPath fileSystemLoc
-    case value foundLoc of
-      DirectoryInfo path includedOrNot ->
-        -- path was a directory. Do something with it.
-      FileInfo path includedOrNot headers ->
-        -- path was a file. Do something with it.
-  pure $ fromMaybe defaultValue maybeInformation
-  -- or use the unsafe partial version to crash our test if it was
-  -- implemented incorrectly
-  -- pure $ unsafePartial $ fromJust maybeInformation
+    pure $ case maybeInfoWeNeed of
+      Just info -> info
+      Nothing -> unsafeCrashWith "Problem in our generator. Expectations not met."
+  where
+    getInformation :: Loc FileSystemInfo -> Maybe InformationWeNeed
+    getInformation fileSystemLoc = do
+      let pathSegments = split (Pattern separator) fullFilePath
+      lastPath <- last pathSegments
+      foundLoc <- findFromRoot lastPath fileSystemLoc
+      case value foundLoc of
+        DirectoryInfo path includedOrNot ->
+          -- path was a directory. Do something with it.
+        FileInfo path includedOrNot headers verifiedOrNot ->
+          -- path was a file. Do something with it.
 ```
 
 We'll handle the "write output to file" part using the state monad:
@@ -129,8 +131,6 @@ writeToFile content = do
 Third, we'll use very simplistic `readFile` and `parser` functions. `readFile` will return an empty string and `parseFile` will return an empty list.
 
 Fourth, the `render` functions will only render each path name (top-level directories, normal directories, and files) on a single line, making it easy to parse that output later.
-
-Lastly, we'll test whether the program works correctly (answers question 1 & 2) by running the 'program' logic in a pure base monad.
 
 Using the above approach, we can now answer the above two questions...
 
