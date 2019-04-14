@@ -180,6 +180,10 @@ Lastly, to prevent the generated file system from being too massive, we'll limit
 
 **At this point, you should check out the `Main Logic` folder's contents to see how these tests were implemented.**
 
+At this point, the sorting question (Question 2) is not yet answered. I'm not quite sure how I should test it, partly because it feels like I'm just testing whether the `sort` function works or not (pointless to do) and partly because I'm not sure how this should affect other parts of the test (specifically, how the fake and simple `render` function can still produce the same output) and the fake file system generation.
+
+Moreover, this doesn't yet test how things are handled when a file's corresponding URL couldn't be verified. Perhaps, you, the reader, can build upon what I've written thus far and add a test for it.
+
 ## The "Outsourced" Logic Tests
 
 In this phase, we wish to answer these questions:
