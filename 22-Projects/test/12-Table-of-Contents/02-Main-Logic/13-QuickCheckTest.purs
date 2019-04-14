@@ -1,4 +1,4 @@
-module Test.ToC.QuickCheckTest where
+module Test.ToC.MainLogic.QuickCheckTest where
 
 import Prelude
 
@@ -13,18 +13,27 @@ import Test.QuickCheck.Gen (randomSample')
 import Test.ToC.MainLogic.Common (FileSystemInfo(..), TestEnv, separator, getPathName)
 import Test.ToC.MainLogic.Generators (genFileSystem)
 import Test.ToC.MainLogic.ReaderT (runTestM)
+import Test.ToC.MainLogic.Run (runDomain)
 import Test.ToC.MainLogic.ToCTestData (ToCTestData(..))
 import ToC.Core.Paths (addPath')
-import ToC.ReaderT.Domain (program)
+import ToC.ReaderT.Domain as ReaderT
+import ToC.Run.Domain as Run
 
 
 main :: Effect Unit
 main = do
 
+  -- in case one wants to see what the randomly-generated file system looks like
   -- showSample 4
 
-  -- quickCheck' 1000 testReaderT -- swap this line with next
-  quickCheck testReaderT
+  log "ReaderT quickcheck test"
+  -- quickCheck' 1000 $ testApproach (\env -> runTestM env ReaderT.program)
+  quickCheck $ testApproach (\env -> runTestM env ReaderT.program)
+
+  log ""
+  log "Run quickcheck test"
+  -- quickCheck' 1000 $ testApproach (\env -> runDomain env Run.program)
+  quickCheck $ testApproach (\env -> runDomain env Run.program)
 
 showSample :: Int -> Effect Unit
 showSample sampleNumber = do
@@ -33,11 +42,12 @@ showSample sampleNumber = do
     log $ showTree sample
     log "============"
 
-testReaderT :: ToCTestData -> Result
-testReaderT (ToCTestData generatedData) =
+testApproach :: (TestEnv -> String) -> ToCTestData -> Result
+testApproach runProgramPurely (ToCTestData generatedData) =
   let
-    -- run the program using our TestM monad
-    outputFileContents = runTestM (testEnv generatedData.fileSystem) program
+    -- run the program using our TestM monad (ReaderT)
+    -- or using a different set of interpreters/algebras (Run)
+    outputFileContents = runProgramPurely (testEnv generatedData.fileSystem)
 
   in
     -- check whether the contents of the two lists are the same
