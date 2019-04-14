@@ -85,7 +85,7 @@ Since the parser and renderer functions will not change between test runs, we'll
 
 In code:
 ```purescript
-type TestRows = ( /* Undefined for now, but these will include other things */
+type TestRows = ( {- Undefined for now, but these will include other things -}
                 )
 type TestEnv = Env TestRows
 newtype TestM a = TestM (ReaderT TestEnv (State String) a)
@@ -161,7 +161,7 @@ data Tree branch leaf
 
 AFAIK, there isn't a library written in PureScript with this definition that also includes a Zipper (i.e. `Tree`'s `Loc` type). I'm not going to write one for this task because I can workaround `Tree`'s design to make it work for here.
 
-We'll need to store different data depending on whether the path is a directory or file. While we may not use all of the data, the following should be future-proof:
+We'll need to store different data depending on whether the path is a directory or file. Since we're using `Tree`, we'll merge both file and directory types into one. While we may not use all of the data, the following should be future-proof:
 ```purescript
 -- whether this path should be included or not
 type IncludedOrNot = Boolean
