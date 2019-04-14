@@ -85,13 +85,7 @@ Since the parser and renderer functions will not change between test runs, we'll
 
 In code:
 ```purescript
-type IncludedOrNot = Boolean
-
-data FileSyStemInfo
-  = DirectoryInfo FilePath IncludedOrNot
-  | FileInfo FilePath IncludedOrNot (List (Tree HeaderInfo))
-
-type TestRows = ( fileSystem :: Tree FileSystemInfo
+type TestRows = ( /* Undefined for now, but these will include other things */
                 )
 type TestEnv = Env TestRows
 newtype TestM a = TestM (ReaderT TestEnv (State String) a)
@@ -136,107 +130,55 @@ Third, we'll use very simplistic `readFile` and `parser` functions. `readFile` w
 
 Fourth, the `render` functions will only render each path name (top-level directories, normal directories, and files) on a single line, making it easy to parse that output later.
 
-Lastly, we'll test whether the program works correctly (answers question 1 & 2) by wrapping the 'program' logic in another monadic computation sequence. Since our program's logic (`program`) is itself a pure function when our base monad is a pure monad (i.e. `Identity` or `Trampoline`), we can compose it with other pure functions to make a final pure monadic function. In code:
-```purescript
-theTest :: forall m.
-           Monad m =>
-           -- capabilities that `program` requires,
-           -- which are implemented via the ReaderT part
-           MonadAsk Env m =>
-           Logger m =>
-           ReadPath m =>
-           VerifyLink m =>
+Lastly, we'll test whether the program works correctly (answers question 1 & 2) by running the 'program' logic in a pure base monad.
 
-           -- Monad state that simulates impure code
-           MonadState String m =>
-           WriteToFile m =>
-
-           -- Since the `m` here is a pure monad
-           -- (i.e. either `Identity` or `Trampoline`),
-           -- this is the same as returning 'Boolean',
-           -- which indicates whether this test passed or not
-           m String
-theTest = do
-  -- run the program, which will "write" its output into the state monad
-  program
-  -- get the final output
-  gets (\state -> state.content)
-```
-
-Using the above approach, we can now answer the above two questions:
+Using the above approach, we can now answer the above two questions...
 
 > Are all files and directories that should be included actually included in the final output?
 > Do the files/directories always appear in the correct order? (i.e. the ReadMe.md file always appear before all other directories and files)?
 
-Yes if
-- the render function puts each path name on its own line
-- we parse the output file to get those path names and convert them into a list of paths
-- we verify that each element in that list is inside of the original list of path names and their items appear in the same order
-
-In code:
+... using the below quick check test:
 ```purescript
-quickCheckTest :: ?ToBeDetermined -> Boolean
-quickCheckTest generatedData =
-    -- check whether the contents of the two lists are the same
-    -- (same size, same items, same order).
-    outputtedList == generatedData.expectedPathList
+quickCheckTest :: ToCTestData -> Boolean
+quickCheckTest (ToCTestData generatedData) =
+    -- check whether the contents of the two renderings are the same
+    outputtedFile == generatedData.expectedOutput
   where
-    -- run the program using our TestM monad
-    programRun = runState "" (runReaderT generatedData.env theTest)
-
-    -- get the output file's content
-    outputFile =
-      -- pattern match to expose the content value
-      let (Tuple state content) = programRun
-      -- return that content value
-      in content
-
-    -- "parse" that output file into a list of path names
-    outputtedList = split (Pattern "\n") outputFile
+    -- run the program using our TestM monad (ReaderT) / pure interpreters (Run)
+    outputtedFile = fst $ runState (runReaderT generatedData.env program) ""
 ```
 
 ### Generating Data for the Main Tests
 
+Most of the data we'll need to generate is the fake file system, which has a tree-like structure. However, the `Tree` we've used for storing headers isn't the best type to use for this situation. When storing headers, the branch and leaf types are the same. In a file system, the branch types are always directories and the leaves are always file types.
 
-TODO: need to figure out best way to do this...
-
-Thus, the state type we'd use for our `TestM` monad might look like this:
+Ideally, we'd want a tree type whose definition looks like this:
 ```purescript
-data ContentType
-  = File String
-  | Dir (Array String)
-
-type TestData = { pathMap :: Map String ContentType
-                , output :: String
-                , linkMap :: Map WebUrl Boolean
-                }
-
-newtype TestM = ReaderT Env (State TestData)
+data Tree branch leaf
+  = Leaf leaf
+  | Branch branch (Tree branch leaf)
 ```
 
-To generate our data for the above, we'd need to generate a fake file system:
+AFAIK, there isn't a library written in PureScript with this definition that also includes a Zipper (i.e. `Tree`'s `Loc` type). I'm not going to write one for this task because I can workaround `Tree`'s design to make it work for here.
+
+We'll need to store different data depending on whether the path is a directory or file. While we may not use all of the data, the following should be future-proof:
 ```purescript
-genTestData :: Gen TestData
-genTestData = do
-  topLevelNames <- genUniquePathNames
-  topLevelDirsOrFiles <- for topLevelNames \name -> do
-    pathType <- leftOrRight
-    case pathType of
-      Left -> File name
-    (choose 0 1) <#> (\oneOrZero ->
-      case oneOrZero of
-        0 -> File name
-        1 -> Dir name
-    )
+-- whether this path should be included or not
+type IncludedOrNot = Boolean
 
+-- whether the url for this path will return an HTTP OK code or not
+type VerifiedOrNot = Boolean
 
-  pure { fileMap: fileMap
-       , dirMap: dirMap
-       , content: ""
-       , linkMap: linkMap
-       }
-
+data FileSyStemInfo
+  = DirectoryInfo FilePath IncludedOrNot
+  | FileInfo FilePath IncludedOrNot (List (Tree HeaderInfo)) VerifiedOrNot
 ```
+
+When generating our file system, there's one requirement we must uphold: a directory that should be included must always have at least one child path that should also be included (whether this is a file or another directory). However, to make it realistic, this directory might sometimes have a path (file or directory) that should not be included.
+
+Lastly, to prevent the generated file system from being too massive, we'll limit the depth of the file system, so that a directory that is one level above that maximum depth stores only files (included or not).
+
+**At this point, you should check out the `Main Logic` folder's contents to see how these tests were implemented.**
 
 ## The "Outsourced" Logic Tests
 
@@ -253,6 +195,8 @@ Property-testing the `parser` function won't be difficult because the `stringify
 Property-testing the `render` function will be more challenging because `parsirfy` will be harder to implement.
 
 ### Generating Our Test Data
+
+TODO: This is still a WIP
 
 ## The Golden Test
 
