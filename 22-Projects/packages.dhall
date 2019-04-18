@@ -140,7 +140,7 @@ let additions =
           mkPackage
           [ "prelude", "console", "lists", "free" ]
           "https://github.com/JordanMartinez/purescript-tree"
-          "v1.3.4"
+          "v1.3.5"
       , string-utils =
           mkPackage
           [ "either"
