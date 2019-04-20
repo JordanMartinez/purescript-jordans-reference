@@ -21,7 +21,7 @@ import Data.Tuple (Tuple(..))
 import RandomNumber.Core (Bounds, RemainingGuesses, RandomInt, GameResult(..), mkBounds, mkRemainingGuesses, mkRandomInt, decrement)
 import Partial.Unsafe (unsafePartial)
 import Test.QuickCheck.Arbitrary (class Arbitrary)
-import Test.QuickCheck.Gen (Gen, chooseInt, oneOf, suchThat, vectorOf, randomSample)
+import Test.QuickCheck.Gen (Gen, chooseInt, oneOf, suchThat, vectorOf)
 
 type MockedBounds = Tuple Int Int
 

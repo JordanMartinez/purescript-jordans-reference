@@ -3,7 +3,7 @@ module ToC.ReaderT.API (AppM(..), runAppM) where
 import Prelude
 
 import Control.Monad.Reader.Trans (class MonadAsk, ReaderT, ask, asks, runReaderT)
-import Data.List (List(..))
+import Data.List (List)
 import Data.Maybe (Maybe(..))
 import Data.Options ((:=))
 import Data.String.CodeUnits (length, drop)
@@ -19,8 +19,8 @@ import Node.FS.Stats as Stats
 import Node.HTTP.Client (RequestHeaders(..), headers, hostname, method, path, protocol, statusCode)
 import ToC.Core.Paths (PathType(..), FilePath, WebUrl)
 import ToC.Core.FileTypes (HeaderInfo)
-import ToC.Core.RenderTypes (TopLevelContent, AllTopLevelContent)
-import ToC.Domain.Types (Env, LogLevel)
+import ToC.Core.RenderTypes (TopLevelContent)
+import ToC.Domain.Types (LogLevel)
 import ToC.API (ProductionEnv)
 import ToC.Infrastructure.Http (mkRequestFromOpts)
 import ToC.ReaderT.Domain (class Logger, class ReadPath, class VerifyLink, class WriteToFile, class FileParser, class Renderer)
