@@ -6,7 +6,7 @@ This file serves to show how GitHub renders anchor links in the URL for various 
 
 ### Simple Phrase
 
-### Phrase with ~ `code` ! @ # $ % ^ & * ( ) - _ = + [ { ] } ; : ' " , < . > / ? Punctuation Throughout
+### Phrase with punctuation throughout start~`!@#$%^&*()-_=+[{]};:'",<.>/?end
 
 ## Examples with WhiteSpace
 
