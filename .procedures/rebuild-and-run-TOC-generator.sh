@@ -15,4 +15,7 @@ cd ../
 # Then re-generate the ToC file
 echo "Now running program"
 node 22-Projects/dist/table-of-contents/ghtoc.js -r "." -o "./table-of-contents.md" --log-level "info"
-echo "Finished creating the ToC file.
+echo "Finished creating the ToC file."
+
+# Copy and paste this code into terminal once above check passes
+# node 22-Projects/dist/table-of-contents/ghtoc.js -r "." -o "./table-of-contents.md" --github-reference "ps-0.12.x-v0.13.0" --skip-url-verification
