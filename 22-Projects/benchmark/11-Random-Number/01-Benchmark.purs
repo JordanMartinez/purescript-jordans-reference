@@ -9,8 +9,8 @@ import Benchotron.UI.Console (runSuite)
 import Test.RandomNumber.Generators (TestData(..))
 import Test.RandomNumber.ReaderT.Standard.DifferentMonad as DifferentMonad
 import Test.RandomNumber.ReaderT.Standard.SameMonad as SameMonad
-import Test.RandomNumber.Run.Standard.Infrastructure as StandardRun
-import Test.RandomNumber.Run.Layered.Infrastructure as LayeredRun
+import Test.RandomNumber.Run.Standard as StandardRun
+import Test.RandomNumber.Run.Layered as LayeredRun
 
 import Performance.RandomNumber.Generators (WinData(..), LoseData(..), genWinData, genLoseData)
 
