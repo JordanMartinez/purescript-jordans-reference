@@ -112,9 +112,10 @@ npm install benchmark yargs
 spago build -p "benchmark/**/*.purs"
 
 # Node-based tests
-spago test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
-spago test -m Test.Games.RandomNumber.ReaderT.Standard.SameMonad
-spago test -m Test.Games.RandomNumber.Run.Standard.Infrastructure
+spago test -m Test.RandomNumber.ReaderT.Standard.DifferentMonad
+spago test -m Test.RandomNumber.ReaderT.Standard.SameMonad
+spago test -m Test.RandomNumber.Run.Standard
+spago test -m Test.RandomNumber.Run.Layered
 cd ../
 
 echo "... Finished ...."

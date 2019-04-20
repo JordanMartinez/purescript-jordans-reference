@@ -14,18 +14,20 @@ branches:
   only:
   - latestRelease
 
+## Note: the "dhall-to-json" binary version number differs from the
+## tagged release number for the `dhall-haskell` project 
 # Define environment
-env:
-  global:
-    - DHALL_TO_JSON_VERSION=1.20.1
-    # ^ true regardless of matrix
+#env:
+#  global:
+#    - DHALL_TO_JSON_VERSION=1.21.0
+#    # ^ true regardless of matrix
 
 before_install:
   - export PATH=$HOME/bin:$PATH
   # ^ Include the folder that will store the "dhall-to-json" binary on PATH
 
 install:
-  - wget -O $HOME/dhall-json.tar.gz https://github.com/dhall-lang/dhall-haskell/releases/download/$DHALL_TO_JSON_VERSION/dhall-json-$DHALL_TO_JSON_VERSION-x86_64-linux.tar.bz2
+  - wget -O $HOME/dhall-json.tar.gz https://github.com/dhall-lang/dhall-haskell/releases/download/1.21.0/dhall-json-1.2.7-x86_64-linux.tar.bz2
   # ^ Download the Dhall-to-JSON archive
   - mkdir $HOME/dhall-json
   # ^ Make directory, so that next command works (directory must already exist)
@@ -34,7 +36,7 @@ install:
   - mv $HOME/dhall-json/bin/dhall-to-json $HOME/bin/
   # ^ dhall-json comes with two binaries, but we only need 'dhall-to-json'
   # Move that binary into $HOME/bin/ so that it is on the PATH
-  - npm i -g purescript@0.12.3 spago
+  - npm i -g purescript@0.12.5 spago
   # ^ Use NPM to install most packages
   - chmod +x .travis/spago--print-versions.sh
   - ./.travis/spago--print-versions.sh

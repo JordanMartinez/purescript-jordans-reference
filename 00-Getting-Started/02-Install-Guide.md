@@ -19,7 +19,7 @@ We'll show how to install the following programs:
 
 ### Installation
 
-Justin Woo explains how to set up one's environment for the `0.12.x` release but has not been updated for two things. First, the PureScript release at the time was `0.12.0` but now `0.12.3` is out. Second, the instructions use `pulp` and `psc-package`, a different build tool workflow than the one we'll use here.
+Justin Woo explains how to set up one's environment for the `0.12.x` release but has not been updated for two things. First, the PureScript release at the time was `0.12.0` but now `0.12.5` is out. Second, the instructions use `pulp` and `psc-package`, a different build tool workflow than the one we'll use here.
 
 If you just want to get things set up ASAP, follow the below summary of his article's instructions (using `spago` instead of the other tools). If you want to understand why you should do these commands, read [his article here](https://qiita.com/kimagure/items/570e6f2bbce5b4724564):
 1. Install Node 10 or greater: https://nodejs.org/en/download/
@@ -29,21 +29,21 @@ If you just want to get things set up ASAP, follow the below summary of his arti
 
 NPM will then be used to install 3 of the above requirements. Run this command:
 ```bash
-npm i -g purescript@0.12.3 spago parcel
+npm i -g purescript@0.12.5 spago parcel
 ```
 
-`dhall-to-json` (we're using version `1.20.1`) requires separate installation. To install `dhall-to-json` for your platform, see their [Getting Started](https://github.com/dhall-lang/dhall-lang/wiki/Getting-started%3A-Generate-JSON-or-YAML#installation).
+`dhall-to-json` (we're using version `1.21.0`) requires separate installation. To install `dhall-to-json` for your platform, see their [Getting Started](https://github.com/dhall-lang/dhall-lang/wiki/Getting-started%3A-Generate-JSON-or-YAML#installation).
 
 ### Versions Used in this Project
 
 The following commands should now work (the versions beside them are the versions I used when writing this project):
 ```bash
-purs --version        # 0.12.3
+purs --version        # 0.12.5
 spago version         # 0.7.4.0
 parcel --version      # 1.12.0
 
 # dhall-to-json does not have a version command
-# but we're using `1.20.1` in this project.
+# but we're using `1.21.0` in this project.
 ```
 
 ### Building This Project

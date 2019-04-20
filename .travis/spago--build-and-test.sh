@@ -109,14 +109,19 @@ spago build -p "benchmark/**/*.purs"
 PROJECTS_BUILT_OK=$?
 
 # Node-based tests
-spago test -m Test.Games.RandomNumber.ReaderT.Standard.DifferentMonad
+spago test -m Test.RandomNumber.ReaderT.Standard.DifferentMonad
 RANDOM_TEST_READERT_DIFFERENT=$?
-spago test -m Test.Games.RandomNumber.ReaderT.Standard.SameMonad
+spago test -m Test.RandomNumber.ReaderT.Standard.SameMonad
 RANDOM_TEST_READERT_SAME=$?
-spago test -m Test.Games.RandomNumber.Run.Standard.Infrastructure
+spago test -m Test.RandomNumber.Run.Standard
 RANDOM_TEST_RUN_STANDARD=$?
-spago test -m Test.Games.RandomNumber.Run.Layered.Infrastructure
+spago test -m Test.RandomNumber.Run.Layered
 RANDOM_TEST_RUN_LAYERED=$?
+
+spago test -m Test.ToC.MainLogic.QuickCheckTest
+TOC_TEST_MAIN_LOGIC_BOTH=$?
+spago test -m Test.ToC.ParserLogic.QuickCheckTest
+TOC_TEST_PARSER_LOGIC_BOTH=$?
 cd ../
 
 echo ""
@@ -144,6 +149,8 @@ echo "$RANDOM_TEST_READERT_DIFFERENT - Projects - RandomNumber - ReaderT Test (D
 echo "$RANDOM_TEST_READERT_SAME - Projects - RandomNumber - ReaderT Test (Same)"
 echo "$RANDOM_TEST_RUN_STANDARD - Projects - RandomNumber - Run Test (Standard)"
 echo "$RANDOM_TEST_RUN_LAYERED - Projects - RandomNumber - Run Test (Layered)"
+echo "$TOC_TEST_MAIN_LOGIC_BOTH - Projects - ToC - Main - Both"
+echo "$TOC_TEST_PARSER_LOGIC_BOTH - Projects - ToC - Parser - Both"
 
 if [ $SYNTAX_BASIC == 0 ] &&
    [ $SYNTAX_FFI == 0 ] &&
@@ -166,7 +173,9 @@ if [ $SYNTAX_BASIC == 0 ] &&
    [ $RANDOM_TEST_READERT_DIFFERENT == 0 ] &&
    [ $RANDOM_TEST_READERT_SAME == 0 ] &&
    [ $RANDOM_TEST_RUN_STANDARD == 0 ] &&
-   [ $RANDOM_TEST_RUN_LAYERED == 0 ]
+   [ $RANDOM_TEST_RUN_LAYERED == 0 ] &&
+   [ $TOC_TEST_MAIN_LOGIC_BOTH == 0 ] &&
+   [ $TOC_TEST_PARSER_LOGIC_BOTH == 0 ]
 then
   echo "Build Succeeded"
   exit 0;
