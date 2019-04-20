@@ -196,7 +196,7 @@ We've already proposed how we should property-test these:
 
 Property-testing the `parser` function won't be difficult because the `stringify` function should be straightforward.
 
-Property-testing the `render` function will be more challenging because `parsirfy` will be harder to implement.
+Property-testing the `render` function will be more challenging because `parsify` will be harder to implement.
 
 ### Generating Our Test Data
 
