@@ -32,7 +32,7 @@ NPM will then be used to install 3 of the above requirements. Run this command:
 npm i -g purescript@0.12.5 spago parcel
 ```
 
-`dhall-to-json` (we're using version `1.20.1`) requires separate installation. To install `dhall-to-json` for your platform, see their [Getting Started](https://github.com/dhall-lang/dhall-lang/wiki/Getting-started%3A-Generate-JSON-or-YAML#installation).
+`dhall-to-json` (we're using version `1.21.0`) requires separate installation. To install `dhall-to-json` for your platform, see their [Getting Started](https://github.com/dhall-lang/dhall-lang/wiki/Getting-started%3A-Generate-JSON-or-YAML#installation).
 
 ### Versions Used in this Project
 
@@ -43,7 +43,7 @@ spago version         # 0.7.4.0
 parcel --version      # 1.12.0
 
 # dhall-to-json does not have a version command
-# but we're using `1.20.1` in this project.
+# but we're using `1.21.0` in this project.
 ```
 
 ### Building This Project

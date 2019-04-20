@@ -17,7 +17,7 @@ branches:
 # Define environment
 env:
   global:
-    - DHALL_TO_JSON_VERSION=1.20.1
+    - DHALL_TO_JSON_VERSION=1.21.0
     # ^ true regardless of matrix
 
 before_install:
