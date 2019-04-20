@@ -7,7 +7,7 @@
 cd 22-Projects/
 
 # Build the program
-spago bundle --main Projects.ToC.Main --to dist/table-of-contents/ghtoc.js
+spago bundle --main ToC.ReaderT.Main --to dist/table-of-contents/ghtoc.js
 
 # Change directory to be at the root directory again.
 cd ../
