@@ -4,19 +4,22 @@ import Prelude
 
 import Control.Alt ((<|>))
 import Control.Comonad.Cofree ((:<))
+import Data.Array (foldMap)
+import Data.Char.Unicode (isAlphaNum)
 import Data.Either (Either(..))
-import Data.Foldable (foldl, intercalate)
+import Data.Foldable (fold)
 import Data.FoldableWithIndex (foldlWithIndex)
 import Data.List (reverse)
-import Data.List.Types (List(..), (:), NonEmptyList)
+import Data.List.Types (List(..), (:))
 import Data.Maybe (Maybe(..), maybe)
 import Data.String as String
+import Data.String.CodeUnits (singleton)
 import Data.Tree (Tree)
 import Data.Tree.Zipper (Loc, fromTree, insertAfter, insertChild, lastChild, root, toTree, value)
+import Text.Parsing.StringParser (Parser, unParser)
+import Text.Parsing.StringParser.CodeUnits (anyChar, eof, regex, satisfy, string)
+import Text.Parsing.StringParser.Combinators (choice, lookAhead, many, many1)
 import ToC.Core.FileTypes (HeaderInfo)
-import Text.Parsing.StringParser (Parser, runParser)
-import Text.Parsing.StringParser.CodePoints (regex, string, eof)
-import Text.Parsing.StringParser.Combinators (choice, lookAhead, many, many1, sepBy1)
 
 extractPurescriptHeaders :: Array String -> List (Tree HeaderInfo)
 extractPurescriptHeaders = extractHeaders (\lineNumber -> psLineWithMarkdownHeaders lineNumber)
@@ -28,9 +31,14 @@ extractHeaders :: (Int -> Parser HeaderInfo) -> Array String -> List (Tree Heade
 extractHeaders parser lines =
   let
     result = foldlWithIndex (\index acc nextLine ->
-        case runParser (parser index) nextLine of
-          Left _ -> acc
-          Right header ->
+        -- Either { pos :: Pos, error :: ParseError } { result :: a, suffix :: PosString }
+        case unParser (parser index) {pos: 0, str: nextLine} of
+          Left e ->
+            -- let _ = spy "position" e.pos
+            --     _ = spy "message" e.error
+            -- in
+              acc
+          Right {result: header, suffix: _} ->
             -- If the accumulator does not yet have a 'current header',
             -- Then store the just-parsed header as the 'current header'.
             -- Otherwise, attempt to nest the just-parsed header with
@@ -99,35 +107,47 @@ plainTextLinewithMarkdownHeaders = ado
   ignorePossibleTabsAndSpaces
   -- capture header text without changing the position of where we are
   -- in the string
-  headerText <- lookAhead $ regex ".*"
-  -- extract all the 'words' from the header text and change the position
-  headerAnchor <- wordParser
+  -- Code below is the same as `regex ".*"`, but it actually captures
+  -- all text unlike the regex code.
+  headerText <- lookAhead $ (foldMap singleton <$> (many1 anyChar))
+  -- parse out the anchor phrase and change the position of where we are
+  headerAnchor <- anchorParser
   -- ensure this is the end of the line
   eof
-  in { level: headerLevel, text: headerText, anchor: "#" <> (intercalate "-" headerAnchor) }
+  in { level: headerLevel, text: headerText, anchor: "#" <> headerAnchor }
 
   where
     -- | Removes all non-whitespace characters that are not
     -- | a letter or number or hyphen and combines the result together
     -- | into a word.
-    singleWord :: Parser String
-    singleWord = ado
-      wordParts <- many1 $ choice
+    anchorParser :: Parser String
+    anchorParser = ado
+      anchorParts <- many1 $ choice
         -- keep alphabetical (case-insensitive) characters or numbers
-        [ regex "[a-zA-Z0-9]+"
-        -- keep any hyphens and include them in a word
+        -- same as regular expression: "[a-zA-Z0-9]+"
+        [ foldMap singleton <$> (many1 $ satisfy isAlphaNum)
+        -- keep any hyphens and include them
         , string "-"
+        -- keep any underscores and include them
+        , string "_"
+        -- convert one or more white space chars into a single hyphen
+        , "-" <$ (many1 tabOrSpace)
         -- parse all other non-whitespace characters and return an empty string
-        , "" <$ (regex "[^a-zA-Z0-9 \t-]+")
+        -- Same idea as `"" <$ regex "[^a-zA-Z0-9 \t-_]+"`
+        , "" <$ (many1 $ satisfy (\c ->
+                  not ( isAlphaNum c
+                     || c == '-'
+                     || c == '_'
+                     || c == ' '
+                     || c == '\t'
+                  )
+                ))
         ]
+      -- let _ = spy "word parts" anchorParts
 
-      -- combine all the characters and hyphens together into a 'word'
-      in foldl (\acc next -> acc <> next) "" wordParts
-
-    -- | Find all 'words' that are separated by one or more
-    -- | whitespace characters
-    wordParser :: Parser (NonEmptyList String)
-    wordParser = sepBy1 singleWord (many1 tabOrSpace)
+      -- Combine all the string parts together into the final anchor string.
+      -- Same as calling `foldl (<>) "" anchorParts`
+      in fold anchorParts
 
 ignorePossibleTabsAndSpaces :: Parser Unit
 ignorePossibleTabsAndSpaces = void $ many tabOrSpace
