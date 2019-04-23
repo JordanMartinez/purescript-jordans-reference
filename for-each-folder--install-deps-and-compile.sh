@@ -108,7 +108,7 @@ cd 22-Projects/
 pwd
 rm -rf output/ .spago/
 rm -rf .psc-package/ .pulp-cache/ .psc-package.json
-npm install benchmark yargs
+npm install benchmark
 spago build -p "benchmark/**/*.purs"
 
 # Node-based tests

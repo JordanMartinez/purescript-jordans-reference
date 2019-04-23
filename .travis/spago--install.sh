@@ -66,7 +66,7 @@ cd ../../
 
 cd 22-Projects/
 pwd
-npm install benchmark yargs
+npm install benchmark
 spago install
 cd ../
 
