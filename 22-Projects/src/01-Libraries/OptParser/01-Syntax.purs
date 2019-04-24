@@ -90,14 +90,14 @@ sample2 = ado
   intValue <- option int
                     ( long "int-name"
                    <> short 'i'
-                   <> help "Shows what occurs when the flag is and is not present"
+                   <> help "An option that provides an integer value."
                    <> value 4
                    <> showDefault
                     )
   numberValue <- option number
                     ( long "number-name"
                    <> short 'n'
-                   <> help "Shows what occurs when the flag is and is not present"
+                   <> help "An option that provides a number value."
                    <> value 4.0
                    <> showDefault
                     )
