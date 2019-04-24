@@ -3,6 +3,7 @@ module Learn.OptParse where
 
 import Prelude
 
+import Data.Foldable (fold)
 import Effect (Effect)
 import Effect.Console (logShow)
 import ExitCodes (ExitCode(..))
@@ -27,8 +28,9 @@ main = do
                            -- always be included)
                <*> sample2 -- our command line parser
                 )
-            ( fullDesc -- I didn't detect a noticeable difference between
-                       -- `fullDesc` and `briefDesc`
+            ( fullDesc -- `fullDesc` shows all help text whereas
+                       -- `briefDesc` shows only help text of those that
+                       -- do not have the `hidden` modifier
            <> header "A message that only appears when the '--help' \
                      \flag is present. It appears above everything else."
            <> progDesc "Explains what the program does. Appears below the \
@@ -77,30 +79,32 @@ sample2 = ado
 
   -- Now that we have an idea for how this works,
   -- we can show the other values we can parse
+  -- Also, since each modifier is a Monoid, we can use
+  -- `fold [ mod1, mod2, mod3 ]` instead of `( mod1 <> mod2 <> mod3 )`
   someValue <- flag "value when flag is not present" "value when flag is present"
-                 ( long "flag-name"
-                <> short 'f'
-                <> help "Shows what occurs when the flag is and is not present"
-                 )
-  booleanValue <- switch
-                    ( long "switch"
-                   <> short 's'
-                   <> help "Shows what occurs when the flag is and is not present"
-                    )
-  intValue <- option int
-                    ( long "int-name"
-                   <> short 'i'
-                   <> help "An option that provides an integer value."
-                   <> value 4
-                   <> showDefault
-                    )
-  numberValue <- option number
-                    ( long "number-name"
-                   <> short 'n'
-                   <> help "An option that provides a number value."
-                   <> value 4.0
-                   <> showDefault
-                    )
+                $ fold [ long "flag-name"
+                       , short 'f'
+                       , help "Shows what occurs when the flag is and is not present"
+                       ]
+  booleanValue <- switch $ fold
+                    [ long "switch"
+                    , short 's'
+                    , help "Shows what occurs when the flag is and is not present"
+                    ]
+  intValue <- option int $ fold
+                    [ long "int-name"
+                    , short 'i'
+                    , help "An option that provides an integer value."
+                    , value 4
+                    , showDefault
+                    ]
+  numberValue <- option number $ fold
+                    [ long "number-name"
+                    , short 'n'
+                    , help "An option that provides a number value."
+                    , value 4.0
+                    , showDefault
+                    ]
   in { text1: helloText
      , text2: otherText
      , text3: thirdText
