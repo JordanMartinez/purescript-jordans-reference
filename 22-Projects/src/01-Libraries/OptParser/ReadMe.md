@@ -13,7 +13,7 @@ spago bundle -m Learn.OptParse -t dist/libraries/optparse/learnOptParse.js
 node dist/libraries/optparse/learnOptParse.js
 
 # Run the program with required arguments to see the program's output
-node dist/libraries/optparse/learnOptParse.js --long-name3 "example" --switch
+node dist/libraries/optparse/learnOptParse.js --long-name3 example --switch
 
 
 
@@ -32,5 +32,5 @@ spago bundle -m Learn.OptParse.GetRootDirViaEitherPath -t dist/libraries/optpars
 node dist/libraries/optparse/getRootViaEitherPath.js --rootDir <your absolute dir argument here>
 
 # Run the program using a relative path
-node dist/libraries/optparse/getRootViaEitherPath.js -r --rootDir "."
+node dist/libraries/optparse/getRootViaEitherPath.js -r --rootDir .
 ```

@@ -31,9 +31,9 @@ cd ../
 # Then run it using one of the below commands
 # To actually check whether the hyperlinks work, remove the
 # '--skip-url-verification' flag:
-node 22-Projects/dist/table-of-contents/readert-ghtoc.js -r "." -o "./table-of-contents.md" --log-level "info" --skip-url-verification
+node 22-Projects/dist/table-of-contents/readert-ghtoc.js -r . -o ./table-of-contents.md --log-level info --skip-url-verification
 
-node 22-Projects/dist/table-of-contents/run-ghtoc.js -r "." -o "./table-of-contents.md" --log-level "info" --skip-url-verification
+node 22-Projects/dist/table-of-contents/run-ghtoc.js -r . -o ./table-of-contents.md --log-level info --skip-url-verification
 ```
 
 To test the code in both approaches, run this code:
