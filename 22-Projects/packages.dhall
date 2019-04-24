@@ -153,6 +153,29 @@ let additions =
           ]
           "https://github.com/menelaos/purescript-stringutils.git"
           "v0.0.8"
+      , optparse =
+          mkPackage
+          [ "prelude"
+          , "effect"
+          , "exitcodes"
+          , "strings"
+          , "ordered-collections"
+          , "arrays"
+          , "console"
+          , "memoize"
+          , "transformers"
+          , "exists"
+          , "node-process"
+          , "free"
+          ]
+          "https://github.com/f-o-a-m/purescript-optparse.git"
+          "v1.0.0"
+      , exitcodes =
+          mkPackage
+          [ "enums"
+          ]
+          "https://github.com/Risto-Stevcev/purescript-exitcodes.git"
+          "v4.0.0"
       }
 
 in  upstream // overrides // additions

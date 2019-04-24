@@ -4,7 +4,8 @@ import Prelude
 
 import Effect (Effect)
 import Effect.Aff (launchAff_)
-import ToC.Infrastructure.Yargs (runProgramViaCLI)
+import Options.Applicative (execParser)
+import ToC.Infrastructure.OptParse (parseCLIArgs)
 import ToC.ReaderT.API (runAppM)
 import ToC.ReaderT.Domain (program)
 
@@ -12,4 +13,5 @@ import ToC.ReaderT.Domain (program)
 -- | and then runs the program using that value.
 main :: Effect Unit
 main = do
-  runProgramViaCLI (\env -> launchAff_ $ runAppM env program)
+  env <- execParser parseCLIArgs
+  launchAff_ $ runAppM env program

@@ -4,10 +4,8 @@ import Prelude
 
 import Control.MonadPlus ((<|>))
 import Data.Array (cons, snoc)
-import Data.Either (Either(..))
 import Data.Foldable (foldl, intercalate)
 import Data.List.Types (List(..), (:))
-import Data.Maybe (Maybe(..))
 import Data.String.Utils (startsWith)
 import Effect (Effect)
 import Effect.Aff (Aff, launchAff_)
@@ -17,29 +15,35 @@ import Node.FS.Aff as FS
 import Node.FS.Stats as Stats
 import Node.Path (FilePath, concat, normalize, sep)
 import Node.Process (cwd)
-import Node.Yargs.Applicative (yarg, runY)
-import Node.Yargs.Setup (example, usage)
+import Options.Applicative (Parser, execParser, fullDesc, help, helper, info, long, metavar, progDesc, short, showDefault, strOption, value)
 
 -- NOTE: this file uses Yargs. Overview that to fully understand
 -- what is going on in the below code.
 
 main :: Effect Unit
 main = do
-  let usageAndExample =
-              usage "This program will recursively print the paths of a \
-                    \directory's files."
-           <> example
-                "node dist/table-of-contents/nodefs-syntax.js -r './src'"
-                "If run in the 'Projects' folder, outputs paths of repository's\
-                \top-level files and folders."
+    rootDir <- execParser opts
+    printAllFilesRecursively rootDir
+  where
+    opts = info (  helper
+               <*> rootDirOption
+                )
+                ( fullDesc
+               <> progDesc "This program will recursively print the paths of a \
+                           \directory's files."
+                )
 
-  runY usageAndExample $ printAllFilesRecursively
-              <$> yarg "r" ["root-dir"]
-                    (Just "Indicates the root directory for this repository on \
-                          \a local computer. The default is '.' or the current \
-                          \working directory.")
-                    (Left ".")
-                    true
+rootDirOption :: Parser String
+rootDirOption =
+  strOption ( long "root-dir"
+           <> short 'r'
+           <> metavar "ROOT_DIR"
+           <> help "Indicates the root directory for this repository on \
+                   \a local computer. The default is '.' or the current \
+                   \working directory."
+           <> value "."
+           <> showDefault
+            )
 
 printAllFilesRecursively :: String -> Effect Unit
 printAllFilesRecursively rootDir = do

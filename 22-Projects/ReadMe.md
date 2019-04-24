@@ -71,8 +71,7 @@ Since this folder includes bindings to JS libraries, we need to install them via
 
 ```bash
 # Benchmark.js - https://benchmarkjs.com/
-# Yargs.js - http://yargs.js.org/
-npm install benchmark yargs
+npm install benchmark
 ```
 
 2. Build the folder's contents using `spago`, which will also install the PS libraries

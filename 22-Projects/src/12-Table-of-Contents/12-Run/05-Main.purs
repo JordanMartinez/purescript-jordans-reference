@@ -6,10 +6,12 @@ import Effect (Effect)
 import Effect.Aff (launchAff_)
 import ToC.Run.Domain (program)
 import ToC.Run.API (runDomain)
-import ToC.Infrastructure.Yargs (runProgramViaCLI)
+import Options.Applicative (execParser)
+import ToC.Infrastructure.OptParse (parseCLIArgs)
 
 -- | Sets up the environment value via a CLI library
 -- | and then runs the program using that value.
 main :: Effect Unit
 main = do
-  runProgramViaCLI (\env -> launchAff_ $ runDomain env program)
+  env <- execParser parseCLIArgs
+  launchAff_ $ runDomain env program

@@ -108,7 +108,7 @@ cd 22-Projects/
 pwd
 rm -rf output/ .spago/
 rm -rf .psc-package/ .pulp-cache/ .psc-package.json
-npm install benchmark yargs
+npm install benchmark
 spago build -p "benchmark/**/*.purs"
 
 # Node-based tests
@@ -116,6 +116,9 @@ spago test -m Test.RandomNumber.ReaderT.Standard.DifferentMonad
 spago test -m Test.RandomNumber.ReaderT.Standard.SameMonad
 spago test -m Test.RandomNumber.Run.Standard
 spago test -m Test.RandomNumber.Run.Layered
+
+spago test -m Test.ToC.MainLogic.QuickCheckTest
+spago test -m Test.ToC.ParserLogic.QuickCheckTest
 cd ../
 
 echo "... Finished ...."

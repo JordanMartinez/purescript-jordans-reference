@@ -20,6 +20,7 @@ You can edit this file as you like.
     , "node-path"
     , "node-process"
     , "node-readline"
+    , "optparse"
     , "prelude"
     , "psci-support"
     , "quickcheck"
@@ -32,7 +33,6 @@ You can edit this file as you like.
     , "tree"
     , "unicode"
     , "variant"
-    , "yargs"
     ]
 , packages =
     ./packages.dhall
