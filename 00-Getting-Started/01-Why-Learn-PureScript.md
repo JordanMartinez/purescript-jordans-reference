@@ -106,7 +106,7 @@ Above, I stated that PureScript makes specific tradeoffs. I'd like to cover what
 
 #### Powerful Static Type System
 
-- This video explains how a type system with `algebraic data types` comes with a number of benefits (note: it uses a different syntax than PureScript: [Domain Modeling Made Functional](https://www.youtube.com/watch?v=Up7LcbGZFuo). To summarize it, `algebraid data types`
+- This video explains how a type system with `algebraic data types` comes with a number of benefits (note: it uses a different syntax than PureScript: [Domain Modeling Made Functional](https://www.youtube.com/watch?v=Up7LcbGZFuo). To summarize it, `algebraic data types`
     - allow you to model a domain at a 1-to-1 ratio
     - make impossible states impossible
     - become your always-up-to-date UML diagrams
