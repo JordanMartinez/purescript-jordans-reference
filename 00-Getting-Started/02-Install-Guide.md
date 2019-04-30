@@ -39,7 +39,7 @@ npm i -g purescript@0.12.5 spago parcel
 The following commands should now work (the versions beside them are the versions I used when writing this project):
 ```bash
 purs --version        # 0.12.5
-spago version         # 0.7.4.0
+spago version         # 0.7.7.0
 parcel --version      # 1.12.0
 
 # dhall-to-json does not have a version command
