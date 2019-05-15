@@ -71,7 +71,7 @@ argParser = ado
 
     multiString :: ReadM (Array String)
     multiString = eitherReader \s ->
-      let strArray = filter String.null $ split (Pattern ",") s
+      let strArray = filter (not <<< String.null) $ split (Pattern ",") s
       in
         if Array.null strArray
           then Left "got empty string as input"
