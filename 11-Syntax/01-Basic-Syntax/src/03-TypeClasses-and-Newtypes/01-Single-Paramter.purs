@@ -61,7 +61,7 @@ https://github.com/purescript/documentation/blob/master/errors/OrphanInstance.md
 
 {-
 Note: Type class instances that use type aliases (i.e. the `type` keyword)
-wil fail to compile. The following code demonstrates this.
+will fail to compile. The following code demonstrates this.
 -}
 
 -- Uncomment me and I'll become a compiler error

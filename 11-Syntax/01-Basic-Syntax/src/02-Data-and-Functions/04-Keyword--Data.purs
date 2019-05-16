@@ -87,7 +87,7 @@ data Recursive_type_with_generic_type a
 {-
 Recursion_Here__Store_A "first"
   (Recursion_Here__Store_A "second"
-    (End_Recursion_Here)
+    End_Recursion_Here)
 -}
 ------------------------------------------
 
