@@ -22,3 +22,7 @@ Since this repo is meant for my learning (with your benefit), it will center aro
 
 - [Awesome Purescript Index](https://github.com/passy/awesome-purescript)
 - [Justin Woo's "purescript-references"](https://purescript-resources.readthedocs.io/en/latest/index.html)
+
+## Things Related to PureScript
+
+- [Academic / Theoretical Basis of the PureScript Type System](https://discourse.purescript.org/t/academic-theoretical-basis-of-the-purescript-type-system/748)
