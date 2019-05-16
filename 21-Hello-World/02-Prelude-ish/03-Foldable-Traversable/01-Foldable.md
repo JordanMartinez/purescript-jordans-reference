@@ -27,6 +27,8 @@ It enables:
 
 ## Definition
 
+For a visual, see [Drawing `foldl` and `foldr`](http://www.joachim-breitner.de/blog/753-Drawing_foldl_and_foldr)
+
 See its docs: [Foldable](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.0.1/docs/Data.Foldable#t:Foldable)
 
 ```purescript
