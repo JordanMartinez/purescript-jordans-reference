@@ -69,9 +69,9 @@ After proving that the above property is true for both the `true` and `false` va
 
 On another hand, to successfully prove that `reverse` works as expected, one would need to test an infinite number of `String` values. Since we don't have enough time for that, we usually stop testing it after 100 tests pass successfully. 100 tests does not guarantee that our function is correct as there could still be a case where it fails. However, it makes us highly confident in it. The option to increase the number of tests is always present if that's not enough for you.
 
-## Shrinking: Integrated vs Manual
+## Shrinking: Integrated vs Type-Directed
 
-To see the difference between QuickCheck (which uses manual shrinking) and Hedgehog (which uses integrated shrinking), watch [Gens N' Roses: Appetite for Reduction](https://www.youtube.com/watch?v=AIv_9T0xKEo). Then, read [Integrated Shrinking](http://www.well-typed.com/blog/2019/05/integrated-shrinking/)
+To see the difference between QuickCheck (which uses type-directed shrinking) and Hedgehog (which uses integrated shrinking), watch [Gens N' Roses: Appetite for Reduction](https://www.youtube.com/watch?v=AIv_9T0xKEo). Then, read [Integrated Shrinking](http://www.well-typed.com/blog/2019/05/integrated-shrinking/)
 
 ## The Limits of Property Testing
 
