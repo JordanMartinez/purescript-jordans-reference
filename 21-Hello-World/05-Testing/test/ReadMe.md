@@ -69,6 +69,10 @@ After proving that the above property is true for both the `true` and `false` va
 
 On another hand, to successfully prove that `reverse` works as expected, one would need to test an infinite number of `String` values. Since we don't have enough time for that, we usually stop testing it after 100 tests pass successfully. 100 tests does not guarantee that our function is correct as there could still be a case where it fails. However, it makes us highly confident in it. The option to increase the number of tests is always present if that's not enough for you.
 
+## Shrinking: Integrated vs Manual
+
+To see the difference between QuickCheck (which uses manual shrinking) and Hedgehog (which uses integrated shrinking), watch [Gens N' Roses: Appetite for Reduction](https://www.youtube.com/watch?v=AIv_9T0xKEo). Then, read [Integrated Shrinking](http://www.well-typed.com/blog/2019/05/integrated-shrinking/)
+
 ## The Limits of Property Testing
 
 Usually, people who have never heard of property testing will think it is a "silver bullet" when it comes to writing tests. However, property testing can only cover a select number of tests cases before one must resort to unit testing. Rather than explaining it here, [here are 7 patterns where property-based testing works](https://fsharpforfunandprofit.com/posts/property-based-testing-2/). If a test falls outside of that pattern, one will likely need to use unit testing instead.
