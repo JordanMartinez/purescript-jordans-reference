@@ -26,3 +26,8 @@ Since this repo is meant for my learning (with your benefit), it will center aro
 ## Things Related to PureScript
 
 - [Academic / Theoretical Basis of the PureScript Type System](https://discourse.purescript.org/t/academic-theoretical-basis-of-the-purescript-type-system/748)
+
+## Advanced Links
+
+- [Teaching New Tricks to Old Programs](https://www.youtube.com/watch?v=vzLK_xE9Zy8) ([slides](http://conal.net/talks/teaching-new-tricks-to-old-programs.pdf))
+-
