@@ -30,4 +30,4 @@ Since this repo is meant for my learning (with your benefit), it will center aro
 ## Advanced Links
 
 - [Teaching New Tricks to Old Programs](https://www.youtube.com/watch?v=vzLK_xE9Zy8) ([slides](http://conal.net/talks/teaching-new-tricks-to-old-programs.pdf))
--
+- [797 Haskell Papers](https://mitchellwrosen.github.io/haskell-papers/)
