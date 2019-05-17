@@ -10,7 +10,7 @@ The definition of "appending" depends on the context and the type. One could als
 ## Examples
 
 One example is `String`. Two String values can be 'appended/reduced' into one value by
-- concatting them together: `append "hello " "world" == "hello world"`
+- concatenating them together: `append "hello " "world" == "hello world"`
 
 Another example is `Boolean`. Two Boolean values can be 'appended/reduced' into one value via the usual suspects:
 - `true && true == true`

@@ -22,7 +22,7 @@ data Either a b
 -- if this function compiles, it asserts that
 -- only the `Right i` path is ever taken
 function :: Either Void Int -> Int
-function Left v  = abusrd v
+function Left v  = absurd v
 function Right i = i
 ```
 

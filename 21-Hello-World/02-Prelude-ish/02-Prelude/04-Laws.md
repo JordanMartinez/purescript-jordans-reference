@@ -1,6 +1,6 @@
 # Laws
 
-This is a cheatsheet for various terms used to describe laws. Not all of these will appear in Prelude and some may be explained in a type class' definiton. Still, it helps to be aware of them:
+This is a cheatsheet for various terms used to describe laws. Not all of these will appear in Prelude and some may be explained in a type class' definition. Still, it helps to be aware of them:
 
 | Law | Definition | Example |
 | - | - | - |

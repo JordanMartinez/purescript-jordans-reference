@@ -15,17 +15,17 @@ Using Java as an example...
 ```java
 public class StateExample {
   // note the absence of "final"
-  public String GLOBAL_STATE = "some state"
+  public String GLOBAL_STATE = "some state";
 
   public static int function() {
-    String localState = "some value"
-    localState = localState + "some other string"
+    String localState = "some value";
+    localState = localState + "some other string";
     return localState.length();
   }
 
   public static void example1() {
     // change global state
-    GLOBAL_STATE = "first change!"
+    GLOBAL_STATE = "first change!";
     // localState changed, but we can't change
     //   it outside of it's scope
     function();
@@ -33,7 +33,7 @@ public class StateExample {
 
   public static void example2() {
     // change global state again
-    GLOBAL_STATE = "second change!"
+    GLOBAL_STATE = "second change!";
   }
 }
 ```

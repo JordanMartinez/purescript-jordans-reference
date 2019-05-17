@@ -18,7 +18,7 @@ if (a == null) {
 } else {
   let b = compute1(a);
   if (b == null) {
-    retun null;
+    return null;
   } else {
     let c = compute2(b);
     if (c == null) {
