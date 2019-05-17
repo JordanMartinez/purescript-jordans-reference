@@ -1,6 +1,6 @@
 ## Summary of Effect Libraries
 
-Since the `spago.dhall` file does not allow me to explain what each depenedency does, I've offloaded that to the table below. These are not all of the Effects that exist. For example, I did not cover `Avar`, `Aff`, and others (see the full list on Pursuit [here](https://pursuit.purescript.org/search?q=Effect). Not all of the `Effects` found on there are truly `Effect`s as they might be newtypes for something else). Rather, they give you something to use as you learn more and more of Purescript and FP concepts:
+Since the `spago.dhall` file does not allow me to explain what each dependency does, I've offloaded that to the table below. These are not all of the Effects that exist. For example, I did not cover `Avar`, `Aff`, and others (see the full list on Pursuit [here](https://pursuit.purescript.org/search?q=Effect). Not all of the `Effects` found on there are truly `Effect`s as they might be newtypes for something else). Rather, they give you something to use as you learn more and more of Purescript and FP concepts:
 
 | Library | Included Module | Usage
 | - | - | - |

@@ -28,10 +28,10 @@ module FlawedConstructors
 data TheType = DumbConstructor String
 
 example :: TheType -> Int
-example DumbConstructor "apple"  = 1
-example DumbConstructor "orange" = 2
-example DumbConstructor "banana" = 42
-example DumbConstructor _        = error "This should never occur!"
+example (DumbConstructor "apple")  = 1
+example (DumbConstructor "orange") = 2
+example (DumbConstructor "banana") = 42
+example (DumbConstructor _)        = error "This should never occur!"
 ```
 Since the type and its constructor are both exported, this enables a user of this module to use it incorrectly. For example, in code outside this module, one could incorrectly write:
 ```purscript
@@ -40,7 +40,7 @@ example (DumbConstructor "fire") -- throws an error
 
 ## The Solution
 
-The solution is to not export the types' constructors and instead export "smart constructors," which are functions that create a correct value of the type. The only way to get a valu of the type is to use one of these functions:
+The solution is to not export the types' constructors and instead export "smart constructors," which are functions that create a correct value of the type. The only way to get a value of the type is to use one of these functions:
 ```purescript
 module Example.SmallInt (SmallInt, zero, one) where
 
@@ -59,7 +59,7 @@ In our previous example, we could also write this:
 module SmartConstructors
   ( TheType -- `DumbConstructor` isn't exported
 
-  , apple   -- but that functions that wrap the constructor are
+  , apple   -- but the functions that wrap the constructor are
   , orange
   , banana
   ) where
@@ -76,12 +76,12 @@ banana :: TheType
 banana = DumbConstructor "banana"
 
 example :: TheType -> Int
-example DumbConstructor "apple"  = 1
-example DumbConstructor "orange" = 2
-example DumbConstructor "banana" = 42
-example DumbConstructor _ = error "We can guarantee that this will never occur!"
+example (DumbConstructor "apple")  = 1
+example (DumbConstructor "orange") = 2
+example (DumbConstructor "banana") = 42
+example (DumbConstructor _) = error "We can guarantee that this will never occur!"
 ```
-Since "DumbConstructor" isn't exported, one is forced to use the apple, orange, or banana smart constructors to get a value of `TheType`. Thus, it prevents one from creating incorrect "TheType" values.
+Since `DumbConstructor` isn't exported, one is forced to use the apple, orange, or banana smart constructors to get a value of `TheType`. Thus, it prevents one from creating incorrect `TheType` values.
 ```purescript
 preventBadValues :: Array Int
 preventBadValues =

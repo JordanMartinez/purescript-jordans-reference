@@ -28,7 +28,7 @@ None of the above examples can be pure code and yet they are necessary for any p
 | Given an input, will it always return some output? | Always <br> (Total Functions) | `n + m` | Sometimes <br> (Partial Functions) | `4 / 0 == undefined`
 | Given the same input, will it always return the same output? | Always <br> (Deterministic Functions) | `1 + 1` always equals `2` | Sometimes <br> (Non-Deterministic Functions) | `random.nextInt()`
 | *Does it interact with the real world? | Never |  | Sometimes | `file.getText()` |
-| *Does it acces or modify program state | Never | `newList = oldList.removeElemAt(0)`<br>Original list is copied but never modified | Sometimes | `x++`<br>variable `x` is incremented by one.
+| *Does it access or modify program state | Never | `newList = oldList.removeElemAt(0)`<br>Original list is copied but never modified | Sometimes | `x++`<br>variable `x` is incremented by one.
 | *Does it throw exceptions? | Never | | Sometimes | `function (e) { throw Exception("error") }` |
 
 ## Understanding the Effect Monad
@@ -72,4 +72,4 @@ runProgram = unsafePerformEffect main
 
 This limits our impure code as much as possible to the program's start. Hopefully, everything else in our code is pure.
 
-However, one might still call `unsafePerformEffect` in otherwise pure code in situations where they know what they are doing. In other words, they know the pros & cons, costs & benefits of doing so, and are willing to pay for those costs to acheive their benefits.
+However, one might still call `unsafePerformEffect` in otherwise pure code in situations where they know what they are doing. In other words, they know the pros & cons, costs & benefits of doing so, and are willing to pay for those costs to achieve their benefits.
