@@ -6,7 +6,7 @@ import Prelude
 Type classes can also have relationships with other type classes.
 
 While the syntax looks hierarchial (i.e. parent-child relationships),
-they aren't necessarily hierarchial. Rather, one should see them as
+they aren't necessarily hierarchical. Rather, one should see them as
 "conditional," which will be shown soon.
 -}
 
@@ -80,7 +80,7 @@ class (RequiredTypeClass1 a, RequiredTypeClass2 a {-, ... -}) <= TheTypeClass a 
 
 -- Example of only combining and not adding any additional functionality.
 -- Sometimes, this will add another law; other times, it only combines
--- multiple type clases together:
+-- multiple type classes together:
 class (RequiredTypeClass1 a, RequiredTypeClass2 a {-, ... -}) <= CombineOnly a
 
 -- necessary to make file compile
