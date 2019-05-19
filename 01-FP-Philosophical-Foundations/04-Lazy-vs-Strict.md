@@ -9,9 +9,9 @@ This is "Lazy evaluation." Your parent tells you to _remember_ to do some chore 
 | Term | Definition | Pros | Cons
 | - | - | - | - |
 | Strict | computes its results immediately | Expensive computations can be run at the most optimum time | Wastes CPU cycles and memory for storing/evaluating expensive computations that are unneeded/unused |
-| Lazy | defers compututation until its needed | Saves CPU cycles and memory: unneeded/unused computations are never computed | When computations will occur every time, this adds unneeded overhead
+| Lazy | defers computation until its needed | Saves CPU cycles and memory: unneeded/unused computations are never computed | When computations will occur every time, this adds unneeded overhead
 
-To make something lazy, we turn it into a function. This function takes one argument (`Unit`) and returns the value we desire. This is called a `thunk`: a computation that we know how to do but have not yet executed yet. To run the code stored in the `thunk`, we use the phrase `forcing the thunk`.
+To make something lazy, we turn it into a function. This function takes one argument (`Unit`) and returns the value we desire. This is called a `thunk`: a computation that we know how to do but have not executed yet. To run the code stored in the `thunk`, we use the phrase `forcing the thunk`.
 ```purescript
 -- Given an Int, I can return another Int
 strictlyCompute :: Int -> Int

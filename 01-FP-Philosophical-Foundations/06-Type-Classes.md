@@ -14,7 +14,7 @@ Video: [Code Reuse in PureScript: Functions, Type Classes, and Interpreters](htt
 
 ## Where Do Type Classes Come From?
 
-Type classes are usually "encodings" of various concepts from Category Theory. Category Theory (herafter referred to as 'CT') is all about the various ways we can compose functions and do so while adhering to specific laws. It's typically used for control flow (e.g. FP-style "if then else" statements, loops, etc.).
+Type classes are usually "encodings" of various concepts from Category Theory. Category Theory (hereafter referred to as 'CT') is all about the various ways we can compose functions and do so while adhering to specific laws. It's typically used for control flow (e.g. FP-style "if then else" statements, loops, etc.).
 
 Type classes make developers productive. They enable programmers...
     - to write 1 line of code that is the equivalent of writing 100s of lines of code.
@@ -37,10 +37,10 @@ Thus, type classes abstract general concepts into an "interface" that can be imp
 2. (Almost Always) The laws by which implementations of a type class must abide.
     - These laws guarantee certain properties, increasing developers' confidence that their code works as expected.
     - They also help one to know how to refactor code. Given `left-hand-side == right-hand-side`, evaluating code on the left may be more expensive (memory, time, IO, etc.) than the code on the right.
-    - **Laws cannot be enforced by the compiler.** For example, one could define a a type class' instance for some type which satisfies the type signature. However, the implementation of that instance might not satisfy the type class' law(s). The compiler can verify that the type signature is correct, but not the implementation. Thus, one will need to insure an instance's lawfulness via tests, (usually by using a testing library called `quickcheck-laws`, which is covered later in this repo)
+    - **Laws cannot be enforced by the compiler.** For example, one could define a type class' instance for some type which satisfies the type signature. However, the implementation of that instance might not satisfy the type class' law(s). The compiler can verify that the type signature is correct, but not the implementation. Thus, one will need to insure an instance's lawfulness via tests, (usually by using a testing library called `quickcheck-laws`, which is covered later in this repo)
 3. (Frequently) The functions/values that can be derived once one implements the type class.
     - Most of the power/flexibility of type classes come from the combination of the main functions/values implemented in a type class' definition and these derived functions. When a type class extends another, the type class' power increases, its flexibility decreases, and its costs increase.
-        - For example, one can consider `Apply` and `Monad`. `Apply` is a less powerful typeclass than `Monad` because it requires its arguments to be known at compile-time whereas `Monad`'s arguments must be known at runtime. However, `Apply` is more flexibile because it can compute things in parallel whereas `Monad` must compute things sequentially.
+        - For example, one can consider `Apply` and `Monad`. `Apply` is a less powerful typeclass than `Monad` because it requires its arguments to be known at compile-time whereas `Monad`'s arguments must be known at runtime. However, `Apply` is more flexible because it can compute things in parallel whereas `Monad` must compute things sequentially.
 
 ### Examples
 
