@@ -11,7 +11,7 @@ spago init
 
 If you need to override/add packages to the standard package set, proceed to `Configure the Package Set`. Otherwise, continue to `Install Dependencies`
 
-### Configure the Packaget Set
+### Configure the Package Set
 
 ```bash
 # 2a) Open the below file, read its top-level comment,
@@ -21,7 +21,7 @@ nano packages.dhall
 # 2b) When finished, either verify that a single patched/added package
 #       works with the rest of the set...
 spago verify singlePackageName
-#       or re-verify the entire packaget set
+#       or re-verify the entire package set
 spago verify-set
 ```
 

@@ -15,7 +15,7 @@ When a new PureScript release with breaking changes occurs, using `bower` is pai
     - fix a bug in its implementation
     - update a library to a newer PS release if it hasn't been done yet
     - update a library's transitive dependency to a newer release without needing to submit a PR
-- add local or cloud-based dependencies not found in the official packaget set
+- add local or cloud-based dependencies not found in the official package set
     - a project you use frequently, like a custom `Prelude` library.
     - a project with your preferred aliases to functions/values (i.e. using `<!>` for `map` instead of `<$>`)
 
@@ -31,13 +31,13 @@ A **package** in this context is 4 things:
 
 Thus, a package is a unique named `repo-tag-dependencies` combination (e.g. `prelude` could indicate the [Prelude repo at the 'v0.4.1' tag](https://github.com/purescript/purescript-prelude/tree/v4.1.0)).
 
-A **package set** consists of a set of packages. It's a JSON-like file that maps a package name to its corresponding `repo-tag-dependencies` combination. A package set gets **verified** to ensure that its set of packages compile together on a given PureScript compiler erelease. Once verified, they are considered "immutable."
+A **package set** consists of a set of packages. It's a JSON-like file that maps a package name to its corresponding `repo-tag-dependencies` combination. A package set gets **verified** to ensure that its set of packages compiles together on a given PureScript compiler release. Once verified, they are considered "immutable."
 
 A package set includes all dependencies: direct ones and their transitive dependencies. For example, if the set includes the package, `PackA`, which depends on the package, `PackB`, the package set must include both packages:
 - `PackA`
     - Version: `v1.0.0`
     - Repo: `https://exampleRepo.com/PackA.git`
-    - Dependencies: `["PackB"]` (spago will look up "PackB" in the packaget set to resolve it)
+    - Dependencies: `["PackB"]` (spago will look up "PackB" in the package set to resolve it)
 - `PackB`
     - Version: `v1.0.0`
     - Repo: `https://exampleRepo.com/PackB.git`

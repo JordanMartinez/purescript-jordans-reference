@@ -26,7 +26,7 @@
     </g>
     <g text-rendering="geometricPrecision" stroke-miterlimit="1.45" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,5,35)" stroke-linecap="butt">
       <rect fill="none" x="30.3005" width="96.0605" height="30" y="150.7581" clip-path="url(#clipPath2)"/>
-      <text x="37.3005" xml:space="preserve" y="162.928" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">packaget-set </text>
+      <text x="37.3005" xml:space="preserve" y="162.928" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">package-set </text>
       <text x="47.859" xml:space="preserve" y="176.8967" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">repository</text>
     </g>
     <g fill="rgb(245,245,245)" text-rendering="geometricPrecision" shape-rendering="geometricPrecision" transform="matrix(1,0,0,1,5,35)" stroke="rgb(245,245,245)">
@@ -206,7 +206,7 @@
       <path fill="none" d="M412.1854 336.854 L412.1854 438.8286" clip-path="url(#clipPath2)"/>
       <path d="M412.1854 446.8286 L417.1854 434.8286 L412.1854 437.8286 L407.1854 434.8286 Z" clip-path="url(#clipPath2)" stroke="none"/>
       <text x="440.1847" xml:space="preserve" y="377.3919" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">4a. Install specific dependencies from </text>
-      <text x="440.1847" xml:space="preserve" y="391.3607" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">the local packaget set's list of packages</text>
+      <text x="440.1847" xml:space="preserve" y="391.3607" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">the local package set's list of packages</text>
       <text x="440.1847" xml:space="preserve" y="405.3294" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none"> </text>
       <text x="440.1847" xml:space="preserve" y="419.2982" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">This will modify the `spago.dhall` </text>
       <text x="440.1847" xml:space="preserve" y="433.2669" clip-path="url(#clipPath2)" font-family="sans-serif" stroke="none">file's "dependencies" list</text>

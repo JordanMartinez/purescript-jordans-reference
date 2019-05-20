@@ -16,9 +16,9 @@ But what kinds of things do we compose? In Functional Programming, we compose ty
 
 ## Composing Types Algebraically
 
-Algebraic Data Types (ADTs) use Algerbra to define the total number of values a given type (i.e. named Set) can have.
+Algebraic Data Types (ADTs) use Algebra to define the total number of values a given type (i.e. named Set) can have.
 
-There are two videos worth watching in this regard. The table and visualizations that follow merely summarizes their points, except for the ideas behind the `List` and `Tree` types in the second video.
+There are two videos worth watching in this regard. The table and visualizations that follow merely summarize their points, except for the ideas behind the `List` and `Tree` types in the second video.
 - ['Algebraic Data Types' as "Composable Data Types" (stop at 12:40)](https://youtu.be/Up7LcbGZFuo?t=1155)
     - Same ideas already explained in the above "Power of Composition" video:
     - It uses a different syntax than `PureScript` but the ideas still apply.
@@ -27,11 +27,11 @@ There are two videos worth watching in this regard. The table and visualizations
     - explains the "algebraic laws" behind ADTs
     - covers `List`s and `Tree`s (unlike first video)
 
-| Name | Math Operator | Logic Operator | PureScript Type | Idea
-| - | - | - | - |
-| Product Type | `x * y` | AND | `Tuple` | "One value from type `x` **AND** one value from type `y`"
-| Sum Type | `x + y` | OR | `Either` | "One value from type `x` **OR** one value from type `y`"
-| Exponential Type | `y^x` | ??? | `InputType -> OutputType` | ???
+| Name | Math Operator | Logic Operator | PureScript Type | Idea |
+| - | - | - | - | - |
+| Product Type | `x * y` | AND | `Tuple` | "One value from type `x` **AND** one value from type `y`" |
+| Sum Type | `x + y` | OR | `Either` | "One value from type `x` **OR** one value from type `y`" |
+| Exponential Type | `y^x` | ??? | `InputType -> OutputType` | ??? |
 
 ![Composing Types](./assets/Composing-Types.svg)
 

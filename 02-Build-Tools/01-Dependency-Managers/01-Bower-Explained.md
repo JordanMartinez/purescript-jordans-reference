@@ -46,7 +46,7 @@ The following issue is happening less and less frequently due to the PureScript 
 
 #### Annoyance Defined
 
-If a compiler release that includes breaking changes was released recently, it will take some time for libraries in the ecosystem to become compatible with that release. If you are using Bower as your dependency manager, it may try to install libraries that are and are not compatible with the new release, creating problems.
+If a compiler release that includes breaking changes was released recently, it will take some time for libraries in the ecosystem to become compatible with that release. If you are using Bower as your dependency manager, it may try to install libraries that are not compatible with the new release, creating problems.
 
 #### Recommended Guidelines
 
