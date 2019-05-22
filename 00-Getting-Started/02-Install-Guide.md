@@ -14,7 +14,6 @@ Throughout your learning process, it will be helpful to ask others for help. The
 We'll show how to install the following programs:
 - `purescript` - the PureScript language & compiler
 - `spago` - a dependency manager and build tool for PureScript
-- `dhall-to-json` - a dependency that `spago` uses for outputting well-typed JSON
 - `parcel` - a build tool for bundling a PureScript application into a multiple JS backends (node, browser, electron)
 
 ### Installation
@@ -32,8 +31,6 @@ NPM will then be used to install 3 of the above requirements. Run this command:
 npm i -g purescript@0.12.5 spago parcel
 ```
 
-`dhall-to-json` (we're using version `1.21.0`) requires separate installation. To install `dhall-to-json` for your platform, see their [Getting Started](https://github.com/dhall-lang/dhall-lang/wiki/Getting-started%3A-Generate-JSON-or-YAML#installation).
-
 ### Versions Used in this Project
 
 The following commands should now work (the versions beside them are the versions I used when writing this project):
@@ -41,9 +38,6 @@ The following commands should now work (the versions beside them are the version
 purs --version        # 0.12.5
 spago version         # 0.7.7.0
 parcel --version      # 1.12.0
-
-# dhall-to-json does not have a version command
-# but we're using `1.21.0` in this project.
 ```
 
 ### Building This Project
