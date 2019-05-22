@@ -104,13 +104,13 @@ Don't confuse the two operators that go in-between field and value!
 
 -- We can also pattern match on a record. The field names must match
 -- the field names of the record
-allLabels_patternMatch :: Int
-allLabels_patternMatch =
+patternMatch_allLabels :: Int
+patternMatch_allLabels =
   let { field1, field2 } = { field1: 3, field2: 5 }
   in field1 + field2
 
-someLabels_patternMatch :: String
-someLabels_patternMatch =
+patternMatch_someLabels :: String
+patternMatch_someLabels =
   -- notice how we don't include 'field2' here
   -- in the pattern match
   let { field1 } = { field1: "a", field2: "b" }
