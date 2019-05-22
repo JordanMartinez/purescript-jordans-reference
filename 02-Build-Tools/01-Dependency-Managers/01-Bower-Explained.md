@@ -12,7 +12,11 @@ When developing a library, one needs to refer to specific versions of dependenci
 
 If one uses `spago`, they can modify the "binary" of the dependency without changing the version to which it refers. For application developers, this can be desirable. Not so for library developers.
 
-Note: it is still possible for one to use `bower` for application development. Some people think it's better suited for this than `spago`. Others disagree. Learn about both and make your decision.
+Still, that doesn't mean one can't do something similar via `bower`. Taken from the FP Slack from `hdgarrood`:
+> in `bower.json`, instead of writing `"dependencies":{"purescript-some-library":"^0.1.0"}`, you can write `"dependencies":{"purescript-some-library":"https://github.com/githubUser/purescript-some-library#my-branch"}`
+> you can also use `bower link` which is similar but gives you a bit more flexibility
+
+Some people prefer `bower` over `spago` while others do not. Learn about both and make your decision.
 
 ### Why doesn't Purescript use `npm`?
 

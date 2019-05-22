@@ -14,29 +14,12 @@ branches:
   only:
   - latestRelease
 
-## Note: the "dhall-to-json" binary version number differs from the
-## tagged release number for the `dhall-haskell` project 
-# Define environment
-#env:
-#  global:
-#    - DHALL_TO_JSON_VERSION=1.21.0
-#    # ^ true regardless of matrix
-
 before_install:
   - export PATH=$HOME/bin:$PATH
   # ^ Include the folder that will store the "dhall-to-json" binary on PATH
 
 install:
-  - wget -O $HOME/dhall-json.tar.gz https://github.com/dhall-lang/dhall-haskell/releases/download/1.21.0/dhall-json-1.2.7-x86_64-linux.tar.bz2
-  # ^ Download the Dhall-to-JSON archive
-  - mkdir $HOME/dhall-json
-  # ^ Make directory, so that next command works (directory must already exist)
-  - tar --extract --bzip2 --file $HOME/dhall-json.tar.gz -C $HOME/dhall-json/
-  # ^ Extract the contents into this directory
-  - mv $HOME/dhall-json/bin/dhall-to-json $HOME/bin/
-  # ^ dhall-json comes with two binaries, but we only need 'dhall-to-json'
-  # Move that binary into $HOME/bin/ so that it is on the PATH
-  - npm i -g purescript@0.12.5 spago
+  - npm i -g purescript@0.12.5 spago@0.8.0
   # ^ Use NPM to install most packages
   - chmod +x .travis/spago--print-versions.sh
   - ./.travis/spago--print-versions.sh
@@ -54,28 +37,16 @@ script:
 cache:
   directories:
     - 11-Syntax/01-Basic-Syntax/.spago
-    - 11-Syntax/01-Basic-Syntax/output
     - 11-Syntax/02-Foreign-Function-Interface/.spago
-    - 11-Syntax/02-Foreign-Function-Interface/output
     - 11-Syntax/03-Type-Level-Programming-Syntax/.spago
-    - 11-Syntax/03-Type-Level-Programming-Syntax/output
     - 11-Syntax/04-Module-Syntax/.spago
-    - 11-Syntax/04-Module-Syntax/output
     - 11-Syntax/05-Prelude-Syntax/.spago
-    - 11-Syntax/05-Prelude-Syntax/output
     - 21-Hello-World/03-Hello-World-and-Effects/.spago
-    - 21-Hello-World/03-Hello-World-and-Effects/output
     - 21-Hello-World/04-Debugging/.spago
-    - 21-Hello-World/04-Debugging/output
     - 21-Hello-World/05-Testing/.spago
-    - 21-Hello-World/05-Testing/output
     - 21-Hello-World/06-Benchmarking/.spago
-    - 21-Hello-World/06-Benchmarking/output
     - 21-Hello-World/06-Benchmarking/node_modules
     - 21-Hello-World/07-Type-Level-Programming/.spago
-    - 21-Hello-World/07-Type-Level-Programming/output
     - 21-Hello-World/08-Application-Structure/.spago
-    - 21-Hello-World/08-Application-Structure/output
     - 22-Projects/.spago
-    - 22-Projects/output
     - 22-Projects/node_modules

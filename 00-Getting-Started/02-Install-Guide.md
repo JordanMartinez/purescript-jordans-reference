@@ -14,10 +14,15 @@ Throughout your learning process, it will be helpful to ask others for help. The
 We'll show how to install the following programs:
 - `purescript` - the PureScript language & compiler
 - `spago` - a dependency manager and build tool for PureScript
-- `dhall-to-json` - a dependency that `spago` uses for outputting well-typed JSON
 - `parcel` - a build tool for bundling a PureScript application into a multiple JS backends (node, browser, electron)
 
 ### Installation
+
+#### Installing NPM
+
+We can install everything using `npm`. However, getting `npm` is it's own problem. We can either install it manually by downloading `node` and installing that. Or we can use `nvm` (Node Version Manager) to install it for us and continue from there.
+
+##### Manual Install
 
 Justin Woo explains how to set up one's environment for the `0.12.x` release but has not been updated for two things. First, the PureScript release at the time was `0.12.0` but now `0.12.5` is out. Second, the instructions use `pulp` and `psc-package`, a different build tool workflow than the one we'll use here.
 
@@ -27,23 +32,28 @@ If you just want to get things set up ASAP, follow the below summary of his arti
     - Note: this prevents having to use `sudo` when using NPM to install things since it's default prefix is in a place that requires admin privileges
 3. Set your PATH: `export PATH="$HOME/.npm/bin:$PATH"`
 
-NPM will then be used to install 3 of the above requirements. Run this command:
-```bash
-npm i -g purescript@0.12.5 spago parcel
-```
+##### NVM Install
 
-`dhall-to-json` (we're using version `1.21.0`) requires separate installation. To install `dhall-to-json` for your platform, see their [Getting Started](https://github.com/dhall-lang/dhall-lang/wiki/Getting-started%3A-Generate-JSON-or-YAML#installation).
+1. Install `nvm` using their [installation instructions](https://github.com/nvm-sh/nvm#installation-and-update)
+2. [Verify that the installation was successful](https://github.com/nvm-sh/nvm#verify-installation) via `command -v nvm`
+3. [Install `node` via `nvm`](https://github.com/nvm-sh/nvm#usage). To get the latest `node` version, use the command, `nvm install node`.
+
+Unlike the manual install, `nvm` properly handles the npm prefix for you. So, you don't need to set it yourself.
+
+#### Installing PureScript and Related Tooling
+
+Once you have installed `npm`, we can use it to install everything in one command:
+```bash
+npm i -g purescript@0.12.5 spago@0.8.0 parcel
+```
 
 ### Versions Used in this Project
 
 The following commands should now work (the versions beside them are the versions I used when writing this project):
 ```bash
 purs --version        # 0.12.5
-spago version         # 0.7.7.0
+spago version         # 0.8.0.0
 parcel --version      # 1.12.0
-
-# dhall-to-json does not have a version command
-# but we're using `1.21.0` in this project.
 ```
 
 ### Building This Project

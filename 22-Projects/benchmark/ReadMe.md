@@ -18,6 +18,6 @@ Since we'll be benchmarking our projects here, I should also note that Nate has 
 Commands to Run a Benchmark:
 ```bash
 # Random Number Game
-spago bundle -p "benchmark/**/*.purs" -m Performance.RandomNumber.Benchmark -t dist/benchmarks/random-number.js
+spago bundle-app -p "benchmark/**/*.purs" -m Performance.RandomNumber.Benchmark -t dist/benchmarks/random-number.js
 node dist/benchmarks/random-number.js
 ```
