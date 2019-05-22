@@ -28,7 +28,7 @@ If you just want to get things set up ASAP, follow the below summary of his arti
 
 NPM will then be used to install 3 of the above requirements. Run this command:
 ```bash
-npm i -g purescript@0.12.5 spago parcel
+npm i -g purescript@0.12.5 spago@0.8.0 parcel
 ```
 
 ### Versions Used in this Project
