@@ -62,7 +62,7 @@ The whole idea of `Effect` is to use `unsafePerformEffect` as little as possible
 The entry point into each program written in Purescript is the `main` function. It's type signature must be: `main :: Effect Unit`.
 
 The following explanation is not what happens in practice, but understanding it this way will help one understand the concepts it represents:
-> When one executes the command `spago bundle`, one could say that, conceptually, spago will compile `unsafePerformEffect main` into Javascript and the resulting Javascript is what gets run by the RunTime System (RTS) when the program is executed.
+> When one executes the command `spago bundle-app`, one could say that, conceptually, spago will compile `unsafePerformEffect main` into Javascript and the resulting Javascript is what gets run by the RunTime System (RTS) when the program is executed.
 
 In other words, spago "creates" a function called `runProgram` and tells the RunTime System (RTS) to execute it
 ```purescript

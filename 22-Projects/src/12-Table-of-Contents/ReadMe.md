@@ -21,9 +21,9 @@ Currently, there are no benchmarks. Tests are a WIP.
 
 ```bash
 # Build the program using either the ReaderT or Run implementation
-spago bundle --main ToC.ReaderT.Main --to dist/table-of-contents/readert-ghtoc.js
+spago bundle-app --main ToC.ReaderT.Main --to dist/table-of-contents/readert-ghtoc.js
 
-spago bundle --main ToC.Run.Main --to dist/table-of-contents/run-ghtoc.js
+spago bundle-app --main ToC.Run.Main --to dist/table-of-contents/run-ghtoc.js
 
 # Change directory to be at the root directory
 cd ../

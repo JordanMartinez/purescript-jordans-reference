@@ -7,7 +7,7 @@ This file overviews the syntax and API of `purescript-optparse`.
 To run the examples, use
 ```bash
 # Build the Syntax file
-spago bundle -m Learn.OptParse -t dist/libraries/optparse/learnOptParse.js
+spago bundle-app -m Learn.OptParse -t dist/libraries/optparse/learnOptParse.js
 
 # Run the program without required arguments to see the help text
 node dist/libraries/optparse/learnOptParse.js
@@ -18,7 +18,7 @@ node dist/libraries/optparse/learnOptParse.js --long-name3 example --switch
 
 
 # Build the 'GetRootDirViaAbsolutePath' file
-spago bundle -m Learn.OptParse.GetRootDirViaAbsolutePath -t dist/libraries/optparse/getRootViaAbsPath.js
+spago bundle-app -m Learn.OptParse.GetRootDirViaAbsolutePath -t dist/libraries/optparse/getRootViaAbsPath.js
 
 # Run the program
 node dist/libraries/optparse/getRootViaAbsPath.js --rootDir <your absolute root dir argument here>
@@ -26,7 +26,7 @@ node dist/libraries/optparse/getRootViaAbsPath.js --rootDir <your absolute root 
 
 
 # Build the 'GetRootDirViaEitherPath' file
-spago bundle -m Learn.OptParse.GetRootDirViaEitherPath -t dist/libraries/optparse/getRootViaEitherPath.js
+spago bundle-app -m Learn.OptParse.GetRootDirViaEitherPath -t dist/libraries/optparse/getRootViaEitherPath.js
 
 # Run the program using an absolute path
 node dist/libraries/optparse/getRootViaEitherPath.js --rootDir <your absolute dir argument here>

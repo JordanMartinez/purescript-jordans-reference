@@ -10,6 +10,6 @@ spago run -m Learn.NodeFS.Syntax
 
 spago run -m Learn.NodeFS.PrintAllFiles
 # To run the above with your own argument, use this instead:
-spago bundle -m Learn.NodeFS.PrintAllFiles -t dist/libraries/node-fs/printAllFiles.js
+spago bundle-app -m Learn.NodeFS.PrintAllFiles -t dist/libraries/node-fs/printAllFiles.js
 node dist/libraries/node-fs/printAllFiles.js --rootDir <your relative/absolute directory path argument here>
 ```

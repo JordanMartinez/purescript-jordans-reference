@@ -65,18 +65,18 @@ spago build --watch
 spago build
 
 # Build a developer-level executable file
-spago bundle --main Module.Path.To.Main --to dist/index.js
+spago bundle-app --main Module.Path.To.Main --to dist/index.js
 node dist/index.js
 
 # Build a production-level Node-backend file via Parcel
-spago bundle --main Module.Path.To.Main --to dist/bundle-output.js
+spago bundle-app --main Module.Path.To.Main --to dist/bundle-output.js
 parcel build dist/bundle-output.js --target "node" -o app.js
 ```
 
 To build a production-level browser-backend file...
 ```bash
 # Build a production-level browser-backend file
-spago bundle --main Module.Path.To.Main --to dist/app.js
+spago bundle-app --main Module.Path.To.Main --to dist/app.js
 ```
 Create an HTML file (dist/example.html) that references the 'app.js' file
 ```html

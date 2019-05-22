@@ -24,7 +24,7 @@ Second, one can compile the examples and view their resulting Javascript files. 
 
 | | Single Module | Entire Program |
 | - | - | - |
-| Command | `spago make-module --main [moduleName] --to dist/module.js` | `spago bundle --main [moduleName] --to dist/app.js`
+| Command | `spago make-module --main [moduleName] --to dist/module.js` | `spago bundle-app --main [moduleName] --to dist/app.js`
 | Javascript files' location | `dist/module.js` | `dist/app.js` |
 
 To run each program in this directory, use these commands:
