@@ -125,17 +125,13 @@ The third caveat is that `tailRecM` isn't always heap-safe. Responding to anothe
 > the `tailRecM` basically moves the stack usage you'd usually get for recursion onto the heap. If you use too much, you run out of heapspace. I'd suggest taking a heap snapshot before [your code] explodes (I think there's an `--inspect` flag for node) and seeing what's taking up that space.
 > If it's the JSON structure you're building up, you'll need to write it out in chunks, so you can free up some memory for your process. Or if it's the `tailRecM` allocations, you can look into not using `tailRecM` and using `Ref`s + `whileE`/`forE` to write `Effect` code that doesn't hold on to thunks.
 
-## Use Mutable State (`Ref`s) and `whileE`/`untilE`/`forE`
-
-As the previous comment suggested, you might want to call a spade a spade and just admit that you need to use mutable state. In such a situation, look at...
-- the [`Ref`](https://pursuit.purescript.org/packages/purescript-refs/4.1.0/docs/Effect.Ref#t:Ref) type and its related functions
-- [`whileE`](https://pursuit.purescript.org/packages/purescript-effect/2.0.1/docs/Effect#v:whileE)
-- [`untilE`](https://pursuit.purescript.org/packages/purescript-effect/2.0.1/docs/Effect#v:untilE)
-- [`forE`](https://pursuit.purescript.org/packages/purescript-effect/2.0.1/docs/Effect#v:forE)
+We'll cover the `Ref`s + `whileE`/`forE` in a later section.
 
 ## Us `Trampoline`
 
-Another solution is to use laziness. You'll "suspend" the computation in a "thunk" (i.e. `let thunk = \_ -> valueWeNeed`) that we can later evaluate by "forcing the thunk" (i.e. `thunk unit`). Such a solution is provided via [`Trampoline`](https://pursuit.purescript.org/packages/purescript-free/5.2.0/docs/Control.Monad.Trampoline#t:Trampoline)
+Another solution is to use laziness. **Note: this approach still trades stack for heap and is possibly head-unsafe.**
+
+You'll "suspend" the computation in a "thunk" (i.e. `let thunk = \_ -> valueWeNeed`) that we can later evaluate by "forcing the thunk" (i.e. `thunk unit`). Such a solution is provided via [`Trampoline`](https://pursuit.purescript.org/packages/purescript-free/5.2.0/docs/Control.Monad.Trampoline#t:Trampoline)
 
 Putting it into more familiar terms:
 
@@ -145,6 +141,14 @@ Putting it into more familiar terms:
 | `Loop accumulator` | `delay \_ -> accumulator` |
 
 Similarly, `tailRecM` corresponds to `runTrampoline`.
+
+## Use Mutable State (`Ref`s) and `whileE`/`untilE`/`forE`
+
+As the previous comment suggested, you might want to call a spade a spade and just admit that you need to use mutable state. In such a situation, look at...
+- the [`Ref`](https://pursuit.purescript.org/packages/purescript-refs/4.1.0/docs/Effect.Ref#t:Ref) type and its related functions
+- [`whileE`](https://pursuit.purescript.org/packages/purescript-effect/2.0.1/docs/Effect#v:whileE)
+- [`untilE`](https://pursuit.purescript.org/packages/purescript-effect/2.0.1/docs/Effect#v:untilE)
+- [`forE`](https://pursuit.purescript.org/packages/purescript-effect/2.0.1/docs/Effect#v:forE)
 
 ## A Note on `Aff`
 
