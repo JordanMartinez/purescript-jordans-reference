@@ -115,17 +115,26 @@ main :: Effect Unit
 main = tailRecM printMessageAndLoop { loopsRemaining: 10000 }
 ```
 
-### Two Caveats of Using `tailRecM`
+### Three Caveats of Using `tailRecM`
 
-There are two drawbacks to `MonadRec`:
+There are two main drawbacks to `MonadRec`:
 - Performance: there's additional overhead because we have to box and unbox the `Loop`/`Done` data constructors
 - Support: as `MonadRec`'s documentation implies, not all monadic types support tail-call optimization. Only some monadic types can do this.
 
-## Using `Trampoline`
+The third caveat is that `tailRecM` isn't always heap-safe. Responding to another's question on the FP Slack channel:
+> the `tailRecM` basically moves the stack usage you'd usually get for recursion onto the heap. If you use too much, you run out of heapspace. I'd suggest taking a heap snapshot before [your code] explodes (I think there's an `--inspect` flag for node) and seeing what's taking up that space.
+> If it's the JSON structure you're building up, you'll need to write it out in chunks, so you can free up some memory for your process. Or if it's the `tailRecM` allocations, you can look into not using `tailRecM` and using `Ref`s + `whileE`/`forE` to write `Effect` code that doesn't hold on to thunks.
 
-What happens when we have a monadic computation whose monadic type does not support `tailRecM`? Since we can no longer use tail-call optimization, how do we achieve stack-safety?
+## Use Mutable State (`Ref`s) and `whileE`/`forE`
 
-The solution is to use laziness. We'll "suspend" the computation in a "thunk" (i.e. `\_ -> valueWeNeed`) that we can later evaluate by "forcing the thunk" (i.e. `thunk unit`). Such a solution is provided via [`Trampoline`](https://pursuit.purescript.org/packages/purescript-free/5.2.0/docs/Control.Monad.Trampoline#t:Trampoline)
+As the previous comment suggested, you might want to call a spade a spade and just admit that you need to use mutable state. In such a situation, look at...
+- the [`Ref`](https://pursuit.purescript.org/packages/purescript-refs/4.1.0/docs/Effect.Ref#t:Ref) type and its related functions
+- [`whileE`](https://pursuit.purescript.org/packages/purescript-effect/2.0.1/docs/Effect#v:whileE)
+- [`forE`](https://pursuit.purescript.org/packages/purescript-effect/2.0.1/docs/Effect#v:forE)
+
+## Us `Trampoline`
+
+Another solution is to use laziness. You'll "suspend" the computation in a "thunk" (i.e. `let thunk = \_ -> valueWeNeed`) that we can later evaluate by "forcing the thunk" (i.e. `thunk unit`). Such a solution is provided via [`Trampoline`](https://pursuit.purescript.org/packages/purescript-free/5.2.0/docs/Control.Monad.Trampoline#t:Trampoline)
 
 Putting it into more familiar terms:
 
