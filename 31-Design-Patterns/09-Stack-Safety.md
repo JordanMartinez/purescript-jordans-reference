@@ -125,11 +125,12 @@ The third caveat is that `tailRecM` isn't always heap-safe. Responding to anothe
 > the `tailRecM` basically moves the stack usage you'd usually get for recursion onto the heap. If you use too much, you run out of heapspace. I'd suggest taking a heap snapshot before [your code] explodes (I think there's an `--inspect` flag for node) and seeing what's taking up that space.
 > If it's the JSON structure you're building up, you'll need to write it out in chunks, so you can free up some memory for your process. Or if it's the `tailRecM` allocations, you can look into not using `tailRecM` and using `Ref`s + `whileE`/`forE` to write `Effect` code that doesn't hold on to thunks.
 
-## Use Mutable State (`Ref`s) and `whileE`/`forE`
+## Use Mutable State (`Ref`s) and `whileE`/`untilE`/`forE`
 
 As the previous comment suggested, you might want to call a spade a spade and just admit that you need to use mutable state. In such a situation, look at...
 - the [`Ref`](https://pursuit.purescript.org/packages/purescript-refs/4.1.0/docs/Effect.Ref#t:Ref) type and its related functions
 - [`whileE`](https://pursuit.purescript.org/packages/purescript-effect/2.0.1/docs/Effect#v:whileE)
+- [`untilE`](https://pursuit.purescript.org/packages/purescript-effect/2.0.1/docs/Effect#v:untilE)
 - [`forE`](https://pursuit.purescript.org/packages/purescript-effect/2.0.1/docs/Effect#v:forE)
 
 ## Us `Trampoline`
