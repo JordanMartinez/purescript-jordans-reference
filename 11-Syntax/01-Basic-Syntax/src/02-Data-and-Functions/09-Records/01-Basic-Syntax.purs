@@ -35,8 +35,41 @@ type RecordType = { field1 :: String
 getField :: RecordType -> String
 getField obj = obj.field1
 
-createRec :: RecordType
-createRec = { field1: "value", fieldN: 1, function: (\x -> x) }
+-- We can create a record using the "{ label: value }" syntax...
+createRec_colonSyntax :: RecordType
+createRec_colonSyntax = { field1: "value", fieldN: 1, function: (\x -> x) }
+
+-- We can also create it using the "names exist in immediate context" syntax
+
+createRec_immediateContextSyntax :: RecordType
+createRec_immediateContextSyntax = { field1, fieldN, function }
+  where
+    field1 = "value"
+    fieldN = 1
+    function = \x -> x
+
+-- We can also create it using the "label names exist in external context" syntax
+-- Given the below record type...
+type PersonRecord = { username :: String
+                    , age :: Int
+                    , isCool :: String -> Boolean
+                    }
+-- ... and some values/functions with the same name as that record's fields...
+username :: String
+username = "Bob"
+
+age :: Int
+age = 4
+
+isCool :: String -> Boolean
+isCool _ = true
+
+-- ... the compiler will infer below that 'username' should be "Bob"
+-- because `username` is a value that exists in this module.
+-- Note: this syntax won't pick up things that exist in other files.
+createRec_externalContextSyntax :: PersonRecord
+createRec_externalContextSyntax = { username, age, isCool }
+
 
 -- We can update a record using syntax sugar:
 setField :: RecordType -> String -> RecordType
