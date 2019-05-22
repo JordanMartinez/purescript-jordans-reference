@@ -37,28 +37,16 @@ script:
 cache:
   directories:
     - 11-Syntax/01-Basic-Syntax/.spago
-    - 11-Syntax/01-Basic-Syntax/output
     - 11-Syntax/02-Foreign-Function-Interface/.spago
-    - 11-Syntax/02-Foreign-Function-Interface/output
     - 11-Syntax/03-Type-Level-Programming-Syntax/.spago
-    - 11-Syntax/03-Type-Level-Programming-Syntax/output
     - 11-Syntax/04-Module-Syntax/.spago
-    - 11-Syntax/04-Module-Syntax/output
     - 11-Syntax/05-Prelude-Syntax/.spago
-    - 11-Syntax/05-Prelude-Syntax/output
     - 21-Hello-World/03-Hello-World-and-Effects/.spago
-    - 21-Hello-World/03-Hello-World-and-Effects/output
     - 21-Hello-World/04-Debugging/.spago
-    - 21-Hello-World/04-Debugging/output
     - 21-Hello-World/05-Testing/.spago
-    - 21-Hello-World/05-Testing/output
     - 21-Hello-World/06-Benchmarking/.spago
-    - 21-Hello-World/06-Benchmarking/output
     - 21-Hello-World/06-Benchmarking/node_modules
     - 21-Hello-World/07-Type-Level-Programming/.spago
-    - 21-Hello-World/07-Type-Level-Programming/output
     - 21-Hello-World/08-Application-Structure/.spago
-    - 21-Hello-World/08-Application-Structure/output
     - 22-Projects/.spago
-    - 22-Projects/output
     - 22-Projects/node_modules
