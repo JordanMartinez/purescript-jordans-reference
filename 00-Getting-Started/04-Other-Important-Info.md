@@ -13,6 +13,20 @@ If you're coming to PureScript with a Haskell background, be sure to consult the
 - [Introduction to Purescript for Haskell Developers](http://code.adriansieber.com/adrian/adriansieber-com/src/branch/master/posts/_2018-11-01_introduction_to_purescript_for_haskell_developers/main.pdf) (pdf)
 - [The Purescript Documentation Repo's "Differences from Haskell" page](https://github.com/purescript/documentation/blob/master/language/Differences-from-Haskell.md)
 
+## Use GitHub Search to Find Things Search Engines (i.e. Google) Don't
+
+At various times, you may try to use something like Google to find documentation / examples and little will appear in the search results.
+
+A better solution is to use GitHub's search. To learn its syntax, read [searching code](https://help.github.com/en/articles/searching-code).
+
+Then, you use a search query like the following:
+
+| Goal | Search Query | Meaning |
+| - | - | - |
+| Find examples of projects that use a dependency (e.g. `purescript-prelude`) | [`path:/ in:file purescript-prelude`](https://github.com/search?q=path%3A%2F+in%3Afile+purescript-prelude) | Search a project's top-level files (e.g. `bower.json`/`spago.dhall`/`psc-package.json`) for the text `purescript-prelude`
+| Find real-world examples of code that uses libraries (e.g. `aff-bus`) | [`language:purescript path:src/ in:file Bus`](https://github.com/search?q=language%3Apurescript+path%3Asrc%2F+in%3Afile+Bus) | Search a project's `src` directory for files whose content mentions the `Bus` module at some point. (Note: Searching using the full module name (e.g. `Effect.Aff.Bus` doesn't work well)
+| Find real-world examples of code that uses testing libraries (e.g. `aff-bus`) | [`language:purescript path:test/ in:file QuickCheck`](https://github.com/search?q=language%3Apurescript+path%3Atest%2F+in%3Afile+QuickCheck) | Search a project's `test` directory for files whose content mentions the `QuickCheck` module at some point. (Note: Searching using the full module name (e.g. `Test.QuickCheck` doesn't work well)
+
 ## Documenation
 
 - Anytime you need to look up the documentation for a package, use [Pursuit](http://pursuit.purescript.org/). Be aware that some of the deprecated packages mentioned above are still posted there.
