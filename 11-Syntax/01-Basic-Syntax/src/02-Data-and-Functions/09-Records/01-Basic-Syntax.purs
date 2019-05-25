@@ -32,8 +32,7 @@ type RecordType = { field1 :: String
                   , function :: String -> String
                   }
 
-getField :: RecordType -> String
-getField obj = obj.field1
+-- ## Create Records
 
 -- We can create a record using the "{ label: value }" syntax...
 createRec_colonSyntax :: RecordType
@@ -70,25 +69,46 @@ isCool _ = true
 createRec_externalContextSyntax :: PersonRecord
 createRec_externalContextSyntax = { username, age, isCool }
 
+createRec_noUnderscore :: String -> Int -> (String -> String) -> RecordType
+createRec_noUnderscore field1 fieldN function = { field1, fieldN, function }
+
+createRec_withUnderscore :: String -> Int -> (String -> String) -> RecordType
+createRec_withUnderscore = { field1: _, fieldN: _, function: _ }
+
+-- same type signature as 'createRec_withUnderscore'
+type InlineWithUnderscoreType = String -> Int -> (String -> String) -> RecordType
+
+inlineExample1 :: InlineWithUnderscoreType
+inlineExample1 =
+  \field1 fieldN function -> { field1: field1, fieldN: fieldN, function: function }
+
+inlineExample2 :: InlineWithUnderscoreType
+inlineExample2 =             { field1: _     , fieldN: _     , function: _      }
+
+-- ## Get Fields in records
+
+getField :: RecordType -> String
+getField obj = obj.field1
+
+-- ## Overwrite Fields in Records
 
 -- We can update a record using syntax sugar:
-setField :: RecordType -> String -> RecordType
-setField rec string = rec { field1 = string }
+overwriteField_equalsOperator :: RecordType -> String -> RecordType
+overwriteField_equalsOperator rec string = rec { field1 = string }
 
--- Some syntax for inline functions:
+-- or by using an underscore to indicate that the next argument is the
+-- record type
+setField_recordUnderscore :: String -> RecordType -> RecordType
+setField_recordUnderscore string = _ { field1 = string }                      {-
 
---    \field1 field2 -> rec { field1: field1, field2: field2 }
--- ... is the same as ...
---                      rec { field1: _     , field2: _      }
+setField_recordUnderscore "bar" { field1: "foo" } == { field1: "bar" }        -}
 
---    \rec field1 {- fieldN -} -> rec { field1: field1 {- , fieldN: fieldN -} }
--- ... is the same as ...
---                                _   { field1: _      {- , fieldN: _      -} }
+-- or by using an underscore for both args if they come in the correct order:
+-- record first and then the argument to apply to that record's field
+setField_recordAndArgUnderscore :: RecordType -> String -> RecordType
+setField_recordAndArgUnderscore = _ { field1 = _ }                            {-
 
-type NestedRecordType = { person :: { skills :: { name :: String } } }
-
-nestedRecordUpdate :: String -> NestedRecordType -> NestedRecordType
-nestedRecordUpdate name p = p { person { skills { name = "newName" } } }
+setField_recordAndArgUnderscore { field1: "foo" } "bar" == { field1: "bar" }  -}
 
 syntaxReminder :: String
 syntaxReminder = """
@@ -101,6 +121,32 @@ Don't confuse the two operators that go in-between field and value!
   ":" means "create a new record by specifying the field's value":
                  { field: initialValue }
 """
+
+-- ## Nested Records
+
+type NestedRecordType = { person :: { skills :: { name :: String } } }
+
+nestedRecord_create :: String -> NestedRecordType
+nestedRecord_create newName = { person: { skills: { name: newName } } }
+
+nestedRecord_get :: NestedRecordType -> String
+nestedRecord_get rec = rec.person.skills.name
+
+nestedRecord_overwrite1 :: String -> NestedRecordType -> NestedRecordType
+nestedRecord_overwrite1 newName p  = p { person { skills { name = newName } } }
+
+nestedRecord_overwrite2 :: String -> NestedRecordType -> NestedRecordType
+nestedRecord_overwrite2 newName    = _ { person { skills { name = newName } } }
+
+-- -- This fails to compile!
+-- nestedRecord_overwrite3 :: String -> NestedRecordType -> NestedRecordType
+-- nestedRecord_overwrite3            = _ { person { skills { name = _       } } }
+
+-- -- This fails to compile
+-- nestedRecord_overwrite4 :: String -> NestedRecordType -> NestedRecordType
+-- nestedRecord_overwrite4            = _ { _      { _      { name = _       } } }
+
+-- ## Pattern Matching on Records
 
 -- We can also pattern match on a record. The field names must match
 -- the field names of the record
