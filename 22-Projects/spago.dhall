@@ -28,7 +28,7 @@ You can edit this file as you like.
     , "run"
     , "st"
     , "string-parsers"
-    , "string-utils"
+    , "stringutils"
     , "transformers"
     , "tree"
     , "unicode"

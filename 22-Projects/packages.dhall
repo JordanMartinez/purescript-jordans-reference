@@ -146,18 +146,6 @@ let additions =
           [ "prelude", "console", "lists", "free" ]
           "https://github.com/JordanMartinez/purescript-tree"
           "v1.3.6"
-      , string-utils =
-          mkPackage
-          [ "either"
-          , "arrays"
-          , "maybe"
-          , "prelude"
-          , "integers"
-          , "partial"
-          , "strings"
-          ]
-          "https://github.com/menelaos/purescript-stringutils.git"
-          "v0.0.8"
       , optparse =
           mkPackage
           [ "prelude"
