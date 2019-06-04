@@ -6,7 +6,7 @@ A way to use specific versions of libraries that are known to compile together w
 
 ## Why Use It?
 
-`spago` only allows you to use dependencies that compile together on a specific PureScript release. You do not have to track down which version of a `DependencyA` to use to ensure it compiles when you also use `DependencyB`. Moreover, you don't have to verify that `DependencyA` at `v1.0.0` works on PureScript release `0.12.5` instead of `0.11.7`.
+`spago` only allows you to use dependencies that compile together on a specific PureScript release. You do not have to track down which version of a `DependencyA` to use to ensure it compiles when you also use `DependencyB`. Moreover, you don't have to verify that `DependencyA` at `v1.0.0` works on PureScript release `0.13.0` instead of `0.11.7`.
 
 When a new PureScript release with breaking changes occurs, using `bower` is painful until the ecosystem "catches up." Since a new release draws in a lot of people, their initial exploration of PureScript when using `bower` can be horrible.
 
