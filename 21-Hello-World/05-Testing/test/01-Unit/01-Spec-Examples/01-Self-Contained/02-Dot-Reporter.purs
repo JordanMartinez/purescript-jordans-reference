@@ -2,13 +2,14 @@ module Test.Spec.Examples.SelfContained.DotReporter where
 
 import Prelude
 import Effect (Effect)
+import Effect.Aff (launchAff_)
 import Test.Spec (pending, pending', describe, it)
 import Test.Spec.Assertions (shouldEqual)
 import Test.Spec.Reporter.Dot (dotReporter)
-import Test.Spec.Runner (run)
+import Test.Spec.Runner (runSpec)
 
 main :: Effect Unit
-main = run [ dotReporter { width: 2 } ] do
+main = launchAff_ $ runSpec [ dotReporter { width: 2 } ] do
   describe "Describe: Outer Group" do
     describe "Describe: Inner Group" do
       it "It: Test 1 - Successful" do

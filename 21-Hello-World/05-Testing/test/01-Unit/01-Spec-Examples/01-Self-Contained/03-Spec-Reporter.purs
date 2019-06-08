@@ -2,13 +2,14 @@ module Test.Spec.Examples.SelfContained.SpecReporter where
 
 import Prelude
 import Effect (Effect)
+import Effect.Aff (launchAff_)
 import Test.Spec (pending, pending', describe, it)
 import Test.Spec.Assertions (shouldEqual)
 import Test.Spec.Reporter.Spec (specReporter)
-import Test.Spec.Runner (run)
+import Test.Spec.Runner (runSpec)
 
 main :: Effect Unit
-main = run [specReporter] do
+main = launchAff_ $ runSpec [specReporter] do
   describe "Describe: Outer Group" do
     describe "Describe: Inner Group" do
       it "It: Test 1 - Successful" do
