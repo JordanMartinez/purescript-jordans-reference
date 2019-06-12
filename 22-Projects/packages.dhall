@@ -162,7 +162,7 @@ let additions =
           , "free"
           ]
           "https://github.com/f-o-a-m/purescript-optparse.git"
-          "v2.0.0"
+          "v3.0.1"
       , exitcodes =
           mkPackage
           [ "enums" ]
