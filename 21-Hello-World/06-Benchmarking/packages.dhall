@@ -134,8 +134,8 @@ let additions =
           , "datetime"
           , "now"
           ]
-          "https://github.com/hdgarrood/purescript-benchotron.git"
-          "v7.0.0"
+          "https://github.com/JordanMartinez/purescript-benchotron.git"
+          "v8.0.0"
       }
 
 in  upstream // overrides // additions
