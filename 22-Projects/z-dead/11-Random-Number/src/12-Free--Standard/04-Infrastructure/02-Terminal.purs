@@ -19,43 +19,47 @@ module RandomNumber.Free.Standard.Infrastructure.Halogen.Terminal (terminal) whe
 import Prelude
 import Data.Array (snoc)
 import Data.Maybe (Maybe(..))
+import Data.Symbol (SProxy(..))
 import Effect.Aff (Aff)
 import Effect.Aff.Class as AffClass
 import Effect.Aff.AVar (AVar)
 import Effect.Aff.AVar as AVar
-import RandomNumber.Infrastructure.Halogen.UserInput (Language, calcLikeInput)
+import RandomNumber.Infrastructure.Halogen.UserInput (calcLikeInput)
+import RandomNumber.Infrastructure.Halogen.UserInput as UserInput
 import RandomNumber.Free.Standard.Domain (BackendEffectsF(..))
 import Halogen as H
 import Halogen.HTML as HH
 
+type Input = Unit
 type State = { history :: Array String
              , getInput :: Maybe (AVar String)
              }
-
+type Action = Void
 type Query = BackendEffectsF
 
 type Message = Void
+type MonadType = Aff
+type ChildSlots = (child :: UserInput.SelfSlot Unit)
 
-newtype Slot = Slot Int
-derive newtype instance eqInstance :: Eq Slot
-derive newtype instance ordInstance :: Ord Slot
+_child :: SProxy "child"
+_child = SProxy
 
-terminal :: H.Component HH.HTML Query Unit Message Aff
+
+terminal :: H.Component HH.HTML Query Input Message MonadType
 terminal =
-  H.parentComponent
+  H.mkComponent
     { initialState: const { history: [], getInput: Nothing }
     , render
-    , eval
-    , receiver: const Nothing
+    , eval: H.mkEval $ H.defaultEval { handleQuery = handleQuery }
     }
   where
     -- same as before
-    render :: State -> H.ParentHTML Query Language Slot Aff
+    render :: State -> H.ComponentHTML Action ChildSlots MonadType
     render state = case state.getInput of
       Just avar ->
         HH.div_
           [ HH.div_ $ state.history <#> \msg -> HH.div_ [HH.text msg]
-          , HH.slot (Slot 1) calcLikeInput avar (\s -> Just $ Log s unit)
+          , HH.slot _child calcLikeInput avar (\s -> Just $ Log s unit)
           ]
       Nothing ->
         HH.div_
@@ -73,15 +77,15 @@ terminal =
     -- |   until user submits their input. Once received, this component
     -- |   will re-render so that the interface disappears.
     -- |   and then return the user's input to the game logic code outside.
-    eval :: Query ~> H.ParentDSL State Query Language Slot Message Aff
-    eval = case _ of
+    handleQuery :: Query a -> H.HalogenM State Action ChildSlots Message MonadType (Maybe a)
+    handleQuery = case _ of
       Log msg next -> do
         H.modify_ (\state -> state { history = state.history `snoc` msg})
-        pure next
+        pure $ Just next
       GetUserInput msg reply -> do
         avar <- AffClass.liftAff AVar.empty
         H.modify_ (\state -> state { history = state.history `snoc` msg
                                    , getInput = Just avar })
         value <- AffClass.liftAff $ AVar.take avar
         H.modify_ (\state -> state { getInput = Nothing })
-        pure $ reply value
+        pure $ Just $ reply value
