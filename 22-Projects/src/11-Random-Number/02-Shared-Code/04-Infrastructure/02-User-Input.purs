@@ -1,10 +1,13 @@
 -- | This is the same code used in the Run-based version
 module RandomNumber.Infrastructure.Halogen.UserInput
-  ( Language(..)
-  , calcLikeInput
+  ( calcLikeInput
+  , SelfSlot
+  , QueryType
+  , Message
   ) where
 
 import Prelude
+import Data.Const (Const)
 import Data.Maybe (Maybe(..))
 import Effect.Aff (Aff)
 import Effect.Aff.Class as AC
@@ -14,30 +17,36 @@ import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.Events as HE
 
-data Language a
-  = Add String a  -- adds a number to the input
-  | Clear a       -- clears out the input
-  | Submit a      -- "submits" the input to the parent
+-- | This is the way we'll block the parent's computation until
+-- | the user submits their answer.
+type Input = AVar String
+type State = { input :: String      -- the current input
+             , avar :: AVar String
+             }
+data Action
+  = Add String  -- adds a number to the input
+  | Clear       -- clears out the input
+  | Submit      -- "submits" the input to the parent
 
-type CalcState = { input :: String      -- the current input
-                 , avar :: AVar String
-                 }
-type Msg_UserInput = String
+type QueryType = Const Void
+type Message = Void
+type MonadType = Aff
+type SelfSlot index = H.Slot QueryType Message index
+type ChildSlots = ()
 
 -- | When rendering, the parent will pass in the avar
 -- | that it will block on until this component puts
 -- | the user's input into that avar
-calcLikeInput :: H.Component HH.HTML Language (AVar String) Msg_UserInput Aff
+calcLikeInput :: H.Component HH.HTML QueryType Input Message MonadType
 calcLikeInput =
-  H.component
+  H.mkComponent
     { initialState: (\avar -> {input: "", avar: avar})
     , render
-    , eval
-    , receiver: const Nothing
+    , eval: H.mkEval $ H.defaultEval { handleAction = handleAction }
     }
   where
   -- | The interface should look similar to calculator's interface
-  render :: CalcState -> H.ComponentHTML Language
+  render :: State -> H.ComponentHTML Action ChildSlots MonadType
   render state =
     HH.div_
       [ HH.div_ [ HH.text $ state.input ]
@@ -48,8 +57,8 @@ calcLikeInput =
           , HH.tr_ [ numberCell "7", numberCell "8", numberCell "9"]
           , HH.tr_
             [ numberCell "0"
-            , HH.td_ [ HH.button [HE.onClick $ HE.input_ $ Clear] [ HH.text "Clear" ] ]
-            , HH.td_ [ HH.button [HE.onClick $ HE.input_ $ Submit] [ HH.text "Submit" ] ]
+            , HH.td_ [ HH.button [HE.onClick $ (\_ -> Just Clear)] [ HH.text "Clear" ] ]
+            , HH.td_ [ HH.button [HE.onClick $ (\_ -> Just Submit)] [ HH.text "Submit" ] ]
             ]
           ]
         ]
@@ -58,21 +67,18 @@ calcLikeInput =
   numberCell numText =
     HH.td_
       [ HH.button
-          [HE.onClick $ HE.input_ $ Add numText]
+          [HE.onClick $ (\_ -> Just $ Add numText) ]
           [ HH.text numText ]
       ]
 
   -- | Change the input based on the user's button clicks
   -- | and submit the final input back to parent once done
-  eval :: Language ~> H.ComponentDSL CalcState Language Msg_UserInput Aff
-  eval = case _ of
-    Add n next -> do
+  handleAction :: Action -> H.HalogenM State Action ChildSlots Message MonadType Unit
+  handleAction = case _ of
+    Add n -> do
       H.modify_ (\state -> state { input = state.input <> n })
-      pure next
-    Clear next -> do
+    Clear -> do
       H.modify_ (\s -> s { input = "" })
-      pure next
-    Submit next -> do
+    Submit -> do
       state <- H.get
-      _ <- AC.liftAff $ AVar.put state.input state.avar
-      pure next
+      void $ AC.liftAff $ AVar.put state.input state.avar

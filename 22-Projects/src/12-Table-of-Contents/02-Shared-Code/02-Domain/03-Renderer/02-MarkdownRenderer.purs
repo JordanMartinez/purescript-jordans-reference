@@ -79,10 +79,10 @@ renderFile depth url pathSeg headers = do
       Just link -> do
         let fileLink = hyperLink formattedName link
         indentedBulletList depth fileLink <>
-        (renderHeaders (headerWithLink link) startingHeaderDepth)
+          (renderHeaders (headerWithLink link) startingHeaderDepth)
       Nothing ->
         indentedBulletList depth formattedName <>
-        (renderHeaders headerNoLink startingHeaderDepth)
+          (renderHeaders headerNoLink startingHeaderDepth)
 
   where
     -- | Renders all the headers of a single file.
@@ -106,7 +106,7 @@ renderFile depth url pathSeg headers = do
         let root = head currentTree
         let children = tail currentTree
         renderHeader d root <>
-        tailRec goHeader { level: d + 1, drawn: "", current: children }
+          tailRec goHeader { level: d + 1, drawn: "", current: children }
 
       where
         goHeader :: _ -> Step _ String

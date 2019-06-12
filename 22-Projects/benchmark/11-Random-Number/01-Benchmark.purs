@@ -9,8 +9,8 @@ import Benchotron.UI.Console (runSuite)
 import Test.RandomNumber.Generators (TestData(..))
 import Test.RandomNumber.ReaderT.Standard.DifferentMonad as DifferentMonad
 import Test.RandomNumber.ReaderT.Standard.SameMonad as SameMonad
-import Test.RandomNumber.Run.Standard as StandardRun
-import Test.RandomNumber.Run.Layered as LayeredRun
+-- import Test.RandomNumber.Run.Standard as StandardRun
+-- import Test.RandomNumber.Run.Layered as LayeredRun
 
 import Performance.RandomNumber.Generators (WinData(..), LoseData(..), genWinData, genLoseData)
 
@@ -52,10 +52,13 @@ winBench = mkBenchmark
           (\(WinData (TestData rec)) -> DifferentMonad.produceGameResult rec.random rec.userInputs)
       , benchFn "Standard ReaderT (Same Monad)"
           (\(WinData (TestData rec)) -> SameMonad.produceGameResult rec.random rec.userInputs)
-      , benchFn "Standard Run"
-          (\(WinData (TestData rec)) -> StandardRun.produceGameResult rec.random rec.userInputs)
-      , benchFn "Layered Run"
-          (\(WinData (TestData rec)) -> LayeredRun.produceGameResult rec.random rec.userInputs)
+
+      -- NOTE: The following benchmark is no longer being run due to these Examples
+      -- being placed in the 'deadcode' folder
+      -- , benchFn "Standard Run"
+      --     (\(WinData (TestData rec)) -> StandardRun.produceGameResult rec.random rec.userInputs)
+      -- , benchFn "Layered Run"
+      --     (\(WinData (TestData rec)) -> LayeredRun.produceGameResult rec.random rec.userInputs)
       ]
   }
 
@@ -76,9 +79,11 @@ loseBench = mkBenchmark
           (\(LoseData (TestData rec)) -> DifferentMonad.produceGameResult rec.random rec.userInputs)
       , benchFn "Standard ReaderT (Same Monad)"
           (\(LoseData (TestData rec)) -> SameMonad.produceGameResult rec.random rec.userInputs)
-      , benchFn "Standard Run"
-          (\(LoseData (TestData rec)) -> StandardRun.produceGameResult rec.random rec.userInputs)
-      , benchFn "Layered Run"
-          (\(LoseData (TestData rec)) -> LayeredRun.produceGameResult rec.random rec.userInputs)
+      -- NOTE: The following benchmark is no longer being run due to these Examples
+      -- being placed in the 'deadcode' folder
+      -- , benchFn "Standard Run"
+      --     (\(LoseData (TestData rec)) -> StandardRun.produceGameResult rec.random rec.userInputs)
+      -- , benchFn "Layered Run"
+      --     (\(LoseData (TestData rec)) -> LayeredRun.produceGameResult rec.random rec.userInputs)
       ]
   }

@@ -1,5 +1,9 @@
 # Random Number
 
+**Note:** a large number of files from this folder were moved to the `z-dead` folder since an API change in Halogen v5 broke some design assumptions I had made. I czme up with a solution to workaround the change, but i believe it lead to an anti-pattern. Rather than scrapping the entire game, I explained why my workaround was an anti-pattern (see the `Halogen.purs` and `Terminal.purs` files in the `ReaderT--Standard` folder) and moved the other files (i.e. standard and "layered" Free and Run approaches) that used to work on Halogen v4 to `z-dead`.
+
+<hr>
+
 This folder will show how to build a "guess the random number" game. It's main purpose is to explore the various ways one can structure an application, including a few experimental ones.
 
 Here's an overview of its contents:
@@ -14,13 +18,15 @@ Here's an overview of its contents:
 
 ## Purpose: Exploring The Various Ways One Can Structure the Application
 
-Normally, one will use the 'standard' way of structuring their application: via `ReaderT design pattern` or `Run`. Since readers might still be unfamiliar with `Run`, I will also include `Free`. In the upcoming projects, only `ReaderT` and `Run` will be used.
+The following is no longer true due to the Halogen v5 API changes. See the note at the top of this file.
 
-I also include the "layered compilers" idea mentioned in the `Hello World/Application Structure/Free` folder. This is purely an experimental idea that shows what one _can_ do, but not necessarily "best practices" per say. It might help one write a program when the specifications are still not well-understood. Or it might just be pointless boilerplate-y work.
+~Normally, one will use the 'standard' way of structuring their application: via `ReaderT design pattern` or `Run`. Since readers might still be unfamiliar with `Run`, I will also include `Free`. In the upcoming projects, only `ReaderT` and `Run` will be used.~
 
-By "layered compilers," I mean defining a monad with a `Free`/`Run`-based higher-level language (e.g. Highest-level Domain) that gets interpreted another lower-level language (e.g. Lower-Level Domain) recursively until the final low-level language is interpreted into an impure monad (e.g. `Effect` or `Aff`).
+~I also include the "layered compilers" idea mentioned in the `Hello World/Application Structure/Free` folder. This is purely an experimental idea that shows what one _can_ do, but not necessarily "best practices" per say. It might help one write a program when the specifications are still not well-understood. Or it might just be pointless boilerplate-y work.~
 
-Since "layered compilers" is rather long, I'll just use "layered" in folders' and modules' names.
+~By "layered compilers," I mean defining a monad with a `Free`/`Run`-based higher-level language (e.g. Highest-level Domain) that gets interpreted another lower-level language (e.g. Lower-Level Domain) recursively until the final low-level language is interpreted into an impure monad (e.g. `Effect` or `Aff`).~
+
+~Since "layered compilers" is rather long, I'll just use "layered" in folders' and modules' names.~
 
 ## Libraries Used
 
@@ -38,13 +44,9 @@ The web-based games require a 2-step process of first running the `spago` comman
 
 The games can be opened and played via `dist/random-number/<FP structure approach>/index.html`.
 
-### Standard
-
 ```bash
 # == Node-Based implementation ==
 spago run -m RandomNumber.ReaderT.Standard.Main.Console
-spago run -m RandomNumber.Free.Standard.Main.Console
-spago run -m RandomNumber.Run.Standard.Main.Console
 
 # == Browser-based implementation ==
 spago bundle-app --main RandomNumber.ReaderT.Standard.Main.Halogen --to dist/random-number/readerT--standard/app.js
@@ -64,36 +66,7 @@ spago bundle-app --main RandomNumber.ReaderT.Standard.Main.Halogen --to dist/ran
 # will hotload the changes."
 parcel dist/random-number/readerT--standard/example.html --open -p 1111 -d dist/random-number/readerT--standard/ -o index.html
 
-spago bundle-app --main RandomNumber.Free.Standard.Main.Halogen --to dist/random-number/free--standard/app.js
-parcel build dist/random-number/free--standard/example.html --open -p 1112 -d dist/random-number/free--standard/ -o index.html
-
-spago bundle-app --main RandomNumber.Run.Standard.Main.Halogen --to dist/random-number/run--standard/app.js
-parcel build dist/random-number/run--standard/example.html --open -p 1113 -d dist/random-number/run--standard/ -o index.html
-
 # == Test ==
 spago test -m Test.RandomNumber.ReaderT.Standard.DifferentMonad
 spago test -m Test.RandomNumber.ReaderT.Standard.SameMonad
-spago test -m Test.RandomNumber.Run.Standard
-```
-
-### Layered
-
-```bash
-# == Node-Based implementation ==
-spago run -m RandomNumber.Free.Layered.Main.Console
-spago run -m RandomNumber.Run.Layered.Main.Console
-
-# === Changes in Run folder: Node-based ===
-spago run -m RandomNumber.Run.Layered.ChangeImplementation
-spago run -m RandomNumber.Run.Layered.AddDomainTerm
-
-# === Changes in Run folder: Browser-based ===
-spago build --main RandomNumber.Free.Layered.Main.Halogen --to dist/random-number/free--layered/app.js
-parcel build dist/random-number/free--layered/example.html --open -p 1114 -d dist/random-number/free--layered/ -o index.html
-
-spago build --main RandomNumber.Run.Layered.Main.Halogen --to dist/random-number/run--layered/app.js
-parcel build dist/random-number/run--layered/example.html --open -p 1115 -d dist/random-number/run--layered/ -o index.html
-
-# == Test ==
-spago test -m Test.RandomNumber.Run.Layered
 ```

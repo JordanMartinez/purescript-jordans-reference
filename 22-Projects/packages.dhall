@@ -109,12 +109,17 @@ let additions =
 -}
 
 let mkPackage =
-      https://raw.githubusercontent.com/purescript/package-sets/psc-0.12.5-20190419/src/mkPackage.dhall sha256:0b197efa1d397ace6eb46b243ff2d73a3da5638d8d0ac8473e8e4a8fc528cf57
+      https://raw.githubusercontent.com/purescript/package-sets/psc-0.13.0-20190611/src/mkPackage.dhall sha256:0b197efa1d397ace6eb46b243ff2d73a3da5638d8d0ac8473e8e4a8fc528cf57
 
 let upstream =
-      https://raw.githubusercontent.com/purescript/package-sets/psc-0.12.5-20190419/src/packages.dhall sha256:aee7258b1bf1b81ed5e22d1247e812a80ec2e879758562f33334512ed086c5ae
+      https://raw.githubusercontent.com/purescript/package-sets/psc-0.13.0-20190611/src/packages.dhall sha256:2631fe1dce429e5f27324e59cc834e8e8832a5d533423952105c7446320a3648
 
-let overrides = {=}
+let overrides =
+      { halogen =
+          upstream.halogen // { version = "v5.0.0-rc.4" }
+      , halogen-vdom =
+          upstream.halogen-vdom // { version = "v6.1.0" }
+      }
 
 let additions =
       { benchotron =
@@ -134,25 +139,13 @@ let additions =
           , "datetime"
           , "now"
           ]
-          "https://github.com/hdgarrood/purescript-benchotron.git"
-          "v7.0.0"
+          "https://github.com/JordanMartinez/purescript-benchotron.git"
+          "v8.0.0"
       , tree =
           mkPackage
           [ "prelude", "console", "lists", "free" ]
           "https://github.com/JordanMartinez/purescript-tree"
           "v1.3.6"
-      , string-utils =
-          mkPackage
-          [ "either"
-          , "arrays"
-          , "maybe"
-          , "prelude"
-          , "integers"
-          , "partial"
-          , "strings"
-          ]
-          "https://github.com/menelaos/purescript-stringutils.git"
-          "v0.0.8"
       , optparse =
           mkPackage
           [ "prelude"
@@ -169,11 +162,10 @@ let additions =
           , "free"
           ]
           "https://github.com/f-o-a-m/purescript-optparse.git"
-          "v2.0.0"
+          "v3.0.1"
       , exitcodes =
           mkPackage
-          [ "enums"
-          ]
+          [ "enums" ]
           "https://github.com/Risto-Stevcev/purescript-exitcodes.git"
           "v4.0.0"
       }

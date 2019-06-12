@@ -2,11 +2,19 @@
 
 Since I'm already somewhat familiar with it, I decided to implement the web-based user interface using Halogen.
 
-## Halogen Examples' Compilation Problems
+Halogen's current stable version is `v4.0.0`. However, they are on the verge of releasing `v5.0.0`. They haven't made a full release yet because the docs are still lacking, not the functionality or stability of the release, which is already being used in production.
 
-**WARNING!** As of this writing, Halogen's `master` branch is currently in development and their `examples` directory within that branch has not yet been updated. If you try to compile the examples with the `master` branch checked out, it will fail to compile. Instead, check out their `v4.0.0` tag and try the examples there.
+With that in mind, one could learn Halogen v4, but I don't see why one would as Halogen v5 is much nicer to work with. In this repository, we'll be using Halogen v5 in our examples.
 
-## Halogen Guide
+## Learn Halogen v5 (stable, unreleased)
+
+I've created a learning repository similar to this one that explains Halogen's latest release, `v5.0.0-rc.4`, in [`learn-halogen`](https://github.com/jordanmartinez/learn-halogen).
+
+## Learn Halogen v4 (stable, released, but will be outdated soon)
+
+If one doesn't want to learn Halogen v5, then refer to the work I created below.
+
+### Halogen Guide
 
 Halogen has a lot of generic/polymorphic types. So, read through my "bottom up" approach first, which introduces these types one at a time. Then, read through the "top-down" approach alongside of the flowchart:
 - [My "bottom-up" explanation](https://github.com/slamdata/purescript-halogen/tree/1e13c931f242f0ea72a92ed1b560110833ab2f1c/docs/v2). I stopped at a certain point because of the currently not-well-documented API changes they are making in the upcoming `5.0.0` release.
