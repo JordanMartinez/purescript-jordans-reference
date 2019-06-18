@@ -367,11 +367,11 @@
                 - [The Either Monad](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.16.1/21-Hello-World/02-Prelude-ish/02-Prelude/07-Control-Flow--Functor-to-Monad/12-Useful-Monads.md#The-Either-Monad)
                 - [The List Monad](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.16.1/21-Hello-World/02-Prelude-ish/02-Prelude/07-Control-Flow--Functor-to-Monad/12-Useful-Monads.md#The-List-Monad)
                 - [Concluding Thoughts](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.16.1/21-Hello-World/02-Prelude-ish/02-Prelude/07-Control-Flow--Functor-to-Monad/12-Useful-Monads.md#Concluding-Thoughts)
-            - [13 Famous Monad Quote.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.16.1/21-Hello-World/02-Prelude-ish/02-Prelude/07-Control-Flow--Functor-to-Monad/13-Famous-Monad-Quote.md)
         - [08 Appendable: Semigroup to Monoid.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.16.1/21-Hello-World/02-Prelude-ish/02-Prelude/08-Appendable--Semigroup-to-Monoid.md)
             - [Examples](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.16.1/21-Hello-World/02-Prelude-ish/02-Prelude/08-Appendable--Semigroup-to-Monoid.md#Examples)
             - [Numeric Hierarchy Overview](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.16.1/21-Hello-World/02-Prelude-ish/02-Prelude/08-Appendable--Semigroup-to-Monoid.md#Numeric-Hierarchy-Overview)
             - [Docs](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.16.1/21-Hello-World/02-Prelude-ish/02-Prelude/08-Appendable--Semigroup-to-Monoid.md#Docs)
+        - [09 Famous Monad Quote.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.16.1/21-Hello-World/02-Prelude-ish/02-Prelude/09-Famous-Monad-Quote.md)
     - 03 Foldable Traversable
         - [ReadMe.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.16.1/21-Hello-World/02-Prelude-ish/03-Foldable-Traversable/ReadMe.md)
         - [01 Foldable.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.16.1/21-Hello-World/02-Prelude-ish/03-Foldable-Traversable/01-Foldable.md)
