@@ -28,4 +28,7 @@ spago test --main Test.Spec.Examples.SelfContained.TapReporter
 
 # To run the Modulated runner file
 spago test --main Test.Spec.Examples.Modulated.Runner
+
+# To run the focused spec example
+spago test --main Test.Spec.Examples.FocusedSpec
 ```
