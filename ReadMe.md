@@ -1,34 +1,41 @@
 # Purescript-Jordans-Reference
 
-This repo is my way of trying to use the [Feynman Technique](https://medium.com/taking-note/learning-from-the-feynman-technique-5373014ad230) to help me learn Purescript and its ecosystem. It includes a number of links and other resources I've gathered or created. These have been gathered into the following folders. (For a full overview of this repo's contents, see the [Table of Contents.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/latestRelease/table-of-contents.md) file.)
+This repo is my way of using the [Feynman Technique](https://medium.com/taking-note/learning-from-the-feynman-technique-5373014ad230) to learn Purescript and its ecosystem.
 
 All code uses PureScript `0.13.0`
+
+Below is a shorter table of contents. See [Table of Contents.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/latestRelease/table-of-contents.md) for a more detailed version.
 
 - 00-Getting-Started
     - Why learn/use PureScript?
     - How to install Purscript & set up an editor (using Atom)
     - An overview of the REPL
     - Other important info.
-- 01-Build-Tools - how to use the tools in the ecosystem to manage dependencies, compile source code, and build projects
+- 01-Philosophical Foundations - understand the core ideas that guide FP programmers and the "big idea" behind it all
+    - Composition
+    - Types & Type Classes
+    - Pure & Impure Functions
+    - Some problems FP programmers face and workarounds for them
+- 02-Build-Tools - how to use the tools in the ecosystem to manage dependencies, compile source code, and build projects
     - Overview of the dependency managers
-    - Other build tools
+    - Overview of various tools' CLI arguments in a mindmap format
+    - Typical project workflows
 - 11-Syntax - Purescript's syntax explained using meta-language and verified by the compiler
     - Basic Syntax
     - Foreign Function Interface Syntax
     - Type-Level Programming Syntax
     - Module syntax
 - 21-Hello-World - everything you need to know to write, structure, test, and benchmark a Purescript program
-    - Philosophical Foundations
     - Prelude + Basic data structures
     - Hello World & Effects
     - Debugging
     - Testing
     - Benchmarking
+    - Type-Level Programming
     - Application structure
-    - Type-Level Programming Overview
 - 22-Projects - working programs written in an FP style with helpful comments and overviews of the libraries they use
     - Random Number Game - a game that runs on the console and in the browser using the same "business logic"
-    - Table of Contents Generator (WIP) - a program that generates a table of contents for this project.
+    - Table of Contents Generator - a program that generates a table of contents for a GitHub repository.
 - 31-Design Patterns - (WIP) commonly-used patterns to solve problems in FP languages
 - 41-Ecosystem - (WIP) a better overview of the libraries in Purescript (categorized by tags)
 
@@ -37,7 +44,7 @@ The following labels give insight into this project's development:
 - [the 'Meta' label](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Meta): issues related to the project as a whole.
 - [the 'Release-PR' label](https://github.com/JordanMartinez/purescript-jordans-reference/pulls?utf8=%E2%9C%93&q=is%3Apr+label%3ARelease-PR+): the changelog of the code
 
-**Note: Sometimes this repo will produce a lot of notifications due to opening/closing issues/PRs and me adding additional thoughts/comments to things. If you wish to watch this repo, you are advised to watch for releases only. Many have unwatched this repo (before the release-only watch option was available) because it sometimes feels like notification spam.**
+**Note: You are advised to watch this repo for releases only. Sometimes, this repo will produce a lot of notifications due to opening/closing issues/PRs and me adding additional thoughts/comments to things. This can star to feel like notification spam.**
 
 ## License
 
@@ -55,13 +62,8 @@ Feel free to open a new issue for:
 - Corrections for any mistakes I've made
 - Improvements to anything I've written thus far
 
-**I have written an ISSUE_TEMPLATE file. When you open a new issue, there will be content there that tells you how to write a good, clear issue. Please, follow those instructions!**
-
 ### Learning Purescript Using This Project
 
-- Read through these links about learning:
-    - [How to teach yourself to learn](https://jvns.ca/blog/2018/09/01/learning-skills-you-can-practice/)
-    - Asking good questions: [short read](https://jvns.ca/blog/good-questions/) and [long read](http://www.catb.org/~esr/faqs/smart-questions.html)
 - Git clone this repo
 - Use these rules to read through the folders' contents in the correct order:
     - **Read a folder's "ReadMe.md" file first (if it exists).** It may provide additional info for how to read a folder's contents.
@@ -139,7 +141,9 @@ See this section to help you understand what a new release means
     - a file/folder name has changed, so that bookmarks or links to that file/folder are now broken
     - files/folders have been modified, so that one is recommended to re-read the modified parts
 - minor change means
-    - a file's contents have been modified/updated to such a degree that one is recommended to re-read the modified parts
+    - a file's contents have been modified/updated to such a degree that one is recommended to re-read the modified parts- Read through these links about learning:
+    - [How to teach yourself to learn](https://jvns.ca/blog/2018/09/01/learning-skills-you-can-practice/)
+    - Asking good questions: [short read](https://jvns.ca/blog/good-questions/) and [long read](http://www.catb.org/~esr/faqs/smart-questions.html)
     - a file's header name has changed, so that bookmarks or links to that header/section are now broken
 - patch means
     - additional files/folders have been added without breaking links

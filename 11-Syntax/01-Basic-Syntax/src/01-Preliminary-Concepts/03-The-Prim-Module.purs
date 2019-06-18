@@ -36,6 +36,9 @@ exampleInt1 = 1
 exampleInt2 :: Int
 exampleInt2 = 0x01 -- alternative way to write them
 
+exampleInt3 :: Int
+exampleInt3 = 1_000_000 -- use underscores for thousands character
+
 data Boolean_ -- Type
 
 exampleTrue :: Boolean
@@ -64,6 +67,10 @@ data String_ -- Type
 
 literal_string_syntax :: String
 literal_string_syntax = "literal string value"
+
+-- Follows this regex pattern: \x[0-9a-fA-F]{1,6}
+unicode_hex_escape_syntax :: String
+unicode_hex_escape_syntax = "\xa4"
 
 -- Syntax sugar for Strings
 slashy_string_syntax :: String
