@@ -20,6 +20,10 @@ Note: each 'project' folder in the `src` folder has a corresponding folder in th
 - [thomashoneyman's 'Real World App' project](https://github.com/thomashoneyman/purescript-halogen-realworld)
 - [jaspervdj's 'Beeraffe' game](https://github.com/jaspervdj/beeraffe/)
 
+### Projects in non-JS backends
+
+- [Lambda Lantern](https://lettier.itch.io/lambda-lantern)
+
 ## Clarifying Our Terminology
 
 When overviewing the design process of the program, we'll use the following terminology to refer to the various layers of our program:
