@@ -50,7 +50,7 @@ The following labels give insight into this project's development:
 
 Unless stated otherwise in a specific folder or file, this project is licensed under the `Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license`: [(Human-readable version)](https://creativecommons.org/licenses/by-nc-sa/4.0/), [(Actual License)](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
 
-<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
+<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
 
 ## Guidelines for this project
 
@@ -142,8 +142,6 @@ See this section to help you understand what a new release means
     - files/folders have been modified, so that one is recommended to re-read the modified parts
 - minor change means
     - a file's contents have been modified/updated to such a degree that one is recommended to re-read the modified parts- Read through these links about learning:
-    - [How to teach yourself to learn](https://jvns.ca/blog/2018/09/01/learning-skills-you-can-practice/)
-    - Asking good questions: [short read](https://jvns.ca/blog/good-questions/) and [long read](http://www.catb.org/~esr/faqs/smart-questions.html)
     - a file's header name has changed, so that bookmarks or links to that header/section are now broken
 - patch means
     - additional files/folders have been added without breaking links
