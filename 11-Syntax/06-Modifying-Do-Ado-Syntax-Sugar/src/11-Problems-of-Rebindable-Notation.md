@@ -1,4 +1,4 @@
-# Qualified Do/Ado
+# Problems of Rebinable Notation
 
 There are generally three problems with Rebindable do/ado notation.
 
