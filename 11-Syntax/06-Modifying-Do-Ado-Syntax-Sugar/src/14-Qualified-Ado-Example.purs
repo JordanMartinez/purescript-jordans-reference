@@ -8,12 +8,7 @@ import Prelude
 -- Requirement 3: import the module using a module alias, making it possible
 -- to use the same function names to refer to different "apply"-like functions
 import Syntax.MonadLikeTypeClasses as I
-
--- import the type classes, so we can constraint types
-import Syntax.MonadLikeTypeClasses (class IxFunctor, class IxApply, class IxApplicative)
-
--- Given a indexed-monadic type (type classes are at end of file)
-data Box phantomInput phantomOutput storedValue = Box storedValue
+import Syntax.MonadLikeTypeClasses (Box)
 
 -- Requirement 4: When we want to use 'qualified ado' syntax, we need to call the separate
 -- function above and constrain the types to use IxApplicative
@@ -37,20 +32,3 @@ mixingAdosTogether =
   I think "qualified ado" and "unqualified ado" can be mixed together,
   but I don't know of any examples
   """
-
--- type class instances
-
-instance functor :: IxFunctor Box where
-  imap :: forall a b x. (a -> b) -> Box x x a -> Box x x b
-  imap f (Box a) = Box (f a)
-
-instance apply :: IxApply Box where
-  iapply :: forall a b x y z. Box x y (a -> b) -> Box y z a -> Box x z b
-  iapply (Box f) (Box a) = Box (f a)
-
-instance applicative :: IxApplicative Box where
-  ipure :: forall a x. a -> Box x x a
-  ipure a = Box a
-
-instance showBox :: (Show a) => Show (Box x x a) where
-  show (Box a) = "Box(" <> show a <> ")"
