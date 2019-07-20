@@ -98,6 +98,20 @@ comp2 = do
     -- whoops, I forgot to remap bind here.
 ```
 
-Qualified Do/Ado "solves" each of these problems. Since we mentioned it earlier, here's what the IndexedMonad looks like: [IxMonad](https://pursuit.purescript.org/packages/purescript-indexed-monad/1.0.0/docs/Control.IxMonad#t:IxMonad).
+Finally, rebindable do/ado notation does not allow one to easily mix and match when that fits the context best. For example
 
-Since `0.12.2`, we can now use a feature called "Qualified Do" / "Qualified Ado" syntax that allows us to re-use this syntax sugar. What follows is the requirements one needs to implement before this feature will work.
+```purescript
+someComputation :: Box Int
+someComputation = do
+  -- Box monadic context... use standard bind here
+  value1 <- takesMonad1Argument do
+    -- Monad1 monadic context... use custom bind here
+    value2 <- runMonad1Computation
+    takesMonad2Argument do
+      -- Monad2 monadic context... use a different custom bind here...
+      value3 <- runMonad2Computation
+      pure (value3 + 5)
+  pure (value1 + 8)
+```
+
+Qualified Do/Ado "solves" each of these problems. What follows is the requirements one needs to implement before this feature will work. In this example, we'll use a more complicated example: IndexedMonad/[IxMonad](https://pursuit.purescript.org/packages/purescript-indexed-monad/1.0.0/docs/Control.IxMonad#t:IxMonad).
