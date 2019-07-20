@@ -133,7 +133,7 @@ As we explained previously, `bind`/`>>=`'s type signature forces one to only ret
 ```purescript
 bind :: forall a. f   a -> ( a    -> f   b)           -> f    b
 bind :: forall a. Box a -> ( a    -> Box b         )  -> Box  b
-bind             (Box 4)   (\four -> Box (show four)) == Box "5"
+bind             (Box 4)   (\four -> Box (show four)) == Box "4"
 ```
 
 **In other words, if we use one monad, we cannot use any other monads.** So, how do we get around this limitation?
