@@ -98,6 +98,6 @@ comp2 = do
     -- whoops, I forgot to remap bind here.
 ```
 
-Qualified Do/Ado "solves" each of these problems. Since we mentioned it earlier, here's what the IndexedMonad looks like: [IxMonad](https://pursuit.purescript.org/packages/purescript-indexed-monad/0.2.0/docs/Control.IxMonad#t:IxMonad).
+Qualified Do/Ado "solves" each of these problems. Since we mentioned it earlier, here's what the IndexedMonad looks like: [IxMonad](https://pursuit.purescript.org/packages/purescript-indexed-monad/1.0.0/docs/Control.IxMonad#t:IxMonad).
 
 Since `0.12.2`, we can now use a feature called "Qualified Do" / "Qualified Ado" syntax that allows us to re-use this syntax sugar. What follows is the requirements one needs to implement before this feature will work.
