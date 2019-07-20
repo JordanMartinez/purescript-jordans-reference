@@ -1,4 +1,4 @@
-module Syntax.Notation.MonadLikeTypeClasses
+module Syntax.MonadLikeTypeClasses
   ( class IxFunctor, imap, map
   , class IxApply, iapply, apply
   , class IxApplicative, ipure, pure
@@ -12,14 +12,11 @@ import Data.Unit (Unit)
 --  - ado requirements: Functor, Apply, and Applicative
 --  - do requirements: Functor, Apply, Applicative, Bind, and Monad
 
--- (Note: I've seen these before, but I don't know why they exist and what
--- their pros/cons are when compared with the regular Functor to Monad
--- type classes. I'm also not sure whether I've defined these correctly)
 class IxFunctor f where
   imap :: forall a b x. (a -> b) -> f x x a -> f x x b
 
 class (IxFunctor f) <= IxApply f where
-  iapply :: forall a b x. f x x (a -> b) -> f x x a -> f x x b
+  iapply :: forall a b x y z. f x y (a -> b) -> f y z a -> f x z b
 
 class (IxApply f) <= IxApplicative f where
   ipure :: forall a x. a -> f x x a
@@ -35,7 +32,7 @@ class (IxApplicative m, IxBind m) <= IxMonad m
 map :: forall f a b x. IxFunctor f => (a -> b) -> f x x a -> f x x b
 map = imap
 
-apply :: forall f a b x. IxApply f => f x x (a -> b) -> f x x a -> f x x b
+apply :: forall f a b x y z. IxApply f => f x y (a -> b) -> f y z a -> f x z b
 apply = iapply
 
 pure :: forall f a x. IxApplicative f => a -> f x x a
