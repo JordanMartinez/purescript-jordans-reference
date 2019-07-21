@@ -11,7 +11,7 @@ Some examples of native effects are:
     - Reading/writing _mutable_ state
     - Writing/reading to/from local storage
 - Node only:
-    - Console IO
+    - User input via the terminal
 - Browser only:
     - DOM manipulation
     - XMLHttpRequest / AJAX calls
