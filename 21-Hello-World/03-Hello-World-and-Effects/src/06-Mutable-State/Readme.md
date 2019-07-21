@@ -1,6 +1,6 @@
 # Mutable State: Global vs Local
 
-**Note: This file will use the function, `traceM`. This function will be explained in the `Hello World/Debugging` folder. Please read through that entire folder before continuing here.**
+**Note: This file will use the function, `traceM`. Because of the "monads don't compose" problem, this function is necessary to make it possible for me to print values to the screen when such a thing should not be done. There are better ways to do the same thing, but I will explain that later. Its much too complicated at this part in the learning process.**
 
 There are two types of mutable state:
 
