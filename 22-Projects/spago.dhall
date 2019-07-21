@@ -23,6 +23,7 @@ You can edit this file as you like.
     , "node-process"
     , "node-readline"
     , "optparse"
+    , "parallel"
     , "prelude"
     , "psci-support"
     , "quickcheck"
