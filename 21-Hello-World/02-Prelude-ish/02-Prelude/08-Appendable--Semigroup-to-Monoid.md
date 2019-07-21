@@ -1,30 +1,53 @@
-# Appendable
+# Appendable: Semigroup to Monoid
 
-These type classes often take two values of a given type and 'append' them into one value. In other words:
+This file will only cover the first two type classes in the type class hierarchy. The rest will be covered later.
+
+These type classes often take two values of a given type and 'append' them into one new value. One could also think of this as 'reducing' two values into one value.
+
+## Semigroup
+
 ```purescript
-append :: forall a. a -> a -> a
-append a1 a2 = --definition
+class Semigroup a where
+  append :: a -> a -> a
+
+infixr 5 append as <>
 ```
-The definition of "appending" depends on the context and the type. One could also think of these type classes as "reducing" two value of the same type down into one value of the same type.
 
-## Examples
+### Examples
 
-One example is `String`. Two String values can be 'appended/reduced' into one value by
-- concatenating them together: `append "hello " "world" == "hello world"`
+One example is `String`. Two String values can be 'appended/reduced' into one value by concatenating them together: `append "hello " "world" == "hello world"`.
 
-Another example is `Boolean`. Two Boolean values can be 'appended/reduced' into one value via the usual suspects:
+Another example is `Boolean` (although its functions are not defined in this way as there is a better type class for them). Two Boolean values can be 'appended/reduced' into one value via the usual suspects:
 - `true && true == true`
 - `false || true == true`
 
-A third example is `Int`. Two values of `Int` can be 'appended/reduced' into one value. How? One could
+A third example is `Int`, which has two possible instances for 'appending/reducing' two values into one value. How? One could
 - add them: `1 + 1`
 - multiple them: `2 * 2`
 
-## Numeric Hierarchy Overview
+A fourth is `List`. One can take two values of `List` and combine them together by putting both lists' elements into one new list.
 
-Semigroup and Monoid are used frequently in FP. The above examples illustrate enough for one to understand how they work in principle. However, the rest of PureScript's Numeric type classes (e.g. `Semiring`, `Ring`, etc.) and all the mathematical notations they use are very clearly explained elsewhere in [hdgarrood's Numeric Hierarchy Overview](https://a-guide-to-the-purescript-numeric-hierarchy.readthedocs.io/en/latest/introduction.html).
+## Monoid
 
-Once one finishes reading it, be sure to check out [his full-screen cheatsheet](https://harry.garrood.me/numeric-hierarchy-overview/) and [his overview of PureScript's numberic types](https://a-guide-to-the-purescript-numeric-hierarchy.readthedocs.io/en/latest/appendix/purescript-impls.html)
+```purescript
+class Semigroup a <= Monoid a where
+  mempty :: a
+```
+
+`mempty` is the "identity" value. In other words `mempty <> a == a` and `a <> mempty == a`. In some contexts, `mempty` acts like a "default value."
+
+The name, `mempty`, is used rather than `empty` because `empty` is the name of a function that a different but similar type class called `Plus` defines. We won't cover `Plus` here.
+
+Using the same examples above,
+
+| Type | `mempty` value | Example 1 | Example 2
+| - | - | - | - |
+| `String` | "" | "foo" <> "" == "foo" | "" <> "foo" == "foo"
+| `Boolean` (and) | true | x &amp;&amp; true == x | true &amp;&amp; x == x
+| `Boolean` (or) | false | x `||` false == x | false `||` x == x
+| `Int` (plus) | 0 | x <> 0 == x | 0 <> x == x
+| `Int` (multiply) | 1 | x <> 0 == x | 1 <> x == x
+| `List` | Nil | x <> Nil == X | Nil <> x == x
 
 ## Docs
 
@@ -39,12 +62,5 @@ Some of these type classes also specify specific helper types (sub bullets under
     - [Disj](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid.Disj)
     - [Dual](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid.Dual)
     - [Endo](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid.Endo)
-- [Semigring](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Semiring)
-- [Ring](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Ring)
-- [CommutativeRing](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.CommutativeRing)
-- [EuclideanRing](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.EuclideanRing)
-- [DivisionRing](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.DivisionRing)
-- [Field](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Field)
-
 
 For derived functions (if any), see the type classes' docs.
