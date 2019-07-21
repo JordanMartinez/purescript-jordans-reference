@@ -2,13 +2,17 @@
 Welcome to a Spago project!
 You can edit this file as you like.
 -}
-{ name =
+{ sources =
+    [ "src/**/*.purs", "test/**/*.purs" ]
+, name =
     "untitled"
 , dependencies =
-    [ "console"
+    [ "aff"
+    , "console"
     , "debug"
     , "effect"
     , "js-timers"
+    , "node-readline"
     , "now"
     , "prelude"
     , "psci-support"
