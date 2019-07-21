@@ -56,6 +56,16 @@ someComputation = do
 
 If a `Nothing` value is given at any point in the nested-`bind` computations, it will short-circuit and return immediately.
 
+What is a real-world example of using the Maybe monad? One often writes monadic code using Maybe as the Monad to lookup values in some structure (e.g. `Map`, `Array`, `List`, or `Tree`). Often, this control flow reads like this: "Try to get value X. If it exists, try to get value Y. If that exists, do something with both. If either one of them does not exist, throwdo something else." In other words...
+
+```purescript
+example :: Maybe String
+example = do
+  x <- index 4 array
+  y <- lookup "fooKey" map
+  pure (x + y)
+```
+
 ## The Either Monad
 
 In JavaScript, we might write this code:
@@ -103,6 +113,16 @@ someComputation = do
 ```
 
 If a `Left` value is given at any point in the nested-`bind` computations, it will short-circuit and return immediately.
+
+What is a real-world example of using the Maybe monad? One often uses it to validate that some data is correct. It reads like, "Try to parse the given String into an Int. If it fails, stop. Otherwise, try to parse the given String into a Foo. If it fails, stop. Otherwise, take the Int and the Foo and do something with them."
+
+```purescript
+example :: String -> Either String ValidatedData
+example string = do
+  intValue <- parseString string
+  fooValue <- parseNextPart
+  doSomethingWith intValue fooValue
+```
 
 ## The List Monad
 
