@@ -34,6 +34,28 @@ instance apply :: Apply Box where
   apply               (Box  f     )   (Box a) = Box (f a)
 ```
 
+Put differently, `Apply` solves a problem that occurs when using `Functor`. If I have a function of type `(a -> b -> c)`, I can use `Functor`'s `map`/`<$>` to lift that function into a Box-like type as before....
+```purescript
+mapResult :: Box (Int -> Int)
+mapResult = map (\first second -> first + second) (Box 1)
+```
+
+However, the resulting value stored in that Box-like type is a function. In other words, `mapResult == Box (\second -> 1 + second)`. `Functor`'s `map` only works if the function takes only one argument. If it takes 2+ arguments, `map` will return a function stored in a `Box`.
+
+This is where `Apply` comes to the rescue. We can continue to apply boxed arguments to that function until we eventually get a Box with a value in it:
+```purescript
+finalResult :: Box Int
+finalResult =
+  apply mapResult (Box 2)                                 {-
+
+  ...which is the same as...
+  Box ((\second -> 1 + second) 2)
+  Box ((\2      -> 1 + 2     )  )
+  Box ((           3         )  )
+  Box 3                                                   -}
+```
+Thus, `map` lifts functions that take `n`-many arguments into a Box-like type, and `Apply`'s `apply`/`<*>` continues to pass `n-1`-many boxed arguments into that function until the function executes.
+
 ## Laws
 
 ### Associative Composition
