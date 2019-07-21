@@ -4,6 +4,8 @@ This folder accomplishes the following goals:
 - An explanation of what "native side-effects" are and how this is turned into a type via `Effect`.
 - A demonstration of how to write the infamous "Hello World" app in Purescript
 - A demonstration of the various `Effect` types out there and their usage.
+- An overview of `Aff` and why one should use it.
+- A demonstration of the various `Aff` types out there and their usage.
 
 These examples are compilable, enabling the reader to do two things.
 
