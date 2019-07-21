@@ -23,7 +23,7 @@ flip twoArgFunction secondArg firstArg = twoArgFunction firstArg secondArg
 
 -- example
      (append "world!" "Hello ") == "world!Hello "
-(flip append "world!" "Hello")  == "Hello world!"
+(flip append "world!" "Hello ") == "Hello world!"
 ```
 
 ## Apply
