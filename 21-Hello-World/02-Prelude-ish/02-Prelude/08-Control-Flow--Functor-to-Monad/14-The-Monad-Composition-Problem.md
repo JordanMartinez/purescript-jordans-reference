@@ -1,6 +1,6 @@
 # The Monad Composition Problem
 
-Before we can continue further, I need to review a concept and demonstrate the problem it creates. I won't show the solution to this problem yet, but I wanted to introduce the reader to it. In short, "different monads do not compose."
+Before we can continue further, I need to review a concept and demonstrate the problem it creates. I will show one way to solve this problem, but it's not necessarily the solution most will use for more complicated scenarios (that's what the `Application Structure` folder is for). In short, "different monads do not compose."
 
 ## Reducing a Monad Chain into Its Final Value
 
@@ -115,3 +115,61 @@ endingBox = bind (Box2 6) (b2_Int -> pure (4 + b2_Int))
 ```
 
 As soon as we commit to using one monadic context to compute something, we can no longer use other monads in that context. In the upcoming folders, we'll mention this problem again and show the various ways one can workaround that issue.
+
+## Lifting One Monad into Another
+
+To help develop the necessary foundation for later understanding, we'll now show a way to do this. We use a type class that follows this idea:
+```purescript
+class LiftSourceIntoTargetMonad sourceMonad targetMonad where {-
+  liftSourceMonad :: forall a. sourceMonad a -> targetMonad a -}
+  liftSourceMonad ::           sourceMonad   ~> targetMonad
+
+-- Note: instances of this idea might be much more complicated than this one
+instance box2_into_box1 :: LiftSourceIntoTargetMonad Box2 Box1 where {-
+  liftSourceMonad :: forall a. Box2 a -> Box1 a                      -}
+  liftSourceMonad ::           Box2   ~> Box1
+  liftSourceMonad (Box2 a) = Box1 a
+```
+This enables something like the following. It can be pasted into the REPL and one can try it out by calling `bindAttempt`:
+```purescript
+import Prelude -- for the (+) and (~>) function aliases
+
+data Box1 a = Box1 a
+data Box2 a = Box2 a
+
+class LiftSourceIntoTargetMonad sourceMonad targetMonad where
+  liftSourceMonad :: sourceMonad ~> targetMonad
+
+instance box2_to_box1 :: LiftSourceIntoTargetMonad Box2 Box1 where
+  liftSourceMonad :: Box2 ~> Box1
+  liftSourceMonad (Box2 a) = Box1 a
+
+instance bs :: (Show a) => Show (Box1 a) where
+  show (Box1 a) = show a
+
+bindAttempt :: Box1 Int
+bindAttempt = do
+  four <- Box1 4
+  six <- liftSourceMonad $ Box2 6
+  pure $ four + six
+
+-- type class instances for Monad hierarchy
+
+instance functor :: Functor Box1 where
+  map :: forall a b. (a -> b) -> Box1 a -> Box1  b
+  map f (Box1 a) = Box1 (f a)
+
+instance apply :: Apply Box1 where
+  apply :: forall a b. Box1 (a -> b) -> Box1 a -> Box1  b
+  apply (Box1 f) (Box1 a) = Box1 (f a)
+
+instance bind :: Bind Box1 where
+  bind :: forall a b. Box1 a -> (a -> Box1 b) -> Box1 b
+  bind (Box1 a) f = f a
+
+instance applicative :: Applicative Box1 where
+  pure :: forall a. a -> Box1 a
+  pure a =  Box1 a
+
+instance monad :: Monad Box1
+```
