@@ -31,6 +31,11 @@ pwd
 spago install
 cd ../../
 
+cd 11-Syntax/06-Modifying-Do-Ado-Syntax-Sugar/
+pwd
+spago install
+cd ../../
+
 ## Hello World
 
 cd 21-Hello-World/03-Hello-World-and-Effects/

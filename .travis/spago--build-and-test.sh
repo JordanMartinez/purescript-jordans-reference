@@ -41,6 +41,12 @@ spago build
 SYNTAX_PRELUDE=$?
 cd ../../
 
+cd 11-Syntax/06-Modifying-Do-Ado-Syntax-Sugar/
+pwd
+spago build
+SYNTAX_DO_ADO_NOTATION=$?
+cd ../../
+
 ## Hello World
 
 cd 21-Hello-World/03-Hello-World-and-Effects/
@@ -129,6 +135,7 @@ echo "$SYNTAX_FFI - Syntax - FFI"
 echo "$SYNTAX_TLP - Syntax - TLP"
 echo "$SYNTAX_MODULE - Syntax - Module"
 echo "$SYNTAX_PRELUDE - Syntax - Prelude"
+echo "$SYNTAX_DO_ADO_NOTATION - Syntax - Do/Ado Notation"
 echo "$HELLO_EFFECTS - Hello World - Effects"
 echo "$HELLO_DEBUGGING - Hello World - Debugging"
 echo "$HELLO_TESTING - Hello World - Testing"
@@ -152,6 +159,7 @@ if [ $SYNTAX_BASIC == 0 ] &&
    [ $SYNTAX_TLP == 0 ] &&
    [ $SYNTAX_MODULE == 0 ] &&
    [ $SYNTAX_PRELUDE == 0 ] &&
+   [ $SYNTAX_DO_ADO_NOTATION == 0 ] &&
    [ $HELLO_EFFECTS == 0 ] &&
    [ $HELLO_DEBUGGING == 0 ] &&
    [ $HELLO_TESTING == 0 ] &&
