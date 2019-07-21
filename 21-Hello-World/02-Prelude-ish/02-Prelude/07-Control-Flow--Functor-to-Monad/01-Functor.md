@@ -35,7 +35,7 @@ function _ = "1"
 function 5 -- This works!
 function (Box 5) -- compiler error! Oh noes!
 ```
-One could also see `map` as "transforming" a function, so that it also operates on Box-like types:
+One could also see `map` as "transforming" a function, so that it also operates on Box-like types. This is often described as "lifting" a function into a Box-like type:
 ```purescript
 map :: forall a b. (a -> b) -> (Box a -> Box b)
 map f = (\(Box a) -> Box (f b))
