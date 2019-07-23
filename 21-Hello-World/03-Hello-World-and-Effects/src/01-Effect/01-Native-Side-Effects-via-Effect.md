@@ -21,16 +21,6 @@ PureScript's [`purescript-effect`](https://pursuit.purescript.org/packages/pures
 
 (The remainder of this article is my own work.)
 
-None of the above examples can be pure code and yet they are necessary for any practical computations. As a reminder, the following table shows the difference between pure and impure code:
-
-| | Pure | Pure Example | Impure | Impure Example
-| - | - | - | - | - |
-| Given an input, will it always return some output? | Always <br> (Total Functions) | `n + m` | Sometimes <br> (Partial Functions) | `4 / 0 == undefined`
-| Given the same input, will it always return the same output? | Always <br> (Deterministic Functions) | `1 + 1` always equals `2` | Sometimes <br> (Non-Deterministic Functions) | `random.nextInt()`
-| *Does it interact with the real world? | Never |  | Sometimes | `file.getText()` |
-| *Does it access or modify program state | Never | `newList = oldList.removeElemAt(0)`<br>Original list is copied but never modified | Sometimes | `x++`<br>variable `x` is incremented by one.
-| *Does it throw exceptions? | Never | | Sometimes | `function (e) { throw Exception("error") }` |
-
 ## Understanding the Effect Monad
 
 The following code is not necessarily how `Effect` is implemented, but it does help one quickly understand it by analogy:
@@ -53,7 +43,7 @@ unsafePerformEffect :: Effect a -> a
 unsafePerformEffect (Box pendingComputation) = pendingComputation unit
 ```
 
-Some readers may realize that this is similar to the idea we introduced back `ROOT_FOLDER/Hello-World/Prelude/Control-Flow--Functor-to-Monad.md` when we showed how an FP program does sequential computation using Monads. If you replace `Box` from that example with `Effect`, you would have a working FP program.
+Some readers may realize that this is similar to the idea we introduced back in `ROOT_FOLDER/Hello-World/Prelude/Control-Flow--Functor-to-Monad.md` when we showed how an FP program does sequential computation using Monads. If you replace `Box` from that example with `Effect`, you would have a working FP program.
 
 The whole idea of `Effect` is to use `unsafePerformEffect` as little as possible and ideally only once as the program's main entry point, explained next.
 
