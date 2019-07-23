@@ -1,4 +1,3 @@
--- This is the infamous "Hello World" app in Purescript.
 module HelloNumber where
 
 import Prelude
