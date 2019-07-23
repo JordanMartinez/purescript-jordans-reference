@@ -2,10 +2,14 @@
 
 If you're writing a program, you should almost always use `Aff` to run your native side-effectful computations rather than `Effect`. Here are some of its advantages:
 - prevents "callback hell" for which Node.js is well-known.
-- enables parallel programming (but not concurrent programming as JavaScript is single-threaded).
+- enables concurrent programming (but not parallel programming as JavaScript is single-threaded).
 - is a stack-safe monad (`Effect` is not currently stack-safe).
 
-**Before continuing one with this folder's contents, watch [Async Programming in PureScript](https://www.youtube.com/watch?v=dbM72ap30TE) to learn what problem Aff solves and how it works** (actual video on YouTube is titled: "LA PureScript Meetup 12/05/17").
+`Aff` is basically what one would get if one implemented JavaScript Promises as a Monad.
+
+**Before continuing one with this folder's contents, watch [Async Programming in PureScript](https://www.youtube.com/watch?v=dbM72ap30TE) to learn what problem `Aff` solves and a tour of its API for how to use it** (actual video on YouTube is titled: "LA PureScript Meetup 12/05/17").
+
+If, after watching the above video, you are tempted to figure out how `Aff` works internally, let me strongly recommend against that. The JavaScript code used to implement `Aff` is difficult to understand. You're time would be better invested elsewhere. Rather, I'd recommend looking at it when you have a better grasp of FP concepts.
 
 ## Folder's Contents
 
