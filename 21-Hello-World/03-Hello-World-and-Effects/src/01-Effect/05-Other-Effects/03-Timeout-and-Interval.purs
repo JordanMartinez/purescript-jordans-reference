@@ -8,7 +8,8 @@ import Effect.Console (log)
 import Effect.Timer as T
 
 -- Unfortunately, the code below won't work as expected because
--- not enough time will pass before the callbacks are never run.
+-- the callbacks never run. Not enough time passes before they get triggered.
+-- We'll see how to fix this using the `Aff` monad later in this folder.
 main :: Effect Unit
 main = do
   timeoutID <- T.setTimeout 1000 (log "This will run after 1 second")
