@@ -17,7 +17,7 @@ First, we'll overview some of `Aff`s API via some working examples that one can 
 
 Second, we'll show _one_ way for getting around the "monads don't compoes" problem, so that we can run `Effect`-based computations in an `Aff` monadic context. (Note: this solution won't work for the `ST` monadic context in the `Effect` folder's `Local-State.purs` example.) Then, we'll show how to fix the issue we experienced in our the `Effect` folder's `Timeout-and-Interval.purs` file.
 
-Third, we'll use the `Node.ReadLine` library to show how to convert `Effect`-based computations that require callbacks into `Aff`-based computations, and how doing so greatly improves the developer experience. This will show the more complicated way to run a computation in the `Aff` monad but which exposes all of `Aff`'s features: `makeAff`.
+Third, we'll use the `Node.ReadLine` library to show how to convert `Effect`-based computations that require callbacks into `Aff`-based computations via `makeAff`. We'll also show the more complicated way to run a computation in the `Aff` monad but which exposes all of `Aff`'s features: `runAff`.
 
 Finally, we'll link to other `Aff`-based libraries that one will likely find helpful.
 
