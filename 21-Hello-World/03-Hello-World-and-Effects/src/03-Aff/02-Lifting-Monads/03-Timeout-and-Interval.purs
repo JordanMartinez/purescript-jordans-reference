@@ -1,10 +1,11 @@
 module TimeoutAndInterval.Aff where
 
 import Prelude
-import Effect (Effect)
-import Effect.Console (log)
 
--- new import
+import Effect (Effect)
+import Effect.Aff (Milliseconds(..), delay, launchAff_)
+import Effect.Class (liftEffect)
+import Effect.Console (log)
 import Effect.Timer as T
 
 main :: Effect Unit
@@ -20,8 +21,9 @@ main = launchAff_ do
     log (evaluate 10 20)
     log "... Finished."
 
-  log "Now cancelling interval"
-  T.clearInterval intervalID
+  liftEffect do
+    log "Now cancelling interval"
+    T.clearInterval intervalID
 
   -- Here, we'll delay the computation long enough to ensure the
   -- above timeout callback actually runs.
