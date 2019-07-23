@@ -20,7 +20,7 @@ instance box2_into_box1 :: LiftSourceIntoTargetMonad Box2 Box1 where {-
   liftSourceMonad ::           Box2   ~> Box1
   liftSourceMonad (Box2 a) = Box1 a
 ```
-This enables something like the following. It can be pasted into the REPL and one can try it out by calling `bindAttempt`:
+This enables something like the following. Paste the below code into the REPL and try calling `bindAttempt`:
 ```purescript
 import Prelude -- for the (+) and (~>) function aliases
 
