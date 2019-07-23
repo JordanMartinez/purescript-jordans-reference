@@ -6,7 +6,7 @@ import Effect.Console (log)
 
 import Node.ReadLine ( Interface
   , createConsoleInterface, noCompletion
-  , question, close)
+  , close)
 import Node.ReadLine as ReadLine
 
 import Data.Either (Either(..))
@@ -42,11 +42,12 @@ useInterface interface = do
   liftEffect $ log $ "You typed: '" <> answer <> "'\n"
 
 -- This is `affQuestion` from earlier
-question :: Interface -> String -> Aff String
-question interface = makeAff go
+question :: String -> Interface -> Aff String
+question message interface = makeAff go
   where
     -- go :: (Either Error a -> Effect Unit) -> Effect Canceler
-    go raRF = ReadLine.question message (raRF <<< Right) interface $> nonCanceler
+    go runAffFunction =
+      nonCanceler <$ ReadLine.question message (runAffFunction <<< Right)
 
 
 main :: Effect Unit
