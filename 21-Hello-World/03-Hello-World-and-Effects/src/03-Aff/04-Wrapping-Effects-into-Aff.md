@@ -9,7 +9,7 @@ Before showing what you the equivalent version of our program using `Aff`, let's
 - returns some computation's output
 - can be cancelled if it's no longer needed
 
-To model both errors and output, we can use either `Maybe a` or `Either a b`. Since the error might be important for some parties, `Maybe a` can't be used. Rather, we'll use `Either Error outputType`.
+To model both errors and output, we can use `Either a b` since the error might be important for some parties.
 
 Handling errors and output implies a function. `Aff` uses the type signature, `Either errorType outputType -> Effect Unit`, for that.
 
@@ -52,7 +52,7 @@ Breaking this down, `makeAff` takes only one argument. However, the argument is 
 ```
   Given a function
     that returns an `Effect Canceler`
-    by using the function `runAff_` requires
+    by using the function that `runAff_` requires
       (i.e. `(Either Error a -> Effect Unit)`),
 output an `Aff a`
 ```
@@ -67,15 +67,15 @@ affValue = makeAff go
 ```
 Since the implementation will need to return an `Effect Canceler`, we can do one of two things:
 1. Lift a canceller into `Effect` via `pure`. This is pointless because then our `Aff` wouldn't do anything.
-2. Create an `Effect a` and use Functor's dervied function, `voidLeft` (`$>`), with `nonCanceler`
+2. Create an `Effect a` and use Functor's dervied function, `voidRight` (`<$`), with `nonCanceler`
 
 ```purescript
 -- for a refresher on voidLeft
 (Box 1) voidLeft "2" == (Box 1) $> 2 == (Box 2)
 
--- alias is: "$>"
-voidLeft :: forall f a b. Functor f => f a -> b -> f b
-voidLeft box b = (\_ -> b) <$> box
+-- alias is: "<$"
+voidRight :: forall f a b. Functor f => b -> f a -> f b
+voidRight b box = (\_ -> b) <$> box
 
 -- or ignore the monad's inner 'a' and replace it with 'b'
 ```
@@ -86,23 +86,23 @@ affValue :: Aff String
 affValue = makeAff go
   where
   go :: (Either Error a -> Effect Unit) -> Effect Canceler
-  go runAff_RequiredFunction = (effectBox runAff_RequiredFunction) $> nonCanceler
+  go runAff_RequiredFunction = nonCanceler <$ (effectBox runAff_RequiredFunction)
 
   effectBox :: (Either Error a -> Effect Unit) -> Effect Unit
-  effectBox raRF = -- implementation
+  effectBox runAffFunction = -- implementation
 ```
 We want to use `question` to print something to the console, get the user's input, and return that value.
 It's type signature is:
 ```purescript
 question :: String -> (String -> Effect Unit) -> Interface -> Effect String
-question message handleUserINput interface = -- implementation
+question message handleUserINput interface = -- Node binding implementation
 ```
-The only place we could insert `raF` is in `(String -> Effect Unit)`. Thus, we come up with this function:
+The only place we could insert `runAffFunction` is in `(String -> Effect Unit)`. Thus, we come up with this function:
 ```purescript
 effectBox :: (Either Error String -> Effect Unit) -> Effect Unit
-effectBox raRF =
-  question message (\userInput -> raRF (Right userInput)) interface
-                              -- (raRF <<< Right) -- less verbose; same thing
+effectBox runAffFunction =
+  question message (\userInput -> runAffFunction (Right userInput)) interface
+                              -- (runAffFunction <<< Right) -- less verbose; same thing
 ```
 Putting it all together and excluding the required arguments, we get:
 ```purescript
@@ -110,10 +110,10 @@ affValue :: Aff String
 affValue = makeAff go
   where
   go :: (Either Error a -> Effect Unit) -> Effect Canceler
-  go runAffFunction = (effectBox runAffFunction) $> nonCanceler
+  go runAff_RequiredFunction = nonCanceler <$ (effectBox runAff_RequiredFunction)
 
   effectBox :: (Either Error a -> Effect Unit) -> Effect Unit
-  effectBox raRF = question message (raRF <<< Right) interface
+  effectBox runAffFunction = question message (runAffFunction <<< Right) interface
 ```
 Cleaning it up and including the arguments, we get:
 ```purescript
@@ -121,5 +121,6 @@ affQuestion :: String -> Interface -> Aff String
 affQuestion mesage interface = makeAff go
   where
   go :: (Either Error a -> Effect Unit) -> Effect Canceler
-  go raRF = question message (raRF <<< Right) interface
+  go runAffFunction =
+    nonCanceler <$ question message (runAffFunction <<< Right) interface
 ```
