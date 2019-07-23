@@ -9,7 +9,6 @@ You can edit this file as you like.
 , dependencies =
     [ "aff"
     , "console"
-    , "debug"
     , "effect"
     , "js-timers"
     , "node-readline"
