@@ -7,17 +7,23 @@ import Effect.Console (log)
 -- new import
 import Effect.Timer as T
 
+-- Unfortunately, the code below won't work as expected because
+-- not enough time will pass before the callbacks are never run.
 main :: Effect Unit
 main = do
   timeoutID <- T.setTimeout 1000 (log "This will run after 1 second")
   intervalID <- T.setInterval 10 (log "Interval ran!")
+
   log "Doing some other things...."
   log (evaluate 10 20)
   log "... Finished."
+
   log "Now cancelling interval"
   T.clearInterval intervalID
+
   log "Now cancelling timeout"
   T.clearTimeout timeoutID
+
   log "Program is done!"
 
 evaluate :: Int -> Int -> String
