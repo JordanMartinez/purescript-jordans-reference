@@ -1,4 +1,4 @@
-  module ConsoleLessons.ReadLine.AffMonad where
+module ConsoleLessons.ReadLine.AffMonad where
 
 import Prelude
 import Effect (Effect)
@@ -46,8 +46,8 @@ question :: String -> Interface -> Aff String
 question message interface = makeAff go
   where
     -- go :: (Either Error a -> Effect Unit) -> Effect Canceler
-    go runAffFunction =
-      nonCanceler <$ ReadLine.question message (runAffFunction <<< Right) interface
+    go runAffFunction = nonCanceler <$
+      ReadLine.question message (runAffFunction <<< Right) interface
 
 
 main :: Effect Unit
