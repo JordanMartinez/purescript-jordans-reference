@@ -13,9 +13,9 @@ main = launchAff_ do
     fiber2 = "Fiber 2"
     fiber3 = "Fiber 3"
 
-  specialLog "Let's run multiple computations concurrently. Then, \
-             \we'll use `joinFiber` to ensure all computations have \
-             \finished before we do another computation.\n"
+  specialLog "Let's setup multiple computations. Then, we'll use \
+             \`joinFiber` to actually run the computations for the first time. \
+             \When they run, they will block until finished.\n"
 
   specialLog "Setting up the first fiber, but not yet running its computation."
   firstFiber <- suspendAff do
@@ -50,7 +50,7 @@ main = launchAff_ do
              \until it finishes."
   joinFiber secondFiber
 
-  specialLog "Now running the second fiber's computation and blocking \
+  specialLog "Now running the third fiber's computation and blocking \
              \until it finishes."
   joinFiber thirdFiber
 
