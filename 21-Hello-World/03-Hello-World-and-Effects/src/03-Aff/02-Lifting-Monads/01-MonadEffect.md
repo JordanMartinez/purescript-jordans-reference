@@ -65,12 +65,12 @@ class (Monad m) <= MonadEffect m where
   liftEffect :: Effect ~> m
 ```
 
-`Aff` has an instance for `MonadEffect`, so we can lift `Effect`-based computations into an `Aff` monadic context, so that we can run `Effect`-based computations in that `Aff` monadic context.
-
-Below was how we defined `specialLog`. You can see it in the next file:
+`Aff` has an instance for `MonadEffect`, so we can lift `Effect`-based computations into an `Aff` monadic context. Below was how we defined `specialLog`. You can see it in the next file:
 ```purescript
 specialLog :: String -> Aff Unit
 specialLog message = liftEffect $ log message
 ```
 
 Referring back to our previous "local state" example, the `ST` monad does not have an instance for `MonadEffect`. This decision is intentional: state manipulation of that kind should be pure and not have any side-effects. That's why it exists inside of its own monadic context: to ensure that those who attempt to do so get compiler errors. This is a safety precaution, not a "we wanted to be jerks who frustrate you" decision.
+
+As we saw previously in the `Switching-Context.purs` file, running multiple `Aff` computations in an `Effect` monadic context doesn't always lead to a predictable output. However, running multiple `Effect`-based computations in an `Aff` monadic context is much more predictable.
