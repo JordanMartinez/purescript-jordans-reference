@@ -47,7 +47,7 @@ question message interface = makeAff go
   where
     -- go :: (Either Error a -> Effect Unit) -> Effect Canceler
     go runAffFunction =
-      nonCanceler <$ ReadLine.question message (runAffFunction <<< Right)
+      nonCanceler <$ ReadLine.question message (runAffFunction <<< Right) interface
 
 
 main :: Effect Unit
