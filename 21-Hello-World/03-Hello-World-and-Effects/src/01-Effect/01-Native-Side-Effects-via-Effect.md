@@ -8,14 +8,15 @@ Some examples of native effects are:
 - Shared
     - Random number generation
     - Exceptions
-    - Reading/writing _mutable_ state
-    - Writing/reading to/from local storage
+    - Rendering content to the screen
 - Node only:
     - User input via the terminal
+    - Interacting with the File System
 - Browser only:
     - DOM manipulation
     - XMLHttpRequest / AJAX calls
     - Interacting with a websocket
+    - Interacting with Cookies
 
 PureScript's [`purescript-effect`](https://pursuit.purescript.org/packages/purescript-effect/) package defines a monad called `Effect`, which is used to handle native effects. The goal of the `Effect` monad is to provide a typed API for effectful computations, while at the same time generating efficient Javascript.
 
