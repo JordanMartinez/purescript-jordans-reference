@@ -23,7 +23,24 @@ Finally, we'll link to other `Aff`-based libraries that one will likely find hel
 
 ## Compilation Instructions
 
+The following examples can be run via `Spago`.
+
 ```bash
-spago run -m ConsoleLessons.ReadLine.Effect
-spago run -m ConsoleLessons.ReadLine.AffMonad
+spago run -m AffBascis.LaunchAff
+spago run -m AffBascis.Delay
+spago run -m AffBascis.ForkJoin
+spago run -m AffBascis.SuspendJoin
+spago run -m AffBascis.CachedJoin
+spago run -m AffBascis.SwitchingContexts
+spago run -m AffBascis.TimeoutAndInterval.Aff
+```
+
+The following examples must be compiled first and then run by `node`:
+
+```purescript
+spago bundle-app -m ConsoleLessons.ReadLine.Effect -t dist/readline-effect.js
+node dist/readline-effect.js
+
+spago bundle-app -m ConsoleLessons.ReadLine.Aff -t dist/readline-effect.js
+node dist/readline-aff.js
 ```
