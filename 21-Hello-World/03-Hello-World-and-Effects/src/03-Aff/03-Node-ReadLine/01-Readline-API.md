@@ -1,6 +1,8 @@
 # Node ReadLine API
 
-Node's ReadLine API docs are [here](https://nodejs.org/api/readline.html). However, in this folder, we've only used the following Purescript bindings of the API (The Pursuit docs are outdated and for an earlier release, so look at the [source code](https://github.com/purescript-node/purescript-node-readline/blob/master/src/Node/ReadLine.purs) to see all of what is supported. Some of the functions below had their 'foreign import' part removed to shorten the type signature):
+Node's ReadLine API docs are [here](https://nodejs.org/api/readline.html). In this folder, we'll use the following Purescript bindings of the API (The Pursuit docs are outdated as they only show docs for an earlier release. So, either run `spago docs` and look at the `Node.ReadLine` module's docs, or look at the [source code](https://github.com/purescript-node/purescript-node-readline/blob/master/src/Node/ReadLine.purs) to see all of what is supported.
+
+Below, I cover some of the API (some of the functions below had their 'foreign import' part removed to shorten the type signature):
 ```purescript
 -- Copyright is at the end of this file
 foreign import data Interface :: Type
