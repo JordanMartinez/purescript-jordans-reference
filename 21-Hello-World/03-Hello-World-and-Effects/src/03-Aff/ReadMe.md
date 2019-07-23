@@ -13,9 +13,15 @@ If, after watching the above video, you are tempted to figure out how `Aff` work
 
 ## Folder's Contents
 
-To provide an example as to why `Aff` is so great, we'll first look at `Node.ReadLine`'s API, see the problems that arise when using it, and then demonstrate how `Aff` addresses these problems.
+First, we'll overview some of `Aff`s API via some working examples that one can play with.
 
-Then, we'll show how we wrote the functions we used above to wrap `Effect` in `Aff`.
+Second, we'll show _one_ way for getting around the "monads don't compoes" problem, so that we can run `Effect`-based computations in an `Aff` monadic context. (Note: this solution won't work for the `ST` monadic context in the `Effect` folder's `Local-State.purs` example.)
+
+Third, we'll show how to fix the issue we experienced in our the `Effect` folder's `Timeout-and-Interval.purs` file.
+
+Fourth, we'll use the `Node.ReadLine` library to show how to convert `Effect`-based computations that require callbacks into `Aff`-based computations, and how doing so greatly improves the developer experience.
+
+Finally, we'll link to other `Aff`-based libraries that one will likely find helpful.
 
 ## Compilation Instructions
 
