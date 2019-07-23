@@ -1,29 +1,33 @@
 # Basic Aff Functions
 
+In this file, we'll show the second way to run an `Aff` computation called `runAff` and how to convert `Node.ReadLine`'s `question` function (i.e. an `Effect`-based function that requires a callback) into an `Aff`-based computation using `makeAff`.
+
 ## Aff Overview
 
-Before showing what you the equivalent version of our program using `Aff`, let's first overview some of its concepts, so that it's easier to understand the upcoming code.
-
-`Aff` as an effect monad must support the following features to be truly asynchronous:
+Let's first overview some of `Aff`'s concepts, so that the upcoming code is easier to understand. To be a truly asynchronous effect monad, `Aff` must support the following features:
 - handles errors that may arise during its computation
 - returns some computation's output
 - can be cancelled if it's no longer needed
 
-To model both errors and output, we can use `Either a b` since the error might be important for some parties.
+To model the possibility for a computation to return an error or actual output, we can use `Either a b`. Handling errors and output implies a function. `Aff` uses the type signature, `Either errorType outputType -> Effect Unit`, for that.
 
-Handling errors and output implies a function. `Aff` uses the type signature, `Either errorType outputType -> Effect Unit`, for that.
+Lastly, cancelling implies what to do when the computation is either no longer needed or it has failed (but we aren't using the function just discussed above). As an example, one will use `Canceller`s to clean up resources (e.g. `clearTimeout`).
 
-Lastly, cancelling implies what to do when the computation is no longer needed. Since our present interests do not require cancellation, we can use a no-op Canceler: `nonCanceler`
+```purescript
+newtype Canceler = Canceler (Error -> Aff Unit)
+```
 
-## Functions We Will Use
+Since our present interests do not require cancellation, we can use a no-op `Canceler`: `nonCanceler`
 
-For our purposes, we need an `Aff` to run inside of an `Effect` monad context. In other words, we need some function that takes an `Aff` and returns an `Effect a`. If one looks through `Aff`'s docs, the only one that does this is `runAff_`:
+## Understanding `runAff`
+
+For our purposes, we need an `Aff` to run inside of an `Effect` monadic context. If one looks through `Aff`'s docs, the only one that does this besides `launchAff` and its variants is `runAff_`:
 ```purescript
 runAff_ :: forall a. (Either Error a -> Effect Unit) -> Aff a -> Effect Unit
 ```
 Breaking this down, `runAff_` takes two arguments (explained in reverse):
-- an `Aff` value to run in the `Effect` monad context
-- a function for handling the asynchronous computation that failed with an `Error` value or a successful output value, `a`.
+- an `Aff` computation to run
+- a function for handling a possible asynchronous `Error` if the computation fails or a the computation's output, `a`, if it succeeds.
 
 Using it should look something like:
 ```purescript
@@ -42,7 +46,9 @@ runAff_ (either
   affValue
 ```
 
-Next, we need to create an `Aff` value, hence a function that returns an `Aff a`. Looking through Pursuit again, `makeAff` is the only function that does this:
+## Understanding `makeAff`
+
+Next, we need to convert `question` from an `Effect`-based computation into an `Aff`-based one. Looking through Pursuit again, `makeAff` is the only function that does this:
 ```purescript
 makeAff :: forall a. ((Either Error a -> Effect Unit) -> Effect Canceler) -> Aff a
 ```
@@ -54,7 +60,7 @@ Breaking this down, `makeAff` takes only one argument. However, the argument is 
     that returns an `Effect Canceler`
     by using the function that `runAff_` requires
       (i.e. `(Either Error a -> Effect Unit)`),
-output an `Aff a`
+output an `Aff` computation that produces a value of type `a` when `bind`ed
 ```
 
 To create this type signature, we'll write something like this:
@@ -63,15 +69,15 @@ affValue :: Aff String
 affValue = makeAff go
   where
   go :: (Either Error a -> Effect Unit) -> Effect Canceler
-  go runAffFunction = -- implementation
+  go runAff_RequiredFunction = -- implementation
 ```
 Since the implementation will need to return an `Effect Canceler`, we can do one of two things:
 1. Lift a canceller into `Effect` via `pure`. This is pointless because then our `Aff` wouldn't do anything.
 2. Create an `Effect a` and use Functor's dervied function, `voidRight` (`<$`), with `nonCanceler`
 
 ```purescript
--- for a refresher on voidLeft
-(Box 1) voidLeft "2" == (Box 1) $> 2 == (Box 2)
+-- for a refresher on voidRight
+2 `voidRight` (Box 1) == 2 <$ (Box 1) == (Box 2)
 
 -- alias is: "<$"
 voidRight :: forall f a b. Functor f => b -> f a -> f b
@@ -91,11 +97,10 @@ affValue = makeAff go
   effectBox :: (Either Error a -> Effect Unit) -> Effect Unit
   effectBox runAffFunction = -- implementation
 ```
-We want to use `question` to print something to the console, get the user's input, and return that value.
-It's type signature is:
+We want to use `question` to print something to the console, get the user's input, and return that value. It's type signature is:
 ```purescript
 question :: String -> (String -> Effect Unit) -> Interface -> Effect String
-question message handleUserINput interface = -- Node binding implementation
+question message handleUserInput interface = -- Node binding implementation
 ```
 The only place we could insert `runAffFunction` is in `(String -> Effect Unit)`. Thus, we come up with this function:
 ```purescript
