@@ -1,22 +1,14 @@
-module ConsoleLessons.ReadLine.AffMonad where
+module ConsoleLessons.ReadLine.Aff where
 
 import Prelude
-import Effect (Effect)
-import Effect.Console (log)
-
-import Node.ReadLine ( Interface
-  , createConsoleInterface, noCompletion
-  , close)
-import Node.ReadLine as ReadLine
 
 import Data.Either (Either(..))
-
--- new imports
--- This will lift the `Effect` monad into another monad context (i.e. Aff),
--- enabling us to use `log` from Effect in an `Aff` monad context.
-import Effect.Class (liftEffect)
-
+import Effect (Effect)
 import Effect.Aff (Aff, runAff_, makeAff, nonCanceler)
+import Effect.Class (liftEffect)
+import Effect.Console (log)
+import Node.ReadLine (Interface, createConsoleInterface, noCompletion, close)
+import Node.ReadLine as ReadLine
 
 createInterface :: Effect Interface
 createInterface = do
@@ -41,7 +33,7 @@ useInterface interface = do
   answer <- interface # question "Type something here: "
   liftEffect $ log $ "You typed: '" <> answer <> "'\n"
 
--- This is `affQuestion` from earlier
+-- This is `affQuestion` from the previous file
 question :: String -> Interface -> Aff String
 question message interface = makeAff go
   where
@@ -54,12 +46,7 @@ main :: Effect Unit
 main = do
   log "\n\n" -- separate output from program
 
-  interface <- createInterface
-
-  runProgram interface
-
-runProgram :: Interface -> Effect Unit
-runProgram interface = {-
+  interface <- createInterface                                                 {-
   runAff_ :: forall a. (Either Error a -> Effect Unit) -> Aff a -> Effect Unit -}
   runAff_
     -- Ignore any errors and output and just close the interface
