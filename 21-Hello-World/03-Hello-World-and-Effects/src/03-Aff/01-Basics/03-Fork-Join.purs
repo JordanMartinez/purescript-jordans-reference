@@ -21,6 +21,7 @@ main = launchAff_ do
     specialLog $ fiber1 <> ": Waiting for 1 second until completion."
     delay $ Milliseconds 1000.0
     specialLog $ fiber1 <> ": Finished computation."
+
   secondFiber <- forkAff do
     specialLog $ fiber2 <> ": Computation 1 (takes 300 ms)."
     delay $ Milliseconds 300.0
