@@ -2,11 +2,11 @@
 
 In the previous folder, we saw that we could print content to the console using `specialLog`. Underneath, we're using `log`, the function with the type, `String -> Effect Unit`. Since "monads don't compose," how was this possible?
 
-In this file, we'll show one way to workaround this limitation. This solution will be used frequently in real code wherever the `Effect` monad is used. However, _this solution doesn't necessarily work for other monads_. Still, it is conceptually easy to understand and creates scaffolding. That scaffoldingwill make it easier to understand other solutions to this problem that we'll discuss in the `Application Structure` folder.
+In this file, we'll show one way to workaround this limitation. This solution will be used frequently in real code wherever the `Effect` monad is used. However, _this solution doesn't necessarily work for other monads_. Still, it is conceptually easy to understand and creates scaffolding. That scaffolding will make it easier to understand other solutions to this problem that we'll discuss in the `Application Structure` folder.
 
 ## Lifting one Monad into another
 
-When overviewing the `Prelude` library, we covered `NaturalTransformation`s briefly. At that time, we described it as "taking a value out of `Box1` and putting that value into `Box2`." To run `Effect`-based computations in other monadic contexts, we employ a similar technique. Why this technique even works will become clearer in the `Application Structure` folder.
+When overviewing the `Prelude` library, we covered `NaturalTransformation`s briefly (e.g. `Box1 ~> Box2`). At that time, we described it as "taking a value out of `Box1` and putting that value into `Box2`." We said `~>` reduced some of the noies that otherwise appears in the type signature. To run `Effect`-based computations in other monadic contexts, we employ a similar technique.
 
 In short, we use a type class that follows this idea:
 ```purescript
