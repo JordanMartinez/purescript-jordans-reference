@@ -20,3 +20,7 @@ main = do
 
   Now.nowDate >>= (\x -> logShow x)
   Now.nowTime >>= (\x -> logShow x)
+
+  -- We could make the above even shorter by removing the 'x' argument
+  Now.nowDate >>= logShow
+  Now.nowTime >>= logShow
