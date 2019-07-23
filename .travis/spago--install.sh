@@ -38,7 +38,7 @@ cd ../../
 
 ## Hello World
 
-cd 21-Hello-World/03-Hello-World-and-Effects/
+cd 21-Hello-World/03-Effect-and-Aff/
 pwd
 spago install
 cd ../../

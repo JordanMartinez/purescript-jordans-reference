@@ -49,10 +49,10 @@ cd ../../
 
 ## Hello World
 
-cd 21-Hello-World/03-Hello-World-and-Effects/
+cd 21-Hello-World/03-Effect-and-Aff/
 pwd
 spago build
-HELLO_EFFECTS=$?
+HELLO_EFFECT_AND_AFF=$?
 cd ../../
 
 cd 21-Hello-World/04-Debugging/
@@ -136,7 +136,7 @@ echo "$SYNTAX_TLP - Syntax - TLP"
 echo "$SYNTAX_MODULE - Syntax - Module"
 echo "$SYNTAX_PRELUDE - Syntax - Prelude"
 echo "$SYNTAX_DO_ADO_NOTATION - Syntax - Do/Ado Notation"
-echo "$HELLO_EFFECTS - Hello World - Effects"
+echo "$HELLO_EFFECT_AND_AFF - Hello World - Effects"
 echo "$HELLO_DEBUGGING - Hello World - Debugging"
 echo "$HELLO_TESTING - Hello World - Testing"
 echo "$HELLO_BENCHMARK - Hello World - Benchmarking"
@@ -160,7 +160,7 @@ if [ $SYNTAX_BASIC == 0 ] &&
    [ $SYNTAX_MODULE == 0 ] &&
    [ $SYNTAX_PRELUDE == 0 ] &&
    [ $SYNTAX_DO_ADO_NOTATION == 0 ] &&
-   [ $HELLO_EFFECTS == 0 ] &&
+   [ $HELLO_EFFECT_AND_AFF == 0 ] &&
    [ $HELLO_DEBUGGING == 0 ] &&
    [ $HELLO_TESTING == 0 ] &&
    [ $HELLO_BENCHMARK == 0 ] &&
