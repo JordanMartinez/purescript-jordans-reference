@@ -145,6 +145,39 @@ spago build -- --verbose-errors
 spago build -- -v
 ```
 
+## Could not match type `Monad` with type `Function (Argument -> Monad a)`
+
+Whenever you get an error like this....
+```
+Error found:
+in module Try
+at src/example.purs:10:3 - 12:6 (line 10, column 3 - line 12, column 6)
+
+  Could not match type
+
+    Effect
+
+  with type
+
+    Function (String -> Effect Unit)
+
+
+while trying to match type Effect Unit
+  with type (String -> Effect Unit) -> t0
+while inferring the type of (log "Here's a message") log
+in value declaration main
+
+where t0 is an unknown type
+```
+It's because you forgot to add the `do` keyword. Here's the code that produces the error:
+```purescript
+main :: Effect Unit
+main = -- missing `do` keyword!
+  log "Here's a message"
+
+  log "Here's another message."
+```
+
 ## Improve Error Messages when using `unsafePartial` to un-Partial Functions
 
 (This section assumes familiarity with the `Design Patterns/Partial Functions/` folder)
