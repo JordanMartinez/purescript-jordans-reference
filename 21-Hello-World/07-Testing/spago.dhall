@@ -2,7 +2,9 @@
 Welcome to a Spago project!
 You can edit this file as you like.
 -}
-{ name =
+{ sources =
+    [ "src/**/*.purs", "test/**/*.purs" ]
+, name =
     "untitled"
 , dependencies =
     [ "console"
@@ -13,6 +15,7 @@ You can edit this file as you like.
     , "quickcheck"
     , "quickcheck-laws"
     , "spec"
+    , "strings"
     ]
 , packages =
     ./packages.dhall
