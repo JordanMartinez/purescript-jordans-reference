@@ -145,7 +145,7 @@ spago build -- --verbose-errors
 spago build -- -v
 ```
 
-# Improve Error Messages when using `unsafePartial` to un-Partial Functions
+## Improve Error Messages when using `unsafePartial` to un-Partial Functions
 
 (This section assumes familiarity with the `Design Patterns/Partial Functions/` folder)
 
