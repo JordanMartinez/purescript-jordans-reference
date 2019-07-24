@@ -20,27 +20,3 @@ Second, we'll show _one_ way for getting around the "monads don't compoes" probl
 Third, we'll use the `Node.ReadLine` library to show how to convert `Effect`-based computations that require callbacks into `Aff`-based computations via `makeAff`. We'll also show the more complicated way to run a computation in the `Aff` monad but which exposes all of `Aff`'s features: `runAff`.
 
 Finally, we'll link to other `Aff`-based libraries that one will likely find helpful.
-
-## Compilation Instructions
-
-The following examples can be run via `Spago`.
-
-```bash
-spago run -m AffBascis.LaunchAff
-spago run -m AffBascis.Delay
-spago run -m AffBascis.ForkJoin
-spago run -m AffBascis.SuspendJoin
-spago run -m AffBascis.CachedJoin
-spago run -m AffBascis.SwitchingContexts
-spago run -m AffBascis.TimeoutAndInterval.Aff
-```
-
-The following examples must be compiled first and then run by `node`:
-
-```purescript
-spago bundle-app -m ConsoleLessons.ReadLine.Effect -t dist/readline-effect.js
-node dist/readline-effect.js
-
-spago bundle-app -m ConsoleLessons.ReadLine.Aff -t dist/readline-effect.js
-node dist/readline-aff.js
-```
