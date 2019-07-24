@@ -196,32 +196,32 @@ Our second example taught us the following:
 
 Let's now look at `Applicative`'s `pure` function. It's type signature looks like this.
 ```purescript
-apply :: forall a. a -> f a
+pure :: forall a. a -> f a
 ```
 
 Converting `f` into `Function input`, we get this type signature:
 ```purescript
-apply :: forall input output. output -> Function input output
+pure :: forall input output. output -> Function input output
 ```
 
 Let's see how to implement it.
 
-1. Since `apply` returns a new function, let's start creating one using lambda syntax:
+1. Since `pure` returns a new function, let's start creating one using lambda syntax:
 ```purescript
-apply :: forall input output. output -> Function input output
-apply value = (\input -> {- body of function -})
+pure :: forall input output. output -> Function input output
+pure value = (\input -> {- body of function -})
 ```
 
 2. Since the function must return `value` as its output, let's ignore the argument and just return that value.
 ```purescript
-apply :: forall input output. output -> Function input output
-apply value = (\input -> value)
+pure :: forall input output. output -> Function input output
+pure value = (\input -> value)
 ```
 
 Let's clean this one up:
 ```purescript
-apply :: forall input output. output -> Function input output
-apply value = (\_ -> value)
+pure :: forall input output. output -> Function input output
+pure value = (\_ -> value)
 ```
 
 ### Bind
