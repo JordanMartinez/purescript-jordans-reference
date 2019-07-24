@@ -1,7 +1,8 @@
 {-
-A type is generated via the `Gen` type, which will not be explained
-here. Rather, one can create an instance of `Gen` via one of its
-combinators. The focus of this file are on these combinators.
+A type is generated via the `Gen` type, which will be explained
+later in this folder. For now, one can use combinators
+to produce the random data needed for testing.
+The focus of this file is on these combinators.
 -}
 module Test.RandomDataGeneration.Combinators where
 
