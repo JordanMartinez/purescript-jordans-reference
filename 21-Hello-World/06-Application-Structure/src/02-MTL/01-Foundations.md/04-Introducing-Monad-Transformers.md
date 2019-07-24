@@ -1,5 +1,7 @@
 # Introducing Monad Transformers and Capabilities
 
+## Comparing `Function input output` to `OutputBox input output`
+
 When we initially covered the original monadic function, `(a -> b)`, we discovered that it's "do notation" could be read like this:
 ```purescript
 produceValue = someComputation 4
@@ -22,7 +24,7 @@ someComputation argumentThatIsFour = do
   -- some code
 ```
 
-The normal `(a -> b)` function allows us to reference the argument we pass into the function at any point in its do notation. Unfortunately, since the return value of that function is `b`, we are limited to only writing pure code. In other words, `someComputation` can never interact with the outside world.
+The normal `(a -> b)` function allows us to reference the argument we pass into the function at any point in its do notation. Unfortunately, since the return value of that function is `b`, we are limited to only writing pure code. In other words, `someComputation` is a computation that can never interact with the outside world.
 
 But what happens if we use the `OutputMonad`/`(a -> monad b)` function? Since it outputs a monadic data type, what if that monadic data type was `Effect` or `Aff`? If so, the resulting code would be very hard to read:
 
@@ -54,6 +56,22 @@ produceComputation = runOutputMonad someComputation 4
     liftEffect $ log $ show $ 8 - intBetween0And2
 ```
 
+## Introducing `ReaderT`
+
+To see this from a slighty different angle, we'll cover a few things before linking to an example showing how a computation "evolves" into the `Reader` monad.
+
+`OutputMonad` is better known as `ReaderT`:
+- when `ReaderT`'s monadic type is a real monad, we call it [`ReaderT`](https://pursuit.purescript.org/packages/purescript-transformers/4.2.0/docs/Control.Monad.Reader.Trans#t:ReaderT)
+- when `ReaderT`'s monadic type is `Identity` (placeholder monadic type), we call it [`Reader`](https://pursuit.purescript.org/packages/purescript-transformers/4.2.0/docs/Control.Monad.Reader).
+
+It's corresponding type class is [`MonadReader`](https://pursuit.purescript.org/packages/purescript-transformers/4.2.0/docs/Control.Monad.Reader.Class).
+
+Watch a computation "evolve" into the `Reader` monad in [the Monad Reader Example](https://gist.github.com/rlucha/696ca604c9744ad11aff7d46b1706de7).
+
+## Monad Transformers Summarized
+
+### The Main Idea
+
 This is the whole point of using monadic functions that output monadic data types: **they allow us to encode all of our business logic as one massive pure function.**
 
 | If the underlying outputted monadic data type is... | then running our code will ...
@@ -66,12 +84,50 @@ This is the whole point of using monadic functions that output monadic data type
 
 With one monad, we can prove that our business logic works as expected and does not have any bugs, and with another monad, we can execute that same business logic as a useful program.
 
-## Introducing `ReaderT`
+This helps us understand the name behind "Monad Transformers". Monadic functions that return other monadic data types (i.e. `a -> m b`) are called "Monad Transformers" because they transform (or augment) the base monad with additional capabilities. They are the "implementation" that makes all of this work.
 
-To see this from a slighty different angle.... `OutputMonad` is better known as `ReaderT`:
-- when `ReaderT`'s monadic type is a real monad, we call it [`ReaderT`](https://pursuit.purescript.org/packages/purescript-transformers/4.2.0/docs/Control.Monad.Reader.Trans#t:ReaderT)
-- when `ReaderT`'s monadic type is `Identity` (placeholder monadic type), we call it [`Reader`](https://pursuit.purescript.org/packages/purescript-transformers/4.2.0/docs/Control.Monad.Reader).
+However, we use type classes like `MonadReader`, `MonadState`, `MonadWriter`, etc. to express that a given computation can only be run if their implementation can satisfy the required capabilities.
 
-It's corresponding type class is [`MonadReader`](https://pursuit.purescript.org/packages/purescript-transformers/4.2.0/docs/Control.Monad.Reader.Class).
+In short, we use type classes above to "write" our business logic and monad transformers to "run" our business logic.
 
-Watch a computation "evolve" into the `Reader` monad in [the Monad Reader Example](https://gist.github.com/rlucha/696ca604c9744ad11aff7d46b1706de7).
+### Breaking It Down
+
+First, there is a type class that indicates that some underlying monad has the **capability** to do some effect (e.g. state manipulation via `MonadState`).
+
+Second, there is a default implementation for that class via a monadic newtyped function (e.g. `ReaderT`). As we will see later, such functions add in specific effects, reduce some of the syntax boilerplate one might write, and make impossible states impossible.
+When we wish to transform some other monad, we use the newtyped monadic functions that end with `T` as in "transformer" (e.g. `ReaderT`). However, if we don't want to transform a monad (i.e. just use `Identity` to act as a placeholder monadic type), then we remove that `T` (e.g. `Reader`).
+
+Third, the general pattern (there are exceptions!) that we will see reappear when overviewing the other Monad Transformers:
+- There is a type class called `Monad[Word]` where `[Word]` clarifies what functions the type class provides. This type class indicates that some underlying monad has some **capability**.
+- There is a single default implementation for `Monad[Word]` called `[Word]T`. When the monad type is specialized to `Identity`, it's simply called `[Word]`.
+- To run a computation using `Monad[Word]`, we must use either `run[Word] computation arg` (i.e. the monad is `Identity`) or `run[Word]T computation arg` (i.e. a non-`Identity` monad).
+
+Putting it into a table, we get this:
+
+| Type Class | Sole Implementation<br>(`m` is real monad)<br><br>function that runs it | Sole Implementation<br>(`m` is `Identity`)<br><br>function that runs it |
+| - | - | - |
+| `Monad[Word]`<br>(General Pattern) | `[Word]T`<br><br>`run[Word]` | `[Word]`<br><br>`run[Word]` |
+| `MonadState` |  `StateT`<br><br>`runState` | `State`<br><br>`runState` |
+| `MonadReader` | `ReaderT`<br><br>`runReader` | `Reader`<br><br>`runReader` |
+| `MonadWriter` | `WriterT`<br><br>`runWriter` | `Writer`<br><br>`runWriter` |
+| `MonadCont` | `ContT`<br><br>`runCont` | `Cont`<br><br>`runCont` |
+| `MonadError` | `ExceptT`<br><br>`runExceptT` | `Except`<br><br>`runExcept` |
+
+Putting it differently, we get this:
+
+| A basic function... | ... is used to run a **pure** computation ... | can be "upgraded" to a monad transformer... | ... which is used to run an **impure** computation ... |
+| - | - | - | - |
+| `input -> output` | that depends on its input | `globalValue -> monad outputThatUsesGlobalValue`<br>`ReaderT` | that depends on some global configuration
+| `state -> Tuple output state` | that does state manipulation | `oldState -> monad (Tuple (output, newState))`<br>`StateT` | that does state manipulation
+| `function $ arg` | once an argument is fully computed | `\function -> output`<br>`ContT` | and periodically use a function passed in as an argument to compute something |
+
+| A basic return value... | ... that is used to run a **pure** computation ... | ... can be "upgraded" to a monad transformer... | ... and be used to run an **impure** computation ... |
+| - | - | - | - |
+| `Tuple output additionalOutput` | that also produces additional output | `monad (Tuple (output, accumulatedValue)`<br>`WriterT` | that produces accumulated data as additional output |
+| `Either e a` | that handles partial functions | `monad (Either e a)`<br>`ExceptT` | that may fail and the error matters
+| `Maybe a` | that might not return a value | `monad (Maybe a)`<br>`MaybeT` | that may fail and the error does NOT matter
+| `List a` | that produces 0 or more values | `monad (List a)`<br>`ListT` | that produces 0 or more values |
+
+Once again, the "base monad" that usually inhibits `m` in the "stack" of nested monad transformers is usually one of two things:
+- `Effect`/`Aff`: impure computations that actually make our business logic useful
+- `Identity`/`Free`: pure computations that test our business logic.
