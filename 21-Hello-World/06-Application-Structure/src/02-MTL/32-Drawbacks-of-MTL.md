@@ -20,7 +20,7 @@ f = do
 
 The compiler will complain because it doesn't know which value it should 'get'. See the answer to [Haskell -- Chaining two states using StateT monad transformer](https://stackoverflow.com/a/49782427)
 
-One solution to this is to store all states in one larger state type and then use a Lens to access/change it:
+One solution to this is to store all states in one larger state type and then use a `Lens` to access/change it:
 ```purescript
 type IntAndString = { i :: Int, s :: String }
 f :: forall m output.
@@ -95,3 +95,39 @@ Related to the previous point, but the type signatures start getting crazy very 
 -- as an example using pseudo-syntax...
 f :: StateT State (ReaderT reader (WriterT writer (ExceptT error Effect output) output))
 ```
+
+## The Order of the Monad Transformer Stack Matters
+
+We mentioned this previously when covering how to use a monad transformer:
+```purescript
+type Output = Int
+type StateType = Int
+type NonOutputData = String
+computation :: forall m
+          . MonadState StateType m
+         => MonadAsk NonOuputData m
+         => m Output
+computation = do
+  modify_ (_ + 1)
+  tell "Modified state by adding 1"
+  currentState <- modify (_ * 10)
+  tell $ "Modified state by multiplying by 10. It is now "
+    <> show currentState
+  modify_ (_ + 1)
+
+-- Both `program1` and `program2` support the necessary
+-- capabilities to run `computation`.
+runProgram1 :: WriterT NonOutputData (State state) Output
+            -> state
+            -> Tuple (Tuple Output NonOuputData) state
+runProgram1 initialState =
+  runState (runWriterT computation) initialState
+
+runProgram2 :: StateT state (Writer NonOutputData) Output
+            -> state
+            -> Tuple (Tuple Output state) NonOuputData
+runProgram2 initialState =
+  runWriter (runStateT computation initialState)
+```
+
+Imagine if one of these was `ExceptT`. That monad transformer's location in the stack can affect how the computation works and whether it works as expected.
