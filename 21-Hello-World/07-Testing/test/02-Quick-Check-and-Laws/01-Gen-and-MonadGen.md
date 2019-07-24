@@ -30,7 +30,6 @@ type GenState = { newSeed :: Seed, size :: Size }
 newtype Gen a = State GenState a
 ```
 
-
 QuickCheck uses the `Gen` monad (i.e. generator monad) to generate random data. `QuickCheck.Gen` exports most of the package's functions (i.e. the "combinators" as they are called), not but all of them.
 - [Generators for `Int`, `Boolean`, and `Number`](https://pursuit.purescript.org/packages/purescript-gen/docs/Control.Monad.Gen).
 - [Generators for common FP container types](https://pursuit.purescript.org/packages/purescript-gen/docs/Control.Monad.Gen.Common), such as `Maybe`, `Either`, `Tuple`, etc.
@@ -38,3 +37,11 @@ QuickCheck uses the `Gen` monad (i.e. generator monad) to generate random data. 
 Furthermore, some data types combinators exist in other libraries. For example:
 - [Generators for `Char`](https://pursuit.purescript.org/packages/purescript-strings/docs/Data.Char.Gen)
 - [Generators for `String`](https://pursuit.purescript.org/packages/purescript-strings/docs/Data.String.Gen)
+
+## The Importance of the `Seed` Value
+
+The `Seed` value is used to produce the random data. If you run a propety test and it fails, the failure message will also include the seed used to produce that data. Once you update your code to fix the bug, how would you know whether it fixed that particular instance? You would run the test and specify that it should use that specific seed.
+
+As an example, this repository includes some example programs in the `Projects` folder. One of my property tests failed, so I saved the seeds here: https://github.com/JordanMartinez/purescript-jordans-reference/issues/351.
+
+I can use those seeds to help troubleshoot why these problems occurred and ensure that the bug has indeed been fixed.
