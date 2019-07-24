@@ -1,7 +1,7 @@
 # Unit
 
 There are two libraries for Unit Testing in Purescript:
-- [Spec](https://pursuit.purescript.org/packages/purescript-spec/3.1.0) (Effect-based testing)
+- [Spec](https://github.com/purescript-spec/purescript-spec) (Aff-based testing)
 - [test-unit](https://github.com/bodil/purescript-test-unit) (Aff-based testing)
 
 I'm not sure which one is better than the other in some situation. However, I knew about Spec first, so that's what we'll be documenting.

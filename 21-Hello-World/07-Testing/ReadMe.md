@@ -28,7 +28,7 @@ This folder will place both source and test code in the `test` folder to prevent
 ## Libraries Used
 
 This folder will cover testing using three libraries. Nested bullet points indicate other libraries into which one should investigate:
-- [Spec](https://pursuit.purescript.org/packages/purescript-spec/3.1.0) - Unit Testing / Test Suites
+- [Spec](https://github.com/purescript-spec/purescript-spec) - Unit Testing / Test Suites
     - [spec-discovery](https://pursuit.purescript.org/packages/purescript-spec-discovery/3.1.0)
     - [spec-reporter-xunit](https://pursuit.purescript.org/packages/purescript-spec-reporter-xunit/0.4.0)
     - [spec-mocha](https://pursuit.purescript.org/packages/purescript-spec-mocha/3.0.0)
