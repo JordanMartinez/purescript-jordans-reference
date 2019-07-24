@@ -97,8 +97,6 @@ main = do
   assert (runTest program globalEnvironmentInfo) == correctValue
 ```
 
-For another example, see [the Monad Reader Example](https://gist.github.com/rlucha/696ca604c9744ad11aff7d46b1706de7)
-
 ## When to Use it: ReaderT vs MTL?
 
 | Scope of Code | Example | Use |
