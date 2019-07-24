@@ -210,3 +210,18 @@ runProgram :: WriterT NonOutputData (State state) Output
 runProgram ws initialState =
   runState (runWriterT ws) initialState
 ```
+
+## Reordering the Monad Stack
+
+What happens, however, if we flip the order of the stack? We'll see that the arguments get flipped and the output gets flipped.
+```purescript
+runProgram :: StateT state (Writer NonOutputData) Output
+           -> state
+           -> Tuple (Tuple Output state) NonOuputData
+runProgram computation initialState =
+  runWriter (runStateT computation initialState)
+```
+
+While the computation's definition did not change, how the code gets run does change.
+
+This creates one problem with "monad stacks:" the order of how the monad transformers are run can change how the computation is evaluated. We'll cover this in more detail later.
