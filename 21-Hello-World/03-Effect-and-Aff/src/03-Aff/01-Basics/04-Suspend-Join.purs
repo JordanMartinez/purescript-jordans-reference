@@ -1,4 +1,4 @@
-module AffBasics.SuspendedJoin where
+module AffBasics.SuspendJoin where
 
 import Prelude
 
