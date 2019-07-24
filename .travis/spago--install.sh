@@ -48,24 +48,24 @@ pwd
 spago install
 cd ../../
 
-cd 21-Hello-World/05-Testing/
+cd 21-Hello-World/05-Application-Structure/
 pwd
 spago install
 cd ../../
 
-cd 21-Hello-World/06-Benchmarking/
+cd 21-Hello-World/06-Type-Level-Programming/
+pwd
+spago install
+cd ../../
+
+cd 21-Hello-World/07-Testing/
+pwd
+spago install
+cd ../../
+
+cd 21-Hello-World/08-Benchmarking/
 pwd
 npm install benchmark
-spago install
-cd ../../
-
-cd 21-Hello-World/07-Type-Level-Programming/
-pwd
-spago install
-cd ../../
-
-cd 21-Hello-World/08-Application-Structure/
-pwd
 spago install
 cd ../../
 
