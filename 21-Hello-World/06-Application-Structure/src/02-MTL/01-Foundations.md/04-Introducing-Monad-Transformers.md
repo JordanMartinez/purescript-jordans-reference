@@ -24,7 +24,7 @@ someComputation argumentThatIsFour = do
 
 The normal `(a -> b)` function allows us to reference the argument we pass into the function at any point in its do notation. Unfortunately, since the return value of that function is `b`, we are limited to only writing pure code. In other words, `someComputation` can never interact with the outside world.
 
-But what happens if we use the `OutputMonad`/`(a -> monad b)` function? Since it outputs a monadic data type, what if that monadic data type was `Effect` or `Aff`? If so, our code would look like something below, definitely not readable.
+But what happens if we use the `OutputMonad`/`(a -> monad b)` function? Since it outputs a monadic data type, what if that monadic data type was `Effect` or `Aff`? If so, the resulting code would be very hard to read:
 
 ```purescript
 produceComputation = runOutputEffect someComputation 4
@@ -66,18 +66,12 @@ This is the whole point of using monadic functions that output monadic data type
 
 With one monad, we can prove that our business logic works as expected and does not have any bugs, and with another monad, we can execute that same business logic as a useful program.
 
-Thus, monadic functions that return other monadic data types (i.e. `a -> m b`) are called "Monad Transformers" because they transform (or augment) the monad with additional capabilities. They are the "implementation" that makes all of this work.
-
-However, we use type classes like `MonadReader`, `MonadState`, `MonadWriter`, etc. to express that a given computation can only be run if their implementation can satisfy the required capabilities.
-
-In short, we use type classes above to "write" our business logic and monad transformers to "run" our business logic.
-
 ## Introducing `ReaderT`
 
-`OutputMonad` is better known as `ReaderT`:
+To see this from a slighty different angle.... `OutputMonad` is better known as `ReaderT`:
 - when `ReaderT`'s monadic type is a real monad, we call it [`ReaderT`](https://pursuit.purescript.org/packages/purescript-transformers/4.2.0/docs/Control.Monad.Reader.Trans#t:ReaderT)
 - when `ReaderT`'s monadic type is `Identity` (placeholder monadic type), we call it [`Reader`](https://pursuit.purescript.org/packages/purescript-transformers/4.2.0/docs/Control.Monad.Reader).
 
 It's corresponding type class is [`MonadReader`](https://pursuit.purescript.org/packages/purescript-transformers/4.2.0/docs/Control.Monad.Reader.Class).
 
-To see how this works in practice, see the natural "evolution" one would take to use it in real code: [the Monad Reader Example](https://gist.github.com/rlucha/696ca604c9744ad11aff7d46b1706de7)
+Watch a computation "evolve" into the `Reader` monad in [the Monad Reader Example](https://gist.github.com/rlucha/696ca604c9744ad11aff7d46b1706de7).
