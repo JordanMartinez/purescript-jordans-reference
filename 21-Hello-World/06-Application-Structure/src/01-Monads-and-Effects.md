@@ -1,20 +1,20 @@
-# Monads and Effects
+# Monads, Effects, and Capabilities
 
-Monads represent sequential computation via `bind`/`>>=`: "do X, and once finished, do Y". In our previous example/explanation from `Hello World/Prelude/Control-Flow/How the Computer Executes FP Programs.md`, we implied that `Box` could be used to "compute" something. In that example, however, it merely acted as a wrapper around values and functions.
+Monads represent sequential computation via `bind`/`>>=`: "do X, and once finished, do Y". In our previous example/explanation from `Hello World/Prelude/Control-Flow/How the Computer Executes FP Programs.md`, we implied that `Box` could be used to "compute" something. In that example, however, it merely acted as a wrapper around values and functions. When we covered `Effect` and `Aff` in their respective folder, we saw that conceptually they operated very similar to `Box`.
 
-When we covered `Effect` and `Aff` in their respective folder, we saw that conceptually they operated very similar to `Box`. However, they actually interacted with the real world: the console actually printed values to the screen.
+Still, our `Box`/`Effect`/`Aff` examples did not make it clear how `Monad`s could be a "computation." While `bind`/`>>=` insures that one computation occurs before another (i.e. sequential computation), it does not define what kinds of computation are done. Thus, we must explain what "effects"/"capabilities" are.
 
-Still, our `Box`/`Effect`/`Aff` examples did not make it clear how `Monad`s could be a "computation" because we aren't using functions of the type `(a -> Box b)`. `bind`/`>>=` insures that one computation occurs before another (i.e. sequential computation), but it does not define what kinds of computation are done. Thus, we must explain what "effects" are.
+For the rest of this folder, we'll use the terms, "effects" and "capabilties," interchangeably. Lowercased "effect" refers to something different than the `Effect` monad.
 
-## Effects
+## Effects / Capabilities
 
 To understand what we mean by "effects" (and due to license-related things), read through the first two sentences of [Monad transformers, free monads, mtl, laws and a new approach](https://ocharles.org.uk/posts/2016-01-26-transformers-free-monads-mtl-laws.html), then continue reading this page.
 
-### Examples of Effects
+### Examples of Effects / Capabilities
 
-Effects can be grouped together into type class functions that define computations which `bind` executes in a sequential manner. These type classes are specialized; they are designed to do one thing very very well.
+Capabilities can be grouped together into type class functions that define computations which `bind` executes in a sequential manner. These type classes are specialized; they are designed to do one thing very very well.
 
-So what kind of "effects" can we have? Let's now give some examples via the table of `Monad Transformers` (defined next) below:
+So what kind of "capabilities" can we have? Let's now give some examples via the table below:
 
 | When we want a type of computation (effect) that... | ... we expect to use functions named something like ... | ... which are best abstracted together in a type class called...
 | - | - | - |
@@ -29,63 +29,6 @@ So what kind of "effects" can we have? Let's now give some examples via the tabl
 | MonadAsk | Modify the read-only value for one computation<br>(e.g. `makeFontSizeMoreAccessible getFontSize displayPage`) | [`MonadReader`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Reader.Class#t:MonadReader)
 | MonadTell | Modify or use the additional non-output data before completing a computation | [`MonadWriter`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Writer.Class#t:MonadWriter)
 | MonadThrow | Catch and handle the error that was thrown<br>(e.g. create the missing file) | [`MonadError`](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Error.Class#t:MonadError)
-
-Note: **Monad Transformers** are thus named because they "transform" some other monad by augmenting it with additional functions. One monad (e.g. `Box`) can only use `bind` and `pure` to do sequential computation. However, we can "transform" `Box`, so that it now has state-manipulating functions like `get`/`set`/`modify`. In Haskell, "**mtl**" is a library that provides default implementations for each monad transformer mentioned above in such a way that one can compose multiple effects in any order. In Purescript, the library is called `purescript-transformers`.
-
-## Properties of "Effects"
-
-Now, continue reading through the rest of the first section of [Monad transformers, free monads, mtl, laws and a new approach](https://ocharles.org.uk/posts/2016-01-26-transformers-free-monads-mtl-laws.html).
-
-We will explain and illustrate what is meant by each property
-
-### Extensible
-
-While the above effects (e.g. `MonadState`) are pretty obvious, we might one day wish to define a new effect for handling authentication, `MonadAuthenticate`. If a function that uses state-manipulation effects via `MonadState` now needs to add the "authenticate" effect, it should be easy to add that and not require us to refactor a whole lot of code.
-
-In other words, going from this function ...
-```purescript
-f :: forall m.
-     MonadState m =>
-     InitialState -> m OutputtedState
-```
-... to this function...
-```purescript
-f' :: forall m.
-      MonadState m =>
-      MonadAuthenticate m =>
-      InitialState ->
-      m OutputtedState
-```
-... should be easy/quick.
-
-### Composable
-
-Composable means using two or more effects in the same function should be lawful.
-
-For example
-- `set`ting some state to `5` and later `get`ting that state should return `5`, not `8`, no matter what other effects or computations we run in-between those two calls (e.g. printing some value to the console).
-- `catch`ing an error cannot occur unless an error was `throw`n prior to it.
-- `ask`ing for a configuration value should return the same value each time no matter what happens before/after that call.
-
-### Efficient
-
-This can be understood a few different ways:
-- During runtime: the program runs fast (time-efficient) or uses as little memory as possible (space-efficient)
-- During compile-time: the compiler runs fast (time-efficient) or uses as little memory as possible (space-efficient)
-
-I believe the author is referring to the first idea (runtime).
-
-### Terse
-
-We shouldn't have to write boilerplate-y code
-
-For example, we shouldn't have to write
-- many lines of code to do one thing
-- many types to do one thing
-
-### Inferable
-
-Related to `Terse`, we shouldn't have to annotate code (e.g. wrapping `value` with its type annotation: `(value :: { name :: String, age :: Int })` )
 
 ## Modeling Effects
 
@@ -102,13 +45,15 @@ bind             (Box 4)   (\four -> Box (show four)) == Box "4"
 
 **In other words, if we use one monad, we cannot use any other monads.** So, how do we get around this limitation?
 
-We saw the same problem earlier when we wanted to run an `Effect` monad inside of a `Box` monad. We fixed it by "lifting" the `Effect` monad into the `Box` monad via a [`NaturalTransformation`](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.NaturalTransformation#t:NaturalTransformation)/`~>`. This was abstracted into a type class specific for `Effect ~> someOtherMonad` in [`MonadEffect`](https://pursuit.purescript.org/packages/purescript-effect/2.0.0/docs/Effect.Class#t:MonadEffect).
+We saw the same problem earlier when we wanted to run an `Effect` monad inside of an `Aff` monad. We fixed it by "lifting" the `Effect` monad into the `Aff` monad via a [`NaturalTransformation`](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.NaturalTransformation#t:NaturalTransformation)/`~>`. This was abstracted into a type class specific for `Effect ~> someOtherMonad` in [`MonadEffect`](https://pursuit.purescript.org/packages/purescript-effect/2.0.0/docs/Effect.Class#t:MonadEffect).
 
 `MTL` and `Free` use different approaches to solving this problem and its solution is what creates the Onion Architecture-like idea we mentioned before. As we saw earlier in Nate's video in this folder's ReadMe, `mtl` is the "Final Encoding" style and `Free`/`Run` is the "Initial Encoding" style.
 
 **The following ideas are quick overviews of each approach. Their terminology and exact details will be explained in their upcoming folder. It is not meant to be clearly understandable at first.**
 
 #### MTL Approach
+
+**Monad Transformers** are thus named because they "transform" some other monad by augmenting it with additional functions. One monad (e.g. `Box`) can only use `bind` and `pure` to do sequential computation. However, we can "transform" `Box`, so that it now has state-manipulating functions like `get`/`set`/`modify`. "MTL" refers to the original "Monad Transformers Library" (I believe).
 
 In the `MTL`-approach, one models the above effects using functions (we'll show how later). Since monad transformers augment some "base" monad, it creates a stack-like picture (read from bottom to top):
 ```
@@ -152,7 +97,7 @@ This idea is at the heart of the type class called `MonadTrans`. Again, you shou
 
 #### Free
 
-In the `Free`-approach, one models the above effects using data structures (again, we'll show how later). Essentially, one uses domain-specific languages (DSLs) created via data structures to define an Abstract Syntax Tree (AST). Such a tree describe a computation but does not run them. Later on, an AST is "interpreted" (via a `NaturalTransformation`/`~>`) into a final base monad that actually runs the computation. Using a visual, it produces this diagram (read top to bottom):
+In the `Free`-approach, one models the above effects using data structures (again, we'll show how later). Essentially, one uses domain-specific languages (DSLs) created via data structures to define an Abstract Syntax Tree (AST). Such trees describe computations but do not run them. Later on, an AST is "interpreted" (via a `NaturalTransformation`/`~>`) into a final base monad that actually runs the computation. Using a visual, it produces this diagram (read top to bottom):
 ```
 Pure High-Level Language
       |
