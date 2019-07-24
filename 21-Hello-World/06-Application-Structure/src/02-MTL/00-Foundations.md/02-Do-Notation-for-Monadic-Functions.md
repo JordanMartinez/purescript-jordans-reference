@@ -15,7 +15,7 @@ class Functor (Function input) where
     in originalToNew originalOutput)
 
 class (Functor (Function input)) <= Apply (Function input) where
-  apply :: forall a b. f (a -> b) -> f a -> f b
+  apply :: forall originalOutput newOutput.
            Function input (originalOutput -> newOutput) ->
            Function input  originalOutput ->
            Function input newOutput
