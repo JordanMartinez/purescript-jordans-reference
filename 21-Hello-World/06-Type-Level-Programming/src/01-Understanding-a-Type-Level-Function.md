@@ -15,15 +15,16 @@ Since the left part of `{ | r}` does not contain any rows, this reduces to `Reco
 Second, there is syntax sugar via [`RowApply`](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row#t:RowApply)/[`+`](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row#t:type%20(+)) for adding additional rows:
 ```purescript
 type EmptyRow = ()
-type ClosedRow = (a :: Int)
-type OpenRow1 r = (a :: Int | r)
+type ClosedRow1 = (a :: Int)
+type OpenRow1 r = (b :: String | r)
 type OpenRow2 r = (OpenRow1 + r)
+type ClosedRow2 = (OpenRow2 + ClosedRow1)
 type MixedRow r = (a :: Int | OpenRow1 + r)
 
 type Row1 r = (x :: Int | r)
 type Row2 r = (y :: Int | r)
 type Row3 r = (z :: Int | r)
-type SuperMixedRow r = (a :: Int, b :: Int, c :: Int | Row1 + Row2 + Row3 + r)
+type SuperMixedOpenRow r = (a :: Int, b :: Int, c :: Int | Row1 + Row2 + Row3 + r)
 ```
 
 Third, we sometimes need to close the "open" row type by using the empty row, `()`:
