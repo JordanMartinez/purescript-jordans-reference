@@ -1,9 +1,5 @@
-{-
-A type is generated via the `Gen` type, which will be explained
-later in this folder. For now, one can use combinators
-to produce the random data needed for testing.
-The focus of this file is on these combinators.
--}
+-- | The focus of this file is on how to use combinators.
+-- | to produce random data.
 module Test.RandomDataGeneration.Combinators where
 
 import Prelude
