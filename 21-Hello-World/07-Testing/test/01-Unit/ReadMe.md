@@ -8,7 +8,9 @@ I'm not sure which one is better than the other in some situation. However, I kn
 
 ## Spec
 
-Spec is useful for unit testing. Fortunately, the author already has a very clear guide in how to use it [here](https://purescript-spec.github.io/purescript-spec/). Read through that and then look at this code for examples.
+Spec is useful for unit testing. The author already has a very clear guide in how to use it. Unfortunately, the links don't point to the correct version of the documentation. So, read through these links and then look at this code for examples:
+- [Writing Specs](https://github.com/purescript-spec/purescript-spec/blob/master/docs/writing-specs.md)
+- [Running Specs](https://github.com/purescript-spec/purescript-spec/blob/master/docs/running.md)
 
 The Examples folder has two kinds of tests:
 - Self-Contained - shows most of the functions in a single file. It shows what the different reporters output when a test gets run.
