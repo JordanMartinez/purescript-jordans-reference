@@ -1,5 +1,7 @@
 # From `Free` to `Run`
 
+**Prerequisite: You must be familiar with type-level programming syntax and understand how type-level programming works. If you are not, read through the corresponding folder on type-level syntax, and skim through the first few files of the next major folder, `Type Level Programming`.**
+
 So far, we've used the `Free` monad to model effects using `Coproduct`. However, this approach is not very extensible because `Coproduct` is the "closed" `Type -> Type` sum type.
 
 This folder will
