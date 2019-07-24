@@ -2,7 +2,7 @@
 
 Prerequisites:
 - You should be familiar with type-level programming
-- You should understand what "smart constructors" (see `Design Patterns` folder) are and how they work
+- You should understand what "smart constructors" are (see `Design Patterns` folder) and how they work
 
 The upcoming folders will explain
 - a small explanation on the onion architecture / 3-Layer Haskell Cake concepts
@@ -10,13 +10,13 @@ The upcoming folders will explain
 - how to structure an FP program via MTL and Free/Run
 - **folders starting with `1` contain heavily-commented examples of basic programs using these application architecture styles.** When learning one particular style, you should look at these programs for what an 'end-result' looks like using that style as well as how it compares to other styles. We'll start with the simplest "hello world" program that uses only one effect and write programs that use more and more effects/capabilities.
 
-These will later be used to write programs in the `Projects` folder that run in Node via the console and/or in the Browser via Halogen
+These will later be used to write programs in the `Projects` folder that run in Node via the console and/or in the Browser via Halogen.
 
 In the functional paradigm, programs are structured in such a way that they look very similar to something called the "onion architecture." **The below videos are optional watching.** Watch them for a clearer idea of what "onion architecture" is:
 - [A Quick Introduction to Onion Architecture](https://www.youtube.com/embed/R2pW09tMCnE?start=6&end=527)
 - [Domain-Driven Design through Onion Architecture](https://www.youtube.com/watch?v=pL9XeNjy_z4)
 
-[Functional Architecture - The Pits of Success](https://www.youtube.com/watch?v=US8QG9I1XW0) explains that FP pushes one towards this architecture whereas other languages pushes one away from it
+Another optional video to watch: [Functional Architecture - The Pits of Success](https://www.youtube.com/watch?v=US8QG9I1XW0). It explains that FP naturally pushes developers towards this architecture whereas other languages push developers away from it.
 
 When we structure our code according to the below table, it provides a number of benefits
 - top-down domain-driven design: your data types and your function's type signatures are often your always-up-to-date documentation
@@ -29,7 +29,7 @@ When we structure our code according to the below table, it provides a number of
 | Layer 3 | Domain | the "business logic" code which uses "effects," impure computations that are expressed in a pure way
 | Layer 2 | API | the "production" or "test" monad which "links" these pure effects/capabilties to their impure implementations
 | Layer 1 | Infrastructure | the platform-specific framework/libraries we'll use to implement some special effects/capabilities (i.e. `Node.ReadLine` (terminal-based programs), `Halogen`/`React` (web-based UIs))
-| Layer 0 | Machine Code<br>(no equivalent onion term) | the "base" monad that runs the program (e.g. production: `Effect`/`Aff`; test: `Identity`)
+| Layer 0 | Machine Code<br>(no equivalent onion term) | the "base" monad that runs the program (e.g. production: `Effect`/`Aff`; test: `Identity`/`Trampoline`)
 
 To get a general idea for the concept this folder is going to try to teach:
 - Watch the second half of [Code Reuse in PureScript: Functions, Type Classes, and Interpreters](https://youtu.be/GlUcCPmH8wI?t=1977) and focus on the following section:
