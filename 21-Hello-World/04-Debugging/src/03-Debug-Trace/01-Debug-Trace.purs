@@ -4,6 +4,7 @@
 module Debugging.DebugTrace where
 
 -- Comment out everything below this line to prevent compiler warning.
+----------------------------------------------------------------------
 
 import Prelude
 import Effect (Effect)
@@ -56,7 +57,7 @@ main = do
   log $ "Value is: " <> show value
 
 -- Box's type class instances
-instance monadBox :: Monad Box -- instance needed for some reason!
+instance monadBox :: Monad Box
 
 instance functorBox :: Functor Box where
   map f (Box a) = Box (f a)
