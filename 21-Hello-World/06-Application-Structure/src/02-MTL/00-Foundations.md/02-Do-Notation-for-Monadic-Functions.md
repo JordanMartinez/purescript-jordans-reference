@@ -1,40 +1,46 @@
 # Monadic Function Examples
 
-This file will help you learn how to read a monadic function's "do notation." We'll take some very simple examples and do a graph reduction on them to show how a series of `bind`/`>>=` calls are evaluated into a final value. Again, we won't be using any type classes here yet. We're simply showing how it works.
+This file will help you learn how to read a monadic function's "do notation." We'll take some very simple examples and do a graph reduction on them to show how a series of `bind`/`>>=` calls are evaluated into a final value.
 
 ## Function Implementations
 
-To help us evaluate these examples manually, we'll include our solutions from the previous file here. To keep it simple, these solutions will use the verbose not-cleaned versions:
+To help us evaluate these examples manually, we'll include our verbose "not cleaned up" solutions from the previous file here (except for the `Applicative` one):
 ```purescript
-map :: forall input originalOutput newOutput.
-      (originalOutput -> newOutput) ->
-      Function input originalOutput -> Function input newOutput
-map originalToNew f = (\input ->
-  let originalOutput = f argument
-  in originalToNew originalOutput)
+class Functor (Function input) where
+  map :: forall originalOutput newOutput.
+         (originalOutput -> newOutput) ->
+         Function input originalOutput -> Function input newOutput
+  map originalToNew f = (\input ->
+    let originalOutput = f argument
+    in originalToNew originalOutput)
 
-apply :: forall input originalOutput newOutput.
-         Function input (originalOutput -> newOutput) ->
-         Function input  originalOutput ->
-         Function input newOutput
-apply functionInFunction f = (\input ->
-  let
-    originalOutput = f input
-    originalToNew = functionInFunction input
-  in originalToNew originalOutput)
+class (Functor (Function input)) <= Apply (Function input) where
+  apply :: forall a b. f (a -> b) -> f a -> f b
+           Function input (originalOutput -> newOutput) ->
+           Function input  originalOutput ->
+           Function input newOutput
+  apply functionInFunction f = (\input ->
+    let
+      originalOutput = f input
+      originalToNew = functionInFunction input
+    in originalToNew originalOutput)
 
-pure :: forall input output. output -> Function input output
-pure value = (\_ -> value)
+-- Since pure ignores its argument, I'll use the cleaned up version
+-- here because it's easier to understand
+class (Apply (Function input)) <= Applicative (Function input) where
+  pure :: forall output. output -> Function input output
+  pure value = (\_ -> value)
 
-bind :: forall input originalOutput newOutput.
-        (originalOutput -> Function input newOutput) ->
-        Function input originalOutput ->
-        Function input newOutput
-bind originalToFunction f = (\input ->
-  let
-    originalOutput = f input
-    inputToNewOutput = originalToFunction originalOutput
-  in inputToNewOutput input)
+class (Apply (Function input)) <= Bind (Function input) where
+  bind :: forall originalOutput newOutput.
+          (originalOutput -> Function input newOutput) ->
+          Function input originalOutput ->
+          Function input newOutput
+  bind originalToFunction f = (\input ->
+    let
+      originalOutput = f input
+      inputToNewOutput = originalToFunction originalOutput
+    in inputToNewOutput input)
 ```
 
 ## Example 1: `pure`
