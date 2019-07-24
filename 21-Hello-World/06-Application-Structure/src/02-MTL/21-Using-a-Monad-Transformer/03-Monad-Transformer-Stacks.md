@@ -14,11 +14,11 @@ program = do
 
 --  StateT state         monad output
 -- "IndexN possibleInput monad typeClassOutput"
-runProgram :: Index3 input3 (       -- bottom of the stack
+runProgram :: Index3 input3 (       -- top of the stack
                 Index2 input2 (
                   Index1 input1 (
                     Index0 input0   -- =
-                      Identity      -- | top of the stack (the base monad)
+                      Identity      -- | bottom of the stack (the base monad)
                     output0         -- =
                   ) output1
                 ) output2
@@ -40,12 +40,14 @@ runProgram :: Index3 input3 (       -- bottom of the stack
                 )
                 output0
               )
-runProgram computation {- args -} =
-  runIndex0 (                               -- top of the stack
+runProgram program {- args -} =
+  runIndex0 (                               -- bottom of the stack
     runIndex1T (
       runIndex2T (
-        runIndex3T computation index3Args   -- bottom of the stack
+        runIndex3T program index3Args   -- top of the stack
       ) index2Args
     ) index1Args
   ) index0Args
 ```
+
+Note: when using `ExceptT`, `MaybeT`, or `ListT`, the outputs won't necessarily be `Tuple`s.
