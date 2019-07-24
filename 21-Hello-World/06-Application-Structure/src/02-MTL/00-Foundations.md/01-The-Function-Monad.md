@@ -346,3 +346,42 @@ As can be seen, this example was a slightly more complicated version of `apply` 
     - to implmement the instance, we have to create a new function by using lambda syntax: `\argument -> body`
 - `apply`/`bind` example:
     - to get all the pieces necessary to return the `b`/`newOutput` value, we sometimes need to pass the `input` value into multiple functions.
+
+## Resugaring `Function`
+
+In our code above, we desugared `(a -> b)` into `Function a b`. What would happen if we resugared our type class instances above back into `->`? How would we write it then?
+```purescript
+class Functor ((->) input) where
+  map :: forall originalOutput newOutput.
+         (originalOutput -> newOutput) ->
+         (input -> originalOutput) -> (input -> newOutput)
+  map originalToNew f = (\input ->
+    let originalOutput = f argument
+    in originalToNew originalOutput)
+
+class (Functor ((->) input)) <= Apply ((->) input) where
+  apply :: forall originalOutput newOutput.
+           (input -> (originalOutput -> newOutput)) ->
+           (input -> originalOutput) ->
+           (input -> newOutput)
+  apply functionInFunction f = (\input ->
+    let
+      originalOutput = f input
+      originalToNew = functionInFunction input
+    in originalToNew originalOutput)
+
+class (Apply ((->) input)) <= Applicative ((->) input) where
+  pure :: forall output. output -> (input -> output)
+  pure value = (\_ -> value)
+
+class (Apply ((->) input)) <= Bind ((->) input) where
+  bind :: forall originalOutput newOutput.
+          (originalOutput -> (input -> newOutput)) ->
+          (input -> originalOutput) ->
+          (input -> newOutput)
+  bind originalToFunction f = (\input ->
+    let
+      originalOutput = f input
+      inputToNewOutput = originalToFunction originalOutput
+    in inputToNewOutput input)
+```
