@@ -41,7 +41,7 @@ instance functor :: (Functor f) => Functor (Free f) where
       -- recursively call `map` on nested `Impure` values
       -- until we get a `Pure` value of Free
       \pure_A -> map f pure_A
-      -- which applies the function to the a
+      -- which applies the function to the `a`
       -- and then rewraps the `Impure` values
     ))
 ```
