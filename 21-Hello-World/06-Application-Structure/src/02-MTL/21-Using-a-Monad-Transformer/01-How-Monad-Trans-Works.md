@@ -24,8 +24,12 @@ Since this idea is an abstraction that will repeat, will define it as a type cla
 class MonadTrans t where
   lift :: forall m a. Monad m => m a -> t m a
 
-class LiftSIntoT s t where
-  liftSource :: forall a. s a -> t a
+-- using clearer type names, one should read it as
+class MonadTrans transformerCloserToBaseMonad where
+  lift :: forall transformerFartherFromBaseMonad a.
+          Monad transformerFartherFromBaseMonad =>
+          transformerFartherFromBaseMonad a ->
+          transformerCloserToBaseMonad transformerFartherFromBaseMonad a
 ```
 
 ## Explaining Its Process
