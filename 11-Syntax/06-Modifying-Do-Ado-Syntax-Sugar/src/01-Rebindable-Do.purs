@@ -29,8 +29,8 @@ Note: rebinding 'do' will produce the following compiler warnings:
 -}
 
 -- While 'bind' has been imported above, we don't have to use that 'bind' explicitly
-normalBind_let :: Box Int
-normalBind_let =
+normalBind_let_in :: Box Int
+normalBind_let_in =
   let
     bind = NormalBind.bind
 
@@ -42,7 +42,23 @@ normalBind_let =
     two <- Box 2
     pure (three + two)
 
--- Obviously, this is not as easy to read as using the 'where' clause approach
+
+-- Redefining them in a let binding inside of the 'do notaiton' is
+-- more readable. Of the three approaches, I'd recommend using this one.
+normalBind_let_only :: Box Int
+normalBind_let_only = do
+  let
+    bind = NormalBind.bind
+
+    -- Again, this isn't necessary, but we'll include it here anyway.
+    discard = NormalBind.discard
+
+  three <- Box 3
+  Box unit
+  two <- Box 2
+  pure (three + two)
+
+-- One can also rebind them in the 'where' clause
 normalBind_where :: Box Int
 normalBind_where = do
   three <- Box 3

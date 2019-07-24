@@ -29,8 +29,8 @@ Note: rebinding 'ado' will produce the following compiler warnings:
 
 -- This is how we would use "rebindable syntax" via a 'let binding'
 -- to write normal "ado notation" (i.e. apply and map are unchanged)
-normalApply_let :: Box Int
-normalApply_let =
+normalApply_let_in :: Box Int
+normalApply_let_in =
   let
     {-
     These do not work
@@ -53,7 +53,19 @@ normalApply_let =
     two <- Box 2
     in three + two
 
--- Obviously, this is not as easy to read as using the 'where' clause approach
+-- Redefining them in a let binding inside of the 'ado notaiton' is
+-- more readable. Of the three approaches, I'd recommend using this one.
+normalApply_let_only :: Box Int
+normalApply_let_only = ado
+  let
+    apply = NormalApply.apply
+    map = NormalMap.map
+
+  three <- Box 3
+  two <- Box 2
+  in three + two
+
+-- One can also rebind them in the 'where' clause
 normalApply_where :: Box Int
 normalApply_where = ado
   three <- Box 3
