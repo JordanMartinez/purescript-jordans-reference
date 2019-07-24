@@ -59,7 +59,10 @@ This is the whole point of using monadic functions that output monadic data type
 | If the underlying outputted monadic data type is... | then running our code will ...
 | - | - |
 | `Effect`/`Aff`<br>("impure" monads) | execute a program |
-| `Box`<br>("pure" monad) | allow us test our business logic |
+| `Identity`^/`Trampoline`^^<br>("pure" monad) | allow us test our business logic |
+
+^ `Identity` is what you get if `Box` was a newtype rather than data. In other words, `newtype Identity a = Identity a`. `identity` is a function that returns as output its input. Thus, it's often used as a "placeholder" / `mempty` function value. Similarly, `Identity a` is a type that reduces to the `a` type at runtime. Thus, it's often used as a "placeholder" / `mempty`-like monadic type.
+^^ `Trampoline` is a monad that we haven't introduced yet.
 
 With one monad, we can prove that our business logic works as expected and does not have any bugs, and with another monad, we can execute that same business logic as a useful program.
 
@@ -71,8 +74,10 @@ In short, we use type classes above to "write" our business logic and monad tran
 
 ## Introducing `ReaderT`
 
-`OutputMonad` is better known as [`ReaderT`](https://pursuit.purescript.org/packages/purescript-transformers/4.2.0/docs/Control.Monad.Reader.Trans#t:ReaderT).
+`OutputMonad` is better known as `ReaderT`:
+- when `ReaderT`'s monadic type is a real monad, we call it [`ReaderT`](https://pursuit.purescript.org/packages/purescript-transformers/4.2.0/docs/Control.Monad.Reader.Trans#t:ReaderT)
+- when `ReaderT`'s monadic type is `Identity` (placeholder monadic type), we call it [`Reader`](https://pursuit.purescript.org/packages/purescript-transformers/4.2.0/docs/Control.Monad.Reader).
 
-It's corresponding type class is [`MonadReader`](https://pursuit.purescript.org/packages/purescript-transformers/4.2.0/docs/Control.Monad.Reader.Class)
+It's corresponding type class is [`MonadReader`](https://pursuit.purescript.org/packages/purescript-transformers/4.2.0/docs/Control.Monad.Reader.Class).
 
-To see how this works in practice, see the natural "evolution" one would take to use it: [the Monad Reader Example](https://gist.github.com/rlucha/696ca604c9744ad11aff7d46b1706de7)
+To see how this works in practice, see the natural "evolution" one would take to use it in real code: [the Monad Reader Example](https://gist.github.com/rlucha/696ca604c9744ad11aff7d46b1706de7)
