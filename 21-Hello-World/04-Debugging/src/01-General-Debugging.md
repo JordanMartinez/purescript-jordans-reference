@@ -149,7 +149,7 @@ spago build -- -v
 
 (This section assumes familiarity with the `Design Patterns/Partial Functions/` folder)
 
-Taken from [safareli's comment in "When should you use primitive types instead of custom types?""](https://discourse.purescript.org/t/when-should-you-use-primitive-types-instead-of-custom-types/450/14?u=jordanmartinez), there might be times where you want to use a partial function to get or compute some value that might not be there. If one just uses `unsafePartial $ <unsafeFunction>`, the error message will likely not be helpful:
+Taken from [safareli's comment in "When should you use primitive types instead of custom types?""](https://discourse.purescript.org/t/when-should-you-use-primitive-types-instead-of-custom-types/450/14), there might be times where you want to use a partial function to get or compute some value that might not be there. If one just uses `unsafePartial $ <unsafeFunction>`, the error message will likely not be helpful:
 ```purescript
 -- Don't do this.
 foo :: forall a. Maybe a -> a
