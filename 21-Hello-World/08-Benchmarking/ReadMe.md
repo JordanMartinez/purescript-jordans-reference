@@ -4,7 +4,7 @@ Purescript has a few benchmarking libraries:
 
 | Name | Status | Comments |
 | - | - | - |
-| [purescript-benchotron](https://pursuit.purescript.org/packages/purescript-benchotron/7.0.0) | Up-to-date | Uses QuickCheck<br>Output results only in Node<br>Results are viewable only via graphs |
+| [purescript-benchotron](https://pursuit.purescript.org/packages/purescript-benchotron/) | Up-to-date | Uses QuickCheck<br>Output results only in Node<br>Results are viewable only via graphs |
 | [purescript-minibench](https://pursuit.purescript.org/packages/purescript-minibench/2.0.0/docs/Performance.Minibench) | Up-to-date | Provides quick estimates but not very accurate benchmarks
 | [purescript-benchmark](https://pursuit.purescript.org/packages/purescript-benchmark/0.1.0) | Outdated (PS `0.11.7`) | Doesn't require QuickCheck<br>Outputs results in Node and Browser<br>Output is full ASCII table with percentage values
 
