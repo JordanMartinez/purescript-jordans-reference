@@ -300,9 +300,7 @@ evaluate (Add 2 3)
 
 ## Explaining Terms
 
-So why the name `fold`? One can "fold" a data structure to reduce it down to one value. For example, if one had a list of integers, `List Int`, one could fold the list to a single `Int` value using a function. This idea can be used to generate a sum of all of its integers.
-
-There's another term we did not explain but which appears in the paper: `algebra`. An [`Algebra`](https://pursuit.purescript.org/packages/purescript-matryoshka/0.3.0/docs/Matryoshka.Algebra#t:Algebra) is merely a special name for a function with a specific type signature: `(f a -> a)`. It's our `evaluate` function.
+There's a term we did not explain but which appears in the paper: `algebra`. An [`Algebra`](https://pursuit.purescript.org/packages/purescript-matryoshka/0.3.0/docs/Matryoshka.Algebra#t:Algebra) is merely a special name for a function with a specific type signature: `(f a -> a)`. It's our `evaluate` function.
 
 ## All Code So Far and Evaluate
 
