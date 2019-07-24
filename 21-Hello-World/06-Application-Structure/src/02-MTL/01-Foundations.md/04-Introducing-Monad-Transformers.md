@@ -102,32 +102,34 @@ Third, the general pattern (there are exceptions!) that we will see reappear whe
 - There is a single default implementation for `Monad[Word]` called `[Word]T`. When the monad type is specialized to `Identity`, it's simply called `[Word]`.
 - To run a computation using `Monad[Word]`, we must use either `run[Word] computation arg` (i.e. the monad is `Identity`) or `run[Word]T computation arg` (i.e. a non-`Identity` monad).
 
-Putting it into a table, we get this:
+Putting it into a table, we get this.
 
 | Type Class | Sole Implementation<br>(`m` is real monad)<br><br>function that runs it | Sole Implementation<br>(`m` is `Identity`)<br><br>function that runs it |
 | - | - | - |
-| `Monad[Word]`<br>(General Pattern) | `[Word]T`<br><br>`run[Word]` | `[Word]`<br><br>`run[Word]` |
-| `MonadState` |  `StateT`<br><br>`runState` | `State`<br><br>`runState` |
-| `MonadReader` | `ReaderT`<br><br>`runReader` | `Reader`<br><br>`runReader` |
-| `MonadWriter` | `WriterT`<br><br>`runWriter` | `Writer`<br><br>`runWriter` |
+| `Monad[Word]`<br>(General Pattern) | `[Word]T`<br><br>`run[Word]T` | `[Word]`<br><br>`run[Word]` |
+| `MonadState` |  `StateT`<br><br>`runStateT` | `State`<br><br>`runState` |
+| `MonadReader` | `ReaderT`<br><br>`runReaderT` | `Reader`<br><br>`runReader` |
+| `MonadWriter` | `WriterT`<br><br>`runWriterT` | `Writer`<br><br>`runWriter` |
 | `MonadCont` | `ContT`<br><br>`runCont` | `Cont`<br><br>`runCont` |
 | `MonadError` | `ExceptT`<br><br>`runExceptT` | `Except`<br><br>`runExcept` |
 
-Putting it differently, we get this:
+To summarize each monad transformer, we'll use another table. **The below terms for "pure" and "impure" refer to whether the computations can interact with the real world.**:
 
 | A basic function... | ... is used to run a **pure** computation ... | can be "upgraded" to a monad transformer... | ... which is used to run an **impure** computation ... |
 | - | - | - | - |
-| `input -> output` | that depends on its input | `globalValue -> monad outputThatUsesGlobalValue`<br>`ReaderT` | that depends on some global configuration
-| `state -> Tuple output state` | that does state manipulation | `oldState -> monad (Tuple (output, newState))`<br>`StateT` | that does state manipulation
-| `function $ arg` | once an argument is fully computed | `\function -> output`<br>`ContT` | and periodically use a function passed in as an argument to compute something |
+| `input -> output` | that depends on its input | `globalValue -> monad outputThatUsesGlobalValue`<br><br>`ReaderT` | that depends on some global configuration
+| `state -> Tuple output state` | that does state manipulation | `oldState -> monad (Tuple (output, newState))`<br><br>`StateT` | that does state manipulation
+| `function $ arg` | once an argument is fully computed | `\function -> output`<br><br>`ContT` | and periodically use a function passed in as an argument to compute something |
 
-| A basic return value... | ... that is used to run a **pure** computation ... | ... can be "upgraded" to a monad transformer... | ... and be used to run an **impure** computation ... |
+Some monad transformers just specify what their output type will be:
+
+| A basic return value... | ... that is used to run a **pure** computation ... | ... can be put into a Monad and become a monad transformer... | ... which is used to run an **impure** computation ... |
 | - | - | - | - |
-| `Tuple output additionalOutput` | that also produces additional output | `monad (Tuple (output, accumulatedValue)`<br>`WriterT` | that produces accumulated data as additional output |
-| `Either e a` | that handles partial functions | `monad (Either e a)`<br>`ExceptT` | that may fail and the error matters
-| `Maybe a` | that might not return a value | `monad (Maybe a)`<br>`MaybeT` | that may fail and the error does NOT matter
-| `List a` | that produces 0 or more values | `monad (List a)`<br>`ListT` | that produces 0 or more values |
+| `Tuple output additionalOutput` | that also produces additional output | `monad (Tuple (output, accumulatedValue)`<br><br>`WriterT` | that produces accumulated data as additional output |
+| `Either e a` | that handles partial functions | `monad (Either e a)`<br><br>`ExceptT` | that may fail and the error matters
+| `Maybe a` | that might not return a value | `monad (Maybe a)`<br><br>`MaybeT` | that might not return a value
+| `List a` | that produces 0 or more values | `monad (List a)`<br><br>`ListT` | that produces 0 or more values |
 
 Once again, the "base monad" that usually inhibits `m` in the "stack" of nested monad transformers is usually one of two things:
-- `Effect`/`Aff`: impure computations that actually make our business logic useful
-- `Identity`/`Free`: pure computations that test our business logic.
+- `Effect`/`Aff`: impure monads that actually make our business logic useful
+- `Identity`/`Free`: pure monads that test our business logic.
