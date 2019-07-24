@@ -29,12 +29,12 @@ This folder will place both source and test code in the `test` folder to prevent
 
 This folder will cover testing using three libraries. Nested bullet points indicate other libraries into which one should investigate:
 - [Spec](https://github.com/purescript-spec/purescript-spec) - Unit Testing / Test Suites
-    - [spec-discovery](https://pursuit.purescript.org/packages/purescript-spec-discovery/3.1.0)
-    - [spec-reporter-xunit](https://pursuit.purescript.org/packages/purescript-spec-reporter-xunit/0.4.0)
-    - [spec-mocha](https://pursuit.purescript.org/packages/purescript-spec-mocha/3.0.0)
-    - [spec-quickcheck](https://pursuit.purescript.org/packages/purescript-spec-quickcheck/3.1.0)
-- [Quick Check](https://pursuit.purescript.org/packages/purescript-quickcheck/6.1.0) - Property Testing
-- [Quick Check Laws](https://pursuit.purescript.org/packages/purescript-quickcheck-laws/4.0.0) - Property Testing for the core type classes via type-level programming
+    - [spec-discovery](https://pursuit.purescript.org/packages/purescript-spec-discovery/)
+    - [spec-reporter-xunit](https://pursuit.purescript.org/packages/purescript-spec-reporter-xunit/)
+    - [spec-mocha](https://pursuit.purescript.org/packages/purescript-spec-mocha/)
+    - [spec-quickcheck](https://pursuit.purescript.org/packages/purescript-spec-quickcheck/)
+- [Quick Check](https://pursuit.purescript.org/packages/purescript-quickcheck/) - Property Testing
+- [Quick Check Laws](https://pursuit.purescript.org/packages/purescript-quickcheck-laws/) - Property Testing for the core type classes via type-level programming
 
 ## Running the Tests
 
