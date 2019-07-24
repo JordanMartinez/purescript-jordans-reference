@@ -18,7 +18,7 @@ Looking at the above from a top-down perspective, we get this:
 | Layer 3 | Domain | the "business logic" code which uses effects
 | Layer 2 | API | the "production" or "test" monad which "links" these effects/capabilties to their implementations: <ul><li>a newtyped `ReaderT` and its instances</li></ul>
 | Layer 1 | Infrastructure | the platform-specific framework/monad we'll use to implement some special effects/capabilities (i.e. `Node.ReadLine`/`Halogen`/`StateT`)
-| Layer 0 | Machine Code<br>(no equivalent onion term) | the "base" monad that runs the program (e.g. production: `Effect`/`Aff`; test: `Identity`)
+| Layer 0 | Machine Code<br>(no equivalent onion term) | the "base" monad that runs the program (e.g. production: `Effect`/`Aff`; test: `Identity`/`Trampoline`)
 
 Putting it into code, we would get something that looks like this:
 ```purescript
@@ -66,7 +66,6 @@ instance lts :: LogToScreen AppM where
 
 instance gun :: GetUserName AppM where
   getName = liftEffect $ -- implementation
-newtype TestM a = AppM (ReaderT Environemnt Identity a)
 
 -- Layer 0 (production)
 main :: Effect Unit
@@ -97,9 +96,9 @@ main = do
   assert (runTest program globalEnvironmentInfo) == correctValue
 ```
 
-## When to Use it: ReaderT vs MTL?
+## When to Use it: ReaderT Design Pattern vs Monad Transformer Stack?
 
 | Scope of Code | Example | Use |
 | - | - | - |
 | Programming in the large<br>(e.g. Application Structure) | Connecting impure effects to their pure type classes via an API layer | `ReaderT`
-| Programming in the small<br>(e.g. a single complicated computation) | Doing one particular computation that uses a number of effects that others in the surrounding context do not use | `mtl`
+| Programming in the small<br>(e.g. a single complicated computation) | Doing one particular computation that uses a number of effects that others in the surrounding context do not use | Monad Transformer Stack
