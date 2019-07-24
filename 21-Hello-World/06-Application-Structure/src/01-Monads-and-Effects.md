@@ -1,46 +1,10 @@
 # Monads and Effects
 
-Monads represent sequential computation via `bind`/`>>=`: "do X, and once finished, do Y". In our previous example/explanation from `Hello World/Prelude/Control-Flow/How the Computer Executes FP Programs.md`, we implied that `Box` could be used to "compute" something. In that example, however, it merely acted as a wrapper around values and functions. In other words, the code from before (now in `do notation`)...
-```purescript
-main :: Box Unit
-main = do
-  four        <- Box 4
-  five        <- Box (1 + four)
-  five_string <- Box (show five)
-  print five_string
-```
-... could be rewritten to remove `Box` entirely and focus just on the values and functions:
-```purescript
--- since `print` is not a pure function, we'll leave put it at the end
--- Reminder: function arg == arg # function
-(
-  4 # (\four ->
-    (1 + four) # (\five ->
-      (five # show)
-    )
-  )
-) # (\five_string -> print five_string)
-```
-So, why use Monads in the first place?.
+Monads represent sequential computation via `bind`/`>>=`: "do X, and once finished, do Y". In our previous example/explanation from `Hello World/Prelude/Control-Flow/How the Computer Executes FP Programs.md`, we implied that `Box` could be used to "compute" something. In that example, however, it merely acted as a wrapper around values and functions.
 
-The example did not make it clear how `Box` could be a "computation" because we aren't using functions of the type `(a -> Box b)`. Rewriting the above code to use functions would appear like so:
-```purescript
-main :: Box Unit
-main = do
-  four        <- Box 4
+When we covered `Effect` and `Aff` in their respective folder, we saw that conceptually they operated very similar to `Box`. However, they actually interacted with the real world: the console actually printed values to the screen.
 
-              -- add1 :: Int -> Box Int
-              -- add1 x = Box (1 + x)
-  five        <- add1 four
-
-              -- toString :: Int -> Box String
-              -- toString x = Box (show x)
-  five_string <- toString five
-
--- similar for `print` function
-  print five_string
-```
-`bind`/`>>=` insures that one computation occurs before another (i.e. sequential computation), but it does not define what kinds of computation are done. Thus, we must explain what "effects" are.
+Still, our `Box`/`Effect`/`Aff` examples did not make it clear how `Monad`s could be a "computation" because we aren't using functions of the type `(a -> Box b)`. `bind`/`>>=` insures that one computation occurs before another (i.e. sequential computation), but it does not define what kinds of computation are done. Thus, we must explain what "effects" are.
 
 ## Effects
 
@@ -76,7 +40,7 @@ We will explain and illustrate what is meant by each property
 
 ### Extensible
 
-While the above effects (e.g. `MonadState`) are pretty obvious, we might one day wish to define a new effect for handling authentication,`MonadAuthenticate`. If a function that uses state-manipulation effects via `MonadState` now needs to add the "authenticate" effect, it should be easy to add that and not require us to refactor a whole lot of code.
+While the above effects (e.g. `MonadState`) are pretty obvious, we might one day wish to define a new effect for handling authentication, `MonadAuthenticate`. If a function that uses state-manipulation effects via `MonadState` now needs to add the "authenticate" effect, it should be easy to add that and not require us to refactor a whole lot of code.
 
 In other words, going from this function ...
 ```purescript
