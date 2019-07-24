@@ -39,15 +39,12 @@ You can now use `benchotron` via spago.
 
 1. Run the below command
 ```bash
-spago run --path "benchmark/**/*.purs" --main Benchmarking.Syntax.Benchotron
+# Since we have `"benchmark/**/*.purs"` included in
+# the `spago.dhall` file's "sources" config, we can use
+# the below command instead. If you don't that that,
+# you'll need to add '-p "benchmark/**/*.purs"' as an argument below.
+spago run -m Benchmarking.Syntax.Benchotron
 ```
 2. It will output a file in the freshly-created `tmp` directory
 3. Upload the outputted file to [this link](http://harry.garrood.me/purescript-benchotron-svg-renderer/)
 4. Download the graph as an SVG or PNG
-
-## Generating benchmarks for real-world projects
-
-In real-world projects, one would run this command:
-```bash
-spago run --path "benchmark/**/*.purs" --main Performance.ModulePath.To.MainModule
-```
