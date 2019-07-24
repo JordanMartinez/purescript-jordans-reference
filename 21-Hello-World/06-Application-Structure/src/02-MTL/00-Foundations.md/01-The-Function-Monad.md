@@ -90,7 +90,7 @@ map :: forall input originalOutput newOutput.
       Function input originalOutput -> Function input newOutput
 map originalToNew f = (\input ->
   let originalOutput = f argument
-  in originalToNew originalOutput )
+  in originalToNew originalOutput)
 ```
 
 As we can see, the types guided us on how to implement this function. If we look at this closer, we can see that it's just function composition.
