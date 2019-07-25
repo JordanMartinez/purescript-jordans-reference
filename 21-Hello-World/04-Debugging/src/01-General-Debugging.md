@@ -145,11 +145,44 @@ spago build -- --verbose-errors
 spago build -- -v
 ```
 
-# Improve Error Messages when using `unsafePartial` to un-Partial Functions
+## Could not match type `Monad` with type `Function (Argument -> Monad a)`
+
+Whenever you get an error like this....
+```
+Error found:
+in module Try
+at src/example.purs:10:3 - 12:6 (line 10, column 3 - line 12, column 6)
+
+  Could not match type
+
+    Effect
+
+  with type
+
+    Function (String -> Effect Unit)
+
+
+while trying to match type Effect Unit
+  with type (String -> Effect Unit) -> t0
+while inferring the type of (log "Here's a message") log
+in value declaration main
+
+where t0 is an unknown type
+```
+It's because you forgot to add the `do` keyword. Here's the code that produces the error:
+```purescript
+main :: Effect Unit
+main = -- missing `do` keyword!
+  log "Here's a message"
+
+  log "Here's another message."
+```
+
+## Improve Error Messages when using `unsafePartial` to un-Partial Functions
 
 (This section assumes familiarity with the `Design Patterns/Partial Functions/` folder)
 
-Taken from [safareli's comment in "When should you use primitive types instead of custom types?""](https://discourse.purescript.org/t/when-should-you-use-primitive-types-instead-of-custom-types/450/14?u=jordanmartinez), there might be times where you want to use a partial function to get or compute some value that might not be there. If one just uses `unsafePartial $ <unsafeFunction>`, the error message will likely not be helpful:
+Taken from [safareli's comment in "When should you use primitive types instead of custom types?""](https://discourse.purescript.org/t/when-should-you-use-primitive-types-instead-of-custom-types/450/14), there might be times where you want to use a partial function to get or compute some value that might not be there. If one just uses `unsafePartial $ <unsafeFunction>`, the error message will likely not be helpful:
 ```purescript
 -- Don't do this.
 foo :: forall a. Maybe a -> a

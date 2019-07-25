@@ -1,5 +1,9 @@
 # Why We Need Both
 
+See `@hdgarrood`'s [Thoughts on PureScript package management in 2019](https://harry.garrood.me/blog/purescript-package-management-in-2019/).
+
+Below are my thoughts on why we need both. I'm not sure whether this is entirely correct.
+
 Think about what happens when a PureScript release is made that includes breaking changes.
 
 Updating each library in the ecosystem to account for those breaking changes is similar to putting a plant inside a vase with colored water. The colored water will first enter its roots, then go up its branches, and finally appear in every leaf ([Kids' experiment explained with photos](http://www.teaching-tiny-tots.com/toddler-science-celery-experiment.html))

@@ -30,9 +30,14 @@ pwd
 spago package-set-upgrade
 cd ../../
 
+cd 11-Syntax/06-Modifying-Do-Ado-Syntax-Sugar/
+pwd
+spago package-set-upgrade
+cd ../../
+
 echo "... Hello World ...."
 
-cd 21-Hello-World/03-Hello-World-and-Effects/
+cd 21-Hello-World/03-Effect-and-Aff/
 pwd
 spago package-set-upgrade
 cd ../../
@@ -42,22 +47,22 @@ pwd
 spago package-set-upgrade
 cd ../../
 
-cd 21-Hello-World/05-Testing/
+cd 21-Hello-World/05-Application-Structure/
 pwd
 spago package-set-upgrade
 cd ../../
 
-cd 21-Hello-World/06-Benchmarking/
+cd 21-Hello-World/06-Type-Level-Programming/
 pwd
 spago package-set-upgrade
 cd ../../
 
-cd 21-Hello-World/07-Type-Level-Programming/
+cd 21-Hello-World/07-Testing/
 pwd
 spago package-set-upgrade
 cd ../../
 
-cd 21-Hello-World/08-Application-Structure/
+cd 21-Hello-World/08-Benchmarking/
 pwd
 spago package-set-upgrade
 cd ../../

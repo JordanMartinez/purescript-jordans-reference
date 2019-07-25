@@ -83,6 +83,55 @@ toA :: b -> a
 toA = -- function's implementation
 ```
 
+## Type Class Instances: Global vs Local
+
+Since type classes encapsulate the 2-3 ideas above, often multiple different types (e.g. `Box`, `Array`, `Maybe`, etc.) can satisfy a type class' requirements (e.g. `Functor`, etc.). Thus, rather than writing code that states, "This function will only work on Arrays of Strings," one often writes code that states, "This function will work for any data type that can satisfy the requirements of the `Functor` type class)."
+
+To state that a given type (e.g. `Box`) can satisfy a type class' requirements, one writes a "**type class instance**". This instance actually defines how a given type (e.g. `Box`) implements that type class (e.g. `Functor`). Philosophically, type class instances can come in two forms: global or local. PureScript uses global type class instances whereas languages like Scala use local type class instances. So, what's the difference?
+
+### Benefits of Global Instances
+
+Let's say I use functions that require the underlying data type to satisfy the `Functor` type class' requirements. Sometimes, that underlying data type is `Array`. Sometimes, it's `Box`. Sometimes, it's `Maybe`.
+
+Global instances mean that a given data type (e.g. `Box`) can only have one instance for a given type class (e.g. `Functor`). Thus, every time and everywhere that I use `Functor` in my code where the underlying type is `Box`, the same Box-Functor instance is always used. This makes it easy for the compiler to figure out which instance to use, and the programmer does not have to think deeply about which instance will be used.
+
+Local instances mean that a given data type (e.g. `Box`) can have an infinite number of instances for a given type class (e.g. `Functor`). Thus, any time I use `Functor` in my code and the underlying type is `Box`, any one of its instances could be used. This makes it harder for the compiler to figure out which instance to use. Ultimately, the compiler chooses an appropriate instance based on which instance is "closest" in the given scope. Moreover, the programmer has to think more deeply about how to properly configure/arrange their code, so that the instance they want the compiler to choose is actually chosen and used.
+
+### Costs of Global Instances: Orphan Instances
+
+Given this tradeoff, it may seem strange that global instances aren't used everywhere. If it's easier for the compiler and programmer, why use local instance?
+
+The major pain point of global instances is "orphan instances."
+
+Due to how global instances work, an instance for a type class must be defined in one of two ways. The first way is defining it in the same file where the original data type is declared. For example, if a type class, `MyTypeClass`, was defined in `File1.purs` and my data type, `Box`, was defined in `File2.purs`, the `Box`-`MyTypeClass` instance would be defined somewhere in `File2.purs`, which would import the `MyTypeClass` type class.
+
+The second way is defining it in the same file where the original type class is declared. For example, if a type class, `MyTypeClass`, was defined in `File1.purs` and my data type, `Box`, was defined in `File2.purs`, the `Box`-`MyTypeClass` instance would be defined somewhere in `File1.purs`, which would import the `Box` data type.
+
+If an instance is defined anywhere else, it's called an "orphan instance." For example, if `Box` was defined in `File1.purs` and `MyTypeClass` was defined in `File2.purs`, then defining a `Box`-`MyTypeClass` instance in `File3.purs` would be an "orphan instance."
+
+### Why Orphan Instances Are Painful
+
+Let's say you have a library called `purescript-unordered-collections` that defines a data type called `HashMap`. Let's say you have another library called `purescript-argonaut-codecs` that defines two type classes called `EncodeJson` and `DecodeJson`. Where do you define `HashMap`'s instances for those two type classes?
+
+If in the data-type library (where the `HashMap` data type is declared), then that library will need to depend on the codec library.
+If in the codec library (where the `EncodeJson/DecodeJson` type classes are declared), then it will need to depend on the data-type library.
+
+Either way, someone will get annoyed by something:
+- once the instance is defined in either library, everyone in the ecosystem is now stuck using that instance's definition. If they thought it should have been defined differently, they often have to write boilerplatey code to be able to define their own instance.
+
+Languages with local instances can shrug their shoulders as they have more control as to which instance gets chosen.
+
+### Summary of Global vs Local Type Class Instances' Tradeoffs
+
+| Type | Pros | Cons |
+| - | - | - |
+| Global | <ul><li>Easier for the compiler to find an instance</li><li>To the programmer, it's obvious which instance will be used</li></ul> | Orphan Instances or writing boilerplatey code to get around them |
+| Local | <ul><li>Harder for the compiler to find an instance</li><li>To the programmer, it's not obvious which instance will be used and sometimes very difficult to properly configure/arrange one's code, so that the correct instance is eventually used</li></ul> | Best instance for the problem can be used without boilerplate |
+
+Scala uses local instances. Haskell uses global instances and orphan instances are disallowed by default; however, I believe Haskell has an "escape hatch" that allows orphan instances to exist.
+
+PureScript uses global instances, and orphan instances are strictly disallowed. Unlike Haskell, there are no "escape hatches." For more context, see [Harry's comment in 'Disallow Orphan Instances' (purescript/purescript#1247)](https://github.com/purescript/purescript/issues/1247#issuecomment-512975645).
+
 ## Non-Category Theory Usages of Type Classes
 
 Some type classes are purposefully designed to be lawless because they are used for other situations. Here are some examples:

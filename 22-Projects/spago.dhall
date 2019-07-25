@@ -2,7 +2,9 @@
 Welcome to a Spago project!
 You can edit this file as you like.
 -}
-{ name =
+{ sources =
+    [ "src/**/*.purs", "test/**/*.purs" ]
+, name =
     "ignore"
 , dependencies =
     [ "avar"
@@ -21,6 +23,7 @@ You can edit this file as you like.
     , "node-process"
     , "node-readline"
     , "optparse"
+    , "parallel"
     , "prelude"
     , "psci-support"
     , "quickcheck"

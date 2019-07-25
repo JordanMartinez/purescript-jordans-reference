@@ -1,11 +1,11 @@
 # Other Important Info
 
-[Purescript By Example](https://leanpub.com/purescript/read#) is a book that teaches Purescript. Unfortunately, it is now outdated because it covers Purescript `0.11.7` and not `0.12.x`, which introduced a lot of breaking changes. However, it's still a useful learning resource.
+[Purescript By Example](https://leanpub.com/purescript/read#) is a book that teaches Purescript. Unfortunately, it is now outdated because it covers Purescript `0.11.7`. The `0.12.0` release included a lot of breaking changes that would require significantly updating the book. However, it's still a useful learning resource.
 
 If you decide to read the book, here are things to be aware of:
 - be wary of any references to these [deprecated packages](https://github.com/purescript-deprecated)
-- **Refer to [`dwhitney`'s fork of the book's code](https://github.com/dwhitney/purescript-book/tree/0.12)**, which is currently being updating to use `0.12.x`.
-- Refer to `Hello-World/Hello-World-and-Effects/Effect-Eff-and-Aff.md` to understand how to translate the no-longer-used `Eff` type to `Effect` type.
+- **Refer to [`dwhitney`'s fork of the book's code](https://github.com/dwhitney/purescript-book/tree/0.12)**, which is currently being updating to use `0.13.x`.
+- Refer to `Hello-World/Effect-and-Aff/Effect-Eff-and-Aff.md` to understand how to translate the no-longer-used `Eff` type to `Effect` type.
 
 ## Differences From Haskell
 
@@ -31,8 +31,8 @@ Then, you use a search query like the following:
 
 - Anytime you need to look up the documentation for a package, use [Pursuit](http://pursuit.purescript.org/). Be aware that some of the deprecated packages mentioned above are still posted there.
 - Read [Pursuit's Search Help page](https://pursuit.purescript.org/help/users#searching)
-- Some libraries have not been updated to `0.12.x` (released on `2018/05/21`) and are still on the `0.11.7` release. Some still work; others won't. In this work, we will insure that you do not use any such libraries, but be aware of that if you browse the docs on your own.
-- Lastly, Bower, the dependency manager used to publish docs to Pursuit, [is currently causing an issue](https://github.com/purescript-contrib/pulp/issues/351) that has prevented some libraries (e.g. Halogen) from uploading their latest versions' documentation. In these cases, we will forewarn you. Fortunately, `spago docs` will produce a local version of the source code's documentation that looks similar to Pursuit. It does not support all the features of Pursuit, but it's better than nothing. To do that, follow these commands:
+- Some libraries have not been updated to `0.13.x` and are still on the `0.11.7` release. Some still work; others won't. In this work, we will insure that you do not use any such libraries, but be aware of that if you browse the docs on your own.
+- Lastly, some libraries have not uploaded their latest versions' documentation. In these cases, we will forewarn you. Fortunately, `spago docs` will produce a local version of the source code's documentation that looks similar to Pursuit. It does not support all the features of Pursuit, but it's better than nothing. To do that, follow these commands:
     - `spago docs && <your default web browser> generated-docs/index.html` where `<your default web browser` is `firefox` or whatever you use.
 
 **Undocumented Pursuit Tip**

@@ -23,12 +23,14 @@ flip twoArgFunction secondArg firstArg = twoArgFunction firstArg secondArg
 
 -- example
      (append "world!" "Hello ") == "world!Hello "
-(flip append "world!" "Hello")  == "Hello world!"
+(flip append "world!" "Hello ") == "Hello world!"
 ```
 
 ## Apply
 
 Forewarning: `apply` via `$` shows up EVERYWHERE! Bookmark this until you get it.
+
+I read somewhere (I think `@garyb` mentioned this on the FP Slack, maybe...?) that `$` was chosen because it's two parenthesis with a line through it, symbolizing that it removes the need to use parenthesis.
 
 ```purescript
 -- Reduce the number of parenthesis needed
@@ -39,6 +41,8 @@ infix 0 apply as $
 
 -- example
 print (5 + 5) == print $ 5 + 5
+
+print (append "foo" (4 + 4)) == print $ append "foo" $ 4 + 4
 ```
 
 ## Other Less-Used Functions
