@@ -493,6 +493,7 @@
     - [ReadMe.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.17.0/21-Hello-World/05-Application-Structure/ReadMe.md)
         - [A Word of Thanks](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.17.0/21-Hello-World/05-Application-Structure/ReadMe.md#A-Word-of-Thanks)
     - src
+        - [00 A Bad Program.purs](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.17.0/21-Hello-World/05-Application-Structure/src/00-A-Bad-Program.purs)
         - [01 Monads and Effects.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.17.0/21-Hello-World/05-Application-Structure/src/01-Monads-and-Effects.md)
             - [Effects / Capabilities](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.17.0/21-Hello-World/05-Application-Structure/src/01-Monads-and-Effects.md#Effects--Capabilities)
                 - [Examples of Effects / Capabilities](https://github.com/JordanMartinez/purescript-jordans-reference/blob/ps-0.13.x-v0.17.0/21-Hello-World/05-Application-Structure/src/01-Monads-and-Effects.md#Examples-of-Effects--Capabilities)
