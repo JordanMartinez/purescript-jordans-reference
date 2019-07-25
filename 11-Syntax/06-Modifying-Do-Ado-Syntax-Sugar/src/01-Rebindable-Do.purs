@@ -43,22 +43,7 @@ normalBind_let_in =
     pure (three + two)
 
 
--- Redefining them in a let binding inside of the 'do notaiton' is
--- more readable. Of the three approaches, I'd recommend using this one.
-normalBind_let_only :: Box Int
-normalBind_let_only = do
-  let
-    bind = NormalBind.bind
-
-    -- Again, this isn't necessary, but we'll include it here anyway.
-    discard = NormalBind.discard
-
-  three <- Box 3
-  Box unit
-  two <- Box 2
-  pure (three + two)
-
--- One can also rebind them in the 'where' clause
+-- Redefining them in a where clause is more readable.
 normalBind_where :: Box Int
 normalBind_where = do
   three <- Box 3
