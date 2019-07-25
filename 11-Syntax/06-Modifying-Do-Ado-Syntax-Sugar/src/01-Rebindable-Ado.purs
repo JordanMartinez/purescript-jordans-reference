@@ -53,19 +53,7 @@ normalApply_let_in =
     two <- Box 2
     in three + two
 
--- Redefining them in a let binding inside of the 'ado notaiton' is
--- more readable. Of the three approaches, I'd recommend using this one.
-normalApply_let_only :: Box Int
-normalApply_let_only = ado
-  let
-    apply = NormalApply.apply
-    map = NormalMap.map
-
-  three <- Box 3
-  two <- Box 2
-  in three + two
-
--- One can also rebind them in the 'where' clause
+-- Redefining them in a 'where' clause is more readable.
 normalApply_where :: Box Int
 normalApply_where = ado
   three <- Box 3
