@@ -2,8 +2,7 @@
 
 ## Possible Readability Issue with Rebindable Do/Ado Notation
 
-When using Rebindable do/ado notation, I'd recommend using the `do/ado` keyword followed by a `let` binding that remaps the function name. Let me give an example why.
-In situations where one does not use the 'let binding in do/ado notation' approach, it isn't immediately clear whether `do/ado notation` desugars to the standard functions or to some remapped version. For example,
+When using Rebindable do/ado notation, I'd recommend using the `let ... in do/ado` aproach for rebinding function names. Let me give an example why. If we used the 'where' clause approach, it isn't immediately clear whether `do/ado notation` desugars to the standard functions or to some remapped version until the very end. For example,
 
 ```purescript
 -- Reader thinks, "Oh hey! It's do notation.
@@ -49,10 +48,10 @@ comp3 = do
   -- Reader thinks, "Oh wait. It's using a custom bind definition.
   -- I'll need to read through this next part carefully..."
   let bind = -- my custom bind definition...
-  
-  a <- Box 1
-  b <- Box 1
-  -- the rest of the code in the example above...
+  in do
+    a <- Box 1
+    b <- Box 1
+    -- the rest of the code in the example above...
 ```
 
 ## Problems with Rebindable Do/Ado Notation
@@ -64,23 +63,20 @@ First, each function that uses this feature must rebind do/ado notation to the c
 For example,
 ```purescript
 comp1 :: Box Int
-comp1 = do
-  let bind = NormalBind.bind
+comp1 = let bind = NormalBind.bind in do
   three <- Box 3
   Box unit
   two <- Box 2
   pure (three + two)
 
 comp2 :: Box Int
-comp2 = do
-  let bind = NormalBind.bind
+comp2 = let bind = NormalBind.bind in do
   three <- Box 3
   pure (three + two)
 
 -- ok, this is really getting tedious...
 comp3 :: Box Int
-comp3 = do
-  let bind = NormalBind.bind
+comp3 = let bind = NormalBind.bind in do
   three <- Box 3
   Box unit
   two <- Box 2
@@ -91,16 +87,17 @@ Second, rebindable do/ado notation might not be easily redable when running comp
 
 ```purescript
 someComputation :: Box Int
-someComputation = do
+someComputation = let bind = NormalBind.bind in do
   -- Box monadic context... use standard bind here
-  value1 <- takesMonad1Argument do
+  value1 <- takesMonad1Argument (let bind = customBind in do
     -- Monad1 monadic context... use custom bind here
     value2 <- runMonad1Computation
-    takesMonad2Argument do
+    takesMonad2Argument (let bind = NormalBind.bind in do
       -- Monad2 monadic context... use a different custom bind here...
-      value3 <- runMonad2Computation
-      pure (value3 + 5)
+      value3 <- runMonad2Computation)
+      pure (value3 + 5))
   pure (value1 + 8)
 ```
+As can be seen, "rebindable" do/ado notation is good when functions do not use many lines and one is not switching back and forth between monadic contexts.
 
-Qualified Do/Ado helps "solve" each of these problems. What follows is the requirements one needs to implement before this feature will work. In this example, we'll use a more complicated example: IndexedMonad/[IxMonad](https://pursuit.purescript.org/packages/purescript-indexed-monad/1.0.0/docs/Control.IxMonad#t:IxMonad).
+Still, Qualified Do/Ado helps "solve" each of these problems. What follows is the requirements one needs to implement before this feature will work. In this example, we'll use a more complicated example: IndexedMonad/[IxMonad](https://pursuit.purescript.org/packages/purescript-indexed-monad/1.0.0/docs/Control.IxMonad#t:IxMonad).
