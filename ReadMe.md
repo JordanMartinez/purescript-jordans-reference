@@ -4,45 +4,29 @@ This repo is my way of using the [Feynman Technique](https://medium.com/taking-n
 
 All code uses PureScript `0.13.x`
 
-Below is a shorter table of contents. See [Table of Contents.md](https://github.com/JordanMartinez/purescript-jordans-reference/blob/latestRelease/table-of-contents.md) for a more detailed version.
+## Table of Contents
 
-- 00-Getting-Started
-    - Why learn/use PureScript?
-    - How to install Purscript & set up an editor (using Atom)
-    - An overview of the REPL
-    - Other important info.
-- 01-Philosophical Foundations - understand the core ideas that guide FP programmers and the "big idea" behind it all
-    - Composition
-    - Types & Type Classes
-    - Pure & Impure Functions
-    - Some problems FP programmers face and workarounds for them
-- 02-Build-Tools - how to use the tools in the ecosystem to manage dependencies, compile source code, and build projects
-    - Overview of the dependency managers
-    - Overview of various tools' CLI arguments in a mindmap format
-    - Typical project workflows
-- 11-Syntax - Purescript's syntax explained using meta-language and verified by the compiler
-    - Basic Syntax
-    - Foreign Function Interface Syntax
-    - Type-Level Programming Syntax
-    - Module syntax
-- 21-Hello-World - everything you need to know to write, structure, test, and benchmark a Purescript program
-    - Prelude + Basic data structures
-    - Hello World & Effects
-    - Debugging
-    - Testing
-    - Benchmarking
-    - Type-Level Programming
-    - Application structure
-- 22-Projects - working programs written in an FP style with helpful comments and overviews of the libraries they use
+[**Table of Contents (Detailed)**](https://github.com/JordanMartinez/purescript-jordans-reference/blob/latestRelease/table-of-contents.md)
+
+Below is a concise ToC that shows the kind of questions each folder answers:
+- **00-Getting-Started**: Why learn/use PureScript? How do I set up an editor (using Atom)? How do I use the REPL? What other things should I know before starting my learning journey?
+- **01-Philosophical Foundations**: What are some foundational ideas I need to understand before FP makes more sense? What is the "big idea" behind using FP languages? What are the drawbacks of using FP languages?
+- **02-Build-Tools**: Which tools do I use to compile, build, and deploy my libraries/applications, and how do I use them? What does a typical project workflow look like? What other tools help me be more productive?
+- **11-Syntax**: Purescript's syntax explained using the very clear examples that are verified by the compiler. How do I read/write type-level programming? What other compiler features exist syntactically?
+- **21-Hello-World**: How do I use FP techniques to write a refactorable, testable, readable program? How do I debug FP programs?
+- **22-Projects**: What are some real-world beginner-friendly examples of FP programs? How do I use a given library?
     - Random Number Game - a game that runs on the console and in the browser using the same "business logic"
     - Table of Contents Generator - a program that generates a table of contents for a GitHub repository.
-- 31-Design Patterns - (WIP) commonly-used patterns to solve problems in FP languages
-- 41-Ecosystem - (WIP) a better overview of the libraries in Purescript (categorized by tags)
+- **31-Design Patterns**: (WIP) What are commonly-used patterns to solve problems in FP languages?
+- **41-Ecosystem**: - (WIP) What is broad overview of the libraries in Purescript (categorized by tags)?
+
+## Project Labels
 
 The following labels give insight into this project's development:
 - [the 'Roadmap' label](https://github.com/JordanMartinez/purescript-jordans-reference/issues?utf8=%E2%9C%93&q=is%3Aissue+label%3ARoadmap): a deeper understanding of this project's current direction/goals.
 - [the 'Meta' label](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Meta): issues related to the project as a whole.
 - [the 'Release-PR' label](https://github.com/JordanMartinez/purescript-jordans-reference/pulls?utf8=%E2%9C%93&q=is%3Apr+label%3ARelease-PR+): the changelog of the code
+- [the `Bug` label](https://github.com/JordanMartinez/purescript-jordans-reference/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 
 **Note: You are advised to watch this repo for releases only. Sometimes, this repo will produce a lot of notifications due to opening/closing issues/PRs and me adding additional thoughts/comments to things. This can star to feel like notification spam.**
 
