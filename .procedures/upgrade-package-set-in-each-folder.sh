@@ -37,7 +37,7 @@ cd ../../
 
 echo "... Hello World ...."
 
-cd 21-Hello-World/03-Hello-World-and-Effects/
+cd 21-Hello-World/03-Effect-and-Aff/
 pwd
 spago package-set-upgrade
 cd ../../
