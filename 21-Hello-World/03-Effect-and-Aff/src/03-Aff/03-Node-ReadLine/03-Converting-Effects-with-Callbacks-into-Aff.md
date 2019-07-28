@@ -23,7 +23,10 @@ Since our present interests do not require cancellation, we can use a no-op `Can
 
 For our purposes, we need an `Aff` to run inside of an `Effect` monadic context. If one looks through `Aff`'s docs, the only one that does this besides `launchAff` and its variants is `runAff_`:
 ```purescript
-runAff_ :: forall a. (Either Error a -> Effect Unit) -> Aff a -> Effect Unit
+runAff_ :: forall a.
+           (Either Error a -> Effect Unit) ->  -- arg 1
+           Aff a ->                            -- arg 2
+           Effect Unit                         -- outputted value
 ```
 Breaking this down, `runAff_` takes two arguments (explained in reverse):
 - an `Aff` computation to run
