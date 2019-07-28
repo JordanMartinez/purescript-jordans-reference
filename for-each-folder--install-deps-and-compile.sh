@@ -108,7 +108,7 @@ rm -rf output/ .spago/
 rm -rf .psc-package/ .pulp-cache/ .psc-package.json
 
 npm install benchmark
-spago build -p "benchmark/**/*.purs"
+spago build
 cd ../../
 
 cd 22-Projects/
@@ -116,7 +116,7 @@ pwd
 rm -rf output/ .spago/
 rm -rf .psc-package/ .pulp-cache/ .psc-package.json
 npm install benchmark
-spago build -p "benchmark/**/*.purs"
+spago build
 
 # Node-based tests
 spago test -m Test.RandomNumber.ReaderT.Standard.DifferentMonad
