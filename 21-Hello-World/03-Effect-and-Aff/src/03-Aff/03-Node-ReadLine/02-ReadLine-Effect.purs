@@ -5,10 +5,11 @@ import Effect (Effect)
 import Effect.Console (log)
 
 {-
-This file will demonstrate why we can't use `Effect` to
-work with `Node.ReadLine`.
+This file will demonstrate why using `Effect` to work with `Node.ReadLine`
+creates the Pyramid of Doom.
 
-Look through the code and then run it to see what happens.
+Look through the code and then use the command in the folder's
+ReadMe.md file to run it using Node (not Spago) to see what happens.
 -}
 
 -- new imports
@@ -23,64 +24,28 @@ main :: Effect Unit
 main = do
   log "\n\n" -- separate output from program output
 
-  interface <- createInterface
-  useInterface interface
-  closeInterface interface
+  log "Creating interface..."
+  interface <- createConsoleInterface noCompletion
+  log "Created!\n"
 
-  where
+  log "Requesting user input..."
+  interface # question "Type something here (1): " \answer1 -> do
+    log $ "You typed: '" <> answer1 <> "'\n"
+    interface # question "Type something here (2): " \answer2 -> do
+      log $ "You typed: '" <> answer2 <> "'\n"
+      interface # question "Type something here (3): " \answer3 -> do
+        log $ "You typed: '" <> answer3 <> "'\n"
+        interface # question "Type something here (4): " \answer4 -> do
+          log $ "You typed: '" <> answer4 <> "'\n"
+          interface # question "Type something here (5): " \answer5 -> do
+            log $ "You typed: '" <> answer5 <> "'\n"
 
-  createInterface :: Effect Interface
-  createInterface = do
-    log "Creating interface..."
-    interface <- createConsoleInterface noCompletion
-    log "Created!\n"
+            log "Now closing interface"
+            close interface
+            log "Finished!"
 
-    pure interface
-
-  useInterface :: Interface -> Effect Unit
-  useInterface interface = do
-    log "Requesting user input..."
-    interface # question "Type something here: "
-        \answer -> log $ "You typed: '" <> answer <> "'\n"
-
-  closeInterface :: Interface -> Effect Unit
-  closeInterface interface = do
-    log "Now closing interface"
-    close interface
-    log "Finished!"
-
-{-
-One might expect the last part of this program to output the following:
-
-   ... create interface output ...
-
-   Requesting user input...
-   Type something here: [user types 'something']
-   You typed: 'something'
-
-   Now closing interface
-   Finished!
-   [Program exit]
-
-In reality, it outputs this:
-
-   ... create interface output ...
-
-   Requesting user input...
-   Type something here: Now closing interface
-   Finished!
-   [Program exit]
-
-The user never has a chance to type anything. Why?
-Because `question` adds a listener to the input stream
-that will run an action when the user has inputted some
-text and pressed Enter, and then continues evaluating
-the next statement. The next expression closes the interface,
-prevnting the user from ever inputting anything.
-
-In other words, it doesn't wait for the user to type in anything
-before continuing its evaluation.
-
-Now it's time to see how we would write the same thing above
-using Aff.
--}
+          log "This will print as we wait for your 5th answer."
+        log "This will print as we wait for your 4th answer."
+      log "This will print as we wait for your 3rd answer."
+    log "This will print as we wait for your 2nd answer."
+  log "This will print as we wait for your 1st answer."
