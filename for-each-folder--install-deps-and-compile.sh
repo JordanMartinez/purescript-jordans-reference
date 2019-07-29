@@ -52,11 +52,18 @@ rm -rf .psc-package/ .pulp-cache/ .psc-package.json
 spago build
 cd ../../
 
+cd 11-Syntax/06-Modifying-Do-Ado-Syntax-Sugar/
+pwd
+rm -rf output/ .spago/
+rm -rf .psc-package/ .pulp-cache/ .psc-package.json
+spago build
+cd ../../
+
 ## Hello World
 
 echo "... Hello World ...."
 
-cd 21-Hello-World/03-Hello-World-and-Effects/
+cd 21-Hello-World/03-Effect-and-Aff/
 pwd
 rm -rf output/ .spago/
 rm -rf .psc-package/ .pulp-cache/ .psc-package.json
@@ -70,7 +77,21 @@ rm -rf .psc-package/ .pulp-cache/ .psc-package.json
 spago build
 cd ../../
 
-cd 21-Hello-World/05-Testing/
+cd 21-Hello-World/05-Application-Structure/
+pwd
+rm -rf output/ .spago/
+rm -rf .psc-package/ .pulp-cache/ .psc-package.json
+spago build
+cd ../../
+
+cd 21-Hello-World/06-Type-Level-Programming/
+pwd
+rm -rf output/ .spago/
+rm -rf .psc-package/ .pulp-cache/ .psc-package.json
+spago build
+cd ../../
+
+cd 21-Hello-World/07-Testing/
 pwd
 rm -rf output/ .spago/
 rm -rf .psc-package/ .pulp-cache/ .psc-package.json
@@ -81,26 +102,12 @@ spago test -m Test.Spec.Examples.SelfContained.ConsoleReporter
 spago test -m Test.QuickCheckSyntax
 cd ../../
 
-cd 21-Hello-World/06-Benchmarking/
+cd 21-Hello-World/08-Benchmarking/
 pwd
 rm -rf output/ .spago/
 rm -rf .psc-package/ .pulp-cache/ .psc-package.json
 
 npm install benchmark
-spago build -p "benchmark/**/*.purs"
-cd ../../
-
-cd 21-Hello-World/07-Type-Level-Programming/
-pwd
-rm -rf output/ .spago/
-rm -rf .psc-package/ .pulp-cache/ .psc-package.json
-spago build
-cd ../../
-
-cd 21-Hello-World/08-Application-Structure/
-pwd
-rm -rf output/ .spago/
-rm -rf .psc-package/ .pulp-cache/ .psc-package.json
 spago build
 cd ../../
 
@@ -109,7 +116,7 @@ pwd
 rm -rf output/ .spago/
 rm -rf .psc-package/ .pulp-cache/ .psc-package.json
 npm install benchmark
-spago build -p "benchmark/**/*.purs"
+spago build
 
 # Node-based tests
 spago test -m Test.RandomNumber.ReaderT.Standard.DifferentMonad

@@ -6,6 +6,7 @@ These were found using a [purescript-aff-](https://pursuit.purescript.org/search
 - [`purescript-aff-bus`](https://pursuit.purescript.org/packages/purescript-aff-bus/4.0.0)
 - [`purescript-aff-retry`](https://pursuit.purescript.org/packages/purescript-aff-retry/1.2.1)
 - [`purescript-aff-promise`](https://pursuit.purescript.org/packages/purescript-aff-promise/2.0.1)
+    - This library makes JavaScript Promises properly work/communicate together with PureScript Aff computations and vice versa.
 - [`purescript-aff-parallel`](https://pursuit.purescript.org/packages/purescript-aff-parallel/0.1.1)
 - [`purescript-aff-reattempt`](https://pursuit.purescript.org/packages/purescript-aff-reattempt/5.0.0)
 - [`purescript-aff-throttler`](https://pursuit.purescript.org/packages/purescript-aff-throttler/0.0.2)

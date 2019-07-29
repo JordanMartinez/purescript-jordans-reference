@@ -112,7 +112,7 @@ cd ../../
 cd 22-Projects/
 pwd
 # Build but do not run benchmark tests
-spago build -p "benchmark/**/*.purs"
+spago build
 PROJECTS_BUILT_OK=$?
 
 # Node-based tests

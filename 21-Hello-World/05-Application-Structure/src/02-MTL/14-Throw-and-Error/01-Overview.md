@@ -2,7 +2,7 @@
 
 ## MonadThrow
 
-`MonadThrow` is used to immediately stop `bind`'s sequential computation and return a value of its error type because of some unforeseeable error (e.g. business logic error).
+`MonadThrow` is used to immediately stop `bind`'s sequential computation and return a value of its error type because of some unforeseeable error (e.g. error encountered when connecting to a database, file that was supposed to exist did not exist, etc).
 
 It's default implmentation is `ExceptT`:
 ```purescript
@@ -14,6 +14,43 @@ newtype ExceptT error monad output =
 class (Monad m) => MonadThrow e (ExceptT e m) where
   throwError :: forall a. e -> ExceptT e m a
   throwError a = ExceptT (pure $ Left a)
+```
+
+### ExceptT: Before and After
+
+Before using `ExceptT`, we would write this ugly verbose code:
+```purescript
+getName :: Effect (Either Error String)
+getAge :: Effect (Either Error Int)
+
+main :: Effect Unit
+main = do
+  eitherName <- getName
+  case eitherName of
+    Left error -> log $ "Error: " <> show error
+    Right name -> do
+      eitherName <- getAge
+      case maybeAge of
+        Left error -> log $ "Error: " <> show error
+        Right age -> do
+          log $ "Got name: " <> name <> " and age " <> show age
+```
+
+After using `ExceptT`, we would write this clear readable code:
+```purescript
+getName :: Effect (Either Error String)
+getAge :: Effect (Either Error Int)
+
+main :: Effect Unit
+main = do
+  eitherResult <- runExceptT $ ExceptT do
+    name <- getName
+    age <- getAge
+    pure { name, age }
+  case eitherResult of
+    Left error -> log $ "Error: " <> show error
+    Right rec -> do
+      log $ "Got name: " <> rec.name <> " and age " <> show rec.age
 ```
 
 ## MonadError
@@ -29,6 +66,20 @@ class (Monad m) => MonadError e (ExceptT e m) where
     ExceptT (m >>= (\either_E_or_A -> case either_E_or_A of
       Left e -> case handleError e of ExceptT b -> b
       Right a -> pure $ Right a))
+```
+
+For example,
+```purescript
+getFileContents :: forall m.
+                   MonadError m =>
+                   String ->
+                   m String
+getFileContents pathToFile = do
+  readFileContents pathToFile `catchError` \fileNotFound ->
+    pure defaultValue
+
+  where
+    defaultValue = "foo"
 ```
 
 ## Derived Functions
@@ -50,7 +101,7 @@ value1 <- otherComputation stopped
 value2 <- otherComputation value1
 
 -- MonadError
-mightRun <- catchError computation attemptToHandleErrorFunction
+mightRun <- computationThatMayFail `catchError` computationWhenPreviousFailed
 
 left_Error   <- try computationThatFails
 right_Output <- try computationThatSucceeds
