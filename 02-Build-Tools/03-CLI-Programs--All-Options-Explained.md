@@ -10,7 +10,7 @@ Documented version: `0.12.3`
 
 ## Spago (PureScript Build Tool & Dependency Manager)
 
-Documented version: `0.8.0.0`
+Documented version: `0.9.0.0`
 
 ![CLI Options: Spago (svg)](./assets/CLI-Options--Spago.svg)
 
