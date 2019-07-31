@@ -124,9 +124,11 @@ See this section to help you understand what a new release means
 - major change means
     - a file/folder name has changed, so that bookmarks or links to that file/folder are now broken
     - files/folders have been modified, so that one is recommended to re-read the modified parts
+    - Spago was updated to a breaking change release
 - minor change means
     - a file's contents have been modified/updated to such a degree that one is recommended to re-read the modified parts- Read through these links about learning:
     - a file's header name has changed, so that bookmarks or links to that header/section are now broken
+    - Spago was updated to a minor release
 - patch means
     - additional files/folders have been added without breaking links
     - a file's contents have been modified/updated to a minor degree that one could re-read the modified parts but is not likely to benefit much from it.
