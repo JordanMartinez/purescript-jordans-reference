@@ -2,7 +2,7 @@
 <!--To view this file, download free mind mapping software Freeplane from http://freeplane.sourceforge.net -->
 <node TEXT="Spago" FOLDED="false" ID="ID_1908593445" CREATED="1553220819735" MODIFIED="1553220826907" STYLE="oval">
 <font SIZE="18"/>
-<hook NAME="MapStyle" zoom="0.751">
+<hook NAME="MapStyle">
     <properties fit_to_viewport="false" edgeColorConfiguration="#808080ff,#ff0000ff,#0000ffff,#00ff00ff,#ff00ffff,#00ffffff,#7c0000ff,#00007cff,#007c00ff,#7c007cff,#007c7cff,#7c7c00ff"/>
 
 <map_styles>
@@ -63,7 +63,7 @@
 </stylenode>
 </map_styles>
 </hook>
-<hook NAME="AutomaticEdgeColor" COUNTER="4" RULE="ON_BRANCH_CREATION"/>
+<hook NAME="AutomaticEdgeColor" COUNTER="8" RULE="ON_BRANCH_CREATION"/>
 <richcontent TYPE="DETAILS">
 
 <html>
@@ -948,7 +948,7 @@
 <node TEXT="" ID="ID_317323365" CREATED="1558495479891" MODIFIED="1558495479893">
 <hook NAME="FirstGroupNode"/>
 </node>
-<node TEXT="Global options" ID="ID_375309264" CREATED="1558495435895" MODIFIED="1558495439967">
+<node TEXT="Global options" FOLDED="true" ID="ID_375309264" CREATED="1558495435895" MODIFIED="1558495439967">
 <node TEXT="--help" ID="ID_1226380692" CREATED="1558495443616" MODIFIED="1558495787155"><richcontent TYPE="DETAILS">
 
 <html>
@@ -961,7 +961,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="--verbose" ID="ID_945931432" CREATED="1558495447399" MODIFIED="1558495801569"><richcontent TYPE="DETAILS">
@@ -976,14 +975,13 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
 <node TEXT="" ID="ID_1221358872" CREATED="1558495479887" MODIFIED="1558495479890">
 <hook NAME="SummaryNode"/>
 <hook NAME="AlwaysUnfoldedNode"/>
-<node TEXT="commands" ID="ID_1806106473" CREATED="1558495479894" MODIFIED="1558495484890">
+<node TEXT="commands" FOLDED="true" ID="ID_1806106473" CREATED="1558495479894" MODIFIED="1558495484890">
 <node TEXT="[Package set commands]" ID="ID_215861180" CREATED="1552093036357" MODIFIED="1558495605739">
 <node TEXT="install" ID="ID_1921605437" CREATED="1551923368362" MODIFIED="1558495559218"><richcontent TYPE="DETAILS">
 
@@ -997,7 +995,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="[ -j | --jobs ]" ID="ID_1710130913" CREATED="1551923492946" MODIFIED="1551923595223"><richcontent TYPE="DETAILS">
 
@@ -1577,7 +1574,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1692,7 +1688,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -1839,6 +1834,1473 @@
 </richcontent>
 </node>
 <node TEXT="psc-package-clean" ID="ID_91172140" CREATED="1551923392762" MODIFIED="1551924215009"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Clean cached packages by deleting the &quot;.psc-package&quot; folder
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+</node>
+</node>
+</node>
+<node TEXT="" POSITION="right" ID="ID_1370092711" CREATED="1564497083593" MODIFIED="1564497083596">
+<edge COLOR="#007c00"/>
+<hook NAME="FirstGroupNode"/>
+</node>
+<node TEXT="version 0.9.0.0" POSITION="right" ID="ID_677236995" CREATED="1564497039392" MODIFIED="1564497043534">
+<edge COLOR="#7c0000"/>
+</node>
+<node TEXT="" POSITION="right" ID="ID_1733887344" CREATED="1564497083587" MODIFIED="1564497083593">
+<edge COLOR="#00007c"/>
+<hook NAME="SummaryNode"/>
+<hook NAME="AlwaysUnfoldedNode"/>
+<node TEXT="" ID="ID_860119540" CREATED="1564497147002" MODIFIED="1564497147005">
+<hook NAME="FirstGroupNode"/>
+</node>
+<node TEXT="[ -h | --help ]" ID="ID_1321923423" CREATED="1558495443616" MODIFIED="1564498063850"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Show the help text
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -v | --verbose ]" ID="ID_298488803" CREATED="1558495447399" MODIFIED="1564498081747"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Enable additional debug logging (e.g. print the `purs` commands)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -P, --no-psa ]" ID="ID_322544814" CREATED="1564497099049" MODIFIED="1564498086121"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Don't build with 'psa', but use 'purs'
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="[ -j, --jobs ]" ID="ID_982878235" CREATED="1564497118701" MODIFIED="1564498090908"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Limit the amount of jobs that can run concurrently
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="" ID="ID_511228751" CREATED="1564497146997" MODIFIED="1564497147001">
+<hook NAME="SummaryNode"/>
+<hook NAME="AlwaysUnfoldedNode"/>
+<node TEXT="commands" ID="ID_576566927" CREATED="1564497147007" MODIFIED="1564497180472">
+<node TEXT="[Package set commands]" ID="ID_1843627948" CREATED="1552093036357" MODIFIED="1558495605739">
+<node TEXT="install" ID="ID_648732855" CREATED="1551923368362" MODIFIED="1558495559218"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Install (download) all dependencies listed in `spago.dhall` file
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -c | --global-cache ]" ID="ID_713069059" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_1755990906" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="PACKAGE" ID="ID_147488516" CREATED="1551923551151" MODIFIED="1551923562409"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      name of the package to add as a dependency
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+</node>
+</node>
+<node TEXT="sources" ID="ID_873744068" CREATED="1551923369609" MODIFIED="1551923611658"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Lists all the source paths (globs) for the dependencies of the project
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="list-packages" ID="ID_1423067061" CREATED="1551923370817" MODIFIED="1552092619411"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      List that packages you can install
+    </p>
+    <p>
+      (i.e. packages available in your packages.dhall file)
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -f | --filter ]" ID="ID_908858526" CREATED="1551923629012" MODIFIED="1551923669418">
+<node TEXT="FILTER" ID="ID_1624946812" CREATED="1551923670373" MODIFIED="1551923695263"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      &quot;direct&quot; - only show direct dependencies
+    </p>
+    <p>
+      &quot;transitive&quot; - show direct and transitive dependencies
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -j | --json ]" ID="ID_454824932" CREATED="1564497365521" MODIFIED="1564497377491"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      produce JSON output
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+</node>
+<node TEXT="verify" ID="ID_665811596" CREATED="1551923372697" MODIFIED="1551923749219"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Verify that a single package is consistent with the Package Set
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -c | --global-cache ]" ID="ID_1980345697" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_1738211609" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="PACKAGE" ID="ID_1016234334" CREATED="1551923551151" MODIFIED="1551923789673"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      name of a single package to verify
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+</node>
+</node>
+<node TEXT="verify-set" ID="ID_1156355134" CREATED="1551923374153" MODIFIED="1551923823575"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Verify that the whole Package Set builds correctly
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -c | --global-cache ]" ID="ID_582719069" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_384803498" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+</node>
+<node TEXT="upgrade-set" ID="ID_1986471932" CREATED="1551923380937" MODIFIED="1564497455324"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Upgrades the local copy of the official package set to its latest version.
+    </p>
+    <p>
+      
+    </p>
+    <p>
+      This will modify the 'upstream' record in 'packages.dhall' file to the latest package-sets release
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="freeze" ID="ID_1613000043" CREATED="1551923384593" MODIFIED="1551924134460"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Add hashes to the package-set, so it will be cached
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[Project commands]" ID="ID_751539158" CREATED="1552093055189" MODIFIED="1558495617412">
+<node TEXT="init" ID="ID_1019071591" CREATED="1551923356426" MODIFIED="1551923451825"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Initialize a new sample project
+    </p>
+    <p>
+      OR
+    </p>
+    <p>
+      migrate from a psc-package project to a spago project
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[-f | --force ]" ID="ID_497214673" CREATED="1551923452915" MODIFIED="1551923525776"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Overwrite any project found in current directory
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="repl" ID="ID_124955001" CREATED="1551923376633" MODIFIED="1551923927203"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Start a REPL
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="" ID="ID_1411721651" CREATED="1551923937034" MODIFIED="1551923937035">
+<hook NAME="FirstGroupNode"/>
+</node>
+<node TEXT="[ -c | --global-cache ]" ID="ID_1687067199" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_527966710" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -d | --dependency ]" ID="ID_1650264577" CREATED="1564497509283" MODIFIED="1564497515547">
+<node TEXT="DEPENDENCY" ID="ID_51447477" CREATED="1564497515917" MODIFIED="1564497530412"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Package name to add to the REPL as dependency
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -p | --path]" ID="ID_1918729421" CREATED="1551923849311" MODIFIED="1551923856188">
+<node TEXT="PATH" ID="ID_1812669716" CREATED="1551923874911" MODIFIED="1551923883158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Source path to include
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="" ID="ID_546769477" CREATED="1551923937032" MODIFIED="1551923937034">
+<hook NAME="SummaryNode"/>
+<hook NAME="AlwaysUnfoldedNode"/>
+<node TEXT="--" ID="ID_1280671400" CREATED="1551923986403" MODIFIED="1551923988108">
+<node TEXT="[any &apos;purs compile&apos; options]" ID="ID_762803170" CREATED="1551923996105" MODIFIED="1553221138663">
+<node TEXT="[ -d | --deps-only ]" ID="ID_1639594554" CREATED="1564497542092" MODIFIED="1564497562833"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Only use sources from dependencies, skipping the project sources
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+</node>
+</node>
+</node>
+</node>
+<node TEXT="docs" ID="ID_408469387" CREATED="1553221213694" MODIFIED="1553221223291"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Generate docs for the project and its dependencies
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -d | --deps-only ]" ID="ID_253493274" CREATED="1564497542092" MODIFIED="1564497562833"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Only use sources from dependencies, skipping the project sources
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -f | --format ]" ID="ID_1810978027" CREATED="1564497591245" MODIFIED="1564497597776">
+<node TEXT="FORMAT" ID="ID_87489949" CREATED="1564497598026" MODIFIED="1564497600768"/>
+<node TEXT="Docs output format: defaults to &apos;html&apos;&#xa;- markdown&#xa;- html&#xa;- etags&#xa;- ctags" ID="ID_1027866087" CREATED="1564497602222" MODIFIED="1564497632218"/>
+</node>
+<node TEXT="[ -p | --path]" ID="ID_1399151511" CREATED="1551923849311" MODIFIED="1551923856188">
+<node TEXT="PATH" ID="ID_293880751" CREATED="1551923874911" MODIFIED="1553221250973"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Source path to include
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+</node>
+<node TEXT="build" ID="ID_710485917" CREATED="1551923375481" MODIFIED="1551923922414"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Install the dependencies and compile the current package
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="" ID="ID_4128123" CREATED="1551923886184" MODIFIED="1551923886184">
+<hook NAME="FirstGroupNode"/>
+</node>
+<node TEXT="[ -p | --path]" ID="ID_1593116742" CREATED="1551923849311" MODIFIED="1553221071487">
+<node TEXT="PATH" ID="ID_1717569595" CREATED="1551923874911" MODIFIED="1551923883158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Source path to include
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -w | --watch]" ID="ID_1166494967" CREATED="1553221031133" MODIFIED="1553221045369"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Watch for changes in local files and automatically rebuild
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -l | --clear-screen ]" ID="ID_558784638" CREATED="1564497660209" MODIFIED="1564497680232"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Clear the screen on rebuild (watch mode only)
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="[ -n | --no-install ]" ID="ID_688501996" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Don't run the automatic installation of packages
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="[ -d | --deps-only ]" ID="ID_81639445" CREATED="1564497542092" MODIFIED="1564497562833"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Only use sources from dependencies, skipping the project sources
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -c | --global-cache ]" ID="ID_1781148616" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_354827243" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="" ID="ID_1291536751" CREATED="1551923886183" MODIFIED="1551923886184">
+<hook NAME="SummaryNode"/>
+<hook NAME="AlwaysUnfoldedNode"/>
+<node TEXT="--" ID="ID_354053306" CREATED="1551923886185" MODIFIED="1551923890524">
+<node TEXT="[any &apos;purs compile&apos; options]" ID="ID_24762134" CREATED="1551923890896" MODIFIED="1553221155829"/>
+</node>
+</node>
+</node>
+<node TEXT="test" ID="ID_212214353" CREATED="1551923377441" MODIFIED="1551924051141"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Test the project with some module
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="" ID="ID_596060183" CREATED="1551923986402" MODIFIED="1551923986403">
+<hook NAME="FirstGroupNode"/>
+</node>
+<node TEXT="[ -a | --node-args ]" ID="ID_1532767671" CREATED="1564497794867" MODIFIED="1564497800528">
+<node TEXT="NODE-ARGS" ID="ID_1496411880" CREATED="1564497800793" MODIFIED="1564497815571"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Argument to pass to node (run/test only)
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -m | --main ]" ID="ID_1676639160" CREATED="1551923958208" MODIFIED="1551923963892">
+<node TEXT="MAIN" ID="ID_473487240" CREATED="1551923964176" MODIFIED="1551924060408"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      the main module to bundle
+    </p>
+    <p>
+      
+    </p>
+    <p>
+      Default value:
+    </p>
+    <p>
+      'Test.Main'
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -p | --path]" ID="ID_772329126" CREATED="1551923849311" MODIFIED="1551923856188">
+<node TEXT="PATH" ID="ID_1570054609" CREATED="1551923874911" MODIFIED="1551923883158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Source path to include
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -w | --watch]" ID="ID_1451350094" CREATED="1553221031133" MODIFIED="1553221045369"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Watch for changes in local files and automatically rebuild
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -l | --clear-screen ]" ID="ID_1833551978" CREATED="1564497660209" MODIFIED="1564497680232"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Clear the screen on rebuild (watch mode only)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -n | --no-install ]" ID="ID_497404745" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Don't run the automatic installation of packages
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -c | --global-cache ]" ID="ID_1732509079" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_1176303226" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -d | --deps-only ]" ID="ID_426336537" CREATED="1564497542092" MODIFIED="1564497562833"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Only use sources from dependencies, skipping the project sources
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="" ID="ID_182361688" CREATED="1551923986401" MODIFIED="1551923986402">
+<hook NAME="SummaryNode"/>
+<hook NAME="AlwaysUnfoldedNode"/>
+<node TEXT="--" ID="ID_1175340551" CREATED="1551923986403" MODIFIED="1551923988108">
+<node TEXT="[any &apos;purs compile&apos; options]" ID="ID_917570627" CREATED="1551923996105" MODIFIED="1553221138663"/>
+</node>
+</node>
+</node>
+<node TEXT="run" ID="ID_381109428" CREATED="1551923377441" MODIFIED="1553221114130"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Runs the project with some module
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="" ID="ID_746796419" CREATED="1551923986402" MODIFIED="1551923986403">
+<hook NAME="FirstGroupNode"/>
+</node>
+<node TEXT="[ -a | --node-args ]" ID="ID_1364740778" CREATED="1564497794867" MODIFIED="1564497800528">
+<node TEXT="NODE-ARGS" ID="ID_1384945032" CREATED="1564497800793" MODIFIED="1564497815571"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Argument to pass to node (run/test only)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -m | --main ]" ID="ID_1441672691" CREATED="1551923958208" MODIFIED="1551923963892">
+<node TEXT="MAIN" ID="ID_1820321046" CREATED="1551923964176" MODIFIED="1551924060408"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      the main module to bundle
+    </p>
+    <p>
+      
+    </p>
+    <p>
+      Default value:
+    </p>
+    <p>
+      'Test.Main'
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -p | --path]" ID="ID_1989986074" CREATED="1551923849311" MODIFIED="1551923856188">
+<node TEXT="PATH" ID="ID_684407207" CREATED="1551923874911" MODIFIED="1551923883158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Source path to include
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -w | --watch]" ID="ID_29421353" CREATED="1553221031133" MODIFIED="1553221045369"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Watch for changes in local files and automatically rebuild
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -l | --clear-screen ]" ID="ID_828898041" CREATED="1564497660209" MODIFIED="1564497680232"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Clear the screen on rebuild (watch mode only)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -n | --no-install ]" ID="ID_1051685355" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Don't run the automatic installation of packages
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -c | --global-cache ]" ID="ID_1200332715" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_115635532" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -d | --deps-only ]" ID="ID_841979272" CREATED="1564497542092" MODIFIED="1564497562833"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Only use sources from dependencies, skipping the project sources
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="" ID="ID_581913189" CREATED="1551923986401" MODIFIED="1551923986402">
+<hook NAME="SummaryNode"/>
+<hook NAME="AlwaysUnfoldedNode"/>
+<node TEXT="--" ID="ID_845177579" CREATED="1551923986403" MODIFIED="1551923988108">
+<node TEXT="[any &apos;purs compile&apos; options]" ID="ID_1995890420" CREATED="1551923996105" MODIFIED="1553221138663"/>
+</node>
+</node>
+</node>
+<node TEXT="" ID="ID_499508907" CREATED="1553221400501" MODIFIED="1553221400502">
+<hook NAME="FirstGroupNode"/>
+</node>
+<node TEXT="bundle-app" ID="ID_1249446139" CREATED="1551923378169" MODIFIED="1558495662075"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Bundle the project's top-level module
+    </p>
+    <p>
+      into a single executable file
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -m | --main ]" ID="ID_18539015" CREATED="1551923958208" MODIFIED="1551923963892">
+<node TEXT="MAIN" ID="ID_1557177990" CREATED="1551923964176" MODIFIED="1558495716864"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Module with a `main :: Effect Unit` function,
+    </p>
+    <p>
+      which is used as the application's entry point
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -t | --to ]" ID="ID_1427749301" CREATED="1551924016257" MODIFIED="1551924024566">
+<node TEXT="TO" ID="ID_1038675789" CREATED="1551924025017" MODIFIED="1551924030373"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      The target file path
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -s | --no-build ]" ID="ID_1275411071" CREATED="1553221309505" MODIFIED="1553221322616"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Skips the build step that otherwise runs
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -p | --path]" ID="ID_265042662" CREATED="1551923849311" MODIFIED="1551923856188">
+<node TEXT="PATH" ID="ID_1430578845" CREATED="1551923874911" MODIFIED="1551923883158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Source path to include
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -w | --watch]" ID="ID_698583473" CREATED="1553221031133" MODIFIED="1553221045369"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Watch for changes in local files and automatically rebuild
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -w | --watch]" ID="ID_131464460" CREATED="1553221031133" MODIFIED="1553221045369"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Watch for changes in local files and automatically rebuild
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -l | --clear-screen ]" ID="ID_1629656838" CREATED="1564497660209" MODIFIED="1564497680232"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Clear the screen on rebuild (watch mode only)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -n | --no-install ]" ID="ID_822688098" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Don't run the automatic installation of packages
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -c | --global-cache ]" ID="ID_1647983347" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_1798518867" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -d | --deps-only ]" ID="ID_647520094" CREATED="1564497542092" MODIFIED="1564497562833"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Only use sources from dependencies, skipping the project sources
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="" ID="ID_1562177962" CREATED="1553221400499" MODIFIED="1553221400501">
+<hook NAME="SummaryNode"/>
+<hook NAME="AlwaysUnfoldedNode"/>
+<node TEXT="--" ID="ID_1567106703" CREATED="1551923986403" MODIFIED="1551923988108">
+<node TEXT="[any &apos;purs compile&apos; options]" ID="ID_1670237497" CREATED="1551923996105" MODIFIED="1553221144050"/>
+</node>
+</node>
+<node TEXT="" ID="ID_700251502" CREATED="1553221438415" MODIFIED="1553221438415">
+<hook NAME="FirstGroupNode"/>
+</node>
+<node TEXT="bundle-module" ID="ID_1713216659" CREATED="1551923379385" MODIFIED="1564497953500"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Bundle a module into a CommonJS module
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -m | --main ]" ID="ID_1213997369" CREATED="1551923958208" MODIFIED="1551923963892">
+<node TEXT="MAIN" ID="ID_820923926" CREATED="1551923964176" MODIFIED="1558495761417"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Module which is used as the application's entry point
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -t | --to ]" ID="ID_909194186" CREATED="1551924016257" MODIFIED="1551924024566">
+<node TEXT="TO" ID="ID_1585752804" CREATED="1551924025017" MODIFIED="1551924030373"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      The target file path
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -s | --no-build ]" ID="ID_1512087943" CREATED="1553221309505" MODIFIED="1553221322616"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Skips the build step that otherwise runs
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -j | --jobs ]" ID="ID_334128720" CREATED="1551923492946" MODIFIED="1551923595223"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Limit the amount of jobs that can run concurrently
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -p | --path]" ID="ID_954480389" CREATED="1551923849311" MODIFIED="1551923856188">
+<node TEXT="PATH" ID="ID_1676820286" CREATED="1551923874911" MODIFIED="1551923883158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Source path to include
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -w | --watch]" ID="ID_139255485" CREATED="1553221031133" MODIFIED="1553221045369"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Watch for changes in local files and automatically rebuild
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -w | --watch]" ID="ID_426823366" CREATED="1553221031133" MODIFIED="1553221045369"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Watch for changes in local files and automatically rebuild
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -l | --clear-screen ]" ID="ID_707069449" CREATED="1564497660209" MODIFIED="1564497680232"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Clear the screen on rebuild (watch mode only)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -n | --no-install ]" ID="ID_1536075493" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Don't run the automatic installation of packages
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -c | --global-cache ]" ID="ID_1842873471" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_731927543" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -d | --deps-only ]" ID="ID_135628948" CREATED="1564497542092" MODIFIED="1564497562833"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Only use sources from dependencies, skipping the project sources
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="" ID="ID_1239420374" CREATED="1553221438414" MODIFIED="1553221438415">
+<hook NAME="SummaryNode"/>
+<hook NAME="AlwaysUnfoldedNode"/>
+<node TEXT="--" ID="ID_547282441" CREATED="1551923986403" MODIFIED="1551923988108">
+<node TEXT="[any &apos;purs compile&apos; options]" ID="ID_1842703466" CREATED="1551923996105" MODIFIED="1553221144050"/>
+</node>
+</node>
+</node>
+<node TEXT="[Other commands]" ID="ID_1212879556" CREATED="1552093096477" MODIFIED="1558495610520">
+<node TEXT="version" ID="ID_1749138769" CREATED="1551923395002" MODIFIED="1551924228905"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Shows spago's version
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[Psc-Package compatibility commands]" ID="ID_1816277994" CREATED="1552092321492" MODIFIED="1558495625915">
+<node TEXT="psc-package-local-setup" ID="ID_130718955" CREATED="1551923385858" MODIFIED="1551924158465"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Set up a local package set by creating a new 'packages.dhall' file
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[-f | --force ]" ID="ID_1995805925" CREATED="1551923452915" MODIFIED="1551923525776"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Overwrite any project found in current directory
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="psc-package-insdhall" ID="ID_1459513997" CREATED="1551923389073" MODIFIED="1551924197486"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Installs the local package set from the 'packages.dhall' file
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="psc-package-clean" ID="ID_1355193552" CREATED="1551923392762" MODIFIED="1551924215009"><richcontent TYPE="DETAILS">
 
 <html>
   <head>
