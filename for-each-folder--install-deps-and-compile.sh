@@ -113,7 +113,7 @@ cd ../../
 
 cd 22-Projects/
 pwd
-rm -rf output/ .spago/
+rm -rf output/ .spago/ node_modules/
 rm -rf .psc-package/ .pulp-cache/ .psc-package.json
 npm install benchmark
 spago build
