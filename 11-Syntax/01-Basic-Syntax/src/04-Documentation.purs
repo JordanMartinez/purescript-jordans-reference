@@ -19,11 +19,11 @@
 -- | 2. Item
 -- | 3. Item
 -- |
--- | A table:
+-- | Unfortunately, markdown tables don't work...:
 -- |
 -- | | One | Two | Three |
--- | | - | - | - |
--- | | a | b | c
+-- | | --- | --- | ----- |
+-- | | a   | b   | c     |
 -- |
 -- | Some code:
 -- | ```purescript
