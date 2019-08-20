@@ -13,8 +13,7 @@ ReadMe.md file to run it using Node (not Spago) to see what happens.
 -}
 
 -- new imports
-import Node.ReadLine ( Interface
-                     , createConsoleInterface, noCompletion
+import Node.ReadLine ( createConsoleInterface, noCompletion
                      , question, close)
 
 
