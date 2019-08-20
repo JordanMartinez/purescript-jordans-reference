@@ -4,8 +4,12 @@
 
 If you decide to read the book, here are things to be aware of:
 - be wary of any references to these [deprecated packages](https://github.com/purescript-deprecated)
-- **Refer to [`dwhitney`'s fork of the book's code](https://github.com/dwhitney/purescript-book/tree/0.12)**, which is currently being updating to use `0.13.x`.
+- **Refer to [`dwhitney`'s fork of the book's code](https://github.com/dwhitney/purescript-book/tree/0.12)**, which is currently being updating to use `0.13.3`.
 - Refer to `Hello-World/Effect-and-Aff/Effect-Eff-and-Aff.md` to understand how to translate the no-longer-used `Eff` type to `Effect` type.
+
+## Functional Programming Jargon
+
+While reading through this repo, the [Functional Programming Jargon](https://github.com/hemanth/functional-programming-jargon) might be a helpful reference whenever you come across a term that isn't covered in this project.
 
 ## Differences From Haskell
 
@@ -31,7 +35,7 @@ Then, you use a search query like the following:
 
 - Anytime you need to look up the documentation for a package, use [Pursuit](http://pursuit.purescript.org/). Be aware that some of the deprecated packages mentioned above are still posted there.
 - Read [Pursuit's Search Help page](https://pursuit.purescript.org/help/users#searching)
-- Some libraries have not been updated to `0.13.x` and are still on the `0.11.7` release. Some still work; others won't. In this work, we will insure that you do not use any such libraries, but be aware of that if you browse the docs on your own.
+- Some libraries have not been updated to `0.13.3` and are still on the `0.11.7` release. Some still work; others won't. In this work, we will insure that you do not use any such libraries, but be aware of that if you browse the docs on your own.
 - Lastly, some libraries have not uploaded their latest versions' documentation. In these cases, we will forewarn you. Fortunately, `spago docs` will produce a local version of the source code's documentation that looks similar to Pursuit. It does not support all the features of Pursuit, but it's better than nothing. To do that, follow these commands:
     - `spago docs && <your default web browser> generated-docs/html/index.html` where `<your default web browser` is `firefox` or whatever you use.
 

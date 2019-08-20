@@ -19,11 +19,11 @@
 -- | 2. Item
 -- | 3. Item
 -- |
--- | A table:
+-- | Unfortunately, markdown tables don't work...:
 -- |
 -- | | One | Two | Three |
--- | | - | - | - |
--- | | a | b | c
+-- | | --- | --- | ----- |
+-- | | a   | b   | c     |
 -- |
 -- | Some code:
 -- | ```purescript
@@ -31,33 +31,34 @@
 -- | f = 4
 -- | ```
 
--- | Module-level documentation
+-- | Documentation on a given module
 module Syntax.Documentation where
 
--- | value documentation
+-- | Documentation on a value
 value :: Int
 value = 4
 
--- | function documentation
+-- | Documentation on a function
 function :: Int -> String
 function _ = "easy"
 
--- | data documentation
-data SomeData = SomeData
+-- | Documentation on a given data type
+data SomeData
+  -- | Documentation on a particular data constructor
+  = SomeData
 
--- | type documentation
+-- | Documentation on a given type alias
 type MyType = String
 
--- | newtype documentation
+-- | Documentation on a given newtype
 newtype SmallInt = SmallInt Int
 
--- | type class documentation
+-- | Documentation on a given type class
 class MyClass a b | a -> b where
-  -- | Unfortunately, functions/values inside a type class cannot yet
-  -- | be documented because of a compiler bug:
-  -- | See https://github.com/purescript/purescript/issues/3507
+  -- | Documentation for a particular function/value
+  -- | defined in a type class
   myFunction :: a -> b
 
--- | instance documentation
+-- | Documentation for a particular instance of a type class
 instance example :: MyClass String Int where
   myFunction _ = 4
