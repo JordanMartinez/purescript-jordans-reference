@@ -77,7 +77,9 @@ To see the difference between QuickCheck (which uses type-directed shrinking) an
 
 Usually, people who have never heard of property testing will think it is a "silver bullet" when it comes to writing tests. However, property testing can only cover a select number of tests cases before one must resort to unit testing. Rather than explaining it here, [here are 7 patterns where property-based testing works](https://fsharpforfunandprofit.com/posts/property-based-testing-2/). If a test falls outside of that pattern, one will likely need to use unit testing instead.
 
-Still, before deciding that one must use unit tests, consider using [state machine testing](http://qfpl.io/posts/intro-to-state-machine-testing-1/)
+Still, before deciding that one must use unit tests, consider using state machine testing:
+- [Intro to state machine testing](http://qfpl.io/posts/intro-to-state-machine-testing-1/)
+- (haskell library) [An in-depth look at quickcheck-state-machine](http://www.well-typed.com/blog/2019/01/qsm-in-depth/)
 
 ## Conclusion
 
