@@ -111,15 +111,27 @@ If an instance is defined anywhere else, it's called an "orphan instance." For e
 
 ### Why Orphan Instances Are Painful
 
+#### An Example
+
 Let's say you have a library called `purescript-unordered-collections` that defines a data type called `HashMap`. Let's say you have another library called `purescript-argonaut-codecs` that defines two type classes called `EncodeJson` and `DecodeJson`. Where do you define `HashMap`'s instances for those two type classes?
 
 If in the data-type library (where the `HashMap` data type is declared), then that library will need to depend on the codec library.
 If in the codec library (where the `EncodeJson/DecodeJson` type classes are declared), then it will need to depend on the data-type library.
 
 Either way, someone will get annoyed by something:
-- once the instance is defined in either library, everyone in the ecosystem is now stuck using that instance's definition. If they thought it should have been defined differently, they often have to write boilerplatey code to be able to define their own instance.
+  - once the instance is defined in either library, everyone in the ecosystem is now stuck using that instance's definition. If they thought it should have been defined differently, they often have to write boilerplatey code via `newtype`s to be able to define their own instances.
 
 Languages with local instances can shrug their shoulders as they have more control as to which instance gets chosen.
+
+#### The `Default` Type Class
+
+Type classes provide a "convenience" of sorts: rather than forcing the developer to pass in an implementation of the function, `(a -> Boolean)`, the compiler can infer what that function's implementation is **as long as it can infer what the type of `a` is**.
+
+Thus, new learners tend to reach the following conclusion. Let's say you are writing a library where you want to make it easier for the developer to use this library. At some point in the library, you need them to provide a default value. "Gee!" you think, "Why not use a type class called `Default`? The compiler can infer which instance to use and the developer's life will be that much easier!" While your intentions are good, that's a terrible idea as it will lead to "instance wars" due to orphan instances.
+
+Although it can suffer from similar problems, a better choice is `Monoid`. See Gabriel Gonzalez' post on [Defaults](http://www.haskellforall.com/2013/04/defaults.html).
+
+Similarly, read [Don't Use Type Classes to Define Default Values](https://www.reddit.com/r/haskell/comments/5gospp/dont_use_typeclasses_to_define_default_values/).
 
 ### Summary of Global vs Local Type Class Instances' Tradeoffs
 
@@ -145,9 +157,7 @@ Some type classes are purposefully designed to be lawless because they are used 
 
 ### Debate: Must Type Classes Always Be Lawful?
 
-Type classes provide a "convenience" of sorts: rather than forcing the developer to pass in an implementation of the function, `(a -> Boolean)`, the compiler can infer what that function's implementation is **as long as it can infer what the type of `a` is**.
-
-This understanding is crucial for understanding a debate: must type classes always have laws? The following is a summary (somewhat biased) of [this Reddit thread](https://www.reddit.com/r/haskell/comments/5gospp/dont_use_typeclasses_to_define_default_values/)
+While I already linked to the following link in the 'default type class' issue explained above, the link also covers another topic: why type classes should be lawful. Focusing on that aspect, the following is a (somewhat biased) summary of [Don't Use Type Classes to Define Default Values](https://www.reddit.com/r/haskell/comments/5gospp/dont_use_typeclasses_to_define_default_values/)
 
 Those that say "yes" likely value the benefit of laws. Laws guarantee relationships between functions and values. In short, it's easier to understand and reason about code that uses lots of generic types (e.g. `forall a. a -> String`) if one knows that functions that operate on values of the type, `a`, or values that provide an `a` value adhere to certain laws.
 
