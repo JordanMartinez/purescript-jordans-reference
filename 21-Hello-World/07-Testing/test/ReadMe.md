@@ -73,6 +73,11 @@ On another hand, to successfully prove that `reverse` works as expected, one wou
 
 To see the difference between QuickCheck (which uses type-directed shrinking) and Hedgehog (which uses integrated shrinking), watch [Gens N' Roses: Appetite for Reduction](https://www.youtube.com/watch?v=AIv_9T0xKEo). Then, read [Integrated Shrinking](http://www.well-typed.com/blog/2019/05/integrated-shrinking/)
 
+## Property Testing: Case Studies
+
+Successful cases where property-based testing found difficult-to-find bugs:
+- (book as a collection of blog posts) [Komposition, a screencast editor](https://leanpub.com/property-based-testing-in-a-screencast-editor)
+
 ## The Limits of Property Testing
 
 Usually, people who have never heard of property testing will think it is a "silver bullet" when it comes to writing tests. However, property testing can only cover a select number of tests cases before one must resort to unit testing. Rather than explaining it here, [here are 7 patterns where property-based testing works](https://fsharpforfunandprofit.com/posts/property-based-testing-2/). If a test falls outside of that pattern, one will likely need to use unit testing instead.
