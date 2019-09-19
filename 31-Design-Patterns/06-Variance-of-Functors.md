@@ -52,12 +52,12 @@ The above type class is called [`Contravariant`](https://pursuit.purescript.org/
 
 ## Functor Re-examined
 
-The above two type classes, `Functor` and `Contravariant`, are the same except for the direction of the arrow in the `map`/`map_ish`'s first function argument. The former is called `Functor` instead of `Covariant` because it appears more often than the latter.
+The above two type classes, `Functor` and `Contravariant`, are the same except for the direction of the arrow in the `map`/`cmap`'s first function argument. The former is called `Functor` instead of `Covariant` because it appears more often than the latter.
 
 | Real Name | Purescript Name | Frequency of Appearance | Usage
 | - | - | - | - |
-| Covariant Functor | Functor | Very frequent | Use an `a`
-| Contravariant Functor | Contravariant | Infrequent | Make an `a`
+| Covariant Functor | Functor | Very frequent | Changes the output of a function
+| Contravariant Functor | Contravariant | Infrequent | Changes the input of a function
 
 ## Positive and Negative Position
 
@@ -70,7 +70,6 @@ Or to put it into meta-language: `negativePosition -> positivePosition`
 These terms are used so that one can ultimately determine whether a given type is a Covariant or Contravariant Functor by the rules of multplication:
 
 | position 1 | position 2 | end position
-| - | - | - |
 | + | + | + |
 | - | - | + |
 | - | + | - |
