@@ -20,3 +20,5 @@ See [Motivation behind Phantom Types](https://stackoverflow.com/questions/282475
 - Use a phantom type to restrict how a developer can use a function
     - See ["Restricting ArgumentTypes.purs"](./02-Restricting-Argument-Types.purs)
     - See [Pathy](https://github.com/slamdata/purescript-pathy#introduction), which uses them to track the distinctions of relative/absolute file paths and of file/directory
+- Use phantom types to estimate the state of "the real world" in a monadic computation:
+    - Search for an explanation of Indexed Monads
