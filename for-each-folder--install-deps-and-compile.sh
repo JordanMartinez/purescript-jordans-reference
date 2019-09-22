@@ -104,7 +104,7 @@ cd ../../
 
 cd 21-Hello-World/08-Benchmarking/
 pwd
-rm -rf output/ .spago/
+rm -rf output/ .spago/ node_modules/
 rm -rf .psc-package/ .pulp-cache/ .psc-package.json
 
 npm install benchmark
