@@ -7,7 +7,7 @@ You can edit this file as you like.
 , dependencies =
     [ "effect", "console", "psci-support" ]
 , packages =
-    ./packages.dhall
+    ../../packages.dhall
 , sources =
     [ "src/**/*.purs" ]
 }

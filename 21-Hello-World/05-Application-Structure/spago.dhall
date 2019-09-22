@@ -23,5 +23,5 @@ You can edit this file as you like.
     , "variant"
     ]
 , packages =
-    ./packages.dhall
+    ../../packages.dhall
 }

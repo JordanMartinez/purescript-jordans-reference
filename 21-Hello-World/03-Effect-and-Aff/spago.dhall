@@ -18,5 +18,5 @@ You can edit this file as you like.
     , "random"
     ]
 , packages =
-    ./packages.dhall
+    ../../packages.dhall
 }

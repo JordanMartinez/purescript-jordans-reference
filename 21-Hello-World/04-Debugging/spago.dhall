@@ -22,5 +22,5 @@ You can edit this file as you like.
     , "typelevel-prelude"
     ]
 , packages =
-    ./packages.dhall
+    ../../packages.dhall
 }
