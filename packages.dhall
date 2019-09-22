@@ -123,6 +123,54 @@ let upstream =
 
 let overrides = {=}
 
-let additions = {=}
+
+let additions =
+      { benchotron =
+          mkPackage
+          [ "arrays"
+          , "exists"
+          , "profunctor"
+          , "strings"
+          , "quickcheck"
+          , "lcg"
+          , "transformers"
+          , "foldable-traversable"
+          , "exceptions"
+          , "node-fs"
+          , "node-buffer"
+          , "node-readline"
+          , "datetime"
+          , "now"
+          ]
+          "https://github.com/JordanMartinez/purescript-benchotron.git"
+          "v8.0.0"
+      , tree =
+          mkPackage
+          [ "prelude", "console", "lists", "free" ]
+          "https://github.com/JordanMartinez/purescript-tree"
+          "v1.3.6"
+      , optparse =
+          mkPackage
+          [ "prelude"
+          , "effect"
+          , "exitcodes"
+          , "strings"
+          , "ordered-collections"
+          , "arrays"
+          , "console"
+          , "memoize"
+          , "transformers"
+          , "exists"
+          , "node-process"
+          , "free"
+          ]
+          "https://github.com/f-o-a-m/purescript-optparse.git"
+          "v3.0.1"
+      , exitcodes =
+          mkPackage
+          [ "enums" ]
+          "https://github.com/Risto-Stevcev/purescript-exitcodes.git"
+          "v4.0.0"
+      }
 
 in  upstream // overrides // additions
