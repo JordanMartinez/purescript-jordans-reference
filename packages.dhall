@@ -126,29 +126,30 @@ let overrides = {=}
 
 let additions =
       { benchotron =
-          mkPackage
-          [ "arrays"
-          , "exists"
-          , "profunctor"
-          , "strings"
-          , "quickcheck"
-          , "lcg"
-          , "transformers"
-          , "foldable-traversable"
-          , "exceptions"
-          , "node-fs"
-          , "node-buffer"
-          , "node-readline"
-          , "datetime"
-          , "now"
-          ]
-          "https://github.com/JordanMartinez/purescript-benchotron.git"
-          "v8.0.0"
+          { dependencies =
+            [ "arrays"
+            , "exists"
+            , "profunctor"
+            , "strings"
+            , "quickcheck"
+            , "lcg"
+            , "transformers"
+            , "foldable-traversable"
+            , "exceptions"
+            , "node-fs"
+            , "node-buffer"
+            , "node-readline"
+            , "datetime"
+            , "now"
+            ]
+          , repo = "https://github.com/JordanMartinez/purescript-benchotron.git"
+          , version = "v8.0.0"
+          }
       , tree =
-          mkPackage
-          [ "prelude", "console", "lists", "free" ]
-          "https://github.com/JordanMartinez/purescript-tree"
-          "v1.3.6"
+          { dependencies = [ "prelude", "console", "lists", "free" ]
+          , repo = "https://github.com/JordanMartinez/purescript-tree.git"
+          , version = "v1.3.6"
+          }
       }
 
 in  upstream // overrides // additions
