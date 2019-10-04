@@ -1,5 +1,5 @@
 dist: xenial
-language: node_js
+language: minimal
   # Use `nvm` to install latest version of NodeJS
 
 # Unless we specify "sudo: false", build runs in VM, not container
