@@ -7,7 +7,7 @@ You can edit this file as you like.
 , dependencies =
     [ "aff", "console", "effect", "foldable-traversable", "psci-support" ]
 , packages =
-    ./packages.dhall
+    ../../packages.dhall
 , sources =
-    [ "src/**/*.purs", "test/**/*.purs" ]
+    [ "src/**/*.purs" ]
 }
