@@ -64,20 +64,26 @@ Syntax:
 Replace the additions' "{=}" (an empty record) with the following idea:
 -------------------------------
 let additions =
-  { "package-name" =
-       mkPackage
-         [ "dependency1"
-         , "dependency2"
-         ]
-         "https://example.com/path/to/git/repo.git"
-         "tag ('v4.0.0') or branch ('master')"
-  , "package-name" =
-       mkPackage
-         [ "dependency1"
-         , "dependency2"
-         ]
-         "https://example.com/path/to/git/repo.git"
-         "tag ('v4.0.0') or branch ('master')"
+  { package-name =
+       { dependencies =
+           [ "dependency1"
+           , "dependency2"
+           ]
+       , repo =
+           "https://example.com/path/to/git/repo.git"
+       , version =
+           "tag ('v4.0.0') or branch ('master')"
+       }
+  , package-name =
+       { dependencies =
+           [ "dependency1"
+           , "dependency2"
+           ]
+       , repo =
+           "https://example.com/path/to/git/repo.git"
+       , version =
+           "tag ('v4.0.0') or branch ('master')"
+       }
   , etc.
   }
 -------------------------------
@@ -86,44 +92,7 @@ Example:
 -------------------------------
 let additions =
   { benchotron =
-      mkPackage
-        [ "arrays"
-        , "exists"
-        , "profunctor"
-        , "strings"
-        , "quickcheck"
-        , "lcg"
-        , "transformers"
-        , "foldable-traversable"
-        , "exceptions"
-        , "node-fs"
-        , "node-buffer"
-        , "node-readline"
-        , "datetime"
-        , "now"
-        ]
-        "https://github.com/hdgarrood/purescript-benchotron.git"
-        "v7.0.0"
-  }
--------------------------------
--}
-
-let mkPackage =
-      https://raw.githubusercontent.com/purescript/package-sets/psc-0.13.2-20190715/src/mkPackage.dhall sha256:0b197efa1d397ace6eb46b243ff2d73a3da5638d8d0ac8473e8e4a8fc528cf57
-
-let upstream =
-      https://github.com/purescript/package-sets/releases/download/psc-0.13.3-20190818/packages.dhall sha256:c95c4a8b8033a48a350106b759179f68a695c7ea2208228c522866fd43814dc8
-
-let overrides =
-      { halogen =
-          upstream.halogen // { version = "v5.0.0-rc.4" }
-      , halogen-vdom =
-          upstream.halogen-vdom // { version = "v6.1.0" }
-      }
-
-let additions =
-      { benchotron =
-          mkPackage
+      { dependencies =
           [ "arrays"
           , "exists"
           , "profunctor"
@@ -139,35 +108,52 @@ let additions =
           , "datetime"
           , "now"
           ]
-          "https://github.com/JordanMartinez/purescript-benchotron.git"
-          "v8.0.0"
+      , repo =
+          "https://github.com/hdgarrood/purescript-benchotron.git"
+      , version =
+          "v7.0.0"
+      }
+  }
+-------------------------------
+-}
+
+
+let upstream =
+      https://github.com/purescript/package-sets/releases/download/psc-0.13.3-20191004/packages.dhall sha256:5c8381e8a4623730fd2c5da7220dbfbd6153efa7267fa03977a347ea3ca63ff2
+
+let overrides = {=}
+
+let additions =
+      { benchotron =
+          { dependencies =
+              [ "arrays"
+              , "exists"
+              , "profunctor"
+              , "strings"
+              , "quickcheck"
+              , "lcg"
+              , "transformers"
+              , "foldable-traversable"
+              , "exceptions"
+              , "node-fs"
+              , "node-buffer"
+              , "node-readline"
+              , "datetime"
+              , "now"
+              ]
+          , repo =
+              "https://github.com/JordanMartinez/purescript-benchotron.git"
+          , version =
+              "v8.0.0"
+          }
       , tree =
-          mkPackage
-          [ "prelude", "console", "lists", "free" ]
-          "https://github.com/JordanMartinez/purescript-tree"
-          "v1.3.6"
-      , optparse =
-          mkPackage
-          [ "prelude"
-          , "effect"
-          , "exitcodes"
-          , "strings"
-          , "ordered-collections"
-          , "arrays"
-          , "console"
-          , "memoize"
-          , "transformers"
-          , "exists"
-          , "node-process"
-          , "free"
-          ]
-          "https://github.com/f-o-a-m/purescript-optparse.git"
-          "v3.0.1"
-      , exitcodes =
-          mkPackage
-          [ "enums" ]
-          "https://github.com/Risto-Stevcev/purescript-exitcodes.git"
-          "v4.0.0"
+          { dependencies =
+              [ "prelude", "console", "lists", "free" ]
+          , repo =
+              "https://github.com/JordanMartinez/purescript-tree.git"
+          , version =
+              "v1.3.6"
+          }
       }
 
 in  upstream // overrides // additions

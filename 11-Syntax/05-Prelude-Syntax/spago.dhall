@@ -9,5 +9,5 @@ You can edit this file as you like.
 , dependencies =
     [ "console", "effect", "prelude" ]
 , packages =
-    ./packages.dhall
+    ../../packages.dhall
 }

@@ -17,5 +17,5 @@ You can edit this file as you like.
     , "unsafe-coerce"
     ]
 , packages =
-    ./packages.dhall
+    ../../packages.dhall
 }

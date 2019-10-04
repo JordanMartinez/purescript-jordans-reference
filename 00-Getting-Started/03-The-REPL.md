@@ -142,6 +142,8 @@ Displays the kind of a type. Kinds will be explained more in the Syntax folder:
 > :kind Int
 Type
 > :kind (Int -> Int)
+Type
+> :kind Array
 Type -> Type
 ```
 

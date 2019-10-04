@@ -18,5 +18,5 @@ You can edit this file as you like.
     , "strings"
     ]
 , packages =
-    ./packages.dhall
+    ../../packages.dhall
 }

@@ -9,18 +9,14 @@ You can edit this file as you like.
 , dependencies =
     [ "aff"
     , "console"
-    , "debug"
     , "effect"
-    , "either"
+    , "js-timers"
     , "node-readline"
-    , "partial"
+    , "now"
     , "prelude"
     , "psci-support"
     , "random"
-    , "refs"
-    , "st"
-    , "typelevel-prelude"
     ]
 , packages =
-    ./packages.dhall
+    ../../packages.dhall
 }

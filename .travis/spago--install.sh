@@ -38,12 +38,17 @@ cd ../../
 
 ## Hello World
 
-cd 21-Hello-World/03-Effect-and-Aff/
+cd 21-Hello-World/02-Effect-and-Aff/
 pwd
 spago install
 cd ../../
 
-cd 21-Hello-World/04-Debugging/
+cd 21-Hello-World/03-Debugging/
+pwd
+spago install
+cd ../../
+
+cd 21-Hello-World/04-Foldable-Traversable
 pwd
 spago install
 cd ../../

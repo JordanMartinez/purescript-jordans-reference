@@ -15,5 +15,5 @@ You can edit this file as you like.
     , "benchotron"
     ]
 , packages =
-    ./packages.dhall
+    ../../packages.dhall
 }
