@@ -27,3 +27,9 @@ For an non-code explanation on this concept, see these links:
 - [The original paper](https://www.st.cs.uni-saarland.de/edu/seminare/2005/advanced-fp/docs/huet-zipper.pdf)
 - [Learn You a Haskell for Great Good](http://learnyouahaskell.com/zippers)'s explanation
 - [The Haskell Wiki's article on it](https://wiki.haskell.org/Zipper), which includes a large number of additional resources
+
+### Cursors
+
+Cursors are one such application of this concept. See this [post](https://cs-syd.eu/posts/2018-10-28-cursor-list) that clearly explains the problem and solution it solves.
+
+Then, see my conclusion to an exploration of defining a cursor-based data structure that supports multiple carets/selections [here](https://gist.github.com/JordanMartinez/526c5b09b33ffe97932d7990b0470043#file-multi-caret-selection-textcontent-purs-L381) with the full exploration [here](https://gist.github.com/JordanMartinez/526c5b09b33ffe97932d7990b0470043)
