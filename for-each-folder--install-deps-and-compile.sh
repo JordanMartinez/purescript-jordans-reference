@@ -63,17 +63,28 @@ cd ../../
 
 echo "... Hello World ...."
 
-cd 21-Hello-World/03-Effect-and-Aff/
+# Removes the old folders due to breaking change in ps-0.13.x-v0.19.0
+rm -rf 21-Hello-World/03-Effect-and-Aff/
+rm -rf 21-Hello-World/04-Debugging/
+
+# Continues on from here as normal
+cd 21-Hello-World/02-Effect-and-Aff/
 pwd
 rm -rf output/ .spago/
 rm -rf .psc-package/ .pulp-cache/ .psc-package.json
 spago build
 cd ../../
 
-cd 21-Hello-World/04-Debugging/
+cd 21-Hello-World/03-Debugging/
 pwd
 rm -rf output/ .spago/
 rm -rf .psc-package/ .pulp-cache/ .psc-package.json
+spago build
+cd ../../
+
+cd 21-Hello-World/04-Foldable-Traversable/
+pwd
+rm -rf output/ .spago/
 spago build
 cd ../../
 

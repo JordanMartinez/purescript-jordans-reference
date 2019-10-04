@@ -43,8 +43,9 @@ cache:
     - 11-Syntax/04-Module-Syntax/.spago
     - 11-Syntax/05-Prelude-Syntax/.spago
     - 11-Syntax/06-Modifying-Do-Ado-Syntax-Sugar/.spago
-    - 21-Hello-World/03-Effect-and-Aff/.spago
-    - 21-Hello-World/04-Debugging/.spago
+    - 21-Hello-World/02-Effect-and-Aff/.spago
+    - 21-Hello-World/03-Debugging/.spago
+    - 21-Hello-World/04-Foldable-Traversable/.spago
     - 21-Hello-World/05-Application-Structure/.spago
     - 21-Hello-World/06-Type-Level-Programming/.spago
     - 21-Hello-World/07-Testing/.spago
