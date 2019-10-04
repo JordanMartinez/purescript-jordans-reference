@@ -43,6 +43,11 @@ pwd
 spago install
 cd ../../
 
+cd 21-Hello-World/03-Foldable-Traversable
+pwd
+spago install
+cd ../../
+
 cd 21-Hello-World/04-Debugging/
 pwd
 spago install
