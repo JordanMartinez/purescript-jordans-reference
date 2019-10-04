@@ -119,36 +119,40 @@ let additions =
 
 
 let upstream =
-      https://github.com/purescript/package-sets/releases/download/psc-0.13.3-20190920/packages.dhall sha256:53873cf2fc4a343a41f335ee47c1706ecf755ac7c5a336e8eb03ad23165dfd28
+      https://github.com/purescript/package-sets/releases/download/psc-0.13.3-20191004/packages.dhall sha256:5c8381e8a4623730fd2c5da7220dbfbd6153efa7267fa03977a347ea3ca63ff2
 
 let overrides = {=}
-
 
 let additions =
       { benchotron =
           { dependencies =
-            [ "arrays"
-            , "exists"
-            , "profunctor"
-            , "strings"
-            , "quickcheck"
-            , "lcg"
-            , "transformers"
-            , "foldable-traversable"
-            , "exceptions"
-            , "node-fs"
-            , "node-buffer"
-            , "node-readline"
-            , "datetime"
-            , "now"
-            ]
-          , repo = "https://github.com/JordanMartinez/purescript-benchotron.git"
-          , version = "v8.0.0"
+              [ "arrays"
+              , "exists"
+              , "profunctor"
+              , "strings"
+              , "quickcheck"
+              , "lcg"
+              , "transformers"
+              , "foldable-traversable"
+              , "exceptions"
+              , "node-fs"
+              , "node-buffer"
+              , "node-readline"
+              , "datetime"
+              , "now"
+              ]
+          , repo =
+              "https://github.com/JordanMartinez/purescript-benchotron.git"
+          , version =
+              "v8.0.0"
           }
       , tree =
-          { dependencies = [ "prelude", "console", "lists", "free" ]
-          , repo = "https://github.com/JordanMartinez/purescript-tree.git"
-          , version = "v1.3.6"
+          { dependencies =
+              [ "prelude", "console", "lists", "free" ]
+          , repo =
+              "https://github.com/JordanMartinez/purescript-tree.git"
+          , version =
+              "v1.3.6"
           }
       }
 
