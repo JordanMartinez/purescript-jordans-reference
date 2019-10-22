@@ -3,7 +3,8 @@ Steps to follow for making a new release:
 2. Use the GitHub's diff in the PR to look over everything and ensure all work is done
     - If not, push any other changes
 3. Re-generate the ToC and push the change (no further work can be done at this point)
-4. Conver the "Draft PR" into a real PR
+4. Re-generate the CHANGELOG.md file via `./.generateChangelog.sh TOKEN`
+4. Convert the "Draft PR" into a real PR
 5. Wait for CI to pass
 6. Merge the PR
 7. Fetch the latest changes to include the 'PR merge' commit
