@@ -18,4 +18,4 @@ These were found using a [purescript-aff-](https://pursuit.purescript.org/search
 ## Aff Wrappers Around Node
 
 - [purescript-node-fs-aff](https://pursuit.purescript.org/packages/purescript-node-fs-aff/6.0.0)
-- [purescript-node-readline-aff](https://pursuit.purescript.org/packages/purescript-node-readline-aff/0.1.2) (outdated: does not compile on `PureScript 0.13.3`)
+- [purescript-node-readline-aff](https://pursuit.purescript.org/packages/purescript-node-readline-aff/0.1.2) (outdated: does not compile on `PureScript 0.13.4`)
