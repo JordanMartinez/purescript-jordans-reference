@@ -1,3 +1,10 @@
+{-
+Note: Certain uses of Existential Types seem to be an Anti-Pattern.
+
+See this post for more details:
+https://lukepalmer.wordpress.com/2010/01/24/haskell-antipattern-existential-typeclass/
+
+-}
 module Patterns.ExistentialTypes where
 
 import Prelude
