@@ -14,7 +14,7 @@ While reading through this repo, the [Functional Programming Jargon](https://git
 ## Differences From Haskell
 
 If you're coming to PureScript with a Haskell background, be sure to consult the following resources:
-- [Introduction to Purescript for Haskell Developers](http://code.adriansieber.com/adrian/adriansieber-com/src/branch/master/posts/_2018-11-01_introduction_to_purescript_for_haskell_developers/main.pdf) (pdf)
+- [Introduction to Purescript for Haskell Developers](http://code.adriansieber.com/adrian/adriansieber-com/src/branch/master/posts/_2018-11-01_introduction_to_purescript_for_haskell_developers/main_light.pdf) (pdf)
 - [The Purescript Documentation Repo's "Differences from Haskell" page](https://github.com/purescript/documentation/blob/master/language/Differences-from-Haskell.md)
 
 ## Use GitHub Search to Find Things Search Engines (i.e. Google) Don't
