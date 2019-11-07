@@ -86,6 +86,8 @@ Exits the REPL, returning control to your shell.
 
 ### Reload
 
+#### The Problem
+
 You can only define a binding once. Defining it again with a different expression will output an error
 ```purescript
 x = 5 -- first time
@@ -100,9 +102,12 @@ add1 = (\x -> x + 1)
 times2 = (\x -> x * 3) -- "3" should be "2"
 ```
 
+#### The Solutions
+
 Ideally, you could just clear the second function's binding and rewrite it. Unfortunately, you cannot do that. You can either:
 1. use the `:reload` command to clear out both functions' bindings, redefine the first one, and then define the second one with the correct implementation
 2. define a new binding for the correct implementation:
+
 ```purescript
 -- 1st option
 add1 = (\x -> x + 1)
@@ -116,6 +121,24 @@ add1 = (\x -> x + 1)
 times2 = (\x -> x * 3) -- Whoops! "3" should be "2"
 times2_fix = (\x -> x * 2) -- define new function with correct implementation
 ```
+
+3. You can define your code in file and import the that module into your REPL session.
+
+```purescript
+-- MyModule.file
+module MyModule where
+
+import Prelude
+
+times2 :: Int -> Int
+times2 x = x * 2
+```
+and then in the repl
+```purescript
+> import MyModule
+> add1 = (\x -> x + 1)
+> times2 4
+````
 
 ### Clear
 
