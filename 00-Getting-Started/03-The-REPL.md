@@ -74,7 +74,7 @@ The REPL offers a few commands. You can see the entire list by typing either `:h
 
 These commands are listed in the same order as what the `:?` outputs.
 
-Note: the commands can be shortened to their first letter. So, rather than entering `:paste` or `:type`, one can enter `:p` or `:t`
+Note: the commands can be shortened to their first unique letters. So, rather than entering `:type`, one can enter `:t`. Likewise, rather than entering `:paste` or `:print`, one can enter `:pa` or `:pr`, respectively.
 
 ### Help
 
