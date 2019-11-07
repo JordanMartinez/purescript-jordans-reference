@@ -122,23 +122,32 @@ times2 = (\x -> x * 3) -- Whoops! "3" should be "2"
 times2_fix = (\x -> x * 2) -- define new function with correct implementation
 ```
 
-3. You can define your code in file and import the that module into your REPL session.
+3. define your code in a file (as a module) and import that module into your REPL session. Any edits made to this file are picked-up upon a REPL reload.
 
+Create a file containing your REPL script:
 ```purescript
 -- MyModule.file
 module MyModule where
 
 import Prelude
 
-times2 :: Int -> Int
-times2 x = x * 2
+add1 = (\x -> x + 1)
+times2 = (\x -> x * 3) -- This typo will be fixed later
 ```
-and then in the repl
-```purescript
+
+Load script into the REPL:
+```
 > import MyModule
-> add1 = (\x -> x + 1)
 > times2 4
-````
+12
+```
+
+Make any edits to this file. For example, change to `times2 = (\x -> x * 2)`. Save file, then reload in existing REPL session. The `MyModule` import will be remembered.
+```
+> :reload
+> times2 4
+8
+```
 
 ### Clear
 
