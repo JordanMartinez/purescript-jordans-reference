@@ -19,7 +19,7 @@ But what kinds of things do we compose? In Functional Programming, we compose ty
 Algebraic Data Types (ADTs) use Algebra to define the total number of values a given type (i.e. named Set) can have.
 
 There are two videos worth watching in this regard. The table and visualizations that follow merely summarize their points, except for the ideas behind the `List` and `Tree` types in the second video.
-- ['Algebraic Data Types' as "Composable Data Types" (stop at 12:40)](https://youtu.be/Up7LcbGZFuo?t=1155)
+- ['Algebraic Data Types' as "Composable Data Types" (stop at 29:26)](https://youtu.be/Up7LcbGZFuo?t=1155)
     - Same ideas already explained in the above "Power of Composition" video:
     - It uses a different syntax than `PureScript` but the ideas still apply.
 - [The Algebra of Algebraic Data Types](https://www.youtube.com/watch?v=YScIPA8RbVE)
