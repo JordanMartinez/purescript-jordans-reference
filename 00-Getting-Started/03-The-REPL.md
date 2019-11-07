@@ -119,7 +119,7 @@ times2_fix = (\x -> x * 2) -- define new function with correct implementation
 
 ### Clear
 
-The same as `:reload` except that all imported modules are also removed. If you do this, you will need to reimport any modules you wish to use. For example, you will likely need to reimport Prelude (`import Prelude`), so that you can use number operations (i.e. `+`, `-`, `/`, `*`) and the `==` function again.
+Use `:cl` rather than `:c` to distinguish between this command and `:complete`. This works the same as `:reload` except that all imported modules are also removed. If you do this, you will need to reimport any modules you wish to use. For example, you will likely need to reimport Prelude (`import Prelude`), so that you can use number operations (i.e. `+`, `-`, `/`, `*`) and the `==` function again.
 
 ### Browse
 
@@ -176,6 +176,4 @@ The REPL will then parse and all of the code, enabling you to use it from that p
 
 ### Complete
 
-The REPL does not currently support tab-completion. This command shows the options one might use.
-
-For example, one could type `:complete a`/`:c a` to show what are all of the usuable functions that start with `a`.
+The REPL already supports tab-completion. So, this command isn't meant to be used by humans. Rather, it's for tools that need a way to get tab-completion. For context, see [Harry's comment](https://github.com/purescript/purescript/issues/3746#issuecomment-550512591).
