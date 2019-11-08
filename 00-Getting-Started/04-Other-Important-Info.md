@@ -14,7 +14,7 @@ While reading through this repo, the [Functional Programming Jargon](https://git
 ## Differences From Haskell
 
 If you're coming to PureScript with a Haskell background, be sure to consult the following resources:
-- [Introduction to Purescript for Haskell Developers](http://code.adriansieber.com/adrian/adriansieber-com/src/branch/master/posts/_2018-11-01_introduction_to_purescript_for_haskell_developers/main.pdf) (pdf)
+- [Introduction to Purescript for Haskell Developers](http://code.adriansieber.com/adrian/adriansieber-com/src/branch/master/posts/_2018-11-01_introduction_to_purescript_for_haskell_developers/main_light.pdf) (pdf)
 - [The Purescript Documentation Repo's "Differences from Haskell" page](https://github.com/purescript/documentation/blob/master/language/Differences-from-Haskell.md)
 
 ## Use GitHub Search to Find Things Search Engines (i.e. Google) Don't
@@ -34,6 +34,7 @@ Then, you use a search query like the following:
 ## Documenation
 
 - Anytime you need to look up the documentation for a package, use [Pursuit](http://pursuit.purescript.org/). Be aware that some of the deprecated packages mentioned above are still posted there.
+- Use the [same instructions used by Hoogle](https://github.com/ndmitchell/hoogle/blob/master/README.md#chrome-integration) to add Pursuit as a search engine to your web browser.
 - Read [Pursuit's Search Help page](https://pursuit.purescript.org/help/users#searching)
 - Some libraries have not been updated to `0.13.4` and are still on the `0.11.7` release. Some still work; others won't. In this work, we will insure that you do not use any such libraries, but be aware of that if you browse the docs on your own.
 - Lastly, some libraries have not uploaded their latest versions' documentation. In these cases, we will forewarn you. Fortunately, `spago docs` will produce a local version of the source code's documentation that looks similar to Pursuit. It does not support all the features of Pursuit, but it's better than nothing. To do that, follow these commands:
