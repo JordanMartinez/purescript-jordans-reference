@@ -79,19 +79,18 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
       -- todo
     )
 
--- We need to use that function, but it only takes an `a`
--- argument. So, we need to get that `a` by using `g`
--- Thus, we'll pass the returning StateT's state argument into `g`
+-- g's type is `forall a b. state -> monad (Tuple a state)`, So when applying
+-- `state` to g, we'll get a `(monad (Tuple a state2))`,
+-- then we could using `bind/>>=` to operate the Tuple under this monad
 instance functor :: (Monad monad) => Functor (StateT state monad) where
   map :: forall a b
        . (a -> b)
       -> StateT state monad a
       -> StateT state monad b
   map f (StateT g) = StateT (\state ->
-      let
-        (Tuple value state2) = g state
-      in
+      (g state) >>= (\(Tuple value state2) ->
         -- todo
+      )
     )
 
 -- Great. Now let's pass `value` into the `f` function
@@ -101,11 +100,10 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
       -> StateT state monad a
       -> StateT state monad b
   map f (StateT g) = StateT (\state ->
-      let
-        (Tuple value state2) = g state
-        b = f value
-      in
-        -- todo
+      (g state) >>= (\(Tuple value state2) ->
+        let b = f value in
+        --todo
+      )
     )
 
 -- Now we have our `b`. However, the returned `StateT` needs
@@ -117,14 +115,34 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
       -> StateT state monad a
       -> StateT state monad b
   map f (StateT g) = StateT (\state ->
-      let
-        (Tuple value state2) = g state
-        b = f value
-      in
-        pure (Tuple b state2)
+      (g state) >>= (\(Tuple value state2) ->
+        let b = f value in
+        pure $ Tuple b state2
+      )
     )
+
+-- Finally, we can using `do notation` in this case
+instance functor :: (Monad monad) => Functor (StateT state monad) where
+  map :: forall a b
+       . (a -> b)
+      -> StateT state monad a
+      -> StateT state monad b
+  map f (StateT g) = StateT \state ->
+    do
+      (Tuple value state2) <- g state
+      pure $ Tuple (f value) state2
 ```
 
+Actuclly, We don't even need the `monad` in `(StateT state monad)` to be a monad. What we did above is just take out the tuple from this monad and **map** it to a nother Tuple and than put the new tuple back to the same monad. Why don't we just **map** over it ? let's do it:
+```purescript
+instance functor :: (Functor f) => Functor (StateT state f) where
+  map :: forall a b
+      . (a -> b)
+      -> StateT state f a
+      -> StateT state f b
+  map aTob (StateT g) = StateT \state ->
+    map (\(Tuple a state2) -> Tuple (aTob a) state2) (g state)
+```
 ### Apply
 
 Since `Apply` is very similar to `Functor` (actually the exact same, but we just unwrap the `f` now, too), we'll just show the code.
@@ -137,19 +155,22 @@ instance apply :: (Monad monad) => Apply (StateT state monad) where
         -> StateT state monad a
         -> StateT state monad b
   apply (StateT f) (StateT g) = StateT (\s1 ->
-    let
-      (Tuple value1 s2) = g s1
-    in
-      let
-        (Tuple function s3) = f s2
-      in
-        let
-          mappedValue = function value1
-        in
-          pure $ Tuple mappedValue s3
-        )
-      )
-    )
+    (g s1) >>= (\(Tuple value1 s2) ->
+      (f s2) >>= (\(Tuple function s3) -> pure $ Tuple (function value1) s3)))
+```
+
+Its `do notation` version is more readable:
+```purescript
+instance apply :: (Monad monad) => Apply (StateT state monad) where
+  apply:: forall a b
+       .  StateT state monad (a -> b) 
+       -> StateT state monad a
+       -> StateT state monad b
+  apply (StateT f) (StateT g) = StateT $ \s1 ->
+    do
+      (Tuple a s2) <- g s1
+      (Tuple aTob s3) <- f s2
+      pure $ Tuple (aTob a) s3
 ```
 
 ### Applicative
@@ -169,15 +190,10 @@ instance bind :: (Monad monad) => Bind (StateT state monad) where
         . StateT state monad a
        -> (a -> StateT state monad b)
        -> StateT state monad b
-  bind (StateT g) f = StateT (\s1 ->
-    let
-      (Tuple value1 s2) = g s1
-    in
-      let
-        (State h) = f value1
-      in
-        h s2
-      )
+  bind (StateT g) f = StateT (\s1 -> do
+    (Tuple value1 s2) <- g s1
+    let (StateT st) = f value1
+    st s2
     )
 
 -- The Monad instance is just declared since there is nothing to implement.
@@ -192,53 +208,7 @@ instance ms :: (Monad m) => Monad (StateT state monad) where
   state f = StateT (\s -> pure $ f s)
 ```
 
-## FAABM Using Bind
 
-Notice, however, that the above `let ... in` syntax is really just a verbose way of doing `bind`/`>>=`. If we were to rewrite our instances using `bind`, they now look like this:
-
-```purescript
-instance map :: (Monad monad) => Functor (StateT state monad) where
-  map :: forall a b
-       . (a -> b)
-      -> StateT state monad a
-      -> StateT state monad b
-  map f (StateT g) = StateT (\s1 ->
-      (g s1) >>= (\(Tuple value1 s2) ->
-        pure $ Tuple (function value1) s2
-      )
-    )
-
-instance apply :: (Monad monad) => Apply (StateT state monad) where
-  apply :: forall a b
-        -- (state -> Tuple (a -> b) state)
-         . StateT state monad (a -> b)
-        -> StateT state monad a
-        -> StateT state monad b
-  apply (StateT f) (StateT g) = StateT (\s1 ->
-      (g s1) >>= (\(Tuple value1 s2) ->
-        (f s2) >>= (\(Tuple function s3) ->
-          pure $ Tuple (function value1) s3
-        )
-      )
-    )
-
-instance apctv :: (Monad monad) => Applicative (StateT state monad) where
-  pure :: forall a. a -> StateT state monad a
-  pure a = StateT (\s -> pure $ Tuple a s)
-
-instance bind :: (Monad monad) => Bind (StateT state monad) where
-  bind :: forall a b
-        . StateT state monad a
-       -> (a -> StateT state monad b)
-       -> StateT state monad b
-  bind (StateT g) f = StateT (\s1 ->
-      (g s1) >>= (\(Tuple value1 s2) ->
-        let (StateT h) = f value1 in h s2
-      )
-    )
-
-instance monad :: (Monad m) => Monad (StateT state monad)
-```
 
 ## Reviewing StateT's Bind Instance
 
