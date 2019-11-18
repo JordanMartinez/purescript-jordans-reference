@@ -1,4 +1,4 @@
-module Syntax.Function.HigherKindedTypes where
+module Syntax.Basic.Function.HigherKindedTypes where
 
 import Prelude
 

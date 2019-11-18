@@ -1,4 +1,4 @@
-module Syntax.Function.Currying where
+module Syntax.Basic.Function.Currying where
 
 -- Remember this function?
 one_arg_function_syntax_sugar :: ParameterType -> ReturnType

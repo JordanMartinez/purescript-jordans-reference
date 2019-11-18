@@ -1,4 +1,4 @@
-module Syntax.PatternMatching where
+module Syntax.Basic.PatternMatching where
 
 import Prelude
 

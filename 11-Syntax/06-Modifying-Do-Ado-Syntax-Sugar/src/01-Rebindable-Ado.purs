@@ -1,4 +1,4 @@
-module Syntax.RebindableAdo where
+module Syntax.Modification.RebindableAdo where
 
 -- I assume you are already familiar with how 'ado notation' desugars.
 -- If not, go read through that explanation again.

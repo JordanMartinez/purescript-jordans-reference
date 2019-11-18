@@ -1,4 +1,4 @@
-module Syntax.Record.RowPolymorphism where
+module Syntax.Basic.Record.RowPolymorphism where
 
 import Prelude
 

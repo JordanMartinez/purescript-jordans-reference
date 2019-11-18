@@ -1,4 +1,4 @@
-module Syntax.RebindableDo where
+module Syntax.Modification.RebindableDo where
 
 -- I assume you are already familiar with how 'do notation' desugars.
 -- If not, go read through that explanation again.

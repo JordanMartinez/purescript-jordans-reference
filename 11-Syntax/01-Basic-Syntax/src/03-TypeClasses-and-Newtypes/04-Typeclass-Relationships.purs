@@ -1,4 +1,4 @@
-module Syntax.Typeclass.RequiredTypeClasses where
+module Syntax.Basic.Typeclass.RequiredTypeClasses where
 
 import Prelude
 

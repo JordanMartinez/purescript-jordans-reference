@@ -1,4 +1,4 @@
-module Syntax.Comments where
+module Syntax.Basic.Comments where
 
 -- This is a single-line comment
 -- Anything past the "--" syntax on a line is regarded as a comment

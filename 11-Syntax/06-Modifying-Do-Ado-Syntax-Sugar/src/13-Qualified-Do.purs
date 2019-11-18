@@ -1,4 +1,4 @@
-module Syntax.QualifiedDo where
+module Syntax.Modification.QualifiedDo where
 
 -- we'll import Prelude so that the regular functions (e.g. "pure" "bind")
 -- are in scope to prove that they don't cause problems here.
@@ -7,8 +7,8 @@ import Prelude
 
 -- Requirement 3: import the module using a module alias, making it possible
 -- to use the same function names to refer to different "bind"-like functions
-import Syntax.MonadLikeTypeClasses as I
-import Syntax.MonadLikeTypeClasses (Box)
+import Syntax.Modification.MonadLikeTypeClasses as I
+import Syntax.Modification.MonadLikeTypeClasses (Box)
 
 -- Requirement 4: When we want to use 'qualified do' syntax, we need to call
 -- the separate functions above and constrain the types to use IxMonad

@@ -1,4 +1,4 @@
-module Keyword.CaseOf where
+module Syntax.Basic.Keyword.CaseOf where
 
 import Prelude
 

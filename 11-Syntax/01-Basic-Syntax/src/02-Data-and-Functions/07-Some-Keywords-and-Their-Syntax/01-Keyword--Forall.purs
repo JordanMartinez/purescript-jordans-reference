@@ -1,4 +1,4 @@
-module Keyword.Forall where
+module Syntax.Basic.Keyword.Forall where
 
 import Prelude
 

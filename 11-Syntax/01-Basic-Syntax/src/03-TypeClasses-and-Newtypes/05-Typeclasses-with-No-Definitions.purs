@@ -1,4 +1,4 @@
-module Syntax.Typeclasses.NoDefinition where
+module Syntax.Basic.Typeclasses.NoDefinition where
 
 import Prelude
 
