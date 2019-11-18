@@ -1862,6 +1862,7 @@
 <edge COLOR="#00007c"/>
 <hook NAME="SummaryNode"/>
 <hook NAME="AlwaysUnfoldedNode"/>
+<node TEXT="Global Options" FOLDED="true" ID="ID_1185828842" CREATED="1574049355694" MODIFIED="1574049362903">
 <node TEXT="" ID="ID_860119540" CREATED="1564497147002" MODIFIED="1564497147005">
 <hook NAME="FirstGroupNode"/>
 </node>
@@ -1905,7 +1906,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="[ -j, --jobs ]" ID="ID_982878235" CREATED="1564497118701" MODIFIED="1564498090908"><richcontent TYPE="DETAILS">
@@ -1920,13 +1920,12 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="" ID="ID_511228751" CREATED="1564497146997" MODIFIED="1564497147001">
 <hook NAME="SummaryNode"/>
 <hook NAME="AlwaysUnfoldedNode"/>
-<node TEXT="commands" ID="ID_576566927" CREATED="1564497147007" MODIFIED="1564497180472">
+<node TEXT="commands" FOLDED="true" ID="ID_576566927" CREATED="1564497147007" MODIFIED="1564497180472">
 <node TEXT="[Package set commands]" ID="ID_1843627948" CREATED="1552093036357" MODIFIED="1558495605739">
 <node TEXT="install" ID="ID_648732855" CREATED="1551923368362" MODIFIED="1558495559218"><richcontent TYPE="DETAILS">
 
@@ -1953,7 +1952,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="GLOBAL-CACHE" ID="ID_1755990906" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
 
@@ -1970,7 +1968,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 <node TEXT="PACKAGE" ID="ID_147488516" CREATED="1551923551151" MODIFIED="1551923562409"><richcontent TYPE="DETAILS">
 
@@ -2050,7 +2047,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -2288,7 +2284,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -2325,7 +2320,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -2438,7 +2432,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="[ -n | --no-install ]" ID="ID_688501996" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
@@ -2453,7 +2446,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 <node TEXT="[ -d | --deps-only ]" ID="ID_81639445" CREATED="1564497542092" MODIFIED="1564497562833"><richcontent TYPE="DETAILS">
@@ -2538,7 +2530,6 @@
     </p>
   </body>
 </html>
-
 </richcontent>
 </node>
 </node>
@@ -3309,6 +3300,1618 @@
   <body>
     <p>
       Clean cached packages by deleting the &quot;.psc-package&quot; folder
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+</node>
+</node>
+</node>
+</node>
+<node TEXT="" POSITION="right" ID="ID_13446128" CREATED="1564497083593" MODIFIED="1564497083596">
+<edge COLOR="#007c00"/>
+<hook NAME="FirstGroupNode"/>
+</node>
+<node TEXT="version 0.12.1.0" POSITION="right" ID="ID_1615857977" CREATED="1564497039392" MODIFIED="1574049386724">
+<edge COLOR="#7c0000"/>
+</node>
+<node TEXT="" POSITION="right" ID="ID_743321990" CREATED="1564497083587" MODIFIED="1564497083593">
+<edge COLOR="#00007c"/>
+<hook NAME="SummaryNode"/>
+<hook NAME="AlwaysUnfoldedNode"/>
+<node TEXT="" ID="ID_978269870" CREATED="1564497147002" MODIFIED="1564497147005">
+<hook NAME="FirstGroupNode"/>
+</node>
+<node TEXT="[ -h | --help ]" ID="ID_1186867554" CREATED="1558495443616" MODIFIED="1564498063850"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Show the help text
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -v | --verbose ]" ID="ID_1018057959" CREATED="1558495447399" MODIFIED="1564498081747"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Enable additional debug logging (e.g. print the `purs` commands)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -V | --very-verbose ]" ID="ID_807123714" CREATED="1558495447399" MODIFIED="1574049446156"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Enables more verbosity: timestamps and source locations
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="[ -P, --no-psa ]" ID="ID_524528215" CREATED="1564497099049" MODIFIED="1574049429206"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Don't build with 'psa', but use 'purs'
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="[ -j, --jobs ]" ID="ID_1871792087" CREATED="1564497118701" MODIFIED="1564498090908"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Limit the amount of jobs that can run concurrently
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -x, --config]" ID="ID_480254412" CREATED="1574049456582" MODIFIED="1574049503130"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Specifies the path to the config file
+    </p>
+    <p>
+      Default: `spago.dhall` file.
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="CONFIG" ID="ID_1064003764" CREATED="1574049462922" MODIFIED="1574049464680"/>
+</node>
+<node TEXT="" ID="ID_999834194" CREATED="1564497146997" MODIFIED="1564497147001">
+<hook NAME="SummaryNode"/>
+<hook NAME="AlwaysUnfoldedNode"/>
+<node TEXT="commands" ID="ID_1616733136" CREATED="1564497147007" MODIFIED="1564497180472">
+<node TEXT="[Package set commands]" ID="ID_1440117617" CREATED="1552093036357" MODIFIED="1558495605739">
+<node TEXT="install" ID="ID_1200995259" CREATED="1551923368362" MODIFIED="1558495559218"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Install (download) all dependencies listed in `spago.dhall` file
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -c | --global-cache ]" ID="ID_147867282" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_1976979255" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="PACKAGE" ID="ID_646591636" CREATED="1551923551151" MODIFIED="1551923562409"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      name of the package to add as a dependency
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+</node>
+</node>
+<node TEXT="sources" ID="ID_1535963071" CREATED="1551923369609" MODIFIED="1551923611658"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Lists all the source paths (globs) for the dependencies of the project
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="list-packages" ID="ID_1506771890" CREATED="1551923370817" MODIFIED="1552092619411"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      List that packages you can install
+    </p>
+    <p>
+      (i.e. packages available in your packages.dhall file)
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -f | --filter ]" ID="ID_850984342" CREATED="1551923629012" MODIFIED="1551923669418">
+<node TEXT="FILTER" ID="ID_91229766" CREATED="1551923670373" MODIFIED="1551923695263"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      &quot;direct&quot; - only show direct dependencies
+    </p>
+    <p>
+      &quot;transitive&quot; - show direct and transitive dependencies
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -j | --json ]" ID="ID_1775692076" CREATED="1564497365521" MODIFIED="1564497377491"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      produce JSON output
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="verify" ID="ID_222845542" CREATED="1551923372697" MODIFIED="1551923749219"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Verify that a single package is consistent with the Package Set
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -c | --global-cache ]" ID="ID_551304547" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_1193113842" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="PACKAGE" ID="ID_1262790593" CREATED="1551923551151" MODIFIED="1551923789673"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      name of a single package to verify
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+</node>
+</node>
+<node TEXT="verify-set" ID="ID_1800410827" CREATED="1551923374153" MODIFIED="1551923823575"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Verify that the whole Package Set builds correctly
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -c | --global-cache ]" ID="ID_1417186296" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_696554587" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -M | --no-check-modules-unique ]" ID="ID_1975459730" CREATED="1574049622959" MODIFIED="1574049644786"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Skip checking whether modules names are unique across all packages
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+</node>
+<node TEXT="upgrade-set" ID="ID_766429895" CREATED="1551923380937" MODIFIED="1564497455324"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Upgrades the local copy of the official package set to its latest version.
+    </p>
+    <p>
+      
+    </p>
+    <p>
+      This will modify the 'upstream' record in 'packages.dhall' file to the latest package-sets release
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="freeze" ID="ID_915675965" CREATED="1551923384593" MODIFIED="1574049674150"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Recompute the hashes for the package-set
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+</node>
+<node TEXT="[Project commands]" ID="ID_1688137791" CREATED="1552093055189" MODIFIED="1558495617412">
+<node TEXT="init" ID="ID_1175399565" CREATED="1551923356426" MODIFIED="1551923451825"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Initialize a new sample project
+    </p>
+    <p>
+      OR
+    </p>
+    <p>
+      migrate from a psc-package project to a spago project
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[-f | --force ]" ID="ID_1566924586" CREATED="1551923452915" MODIFIED="1551923525776"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Overwrite any project found in current directory
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -C | --no-comments ]" ID="ID_730032541" CREATED="1574049694665" MODIFIED="1574049714820"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Generate package.dhall and spago.dhall files without tutorial comments
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+</node>
+<node TEXT="repl" ID="ID_10516900" CREATED="1551923376633" MODIFIED="1551923927203"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Start a REPL
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -c | --global-cache ]" ID="ID_1997970240" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_1576590644" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -D | --dependency ]" ID="ID_562545960" CREATED="1564497509283" MODIFIED="1574049736882">
+<node TEXT="DEPENDENCY" ID="ID_42830767" CREATED="1564497515917" MODIFIED="1564497530412"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Package name to add to the REPL as dependency
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -d | -- deps-only ]" ID="ID_1032325393" CREATED="1574049761633" MODIFIED="1574049779542"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Only use sources from dependencies, skipping the project sources
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="[ -p | --path]" ID="ID_373440479" CREATED="1551923849311" MODIFIED="1551923856188">
+<node TEXT="PATH" ID="ID_393372920" CREATED="1551923874911" MODIFIED="1551923883158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Source path to include
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -u | --purs-args ]" ID="ID_1666997603" CREATED="1574049739584" MODIFIED="1574049756158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Argument to pass to `purs`
+    </p>
+  </body>
+</html>
+
+</richcontent>
+<node TEXT="PURS-ARGS" ID="ID_222459899" CREATED="1574049747177" MODIFIED="1574049750853"/>
+</node>
+</node>
+<node TEXT="docs" ID="ID_1229767984" CREATED="1553221213694" MODIFIED="1553221223291"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Generate docs for the project and its dependencies
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -f | --format ]" ID="ID_453483639" CREATED="1564497591245" MODIFIED="1564497597776">
+<node TEXT="FORMAT" ID="ID_1017145324" CREATED="1564497598026" MODIFIED="1564497600768"/>
+<node TEXT="Docs output format: defaults to &apos;html&apos;&#xa;- markdown&#xa;- html&#xa;- etags&#xa;- ctags" ID="ID_516650067" CREATED="1564497602222" MODIFIED="1564497632218"/>
+</node>
+<node TEXT="[ -p | --path]" ID="ID_99198530" CREATED="1551923849311" MODIFIED="1551923856188">
+<node TEXT="PATH" ID="ID_1042219290" CREATED="1551923874911" MODIFIED="1553221250973"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Source path to include
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -d | --deps-only ]" ID="ID_576177894" CREATED="1564497542092" MODIFIED="1564497562833"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Only use sources from dependencies, skipping the project sources
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -S | --no-search ]" ID="ID_955120273" CREATED="1574050409966" MODIFIED="1574050425239"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Do not make documentation searchable
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="[ -o | --open ]" ID="ID_961529279" CREATED="1574050425629" MODIFIED="1574050441324"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Open generated documentation in browser (for HTML format only)
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+</node>
+<node TEXT="build" ID="ID_1065286444" CREATED="1551923375481" MODIFIED="1551923922414"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Install the dependencies and compile the current package
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -c | --global-cache ]" ID="ID_1754469882" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_1709140226" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -w | --watch]" ID="ID_1354540143" CREATED="1553221031133" MODIFIED="1553221045369"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Watch for changes in local files and automatically rebuild
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -l | --clear-screen ]" ID="ID_1844879190" CREATED="1564497660209" MODIFIED="1564497680232"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Clear the screen on rebuild (watch mode only)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -p | --path]" ID="ID_167557042" CREATED="1551923849311" MODIFIED="1553221071487">
+<node TEXT="PATH" ID="ID_46174581" CREATED="1551923874911" MODIFIED="1551923883158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Source path to include
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -n | --no-install ]" ID="ID_144790357" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Don't run the automatic installation of packages
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -u | --purs-args ]" ID="ID_669062663" CREATED="1574049739584" MODIFIED="1574049756158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Argument to pass to `purs`
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="PURS-ARGS" ID="ID_786464904" CREATED="1574049747177" MODIFIED="1574049750853"/>
+</node>
+<node TEXT="[ -d | --deps-only ]" ID="ID_1321693936" CREATED="1564497542092" MODIFIED="1564497562833"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Only use sources from dependencies, skipping the project sources
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -S | --no-share-output ]" ID="ID_1920988840" CREATED="1574049845328" MODIFIED="1574049887731"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Disable using a shared output folder in location of root `packages.dhall` (e.g. when using monorepo)
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+</node>
+<node TEXT="search" ID="ID_883836196" CREATED="1574050460344" MODIFIED="1574050472677"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Start a search REPL to find definitions matching names and types
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="" ID="ID_999402089" CREATED="1574050501535" MODIFIED="1574050501537">
+<hook NAME="FirstGroupNode"/>
+</node>
+<node TEXT="path" ID="ID_831182699" CREATED="1574050482114" MODIFIED="1574050495508"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Prints all paths used in Spago
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+<node TEXT="" ID="ID_1086897290" CREATED="1574050501532" MODIFIED="1574050501535">
+<hook NAME="SummaryNode"/>
+<hook NAME="AlwaysUnfoldedNode"/>
+<node TEXT="output" ID="ID_898544567" CREATED="1574050501537" MODIFIED="1574050550724"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      prints the path used for the `purs` compiler's output
+    </p>
+    <p>
+      (note: this is intended to be used by tools)
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+</node>
+<node TEXT="test" ID="ID_455535066" CREATED="1551923377441" MODIFIED="1551924051141"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Test the project with some module
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -m | --main ]" ID="ID_1718084312" CREATED="1551923958208" MODIFIED="1551923963892">
+<node TEXT="MAIN" ID="ID_11872125" CREATED="1551923964176" MODIFIED="1551924060408"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      the main module to bundle
+    </p>
+    <p>
+      
+    </p>
+    <p>
+      Default value:
+    </p>
+    <p>
+      'Test.Main'
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -c | --global-cache ]" ID="ID_600997485" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_938975456" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -w | --watch]" ID="ID_706826292" CREATED="1553221031133" MODIFIED="1553221045369"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Watch for changes in local files and automatically rebuild
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -l | --clear-screen ]" ID="ID_1398526588" CREATED="1564497660209" MODIFIED="1564497680232"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Clear the screen on rebuild (watch mode only)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -p | --path]" ID="ID_137887980" CREATED="1551923849311" MODIFIED="1551923856188">
+<node TEXT="PATH" ID="ID_1654156349" CREATED="1551923874911" MODIFIED="1551923883158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Source path to include
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -n | --no-install ]" ID="ID_135013668" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Don't run the automatic installation of packages
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -u | --purs-args ]" ID="ID_664947042" CREATED="1574049739584" MODIFIED="1574049756158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Argument to pass to `purs`
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="PURS-ARGS" ID="ID_1748869314" CREATED="1574049747177" MODIFIED="1574049750853"/>
+</node>
+<node TEXT="[ -d | --deps-only ]" ID="ID_1276354697" CREATED="1564497542092" MODIFIED="1564497562833"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Only use sources from dependencies, skipping the project sources
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -S | --no-share-output ]" ID="ID_1825204560" CREATED="1574049845328" MODIFIED="1574049887731"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Disable using a shared output folder in location of root `packages.dhall` (e.g. when using monorepo)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -a | --node-args ]" ID="ID_1362828614" CREATED="1564497794867" MODIFIED="1564497800528">
+<node TEXT="NODE-ARGS" ID="ID_1422369677" CREATED="1564497800793" MODIFIED="1564497815571"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Argument to pass to node (run/test only)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+</node>
+<node TEXT="run" ID="ID_735224827" CREATED="1551923377441" MODIFIED="1553221114130"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Runs the project with some module
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -m | --main ]" ID="ID_1057565034" CREATED="1551923958208" MODIFIED="1551923963892">
+<node TEXT="MAIN" ID="ID_376442617" CREATED="1551923964176" MODIFIED="1574049974389"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      the main module to bundle
+    </p>
+    <p>
+      
+    </p>
+    <p>
+      Default value:
+    </p>
+    <p>
+      'Main'
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -c | --global-cache ]" ID="ID_1086274478" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_1374344375" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -w | --watch]" ID="ID_785485793" CREATED="1553221031133" MODIFIED="1553221045369"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Watch for changes in local files and automatically rebuild
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -l | --clear-screen ]" ID="ID_1013535652" CREATED="1564497660209" MODIFIED="1564497680232"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Clear the screen on rebuild (watch mode only)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -p | --path]" ID="ID_44746283" CREATED="1551923849311" MODIFIED="1551923856188">
+<node TEXT="PATH" ID="ID_630258036" CREATED="1551923874911" MODIFIED="1551923883158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Source path to include
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -n | --no-install ]" ID="ID_1781164919" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Don't run the automatic installation of packages
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -u | --purs-args ]" ID="ID_1700144136" CREATED="1574049739584" MODIFIED="1574049756158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Argument to pass to `purs`
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="PURS-ARGS" ID="ID_333585918" CREATED="1574049747177" MODIFIED="1574049750853"/>
+</node>
+<node TEXT="[ -d | --deps-only ]" ID="ID_1331142801" CREATED="1564497542092" MODIFIED="1564497562833"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Only use sources from dependencies, skipping the project sources
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -S | --no-share-output ]" ID="ID_1529516495" CREATED="1574049845328" MODIFIED="1574049887731"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Disable using a shared output folder in location of root `packages.dhall` (e.g. when using monorepo)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -a | --node-args ]" ID="ID_1036143862" CREATED="1564497794867" MODIFIED="1564497800528">
+<node TEXT="NODE-ARGS" ID="ID_287090665" CREATED="1564497800793" MODIFIED="1564497815571"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Argument to pass to node (run/test only)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+</node>
+<node TEXT="bundle-app" ID="ID_1670187198" CREATED="1551923378169" MODIFIED="1558495662075"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Bundle the project's top-level module
+    </p>
+    <p>
+      into a single executable file
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -m | --main ]" ID="ID_1156476677" CREATED="1551923958208" MODIFIED="1551923963892">
+<node TEXT="MAIN" ID="ID_1899385699" CREATED="1551923964176" MODIFIED="1558495716864"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Module with a `main :: Effect Unit` function,
+    </p>
+    <p>
+      which is used as the application's entry point
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -t | --to ]" ID="ID_1345964495" CREATED="1551924016257" MODIFIED="1551924024566">
+<node TEXT="TO" ID="ID_1117240651" CREATED="1551924025017" MODIFIED="1551924030373"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      The target file path
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -s | --no-build ]" ID="ID_1645793157" CREATED="1553221309505" MODIFIED="1553221322616"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Skips the build step that otherwise runs
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -c | --global-cache ]" ID="ID_1226505288" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_1923586028" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -w | --watch]" ID="ID_1469940310" CREATED="1553221031133" MODIFIED="1553221045369"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Watch for changes in local files and automatically rebuild
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -l | --clear-screen ]" ID="ID_1479517929" CREATED="1564497660209" MODIFIED="1564497680232"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Clear the screen on rebuild (watch mode only)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -p | --path]" ID="ID_853594295" CREATED="1551923849311" MODIFIED="1551923856188">
+<node TEXT="PATH" ID="ID_498124064" CREATED="1551923874911" MODIFIED="1551923883158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Source path to include
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -n | --no-install ]" ID="ID_1909506332" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Don't run the automatic installation of packages
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -u | --purs-args ]" ID="ID_528094615" CREATED="1574049739584" MODIFIED="1574049756158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Argument to pass to `purs`
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="PURS-ARGS" ID="ID_1458544791" CREATED="1574049747177" MODIFIED="1574049750853"/>
+</node>
+<node TEXT="[ -d | --deps-only ]" ID="ID_1299900381" CREATED="1564497542092" MODIFIED="1564497562833"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Only use sources from dependencies, skipping the project sources
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -S | --no-share-output ]" ID="ID_400032116" CREATED="1574049845328" MODIFIED="1574049887731"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Disable using a shared output folder in location of root `packages.dhall` (e.g. when using monorepo)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="bundle-module" ID="ID_932314531" CREATED="1551923379385" MODIFIED="1564497953500"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Bundle a module into a CommonJS module
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="[ -m | --main ]" ID="ID_1457046108" CREATED="1551923958208" MODIFIED="1551923963892">
+<node TEXT="MAIN" ID="ID_1181623785" CREATED="1551923964176" MODIFIED="1558495761417"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Module which is used as the application's entry point
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -t | --to ]" ID="ID_1496897433" CREATED="1551924016257" MODIFIED="1551924024566">
+<node TEXT="TO" ID="ID_1726375563" CREATED="1551924025017" MODIFIED="1551924030373"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      The target file path
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -s | --no-build ]" ID="ID_2399360" CREATED="1553221309505" MODIFIED="1553221322616"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Skips the build step that otherwise runs
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -c | --global-cache ]" ID="ID_1203505268" CREATED="1551923492946" MODIFIED="1564497356522"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Configure global caching behavior
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="GLOBAL-CACHE" ID="ID_29057611" CREATED="1564497336734" MODIFIED="1564497351774"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      'skip' - don't use the global cache
+    </p>
+    <p>
+      'update' - force an update to the global cache
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -w | --watch]" ID="ID_1874343386" CREATED="1553221031133" MODIFIED="1553221045369"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Watch for changes in local files and automatically rebuild
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -l | --clear-screen ]" ID="ID_875908885" CREATED="1564497660209" MODIFIED="1564497680232"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Clear the screen on rebuild (watch mode only)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -p | --path]" ID="ID_118377562" CREATED="1551923849311" MODIFIED="1551923856188">
+<node TEXT="PATH" ID="ID_1478403032" CREATED="1551923874911" MODIFIED="1551923883158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Source path to include
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+<node TEXT="[ -n | --no-install ]" ID="ID_1922595797" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Don't run the automatic installation of packages
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -u | --purs-args ]" ID="ID_1879591101" CREATED="1574049739584" MODIFIED="1574049756158"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Argument to pass to `purs`
+    </p>
+  </body>
+</html>
+</richcontent>
+<node TEXT="PURS-ARGS" ID="ID_1619016556" CREATED="1574049747177" MODIFIED="1574049750853"/>
+</node>
+<node TEXT="[ -d | --deps-only ]" ID="ID_1212378255" CREATED="1564497542092" MODIFIED="1564497562833"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Only use sources from dependencies, skipping the project sources
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+<node TEXT="[ -S | --no-share-output ]" ID="ID_580184403" CREATED="1574049845328" MODIFIED="1574049887731"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Disable using a shared output folder in location of root `packages.dhall` (e.g. when using monorepo)
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
+</node>
+</node>
+<node TEXT="[Other commands]" ID="ID_1269592528" CREATED="1552093096477" MODIFIED="1558495610520">
+<node TEXT="version" ID="ID_1569023357" CREATED="1551923395002" MODIFIED="1551924228905"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Shows spago's version
     </p>
   </body>
 </html>
