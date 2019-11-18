@@ -1,4 +1,4 @@
-module Syntax.QualifiedAdo where
+module Syntax.Modification.QualifiedAdo where
 
 -- we'll import Prelude so that the regular functions (e.g. "map" "apply")
 -- are in scope to prove that they don't cause problems here.
@@ -7,8 +7,8 @@ import Prelude
 
 -- Requirement 3: import the module using a module alias, making it possible
 -- to use the same function names to refer to different "apply"-like functions
-import Syntax.MonadLikeTypeClasses as I
-import Syntax.MonadLikeTypeClasses (Box)
+import Syntax.Modification.MonadLikeTypeClasses as I
+import Syntax.Modification.MonadLikeTypeClasses (Box)
 
 -- Requirement 4: When we want to use 'qualified ado' syntax, we need to call the separate
 -- function above and constrain the types to use IxApplicative

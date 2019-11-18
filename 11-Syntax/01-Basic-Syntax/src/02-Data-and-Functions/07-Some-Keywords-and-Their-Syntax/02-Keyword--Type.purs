@@ -1,4 +1,4 @@
-module Keyword.Type where
+module Syntax.Basic.Keyword.Type where
 
 -- Syntax
 type TypeAliasForCompileTime = RunTimeType

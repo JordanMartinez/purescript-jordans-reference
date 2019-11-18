@@ -1,4 +1,4 @@
-module Syntax.Typeclass.Constraints where
+module Syntax.Basic.Typeclass.Constraints where
 
 import Prelude
 

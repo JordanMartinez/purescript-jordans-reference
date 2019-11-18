@@ -1,4 +1,4 @@
-module Keyword.IfThenElse where
+module Syntax.Basic.Keyword.IfThenElse where
 
 -- There's support for if-then-else statements
 test1 :: Boolean -> String

@@ -1,4 +1,4 @@
-module Keyword.Data where
+module Syntax.Basic.Keyword.Data where
 
 -- Basic syntax for the `data` keyword
 

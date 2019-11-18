@@ -1,4 +1,4 @@
-module Syntax.Notation.NaturalTransformers where
+module Syntax.Prelude.NaturalTransformations where
 
 -- Given this code
 data Box1 a = Box1 a

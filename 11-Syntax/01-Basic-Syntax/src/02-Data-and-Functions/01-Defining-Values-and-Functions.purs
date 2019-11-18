@@ -1,4 +1,4 @@
-module Syntax.ValuesAndFunctions where
+module Syntax.Basic.ValuesAndFunctions where
 
 import Prelude
 

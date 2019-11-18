@@ -1,4 +1,4 @@
-module Syntax.MonadLikeTypeClasses
+module Syntax.Modification.MonadLikeTypeClasses
   ( class IxFunctor, imap, map
   , class IxApply, iapply, apply
   , class IxApplicative, ipure, pure

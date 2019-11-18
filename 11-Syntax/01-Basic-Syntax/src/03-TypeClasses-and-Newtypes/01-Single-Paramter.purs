@@ -1,4 +1,4 @@
-module Syntax.Typeclass.SingleParameter where
+module Syntax.Basic.Typeclass.SingleParameter where
 
 import Prelude
 

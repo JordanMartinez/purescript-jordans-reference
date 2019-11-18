@@ -1,4 +1,4 @@
-module Syntax.Function.BodyAbbreviation where
+module Syntax.Basic.Function.BodyAbbreviation where
 
 import Prelude
 

@@ -1,4 +1,4 @@
-module Syntax.InfixNotation.Extended where
+module Syntax.Basic.InfixNotation.Extended where
 
 -- Original credit: @paf31
 -- Link: https://github.com/paf31/24-days-of-purescript-2016/blob/master/1.markdown
