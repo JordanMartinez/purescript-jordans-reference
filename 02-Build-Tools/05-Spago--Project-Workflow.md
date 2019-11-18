@@ -27,7 +27,7 @@ spago verify-set
 
 ### Freeze the Package Set
 
-Note: Spago does this automatically now. So, one likely does not need to do this anymore. It is provided for context.
+Note: Spago does this automatically now. So, one likely does not need to do this anymore. It is provided for context / historical purposes.
 ```bash
 # 3) Freeze the package set to prevent security issues.
 #     For a deeper explanation on what happens here,
@@ -51,10 +51,11 @@ spago install packageName1 packageName2 # ...
 spago repl
 
 # Build the docs
-spago docs
+spago docs --open
 
 # Automatically re-build project whenever a source/test file is changed/saved
-spago build --watch
+# and clear the screen before rebuilding
+spago build --watch --clear-screen
 ```
 
 ## Build the Code
