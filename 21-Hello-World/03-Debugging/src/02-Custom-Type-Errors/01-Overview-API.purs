@@ -1,4 +1,4 @@
-module ConsoleLessons.CustomTypeErrors.OverviewAPI where
+module Debugging.CustomTypeErrors.OverviewAPI where
 
 {-
 # Prim Special Submodules
