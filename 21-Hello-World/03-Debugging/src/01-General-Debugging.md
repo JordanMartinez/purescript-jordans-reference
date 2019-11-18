@@ -141,8 +141,8 @@ f theString = wrap (unwrap theString)
 From the Slack channel, garyb mentioned passing the `--verbose-errors` flag to the compiler. **This will output a LOT of information**, but it's that or nothing. To do that, run this code:
 
 ```bash
-spago build -- --verbose-errors
-spago build -- -v
+spago build -u --verbose-errors
+spago build -u -v
 ```
 
 ## Could not match type `Monad` with type `Function (Argument -> Monad a)`
