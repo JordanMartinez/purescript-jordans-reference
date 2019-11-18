@@ -38,7 +38,7 @@ Then, you use a search query like the following:
 - Read [Pursuit's Search Help page](https://pursuit.purescript.org/help/users#searching)
 - Some libraries have not been updated to `0.13.5` and are still on the `0.11.7` release. Some still work; others won't. In this work, we will insure that you do not use any such libraries, but be aware of that if you browse the docs on your own.
 - Lastly, some libraries have not uploaded their latest versions' documentation. In these cases, we will forewarn you. Fortunately, `spago docs` will produce a local version of the source code's documentation that looks similar to Pursuit. It does not support all the features of Pursuit, but it's better than nothing. To do that, follow these commands:
-    - `spago docs && <your default web browser> generated-docs/html/index.html` where `<your default web browser` is `firefox` or whatever you use.
+    - `spago docs --open` will generate the documentation and then use your default web browser to open the file, `generated-docs/html/index.html`.
 
 **Undocumented Pursuit Tip**
 
