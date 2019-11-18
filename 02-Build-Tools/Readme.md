@@ -46,6 +46,10 @@ The below image summarizes the current state:
 
 ![Build Tool Relationships "Build Tool Relationships"](./assets/Build-Tool-Relationships--With-Spago.svg)
 
+### Phase 4: `Spago` becomes mainstream while `psc-package` is less used
+
+Spago dropped support for `psc-package` commands in the `v0.11.0` release. `psc-package` is still usable and is more or less feature-complete. However, no further work on it will likely be done. Rather, Spago has become the main dependency manager when utilizing package-sets.
+
 ## Overview of Tools
 
 | Name | Type/Usage | Comments | URL |
