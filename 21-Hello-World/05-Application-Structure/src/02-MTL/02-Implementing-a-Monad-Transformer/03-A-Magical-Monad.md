@@ -82,6 +82,7 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
 -- We need to use that function, but it only takes an `a`
 -- argument. So, we need to get that `a` by using `g`
 -- Thus, we'll pass the returning StateT's state argument into `g`
+-- Then we get a `monad (Tuple a state)`
 instance functor :: (Monad monad) => Functor (StateT state monad) where
   map :: forall a b
        . (a -> b)
@@ -89,9 +90,23 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
       -> StateT state monad b
   map f (StateT g) = StateT (\state ->
       let
-        (Tuple value state2) = g state
+        ma = g state
       in
         -- todo
+    )
+-- So we can use `bind/>>=` to expose the Tuple within this monad
+instance functor :: (Monad monad) => Functor (StateT state monad) where
+  map :: forall a b
+       . (a -> b)
+      -> StateT state monad a
+      -> StateT state monad b
+  map f (StateT g) = StateT (\state ->
+      let
+        ma = g state
+      in
+        ma >>= (\(Tuple value state2) ->
+          -- todo
+        )
     )
 
 -- Great. Now let's pass `value` into the `f` function
@@ -102,10 +117,14 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
       -> StateT state monad b
   map f (StateT g) = StateT (\state ->
       let
-        (Tuple value state2) = g state
-        b = f value
+        ma = g state
       in
-        -- todo
+        ma >>= (\(Tuple value state2) ->
+          let 
+            b = f value
+          in 
+            --todo
+        )
     )
 
 -- Now we have our `b`. However, the returned `StateT` needs
@@ -118,10 +137,14 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
       -> StateT state monad b
   map f (StateT g) = StateT (\state ->
       let
-        (Tuple value state2) = g state
-        b = f value
+        ma = g state
       in
-        pure (Tuple b state2)
+        ma >>= (\(Tuple value state2) ->
+          let 
+            b = f value 
+          in 
+            pure (Tuple b state)
+        )
     )
 ```
 
