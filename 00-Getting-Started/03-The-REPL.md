@@ -2,47 +2,6 @@
 
 REPL stands for Read, Evaluate, Print, Loop.
 
-## Preparing a Folder for the REPL
-
-In order to start the REPL, there are three requirements:
-- a `packages.dhall` file exists in the current folder or one of its parents.
-- a `spago.dhall` file exists in the current folder or one of its parents.
-- the `psci-support` package has been installed (it appears in the the `spago.dhall` file's `dependencies` field).
-- a `.purs-repl` file exists in the current folder or one of its parents. (Not an actual requirement for starting the REPL, but prevents issues a newcomer will otherwise encounter if they don't know anything about Purescript / FP languages.)
-
-Follow these instructions to create a new project with these requirements:
-```bash
-# 1. Make a new directory
-mkdir playground
-# 2. Enter it
-cd playground
-
-# Note: the following commands will be explained more in the
-#   "Build-Tools" folder
-
-# 3. Create a new Spago-based project
-spago init
-
-# 4. Install the psci-support package using this command:
-spago install psci-support
-
-# 5. Create the `.purs-repl` file that
-# imports `Prelude` when the REPL starts:
-echo "import Prelude" > .purs-repl
-
-# 5. Build the project
-spago build
-```
-You should now have a folder structure like the following:
-```
-playground\
-  .spago\
-  .psci-modules\
-  .purs-repl
-  packages.dhall
-  spago.dhall
-```
-
 ## Starting the REPL
 
 Use `spago repl`
