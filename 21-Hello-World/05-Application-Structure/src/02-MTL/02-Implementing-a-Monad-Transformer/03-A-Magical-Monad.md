@@ -82,7 +82,7 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
 -- We need to use that function, but it only takes an `a`
 -- argument. So, we need to get that `a` by using `g`
 -- Thus, we'll pass the returning StateT's state argument into `g`
--- Then we go a `monad (Tuple a state)`
+-- Then we get a `monad (Tuple a state)`
 instance functor :: (Monad monad) => Functor (StateT state monad) where
   map :: forall a b
        . (a -> b)
@@ -94,7 +94,7 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
       in
         -- todo
     )
--- So we can using `bind/>>=` to opeartor the Tuple under this monad
+-- So we can use `bind/>>=` to expose the Tuple within this monad
 instance functor :: (Monad monad) => Functor (StateT state monad) where
   map :: forall a b
        . (a -> b)
@@ -120,7 +120,10 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
         ma = g state
       in
         ma >>= (\(Tuple value state2) ->
-          let b = f value in --todo
+          let 
+            b = f value
+          in 
+            --todo
         )
     )
 
@@ -137,7 +140,10 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
         ma = g state
       in
         ma >>= (\(Tuple value state2) ->
-          let b = f value in pure $ Tuple b state
+          let 
+            b = f value 
+          in 
+            pure (Tuple b state)
         )
     )
 ```
