@@ -83,7 +83,7 @@ The Atom package, `ide-purescript`, is configured to `Bower`, but we'll be using
 3. Search for `ide-purescript`
 4. Click on the `Settings` button in the entry that appears
 5. Check the `Add spago sources` checkbox
-6. Change the `build command` to: `spago build -- --json-errors`
+6. Change the `build command` to: `spago build -u --json-errors`
 
 ### Getting IDE support (autocomplete, documentation-on-hover, etc.) in Atom
 
