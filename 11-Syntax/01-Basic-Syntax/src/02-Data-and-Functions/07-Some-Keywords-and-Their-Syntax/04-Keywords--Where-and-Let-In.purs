@@ -1,4 +1,4 @@
-module Keyword.WhereAndLetIn where
+module Syntax.Basic.Keyword.WhereAndLetIn where
 
 import Prelude
 

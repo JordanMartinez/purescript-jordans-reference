@@ -1,4 +1,4 @@
-module Syntax.Typeclass.MultiParameters.FunctionalDependencies where
+module Syntax.Basic.Typeclass.MultiParameters.FunctionalDependencies where
 
 {-
 Sometimes in multi-parameter type classes, there is a relationship

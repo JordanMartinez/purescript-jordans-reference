@@ -1,4 +1,4 @@
-module Syntax.Typeclass.Dictionaries where
+module Syntax.Basic.Typeclass.Dictionaries where
 
 import Prelude
 

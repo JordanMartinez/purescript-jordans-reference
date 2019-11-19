@@ -32,7 +32,7 @@
 -- | ```
 
 -- | Documentation on a given module
-module Syntax.Documentation where
+module Syntax.Basic.Documentation where
 
 -- | Documentation on a value
 value :: Int

@@ -1,4 +1,4 @@
-module Syntax.Record.Quoted where
+module Syntax.Basic.Record.Quoted where
 
 -- Credit goes to Justin Woo where I found out this documentation
 -- was even possible:

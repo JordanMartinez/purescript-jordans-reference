@@ -1,4 +1,4 @@
-module Syntax.SpecialCompilerFeatures.Holes where
+module Syntax.Basic.SpecialCompilerFeatures.Holes where
 
 {-
 

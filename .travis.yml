@@ -20,7 +20,7 @@ before_install:
   # ^ Update NPM
 
 install:
-  - npm i -g purescript@0.13.4 spago@0.9.0
+  - npm i -g purescript@0.13.5 spago@0.12.1
   # ^ Use NPM to install most packages
   - chmod +x .travis/spago--print-versions.sh
   - ./.travis/spago--print-versions.sh

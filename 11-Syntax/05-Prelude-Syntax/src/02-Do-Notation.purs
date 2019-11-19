@@ -1,4 +1,4 @@
-module Syntax.Notation.Do where
+module Syntax.Prelude.Notation.Do where
 
 import Prelude
 

@@ -1,4 +1,4 @@
-module Syntax.PrimitiveTypesAndKinds where
+module Syntax.Basic.PrimitiveTypesAndKinds where
 
 import Prelude
 

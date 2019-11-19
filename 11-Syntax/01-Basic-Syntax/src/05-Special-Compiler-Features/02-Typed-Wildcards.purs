@@ -1,4 +1,4 @@
-module Syntax.SpecialCompilerFeatures.TypedWildcards where
+module Syntax.Basic.SpecialCompilerFeatures.TypedWildcards where
 
 {-
 Sometimes, when writing code, we're not always sure what type something

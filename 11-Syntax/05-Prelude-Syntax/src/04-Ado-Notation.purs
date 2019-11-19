@@ -11,7 +11,7 @@ Since Applicative can be used for parellel computation, one **might**
      "produces some value, and then uses that value to produce another value"
 It depends on whether parallel applicatives are used or not.
 -}
-module Syntax.Notation.Ado where
+module Syntax.Prelude.Notation.Ado where
 
 import Prelude
 

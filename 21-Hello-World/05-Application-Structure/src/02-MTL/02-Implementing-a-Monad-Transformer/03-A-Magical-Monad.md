@@ -140,10 +140,10 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
         ma = g state
       in
         ma >>= (\(Tuple value state2) ->
-          let 
-            b = f value 
-          in 
-            pure (Tuple b state)
+          let
+            b = f value
+          in
+            pure (Tuple b state2)
         )
     )
 ```

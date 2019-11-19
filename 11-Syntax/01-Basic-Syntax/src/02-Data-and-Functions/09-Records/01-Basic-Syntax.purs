@@ -1,4 +1,4 @@
-module Syntax.Record.Basic where
+module Syntax.Basic.Record.Basic where
 
 import Prelude
 

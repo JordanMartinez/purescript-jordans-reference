@@ -1,4 +1,4 @@
-module Syntax.Unicode where
+module Syntax.Basic.Unicode where
 
 -- Unicode sytax is supported
 

@@ -1,4 +1,4 @@
-module Syntax.Deriving.Newtype where
+module Syntax.Basic.Deriving.Newtype where
 
 import Prelude
 

@@ -1,4 +1,4 @@
-module Syntax.IndentationRules where
+module Syntax.Basic.IndentationRules where
 
 import Prelude
 
