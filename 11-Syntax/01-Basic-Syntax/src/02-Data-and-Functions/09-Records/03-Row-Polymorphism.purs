@@ -15,7 +15,7 @@ test1 =
   (getName1 { name: "hello" }) == "hello"
 
 {-
-However, this definition does not prevent additional fields.
+However, this definition does not allow additional fields.
 The following code...
 
   getName1 { name: "hello", age: 4 }
