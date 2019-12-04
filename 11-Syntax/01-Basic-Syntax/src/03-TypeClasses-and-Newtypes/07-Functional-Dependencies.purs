@@ -8,7 +8,7 @@ The next block summarizes these links:
 - https://stackoverflow.com/questions/20040224/functional-dependencies-in-haskell/20040427#20040427
 - https://stackoverflow.com/questions/20040224/functional-dependencies-in-haskell/20040343#20040343
 - Section 2.1.2 shows an example where it needs FDs to work correctly
-    http://homepages.inf.ed.ac.uk/jmorri14/pubs/morris-icfp2010-instances.pdf
+    https://jgbm.github.io/pubs/morris-icfp2010-instances.pdf
 
 Syntax:
   Read
