@@ -52,6 +52,23 @@ data Type2
 derive instance eqType2 :: Eq Type2
 derive instance ordType2 :: Ord Type2
 
+test2 :: Boolean
+test2 =
+  (compare (First2 1) (Second2 "Foo")) == LT
+
+-- Ordering between "First" and "Second" depend on their sequence in the ADT.
+
+data Type3
+  = Second3 String
+  | First3 Int
+
+derive instance eqType3 :: Eq Type3
+derive instance ordType3 :: Ord Type3
+
+test3 :: Boolean
+test3 =
+  (compare (First3 1) (Second3 "Foo")) == GT
+
 -- In other cases (like higher-kinded types),
 -- we can use type class constraints to derive them:
 data Box a = Box a
