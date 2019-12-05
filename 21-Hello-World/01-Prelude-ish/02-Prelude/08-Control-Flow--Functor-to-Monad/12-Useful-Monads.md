@@ -133,10 +133,10 @@ let list2 = [2, 3, 4];
 let list3 = [3, 4, 5];
 var finalList = [];
 
-for (i in list1) {
-  for (h in list2) {
-    for (j in list3) {
-      finalList = finalList.add(i + h + j);
+for (i of list1) {
+  for (h of list2) {
+    for (j of list3) {
+      finalList.push(i + h + j);
     }
   }
 }
