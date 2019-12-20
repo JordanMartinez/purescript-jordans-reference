@@ -56,7 +56,7 @@ For a cleaner visual, see [Drawing `foldl` and `foldr`](http://www.joachim-breit
 
 #### `foldl`
 
-This version creates a tree-like structure of computations that starts evaluating immediately via `function Binput A1` and continues evaluating towards the bottom-right. Since each evaluation requires only 1 step, this version is "stack safe."
+This version creates a tree-like structure of computations that starts evaluating immediately via `function Binput A1` and continues evaluating towards the bottom-right. Since each step evaluates immediately, this version is "stack safe."
 
 ```
 (b -> a -> b)  Binit   //=== `f a` ===\\
