@@ -172,8 +172,8 @@ instance foldableList :: Foldable List where
   -- Unlike Box, reusing `foldl`/`foldr` is actually the cleaner way
   -- to implement `foldMap` for `List`.
   foldMap :: forall a m. Monoid m => (a -> m) -> List a -> m
-  foldMap aToMonoid maybe =
-    foldl (\b a -> b <> (aToMonoid a)) mempty maybe
+  foldMap aToMonoid list =
+    foldl (\b a -> b <> (aToMonoid a)) mempty list
 
 instance functorList :: Functor List where
   map f list =
