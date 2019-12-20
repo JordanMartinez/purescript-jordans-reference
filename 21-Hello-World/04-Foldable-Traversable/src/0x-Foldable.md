@@ -104,48 +104,77 @@ Since each step towards the bottom-right of the tree allocates a stack, this fun
 
 ### Examples
 
+We'll implement instances for three types: `Box a`, `Maybe a`, and `List a`. Each implementation will become more complicated that the previous one.
+
+#### `Box`'s Instance
+
 ```purescript
 data Box a = Box a
 
--- Box doesn't really show the difference between foldl and foldr
--- but List will
-instance f :: Foldable Box where
-  -- same as `initialB <> a`
+-- Box's implementation doesn't show the difference between `foldl` and `foldr`.
+-- Moreover, the initial `b` value isn't really necessary.
+instance foldableBox :: Foldable Box where
   foldl :: forall a b. (b -> a -> b) -> b -> Box a -> b
   foldl reduceToB initialB (Box a) = reduceToB initialB a
 
-  -- same as `a <> initialB`
   foldr :: forall a b. (a -> b -> b) -> b -> Box a -> b
   foldr reduceToB initialB (Box a) = reduceToB a initialB
 
   foldMap :: forall a m. Monoid m => (a -> m) -> Box a -> m
   foldMap putIntoMonoid (Box a) = putIntoMonoid a
+```
 
+#### `Maybe`'s instance
+
+```purescript
+-- Maybe's implementation doesn't show the difference between `foldl` and `foldr`.
+-- However, the initial `b` value is necessary
+-- because of the possible `Nothing` case.
+instance foldableMaybe :: Foldable Maybe where
+  foldl :: forall a b. (b -> a -> b) -> b -> Maybe a -> b
+  foldl reduceToB initialB (Just a) = reduceToB initialB a
+  foldl _         initialB Nothing  =           initialB
+
+  foldr :: forall a b. (a -> b -> b) -> b -> Maybe a -> b
+  foldr reduceToB initialB (Just a) = reduceToB a initialB
+  foldr _         initialB Nothing  =             initialB
+
+  foldMap :: forall a m. Monoid m => (a -> m) -> Maybe a -> m
+  foldMap putIntoMonoid (Just a) = putIntoMonoid a
+  foldMap _             Nothing  = mempty
+```
+
+#### `List`'s instance
+
+```purescript
 -- Cons 1 (Cons 2 Nil)
 -- 1 : (Cons 2 Nil)
 -- 1 : 2 : Nil
 -- same as [1, 2]
-instance l :: Foldable List where
-
+-- In the below implementations, `op` stands for `operation`
+instance foldableList :: Foldable List where
   -- Same as...
-  -- intialB <> firstElem <> secondElem <> thirdElem <> ... <> lastElem
+  -- ((((intialB `op` firstElem) `op` secondElem) `op` ...) `op` lastElem)
   foldl :: forall a b. (b -> a -> b) -> b -> List a -> b
   foldl _         accumB   Nil           = accumB
-  foldl reduceToB initialB (head : tail) =
-    foldl reduceToB (reduceToB initialB head) tail
+  foldl op initialB (head : tail) =
+    foldl op (op initialB head) tail
 
   -- Same as...
-  -- firstElem <> secondElem <> thirdElem <> ... <> lastElem <> initialB
+  -- (firstElem `op` (secondElem `op` (... `op` (lastElem `op` initialB))))
   foldr :: forall a b. (a -> b -> b) -> b -> List a -> b
-  foldr reduceToB accumB   Nil           = accumB
-  foldr reduceToB initialB (head : tail) =
-    reduceToB (head (foldl reduceToB initialB tail))
+  foldr op accumB   Nil           = accumB
+  foldr op initialB (head : tail) =
+    op (head (foldl op initialB tail))
 
   foldMap :: forall a m. Monoid m => (a -> m) -> List a -> m
   foldMap putIntoMonoid list = foldl putIntoMonoid mempty list
 
-instance fL :: Functor List where
-  map f list = foldr (\a b -> (f a) : b) Nil list
+instance functorList :: Functor List where
+  map f list =
+    -- Due to stack safety, this is not how this is implemented
+    -- but it communicates the same idea
+    foldr (\prevHead tail -> (f prevHead) : tail) Nil list
 ```
 
 ## Laws
