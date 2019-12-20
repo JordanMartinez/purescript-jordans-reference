@@ -121,7 +121,7 @@ instance foldableBox :: Foldable Box where
   foldr reduceToB initialB (Box a) = reduceToB a initialB
 
   foldMap :: forall a m. Monoid m => (a -> m) -> Box a -> m
-  foldMap putIntoMonoid (Box a) = putIntoMonoid a
+  foldMap aToMonoid (Box a) = aToMonoid a
 ```
 
 #### `Maybe`'s instance
@@ -139,9 +139,11 @@ instance foldableMaybe :: Foldable Maybe where
   foldr reduceToB initialB (Just a) = reduceToB a initialB
   foldr _         initialB Nothing  =             initialB
 
+  -- While we could implement this the same way as `Box`, let's reuse
+  -- `foldl` to implement it
   foldMap :: forall a m. Monoid m => (a -> m) -> Maybe a -> m
-  foldMap putIntoMonoid (Just a) = putIntoMonoid a
-  foldMap _             Nothing  = mempty
+  foldMap aToMonoid maybe =
+    foldl (\b a -> b <> (aToMonoid a)) mempty maybe
 ```
 
 #### `List`'s instance
@@ -167,8 +169,11 @@ instance foldableList :: Foldable List where
   foldr op initialB (head : tail) =
     op (head (foldl op initialB tail))
 
+  -- Unlike Box, reusing `foldl`/`foldr` is actually the cleaner way
+  -- to implement `foldMap` for `List`.
   foldMap :: forall a m. Monoid m => (a -> m) -> List a -> m
-  foldMap putIntoMonoid list = foldl putIntoMonoid mempty list
+  foldMap aToMonoid maybe =
+    foldl (\b a -> b <> (aToMonoid a)) mempty maybe
 
 instance functorList :: Functor List where
   map f list =
