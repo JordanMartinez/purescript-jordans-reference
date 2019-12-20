@@ -182,12 +182,175 @@ instance functorList :: Functor List where
     foldr (\prevHead tail -> (f prevHead) : tail) Nil list
 ```
 
+### General Usage Patterns
+
+We'll see more of this in the upcoming overview of the derived functions. However, `foldl` and its corresponding members tend to follow a few patterns:
+
+```purescript
+reduceAllAsIntoOneAValue = foldl reduce initial foldableType
+  where
+    iniital = -- a type class value or hard-coded value
+              -- like `mempty` or `true` or `Data.Ordering.LT`, etc.
+
+    reduce = -- some type class function like `<>` or `&&` or `+`, etc.
+             -- Note: sometimes this function will change the `a` to
+             -- a different type before the function receives it as an argument
+
+-- allows this type of computation: "a1 `operation` a2 `operation` a3"
+thereIsNoInitialB_iterateThroughAllAValues =
+  foldl reduce initial foldableType
+
+  where
+    initial = { isFirstRun: true, value: initialValue }
+    reduce b a =
+      { isFirstRun: false, value:
+          if b.isFirstRun then a else (realReduceFunction b.value a)
+      }
+
+buildHigherKindedData = foldl build initial foldableType
+  where
+    initial = Map.empty
+    build mapSoFar nextValue =
+      let
+        key = show nextValue
+        value = someComplicatedFunction nextValue
+      in
+        Map.add mapSoFar key value
+
+forEachA_doSomeComputation = foldl compute initial foldableType
+  where
+    initial :: Effect Unit
+    initial = pure unit
+
+    compute :: a -> Effect Unit
+    compute _ nextValue = do
+      someValue <- computeUsing nextValue
+      allIsGood <- doSomethingElse someValue
+      pure unit
+```
+
 ## Laws
 
 None
 
 ## Derived Functions
 
-[A lot!](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.0.1/docs/Data.Foldable#v:fold) So we won't be covering them all here. Still, some of my favorite are:
-- `intercalate "\n" listOfStrings` - inserts a newline character between each element in the list of `String`s.
-- `fold listOfStrings` - combines all the elements in a list of `String`s into one `String`.
+We'll overview the derived functions by first grouping them into a few categories, and then providing a general definition for what each one does.
+
+### Default implementations for the members of the `Foldable` type class
+
+`foldMap` can be implemented using either `foldl` or `foldr`. Likewise, both `foldl` and `foldr` can be implemented using `foldMap`.
+
+Thus, once one has implemented one of these sets, they can use a default implementation to implement the other set:
+- if `foldl` and `foldr` both are implemented, you can implement `foldMap` by using one of the two function below:
+    - [`foldMapDefaultL`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:foldMapDefaultL) which uses `foldl` under the hood
+    - [`foldMapDefaultR`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:foldMapDefaultR) which uses `foldr` under the hood
+- if `foldMap` is implemented, you can use the functions below to implement `foldl` and `foldr`:
+    - [`foldlDefault`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:foldlDefault)
+    - [`foldrDefault`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:foldrDefault)
+
+
+### Use another type class to reduce multiple `a` values into one value.
+
+- via `Semigroup`'s `append`/`<>` function:
+    - [`fold`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:fold) == `a1 <> a2 <> ... <> aLast <> mempty`
+    - [`intercalate`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:intercalate) == `a1 <> separator <> a2 <> separator <> a3 ...`
+        - `fold` but with a separator value appended in-beteeen `a` values.
+    - [`surround`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:surroundMap) == `value <> a1 <> value <> a2 <> value ...`
+        - The inverse of intercalate
+    - [`surroundMap`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:surround) == `value <> (aToMonoid a1) <> value <> (aToMonoid a2) <> value ...`
+        - Same as `surround`, but the `a` can be changed to `b` before being appended to `value`.
+- via `HeytingAlgebra`'s `conj`/`&amp;&amp;` or `disj`/`||` functions.
+    - [`and`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:and) == `a1 && a2 && a3 && ...`
+    - [`or`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:or) == `a1 || a2 || a3 || ...`
+    - [`all`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:all) == `(aToB a1) && (aToB a2) && (aToB a3) && ...`
+        - Same as `and`, but the `a` can be changed to `b` before being `&&`'d.
+    - [`any`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:any) == `(aToB a1) || (aToB a2) || (aToB a3) || ...`
+        - Same as `or`, but the `a` can be changed to `b` before being `||`'d.
+- via `Semiring`s `plus`/`+` or `multiply`/`*` functions:
+    - [`sum`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:sum) == `a1 + a2 + a3 + ...`
+    - [`product`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:product) == `a1 * a2 * a3 * ...`
+- via `Alt`'s `alt`/`<|>` and `Plus`'s `empty` functions (very similar to the `Semigroup` and `Monoid` relationship):
+    - [`oneOf`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:oneOf) == [1, 2, 3] == `[1] <|> [2] <|> [3] <|> ...` == `foldl <|> empty [[1], [2], [3], ...]`
+    - [`oneOfMap`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:oneOfMap)
+
+### Determine information about a specific `a` value within the `Foldable` type
+
+Note: the below functions are not as performant as they could be because they will iterate through all of the `a` values in the `Foldable` type, even if the desired information is found as soon as possible when testing the first `a` value. In other words, these functions do not "short circuit".
+
+- via `Eq`'s `eq`/`==` and `notEq`/`/=` functions:
+    - [`elem`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:elem) == `(a1 == test) || (a2 == test) || (a3 == test) || ...`
+    - [`notElem`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:notElem) == `(a1 /= test) && (a2 /= test) && (a3 /= test) && ...`
+- Get the index of an `a` value within the `Foldable` type:
+    - [`indexl`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:indexl)
+    - [`indexr`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:indexr)
+- Get first element which satisfies some predicate:
+    - [`find`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:find)
+    - [`findMap`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:findMap)
+- via `Ord`'s `compare` function and its derivations (e.g. `<`, `>`, etc.):
+    - [`minimum`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:minimum)
+    - [`minimumBy`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:minimumBy)
+    - [`maximum`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:maximum)
+    - [`maximumBy`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:maximumBy)
+- Calculate the length or emptiness of the type:
+    - [`null`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:null)
+    - [`length`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:length)
+
+### Execute a "for loop" that runs an applicative/monadic computation (e.g. `Effect`) using each `a` in the `Foldable` type
+
+In the Philosophical Foundations folder, we used a recursive function to implement a for loop. I mentioned there that one could implement the same thing using a type class called `Foldable`. It is these last three functions that show how to do that.
+
+In JavaScript, we might write something like this:
+```javascript
+var array = [1, 2, 3];
+for (int i = 0; i < array.length; i++) {
+  var elem = array[i];
+  console.log(elem);
+}
+```
+
+In PureScript, we would write the same thing via `Foldable`:
+- [`for_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:for_) == `for_ array log`
+- [`traverse_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:traverse_) == `traverse_ log array`
+    - Same as `for_` but the function comes first
+- [`sequence_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:sequence_) == `sequence_ [ log "1", log "2", log "3" ]`
+    - Same as `for_` but the `a` values are applicative computations that have yet to be executed
+
+A related function is `foldM`, which allows one to run a monadic computation multiple times where the next computation depends on the output of the previous computation. **As the docs indicate, this function is not generally stack-safe.**
+
+[`foldM`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:foldM)
+
+Here's an example:
+```purescript
+main :: Effect Unit
+main = do
+  int <- randomInt 1 10
+  output <- foldl recursiveComputation 1 [1, 2, 3]
+  log $ "Output was: " <> show output
+  where
+    recursiveComputation initialOrAccumulatedValue nextValueInArray = do
+      anotherInt <- randomInt 1 nextValueInArray
+      pure (anotherInt + initialOrAccumulatedValue)
+```
+... which is the same as writing...
+```purescript
+main :: Effect Unit
+main = do
+  int <- randomInt 1 10
+
+  -- begin loop
+    -- initialOrAccumulatedValue = 1; nextValueInArray = 1
+  anotherInt1 <- randomInt 1 1
+  accmulatedValue1 <- pure (anotherInt1 + 1)
+
+    -- initialOrAccumulatedValue = 1; nextValueInArray = 2
+  anotherInt2 <- randomInt 1 2
+  accmulatedValue2 <- pure (anotherInt2 + accmulatedValue1)
+
+    -- initialOrAccumulatedValue = 1; nextValueInArray = 1
+  anotherInt3 <- randomInt 1 3
+  output <- pure (anotherInt3 + accmulatedValue2)
+  -- end loop
+
+  log $ "Output was: " <> show output
+```
