@@ -8,7 +8,6 @@ While `Foldable` allowed us to use things like `for_`, `traverse_`, and `sequenc
 
 Plain English names:
 - ForEach (traverse)
-- "Step-by-Step 'Debugger'" (scanl/scanr)
 - BoxSwap (sequence)
 
 ## Definition
@@ -62,3 +61,5 @@ scanr (+) 0 [1,  2,  3,  4, 5] ==
             [15, 14, 12, 9, 5] -- <= now we can see how that conclusion was reached
                                --    if traversing from the right
 ```
+
+In other words, the value at index `n` in the outtputted array is the output of passing the value at index `n` in the input array and the accumulated value at that point in time into the folding function (i.e. `+`). Using the `scanr` example, the input array's index 2 value (i.e. `3`) and the accumulated value at that time (the output array's index 3 value, `9`) were both passed into the folding function, `+`, to produce the output array's index 2 value (i.e. `12`).
