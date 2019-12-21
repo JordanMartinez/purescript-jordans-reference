@@ -298,7 +298,7 @@ Note: the below functions are not as performant as they could be because they wi
 
 ### Execute a "for loop" that runs an applicative/monadic computation (e.g. `Effect`) using each `a` in the `Foldable` type
 
-In the Philosophical Foundations folder, we used a recursive function to implement a for loop. I mentioned there that one could implement the same thing using a type class called `Foldable`. It is these last three functions that show how to do that.
+In the Philosophical Foundations folder, we used a recursive function to implement a "for loop." I mentioned there that one could implement the same thing using a type class called `Foldable`. It is these last three functions that show how to do that.
 
 In JavaScript, we might write something like this:
 ```javascript
@@ -310,11 +310,13 @@ for (int i = 0; i < array.length; i++) {
 ```
 
 In PureScript, we would write the same thing via `Foldable`:
-- [`for_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:for_) == `for_ array log`
-- [`traverse_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:traverse_) == `traverse_ log array`
+- *[`for_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:for_) == `for_ array log`
+- *[`traverse_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:traverse_) == `traverse_ log array`
     - Same as `for_` but the function comes first
-- [`sequence_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:sequence_) == `sequence_ [ log "1", log "2", log "3" ]`
+- *[`sequence_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:sequence_) == `sequence_ [ log "1", log "2", log "3" ]`
     - Same as `for_` but the `a` values are applicative computations that have yet to be executed
+
+* Note: that each of these computations must output only `Unit`. `Traversable`, which is covered next, removes that limitation and allows you to output any value.
 
 A related function is `foldM`, which allows one to run a monadic computation multiple times where the next computation depends on the output of the previous computation. **As the docs indicate, this function is not generally stack-safe.**
 
