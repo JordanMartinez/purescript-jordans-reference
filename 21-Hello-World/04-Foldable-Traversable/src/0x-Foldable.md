@@ -318,7 +318,7 @@ In PureScript, we would write the same thing via `Foldable`:
 - *[`sequence_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:sequence_) == `sequence_ [ log "1", log "2", log "3" ]`
     - Same as `for_` but the `a` values are applicative computations that have yet to be executed
 
-* Note: that each of these computations must output only `Unit`. `Traversable`, which is covered next, removes that limitation and allows you to output any value.
+* Note: that each of these computations must output only `Unit`. `Traversable`, which is covered next, removes that limitation.
 
 A related function is `foldM`, which allows one to run a monadic computation multiple times where the next computation depends on the output of the previous computation. **As the docs indicate, this function is not generally stack-safe.**
 
