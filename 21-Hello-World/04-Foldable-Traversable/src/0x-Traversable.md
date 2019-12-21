@@ -16,6 +16,12 @@ https://twitter.com/blouerat/status/867278331779198976
 
 ## Definition
 
+```purescript
+class (Functor t, Foldable t) <= Traversable t where
+  traverse :: forall a b m. Applicative m => (a -> m b) -> t a -> m (t b)
+  sequence :: forall a m. Applicative m => t (m a) -> m (t a)
+```
+
 See its docs: [Traversable](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable)
 
 ## Laws
