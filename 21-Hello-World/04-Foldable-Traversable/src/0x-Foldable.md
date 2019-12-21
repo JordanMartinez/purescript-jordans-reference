@@ -245,58 +245,58 @@ We'll overview the derived functions by first grouping them into a few categorie
 
 Thus, once one has implemented one of these sets, they can use a default implementation to implement the other set:
 - if `foldl` and `foldr` both are implemented, you can implement `foldMap` by using one of the two function below:
-    - [`foldMapDefaultL`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:foldMapDefaultL) which uses `foldl` under the hood
-    - [`foldMapDefaultR`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:foldMapDefaultR) which uses `foldr` under the hood
+    - [`foldMapDefaultL`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:foldMapDefaultL) which uses `foldl` under the hood
+    - [`foldMapDefaultR`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:foldMapDefaultR) which uses `foldr` under the hood
 - if `foldMap` is implemented, you can use the functions below to implement `foldl` and `foldr`:
-    - [`foldlDefault`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:foldlDefault)
-    - [`foldrDefault`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:foldrDefault)
+    - [`foldlDefault`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:foldlDefault)
+    - [`foldrDefault`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:foldrDefault)
 
 
 ### Use another type class to reduce multiple `a` values into one value.
 
 - via `Semigroup`'s `append`/`<>` function:
-    - [`fold`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:fold) == `a1 <> a2 <> ... <> aLast <> mempty`
-    - [`intercalate`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:intercalate) == `a1 <> separator <> a2 <> separator <> a3 ...`
+    - [`fold`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:fold) == `a1 <> a2 <> ... <> aLast <> mempty`
+    - [`intercalate`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:intercalate) == `a1 <> separator <> a2 <> separator <> a3 ...`
         - `fold` but with a separator value appended in-beteeen `a` values.
-    - [`surround`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:surroundMap) == `value <> a1 <> value <> a2 <> value ...`
+    - [`surround`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:surroundMap) == `value <> a1 <> value <> a2 <> value ...`
         - The inverse of intercalate
-    - [`surroundMap`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:surround) == `value <> (aToMonoid a1) <> value <> (aToMonoid a2) <> value ...`
+    - [`surroundMap`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:surround) == `value <> (aToMonoid a1) <> value <> (aToMonoid a2) <> value ...`
         - Same as `surround`, but the `a` can be changed to `b` before being appended to `value`.
 - via `HeytingAlgebra`'s `conj`/`&amp;&amp;` or `disj`/`||` functions.
-    - [`and`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:and) == `a1 && a2 && a3 && ...`
-    - [`or`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:or) == `a1 || a2 || a3 || ...`
-    - [`all`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:all) == `(aToB a1) && (aToB a2) && (aToB a3) && ...`
+    - [`and`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:and) == `a1 && a2 && a3 && ...`
+    - [`or`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:or) == `a1 || a2 || a3 || ...`
+    - [`all`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:all) == `(aToB a1) && (aToB a2) && (aToB a3) && ...`
         - Same as `and`, but the `a` can be changed to `b` before being `&&`'d.
-    - [`any`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:any) == `(aToB a1) || (aToB a2) || (aToB a3) || ...`
+    - [`any`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:any) == `(aToB a1) || (aToB a2) || (aToB a3) || ...`
         - Same as `or`, but the `a` can be changed to `b` before being `||`'d.
 - via `Semiring`s `plus`/`+` or `multiply`/`*` functions:
-    - [`sum`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:sum) == `a1 + a2 + a3 + ...`
-    - [`product`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:product) == `a1 * a2 * a3 * ...`
+    - [`sum`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:sum) == `a1 + a2 + a3 + ...`
+    - [`product`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:product) == `a1 * a2 * a3 * ...`
 - via `Alt`'s `alt`/`<|>` and `Plus`'s `empty` functions (very similar to the `Semigroup` and `Monoid` relationship):
-    - [`oneOf`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:oneOf) == [1, 2, 3] == `[1] <|> [2] <|> [3] <|> ...` == `foldl <|> empty [[1], [2], [3], ...]`
-    - [`oneOfMap`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:oneOfMap)
+    - [`oneOf`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:oneOf) == [1, 2, 3] == `[1] <|> [2] <|> [3] <|> ...` == `foldl <|> empty [[1], [2], [3], ...]`
+    - [`oneOfMap`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:oneOfMap)
 
 ### Determine information about the `Foldable` type based on the `a` values it contains / get an `a` value
 
 Note: the below functions are not as performant as they could be because they will iterate through all of the `a` values in the `Foldable` type, even if the desired information is found as soon as possible when testing the first `a` value. In other words, these functions do not "short circuit".
 
 - via `Eq`'s `eq`/`==` and `notEq`/`/=` functions:
-    - [`elem`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:elem) == `(a1 == test) || (a2 == test) || (a3 == test) || ...`
-    - [`notElem`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:notElem) == `(a1 /= test) && (a2 /= test) && (a3 /= test) && ...`
+    - [`elem`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:elem) == `(a1 == test) || (a2 == test) || (a3 == test) || ...`
+    - [`notElem`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:notElem) == `(a1 /= test) && (a2 /= test) && (a3 /= test) && ...`
 - Get the index of an `a` value within the `Foldable` type:
-    - [`indexl`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:indexl)
-    - [`indexr`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:indexr)
+    - [`indexl`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:indexl)
+    - [`indexr`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:indexr)
 - Get first element which satisfies some predicate:
-    - [`find`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:find)
-    - [`findMap`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:findMap)
+    - [`find`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:find)
+    - [`findMap`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:findMap)
 - via `Ord`'s `compare` function and its derivations (e.g. `<`, `>`, etc.):
-    - [`minimum`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:minimum)
-    - [`minimumBy`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:minimumBy)
-    - [`maximum`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:maximum)
-    - [`maximumBy`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:maximumBy)
+    - [`minimum`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:minimum)
+    - [`minimumBy`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:minimumBy)
+    - [`maximum`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:maximum)
+    - [`maximumBy`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:maximumBy)
 - Calculate the length or emptiness of the type:
-    - [`null`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:null)
-    - [`length`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:length)
+    - [`null`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:null)
+    - [`length`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:length)
 
 ### Execute a "for loop" that runs an applicative/monadic computation (e.g. `Effect`) using each `a` in the `Foldable` type
 
@@ -312,17 +312,17 @@ for (int i = 0; i < array.length; i++) {
 ```
 
 In PureScript, we would write the same thing via `Foldable`:
-- *[`for_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:for_) == `for_ array log`
-- *[`traverse_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:traverse_) == `traverse_ log array`
+- *[`for_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:for_) == `for_ array log`
+- *[`traverse_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:traverse_) == `traverse_ log array`
     - Same as `for_` but the function comes first
-- *[`sequence_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:sequence_) == `sequence_ [ log "1", log "2", log "3" ]`
+- *[`sequence_`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:sequence_) == `sequence_ [ log "1", log "2", log "3" ]`
     - Same as `for_` but the `a` values are applicative computations that have yet to be executed
 
 * Note: that each of these computations must output only `Unit`. `Traversable`, which is covered next, removes that limitation and allows you to output any value.
 
 A related function is `foldM`, which allows one to run a monadic computation multiple times where the next computation depends on the output of the previous computation. **As the docs indicate, this function is not generally stack-safe.**
 
-[`foldM`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:foldM)
+[`foldM`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:foldM)
 
 Here's an example:
 ```purescript

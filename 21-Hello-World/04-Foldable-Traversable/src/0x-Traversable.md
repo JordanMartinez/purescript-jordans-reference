@@ -9,14 +9,14 @@ Plain English names:
 - "Step-by-Step 'Debugger'" (scanl/scanr)
 - BoxSwap (sequence)
 
-[The FP version of "for value in collection, run some impure computation"](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.0.1/docs/Data.Traversable#v:for)
+[The FP version of "for value in collection, run some impure computation"](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable#v:for)
 
 Oh... one other thing...
 https://twitter.com/blouerat/status/867278331779198976
 
 ## Definition
 
-See its docs: [Traversable](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.0.1/docs/Data.Traversable)
+See its docs: [Traversable](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable)
 
 ## Laws
 
@@ -27,12 +27,12 @@ TODO
 ### Default implementations for the members of the `Traversable` type class
 
 `traverse` can be implemented using `sequence` and `sequence` can be implemented using `traverse`. Similar to `Foldable`, once one has implemented one of these when writing a `Traversable` instance for a data type, they can use a default implementation to implement the other:
-- if `traverse` is implemented, you can implement `sequence` by using [`sequenceDefault`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.0.1/docs/Data.Traversable#v:sequenceDefault)
-- if `sequence` is implemented, you can implement `traverse` by using [`traverseDefault`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.0.1/docs/Data.Traversable#v:traverseDefault)
+- if `traverse` is implemented, you can implement `sequence` by using [`sequenceDefault`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable#v:sequenceDefault)
+- if `sequence` is implemented, you can implement `traverse` by using [`traverseDefault`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable#v:traverseDefault)
 
 ### `for` is `traverse` with its arguments flipped
 
-- [`for`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.0.1/docs/Data.Traversable#v:for)
+- [`for`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable#v:for)
 
 ### Step-by-step debugger for a `foldl`/`foldr` output
 
@@ -44,8 +44,8 @@ foldl (+) 0 [1, 2, 3, 4,  5 ] ==
 ```
 
 In such cases, you use
-- [`scanl`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.0.1/docs/Data.Traversable#v:scanl)
-- [`scanr`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.0.1/docs/Data.Traversable#v:scanr)
+- [`scanl`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable#v:scanl)
+- [`scanr`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable#v:scanr)
 
 ```purescript
 foldl (+) 0 [1, 2, 3, 4,  5 ] ==
