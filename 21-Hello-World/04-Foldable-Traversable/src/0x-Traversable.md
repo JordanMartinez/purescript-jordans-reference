@@ -36,13 +36,14 @@ TODO
 
 - [`for`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable#v:for)
 
-### Step-by-step debugger for a `foldl`/`foldr` output
+### Outputting each step's accumulated value at that time for a `foldl`/`foldr` computation
 
-The downside of using `foldl`/`foldr` is that you only know the computation's final output, not how that output is reached. In some situations, you may want to know what was the output of each iteration. Or, perhaps you want to know what the second-to-last value of the output was.
+The downside of using `foldl`/`foldr` is that you only know the `foldl`/`foldr` computation's final output. You don't know how that output was reached / what each step's accumulated value was.
 
 ```purescript
 foldl (+) 0 [1, 2, 3, 4,  5 ] ==
             15 -- <= know the output, but don't know how we reached that conclusion
+               --    What was the output of `accumulatedValueAtThatPoint + 2`?
 ```
 
 In such cases, you use
@@ -63,3 +64,61 @@ scanr (+) 0 [1,  2,  3,  4, 5] ==
 ```
 
 In other words, the value at index `n` in the outtputted array is the output of passing the value at index `n` in the input array and the accumulated value at that point in time into the folding function (i.e. `+`). Using the `scanr` example, the input array's index 2 value (i.e. `3`) and the accumulated value at that time (the output array's index 3 value, `9`) were both passed into the folding function, `+`, to produce the output array's index 2 value (i.e. `12`).
+
+### Outputting **both** the output **and** each step's accumulated value at that time for a `foldl`/`foldr` computation
+
+The downside of using `scanl`/`scanr` is that we don't have access to **both** the final output of the fold **and** the path it took to get there.
+
+```purescript
+foldl (+) 0 [1, 2, 3, 4,  5 ] ==
+            15 -- <= know the output, but don't know the path of how we got there
+
+scanl (+) 0 [1, 2, 3, 4,  5 ] ==
+            [1, 3, 6, 10, 15] -- <= know the path, but not the output
+```
+
+In such cases, you can use
+- [`mapAccumL`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable#v:mapAccumL)
+- [`mapAccumR`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable#v:mapAccumR)
+
+```purescript
+foldl (+) 0 [1, 2, 3, 4,  5 ] ==
+            15 -- <= know the output, but don't know the path of how we got there
+
+scanl (+) 0 [1, 2, 3, 4,  5 ] ==
+            [1, 3, 6, 10, 15] -- <= know the path, but not the output
+
+type Accum s a = { accum :: s, value :: a }
+
+mapAccumL (\accumulationSoFar nextValue ->
+    let outputAtThisStep = accumulationSoFar + nextValue
+    in { accum: outputAtThisStep, value: outputAtThisStep}
+  ) 0                [1, 2, 3, 4,  5 ] ==
+  {accum: 15, value: [1, 3, 6, 10, 15]} -- <= know both output and path
+```
+
+You can see how `mapAccumL`/`mapAccumR` enables you to write even complex computations fairly easily. Still, these two functions are more expressive than just a combining the outputs of `foldl` and `scanl` in one computation, since they allow for more types to be used in the computation.
+
+Below is a nonsensical example demonstrating this:
+```purescript
+import Prelude
+import Data.Traversable (mapAccumL)
+import Data.Traversable.Accum (Accum)
+import Data.Foldable (sum, length)
+import Data.Array (snoc)
+
+-- type Accum s a = { accum :: s, value :: a }
+
+nonsensicalExample :: Accum (Array Int) (Array Int)
+nonsensicalExample = mapAccumL reducer [] [1, 2, 3, 4, 5]
+  where
+  reducer :: Array Int -> Int -> Accum (Array Int) Int
+  reducer accumulationSoFar nextValue =
+    let
+      arrayLength = length accumulationSoFar
+      arraySum = sum accumulationSoFar -- foldl (+) 0 accumulationSoFar
+    in { accum: accumulationSoFar `snoc` arrayLength `snoc` arraySum
+       , value: show $ nextValue + arraySum
+       }
+```
+produces `{ accum: [0,0,2,0,4,2,6,8,8,22], value: ["1", "2", "5", "12", "27"] }`
