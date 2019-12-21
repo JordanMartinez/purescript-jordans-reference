@@ -5,6 +5,7 @@
 Plain English names:
 - Summarizeable
 - Reducible
+- FP version of the Iterator Pattern
 
 ```
   Given
