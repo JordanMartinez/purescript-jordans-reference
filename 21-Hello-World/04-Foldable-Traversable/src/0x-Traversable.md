@@ -24,4 +24,8 @@ TODO
 
 ## Derived Functions
 
-TODO
+### Default implementations for the members of the `Traversable` type class
+
+`traverse` can be implemented using `sequence` and `sequence` can be implemented using `traverse`. Similar to `Foldable`, once one has implemented one of these when writing a `Traversable` instance for a data type, they can use a default implementation to implement the other:
+- if `traverse` is implemented, you can implement `sequence` by using [`sequenceDefault`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.0.1/docs/Data.Traversable#v:sequenceDefault)
+- if `sequence` is implemented, you can implement `traverse` by using [`traverseDefault`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.0.1/docs/Data.Traversable#v:traverseDefault)
