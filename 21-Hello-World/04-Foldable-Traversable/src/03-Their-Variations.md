@@ -14,7 +14,7 @@ The same as their base type classes, but an additional `Int` argument represent 
 
 The same as their base type classes, but the `f` type must always have at least 1 `a` value. As a result, the `Applicative` requirement in the type class' functions can be downgraded to just `Apply`:
 - [`Foldable1`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Semigroup.Foldable)
-- [`Traversable`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Semigroup.Traversable)
+- [`Traversable1`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Semigroup.Traversable)
 
 ## Variants where the `f` can have 2 types
 
