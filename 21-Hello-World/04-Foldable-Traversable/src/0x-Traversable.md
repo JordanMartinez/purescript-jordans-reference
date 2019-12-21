@@ -2,6 +2,8 @@
 
 ## Usage
 
+While `Foldable` allowed us to use things like `for_`, `traverse_`, and `sequence_`, these three functions restricted computations to only outputting `Unit`. `Traversable` removes that restriction. Moreover, it enables a few other nice things.
+
 Plain English names:
 - ForEach (traverse)
 - "Step-by-Step 'Debugger'" (scanl/scanr)
