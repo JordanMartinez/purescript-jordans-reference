@@ -276,7 +276,7 @@ Thus, once one has implemented one of these sets, they can use a default impleme
     - [`oneOf`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:oneOf) == [1, 2, 3] == `[1] <|> [2] <|> [3] <|> ...` == `foldl <|> empty [[1], [2], [3], ...]`
     - [`oneOfMap`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.1.1/docs/Data.Foldable#v:oneOfMap)
 
-### Determine information about a specific `a` value within the `Foldable` type
+### Determine information about the `Foldable` type based on the `a` values it contains / get an `a` value
 
 Note: the below functions are not as performant as they could be because they will iterate through all of the `a` values in the `Foldable` type, even if the desired information is found as soon as possible when testing the first `a` value. In other words, these functions do not "short circuit".
 
