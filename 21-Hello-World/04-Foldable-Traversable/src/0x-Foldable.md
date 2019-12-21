@@ -198,7 +198,8 @@ reduceAllAsIntoOneAValue = foldl reduce initial foldableType
 
 -- allows this type of computation: "a1 `operation` a2 `operation` a3"
 thereIsNoInitialB_iterateThroughAllAValues =
-  foldl reduce initial foldableType
+  let record = foldl reduce initial foldableType
+  in record.value
 
   where
     initial = { isFirstRun: true, value: initialValue }
