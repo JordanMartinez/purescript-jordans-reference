@@ -10,8 +10,9 @@ Documented version: `0.12.3`
 
 ## Spago (PureScript Build Tool & Dependency Manager)
 
-Documented version: `0.12.1.0`
+Documented version: `0.13.0`
 
+There were no CLI changes between `0.12.1` and `0.13.0`:
 ![CLI Options: Spago (svg)](./assets/CLI-Options--Spago.svg)
 
 ## Pulp (PureScript Build Tool)
