@@ -1,4 +1,4 @@
-# Foldable Traversable
+# Collections and Loops
 
 This folder will overview the `purescript-foldable-traversable` and `purescript-filterable` libraries. Together, these libraries provide most of the functions one would use when working with collections.
 
