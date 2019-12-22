@@ -2,11 +2,13 @@
 
 To understand what problem optics solve and why they are an essential tool in the FP toolbox, read Thomas Honeyman's [Practical Profunctor Lenses & Optics in PureScript](https://thomashoneyman.com/articles/practical-profunctor-lenses-optics/).
 
-Lenses have already been explained quite clearly in a book that uses PureScript to do so via [Lenses for the Mere Mortal: Purescript Edition](https://leanpub.com/lenses). I've read it and recommend it.
+To learn how to use lenses...
+- with an explanation behind how it works, read [Optics by Example](https://leanpub.com/optics-by-example/). Although the language used is Haskell, much of it will transfer over. I'd recommend this book over the below one, which came out earlier.
+- without much explanation behind how it works, read [Lenses for the Mere Mortal: Purescript Edition](https://leanpub.com/lenses).
 
-Once you have finished the Lenses book mentioned below, see [Oleg's Glassery post](http://oleg.fi/gists/posts/2017-04-18-glassery.html)
-
-Lenses are also explained in the [Racket Programming Languages's Lenses Guide](https://docs.racket-lang.org/lens/index.html). I'm not sure how helpful it is or what it further explains besides the above book, but I'm still including it here.
+Below are other resources that are more reference material than clear explanations to beginners:
+- [Oleg's Glassery post](http://oleg.fi/gists/posts/2017-04-18-glassery.html)
+- The [Racket Programming Languages's Lenses Guide](https://docs.racket-lang.org/lens/index.html). 
 
 ## Lenses
 

@@ -119,7 +119,7 @@ let additions =
 
 
 let upstream =
-      https://github.com/purescript/package-sets/releases/download/psc-0.13.4-20191025/packages.dhall sha256:f9eb600e5c2a439c3ac9543b1f36590696342baedab2d54ae0aa03c9447ce7d4
+      https://github.com/purescript/package-sets/releases/download/psc-0.13.5-20191215/packages.dhall sha256:fdc5d54cd54213000100fbc13c90dce01668a73fe528d8662430558df3411bee
 
 let overrides = {=}
 
@@ -141,18 +141,13 @@ let additions =
               , "datetime"
               , "now"
               ]
-          , repo =
-              "https://github.com/JordanMartinez/purescript-benchotron.git"
-          , version =
-              "v8.0.0"
+          , repo = "https://github.com/JordanMartinez/purescript-benchotron.git"
+          , version = "v8.0.0"
           }
       , tree =
-          { dependencies =
-              [ "prelude", "console", "lists", "free" ]
-          , repo =
-              "https://github.com/JordanMartinez/purescript-tree.git"
-          , version =
-              "v1.3.6"
+          { dependencies = [ "prelude", "console", "lists", "free" ]
+          , repo = "https://github.com/JordanMartinez/purescript-tree.git"
+          , version = "v1.3.6"
           }
       }
 
