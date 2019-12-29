@@ -61,7 +61,7 @@ spago build
 HELLO_DEBUGGING=$?
 cd ../../
 
-cd 21-Hello-World/04-Foldable-Traversable
+cd 21-Hello-World/04-Collections-and-Loops
 pwd
 spago build
 HELLO_FOLDABLE_TRAVERSABLE=$?
@@ -145,7 +145,7 @@ echo "$SYNTAX_PRELUDE - Syntax - Prelude"
 echo "$SYNTAX_DO_ADO_NOTATION - Syntax - Do/Ado Notation"
 echo "$HELLO_EFFECT_AND_AFF - Hello World - Effects"
 echo "$HELLO_DEBUGGING - Hello World - Debugging"
-echo "$HELLO_FOLDABLE_TRAVERSABLE - Hello World - Foldable Traversable"
+echo "$HELLO_COLLECTIONS_LOOPS - Hello World - Collections and Loops"
 echo "$HELLO_APP_STRUCT_BUILT_OK - Hello World - Application Structure - Builds correctly"
 echo "$HELLO_EXAMPLE_HELLO_WORLD_READERT - Hello World - Application Structure - Hello World - ReaderT"
 echo "$HELLO_EXAMPLE_HELLO_WORLD_FREE - Hello World - Application Structure - Hello World - Free"
@@ -170,7 +170,7 @@ if [ $SYNTAX_BASIC == 0 ] &&
    [ $SYNTAX_DO_ADO_NOTATION == 0 ] &&
    [ $HELLO_EFFECT_AND_AFF == 0 ] &&
    [ $HELLO_DEBUGGING == 0 ] &&
-   [ $HELLO_FOLDABLE_TRAVERSABLE == 0 ] &&
+   [ $HELLO_COLLECTIONS_LOOPS == 0 ] &&
    [ $HELLO_APP_STRUCT_BUILT_OK == 0 ] &&
    [ $HELLO_EXAMPLE_HELLO_WORLD_READERT == 0 ] &&
    [ $HELLO_EXAMPLE_HELLO_WORLD_FREE == 0 ] &&

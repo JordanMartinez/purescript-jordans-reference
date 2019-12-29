@@ -48,7 +48,7 @@ pwd
 spago install
 cd ../../
 
-cd 21-Hello-World/04-Foldable-Traversable
+cd 21-Hello-World/04-Collections-and-Loops
 pwd
 spago install
 cd ../../
