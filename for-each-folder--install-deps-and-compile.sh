@@ -82,7 +82,7 @@ rm -rf .psc-package/ .pulp-cache/ .psc-package.json
 spago build
 cd ../../
 
-cd 21-Hello-World/04-Foldable-Traversable/
+cd 21-Hello-World/04-Collections-and-Loops/
 pwd
 rm -rf output/ .spago/
 spago build
