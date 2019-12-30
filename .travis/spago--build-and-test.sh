@@ -64,7 +64,7 @@ cd ../../
 cd 21-Hello-World/04-Collections-and-Loops
 pwd
 spago build
-HELLO_FOLDABLE_TRAVERSABLE=$?
+HELLO_COLLECTIONS_LOOPS=$?
 cd ../../
 
 cd 21-Hello-World/05-Application-Structure/
