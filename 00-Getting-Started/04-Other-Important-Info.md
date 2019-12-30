@@ -28,8 +28,8 @@ Then, you use a search query like the following:
 | Goal | Search Query | Meaning |
 | - | - | - |
 | Find examples of projects that use a dependency (e.g. `purescript-prelude`) | [`path:/ in:file purescript-prelude`](https://github.com/search?q=path%3A%2F+in%3Afile+purescript-prelude) | Search a project's top-level files (e.g. `bower.json`/`spago.dhall`/`psc-package.json`) for the text `purescript-prelude`
-| Find real-world examples of code that uses libraries (e.g. `aff-bus`) | [`language:purescript path:src/ in:file Bus`](https://github.com/search?q=language%3Apurescript+path%3Asrc%2F+in%3Afile+Bus) | Search a project's `src` directory for files whose content mentions the `Bus` module at some point. (Note: Searching using the full module name (e.g. `Effect.Aff.Bus` doesn't work well)
-| Find real-world examples of code that uses testing libraries (e.g. `aff-bus`) | [`language:purescript path:test/ in:file QuickCheck`](https://github.com/search?q=language%3Apurescript+path%3Atest%2F+in%3Afile+QuickCheck) | Search a project's `test` directory for files whose content mentions the `QuickCheck` module at some point. (Note: Searching using the full module name (e.g. `Test.QuickCheck` doesn't work well)
+| Find real-world examples of code that uses libraries (e.g. `aff-bus`) | [`language:purescript path:src/ in:file "Effect.Aff.Bus"`](https://github.com/search?q=language%3Apurescript+path%3Asrc%2F+in%3Afile+Bus) | Search a project's `src` directory for files whose content mentions the `Effect.Aff.Bus` module at some point. (Note: the full module name must be surrounded by quotes)
+| Find real-world examples of code that uses testing libraries (e.g. `aff-bus`) | [`language:purescript path:test/ in:file "Test.QuickCheck"`](https://github.com/search?q=language%3Apurescript+path%3Atest%2F+in%3Afile+QuickCheck) | Search a project's `test` directory for files whose content mentions the `Test.QuickCheck` module at some point. (Note: the full module name must be surrounded by quotes)
 
 ## Documenation
 
