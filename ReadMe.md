@@ -2,7 +2,7 @@
 
 This repo is my way of using the [Feynman Technique](https://medium.com/taking-note/learning-from-the-feynman-technique-5373014ad230) to learn Purescript and its ecosystem.
 
-All code uses PureScript `0.13.5`
+All code uses PureScript `0.13.6`
 
 ## Table of Contents
 
