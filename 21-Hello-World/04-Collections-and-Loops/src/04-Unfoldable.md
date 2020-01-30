@@ -35,6 +35,7 @@ It enables:
 Don't look at its docs until after looking at the visual overview in the next section: [Unfoldable](https://pursuit.purescript.org/packages/purescript-unfoldable/docs/Data.Unfoldable#t:Unfoldable)
 
 ```purescript
+-- We'll ignore the `Unfoldable1` superclass for now..
 class Unfoldable1 t <= Unfoldable t where
   unfoldr :: forall a b. (b -> Maybe (Tuple a b)) -> b -> t a
 ```
