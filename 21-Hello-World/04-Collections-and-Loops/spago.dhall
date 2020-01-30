@@ -10,6 +10,7 @@ You can edit this file as you like.
     , "filterable"
     , "foldable-traversable"
     , "psci-support"
+    , "unfoldable"
     ]
 , packages = ../../packages.dhall
 , sources = [ "src/**/*.purs" ]
