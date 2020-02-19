@@ -55,4 +55,4 @@ Here's a "big picture" flowchart for what a person does and how it fits into the
     - You cannot use this workflow to develop libraries. Use `pulp` and `bower` for that.
 - Minor / has workarounds
     - There is no built-in `browserify` command (like `pulp`). So, you need to execute that command (or `parcel`) yourself.
-    - Just like `bower`, you still need to use `npm` to install JavaScript libraries for any PureScript bindings. To understand why, see https://github.com/spacchetti/spago#why-cant-spago-also-install-my-npm-dependencies
+    - Just like `bower`, you still need to use `npm` to install JavaScript libraries for any PureScript bindings. To understand why, see https://github.com/purescript/spago#why-cant-spago-also-install-my-npm-dependencies
