@@ -84,7 +84,7 @@ class Functor (Function input) where
          (originalOutput -> newOutput) ->
          Function input originalOutput -> Function input newOutput
   map originalToNew f = (\input ->
-    let originalOutput = f argument
+    let originalOutput = f input
     in {- remaining body of function -} )
 ```
 
@@ -95,7 +95,7 @@ class Functor (Function input) where
          (originalOutput -> newOutput) ->
          Function input originalOutput -> Function input newOutput
   map originalToNew f = (\input ->
-    let originalOutput = f argument
+    let originalOutput = f input
     in originalToNew originalOutput)
 ```
 
