@@ -58,7 +58,7 @@ Spago dropped support for `psc-package` commands in the `v0.11.0` release. `psc-
 | psvm-js | PureScript Version Manager | -- | https://github.com/ThomasCrevoisier/psvm-js
 | bower | Dependency Manager | -- | https://bower.io/ |
 | pulp | Build Tool | Front-end to `purs`. Builds & publishes projects | https://github.com/purescript-contrib/pulp |
-| spago | Build Tool | Front-end to `purs` and `psc-package` projects | https://github.com/spacchetti/spago
+| spago | Build Tool | Front-end to `purs` and `psc-package` projects | https://github.com/purescript/spago
 | pscid | `pulp --watch build` on steroids | Seems to be a more recent version of `psc-pane` (see below) and uses `psa` | https://github.com/kRITZCREEK/pscid
 | psa | Pretty, flexible error/warning frontend for `purs` | -- | https://github.com/natefaubion/purescript-psa
 

@@ -8,7 +8,8 @@ To learn how to use lenses...
 
 Below are other resources that are more reference material than clear explanations to beginners:
 - [Oleg's Glassery post](http://oleg.fi/gists/posts/2017-04-18-glassery.html)
-- The [Racket Programming Languages's Lenses Guide](https://docs.racket-lang.org/lens/index.html). 
+- The [Racket Programming Languages's Lenses Guide](https://docs.racket-lang.org/lens/index.html).
+- [Profunctor Optics, a Categorical Update (Extended Abstract)](https://cs.ttu.ee/events/nwpt2019/abstracts/paper14.pdf)
 
 ## Lenses
 
