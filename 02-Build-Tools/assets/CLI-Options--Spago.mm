@@ -5358,6 +5358,21 @@
 </richcontent>
 </node>
 </node>
+<node TEXT="[ -x | --source-maps ]" ID="ID_1334356340" CREATED="1582232519588" MODIFIED="1582232534915"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Whether to generate source maps for the bundle
+    </p>
+  </body>
+</html>
+
+</richcontent>
+</node>
 <node TEXT="[ -n | --no-install ]" ID="ID_1502848860" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
 
 <html>
@@ -5627,6 +5642,20 @@
 </richcontent>
 </node>
 </node>
+<node TEXT="[ -x | --source-maps ]" ID="ID_1592370697" CREATED="1582232519588" MODIFIED="1582232534915"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Whether to generate source maps for the bundle
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
 <node TEXT="[ -n | --no-install ]" ID="ID_1496746199" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
 
 <html>
@@ -5861,6 +5890,20 @@
 </html>
 </richcontent>
 </node>
+</node>
+<node TEXT="[ -x | --source-maps ]" ID="ID_990415219" CREATED="1582232519588" MODIFIED="1582232534915"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Whether to generate source maps for the bundle
+    </p>
+  </body>
+</html>
+</richcontent>
 </node>
 <node TEXT="[ -n | --no-install ]" ID="ID_652899366" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
 
@@ -6124,6 +6167,20 @@
 </richcontent>
 </node>
 </node>
+<node TEXT="[ -x | --source-maps ]" ID="ID_832971704" CREATED="1582232519588" MODIFIED="1582232534915"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Whether to generate source maps for the bundle
+    </p>
+  </body>
+</html>
+</richcontent>
+</node>
 <node TEXT="[ -n | --no-install ]" ID="ID_1947706408" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
 
 <html>
@@ -6363,6 +6420,20 @@
 </html>
 </richcontent>
 </node>
+</node>
+<node TEXT="[ -x | --source-maps ]" ID="ID_33656198" CREATED="1582232519588" MODIFIED="1582232534915"><richcontent TYPE="DETAILS">
+
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>
+      Whether to generate source maps for the bundle
+    </p>
+  </body>
+</html>
+</richcontent>
 </node>
 <node TEXT="[ -n | --no-install ]" ID="ID_786072937" CREATED="1564497682956" MODIFIED="1564497701903"><richcontent TYPE="DETAILS">
 
