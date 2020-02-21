@@ -77,7 +77,7 @@ class Functor (Function inputType) where
   map originalToNew f = (\input -> {- remaining body of function -} )
 ```
 
-2. Since `f` is the only function that can "receive" a value of type, `input`, we have to pass that value into `f`. `f` will produce `originalOutputValue`, so let's store that in a let binding:
+2. Since `f` is the only function that can "receive" a value of type, `input`, we have to pass that value into `f`. `f` will produce `originalOutput`, so let's store that in a let binding:
 ```purescript
 class Functor (Function inputType) where
   map :: forall originalOutputType newOutputType.
@@ -88,7 +88,7 @@ class Functor (Function inputType) where
     in {- remaining body of function -} )
 ```
 
-3. Since `originalTonew` is the only function that can "receive" a value of type, `originalOutput`, we have to pass the value outputted by `f` into that function. `originalTonew` produces a value of the type, `newOutput`, which gives us the return value of our created function:
+3. Since `originalToNew` is the only function that can "receive" a value of type, `originalOutput`, we have to pass the value outputted by `f` into that function. `originalToNew` produces a value of the type, `newOutput`, which gives us the return value of our created function:
 ```purescript
 class Functor (Function inputType) where
   map :: forall originalOutputType newOutputType.
@@ -112,7 +112,7 @@ class Functor (Function inputType) where
   map = (<<<)
 ```
 
-In real code, normally we could use `a`, `b` as type variable. Therefore, the above snippet will be simplfied to
+In real code, normally we use `a`, `b` as type variable. Therefore, the above snippet will be simplfied to
 ```purescript
 class Functor (Function i) where
   map :: forall a b. (a -> b) -> Function i a -> Function i b
@@ -138,7 +138,7 @@ class (Functor f) <= Apply f where
 Again, let's take this slowly. Notice first the first argument, what should the full type signature of `f (a -> b)` be if `f` is `Function`? Since the `f` has to be the same for both situations, then `f` has to be `Function input`. In other words, the first argument is a function that returns another function:
 ```purescript
 class (Functor (Function inputType)) <= Apply (Function inputType) where
-  apply :: forall a b. f (a -> b) -> f a -> f b
+  apply :: forall originalOutputType newOutputType.
            Function inputType (originalOutputType -> newOutputType) ->
            Function inputType  originalOutputType ->
            Function inputType  newOutputType
@@ -151,7 +151,7 @@ Let's see how to implement this function.
 1. Since `apply` returns a new function, let's start creating one using lambda syntax:
 ```purescript
 class (Functor (Function inputType)) <= Apply (Function inputType) where
-  apply :: forall a b. f (a -> b) -> f a -> f b
+  apply :: forall originalOutputType newOutputType.
            Function inputType (originalOutputType -> newOutputType) ->
            Function inputType  originalOutputType ->
            Function inputType  newOutputType
@@ -161,10 +161,10 @@ class (Functor (Function inputType)) <= Apply (Function inputType) where
 2. At this point, both `f` and `functionInFunction` can receive an value of type, `input`. For right now, let's do what we did last time and only pass it into `f`. We'll store the output in a let binding:
 ```purescript
 class (Functor (Function inputType)) <= Apply (Function inputType) where
-  apply :: forall a b. f (a -> b) -> f a -> f b
+  apply :: forall originalOutputType newOutputType.
            Function inputType (originalOutputType -> newOutputType) ->
            Function inputType  originalOutputType ->
-           Function inputType newOutputType
+           Function inputType  newOutputType
   apply functionInFunction f = (\input ->
     let originalOutput = f input
     in {- body of function -})
@@ -173,10 +173,10 @@ class (Functor (Function inputType)) <= Apply (Function inputType) where
 3. At this point, the only way to get map `originalOutput` into `newOutput` is to pass it into the function that's hidden in `functionInFunction`. How do we get that out? We can pass `input` into that function. Again, we'll store that output in a let binding:
 ```purescript
 class (Functor (Function inputType)) <= Apply (Function inputType) where
-  apply :: forall a b. f (a -> b) -> f a -> f b
+  apply :: forall originalOutputType newOutputType.
            Function inputType (originalOutputType -> newOutputType) ->
            Function inputType  originalOutputType ->
-           Function inputType newOutputType
+           Function inputType  newOutputType
   apply functionInFunction f = (\input ->
     let
       originalOutput = f input
@@ -187,10 +187,10 @@ class (Functor (Function inputType)) <= Apply (Function inputType) where
 4. We now have all the pieces we need to return `newOutput`. Let's pass `originalOutput` into `originalTonew`:
 ```purescript
 class (Functor (Function inputType)) <= Apply (Function inputType) where
-  apply :: forall a b. f (a -> b) -> f a -> f b
+  apply :: forall originalOutputType newOutputType.
            Function inputType (originalOutputType -> newOutputType) ->
            Function inputType  originalOutputType ->
-           Function inputType newOutputType
+           Function inputType  newOutputType
   apply functionInFunction f = (\input ->
     let
       originalOutput = f input
@@ -201,10 +201,10 @@ class (Functor (Function inputType)) <= Apply (Function inputType) where
 Great! Can we clean it up now?
 ```purescript
 class (Functor (Function inputType)) <= Apply (Function inputType) where
-  apply :: forall a b. f (a -> b) -> f a -> f b
+  apply :: forall originalOutputType newOutputType.
            Function inputType (originalOutputType -> newOutputType) ->
            Function inputType  originalOutputType ->
-           Function inputType newOutputType
+           Function inputType  newOutputType
   apply functionInFunction f = (\input -> (functionInFunction input) (f input))
 ```
 
