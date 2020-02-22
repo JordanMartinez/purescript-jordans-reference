@@ -12,7 +12,7 @@ class Functor (Function inputType) where
          Function inputType originalOutputType ->
          Function inputType newOutputType
   map originalToNew f = (\input ->
-    let originalOutput = f argument
+    let originalOutput = f input
     in originalToNew originalOutput)
 
 class (Functor (Function inputType)) <= Apply (Function inputType) where
