@@ -6,19 +6,20 @@ This file will help you learn how to read a monadic function's "do notation." We
 
 To help us evaluate these examples manually, we'll include our verbose "not cleaned up" solutions from the previous file here (except for the `Applicative` one):
 ```purescript
-class Functor (Function input) where
-  map :: forall originalOutput newOutput.
-         (originalOutput -> newOutput) ->
-         Function input originalOutput -> Function input newOutput
+class Functor (Function inputType) where
+  map :: forall originalOutputType newOutputType.
+         (originalOutputType -> newOutputType) ->
+         Function inputType originalOutputType ->
+         Function inputType newOutputType
   map originalToNew f = (\input ->
-    let originalOutput = f argument
+    let originalOutput = f input
     in originalToNew originalOutput)
 
-class (Functor (Function input)) <= Apply (Function input) where
-  apply :: forall originalOutput newOutput.
-           Function input (originalOutput -> newOutput) ->
-           Function input  originalOutput ->
-           Function input newOutput
+class (Functor (Function inputType)) <= Apply (Function inputType) where
+  apply :: forall originalOutputType newOutputType.
+           Function inputType (originalOutputType -> newOutputType) ->
+           Function inputType  originalOutputType ->
+           Function inputType  newOutputType
   apply functionInFunction f = (\input ->
     let
       originalOutput = f input
@@ -27,15 +28,15 @@ class (Functor (Function input)) <= Apply (Function input) where
 
 -- Since pure ignores its argument, I'll use the cleaned up version
 -- here because it's easier to understand
-class (Apply (Function input)) <= Applicative (Function input) where
-  pure :: forall output. output -> Function input output
+class (Apply (Function inputType)) <= Applicative (Function inputType) where
+  pure :: forall outputType. outputType -> Function inputType outputType
   pure value = (\_ -> value)
 
-class (Apply (Function input)) <= Bind (Function input) where
-  bind :: forall originalOutput newOutput.
-          (originalOutput -> Function input newOutput) ->
-          Function input originalOutput ->
-          Function input newOutput
+class (Apply (Function inputType)) <= Bind (Function inputType) where
+  bind :: forall originalOutputType newOutputType.
+          (originalOutputType -> Function inputType newOutputType) ->
+          Function inputType originalOutputType ->
+          Function inputType newOutputType
   bind originalToFunction f = (\input ->
     let
       originalOutput = f input

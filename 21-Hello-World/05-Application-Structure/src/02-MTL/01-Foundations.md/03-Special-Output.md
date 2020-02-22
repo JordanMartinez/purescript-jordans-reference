@@ -361,6 +361,6 @@ If we were to generalize our function to a monad, it would look like this:
 ```purescript
 newtype OutputMonad a m b = (a -> m b)
 
-runOutputMonad :: forall m a b. Monad m => Ouput a m b -> a -> m b
+runOutputMonad :: forall m a b. Monad m => OutputMonad a m b -> a -> m b
 runOutputMonad (OutputMonad function) arg = function arg
 ```
