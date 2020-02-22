@@ -36,8 +36,8 @@ produceComputation = runOutputEffect someComputation 4
   someComputation = do
     five <- (\four -> pure $ 1 + four)
     three <- (\fourAgain -> pure $ 7 - fourAgain)
-    intBetween0And2 <- (\fourOnceMore -> randomInt 0 $ 13 + fourOnceMore - five)
-    (\fourTooMany -> log $ show $ 8 - intBetween0And2)
+    intBetween0And12 <- (\fourOnceMore -> randomInt 0 $ 13 + fourOnceMore - five)
+    (\fourTooMany -> log $ show $ 8 - intBetween0And12)
 ```
 
 But what if we expressed the same idea using capabilities via type class constraints? This is the same code as above:
@@ -47,13 +47,13 @@ produceComputation = runOutputMonad someComputation 4
   someComputation :: forall m. Monad m =>
                      MonadReader Int m =>
                      MonadEffect m =>
-                     m String
+                     OutputMonad Int m String
   someComputation = do
     four <- ask
     let five = 1 + four
     let three = 7 - four
-    intBetween0And2 <- liftEffect $ randomInt 0 $ 13 + four - five
-    liftEffect $ log $ show $ 8 - intBetween0And2
+    intBetween0And12 <- liftEffect $ randomInt 0 $ 13 + four - five
+    liftEffect $ log $ show $ 8 - intBetween0And12
 ```
 
 ## Introducing `ReaderT`
