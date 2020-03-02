@@ -1,5 +1,10 @@
 # Closing Thoughts
 
+## Stack-Safe Recursive Functions
+
+At this point, you should read through the `Design Patterns/Stack Safety.md` file. That file covers the two other kinds of loops: recursive loops and `Effect`-based loops like `whileE`, `forE`, and `untilE`.
+
+## When to Use It? Array vs List
 > Hello. When should I use Array and when List?
 
 > It depends on which operations you want to do. Any update on an array is `Ө(n)` but random lookup is `O(1)`. Lists have efficient operations at the front, and everything else is `O(n)`. Array updates copy all other elements, resulting in twice the memory usage, while for most list operations the result and the source share part of the list. However, lists use a less compact layout in memory.

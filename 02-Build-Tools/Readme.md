@@ -50,6 +50,10 @@ The below image summarizes the current state:
 
 Spago dropped support for `psc-package` commands in the `v0.11.0` release. `psc-package` is still usable and is more or less feature-complete. However, no further work on it will likely be done. Rather, Spago has become the main dependency manager when utilizing package-sets.
 
+### Phase 5: The `bower` package registry no longer accepts new uploads
+
+See [The `bower` registry is no longer accepting package submissions](https://discourse.purescript.org/t/the-bower-registry-is-no-longer-accepting-package-submissions/1103/) for more context.
+
 ## Overview of Tools
 
 | Name | Type/Usage | Comments | URL |
