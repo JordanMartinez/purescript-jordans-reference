@@ -6,7 +6,19 @@ In FP, we often use recusive functions to solve problems:
 - changing all elements in a container-like type (e.g. `List`, `Tree`, `Array`, etc.) from one thing to another
 - running some computation and, if it fails, retrying it again until it succeeds
 
-For example, the below `factorial'` function calculates its result by calling itself recursively. Just like any other recursive function, there is a "base case" that stops the recursion and a "recursive case" that continues it. We always pattern match on the "base case" before defaulting to the recursive case.
+For example, the below `factorial'` function calculates its result by calling itself recursively.
+```purescript
+factorial :: Int -> Int
+factorial n = n * (factorial (n - 1))
+```
+
+However, this design choice comes with an annoying problem: stack-safety. While this recursive function will theoretically always "return," the number of stacks it takes depends on its input. Unfortunately, computers have limited resources and cannot always provide the total number of stacks such a function needs. If we call `factorial` with a "large" enough input (e.g. `99999`), the computer will "blow the stack" and produce a StackOverflow runtime error.
+
+So, how do we prevent this?
+
+## Tail-Call Optimization for Pure Functions via the Last Branch
+
+Our first defense against this is "tail-call optimization." In short, we indicate that a recursive function should be converted into a stack-friendly `while` loop. When writing simple recursive functions, we can trigger the tail-call optimization only if we call the function recursively in the final "branch." For example, if we rewrote the above computation to store the "accumulated value" as another argument to the function, then we could call the function recursively in the last branch:
 ```purescript
 factorial :: Int -> Int
 factorial n = go n 1
@@ -16,16 +28,22 @@ factorial n = go n 1
   go loopsRemaining accumulatedSoFar =
     go (loopsRemaining - 1) (loopsRemaining * accumulatedSoFar)
 ```
+If we called `factorial 4`, this is how the code would execute where each line is another loop in the `while` loop:
+```
+go 4 1
+go (4 - 1) (4 * 1)
+go (4 - 1 - 1) (3 * 4 * 1)
+go (4 - 1 - 1 - 1) (2 * 3 * 4 * 1)
+go (4 - 1 - 1 - 1 - 1) (1 * 2 * 3 * 4 * 1)
+go (1) (24)
+24
+```
 
-However, this design choice comes with an annoying problem: stack-safety. While this recursive function will theoretically always "return," the number of stacks it takes depends on its input. Unfortunately, computers have limited resources and cannot always provide the total number of stacks such a function needs. If we call `factorial` with a "large" enough input (e.g. `99999`), the computer will "blow the stack" and produce a StackOverflow runtime error.
+## Tail-Call Optimization for Pure Functions via Multiple Branches
 
-So, how do we prevent this?
+The above recursive function is stack-safe only because the recursion occurs once in the last pattern match branch. However, what if we had multiple branches where we needed to call it recursively? In such situations, the tail-call optimization won't be triggered.
 
-## Tail-Call Optimization for Pure Functions
-
-Our first defense against this is "tail-call optimization." In short, we indicate that a recursive function should be converted into a stack-friendly `while` loop. As long as we keep our function pure and side-effect free, this is no different than our above code.
-
-In our above recursive function, we had a "base case" and a "recursive case." In PureScript, we use the data type `Step` to indicate whether our function has finished (base case) or needs to continue looping (recursive case):
+Recursive functions always have a "base case" that ends the recursion and a "recursive case" that continues it. In PureScript, we use a special function called [`tailRec`](https://pursuit.purescript.org/packages/purescript-tailrec/4.0.0/docs/Control.Monad.Rec.Class#v:tailRec) alongside of a data type called `Step` to achieve stack-safety at the cost of some performance. `Step` indicates whether our function has finished (base case) or needs to continue looping (recursive case):
 ```purescript
 data Step accumulatedValue finalValue
   -- recursive case: keep looping
@@ -34,9 +52,7 @@ data Step accumulatedValue finalValue
   | Done finalValue
 ```
 
-Then, we use a special function called [`tailRec`](https://pursuit.purescript.org/packages/purescript-tailrec/4.0.0/docs/Control.Monad.Rec.Class#v:tailRec) to convert our recursive function into a `while` loop.
-
-Here is our original stack-unsafe `factorial` function:
+Here is our previous stack-safe `factorial` function:
 ```purescript
 factorial :: Int -> Int
 factorial n = go n 1
@@ -47,7 +63,7 @@ factorial n = go n 1
     go (loopsRemaining - 1) (loopsRemaining * accumulatedSoFar)
 ```
 
-Here is our modified stack-safe `factorial` function using `tailRec`:
+Here is the same implementation via `tailRec`:
 ```purescript
 factorial :: Int -> Int
 factorial n = tailRec go { loopsRemaining: n, accumulatedSoFar: 1 }
@@ -55,6 +71,20 @@ factorial n = tailRec go { loopsRemaining: n, accumulatedSoFar: 1 }
   go ::      { loopsRemaining :: Int, accumulatedSoFar :: Int }
      -> Step { loopsRemaining :: Int, accumulatedSoFar :: Int } Int
   go { loopsRemaining: 1,         accumulatedSoFar: acc } = Done acc
+  go { loopsRemaining: remaining, accumulatedSoFar: acc } =
+    Loop { loopsRemaining: remaining - 1, accumulatedSoFar: remaining * acc }
+```
+
+Let's write the same function but utilize more branches without losing stack-safety. In the below example, if one calls `factorial 1`, `factorial 2`, or `factorial 3`, the function will return in one "loop." If one calls `factorial n` where `n` is greater than 3, the function will return in 2 less loops than our previous implementation at the cost of more checks per loop:
+```purescript
+factorial :: Int -> Int
+factorial n = tailRec go { loopsRemaining: n, accumulatedSoFar: 1 }
+  where
+  go ::      { loopsRemaining :: Int, accumulatedSoFar :: Int }
+     -> Step { loopsRemaining :: Int, accumulatedSoFar :: Int } Int
+  go { loopsRemaining: 1,         accumulatedSoFar: acc } = Done acc
+  go { loopsRemaining: 2,         accumulatedSoFar: acc } = Done (2 * acc)
+  go { loopsRemaining: 3,         accumulatedSoFar: acc } = Done (6 * acc)
   go { loopsRemaining: remaining, accumulatedSoFar: acc } =
     Loop { loopsRemaining: remaining - 1, accumulatedSoFar: remaining * acc }
 ```
