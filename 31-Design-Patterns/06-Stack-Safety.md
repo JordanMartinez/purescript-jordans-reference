@@ -157,7 +157,7 @@ The third caveat is that `tailRecM` isn't always heap-safe. Responding to anothe
 
 We'll cover the `Ref`s + `whileE`/`forE` in a later section.
 
-## Us `Trampoline`
+## Use `Trampoline`
 
 Another solution is to use laziness. **Note: this approach still trades stack for heap and is possibly head-unsafe.**
 
