@@ -1,5 +1,9 @@
 # External Explanations
 
+## Contravariant
+
+- George Wilson's [Contravariant Functors: The Other Side of the Coin](https://www.youtube.com/watch?v=IJ_bVVsQhvc)
+
 ## Comonad
 
 - Chris Penner's [Comonads by Example](https://github.com/ChrisPenner/comonads-by-example) (I highly recommend it).
