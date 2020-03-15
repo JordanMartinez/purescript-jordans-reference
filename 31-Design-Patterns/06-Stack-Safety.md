@@ -145,6 +145,20 @@ main :: Effect Unit
 main = tailRecM printMessageAndLoop { loopsRemaining: 10000 }
 ```
 
+### Using `PureScript-Safely`
+
+Let's say you wrote some recursive code and then later realized that it's not stack-safe. Let's also say that you have to use `MonadRec` to make it stack-safe. If you want to make the code stack-safe without modifying it, you could use the [`purescript-safely`](https://pursuit.purescript.org/packages/purescript-safely/4.0.0) library.
+
+As `@hdgarrood` points out:
+
+> The benefit is that you can take existing code which uses monadic recursion in a potentially stack-unsafe way and have it work without having to modify that code. ([source](https://discourse.purescript.org/t/how-to-avoid-stack-overflow-with-monads/1209/13))
+
+For example, see [safely](https://pursuit.purescript.org/packages/purescript-safely/4.0.0/docs/Control.Safely#v:safely).
+
+However, this comes with a tradeoff. `@hdgarrood` also states:
+
+> [purescript-safely] is probably one of the simplest ways of making a recursive monadic computation stack-safe, but probably has some of the highest overheads too. ([source](https://discourse.purescript.org/t/how-to-avoid-stack-overflow-with-monads/1209/8))
+
 ### Three Caveats of Using `tailRecM`
 
 There are two main drawbacks to `MonadRec`:
