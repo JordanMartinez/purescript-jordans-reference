@@ -89,9 +89,9 @@ warning = """
 
 WARNING!
 
-The 'where' clause cannot be used with pattern matching due to a bug
-in the Purescript langauge
-GitHub Issue: https://github.com/purescript/purescript/issues/888
+The 'where' clause cannot be used with pattern matching. This is intentional.
+For context, see the GitHub Issue:
+https://github.com/purescript/purescript/issues/888
 
 This will not compile:
 -------------------------------------------------------------
