@@ -6,12 +6,17 @@
 
 **Implemented enhancements:**
 
+- Update NVM to v0.35.3 [\#442](https://github.com/JordanMartinez/purescript-jordans-reference/issues/442) [[Meta](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Meta)] [[enhancement](https://github.com/JordanMartinez/purescript-jordans-reference/labels/enhancement)]
 - Link to Contravariant overview [\#437](https://github.com/JordanMartinez/purescript-jordans-reference/issues/437) [[Design-Patterns](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Design-Patterns)] [[enhancement](https://github.com/JordanMartinez/purescript-jordans-reference/labels/enhancement)]
 - Update Spago to 0.14.0 [\#431](https://github.com/JordanMartinez/purescript-jordans-reference/issues/431) [[Meta](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Meta)] [[enhancement](https://github.com/JordanMartinez/purescript-jordans-reference/labels/enhancement)] [[major-breaking-change](https://github.com/JordanMartinez/purescript-jordans-reference/labels/major-breaking-change)]
 
 **Fixed bugs:**
 
 - Convert example 'stack unsafe' example into an actual stack-unsafe example [\#439](https://github.com/JordanMartinez/purescript-jordans-reference/issues/439) [[Design-Patterns](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Design-Patterns)] [[bug](https://github.com/JordanMartinez/purescript-jordans-reference/labels/bug)]
+
+**Merged pull requests:**
+
+- Off-by-one typo [\#433](https://github.com/JordanMartinez/purescript-jordans-reference/pull/433) ([milesfrain](https://github.com/milesfrain))
 
 ## [ps-0.13.x-v0.24.0](https://github.com/JordanMartinez/purescript-jordans-reference/tree/ps-0.13.x-v0.24.0) (2020-03-02)
 [Full Changelog](https://github.com/JordanMartinez/purescript-jordans-reference/compare/ps-0.13.x-v0.23.1...ps-0.13.x-v0.24.0)
@@ -129,7 +134,6 @@
 
 - Make next major release: ps-0.13.x-v0.21.0 [\#410](https://github.com/JordanMartinez/purescript-jordans-reference/pull/410) ([JordanMartinez](https://github.com/JordanMartinez))
 - Update PS to 0.13.5 and Spago to 0.12.1 [\#408](https://github.com/JordanMartinez/purescript-jordans-reference/pull/408) ([JordanMartinez](https://github.com/JordanMartinez))
-- implement functor,apply for StateT [\#407](https://github.com/JordanMartinez/purescript-jordans-reference/pull/407) ([OuyangQianba](https://github.com/OuyangQianba))
 
 ## [ps-0.13.x-v0.20.1](https://github.com/JordanMartinez/purescript-jordans-reference/tree/ps-0.13.x-v0.20.1) (2019-11-08)
 [Full Changelog](https://github.com/JordanMartinez/purescript-jordans-reference/compare/ps-0.13.x-v0.20.0...ps-0.13.x-v0.20.1)
@@ -199,6 +203,7 @@
 
 **Merged pull requests:**
 
+- implement functor,apply for StateT [\#407](https://github.com/JordanMartinez/purescript-jordans-reference/pull/407) ([OuyangQianba](https://github.com/OuyangQianba))
 - Update ToC for ps-0.13.x-v0.18.2 [\#380](https://github.com/JordanMartinez/purescript-jordans-reference/pull/380) ([JordanMartinez](https://github.com/JordanMartinez))
 - Make next minor release: ps-0.13.x-v0.18.2 [\#379](https://github.com/JordanMartinez/purescript-jordans-reference/pull/379) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
 
@@ -327,10 +332,6 @@
 
 - Update to Spago 0.8.0.0 [\#329](https://github.com/JordanMartinez/purescript-jordans-reference/issues/329) [[Meta](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Meta)] [[major-breaking-change](https://github.com/JordanMartinez/purescript-jordans-reference/labels/major-breaking-change)]
 
-**Merged pull requests:**
-
-- Make next minor release: ps-0.12.x-v0.15.1 [\#340](https://github.com/JordanMartinez/purescript-jordans-reference/pull/340) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
-
 ## [ps-0.12.x-v0.15.0](https://github.com/JordanMartinez/purescript-jordans-reference/tree/ps-0.12.x-v0.15.0) (2019-05-22)
 [Full Changelog](https://github.com/JordanMartinez/purescript-jordans-reference/compare/ps-0.12.x-v0.14.2...ps-0.12.x-v0.15.0)
 
@@ -354,6 +355,7 @@
 
 **Merged pull requests:**
 
+- Make next minor release: ps-0.12.x-v0.15.1 [\#340](https://github.com/JordanMartinez/purescript-jordans-reference/pull/340) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
 - Make next major release: ps-0.12.x-v0.15.0 [\#334](https://github.com/JordanMartinez/purescript-jordans-reference/pull/334) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
 - More fixes [\#332](https://github.com/JordanMartinez/purescript-jordans-reference/pull/332) ([jhrcek](https://github.com/jhrcek))
 - Couple of typo and code fixes [\#331](https://github.com/JordanMartinez/purescript-jordans-reference/pull/331) ([jhrcek](https://github.com/jhrcek))
@@ -531,7 +533,6 @@
 
 - Make next minor release: ps-0.12.x-v0.11.2 [\#278](https://github.com/JordanMartinez/purescript-jordans-reference/pull/278) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
 - typo fix, unless this is some hip slang I'm unaware of! [\#270](https://github.com/JordanMartinez/purescript-jordans-reference/pull/270) ([3rdLaw](https://github.com/3rdLaw))
-- Make next major release: ps-0.12.x-v0.11.0 [\#235](https://github.com/JordanMartinez/purescript-jordans-reference/pull/235) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
 
 ## [ps-0.12.x-v0.11.1](https://github.com/JordanMartinez/purescript-jordans-reference/tree/ps-0.12.x-v0.11.1) (2019-02-19)
 [Full Changelog](https://github.com/JordanMartinez/purescript-jordans-reference/compare/ps-0.12.x-v0.11.0...ps-0.12.x-v0.11.1)
@@ -562,6 +563,10 @@
 - Link to 'Haskell Pyramid' [\#227](https://github.com/JordanMartinez/purescript-jordans-reference/issues/227) [[Getting-Started](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Getting-Started)] [[enhancement](https://github.com/JordanMartinez/purescript-jordans-reference/labels/enhancement)]
 - Integrate/Link to Phil's "Why Purescript" post [\#226](https://github.com/JordanMartinez/purescript-jordans-reference/issues/226) [[Getting-Started](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Getting-Started)] [[enhancement](https://github.com/JordanMartinez/purescript-jordans-reference/labels/enhancement)]
 
+**Merged pull requests:**
+
+- Make next major release: ps-0.12.x-v0.11.0 [\#235](https://github.com/JordanMartinez/purescript-jordans-reference/pull/235) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
+
 ## [ps-0.12.x-v0.10.4](https://github.com/JordanMartinez/purescript-jordans-reference/tree/ps-0.12.x-v0.10.4) (2019-01-21)
 [Full Changelog](https://github.com/JordanMartinez/purescript-jordans-reference/compare/ps-0.12.x-v0.10.3...ps-0.12.x-v0.10.4)
 
@@ -584,6 +589,10 @@
 
 - Fluid Library [\#41](https://github.com/JordanMartinez/purescript-jordans-reference/issues/41) [[Ecosystem](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Ecosystem)] [[ToResearch](https://github.com/JordanMartinez/purescript-jordans-reference/labels/ToResearch)]
 - Peruse 'purescript-references' [\#21](https://github.com/JordanMartinez/purescript-jordans-reference/issues/21) [[Helpful-Links](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Helpful-Links)]
+
+**Merged pull requests:**
+
+- Make next minor release: ps-0.12.x-v0.10.4 [\#233](https://github.com/JordanMartinez/purescript-jordans-reference/pull/233) ([JordanMartinez](https://github.com/JordanMartinez))
 
 ## [ps-0.12.x-v0.10.3](https://github.com/JordanMartinez/purescript-jordans-reference/tree/ps-0.12.x-v0.10.3) (2019-01-16)
 [Full Changelog](https://github.com/JordanMartinez/purescript-jordans-reference/compare/ps-0.12.x-v0.10.2...ps-0.12.x-v0.10.3)
@@ -616,7 +625,6 @@
 - Make next minor release: ps-0.12.x-v0.10.3 [\#223](https://github.com/JordanMartinez/purescript-jordans-reference/pull/223) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
 - Finish setting up Travis CI [\#215](https://github.com/JordanMartinez/purescript-jordans-reference/pull/215) ([JordanMartinez](https://github.com/JordanMartinez))
 - Set up Travis CI initially [\#214](https://github.com/JordanMartinez/purescript-jordans-reference/pull/214) ([JordanMartinez](https://github.com/JordanMartinez))
-- Make next minor release: 0.9.7 [\#158](https://github.com/JordanMartinez/purescript-jordans-reference/pull/158) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
 
 ## [ps-0.12.x-v0.10.2](https://github.com/JordanMartinez/purescript-jordans-reference/tree/ps-0.12.x-v0.10.2) (2019-01-09)
 [Full Changelog](https://github.com/JordanMartinez/purescript-jordans-reference/compare/ps-0.12.x-v0.10.1...ps-0.12.x-v0.10.2)
@@ -702,7 +710,6 @@
 
 **Merged pull requests:**
 
-- Make next minor release: ps-0.12.x-v0.10.4 [\#233](https://github.com/JordanMartinez/purescript-jordans-reference/pull/233) ([JordanMartinez](https://github.com/JordanMartinez))
 - Make next minor release: ps-0.12.x-v0.9.8 [\#164](https://github.com/JordanMartinez/purescript-jordans-reference/pull/164) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
 
 ## [ps-0.12.x-v0.9.7](https://github.com/JordanMartinez/purescript-jordans-reference/tree/ps-0.12.x-v0.9.7) (2018-11-27)
@@ -721,6 +728,7 @@
 
 **Merged pull requests:**
 
+- Make next minor release: 0.9.7 [\#158](https://github.com/JordanMartinez/purescript-jordans-reference/pull/158) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
 - Refactor syntax/type level programming to YesNo [\#151](https://github.com/JordanMartinez/purescript-jordans-reference/pull/151) ([razcore-art](https://github.com/razcore-art))
 
 ## [ps-0.12.x-v0.9.6](https://github.com/JordanMartinez/purescript-jordans-reference/tree/ps-0.12.x-v0.9.6) (2018-11-16)
@@ -760,10 +768,6 @@
 **Fixed bugs:**
 
 - Broken link: FP Slack Channel [\#121](https://github.com/JordanMartinez/purescript-jordans-reference/issues/121) [[Getting-Started](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Getting-Started)] [[bug](https://github.com/JordanMartinez/purescript-jordans-reference/labels/bug)]
-
-**Merged pull requests:**
-
-- Make minor release: PS-0.12.x-v0.9.5 [\#138](https://github.com/JordanMartinez/purescript-jordans-reference/pull/138) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
 
 ## [ps-0.12.x-v0.9.4](https://github.com/JordanMartinez/purescript-jordans-reference/tree/ps-0.12.x-v0.9.4) (2018-11-12)
 [Full Changelog](https://github.com/JordanMartinez/purescript-jordans-reference/compare/ps-0.12.x-v0.9.3...ps-0.12.x-v0.9.4)
@@ -835,6 +839,10 @@
 - File the links mentioned in 'My Haskell Journey' [\#25](https://github.com/JordanMartinez/purescript-jordans-reference/issues/25) [[Helpful-Links](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Helpful-Links)]
 - Good 'libraries to learn from' [\#23](https://github.com/JordanMartinez/purescript-jordans-reference/issues/23) [[Helpful-Links](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Helpful-Links)]
 
+**Merged pull requests:**
+
+- Make next minor release: PS-0.12.x-v0.9.1 [\#102](https://github.com/JordanMartinez/purescript-jordans-reference/pull/102) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
+
 ## [ps-0.12.x-v0.9.0](https://github.com/JordanMartinez/purescript-jordans-reference/tree/ps-0.12.x-v0.9.0) (2018-10-10)
 [Full Changelog](https://github.com/JordanMartinez/purescript-jordans-reference/compare/ps-0.12.x-v0.8.3...ps-0.12.x-v0.9.0)
 
@@ -873,13 +881,14 @@
 **Merged pull requests:**
 
 - Make minor release: PS-0.12.x-v0.8.3 [\#94](https://github.com/JordanMartinez/purescript-jordans-reference/pull/94) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
+- Make next release: ps-0.12.x-v0.6.2 [\#65](https://github.com/JordanMartinez/purescript-jordans-reference/pull/65) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
 
 ## [ps-0.12.x-v0.8.2](https://github.com/JordanMartinez/purescript-jordans-reference/tree/ps-0.12.x-v0.8.2) (2018-10-06)
 [Full Changelog](https://github.com/JordanMartinez/purescript-jordans-reference/compare/ps-0.12.x-v0.8.1...ps-0.12.x-v0.8.2)
 
 **Merged pull requests:**
 
-- Make next minor release: PS-0.12.x-v0.9.1 [\#102](https://github.com/JordanMartinez/purescript-jordans-reference/pull/102) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
+- Make minor release: PS-0.12.x-v0.9.5 [\#138](https://github.com/JordanMartinez/purescript-jordans-reference/pull/138) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
 - Rewrite relationship explanation of type-level functions using equations [\#93](https://github.com/JordanMartinez/purescript-jordans-reference/pull/93) ([JordanMartinez](https://github.com/JordanMartinez))
 - Make next minor release: PS-0.12.0-v0.8.2 [\#92](https://github.com/JordanMartinez/purescript-jordans-reference/pull/92) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
 
@@ -946,7 +955,6 @@
 **Merged pull requests:**
 
 - Make next release: ps-0.12.x-v0.7.0 [\#66](https://github.com/JordanMartinez/purescript-jordans-reference/pull/66) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
-- Make next release: ps-0.12.x-v0.6.2 [\#65](https://github.com/JordanMartinez/purescript-jordans-reference/pull/65) [[Release-PR](https://github.com/JordanMartinez/purescript-jordans-reference/labels/Release-PR)] ([JordanMartinez](https://github.com/JordanMartinez))
 
 ## [ps-0.12.x-v0.7.0](https://github.com/JordanMartinez/purescript-jordans-reference/tree/ps-0.12.x-v0.7.0) (2018-09-11)
 [Full Changelog](https://github.com/JordanMartinez/purescript-jordans-reference/compare/ps-0.12.x-v0.6.2...ps-0.12.x-v0.7.0)
