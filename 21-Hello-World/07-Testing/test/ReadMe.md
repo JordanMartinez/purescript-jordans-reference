@@ -77,6 +77,7 @@ To see the difference between QuickCheck (which uses type-directed shrinking) an
 
 Successful cases where property-based testing found difficult-to-find bugs:
 - (book as a collection of blog posts) [Komposition, a screencast editor](https://leanpub.com/property-based-testing-in-a-screencast-editor)
+- Property testing with side effects: [Effectful Propery Testing](https://www.parsonsmatt.org/2020/03/11/effectful_property_testing.html)
 
 ## The Limits of Property Testing
 
