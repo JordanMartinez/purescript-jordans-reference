@@ -77,6 +77,17 @@ letWithGuards x =
         | otherwise = "something else"
   in computeSomethingWithString result
 
+-- Let bindings can also have type signatures. We'll see in the next file
+-- why this can be very important.
+letWithTypeSignatures :: Int -> String
+letWithTypeSignatures x =
+  let
+    result :: Int -> String
+    result
+          | x == 0 = "zero"
+          | x == 1 = "one"
+          | otherwise = "something else"
+  in computeSomethingWithString result
 
 {-
 See the indentation rules to correctly indent your where clause
