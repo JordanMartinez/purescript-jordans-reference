@@ -4,10 +4,100 @@ import Prelude
 
 data Box a = Box a
 {-
-The 'where' keyword enables us to break large functions
+The 'where' keyword and `let-in` syntax enables us to break large functions
   down into smaller functions (or values) that compose.
 Differences from the `let-in` syntax:
 - functions/values are defined after the main function -}
+
+{-
+The 'let...in' syntax lets us define "bindings" before we use them
+after the `in` keyword: -}
+letInFunction1 :: String -> String
+letInFunction1 expression =
+  let
+    binding = expression
+  in
+    somethingThatUses binding -- wherever `binding` is used, we mean `expression`
+
+{-
+We can define multiple bindings. Earlier bindings cannot refer to later
+bindings, but later ones can refer to earlier ones. -}
+letInFunction2 :: String -> String -> String
+letInFunction2 expression1 expression2 =
+  let
+    binding1 = expression1
+    binding2 = expression2
+    binding3 = binding1
+  in
+    somethingThatUses (binding1 <> binding2 <> binding3)
+
+letInFunction2_WithTypeSignatures :: String -> String -> String
+letInFunction2_WithTypeSignatures expression1 expression2 =
+  let
+    -- we can also add type signatures above the bindings to help with
+    -- readability or type inference.
+    binding1 :: String
+    binding1 = expression1
+
+    binding2 :: String
+    binding2 = expression2
+  in
+    somethingThatUses (binding1 <> binding2)
+
+-- One can also define functions as a let binding
+letInFunction3 :: String -> String
+letInFunction3 value =
+  let
+    function "firstMatch"  = bodyOfPatternMatch
+    function "secondMatch" = bodyOfPatternMatch
+    function catchAll      = bodyOfPatternMatch
+  in
+    function value
+
+letInFunction3_WithTypeSignatures :: String -> String
+letInFunction3_WithTypeSignatures value =
+  let
+    function :: String -> String
+    function "firstMatch"  = bodyOfPatternMatch
+    function "secondMatch" = bodyOfPatternMatch
+    function catchAll      = bodyOfPatternMatch
+  in
+    function value
+
+-- One can also use guards with let
+letWithGuards :: Int -> String
+letWithGuards x =
+  let result
+        | x == 0 = "zero"
+        | x == 1 = "one"
+        | otherwise = "something else"
+  in computeSomethingWithString result
+
+-- Let bindings can also have type signatures. We'll see in the next file
+-- why this can be very important.
+letWithGuards_WithTypeSignatures :: Int -> String
+letWithGuards_WithTypeSignatures x =
+  let
+    result :: Int -> String
+    result
+          | x == 0 = "zero"
+          | x == 1 = "one"
+          | otherwise = "something else"
+  in computeSomethingWithString result
+
+{-
+The `where` clause is "syntax sugar" for let bindings.
+
+Using the `where` clause, we could rewrite the below function using the
+`where` clause
+    whereFunction0 = let x = 4 in x        -}
+whereFunction0 :: Int
+whereFunction0 = x
+  where
+  x = 4
+
+-- Here is a more typical example where multiple bindings are defined
+-- in a single "where block"
 whereFunction1 :: String -> String -> Int
 whereFunction1 arg1 arg2 =
   returnFour (madeUpFunction arg1 arg2) 9
@@ -39,60 +129,9 @@ whereFunction1 arg1 arg2 =
   mutuallyRecursiveFunction2 "b" = mutuallyRecursiveFunction1 "b"
   mutuallyRecursiveFunction2 x = mutuallyRecursiveFunction1 "a"
 
-
 {-
-The 'let...in' syntax does the same thing as 'where' but it defines things
-  before they get used in an expression: -}
-letInFunction1 :: String -> String
-letInFunction1 expression =
-  let
-    binding = expression
-  in
-    somethingThatUses binding -- wherever `binding` is used, we mean `expression`
-
-letInFunction2 :: String -> String -> String
-letInFunction2 expression1 expression2 =
-  let
-    binding1 = expression1
-    binding2 = expression2
-  in
-    somethingThatUses (binding1 <> binding2)
-
--- One can also define functions
-letInFunction3 :: String -> String
-letInFunction3 value =
-  let
-    function "firstMatch"  = bodyOfPatternMatch
-    function "secondMatch" = bodyOfPatternMatch
-    function catchAll      = bodyOfPatternMatch
-  in
-    function value
-
--- One can also use guards with let
-letWithGuards :: Int -> String
-letWithGuards x =
-  let result
-        | x == 0 = "zero"
-        | x == 1 = "one"
-        | otherwise = "something else"
-  in computeSomethingWithString result
-
--- Let bindings can also have type signatures. We'll see in the next file
--- why this can be very important.
-letWithTypeSignatures :: Int -> String
-letWithTypeSignatures x =
-  let
-    result :: Int -> String
-    result
-          | x == 0 = "zero"
-          | x == 1 = "one"
-          | otherwise = "something else"
-  in computeSomethingWithString result
-
-{-
-See the indentation rules to correctly indent your where clause
-   in the context of the containing function and how far to indent your
-   madeUpFunctions.
+See the indentation rules to correctly indent your `where` clause
+  and the expressions that define a given binding.
 -}
 
 warning :: String
