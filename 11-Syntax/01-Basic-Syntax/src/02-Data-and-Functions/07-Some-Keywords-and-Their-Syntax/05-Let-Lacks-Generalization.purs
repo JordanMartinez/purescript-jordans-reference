@@ -24,8 +24,10 @@ letBindingExampleWithTypeSignature =
 
 {-
 All of the above examples use monomorphism (i.e. each function only works
-on 1 type), not polymorphism (i.e. each function works on multiple types).
-In some situations, we may want to use polymorphism in our let bindings:      -}
+on 1 type; there isn't a "forall" anywhere), not polymorphism
+(i.e. each function works on multiple types; there is a "forall" somewhere).
+In some situations, we may want to use polymorphism/"forall" in our
+`let` bindings:                                                             -}
 letBindingWithPolymorphicTypeSignature :: Int
 letBindingWithPolymorphicTypeSignature =
   let
@@ -35,9 +37,9 @@ letBindingWithPolymorphicTypeSignature =
     (ignoreArgumentAndReturn4 8) + (ignoreArgumentAndReturn4 "foo")
 
 {-
-When you remove the type signature above the let binding, you will discover
-that "`let` bindings lack generalization". The below example will not compile.
-You can uncomment it and see for yourself:                                    -}
+In the above example, when you remove the type signature above the let binding,
+you will discover that "`let` bindings lack generalization". The below example
+will not compile. You can uncomment it and see for yourself:                  -}
 -- failsToCompile :: Int
 -- failsToCompile =
 --   let
@@ -78,34 +80,38 @@ Running `failsToCompile` will produce the following error:
 When the compiler comes across the first usage of
 `polymorphicLetBindingWithNoTypeSignature`, the type of the first argument, 8,
 is Int. Rather than making this binding polymorphic, the compiler assumes
-that the function is monomorphic and it's type signature will be
+that the function is monomorphic and its type signature will be
 "Int -> Int". Thus, when it encounters the second usage of the function,
 `polymorphicLetBindingWithNoTypeSignature "foo"`, it fails because
-String is not the same type as Int.
+`String` is not the same type as `Int`.
 
 This missing feature is called "`let` generalization." Its absence is
 intentional. For more context, see the paper titled,
-"Let should not be generalized" - https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tldi10-vytiniotis.pdf
+"Let should not be generalized"
+https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/tldi10-vytiniotis.pdf
 -}
 
--- This issue can arise when you use `where` clauses because
--- `where` clauses are syntax sugar for `let` bindings
+{-
+Since the `where` clause is syntax sugar for `let` bindings, this issue can
+also arise when you use bindings in the `where` clauses that are polymorphic
+and do not have a type signature.
+-}
 
 -- alsoFailsToCompile :: Int
 -- alsoFailsToCompile =
---     (functionWithNoTypeSignature 8) + -- argument is Int
---     (functionWithNoTypeSignature "foo")
+--     (polymorphicFunctionWithNoTypeSignature 8) + -- argument is Int
+--     (polymorphicFunctionWithNoTypeSignature "foo")
 --
 --     where
---       functionWithNoTypeSignature _ = 4
+--       polymorphicFunctionWithNoTypeSignature _ = 4
 
 -- This version will compile because the type signature
 -- has been specified.
 polymorphicWhereClauseWithTypeSignature :: Int
 polymorphicWhereClauseWithTypeSignature =
-    (functionWithNoTypeSignature 8) + -- argument is Int
-    (functionWithNoTypeSignature "foo")
+    (polymorphicFunctionWithTypeSignature 8) + -- argument is Int
+    (polymorphicFunctionWithTypeSignature "foo")
 
     where
-      functionWithNoTypeSignature :: forall a. a -> Int
-      functionWithNoTypeSignature _ = 4
+      polymorphicFunctionWithTypeSignature :: forall a. a -> Int
+      polymorphicFunctionWithTypeSignature _ = 4
