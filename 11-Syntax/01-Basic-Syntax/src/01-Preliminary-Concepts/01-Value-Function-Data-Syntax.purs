@@ -9,6 +9,12 @@ integer_value = 5
 string_value :: String
 string_value = "this is text"
 
+-- | In other words...
+-- | ```
+-- | var one_arg_function = function (argument) {
+-- |   return bodyThatReturnsType; 
+-- | };
+-- | ```
 one_arg_function :: ParameterType -> ReturnType
 one_arg_function argument = bodyThatReturnsType
 
