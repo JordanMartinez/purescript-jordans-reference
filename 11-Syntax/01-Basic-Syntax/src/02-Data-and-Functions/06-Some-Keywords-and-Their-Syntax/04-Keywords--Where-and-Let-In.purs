@@ -13,9 +13,13 @@ in the block that follows the `in` keyword: -}
 letInFunction1 :: String -> String
 letInFunction1 expression =
   let
+    -- Start of the "let" block
     binding = expression
+    -- End of the "let" block
   in
+    -- Start of the "in" block
     somethingThatUses binding -- wherever `binding` is used, we mean `expression`
+    -- End of the "in" block
 
 {-
 We can define multiple bindings. Earlier bindings cannot refer to later
@@ -23,11 +27,15 @@ bindings, but later ones can refer to earlier ones. -}
 letInFunction2 :: String -> String -> String
 letInFunction2 expression1 expression2 =
   let
+    -- Start of the "let" block
     binding1 = expression1
     binding2 = expression2
     binding3 = binding1
+    -- End of the "let" block
   in
+    -- Start of the "in" block
     somethingThatUses (binding1 <> binding2 <> binding3)
+    -- End of the "in" block
 
 letInFunction2_WithTypeSignatures :: String -> String -> String
 letInFunction2_WithTypeSignatures expression1 expression2 =
