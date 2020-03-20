@@ -5,7 +5,7 @@ import Prelude
 {-
 We saw previously that we can define functions inside a `let` binding
 and use it later after the `in`. The below example does NOT have a type
-signature associated with it.                                                 -}
+signature annotating it.                                                      -}
 letBindingExample :: Int
 letBindingExample =
   let
