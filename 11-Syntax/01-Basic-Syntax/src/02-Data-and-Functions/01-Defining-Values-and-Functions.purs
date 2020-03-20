@@ -44,13 +44,14 @@ function_that_returns_a_function x = (\y -> y + x)
 takes_a_function :: String
 takes_a_function =
   function_that_takes_a_function 3 (\x -> show x)
-  -- show: converts Int to String
+  -- show: converts `Int` to `String`
   -- outputs: "3"
 
 returns_a_function :: Int
 returns_a_function =
   (function_that_returns_a_function 4) 10
-  -- outputs: 14 (\10 -> 10 + 4)
+  -- outputs: 14
+  -- reason: (\10 -> 10 + 4)
 
 -- necessary to make this file compile
 
