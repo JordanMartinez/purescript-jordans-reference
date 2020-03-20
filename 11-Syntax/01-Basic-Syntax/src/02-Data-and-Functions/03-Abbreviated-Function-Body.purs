@@ -7,7 +7,7 @@ import Prelude
 --    Note: 'show' converts any type into a String
 abbreviatedFunction2 :: Int -> String
 abbreviatedFunction2   = show   {- is the same as...
-abbreviatedFunction2 x = show x -} --
+abbreviatedFunction2 x = show x -}
 
 -- example
 exampleAbbreviation2 :: Boolean
