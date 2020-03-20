@@ -24,8 +24,8 @@ letBindingExampleWithTypeSignature =
 
 {-
 All of the above examples use monomorphism (i.e. each function only works
-on 1 type; there isn't a "forall" anywhere), not polymorphism
-(i.e. each function works on multiple types; there is a "forall" somewhere).
+on 1 type / there IS NOT a "forall" anywhere), not polymorphism
+(i.e. each function works on multiple types / there IS a "forall" somewhere).
 In some situations, we may want to use polymorphism/"forall" in our
 `let` bindings:                                                             -}
 letBindingWithPolymorphicTypeSignature :: Int
