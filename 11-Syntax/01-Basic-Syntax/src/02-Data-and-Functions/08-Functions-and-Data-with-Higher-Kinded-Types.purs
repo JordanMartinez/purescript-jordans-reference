@@ -35,7 +35,7 @@ Read
 as
   "f is a higher-kinded type
     that needs one type, `a`, specified
-    before it can be a concrete value"
+    before it can be a concrete type"
 
 When using higher-kinded types, convention is to start with `f` and continue
 down the alphabet for each higher-kinded type thereafter (e.g. `g`, `h`, etc.). -}
