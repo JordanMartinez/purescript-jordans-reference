@@ -86,9 +86,8 @@ Higher-kinded types are those that still need one or more types to be defined.
 data Box a = Box a
 
 -- This is the same definition as above.
--- However, the kind signature of the above `Box`
--- definition is implicit. The below definition
--- has an explicit kind signature.
+-- However, the kind signature of the above `Box` definition is implicit.
+-- The below definition has an explicit kind signature.
 data BoxType :: Type -> Type
 data BoxType a = BoxValue a
 
