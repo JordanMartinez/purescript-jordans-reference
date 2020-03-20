@@ -3,6 +3,12 @@ module Syntax.Meta where
 -- This file simply shows enough syntax so that the
 -- explanation on Kinds (next) makes sense.
 
+integer_value :: Int
+integer_value = 5
+
+string_value :: String
+string_value = "this is text"
+
 one_arg_function :: ParameterType -> ReturnType
 one_arg_function argument = bodyThatReturnsType
 
