@@ -29,4 +29,5 @@ f = show
 f' :: Int -> String
 f' x = show x
 
+This is known as "eta-expansion"
 """
