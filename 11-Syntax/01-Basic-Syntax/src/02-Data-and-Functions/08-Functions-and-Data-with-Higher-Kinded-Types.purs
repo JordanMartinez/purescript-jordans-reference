@@ -114,6 +114,7 @@ box3Example = boxFunction (Box3 3) unwrapBox3 (_ + 1) rewrapBox3 -- Box3 4
 -- a higher-kinded type
 
 -- Higher kinded types can also occur in data declarations:
+data Type_with_HKT :: (Type -> Type) -> Type -> Type
 data Type_with_HKT hkt a = Type_With_HKT_Constructor (hkt a)
 {-
 Thus we could have multiple values of this specific type, depending on what
@@ -122,6 +123,7 @@ type the `hkt` is:
   Type_With_HKT Box Int
 -}
 
+data Type_with_2_HKT :: (Type -> Type) -> (Type -> Type) -> Type -> Type
 data Type_with_2_HKT hkt1 hkt2 a = Type_With_2_HKT_Constructor (hkt1 a) (hkt2 a)
 -- Type_with_2_HKT Array Array a
 -- Type_with_2_HKT Array Box a
