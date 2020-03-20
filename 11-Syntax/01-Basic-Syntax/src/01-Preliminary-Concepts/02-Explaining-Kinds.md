@@ -108,11 +108,11 @@ We can make the type's kind higher by adding more types that need to be specifie
 -- Kind Signature: `Type -> Type -> Type`
 data BoxOfTwo a b = BoxOfTwo a b
 
-data BoxOfTwo_Explicit :: Type -> Type -> Type
-data BoxOfTwo_Explicit a b = BoxOfTwoValue a b
+data BoxOfTwo_ExplicitKindSignature :: Type -> Type -> Type
+data BoxOfTwo_ExplicitKindSignature a b = BoxOfTwoValue a b
 
 -- The below syntax is not valid because it is missing `forall a b.`,
---   but it gets the idea across. "Forall" syntax will be covered later.
+--   but it gets the idea across. The "forall" syntax will be covered later.
 higherKindedBy2 :: a -> b -> BoxOfTwo a b
 higherKindedBy2 a b = BoxOfTwo a b
 
