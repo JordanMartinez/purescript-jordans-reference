@@ -9,8 +9,10 @@ genericFunction0 :: a -> a
     Given a value of any type,
   this function will return a value of the same type. -}
 
--- ... we need to explicitly say the function works for all types
--- using the "forall a. Function Type Signature" syntax:
+-- ... we need to explicitly say the function works for all types.
+-- We do so by adding the "forall a." syntax to the front of our
+-- type signature. Note: the "forall" syntax is still a part of our type
+-- signature, but it always appears first before anything else.
 genericFunction1 :: forall aType {- bType ... nType -}. aType -> aType
 genericFunction1 x = x
 {- Read:
