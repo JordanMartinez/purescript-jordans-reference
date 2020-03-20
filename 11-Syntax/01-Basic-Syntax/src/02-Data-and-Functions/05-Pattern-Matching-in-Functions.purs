@@ -62,14 +62,14 @@ f :: A_Type -> String {-
 f patternMatch = bodyToRunIfPatternWasMatched
 
   where 'patternMatch' is:
-    - ValueOrType
-    - bindingForEntireObject@ValueOrType
-
-    where 'ValueOrType' is
-      - a literal value
-      - a data constructor whose arguments
-          are bound to bindings or
-          are literal values
+    - literal value
+    - DataConstructorWithNoArgs
+    - (DataConstructor withArgBoundToThisBinding)
+    - (DataConstructor "with arg whose value is this literal value")
+    - bindingForEntireValue@(literalValue)
+    - bindingForEntireValue@(DataConstructorWithNoArgs)
+    - bindingForEntireValue@(DataConstructor withArgBoundToThisBinding)
+    - bindingForEntireValue@(DataConstructor "with arg whose value is this literal value")
 
 -- Example
 
