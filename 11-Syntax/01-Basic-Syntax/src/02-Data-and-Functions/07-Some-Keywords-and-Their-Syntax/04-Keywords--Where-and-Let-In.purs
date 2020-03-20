@@ -78,7 +78,7 @@ letWithGuards x =
 letWithGuards_WithTypeSignatures :: Int -> String
 letWithGuards_WithTypeSignatures x =
   let
-    result :: Int -> String
+    result :: String
     result
           | x == 0 = "zero"
           | x == 1 = "one"
