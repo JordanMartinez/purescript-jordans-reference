@@ -5,13 +5,22 @@ This code...
 function :: Int -> String
 function x = "an integer value!"
 ```
-... translates to, "I cannot give you a concrete value (String) until you give me an Int value"
+... translates to, "I cannot give you a concrete value (i.e. `String`) until you give me an `Int` value."
 
 Similarly, this code...
 ```purescript
 data Box a = Box a
 ```
 ... translates to, "I cannot give you a concrete type (e.g. `Box Int`, a box that stores an `Int` value (rather than a `String` value or some other value)) until you tell me what `a` is."
+
+Let's rewrite the above `Box` type. Things on the left of the `=` indicate type information. Things on the right of the `=` indicate value information.
+```purescript
+{-
+| Type information | Value information |                                     -}
+data BoxType a     = BoxValue a
+```
+
+The above code now says, "I cannot give you a concrete type (e.g. `BoxType Int`) until you tell me what `a` is." Let's assume that `a` is `Int`. We would say that `BoxValue 4` is a value whose type is `BoxType Int`.
 
 ## What are Kinds?
 
