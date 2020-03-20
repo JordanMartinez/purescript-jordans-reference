@@ -8,7 +8,7 @@ function_normal :: String -> String
 function_normal a = bodyOfFunction
 
 function_body_indented :: String -> String
-function_body_indented a = {- this will show the valid places where indentation can be
+function_body_indented a = {- this shows valid and invalid indentation:
 wrongIndentation -}
   validAndConventional <>
     validButNotConventional {-
