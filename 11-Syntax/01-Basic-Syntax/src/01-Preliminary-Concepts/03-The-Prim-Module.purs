@@ -4,16 +4,15 @@ import Prelude
 
 {-
 The following file documents the Prim module. This module is imported
-by default into every Purescript file (unless one hides it using Module aliases,
+by default into every PureScript file (unless one hides it using Module aliases,
 which are described in the Module Syntax folder) and is embedded in the
 compiler itself to provide value literals for certain types and syntax sugar.
 
 See the full documenation here:
 https://pursuit.purescript.org/builtins/docs/Prim
 
-This file will document all the types that have
-"kind Type" or "kind *" in Haskell. Don't be too concerned about understanding
-them for now.
+This file will document all the types whose kind signature is `Type`.
+Their kind signatures aren't that important at this level in your understanding.
 
 Note: To prevent conflicts between the real code and this compileable file,
 we're appending underscores to the types. Remove the underscore to get the
