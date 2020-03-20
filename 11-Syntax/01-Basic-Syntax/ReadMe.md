@@ -7,6 +7,6 @@ spago build
 
 To see what the documentation looks like, run this command:
 ```bash
-spago docs
+spago docs --open
 ```
-Then, open the file, `./generated-docs/index.html`, and open a module to see what it outputs.
+The above command will generate the docs, and then open the file, `./generated-docs/index.html`.
