@@ -4,14 +4,12 @@ import Prelude
 
 data Box a = Box a
 {-
-The 'where' keyword and `let-in` syntax enables us to break large functions
-  down into smaller functions (or values) that compose.
-Differences from the `let-in` syntax:
-- functions/values are defined after the main function -}
+The 'let..in' keywords and the `where` keyword enables us to break large
+  functions down into smaller functions (or values) that compose.             -}
 
 {-
 The 'let...in' syntax lets us define "bindings" before we use them
-after the `in` keyword: -}
+in the block that follows the `in` keyword: -}
 letInFunction1 :: String -> String
 letInFunction1 expression =
   let
