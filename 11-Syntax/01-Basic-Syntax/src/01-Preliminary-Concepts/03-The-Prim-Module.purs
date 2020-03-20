@@ -19,7 +19,7 @@ we're appending underscores to the types. Remove the underscore to get the
 real thing in Purescript.
 
 In other words
-Purescript:   data DataType  :: Kind
+Purescript:        DataType  :: Kind
 This example: data DataType_ -- Kind
 -}
 data Number_ -- Type -- double-precision float number
