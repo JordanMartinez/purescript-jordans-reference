@@ -43,7 +43,7 @@ down the alphabet for each higher-kinded type thereafter (e.g. `g`, `h`, etc.). 
 hktFunction1 :: forall f g h a. f a -> g a -> h a -> h a
 hktFunction1 _ _ hOfA = hOfA
 
--- I think the convention of using 'f' has something to do with a typeclass
+-- I think the convention of using 'f' has something to do with a Type Class
 -- called Functor (covered in the Hello-World folder).
 
 
