@@ -115,5 +115,11 @@ data Function_ -- Type (parameter type) -> Type (return type)  -> Type
 function_no_syntax_sugar :: Function Int Int
 function_no_syntax_sugar = (\x -> x + 4)
 
-function_with_syntax_sugar :: (Int -> Int)
-function_with_syntax_sugar = (\x -> x + 4)
+function_with_syntax_sugar1 :: (Int -> Int)
+function_with_syntax_sugar1 = (\x -> x + 4)
+
+function_with_syntax_sugar2 :: Int -> Int
+function_with_syntax_sugar2 = (\x -> x + 4)
+
+function_with_syntax_sugar3 :: Int -> Int
+function_with_syntax_sugar3 x = x + 4
