@@ -20,6 +20,13 @@ data Type_with_Generic_Types aType bType
   | Stores_B bType
   | Stores_A_and_B aType bType
 
+-- We can refer to various parts in these deifintions by the following names.
+-- Wherever a name appears, that's what you would call it if you were talking
+-- to someone else about it. In this example, we will need a kind signature
+-- because `typeParameter` isn't used in the data constructor.
+data TypeConstructor :: Type -> Type
+data TypeConstructor typeParameter = DataConstructor
+
 ---------------------------------
 
 -- This syntax enables Algebraic Data Types (ADTs)
