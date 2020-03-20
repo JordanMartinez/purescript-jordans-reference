@@ -75,7 +75,7 @@ as
 
   'd' has already been specified to 'Int',
     but
-  the other types (a b c) have yet to be specified.
+  the other types (a, b, and c) have yet to be specified.
 
   The compiler will complain
     if one passes in an 'f' type whose fourth type is not an Int.
