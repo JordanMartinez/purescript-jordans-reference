@@ -34,12 +34,6 @@ genericFunction2 a b c = a
 then I will return a value of type 'a'
 -}
 
--- Another way to write 'forall' in a much more concise manner is
--- via Unicode syntax: "∀"
-forAllUnicodeStyle :: ∀ a. a -> a
-forAllUnicodeStyle a = a
-
-
 -- Sometimes, we'll see multiple 'forall' in the same type signature.
 --
 --    f :: forall a b. a -> b -> (forall c. c -> String) -> String
