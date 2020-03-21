@@ -48,6 +48,14 @@ newtype Relationships = Relationships (List People)
 -- printPerson (Name n) (Age i) (Relationships l) =
 --    "Name: " <> n <> ", Age: " <> show i <> ", Relationships: " <> show l
 
+-- Similar to `data` and `type`, newtypes can also have a kind signature:
+
+-- Implicit kind signature: Type -> Type
+newtype SomeValue a = SomeValue (Box a)
+
+newtype SomeValue_ExplicitKindSignature :: Type -> Type
+newtype SomeValue_ExplicitKindSignature a = SomeValueExplicit (Box a)
+
 -- needed to compile
 
 type WhichOnlyTakesOneArgument_TheWrappedType = String
