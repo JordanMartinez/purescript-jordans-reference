@@ -28,6 +28,7 @@ example :: forall a. ToBoolean a => a -> Boolean
 example value = toBoolean value
 
 -- ... gets desugared to this code
+
 data ToBooleanDictionary a =
   ToBooleanDictionary
     { toBoolean :: a -> Boolean
