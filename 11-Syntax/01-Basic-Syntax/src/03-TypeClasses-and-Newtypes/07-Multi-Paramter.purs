@@ -28,8 +28,7 @@ toString :: forall a. ConvertFromAToB a String => a -> String
 toString a = convert a
 
 test :: Boolean
-test =
-  (toString true) == "true"
+test = (toString true) == "true"
 
 -- necessary to make file compile
 type ReturnType = String
