@@ -52,10 +52,10 @@ instance unwrapBox2 :: Unwrap (Box String) Int where
 
 -- If multiple types determine what another type is, use this syntax:
 class ManyTypesDetermineAnotherType a b c | a b {- n -} -> c  where
-  functionName2 :: a b -> c
+  functionName2 :: a -> b -> c
 
 class OneTypeDeterminesManyTypes a b c | a -> b c where
-  functionName3 :: a -> b c
+  functionName3 :: a -> b -> c
 
 ------------------------
 
