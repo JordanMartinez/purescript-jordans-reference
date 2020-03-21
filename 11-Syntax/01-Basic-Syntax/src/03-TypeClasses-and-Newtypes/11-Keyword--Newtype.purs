@@ -60,5 +60,7 @@ newtype SomeValue_ExplicitKindSignature a = SomeValueExplicit (Box a)
 
 type WhichOnlyTakesOneArgument_TheWrappedType = String
 
+data List :: Type -> Type
 data List a
+
 data People
