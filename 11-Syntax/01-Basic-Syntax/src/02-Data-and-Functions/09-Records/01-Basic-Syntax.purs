@@ -2,23 +2,46 @@ module Syntax.Basic.Record.Basic where
 
 import Prelude
 
--- Records have a different kind than "Type".
+-- Records have a different kind than "Type"
+-- Their kind signature is `Row Type -> Type`.
 
--- "# Type" stands for a "row" of types.
--- It uses a special kind called "row kinds" to indicate that there will be an
--- N-sized number of types that are known at compile time.
--- Row kinds will be covered more fully in the Type-Level Programming Syntax
--- folder.
+-- `Row` kinds are 0 to N number of "label-to-kind" associations
+-- that are known at compile time. `Row` kinds will be covered more fully
+-- in the Type-Level Programming Syntax folder.
+-- Most of the time, you will see the labels associated with the kind, `Type`.
+-- In other words:
+type Example_Row = (rowLabel :: ValueType)
 
-type Example_of_an_Empty_Row = ()
+-- Rows can have 1 or many label-Type associations...
 type Example_of_a_Single_Row = (fieldName :: ValueType)
 type Example_of_a_Multiple_Rows = (first :: ValueType, second :: ValueType)
 
-type PS_Keywords_Can_Be_Field_Names = (data :: ValueType, type :: ValueType, class :: ValueType)
+type PS_Keywords_Can_Be_Label_Names =
+  (data :: ValueType, type :: ValueType, class :: ValueType)
 
-data Record_ -- # Type -> Type
+-- Rows can also have kind signatures. The right-most entity/kind
+-- will be `Row Type`:
+type SingleRow_KindSignature :: Row Type
+type SingleRow_KindSignature = (fieldName :: ValueType)
 
--- Think of records as a unordered named TupleN
+type MultipleRows_KindSignature :: Row Type
+type MultipleRows_KindSignature = (first :: ValueType, second :: ValueType)
+
+-- Rows can also be empty.
+type Example_of_an_Empty_Row :: Row Type
+type Example_of_an_Empty_Row = ()
+
+-- Rows can take type parameters just like data, type, and newtype:
+type Takes_A_Type_Parameter :: Type -> Row Type
+type Takes_A_Type_Parameter a = (someLabel :: Box a)
+
+-- That's enough about rows for now.
+-- Let's see why they are useful for Records.
+
+data Record_ -- Row Type -> Type
+
+-- Think of records as a JavaScript object / HashMap / big product types.
+-- There are keys (the labels) that refer to values of a given type.
 type RecordType_Desugared = Record ( field1 :: String
                                 -- , ...
                                    , fieldN :: Int
@@ -164,3 +187,4 @@ patternMatch_someLabels =
 
 -- needed to compile
 type ValueType = String
+data Box a = Box a
