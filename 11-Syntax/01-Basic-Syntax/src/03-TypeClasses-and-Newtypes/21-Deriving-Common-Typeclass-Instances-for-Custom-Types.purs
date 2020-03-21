@@ -22,17 +22,17 @@ class Ord_ a where
 --
 -- Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 --   https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US
-data Type
+data Type1
   = First Int
   | Second String
 
 -- To create instances of `Eq` and `Ord` for `Type` we'd usually write it by hand:
-instance eqType :: Eq Type where
+instance eqType :: Eq Type1 where
   eq (First a) (First b) = a == b
   eq (Second a) (Second b) = a == b
   eq _ _ = false
 
-instance ordType :: Ord Type where
+instance ordType :: Ord Type1 where
   compare (First a) (First b) = compare a b
   compare (First _) _ = LT
   compare (Second a) (Second b) = compare a b
