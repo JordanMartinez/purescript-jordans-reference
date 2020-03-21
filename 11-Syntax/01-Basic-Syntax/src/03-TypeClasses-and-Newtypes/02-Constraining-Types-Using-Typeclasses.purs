@@ -15,7 +15,7 @@ class ToInt a where
   toInt :: a -> Int
 
 data List a
-  = Nil           -- end of list
+  = Nil               -- end of list
   | Cons a (List a)   -- a head element and the rest of the list (tail)
 
                       -- 'a' must have an 'ToInt' instance for this to compile
@@ -89,13 +89,16 @@ test5 :: String
 test5 = showIt (Box (Box (Box 5)))
 
 -- necessary to make file compile
+
 class TypeClass1 a where
   function1 :: a -> String
 
+class InstanceContext :: Type -> Constraint
 class InstanceContext a
 
 instance ih :: InstanceContext a
 
+data InstanceHead :: Type -> Type
 data InstanceHead a = InstanceHead
 
 class A_TypeClass a where
@@ -104,6 +107,7 @@ class A_TypeClass a where
 instance typeclass1 :: TypeClass1 String where
   function1 a = a
 
+class TypeClass2 :: Type -> Constraint
 class TypeClass2 a
 
 instance typeclass2 :: TypeClass2 String
@@ -111,4 +115,5 @@ instance typeclass2 :: TypeClass2 String
 type Type1 = String
 type Type2 = String
 type ReturnType = String
+
 data IntanceType a = InstanceType a
