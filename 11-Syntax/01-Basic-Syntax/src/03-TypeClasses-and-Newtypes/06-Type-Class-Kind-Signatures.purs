@@ -18,7 +18,7 @@ type ImplicitKindSignature2 a = ImplicitKindSignature1 a Int
 type ExplicitKindSignature2 :: Type -> Type
 type ExplicitKindSignature2 a = ExplicitKindSignature1 a Int
 
--- We also saw that we can use type classes to constraint data types
+-- We also saw that we can use type classes to constrain data types
 showStuff :: forall a. Show a => a -> String
 showStuff a = "Showing 'a' produces " <> show a
 
