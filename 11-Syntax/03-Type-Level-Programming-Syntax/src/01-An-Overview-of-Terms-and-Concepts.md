@@ -102,8 +102,8 @@ Returning to a table we showed previously, we'll add the header that we removed 
 |`Either Int` | `Type -> Type`|
 |`Either` | `Type -> Type -> Type`|
 |`Record (foo :: Int)`|`Type`|
-|`Record`|`# Type -> Type`|
-|`(foo :: Int)`|`# Type`|
+|`Record`|`Row Type -> Type`|
+|`(foo :: Int)`|`Row Type`|
 |...|...|
 
 ## Type-Level Programming Flow
