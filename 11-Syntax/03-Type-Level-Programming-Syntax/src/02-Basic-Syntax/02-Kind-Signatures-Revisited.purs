@@ -29,6 +29,11 @@ type DataExample a_kind_I_created_type_level_value = Int
 newtype NewtypeExample :: A_Kind_I_Created -> Type
 newtype NewtypeExample a_kind_I_created_type_level_value = NewtypeExample Int
 
+-- Similarly, a type class can use kinds other than `Type`. This type class
+-- does not have any functions/values:
+class TypeClassExample :: A_Kind_I_Created -> Constraint
+class TypeClassExample a_kind_I_created_type_level_value
+
 -- To fix this, we use a Proxy type,
 --    a value-level type that wraps a kind:
 data Proxy (kindValue :: Kind) = ProxyValue
