@@ -22,7 +22,7 @@ foreign import data Kind_1_Value_1 :: Kind_1
 foreign import data Kind_1_Value_2 :: Kind_1
 
 data Kind_2
-foreign import data Kind_1_Value :: Kind_2
+foreign import data Kind_2_Value :: Kind_2
 
 -- ... we can define a value that stores the type-level value via `Proxy` ...
 
