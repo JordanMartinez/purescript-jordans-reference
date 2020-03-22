@@ -12,35 +12,28 @@ module Syntax.TypeLevel.Conventions where
 
 type Value_Level_Type = String
 
-foreign import kind KindName
+data KindName
 foreign import data Value :: KindName
 
--- The Proxy type usually has the first letter of the value-level type
--- ("K" for "KindName") followed by "Proxy". The value name
--- is the same as its type.
-data KProxy (a :: KindName) = KProxy
+data Proxy :: forall k. k -> Type
+data Proxy kind = Proxy
 
 -- NANS
-inst :: KProxy Value
-inst = KProxy
+inst :: Proxy Value
+inst = Proxy
 
 -- The class name is usually "Is[KindName]"
-class IsKindName (a :: KindName) where
+class IsKindName :: KindName -> Constraint
+class IsKindName a where
   -- and the reflect function is usually "reflect[KindName]"
-  reflectKindName :: KProxy a -> Value_Level_Type
+  reflectKindName :: Proxy a -> Value_Level_Type
 
 instance reflectValue :: IsKindName Value where
   reflectKindName _ = "value-level value"
 
--- NANS
-class IsKindName a <= ConstrainedToKindName a
-
--- NANS
-instance constraintValue :: ConstrainedToKindName Value
-
 -- Usually reify[KindName]
 reifyKindName :: forall r
            . Value_Level_Type
-          -> (forall a. ConstrainedToKindName a => KProxy a -> r)
+          -> (forall a. IsKindName a => Proxy a -> r)
           -> r
 reifyKindName valueLevel function = function inst
