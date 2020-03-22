@@ -31,7 +31,7 @@ foreign import data OutputValue2 :: OutputKind
 foreign import data OutputValue3 :: OutputKind
 
 -- the relationship
-class TypeLevelFunction :: InputKind -> OutputKind
+class TypeLevelFunction :: InputKind -> OutputKind -> Constraint
 class TypeLevelFunction input output
   -- the functions' type signatures
   | input -> output
