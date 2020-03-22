@@ -1,5 +1,5 @@
-module ModuleKind (kind ImportedKind, ImportedKindValue) where
+module ModuleKind (ImportedKind, ImportedKindValue) where
 
-foreign import kind ImportedKind
+data ImportedKind
 
 foreign import data ImportedKindValue :: ImportedKind

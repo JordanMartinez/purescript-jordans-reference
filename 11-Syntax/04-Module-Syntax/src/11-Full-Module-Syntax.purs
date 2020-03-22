@@ -48,7 +48,7 @@ module Syntax.Module.FullExample
   , module Syntax.Module.FullExample
 
   -- Kinds require the `kind` keyword to precede them
-  , kind ExportedKind
+  , ExportedKind
   , ExportedKindValue
   ) where
 
@@ -99,7 +99,7 @@ import Module3 (anInt3) as Exports
 import Module4.SubModule1 (someFunction) as Exports
 
 -- import a kind and its value
-import ModuleKind (kind ImportedKind, ImportedKindValue)
+import ModuleKind (ImportedKind, ImportedKindValue)
 
 import Prelude
 
@@ -157,6 +157,6 @@ type ExportedTypeAlias_InfixNotation = String
 
 infixr 4 type ExportedTypeAlias_InfixNotation as <|<>|>
 
-foreign import kind ExportedKind
+data ExportedKind
 
 foreign import data ExportedKindValue :: ExportedKind

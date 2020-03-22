@@ -35,7 +35,7 @@ import ModuleDataType (DataType(Constructor1, Constructor2)) as Exports
 import ModuleDataType (DataType(..)) as Exports
 
 -- import a kind and its value
-import ModuleKind (kind ImportedKind, ImportedKindValue) as Exports
+import ModuleKind (ImportedKind, ImportedKindValue) as Exports
 
 -- To prevent warnings from being emitted during compilation
 -- the above imports have to either be used here or

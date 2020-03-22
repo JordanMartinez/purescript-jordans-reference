@@ -43,7 +43,7 @@ module Syntax.Module.Exporting
   , ExportedDataType4_InfixNotation(Infix_Constructor), (<||||>)
 
   -- Kinds require the `kind` keyword to precede them
-  , kind ExportedKind
+  , ExportedKind
   , ExportedKindValue
   ) where
 
@@ -87,6 +87,6 @@ type ExportedTypeAlias_InfixNotation = String
 
 infixr 4 type ExportedTypeAlias_InfixNotation as <|<>|>
 
-foreign import kind ExportedKind
+data ExportedKind
 
 foreign import data ExportedKindValue :: ExportedKind
