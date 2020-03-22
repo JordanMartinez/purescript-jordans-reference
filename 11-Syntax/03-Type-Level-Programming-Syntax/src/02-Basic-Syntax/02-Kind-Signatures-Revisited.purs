@@ -11,12 +11,6 @@ foreign import data Only_Value_For_My_Kind :: A_Kind_I_Created
 data DataExample :: A_Kind_I_Created -> Type
 data DataExample a_kind_I_created_type_level_value = DataExample
 
-type DataExample :: A_Kind_I_Created -> Type
-type DataExample a_kind_I_created_type_level_value = Int
-
-newtype NewtypeExample :: A_Kind_I_Created -> Type
-newtype NewtypeExample a_kind_I_created_type_level_value = NewtypeExample Int
-
 -- This will succesfully compile because `Only_Value_For_My_Kind` has
 -- kind, `A_Kind_I_Created`, which matches the one expected in the
 -- declaration for `DataExample`.
@@ -25,9 +19,15 @@ compileStatus_success = DataExample
 
 -- This will fail to compile because `String` has
 -- kind, `Type`, not kind, `A_Kind_I_Created`.
--- 
+--
 -- compileStatus_fail :: DataExample String
 -- compileStatus_fail = DataExample
+
+type DataExample :: A_Kind_I_Created -> Type
+type DataExample a_kind_I_created_type_level_value = Int
+
+newtype NewtypeExample :: A_Kind_I_Created -> Type
+newtype NewtypeExample a_kind_I_created_type_level_value = NewtypeExample Int
 
 -- To fix this, we use a Proxy type,
 --    a value-level type that wraps a kind:
