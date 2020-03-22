@@ -29,14 +29,14 @@ foreign import data Kind_2_Value :: Kind_2
 kind1Value1 :: Proxy Kind_1_Value_1
 kind1Value1 = Proxy
 
-kind2Value :: Proxy Kind_2_value
+kind2Value :: Proxy Kind_2_Value
 kind2Value = Proxy
 
 -- ... and pass around the type-level values by passing around the Proxy value
 -- and annotating the type signature with the type-level value.
 
 -- This function only works on the first `Kind_1_Value`.
-kind1_to_kind2_specific :: Proxy Kind_1_Value_1 -> Proxy Kind_2_value
+kind1_to_kind2_specific :: Proxy Kind_1_Value_1 -> Proxy Kind_2_Value
 kind1_to_kind2_specific _ {- Proxy, which can be ignored -} =
   Proxy -- Proxy whose type is different than first Proxy type
 
