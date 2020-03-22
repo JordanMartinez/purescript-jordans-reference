@@ -43,8 +43,8 @@ kind1_to_kind2_specific _ {- Proxy, which can be ignored -} =
 -- This function only works on all possible `Kind_1_Value`s.
 kind1_to_kind2_generic
   :: forall (kind1Values :: Kind_1) (kind2Values :: Kind_2)
-   . Proxy Kind_1_Value
-  -> Proxy Kind_2_value
+   . Proxy kind1Values
+  -> Proxy kind2Values
 kind1_to_kind2_generic _ {- Proxy, which can be ignored -} =
   Proxy -- Proxy whose type is different than first Proxy type
 
