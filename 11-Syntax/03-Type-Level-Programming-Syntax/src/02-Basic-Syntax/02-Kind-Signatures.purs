@@ -36,7 +36,7 @@ class TypeClassExample a_kind_I_created_type_level_value
 
 -- To fix this, we use a Proxy type,
 --    a value-level type that wraps a kind:
-data Proxy (kindValue :: Kind) = ProxyValue
+-- data Proxy (kindValue :: Kind) = ProxyValue
 
 -- The above definition will make more sense in the future.
 
