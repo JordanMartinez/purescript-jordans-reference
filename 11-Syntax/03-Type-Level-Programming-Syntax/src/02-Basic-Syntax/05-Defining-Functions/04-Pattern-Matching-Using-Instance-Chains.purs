@@ -25,14 +25,14 @@ data Fruit
 
 data ZeroOrOne = Zero | One
 
-foreign import kind FruitKind
+data FruitKind
 foreign import data AppleK     :: FruitKind
 foreign import data OrangeK    :: FruitKind
 foreign import data BananaK    :: FruitKind
 foreign import data BlueberryK :: FruitKind
 foreign import data CherryK    :: FruitKind
 
-foreign import kind ZeroOrOneKind
+data ZeroOrOneKind
 foreign import data ZeroK :: ZeroOrOneKind
 foreign import data OneK  :: ZeroOrOneKind
 
@@ -44,7 +44,8 @@ fruitToInt _ {- Orange .. Cherry -} = One
 
 -- we can use a feature called "Value Chains:"
 
-class FruitToInt (a :: FruitKind) (i :: ZeroOrOneKind)
+class FruitToInt :: FruitKind -> ZeroOrOneKind -> Constraint
+class FruitToInt a i
   | a -> i                                                                {-
 
   Notice that we have omitted this type signature because

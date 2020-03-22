@@ -5,10 +5,10 @@ module Syntax.TypeLevel.Functions.SingleArgSyntax where
 data InputType = InputValue
 data OutputType = OutputValue
 
-foreign import kind InputKind
+data InputKind
 foreign import data InputValueK :: InputKind
 
-foreign import kind OutputKind
+data OutputKind
 foreign import data OutputValueK :: OutputKind
 
 -- ... a value-level function...
@@ -23,7 +23,8 @@ function InputValue = OutputValue
 --   - functional dependencies
 
 -- the relationship
-class TypeLevelFunction (input :: InputKind) (output :: OutputKind)
+class TypeLevelFunction :: InputKind -> OutputKind -> Constraint
+class TypeLevelFunction input output
   -- one function's type signature
   | input -> output
 
