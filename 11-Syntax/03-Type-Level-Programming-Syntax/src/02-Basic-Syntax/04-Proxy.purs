@@ -10,7 +10,7 @@ module Syntax.TypeLevel.Proxy where
 -- By making that phantom type polymorphic on kinds (i.e polykinded),
 -- one type will work for all kinds:
 data Proxy :: forall kind. kind -> Type
-data Proxy kind = Proxy
+data Proxy k = Proxy
 
 -- Given that we have the following two custom kinds...
 
