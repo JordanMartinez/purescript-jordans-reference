@@ -81,6 +81,8 @@ subtractIntK_2 _ _ = IProxyValue
 
 ## Unification
 
+### An Overview and How Type-Level Functions "Compute"
+
 Recall that the type checker / type constraint solver "computes" type-level expressions by figuring out what type something is. Thus, the above analogy is helpful for understanding type-level programming, but it is incomplete without an explanation on how types "unify". In short, **unification** is the way by which the compiler infers or figures out some type. For our context, it is how the type checker computes the "type-level output" of a type-level function. It does this by unifying the undefined types in a type class' definition with a concrete type's instance of that type class.
 
 Let's review something first. In a type class definition and its instance, we have terms to refer to specific parts of it:
@@ -132,6 +134,8 @@ A type-level function can only "compute" a type-level expression when the types 
 - situations where the type inferencer cannot infer the correct type/kind
 - situations where one needs to do "backtracking".
 
+### Backtracking Is Not (Currently) Supported
+
 Here is an example of "backtracking". It will make more sense after you have read through the `Pattern-Matching-Using-Instance-Chains.purs` file.
 ```purescript
 class MyClass a
@@ -151,6 +155,8 @@ Here's the steps the compiler walks through:
 The issue lies in step 2: the instance head is checked before the instance context. Once the type inferer commits to some instance, it cannot 'backtrack' to the starting position after realizing that its current instance fails. Ideally, the type inferer would jump back to step 2 and realize that there is another instance ('secondInstance') that always works for any `a` type (since there is no constraint).
 
 "Backtracking" could be implemented in the compiler by using instance guards, but this has not yet been done. For the current progress on this issue, see [the related Purescript issue](https://github.com/purescript/purescript/issues/3120).
+
+### More Resources for Understanding Unification
 
 To understand unification at a deeper level, see these links:
 - [Type Inference from Scratch](https://www.youtube.com/watch?v=ytPAlhnAKro). This video explains the ideas behind the notation used in the paper below.
