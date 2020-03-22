@@ -23,8 +23,8 @@ compileStatus_success = DataExample
 -- compileStatus_fail :: DataExample String
 -- compileStatus_fail = DataExample
 
-type DataExample :: A_Kind_I_Created -> Type
-type DataExample a_kind_I_created_type_level_value = Int
+type TypeExample :: A_Kind_I_Created -> Type
+type TypeExample a_kind_I_created_type_level_value = Int
 
 newtype NewtypeExample :: A_Kind_I_Created -> Type
 newtype NewtypeExample a_kind_I_created_type_level_value = NewtypeExample Int
