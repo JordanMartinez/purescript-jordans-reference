@@ -6,7 +6,7 @@ data Value_Level_Type
   = Value_Level_Value1
   | Value_Level_Value2
 ----------------------
--- We first define a data type that does not have any members.
+-- We first define a data type that does not have any data constructors.
 -- This indicates that `Type_Level_Type` is a kind we created.
 data Type_Level_Type
 
