@@ -87,7 +87,7 @@ Sometimes, pictures say a lot more than words:
 ![comparing-kinds-with-types](../assets/Comparing-Kinds-With-Types.svg "Comparing Kinds with Types")
 
 We can now modify the definition to account for this new understanding:
-> Kinds = "How many more type-level types do I need defined before I have a 'concrete' type-level type? Also, `kind Type` is a type-level type whose 'values'/'members' are value-level types.
+> Kinds = "How many more type-level types do I need defined before I have a 'concrete' type-level type? Also, the kind, `Type`, is a type-level type whose 'values'/'members' are value-level types.
 
 ### Summary of Inferred Kinds
 
