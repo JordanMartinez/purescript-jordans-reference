@@ -46,7 +46,8 @@ This is the same idea used in type-level programming. So, how does this actually
 For example, assuming we had 1) a type-level number called `IntK`, 2) its value-level Proxy type, `IProxy`, and 3) instances for the below type class, we could write an `add` and two `subtract` functions using just one relationship:
 ```purescript
 -- the relationship itself
-class AddOrSubtract (x :: IntK) (y :: IntK) (total :: IntK)
+class AddOrSubtract :: IntK -> IntK -> IntK -> Constraint
+class AddOrSubtract x y total
   -- the normal "add" function: "total = x + y"
   | x y -> total
 
@@ -161,7 +162,8 @@ To understand unification at a deeper level, see these links:
 
 At times, it can be difficult for the type checker to infer what a given type is. Thus, one uses functional dependencies (FDs) to help the compiler. As a reminder, FDs inform the compiler how to infer what some types are given that it knows other types:
 ```purescript
-class Add (x :: IntK) (y :: IntK) (total :: IntK)
+class Add :: IntK -> IntK -> IntK -> Constraint
+class Add x y total
   | x y -> total
   , y total -> x
   , x total -> y
@@ -170,33 +172,29 @@ However, sometimes the functional dependencies get a bit more complicated becaus
 
 For example, look at the second FD of [`Prim.Row.Cons`](https://pursuit.purescript.org/builtins/docs/Prim.Row#t:Cons):
 ```purescript
-class Cons (label :: Symbol) (a :: Type) (tail :: # Type) (row :: # type)
+-- Note: Symbol is a type-level String
+class Cons :: forall kind. Symbol -> kind -> Row kind -> Row kind -> Constraint
+class Cons label a tail row
   | label a tail -> row
-  , label row -> a tail                                                     {-
+  , label row -> a tail
+```
+The first FD can be read as
+
+> If you give me a label, its type-level value, and a pre-existing row (i.e. tail), then I can append that "label and type-level value" association to the tail and give you back the result of the append (i.e. row)."
 
 The second FD can be read as
- "If you provide a row and the name of a field in the row,
-  I can give you that field's type and a version of the row
-  without that field (i.e. the tail)"
+> If you provide me a row and the name of a label in that row, then I can give you either
+>   1) that label's type
+>   2) a row that excludes that label-value association (i.e. the tail)", or
+>   3) both                                                                -}
 
-One can see how this single FD can be used to do two things
-if one uses one of the types and ignores the other:
-- get the type of a some field (use `a`, ignore `tail`)
-- remove a field from a row (use `tail`, ignore `a`)                          -}
-
--- given this type
-type ExampleRow = (first :: String, second :: Int)
--- the kinds in Cons would appear as:
-type ExampleCons = Cons
-  first String (tail :: (second :: Int))
-  (first :: String, second :: Int)
-
--- given this type
-type ExampleRow2 = (first :: String)
--- the kinds in Cons would appear as:
-type ExampleCons2 = Cons
-  first String (tail :: ())
-  (first :: String)
+In other word...
+```
+Cons "first" String () (first :: String)
+```
+... or ...
+```
+Cons "first" String (second :: Int) (first :: String, second :: Int)
 ```
 
 ## Prolog Links
