@@ -1,7 +1,7 @@
 module Syntax.Basic.Typeclass.Special.Coercible where
 
 import Prelude
--- import Prim.Coercible (coerce)
+import Safe.Coerce (coerce)
 
 -- ## Linking to the paper for an (optional) detailed explanation
 
