@@ -151,6 +151,11 @@ let additions =
           , repo = "https://github.com/JordanMartinez/purescript-tree.git"
           , version = "v1.3.6"
           }
+      , safe-coerce =
+          { dependencies = [ "unsafe-coerce" ]
+          , repo = "https://github.com/purescript/purescript-safe-coerce.git"
+          , version = "v0.0.2"
+          }
       }
 
 in  upstream // overrides // additions
