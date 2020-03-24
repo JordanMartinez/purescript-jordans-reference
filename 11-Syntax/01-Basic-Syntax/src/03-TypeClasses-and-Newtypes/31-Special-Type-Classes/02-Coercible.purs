@@ -166,6 +166,7 @@ instance hashableInt :: Hashable Int where
   hash key = key
 
 newtype SpecialInt = SpecialInt Int
+derive instance eqSpecialInt :: Eq SpecialInt
 instance hashableSpecialInt :: Hashable SpecialInt where
   hash (SpecialInt key) = key * 31
 
@@ -186,18 +187,23 @@ normalMap =
   in Map normalKeyAndValue  {- -> -} normalKeyAndValue
          specialKeyAndValue {- -> -} specialKeyAndValue
 
-lookup :: forall key value. Hashable key => Map key value -> key -> value
+data Maybe a = Nothing | Just a
+derive instance eqMaybe :: (Eq a) => Eq (Maybe a)
+
+lookup :: forall key value. Hashable key => Map key value -> key -> Maybe value
 lookup (Map k1 v1 k2 v2) key =
-  if (hash key) == (hash k1) then v1 else v2
+  if      (hash key) == (hash k2) then Just v2
+  else if (hash key) == (hash k1) then Just v1
+  else Nothing
 
 lookupNormal :: Boolean
-lookupNormal = (lookup normalMap 4) == 4
+lookupNormal = (lookup normalMap 4) == (Just 4)
 
 lookupSpecial :: Boolean
-lookupSpecial = (lookup specialMap (SpecialInt 4)) /= (SpecialInt 4)
+lookupSpecial = (lookup specialMap (SpecialInt 4)) /= (Just (SpecialInt 4))
   where
     specialMap :: Map SpecialInt SpecialInt
-    specialMap = coerce exampleMap
+    specialMap = coerce normalMap
 
 -- To prevent this possibility from ever occurring, we indicate that
 -- a type parameter's role is 'nominal'. Rewriting our `Map` implementation
