@@ -1,4 +1,4 @@
-# Applyicative
+# Applicative
 
 ## Usage
 
