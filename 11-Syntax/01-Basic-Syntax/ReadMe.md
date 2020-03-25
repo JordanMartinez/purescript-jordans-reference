@@ -10,3 +10,8 @@ To see what the documentation looks like, run this command:
 spago docs
 ```
 Then, open the file, `./generated-docs/index.html`, and open a module to see what it outputs.
+
+Recent versions of spago also support the `--open` flag.
+```bash
+spago docs --open
+```
