@@ -47,8 +47,8 @@ data Add = Add Expression Expression
 
 type Expression = Value \/ Add
 
-value :: Expression
-value i = inj i
+value :: Int -> Expression
+value i = inj (Value i)
 
 add :: Expression -> Expression -> Expression
 add x y = inj (Add x y)
