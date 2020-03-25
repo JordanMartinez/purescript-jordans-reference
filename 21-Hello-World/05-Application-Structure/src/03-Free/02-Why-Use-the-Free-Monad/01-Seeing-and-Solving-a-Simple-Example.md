@@ -75,7 +75,6 @@ data Fruit
 showFruit :: Fruit -> String
 showFruit Apple = "apple"
 showFruit Banana = "banana"
-showFruit Orange = "orange"
 
 -- new file
 data Fruit2

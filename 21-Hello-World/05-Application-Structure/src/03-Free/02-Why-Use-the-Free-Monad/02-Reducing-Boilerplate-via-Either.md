@@ -36,7 +36,7 @@ data FruitGrouper2
   = FruitGrouper_ FruitGrouper
   | Fruit3_       Fruit3
 
-showMoreFruit :: FruitGrouper -> String
+showMoreFruit :: FruitGrouper2 -> String
 showMoreFruit (FruitGrouper_ a) = showAllFruit a
 showMoreFruit (Fruit3_ Cherry)  = "cherry"
 ```
