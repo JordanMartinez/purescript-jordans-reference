@@ -1,6 +1,7 @@
 module Syntax.Basic.Typeclass.Special.Coercible where
 
 import Prelude
+import Prim.Coerce (class Coercible)
 import Safe.Coerce (coerce)
 
 -- ## Linking to the paper for an (optional) detailed explanation
@@ -170,39 +171,37 @@ derive instance eqSpecialInt :: Eq SpecialInt
 instance hashableSpecialInt :: Hashable SpecialInt where
   hash (SpecialInt key) = key * 31
 
-data Map key value
-  = Map
-      key     -- key1
-      value   -- value1
-      key     -- key2
-      value   -- value2
+data Map key value = Map key value
 
 type role Map representational representational
-
-normalMap :: Map Int Int
-normalMap =
-  let
-    normalKeyAndValue = 4
-    specialKeyAndValue = 4 * 31
-  in Map normalKeyAndValue  {- -> -} normalKeyAndValue
-         specialKeyAndValue {- -> -} specialKeyAndValue
 
 data Maybe a = Nothing | Just a
 derive instance eqMaybe :: (Eq a) => Eq (Maybe a)
 
-lookup :: forall key value. Hashable key => Map key value -> key -> Maybe value
-lookup (Map k1 v1 k2 v2) key =
-  if      (hash key) == (hash k2) then Just v2
-  else if (hash key) == (hash k1) then Just v1
-  else Nothing
+lookup :: forall key1 key2 value
+        . Coercible key2 key1 => Hashable key1
+       => Map key1 value -> key2 -> Maybe value
+lookup (Map k value) key =
+  let
+    coercedKey :: key1
+    coercedKey = coerce key
+  in if hash k == hash coercedKey
+       then Just value
+       else Nothing
 
-lookupNormal :: Boolean
-lookupNormal = (lookup normalMap 4) == (Just 4)
+normalMap :: Map Int Int
+normalMap = Map 4 28
 
-lookupSpecial :: Boolean
-lookupSpecial = (lookup specialMap (SpecialInt 4)) /= (Just (SpecialInt 4))
+-- This will output `true`
+testLookupNormal :: Boolean
+testLookupNormal = (lookup normalMap 4) == (Just 4)
+
+-- This will output `false`
+testLookupSpecial :: Boolean
+testLookupSpecial = (lookup specialMap 4) == (Just 4)
   where
-    specialMap :: Map SpecialInt SpecialInt
+    -- changes `Map 4 28` to `Map (SpecialInt 4) 28`
+    specialMap :: Map SpecialInt Int
     specialMap = coerce normalMap
 
 -- To prevent this possibility from ever occurring, we indicate that
@@ -211,11 +210,6 @@ lookupSpecial = (lookup specialMap (SpecialInt 4)) /= (Just (SpecialInt 4))
 -- the `value` type parameter does not affect the runtime representation,
 -- it can be representational.
 
-data SafeMap key value
-  = SafeMap
-      key     -- key1
-      value   -- value1
-      key     -- key2
-      value   -- value2
+data SafeMap key value = SafeMap key value
 
 type role SafeMap nominal representational
