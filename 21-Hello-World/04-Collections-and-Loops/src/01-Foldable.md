@@ -168,7 +168,7 @@ instance foldableList :: Foldable List where
   foldr :: forall a b. (a -> b -> b) -> b -> List a -> b
   foldr op accumB   Nil           = accumB
   foldr op initialB (head : tail) =
-    op (head (foldl op initialB tail))
+    op head (foldl op initialB tail)
 
   -- Unlike Box, reusing `foldl`/`foldr` is actually the cleaner way
   -- to implement `foldMap` for `List`.
