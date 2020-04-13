@@ -71,30 +71,14 @@ mkString3 a b = case a, b of
   Apple, Cherry -> "An apple and a cherry"
   _, _ -> "You didn't really think I would type out all of them, did you?!?"
 
-warning :: String
-warning = """
-
-See: https://github.com/purescript/purescript/issues/3443
-Pattern Matching -> Case -> Pattern guard == compiler error
-
-The following code will not compile:
-
-test :: SomeType
+-- This compiles: Pattern Matching -> Case -> Pattern guard
+test :: Int -> Boolean
 test a
   | false =
       case false of
         true | a > 12 -> true
+        _ -> false
   | otherwise = true
-
-To make it compile, wrap the `case _ of` syntax block in parenthesis:
-
-test :: SomeType
-test a
-  | false =
-      (case false of
-        true | a > 12 -> true)
-  | otherwise = true
-"""
 
 -- Necessary to get this file to compile
 length :: String -> Int
