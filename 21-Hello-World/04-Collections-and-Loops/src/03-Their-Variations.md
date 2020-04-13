@@ -7,7 +7,7 @@ Once you get how `Foldable` and `Traversable` works, the following variations sh
 The same as their base type classes, but an additional `Int` argument represent the `a`'s index in `f` is included in the `map`/`fold`/`traverse` functions.
 
 - [`FunctorWithIndex`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.FunctorWithIndex)
-- [`FoldableWithindex`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.FoldableWithIndex)
+- [`FoldableWithIndex`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.FoldableWithIndex)
 - [`TraversableWithIndex`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.TraversableWithIndex)
 
 ## Variants where the `f` cannot be empty
@@ -20,4 +20,4 @@ The same as their base type classes, but the `f` type must always have at least 
 
 The same as their base type classes, but as though it was `f (Tuple a b)` rather than `f a`:
 - [`Bifoldable`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Bifoldable)
-- [`Bitraversable`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Bifoldable)
+- [`Bitraversable`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Bitraversable)
