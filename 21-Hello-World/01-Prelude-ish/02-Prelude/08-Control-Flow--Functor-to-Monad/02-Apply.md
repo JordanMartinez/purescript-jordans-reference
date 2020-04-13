@@ -15,7 +15,7 @@ into `b`
 
 ## Definition
 
-See its docs: [Apply](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Apply)
+See its docs: [Apply](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Control.Apply)
 
 ```purescript
 class (Functor f) <= Apply f where

@@ -94,7 +94,7 @@ class (Semigroupoid a) <= Category a where
 ```
 
 Here's the docs. You likely won't be using these that often (unless perhaps you're designing a library), but it's good to know of them:
-- [Semigroupoid](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Semigroupoid#t:Semigroupoid) generalizes compose
-- [Category](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Category) generalizes identity
+- [Semigroupoid](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Control.Semigroupoid#t:Semigroupoid) generalizes compose
+- [Category](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Control.Category) generalizes identity
 
 You will see `g <<< g` or its flipped version `g >>> f` a lot and we'll use it in the upcoming files.

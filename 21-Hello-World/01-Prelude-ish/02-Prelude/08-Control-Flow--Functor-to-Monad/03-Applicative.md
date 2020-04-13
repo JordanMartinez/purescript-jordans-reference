@@ -9,7 +9,7 @@
 
 ## Definition
 
-See its docs: [Applicative](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Applicative)
+See its docs: [Applicative](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Control.Applicative)
 
 ```purescript
 class (Apply f) <= Applicative f where

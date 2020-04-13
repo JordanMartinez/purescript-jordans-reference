@@ -52,15 +52,15 @@ Using the same examples above,
 ## Docs
 
 Some of these type classes also specify specific helper types (sub bullets under a type class) that serve to reduce boilerplate:
-- [Semigroup](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Semigroup).
-    - When one wants to reduce two values down to one by ignoring the second value and taking the first value, one can use [First](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Semigroup.First)
-    - Or vice versa (ignore first, take second), via [Last](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Semigroup.Last)
-- [Monoid](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid)
-    - [Additive](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid.Additive)
-    - [Multiplicative](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid.Multiplicative)
-    - [Conj](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid.Conj)
-    - [Disj](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid.Disj)
-    - [Dual](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid.Dual)
-    - [Endo](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid.Endo)
+- [Semigroup](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Semigroup).
+    - When one wants to reduce two values down to one by ignoring the second value and taking the first value, one can use [First](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Semigroup.First)
+    - Or vice versa (ignore first, take second), via [Last](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Semigroup.Last)
+- [Monoid](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Monoid)
+    - [Additive](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Monoid.Additive)
+    - [Multiplicative](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Monoid.Multiplicative)
+    - [Conj](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Monoid.Conj)
+    - [Disj](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Monoid.Disj)
+    - [Dual](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Monoid.Dual)
+    - [Endo](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Monoid.Endo)
 
 For derived functions (if any), see the type classes' docs.
