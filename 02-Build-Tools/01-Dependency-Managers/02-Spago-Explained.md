@@ -29,7 +29,7 @@ A **package** in this context is 4 things:
 3. a set of its dependencies (which are also packages).
 4. a name to refer to the combination of the above three things
 
-Thus, a package is a unique named `repo-tag-dependencies` combination (e.g. `prelude` could indicate the [Prelude repo at the 'v4.1.1' tag](https://github.com/purescript/purescript-prelude/tree/v4.1.0)).
+Thus, a package is a unique named `repo-tag-dependencies` combination (e.g. `prelude` could indicate the [Prelude repo at the 'v4.1.1' tag](https://github.com/purescript/purescript-prelude/tree/v4.1.1)).
 
 A **package set** consists of a set of packages. It's a JSON-like file that maps a package name to its corresponding `repo-tag-dependencies` combination. A package set gets **verified** to ensure that its set of packages compiles together on a given PureScript compiler release. Once verified, they are considered "immutable."
 
