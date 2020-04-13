@@ -27,7 +27,7 @@ In other words, `Free` is just a tree-like data structure of nested `Identity` v
   {- ) -}        )
 {- ) -}        )
 ```
-The only difference is that `Identity` itself is wrapped in another type. So how do we change a value that is wrappd in a box-like type? We use `Functor`'s `map`, of course! We'll use `map` in most of `Free`'s instances for the needed type classes:
+The only difference is that `Identity` itself is wrapped in another type. So how do we change a value that is wrapped in a box-like type? We use `Functor`'s `map`, of course! We'll use `map` in most of `Free`'s instances for the needed type classes:
 ```purescript
 -- easiest one!
 instance Applicative :: Applicative (Free f) where
