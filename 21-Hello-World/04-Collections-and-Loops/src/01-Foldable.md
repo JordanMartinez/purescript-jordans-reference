@@ -329,7 +329,7 @@ Here's an example:
 main :: Effect Unit
 main = do
   int <- randomInt 1 10
-  output <- foldl recursiveComputation 1 [1, 2, 3]
+  output <- foldM recursiveComputation 1 [1, 2, 3]
   log $ "Output was: " <> show output
   where
     recursiveComputation initialOrAccumulatedValue nextValueInArray = do
