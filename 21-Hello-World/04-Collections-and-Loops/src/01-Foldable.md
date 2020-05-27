@@ -168,7 +168,7 @@ instance foldableList :: Foldable List where
   foldr :: forall a b. (a -> b -> b) -> b -> List a -> b
   foldr op accumB   Nil           = accumB
   foldr op initialB (head : tail) =
-    op (head (foldl op initialB tail))
+    op head (foldl op initialB tail)
 
   -- Unlike Box, reusing `foldl`/`foldr` is actually the cleaner way
   -- to implement `foldMap` for `List`.
@@ -329,7 +329,7 @@ Here's an example:
 main :: Effect Unit
 main = do
   int <- randomInt 1 10
-  output <- foldl recursiveComputation 1 [1, 2, 3]
+  output <- foldM recursiveComputation 1 [1, 2, 3]
   log $ "Output was: " <> show output
   where
     recursiveComputation initialOrAccumulatedValue nextValueInArray = do

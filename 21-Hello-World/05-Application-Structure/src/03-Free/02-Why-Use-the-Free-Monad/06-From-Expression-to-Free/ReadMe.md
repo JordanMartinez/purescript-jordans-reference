@@ -57,7 +57,7 @@ Purescript's `Free` monad is implemented in the "reflection without remorse" sty
 
 ### LiftF
 
-The `Free` monad has its own way of injecting a value into it called [`liftF`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:liftF). It can be understood like this:
+The `Free` monad has its own way of injecting a value into it called [`liftF`](https://pursuit.purescript.org/packages/purescript-free/5.2.0/docs/Control.Monad.Free#v:liftF). It can be understood like this:
 ```purescript
 -- Before
 someValue :: forall a. a -> Expression SomeFunctor
@@ -71,7 +71,7 @@ liftF = Impure (SomeFunctor a)
 
 ### Wrap
 
-`LiftF` is useful, but it won't let us compile the examples we will show next because it expects the `a` to be any `a`. In cases like `AddF`/`MultiplyF`, sometimes that `a` has to be `Free AddF`/`Free MultiplyF` instead of just the `Int` type. In such cases, we can use [`wrap`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:wrap):
+`LiftF` is useful, but it won't let us compile the examples we will show next because it expects the `a` to be any `a`. In cases like `AddF`/`MultiplyF`, sometimes that `a` has to be `Free AddF`/`Free MultiplyF` instead of just the `Int` type. In such cases, we can use [`wrap`](https://pursuit.purescript.org/packages/purescript-free/5.2.0/docs/Control.Monad.Free#v:wrap):
 
 ```purescript
 -- Using `liftF`
@@ -88,9 +88,9 @@ add x y = wrap $ AddF x y
 
 ### Other Functions
 
-[`foldFree`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:foldFree) interprets the Free into some other monad (e.g. `Effect`, etc.).
+[`foldFree`](https://pursuit.purescript.org/packages/purescript-free/5.2.0/docs/Control.Monad.Free#v:foldFree) interprets the Free into some other monad (e.g. `Effect`, etc.).
 
-[`runFree`](https://pursuit.purescript.org/packages/purescript-free/5.1.0/docs/Control.Monad.Free#v:runFree) computes a "pure" program described in `Free` (by 'pure,' we meant that `Free` only stores the instructions the program would execute, but does not run them).
+[`runFree`](https://pursuit.purescript.org/packages/purescript-free/5.2.0/docs/Control.Monad.Free#v:runFree) computes a "pure" program described in `Free` (by 'pure,' we meant that `Free` only stores the instructions the program would execute, but does not run them).
 
 ## Compilation Instructions
 

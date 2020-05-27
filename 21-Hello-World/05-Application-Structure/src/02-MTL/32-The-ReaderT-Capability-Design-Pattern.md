@@ -55,7 +55,7 @@ program = do
 type Environment = { } -- mutable state, read-only values, etc. go in this record
 
 -- newtyped ReaderT that implements the capabilities
-newtype AppM a = AppM (ReaderT Environemnt Effect a)
+newtype AppM a = AppM (ReaderT Environment Effect a)
 
 runApp :: AppM a -> Environment -> Effect a
 runApp (AppM reader_T) env = runReaderT reader_T env
@@ -77,7 +77,7 @@ main = do
 -- Layer 2 (test)
 
 -- newtyped ReaderT that implements the capabilities for testing
-newtype TestM a = TestM (Reader Environemnt a)
+newtype TestM a = TestM (Reader Environment a)
 
 runTest :: TestM a -> Environment -> a
 runTest (TestM reader) env = runReader reader env
