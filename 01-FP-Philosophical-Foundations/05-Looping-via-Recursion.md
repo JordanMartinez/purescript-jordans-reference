@@ -124,7 +124,7 @@ data Maybe a
 
 findFirst :: forall a. List a -> (a -> Boolean) -> Maybe a
 findFirst Nil condition = Nothing
-findFirst' (Cons head tail) condition =
+findFirst (Cons head tail) condition =
   if (condition head)
   then Just head
   else findFirst' tail condition
