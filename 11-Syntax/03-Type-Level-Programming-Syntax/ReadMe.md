@@ -6,4 +6,4 @@ Note: there is an annoyance that can occur if you play around with the code: due
 
 ## Other Learning Sources
 
-Consider purchasing [Thinking with Types](https://leanpub.com/thinking-with-types/), a book that claims to be "the comprehensive manual for type-level programming".
+Consider purchasing [Thinking with Types](https://leanpub.com/thinking-with-types/), a book that claims to be "the comprehensive manual for type-level programming". Abhinav Sarkar also made [his notes public](https://abhinavsarkar.net/posts/twt-notes-1/)
