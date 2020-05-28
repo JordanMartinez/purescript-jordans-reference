@@ -19,6 +19,7 @@ Note: each 'project' folder in the `src` folder has a corresponding folder in th
 - [hdgarrood's 'MultiPac' project](https://github.com/hdgarrood/multipac)
 - [thomashoneyman's 'Real World App' project](https://github.com/thomashoneyman/purescript-halogen-realworld)
 - [jaspervdj's 'Beeraffe' game](https://github.com/jaspervdj/beeraffe/)
+- [AndrewBrownK's 'Minesweeper CLI' game](https://github.com/AndrewBrownK/purescript-minesweeper-cli)
 
 ### Projects in non-JS backends
 
