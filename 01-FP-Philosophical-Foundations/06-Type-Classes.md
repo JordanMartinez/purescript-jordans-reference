@@ -146,6 +146,18 @@ Scala uses local instances. Haskell uses global instances and orphan instances a
 
 PureScript uses global instances, and orphan instances are strictly disallowed. Unlike Haskell, there are no "escape hatches." For more context, see [Harry's comment in 'Disallow Orphan Instances' (purescript/purescript#1247)](https://github.com/purescript/purescript/issues/1247#issuecomment-512975645).
 
+## Scrap Your Type Classes (SYTC)
+
+At the end of the day, mainstream usage of type classes provide a lot of convenience to the developer. Rather than defining a function that takes many arguments, it only takes a few arguments that highlight what you want to do.
+
+As a result, some developers who encounter a problem will immediately decide to use type classes as their solution rather than some other language feature that is more appropriate (e.g. regular functions). For some problems, it is better to use regular functions rather than type classes. Regular functions might be less convenient than type classes, but they can be easier to use in some cases and more performant in others.
+
+To understand the tradeoff, you must
+1. understand that [type class constraints are replaced with arguments called 'type class dictionaries'](https://www.schoolofhaskell.com/user/jfischoff/instances-and-dictionaries)
+2. realize that the possibly "larger" type class dictionary object argument could be replaced with a "smaller" single function
+
+For more context, see [Scrap Your Type Classes](http://www.haskellforall.com/2012/05/scrap-your-type-classes.html)
+
 ## Other Usages of Type Classes
 
 Some type classes are purposefully designed to be lawless because they are used for other situations. Here are some examples:
