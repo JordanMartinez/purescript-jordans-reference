@@ -53,6 +53,25 @@ Below is the current list of libraries we introduce and further explain here. Th
 - (Easy) "Guess the Random Number" game.
 - (Easy-ish) "Table of Contents Generator" program for this specific repository.
 
+## Why Halogen and Not React?
+
+I'll quote Thomas Honeyman in full below:
+
+> Halogen differs from Elm in that it supports components with local state and can also use a global state across components. (I'm aware you can also implement the Elm architecture in Halogen, but I haven't tried this myself.)
+>
+> At CitizenNet I worked on a Halogen app, and at Awake Security I work on a PureScript React app. In both cases, components helped ensure that state is kept where you actually reason about it and use it to produce UI, and that global state is kept uncluttered and minimal. I want to store things like the current user in global state, and I want to store things like which tab is focused in the panel in the sidebar in the component that actually cares about it.
+>
+> This isn't an argument for Halogen; it's an argument for components with local state. I would personally choose PureScript React / Halogen over TEA done in PureScript for this reason. That said, if this doesn't really matter to you, there's no reason not to use Spork, Hedwig, Concur, etc.
+>
+> Between Halogen and React the main decision, for me, is whether I want to interop with the React ecosystem or not. Using React under the hood can mean some surprising quirks and workarounds (for example: to deal with React's widespread use of referential equality), but the experience overall is pleasant, and at least I know if I need a charting library I can pull one off the shelf from React in a way that's not always true in Halogen.
+>
+> So why Halogen? Halogen lets me use components, or skip them if I don't want them. It's 100% PureScript (with the [virtual dom library](https://github.com/purescript-halogen/purescript-halogen-vdom) implemented in PureScript). The effect monad, HalogenM, has a really nice story for async code, forking threads in components, etc. You can freely intersperse your own type classes in code written in your components. And with [halogen-hooks](https://github.com/thomashoneyman/purescript-halogen-hooks) there's a nice way to write functions that use local state and reuse that stateful logic across many components.
+>
+> I just don't see anywhere near the same flexibility + ability to reason about your code using other frameworks. I subjectively feel that when I write code in Halogen I get to push PureScript as far as it can go in a way that's not true with say PS-React or Elm clones. Unfortunately, that does carry an up-front cost in learning Halogen.
+>
+> As a caveat: I don't have much experience with Elm or the Elm Architecture, so please feel free to correct me if I have made a mistaken assumption. I have written a small app using Elm, but as the state grew larger and it became tedious doing deep updates I moved to PureScript. However, I don't know how folks writing large Elm applications handle this problem and how satisfying the solutions are.
+> Source: [ThomasHoneyman/purescript-halogen-realworld#59]https://github.com/thomashoneyman/purescript-halogen-realworld/issues/59
+
 ## License
 
 All source code in these projects is licensed under the MIT license.
