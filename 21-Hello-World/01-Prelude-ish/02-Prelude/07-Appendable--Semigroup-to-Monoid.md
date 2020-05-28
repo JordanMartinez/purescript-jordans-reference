@@ -60,7 +60,7 @@ Some of these type classes also specify specific helper types (sub bullets under
     - When one wants to use `Semiring`'s `mul`/`*` and `one` as the meaning of `<>` and `mempty`, one can use [Multiplicative](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid.Multiplicative)
     - When one wants to use `HeytingAlgebra`'s `conj`/`&&` and `tt` as the meaning of `<>` and `mempty`, one can use [Conj](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid.Conj)
     - When one wants to use `HeytingAlgebra`'s `disj`/`||` and `ff` as the meaning of `<>` and `mempty`, one can use [Disj](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid.Disj)
-    - When one wants to use `Category`'s `composeFlipped`/`>>>` and `identity` as the meaning of `<>` and `mempty`, one can use [Dual](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid.Dual)
     - When one wants to use `Category`'s `compose`/`<<<` and `identity` as the meaning of `<>` and `mempty`, one can use [Endo](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid.Endo)
+    - When one wants to use `Category`'s `composeFlipped`/`>>>` and `identity` as the meaning of `<>` and `mempty`, one can use [Dual](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Monoid.Dual)
 
 For derived functions (if any), see the type classes' docs.
