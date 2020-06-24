@@ -1,11 +1,6 @@
 # Other Important Info
 
-[Purescript By Example](https://book.purescript.org/) is a book that teaches Purescript. Unfortunately, it is now outdated because it covers Purescript `0.11.7`. The `0.12.0` release included a lot of breaking changes that would require significantly updating the book. However, it's still a useful learning resource.
-
-If you decide to read the book, here are things to be aware of:
-- be wary of any references to these [deprecated packages](https://github.com/purescript-deprecated)
-- **Refer to [`dwhitney`'s fork of the book's code](https://github.com/dwhitney/purescript-book/tree/0.12)**, which is currently being updating to use `0.13.6`.
-- Refer to `Hello-World/Effect-and-Aff/Effect-Eff-and-Aff.md` to understand how to translate the no-longer-used `Eff` type to `Effect` type.
+- [Purescript By Example](https://book.purescript.org/) is the official up-to-date book that teaches Purescript.
 
 ## Functional Programming Jargon
 
