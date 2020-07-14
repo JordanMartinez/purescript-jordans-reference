@@ -31,7 +31,7 @@ gcd2 n m | n > m = gcd (n - m) m
 gcd2 n m = gcd (m - n) n
 
 $ cat build.sh
-pulp browserify --main GCD --skip-entry-point --standalone index --to js/index.js```
+pulp browserify --main GCD --skip-entry-point --standalone index --to js/index.js
 ```
 > As-in, is there some magic required to import `index.js` and expose `gcd2`?
 
@@ -47,7 +47,7 @@ import GCD as GCD
 import Data.Function.Uncurried (mkFn2)
 
 gcd2 :: Fn2 Int Int Int
-gcd2 = mkFn2 GCD.gcd2```
+gcd2 = mkFn2 GCD.gcd2
 ```
 > That gets compiled to `./output/GCD.Interop/index.js` and then in a js file I can do
 ```javascript
