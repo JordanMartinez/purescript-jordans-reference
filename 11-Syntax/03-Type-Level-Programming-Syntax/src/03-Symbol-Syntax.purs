@@ -6,30 +6,29 @@ vl_string = "a value-level string!"
 -- `Symbols` are type-level strings
 
 -- Compiler imports this automatically via the Prim module
-data Symbol_
+foreign import kind Symbol_
 
 -- This proxy type is defined in the purescript-prelude package
-data Proxy :: forall k. k -> Type
-data Proxy kind = Proxy
+data SProxy (a :: Symbol) = SProxy
 
 -- use literal string syntax
-tl_literalString :: Proxy "a type-level string!"
-tl_literalString = Proxy
+tl_literalString :: SProxy "a type-level string!"
+tl_literalString = SProxy
 
 -- use multi-line string syntax!
-tl_multiLineString :: Proxy "a type-level \
+tl_multiLineString :: SProxy "a type-level \
                              \string!"
-tl_multiLineString = Proxy
+tl_multiLineString = SProxy
 
 -- use triple-quote string syntax
-tl_tripleQuoteStringSyntax :: Proxy """triple-quote string syntax
+tl_tripleQuoteStringSyntax :: SProxy """triple-quote string syntax
  works as long as each new line is indented, so that the compiler
  doesn't think the string is the definition for
  the 'tl_tripleQuoteStringSyntax' function.
 
  The string will automatically escape special characters
  (e.g. '.', '*', '/')."""
-tl_tripleQuoteStringSyntax = Proxy
+tl_tripleQuoteStringSyntax = SProxy
 
 {-
 Symbol's other type-level programming constructs are in other modules
