@@ -8,12 +8,12 @@ Another resource that might be helpful is [A Brief Guide to A Few Algebraic Data
 
 ## Docs
 
-- [Semigring](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Semiring)
-- [Ring](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Ring)
-- [CommutativeRing](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.CommutativeRing)
-- [EuclideanRing](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.EuclideanRing)
-- [DivisionRing](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.DivisionRing)
-- [Field](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Field)
+- [Semigring](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.Semiring)
+- [Ring](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.Ring)
+- [CommutativeRing](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.CommutativeRing)
+- [EuclideanRing](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.EuclideanRing)
+- [DivisionRing](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.DivisionRing)
+- [Field](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.Field)
 
 
 For derived functions (if any), see the type classes' docs.
