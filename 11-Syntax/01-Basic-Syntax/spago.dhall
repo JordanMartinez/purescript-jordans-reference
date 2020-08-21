@@ -11,7 +11,6 @@ You can edit this file as you like.
   , "partial"
   , "prelude"
   , "psci-support"
-  , "safe-coerce"
   , "unsafe-coerce"
   ]
 , packages = ../../packages.dhall
