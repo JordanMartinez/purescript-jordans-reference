@@ -34,8 +34,10 @@ import ModuleDataType (DataType(Constructor1, Constructor2)) as Exports
 -- import a type and all of its constructors
 import ModuleDataType (DataType(..)) as Exports
 
--- import a kind and its value
-import ModuleKind (ImportedKind, ImportedKindValue) as Exports
+-- PureScript 0.13.x - import a kind and its value
+import ModuleKind (kind ImportedKind, ImportedKindValue) as Exports
+-- PureScript 0.14.x - import a kind and its value
+-- import ModuleKind (ImportedKind, ImportedKindValue) as Exports
 
 -- To prevent warnings from being emitted during compilation
 -- the above imports have to either be used here or
