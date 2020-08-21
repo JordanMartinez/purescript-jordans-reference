@@ -5,11 +5,11 @@
 - Lift any value/function/etc. into a box-like type, `f`
 - Parallel Computation: Do all three simultaneously: X, Y, and Z.
 
-(**Note:** Javascript is currently single-threaded, so this isn't entirely true. If it gets multi-thread support. That will change.)
+(**Note:** Javascript is currently single-threaded, so this isn't entirely true. If it gets multi-thread support, that will change.)
 
 ## Definition
 
-See its docs: [Applicative](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Applicative)
+See its docs: [Applicative](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Control.Applicative)
 
 ```purescript
 class (Apply f) <= Applicative f where

@@ -17,7 +17,7 @@ Long:
 
 ## Definition
 
-See its docs: [Bind](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Control.Bind)
+See its docs: [Bind](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Control.Bind)
 
 Below, we'll show two instances for `Bind`:
 1. A flipped version of bind that shows how it relates to `Functor` and `Apply`

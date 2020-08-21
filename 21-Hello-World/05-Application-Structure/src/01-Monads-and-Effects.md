@@ -45,7 +45,7 @@ bind             (Box 4)   (\four -> Box (show four)) == Box "4"
 
 **In other words, if we use one monad, we cannot use any other monads.** So, how do we get around this limitation?
 
-We saw the same problem earlier when we wanted to run an `Effect` monad inside of an `Aff` monad. We fixed it by "lifting" the `Effect` monad into the `Aff` monad via a [`NaturalTransformation`](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.NaturalTransformation#t:NaturalTransformation)/`~>`. This was abstracted into a type class specific for `Effect ~> someOtherMonad` in [`MonadEffect`](https://pursuit.purescript.org/packages/purescript-effect/2.0.0/docs/Effect.Class#t:MonadEffect).
+We saw the same problem earlier when we wanted to run an `Effect` monad inside of an `Aff` monad. We fixed it by "lifting" the `Effect` monad into the `Aff` monad via a [`NaturalTransformation`](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.NaturalTransformation#t:NaturalTransformation)/`~>`. This was abstracted into a type class specific for `Effect ~> someOtherMonad` in [`MonadEffect`](https://pursuit.purescript.org/packages/purescript-effect/2.0.0/docs/Effect.Class#t:MonadEffect).
 
 `MTL` and `Free` use different approaches to solving this problem and its solution is what creates the Onion Architecture-like idea we mentioned before. As we saw earlier in Nate's video in this folder's ReadMe, `mtl` is the "Final Encoding" style and `Free`/`Run` is the "Initial Encoding" style.
 

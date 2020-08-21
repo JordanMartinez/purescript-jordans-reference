@@ -11,7 +11,7 @@ into `b`
 
 ## Definition
 
-See its docs: [Functor](https://pursuit.purescript.org/packages/purescript-prelude/4.1.0/docs/Data.Functor)
+See its docs: [Functor](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Functor)
 
 ```purescript
 class Functor f where
