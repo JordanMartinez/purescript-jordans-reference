@@ -72,6 +72,9 @@ Now might be a good time to re-read these articles:
 
 ## Evaluating MTL and Free
 
+Alexis King recently recorded a very clear explanation of some of the tradeoffs of effect systems. While her video is in Haskell, the implications are worth thinking about in PureScript:
+- [Alexis King - “Effects for Less” @ ZuriHac 2020](https://www.youtube.com/watch?v=0jI-AlWEwYI)
+
 Let's now use the above post's criteria for each approach. The following is my guess at where things stand^^:
 
 | | Extensible? | Composable? | Efficient? | Terse? | Inferrable?
