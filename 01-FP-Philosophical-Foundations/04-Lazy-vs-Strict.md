@@ -32,3 +32,7 @@ thunk = lazilyCompute 5
 -- somewhere else in our code, when we finally need it
 result = forceThunk thunk
 ```
+
+## Other Resources
+
+- This resource is not necessary for you to read it to understand and use PureScript. However, it might satisfy those who are curious. It uses the Lisp language in its examples, so the code might be difficult to understand. Regardless, the book **Structure and Interpretation of Computer Programs (SICP)** (see [this](https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html) or [that](https://sarabander.github.io/sicp/)) has [a chapter on lazy evaluation and thunks](https://sarabander.github.io/sicp/html/4_002e2.xhtml).
