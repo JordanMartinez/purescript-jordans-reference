@@ -51,7 +51,9 @@ Some other ideas that are relevant:
 - [Purescript: Tomorrow's Javascript Today](https://www.youtube.com/watch?time_continue=22&v=5AtyWgQ3vv0)
 - [Code Reuse in PureScript: Functions, Type Classes, and Interpreters](https://youtu.be/GlUcCPmH8wI?t=24)
 - [Phil Freeman's post: 'Why You Should Use PureScript'](https://gist.github.com/paf31/adfd15fbb1ac8b99fc68be2c9aca8427)
-- See the [Purescript version of 'Real World App'](https://github.com/thomashoneyman/purescript-halogen-realworld)
+- PureScript's "Real World App"s
+    - See the [Halogen version of 'Real World App'](https://github.com/thomashoneyman/purescript-halogen-realworld)
+    - See the [React version of 'Real World App'](https://github.com/jonasbuntinx/purescript-react-realworld)
 - [A Discourse pose describing some of the disadvantages of TypeScript and Elmm when compared to PureScript](https://discourse.purescript.org/t/language-highlights/1471)
 
 For those that say "PureScript is dead, bad, stupid, not worth learning, etc." In response to these things, I'd recommend you watch [The Hard Parts of Open Source](https://www.youtube.com/watch?v=o_4EX4dPppA)
