@@ -141,8 +141,8 @@ Type -> Type
 ### Show
 
 There are two commands in this one:
-- `show loaded`/`:s loaded` - Shows all modules which you can import into the REPL.
-- `show import`/`:s imported` - Shows which modules you currently have imported in the REPL
+- `show loaded`/`:s loaded` - Shows all modules that the REPL session knows about. Some may or may not have been imported. (Before the REPL session starts, the PureScript compiler will compile all PureScript files based on the source globs given to it. All modules in those globs are then known to the REPL session, but you might not want to use them all in a given session.)
+- `show import`/`:s import` - Shows which modules you currently have imported into the REPL session
 
 ### Print
 

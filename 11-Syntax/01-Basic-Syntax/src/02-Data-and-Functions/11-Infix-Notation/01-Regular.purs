@@ -39,15 +39,18 @@ infix  4 type TypeAlias as :$>
 allPossibleCharactersForSymbolicAlias :: forall a. a -> a
 allPossibleCharactersForSymbolicAlias x = x
 
--- Note: '@' and '\' cannot be used alone (see next comment)
-infix 4 allPossibleCharactersForSymbolicAlias as ~\!@#$%^&*/><=+
+-- Note: '@', '\', and '.' cannot be used alone (see next comment)
+infix 4 allPossibleCharactersForSymbolicAlias as ~\!@#$%^&*/><=+.
 
 {-
-These characters, when used individuall as aliases, are illegal:
+These characters, when used individually as aliases, are illegal:
   infix 4 illegalAlias1 as \
                            ^ That's reserved for lambdas
   infix 4 illegalAlias2 as @
                            ^ That's reserved for pattern matching: a@(Foo 1)
+
+  infix 4 illegalAlias3 as .
+                           ^ That's reserved for record-related things: foo.bar
 -}
 -- When used with more characters than themselves, they're fine and compile.
 whenMultipleExist_itsFine :: forall a. a -> a
@@ -55,6 +58,9 @@ whenMultipleExist_itsFine x = x
 
 infix 4 whenMultipleExist_itsFine as \\
 infix 4 whenMultipleExist_itsFine as @@
+infix 4 whenMultipleExist_itsFine as ..
+infix 4 whenMultipleExist_itsFine as \.
+infix 4 whenMultipleExist_itsFine as .@
 
 -- Infix is all about where to put the parenthesis as indicated by precedence:
 -- precedence is 0 = group first

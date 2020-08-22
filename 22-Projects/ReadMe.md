@@ -17,7 +17,8 @@ Note: each 'project' folder in the `src` folder has a corresponding folder in th
 ## Other "Example Projects"
 
 - [hdgarrood's 'MultiPac' project](https://github.com/hdgarrood/multipac)
-- [thomashoneyman's 'Real World App' project](https://github.com/thomashoneyman/purescript-halogen-realworld)
+- [thomashoneyman's 'Real World App' (Halogen version)](https://github.com/thomashoneyman/purescript-halogen-realworld)
+- [jonasbuntinx' - 'Real World App' (React Version)](https://github.com/jonasbuntinx/purescript-react-realworld)
 - [jaspervdj's 'Beeraffe' game](https://github.com/jaspervdj/beeraffe/)
 - [AndrewBrownK's 'Minesweeper CLI' game](https://github.com/AndrewBrownK/purescript-minesweeper-cli)
 
