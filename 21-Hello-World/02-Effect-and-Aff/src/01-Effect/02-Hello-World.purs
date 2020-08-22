@@ -5,7 +5,7 @@ import Prelude  -- imports Unit
 
 -- new imports
 import Effect (Effect)
-import Effect.Console (log) -- log :: Effect Unit
+import Effect.Console (log) -- log :: String -> Effect Unit
 
 -- | Describes but does not run a computation until RTS "calls unsafePerformEffect".
 -- | The type signature of `log` is `String -> Effect Unit`. Thus, by applying
