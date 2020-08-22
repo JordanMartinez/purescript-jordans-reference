@@ -40,7 +40,7 @@ foreign import data NoK  :: YesNoKind
 data YesNoProxy (a :: YesNoKind) = YesNoProxyValue
 
 {-
-Read yesK and yesK as:
+Read yesK and noK as:
   yesK = (YesNoProxyValue :: YesNoProxy Yes) - a value of type "YesNoProxy Yes"
   noK  = (YesNoProxyValue :: YesNoProxy No)  - a value of type "YesNoProxy No" -}
 yesK :: YesNoProxy YesK
