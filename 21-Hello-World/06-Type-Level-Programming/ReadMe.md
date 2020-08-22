@@ -2,8 +2,6 @@
 
 This folder assumes you have read through and are familiar with `Type Level Syntax`. If you aren't, go and read through that first.
 
-In the upcoming folder, `Application Structure`, there are a few concepts that are easier to understand if you already understand how type-level programming works. Specifically, this folder is necessary when reading through the content on the `Free`/`Run` monad.
-
 ## Example
 
 ### A Problem

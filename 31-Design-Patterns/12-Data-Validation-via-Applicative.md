@@ -2,7 +2,7 @@
 
 Or how to validate data using Applicatives.
 
-The following provides a quicker summary of the [same chapter in Purescript By Example](https://leanpub.com/purescript/read#leanpub-auto-applicative-validation). However, one should read the chapter if they are not already familiar with this concept.
+The following provides a quicker summary of the [same chapter in Purescript By Example](https://book.purescript.org/chapter7.html). However, one should read the chapter if they are not already familiar with this concept.
 
 ## Possible Choices
 

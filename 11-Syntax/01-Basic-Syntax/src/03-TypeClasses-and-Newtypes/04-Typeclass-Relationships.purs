@@ -84,6 +84,7 @@ class (RequiredTypeClass1 a, RequiredTypeClass2 a {-, ... -}) <= TheTypeClass a 
 class (RequiredTypeClass1 a, RequiredTypeClass2 a {-, ... -}) <= CombineOnly a
 
 -- necessary to make file compile
+
 type ReturnType = String
 data TheType = TheType
 

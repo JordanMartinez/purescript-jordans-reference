@@ -80,6 +80,8 @@ subtractIntK_2 _ _ = IProxyValue
 
 ## Unification
 
+### An Overview and How Type-Level Functions "Compute"
+
 Recall that the type checker / type constraint solver "computes" type-level expressions by figuring out what type something is. Thus, the above analogy is helpful for understanding type-level programming, but it is incomplete without an explanation on how types "unify". In short, **unification** is the way by which the compiler infers or figures out some type. For our context, it is how the type checker computes the "type-level output" of a type-level function. It does this by unifying the undefined types in a type class' definition with a concrete type's instance of that type class.
 
 Let's review something first. In a type class definition and its instance, we have terms to refer to specific parts of it:
@@ -131,6 +133,8 @@ A type-level function can only "compute" a type-level expression when the types 
 - situations where the type inferencer cannot infer the correct type/kind
 - situations where one needs to do "backtracking".
 
+### Backtracking Is Not (Currently) Supported
+
 Here is an example of "backtracking". It will make more sense after you have read through the `Pattern-Matching-Using-Instance-Chains.purs` file.
 ```purescript
 class MyClass a
@@ -151,6 +155,8 @@ The issue lies in step 2: the instance head is checked before the instance conte
 
 "Backtracking" could be implemented in the compiler by using instance guards, but this has not yet been done. For the current progress on this issue, see [the related Purescript issue](https://github.com/purescript/purescript/issues/3120).
 
+### More Resources for Understanding Unification
+
 To understand unification at a deeper level, see these links:
 - [Type Inference from Scratch](https://www.youtube.com/watch?v=ytPAlhnAKro). This video explains the ideas behind the notation used in the paper below.
 - [Introduction to Type Inference](https://www.youtube.com/watch?v=il3gD7XMdmA). This video will explain a few more pieces of the notation used in the paper below as well as the problems that arise in type inference. Unfortunately, the teacher goes through concepts quickly and runs out of time, so not everything is immediately understandable through the first viewing.
@@ -170,33 +176,28 @@ However, sometimes the functional dependencies get a bit more complicated becaus
 
 For example, look at the second FD of [`Prim.Row.Cons`](https://pursuit.purescript.org/builtins/docs/Prim.Row#t:Cons):
 ```purescript
+-- Note: Symbol is a type-level String
 class Cons (label :: Symbol) (a :: Type) (tail :: # Type) (row :: # type)
   | label a tail -> row
-  , label row -> a tail                                                     {-
+  , label row -> a tail
+```
+The first FD can be read as
+
+> If you give me a label, its type-level value, and a pre-existing row (i.e. tail), then I can append that "label and type-level value" association to the tail and give you back the result of the append (i.e. row)."
 
 The second FD can be read as
- "If you provide a row and the name of a field in the row,
-  I can give you that field's type and a version of the row
-  without that field (i.e. the tail)"
-
-One can see how this single FD can be used to do two things
-if one uses one of the types and ignores the other:
-- get the type of a some field (use `a`, ignore `tail`)
-- remove a field from a row (use `tail`, ignore `a`)                          -}
-
--- given this type
-type ExampleRow = (first :: String, second :: Int)
--- the kinds in Cons would appear as:
-type ExampleCons = Cons
-  first String (tail :: (second :: Int))
-  (first :: String, second :: Int)
-
--- given this type
-type ExampleRow2 = (first :: String)
--- the kinds in Cons would appear as:
-type ExampleCons2 = Cons
-  first String (tail :: ())
-  (first :: String)
+> If you provide me a row and the name of a label in that row, then I can give you either
+>   1) that label's type
+>   2) a row that excludes that label-value association (i.e. the tail)", or
+>   3) both
+```
+-- Pseudo-code: this does not compile
+Cons "first" String () (first :: String)
+```
+... or ...
+```
+-- Pseudo-code: this does not compile
+Cons "first" String (second :: Int) (first :: String, second :: Int)
 ```
 
 ## Prolog Links

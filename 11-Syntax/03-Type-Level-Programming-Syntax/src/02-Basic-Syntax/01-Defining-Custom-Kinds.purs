@@ -10,9 +10,12 @@ data Value_Level_Type
 -- equivalent to    Kind
 foreign import kind Type_Level_Type
 
--- and do not declare a right hand side (RHS) since it has no values
+-- Then, we use FFI-like syntax to declare the type-level values that kind
+-- has. We do not declare a right hand side (RHS) since it has no values
 --                    |--------- RHS -------|
 --      data SomeType = Value1 | Value2
+-- Rather, we indicate that the type is a member of that kind using
+-- the following syntax:
 foreign import data Type_Level_Value1 :: Type_Level_Type
 foreign import data Type_Level_Value2 :: Type_Level_Type
 

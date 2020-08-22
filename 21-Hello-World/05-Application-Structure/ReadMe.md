@@ -1,7 +1,6 @@
 # Application Structure
 
 Prerequisites:
-- You should be familiar with type-level programming
 - You should understand what "smart constructors" are (see `Design Patterns` folder) and how they work
 
 The upcoming folders will explain

@@ -179,8 +179,7 @@ You might want to learn it **now** for these reasons:
 
 You might want to learn it **later** for these reasons:
 - PureScript's documentation could be improved in a number of ways:
-    - `PureScript By Example` is a book written by the creator of the PureScript language that uses a project-oriented approach to get a new learner up to speed quickly. However, the book's code is outdated and still being updated. See `Getting Started/Other Important Info.md` for more details about this update effort.
-    - Documentation for libraries are good in some areas and lacking in others
+    - Documentation for libraries are good in some areas and lacking in others.
 
 ### How long will it take me before I can write idiomatic code and be productive in PureScript?
 

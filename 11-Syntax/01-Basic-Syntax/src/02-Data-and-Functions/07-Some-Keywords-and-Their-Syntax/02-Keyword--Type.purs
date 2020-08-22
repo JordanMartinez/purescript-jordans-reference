@@ -29,5 +29,12 @@ type ConvertAToString a = (a -> String)
 example :: forall a. a -> ConvertAToString a -> String
 example a convertAToString = convertAToString a
 
+data Pair a b = Pair a b
+
+type IntAnd a = Pair Int a
+
+type SomeTypeAndInt a = Pair a Int
+
+
 -- required to get this to compile correctly
 data RunTimeType

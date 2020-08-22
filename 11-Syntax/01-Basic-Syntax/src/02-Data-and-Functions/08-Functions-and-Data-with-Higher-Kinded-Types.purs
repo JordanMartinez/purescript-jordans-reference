@@ -35,7 +35,7 @@ Read
 as
   "f is a higher-kinded type
     that needs one type, `a`, specified
-    before it can be a concrete value"
+    before it can be a concrete type"
 
 When using higher-kinded types, convention is to start with `f` and continue
 down the alphabet for each higher-kinded type thereafter (e.g. `g`, `h`, etc.). -}
@@ -43,7 +43,7 @@ down the alphabet for each higher-kinded type thereafter (e.g. `g`, `h`, etc.). 
 hktFunction1 :: forall f g h a. f a -> g a -> h a -> h a
 hktFunction1 _ _ hOfA = hOfA
 
--- I think the convention of using 'f' has something to do with a typeclass
+-- I think the convention of using 'f' has something to do with a Type Class
 -- called Functor (covered in the Hello-World folder).
 
 
@@ -75,7 +75,7 @@ as
 
   'd' has already been specified to 'Int',
     but
-  the other types (a b c) have yet to be specified.
+  the other types (a, b, and c) have yet to be specified.
 
   The compiler will complain
     if one passes in an 'f' type whose fourth type is not an Int.

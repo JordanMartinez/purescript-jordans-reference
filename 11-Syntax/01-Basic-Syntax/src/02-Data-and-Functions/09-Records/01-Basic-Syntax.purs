@@ -2,33 +2,46 @@ module Syntax.Basic.Record.Basic where
 
 import Prelude
 
--- Records have a different kind than "Type".
+-- Records have a different kind than "Type"
+-- Their kind signature is `# Type -> Type`. The '#` symbol stands for "row."
+-- It takes another kind as an argument. So `# Type` means "row of types."
 
--- "# Type" stands for a "row" of types.
--- It uses a special kind called "row kinds" to indicate that there will be an
--- N-sized number of types that are known at compile time.
--- Row kinds will be covered more fully in the Type-Level Programming Syntax
--- folder.
+-- `Row` kinds are 0 to N number of "label-to-kind" associations
+-- that are known at compile time. `Row` kinds will be covered more fully
+-- in the Type-Level Programming Syntax folder.
 
-type Example_of_an_Empty_Row = ()
-type Example_of_a_Single_Row = (fieldName :: ValueType)
+-- Most of the time, you will see the labels associated with the kind, `Type`.
+-- In other words:
+type Example_Row = (rowLabel :: ValueType)
+
+-- Rows can have 1 or many label-Type associations...
+type Example_of_a_Single_Row = (labelName :: ValueType)
 type Example_of_a_Multiple_Rows = (first :: ValueType, second :: ValueType)
 
-type PS_Keywords_Can_Be_Field_Names = (data :: ValueType, type :: ValueType, class :: ValueType)
+type PS_Keywords_Can_Be_Label_Names =
+  (data :: ValueType, type :: ValueType, class :: ValueType)
+
+-- Rows can also be empty.
+type Example_of_an_Empty_Row = ()
+
+-- Rows can take type parameters just like data, type, and newtype:
+                                                                                  ---- type Takes_A_Type_Parameter :: Type -> Row Type
+type Takes_A_Type_Parameter a = (someLabel :: Box a)
 
 data Record_ -- # Type -> Type
 
--- Think of records as a unordered named TupleN
-type RecordType_Desugared = Record ( field1 :: String
+-- Think of records as a JavaScript object / HashMap / big product types.
+-- There are keys (the labels) that refer to values of a given type.
+type RecordType_Desugared = Record ( label1 :: String
                                 -- , ...
-                                   , fieldN :: Int
+                                   , labelN :: Int
                                    , function :: (String -> String)
                                    )
 -- However, there is syntax sugar for writing this:
 -- "Record ( rows )" becomes "{ rows }"
-type RecordType = { field1 :: String
+type RecordType = { label1 :: String
                -- , ...
-                  , fieldN :: Int
+                  , labelN :: Int
                   , function :: String -> String
                   }
 
@@ -36,15 +49,15 @@ type RecordType = { field1 :: String
 
 -- We can create a record using the "{ label: value }" syntax...
 createRec_colonSyntax :: RecordType
-createRec_colonSyntax = { field1: "value", fieldN: 1, function: (\x -> x) }
+createRec_colonSyntax = { label1: "value", labelN: 1, function: (\x -> x) }
 
 -- We can also create it using the "names exist in immediate context" syntax
 
 createRec_immediateContextSyntax :: RecordType
-createRec_immediateContextSyntax = { field1, fieldN, function }
+createRec_immediateContextSyntax = { label1, labelN, function }
   where
-    field1 = "value"
-    fieldN = 1
+    label1 = "value"
+    labelN = 1
     function = \x -> x
 
 -- We can also create it using the "label names exist in external context" syntax
@@ -53,7 +66,7 @@ type PersonRecord = { username :: String
                     , age :: Int
                     , isCool :: String -> Boolean
                     }
--- ... and some values/functions with the same name as that record's fields...
+-- ... and some values/functions with the same name as that record's labels...
 username :: String
 username = "Bob"
 
@@ -70,56 +83,56 @@ createRec_externalContextSyntax :: PersonRecord
 createRec_externalContextSyntax = { username, age, isCool }
 
 createRec_noUnderscore :: String -> Int -> (String -> String) -> RecordType
-createRec_noUnderscore field1 fieldN function = { field1, fieldN, function }
+createRec_noUnderscore label1 labelN function = { label1, labelN, function }
 
 createRec_withUnderscore :: String -> Int -> (String -> String) -> RecordType
-createRec_withUnderscore = { field1: _, fieldN: _, function: _ }
+createRec_withUnderscore = { label1: _, labelN: _, function: _ }
 
 -- same type signature as 'createRec_withUnderscore'
 type InlineWithUnderscoreType = String -> Int -> (String -> String) -> RecordType
 
 inlineExample1 :: InlineWithUnderscoreType
 inlineExample1 =
-  \field1 fieldN function -> { field1: field1, fieldN: fieldN, function: function }
+  \label1 labelN function -> { label1: label1, labelN: labelN, function: function }
 
 inlineExample2 :: InlineWithUnderscoreType
-inlineExample2 =             { field1: _     , fieldN: _     , function: _      }
+inlineExample2 =             { label1: _     , labelN: _     , function: _      }
 
--- ## Get Fields in records
+-- ## Get the corresponding values in records
 
-getField :: RecordType -> String
-getField obj = obj.field1
+getLabel1 :: RecordType -> String
+getLabel1 obj = obj.label1
 
--- ## Overwrite Fields in Records
+-- ## Overwrite Labels' Values in Records
 
 -- We can update a record using syntax sugar:
-overwriteField_equalsOperator :: RecordType -> String -> RecordType
-overwriteField_equalsOperator rec string = rec { field1 = string }
+overwriteLabelValue_equalsOperator :: RecordType -> String -> RecordType
+overwriteLabelValue_equalsOperator rec string = rec { label1 = string }
 
 -- or by using an underscore to indicate that the next argument is the
 -- record type
-setField_recordUnderscore :: String -> RecordType -> RecordType
-setField_recordUnderscore string = _ { field1 = string }                      {-
+setLabelValue_recordUnderscore :: String -> RecordType -> RecordType
+setLabelValue_recordUnderscore string = _ { label1 = string }                      {-
 
-setField_recordUnderscore "bar" { field1: "foo" } == { field1: "bar" }        -}
+setLabelValue_recordUnderscore "bar" { label1: "foo" } == { label1: "bar" }        -}
 
 -- or by using an underscore for both args if they come in the correct order:
--- record first and then the argument to apply to that record's field
-setField_recordAndArgUnderscore :: RecordType -> String -> RecordType
-setField_recordAndArgUnderscore = _ { field1 = _ }                            {-
+-- record first and then the argument to apply to that record's label
+setLabelValue_recordAndArgUnderscore :: RecordType -> String -> RecordType
+setLabelValue_recordAndArgUnderscore = _ { label1 = _ }                            {-
 
-setField_recordAndArgUnderscore { field1: "foo" } "bar" == { field1: "bar" }  -}
+setLabelValue_recordAndArgUnderscore { label1: "foo" } "bar" == { label1: "bar" }  -}
 
 syntaxReminder :: String
 syntaxReminder = """
 
-Don't confuse the two operators that go in-between field and value!
+Don't confuse the two operators that go in-between label and value!
 
-"field OPERATOR value" where OPERATOR is
-  "=" means "update the field of a record that already exists":
-          record { field = newValue }
-  ":" means "create a new record by specifying the field's value":
-                 { field: initialValue }
+"label OPERATOR value" where OPERATOR is
+  "=" means "update the label of a record that already exists":
+          record { label = newValue }
+  ":" means "create a new record by specifying the label's value":
+                 { label: initialValue }
 """
 
 -- ## Nested Records
@@ -148,19 +161,22 @@ nestedRecord_overwrite2 newName    = _ { person { skills { name = newName } } }
 
 -- ## Pattern Matching on Records
 
--- We can also pattern match on a record. The field names must match
--- the field names of the record
+-- We can also pattern match on a record. The label names must match
+-- the label names of the record
 patternMatch_allLabels :: Int
 patternMatch_allLabels =
-  let { field1, field2 } = { field1: 3, field2: 5 }
-  in field1 + field2
+  let { label1, label2 } = { label1: 3, label2: 5 }
+  in label1 + label2
 
 patternMatch_someLabels :: String
 patternMatch_someLabels =
-  -- notice how we don't include 'field2' here
+  -- notice how we don't include 'label2' here
   -- in the pattern match
-  let { field1 } = { field1: "a", field2: "b" }
-  in field1
+  let { label1 } = { label1: "a", label2: "b" }
+  in label1
 
 -- needed to compile
+
 type ValueType = String
+
+data Box a = Box a

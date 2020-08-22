@@ -2,19 +2,21 @@
 
 ## What Problem Do Type Classes Solve?
 
-Code reuse. Rather than writing the same code 25 different times where it differs in only one way each time, we can write code once and "parameterize it" in 25+ different ways.
+Their primary use is to make writing some code more convenient / less boilerplatey. Rather than writing the same code 25 different times where it differs in only one way each time, we can write code once and "parameterize it" in 25+ different ways.
 
 To see a bottom-up explanation of this idea, read through the bullet points below and then watch the video.
+- This video is a recording of a presentation given by Nathan Faubion, a core contributor to PureScript.
 - This video finishes explaining what type classes are around 22:54.
 - The parts that follow are more advanced concepts. They explain how to make "real world code" easily testable via type classes and interpreters. You might not understand those explanations until you are more familiar with PureScript syntax.
 - The presentation ends at 1:03:58. Nate starts answering people's questions after that.
 - Nate's answers to various questions ends at 1:13:12 and the rest of the video are people talking about various PureScript things.
+- While Nate explains that type classe enable "code reuse," one could use an approach called "scrap your type classes" (SYTC) to accomplish that goal. SYTC will be covered later in this file.
 
 Video: [Code Reuse in PureScript: Functions, Type Classes, and Interpreters](https://youtu.be/GlUcCPmH8wI?t=24) (actual video title on YouTube: "PS Unscripted - Code Reuse in PS: Fns, Classes, and Interpreters")
 
 ## Where Do Type Classes Come From?
 
-Type classes are usually "encodings" of various concepts from Category Theory. Category Theory (hereafter referred to as 'CT') is all about the various ways we can compose functions and do so while adhering to specific laws. It's typically used for control flow (e.g. FP-style "if then else" statements, loops, etc.).
+Type classes are usually "encodings" of various concepts from mathematics, specifically abstract algebra and category theory.
 
 Type classes make developers productive. They enable programmers...
     - to write 1 line of code that is the equivalent of writing 100s of lines of code.
@@ -28,7 +30,7 @@ Type classes make developers productive. They enable programmers...
 
 ## Type Classes as Encodings of Mathematical Concepts
 
-Putting it differently, if `Some type` can implement some `function(s)/value(s) with a specified type signature` in such a way that the implementation adheres to `specific laws`, one can say it **has** an instance of `some CT concept/term`. Some types cannot satisfy some CT terms' conditions, others can satisfy them in only one way; and still others can satisfy them in multiple ways. Thus, one does not say "`Type X` **is** an instance of [some CT Term]." Rather, one says "`Type X` **has** an instance of [some CT Term]." To see this concept in a clearer way and using pictures, see https://www.youtube.com/watch?v=iJ7V1KXJpsE
+Putting it differently, if `Some type` can implement some `function(s)/value(s) with a specified type signature` in such a way that the implementation adheres to `specific laws`, one can say it **has** an instance of the given type class. Some types cannot satisfy a given type class' conditions; others can satisfy them in only one way; and still others can satisfy them in multiple ways. Thus, one does not say "`Type X` **is** an instance of &lt;some type class&gt;." Rather, one says "`Type X` **has** an instance of &lt;some type class&gt;." To see this concept in a clearer way and using pictures, see https://www.youtube.com/watch?v=iJ7V1KXJpsE
 
 Thus, type classes abstract general concepts into an "interface" that can be implemented by various data types. They are usually an encapsulation of 2-3 things:
 
@@ -68,9 +70,9 @@ and it uses the alias `<$>` for `map` to enable one to write `function <$> f_a` 
 - mapFlipped
 - flap
 
-## Type Classes and Dual Relationships
+## Similarities and Dual Relationships Among Type Classes
 
-Each type class from CT has a corresponding "dual." While there are better ways to explain duals, the basic idea is that the "direction" of the function's arrow gets flipped. When this happens, we usually prefix them with "Co" (e.g. the `product` type's "dual" is the `coproduct` type (i.e. a sum type); the `Monad`'s "dual" is `Comonad`) Likewise, the laws of some type class are the "flipped" version of the laws of its dual.
+Some type classes have a corresponding "dual." While there are better ways to explain duals, the basic idea is that the "direction" of the function's arrow gets flipped. When this happens, we usually prefix them with "Co". For example, if we have a type class called `Monad`, the dual of it is called `Comonad`. If `Monad` has laws `A` and `B`, then it's likely that `Comonad` will have laws `A'` and `B'`, which are "flipped" version of `A` and `B`.
 
 For example, a function like `toB` would have its arrow flipped to produce `toA`::
 
@@ -144,7 +146,19 @@ Scala uses local instances. Haskell uses global instances and orphan instances a
 
 PureScript uses global instances, and orphan instances are strictly disallowed. Unlike Haskell, there are no "escape hatches." For more context, see [Harry's comment in 'Disallow Orphan Instances' (purescript/purescript#1247)](https://github.com/purescript/purescript/issues/1247#issuecomment-512975645).
 
-## Non-Category Theory Usages of Type Classes
+## Scrap Your Type Classes (SYTC)
+
+At the end of the day, mainstream usage of type classes provide a lot of convenience to the developer. Rather than defining a function that takes many arguments, it only takes a few arguments that highlight what you want to do.
+
+As a result, some developers who encounter a problem will immediately decide to use type classes as their solution rather than some other language feature that is more appropriate (e.g. regular functions). For some problems, it is better to use regular functions rather than type classes. Regular functions might be less convenient than type classes, but they can be easier to use in some cases and more performant in others.
+
+To understand the tradeoff, you must
+1. understand that [type class constraints are replaced with arguments called 'type class dictionaries'](https://www.schoolofhaskell.com/user/jfischoff/instances-and-dictionaries)
+2. realize that the possibly "larger" type class dictionary object argument could be replaced with a "smaller" single function
+
+For more context, see [Scrap Your Type Classes](http://www.haskellforall.com/2012/05/scrap-your-type-classes.html)
+
+## Other Usages of Type Classes
 
 Some type classes are purposefully designed to be lawless because they are used for other situations. Here are some examples:
 - Type-level documentation

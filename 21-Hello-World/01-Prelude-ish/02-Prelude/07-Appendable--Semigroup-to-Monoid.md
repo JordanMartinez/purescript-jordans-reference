@@ -52,15 +52,15 @@ Using the same examples above,
 ## Docs
 
 Some of these type classes also specify specific helper types (sub bullets under a type class) that serve to reduce boilerplate:
-- [Semigroup](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Semigroup).
-    - When one wants to reduce two values down to one by ignoring the second value and taking the first value, one can use [First](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Semigroup.First)
-    - Or vice versa (ignore first, take second), via [Last](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Semigroup.Last)
-- [Monoid](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Monoid)
-    - [Additive](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Monoid.Additive)
-    - [Multiplicative](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Monoid.Multiplicative)
-    - [Conj](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Monoid.Conj)
-    - [Disj](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Monoid.Disj)
-    - [Dual](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Monoid.Dual)
-    - [Endo](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Monoid.Endo)
+- [Semigroup](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.Semigroup).
+    - When one wants to reduce two values down to one by ignoring the second value and taking the first value, one can use [First](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.Semigroup.First)
+    - Or vice versa (ignore first, take second), via [Last](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.Semigroup.Last)
+- [Monoid](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.Monoid)
+    - When one wants to use `Semiring`'s `add`/`+` and `zero` as the meaning of `<>` and `mempty`, one can use [Additive](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.Monoid.Additive).
+    - When one wants to use `Semiring`'s `mul`/`*` and `one` as the meaning of `<>` and `mempty`, one can use [Multiplicative](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.Monoid.Multiplicative)
+    - When one wants to use `HeytingAlgebra`'s `conj`/`&&` and `tt` as the meaning of `<>` and `mempty`, one can use [Conj](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.Monoid.Conj)
+    - When one wants to use `HeytingAlgebra`'s `disj`/`||` and `ff` as the meaning of `<>` and `mempty`, one can use [Disj](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.Monoid.Disj)
+    - When one wants to use `Category`'s `compose`/`<<<` and `identity` as the meaning of `<>` and `mempty`, one can use [Endo](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.Monoid.Endo)
+    - When one wants to use `Category`'s `composeFlipped`/`>>>` and `identity` as the meaning of `<>` and `mempty`, one can use [Dual](https://pursuit.purescript.org/packages/purescript-prelude/docs/Data.Monoid.Dual)
 
 For derived functions (if any), see the type classes' docs.

@@ -8,6 +8,7 @@ module Syntax.Basic.Unicode where
 --  - copied type signature that use unicode syntax except for union/intersect
 --  - copied links showing unicode syntax in real libraries
 --  - added library showing emoji operators in real library
+--  - added forall / ∀ comparison
 --
 -- Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 --   https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US
@@ -24,9 +25,9 @@ add _ _ = Zero
 Using unicode syntax, instead of using a combination of characters,
 one could use a single character to save space:
 
-| Instead of...  | -> | <- | => | <= | ::
-|----------------+----+----+----+----+----
-| you can use... | →  | ←  | ⇒  | ⇐  | ∷
+| Instead of...  | -> | <- | => | <= | :: | forall |
+|----------------+----+----+----+----+----+--------+
+| you can use... | →  | ←  | ⇒  | ⇐  | ∷  | ∀      |
 
 Using Unicode syntax can make things unreadable, but sometimes it makes things more readable:
 - https://github.com/paf31/purescript-isomorphisms/blob/f1a9e59f831cc3150dd9bc7aa66b2661df250ebe/src/Data/Iso.purs#L22

@@ -66,19 +66,14 @@ class Unwrap a where
 class (Wrap a, Unwrap a) <= Boxable a
 
 -- To create an instance of `Boxable`, we need to define instances
--- for Wrap and Unwrap. Usually, once both of those are satisfied, then
--- Boxable is also satisfied.
+-- for Wrap, Unwrap, and Boxable, even if `Boxable` doesn't require
+-- you to implement any functions/values.
 
 instance wrapInt :: Wrap Int where
   wrapIntoBox i = Box i
 
 instance unwrapInt :: Unwrap Int where
   unwrapFromBox (Box i) = i
-
--- However, sometimes the compiler gets confused
--- and thinks there isn't an instance for "Boxable". To be safe,
--- define an instance for Boxable, even if it does nothing:
-instance boxableInt :: Boxable Int
 
 useBoxable :: forall a. (Boxable a) => a -> a
 useBoxable a = unwrapFromBox (wrapIntoBox a)

@@ -9,8 +9,10 @@ genericFunction0 :: a -> a
     Given a value of any type,
   this function will return a value of the same type. -}
 
--- ... we need to explicitly say the function works for all types
--- using the "forall a. Function Type Signature" syntax:
+-- ... we need to explicitly say the function works for all types.
+-- We do so by adding the "forall a." syntax to the front of our
+-- type signature. Note: the "forall" syntax is still a part of our type
+-- signature, but it always appears first before anything else.
 genericFunction1 :: forall aType {- bType ... nType -}. aType -> aType
 genericFunction1 x = x
 {- Read:
@@ -32,27 +34,29 @@ genericFunction2 a b c = a
 then I will return a value of type 'a'
 -}
 
--- Another way to write 'forall' in a much more concise manner is
--- via Unicode syntax: "∀"
-forAllUnicodeStyle :: ∀ a. a -> a
-forAllUnicodeStyle a = a
-
-
 -- Sometimes, we'll see multiple 'forall' in the same type signature.
 --
 --    f :: forall a b. a -> b -> (forall c. c -> String) -> String
 --
 -- This means that the third argument, the function with `forall c`,
--- can be used on different types. Thus, we can write something like this:
+-- can be used on different types. These are known as "Rank-N Types."
+-- "Rank" is a term the compiler uses when inferring a given type.
+-- Thus, we can write something like this:
 
 ignoreArg_returnString :: forall a. a -> String
 ignoreArg_returnString _ = "some string"
 
-example :: forall a b. a -> b -> (forall c. c -> String) -> String
-example a b function = concat (function a) (function b)
+example
+  :: forall first second
+   . (forall anyType. anyType -> String)
+   -> first
+   -> second
+   -> String
+example function firstValue secondValue =
+  concat (function firstValue) (function secondValue)
 
 testExample :: String
-testExample = example true 5 ignoreArg_returnString
+testExample = example ignoreArg_returnString true 5
 
 -- needed to compile
 

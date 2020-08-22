@@ -15,7 +15,7 @@ class ToInt a where
   toInt :: a -> Int
 
 data List a
-  = Nil           -- end of list
+  = Nil               -- end of list
   | Cons a (List a)   -- a head element and the rest of the list (tail)
 
                       -- 'a' must have an 'ToInt' instance for this to compile
@@ -89,6 +89,7 @@ test5 :: String
 test5 = showIt (Box (Box (Box 5)))
 
 -- necessary to make file compile
+
 class TypeClass1 a where
   function1 :: a -> String
 

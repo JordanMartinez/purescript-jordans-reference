@@ -2,7 +2,7 @@ module Syntax.TypeLevel.RowSyntax where
 
 -- "row kinds" look like "# k" where 'k' is another kind.
 -- Usually, it's used with the kind, `Type`, to make Records (e.g. "# Type")
--- You cannot find that muchd documentation on "row kinds" because
+-- You cannot find that much documentation on "row kinds" because
 -- they are built into the compiler.
 
 type Example_of_an_Empty_Row = ()
@@ -47,7 +47,7 @@ row_of_symbols_proxy = RoSProxy
 
 {-
 Just like Symbol, Row's other type-level programming constructs
-are defined in the purescript-prelude and Prim packages
+are defined in the built-in `Prim` package and the `purescript-prelude` library.
 -}
 
 -- needed to compile

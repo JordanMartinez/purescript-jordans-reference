@@ -42,8 +42,10 @@ module Syntax.Module.Exporting
   -- to also export the constructor it aliases
   , ExportedDataType4_InfixNotation(Infix_Constructor), (<||||>)
 
-  -- Kinds require the `kind` keyword to precede them
+  -- PureScript 0.13.x - Kinds require the `kind` keyword to precede them
   , kind ExportedKind
+  -- PureScript 0.14.x - `kind` keyword no longer exists
+  -- , ExportedKind
   , ExportedKindValue
   ) where
 
@@ -87,6 +89,9 @@ type ExportedTypeAlias_InfixNotation = String
 
 infixr 4 type ExportedTypeAlias_InfixNotation as <|<>|>
 
+-- PureScript 0.13.x
 foreign import kind ExportedKind
+-- PureScript 0.14.x
+-- kind ExportedKind
 
 foreign import data ExportedKindValue :: ExportedKind

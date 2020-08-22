@@ -56,59 +56,16 @@ instance yesYesNo :: IsYesNoKind YesK where
 instance noYesNo :: IsYesNoKind NoK where
   reflectYesNo _ = No
 
--- We can reify a YesNo by
---   - defining a type class that constrains a type
---       to only have kind "YesNoKind"
---   - declaring a single and only value of that type class
---   - define a callback function that recives the corresponding
---       type-level value as its only argument
---       (where we do type-level programming):
-
-class IsYesNoKind b <= YesNoKindConstraint b
-
--- every value of our type-level type satisfies the constraint
--- no other instance should exist.
-instance typeConstraint :: IsYesNoKind b => YesNoKindConstraint b
+-- We can reify a YesNo by defining a callback function that receives
+-- the corresponding type-level value as its only argument
+-- (where we do type-level programming):
 
 reifyYesNo :: forall returnType
             . YesNo
-            -> (forall b. YesNoKindConstraint b => YesNoProxy b -> returnType)
+            -> (forall b. IsYesNoKind b => YesNoProxy b -> returnType)
             -> returnType
 reifyYesNo Yes function = function yesK
 reifyYesNo No  function = function noK
-
-{-
-One might ask,
-    "Why not move the `forall b` part to the `forall returnType` part
-    of the function's type signature, so that it reads...
-
-    reifyYesNo :: forall b r. YesNoKindConstraint b =>
-                  YesNo
-               -> (YesNoProxy b -> r)
-               -> r
-
-I'm not yet entirely sure how to answer that yet. However, this is what
-I currently think:
-
-  We cannot let `reifyYesNo` determine what `b` is because "function" is actually
-  two different functions. The below functions are too simple to
-  demonstrate why this may be useful, but imagine an entire chain of
-  type-level programming before the value potentially gets reflected back as a
-  value-level value:
-
-  - if YesNo is Yes, we could use the function
-
-      toRed :: YesNoProxy YesK -> String
-      toRed _ = "red"
-
-  - if YesNo is No, we could use the function
-
-      toBlue :: YesNoProxy NoK -> String
-      toBlue _ = "blue"
-
-      reifyYesNo Yes toBlue
-
--}
 
 -- necessary for not getting errors while trying the functions in the REPL
 

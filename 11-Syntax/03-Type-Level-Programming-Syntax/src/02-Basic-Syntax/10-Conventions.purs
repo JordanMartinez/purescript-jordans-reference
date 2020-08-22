@@ -41,6 +41,6 @@ instance constraintValue :: ConstrainedToKindName Value
 -- Usually reify[KindName]
 reifyKindName :: forall r
            . Value_Level_Type
-          -> (forall a. ConstrainedToKindName a => KProxy a -> r)
+          -> (forall a. IsKindName a => KProxy a -> r)
           -> r
 reifyKindName valueLevel function = function inst

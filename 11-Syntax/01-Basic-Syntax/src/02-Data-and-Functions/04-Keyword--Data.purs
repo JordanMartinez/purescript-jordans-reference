@@ -19,6 +19,11 @@ data Type_with_Generic_Types aType bType
   | Stores_B bType
   | Stores_A_and_B aType bType
 
+-- We can refer to various parts in these definitions by the following names.
+-- Wherever a name appears, that's what you would call it if you were talking
+-- to someone else about it.
+data TypeConstructor typeParameter = DataConstructor
+
 ---------------------------------
 
 -- This syntax enables Algebraic Data Types (ADTs)
@@ -57,16 +62,17 @@ data Type_with_Nested_Types
   | NestedBox1 (Box Int)
   | NestedBox2 (Box (Box Int)) -- outer Box's "a" is "(Box Int)"
 
+data Type_with_Higher_Kinded_Type f = TypeValue (f Int)
+
+typeWithHigherKindedTypeExample :: Type_with_Higher_Kinded_Type Box
+typeWithHigherKindedTypeExample = TypeValue (Box 4)
 
 data Type_with_Higher_Kinded_Generic_Type higherKindedBy1 a
   = MyConstructor (higherKindedBy1 a)
   | OtherC (higherKindedBy1 Int)
 
-data Type_with_Higher_Kinded_Generic_Type2 higherKindedBy2 a b
-  = MyConstructor2 (higherKindedBy2 a b)
-  | OtherCInt (higherKindedBy2 Int b)
-  | OtherCIntString (higherKindedBy2 Int String)
-
+data Type_With_HigherKindedByTwo_Generic higherKindedBy2 first second
+  = Example (higherKindedBy2 first second)
 
 data Type_whose_implementations_ignore_generic_type ignoredType
   = Constructor_without_generic_type
