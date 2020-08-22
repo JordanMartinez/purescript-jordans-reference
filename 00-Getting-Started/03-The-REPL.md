@@ -142,7 +142,7 @@ Type -> Type
 
 There are two commands in this one:
 - `show loaded`/`:s loaded` - Shows all modules which you can import into the REPL.
-- `show import`/`:s imported` - Shows which modules you currently have imported in the REPL
+- `show import`/`:s import` - Shows which modules you currently have imported in the REPL
 
 ### Print
 
