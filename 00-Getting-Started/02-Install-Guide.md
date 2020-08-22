@@ -24,7 +24,7 @@ We can install everything using `npm`. However, getting `npm` is it's own proble
 
 ##### Manual Install
 
-Justin Woo explains how to set up one's environment for the `0.12.x` release but has not been updated for two things. First, the PureScript release at the time was `0.12.0` but now `0.13.9` is out. Second, the instructions use `pulp` and `psc-package`, a different build tool workflow than the one we'll use here.
+Justin Woo explains how to set up one's environment for the `0.12.x` release but has not been updated for two things. First, the PureScript release at the time was `0.12.0` but now `0.13.8` is out. Second, the instructions use `pulp` and `psc-package`, a different build tool workflow than the one we'll use here.
 
 If you just want to get things set up ASAP, follow the below summary of his article's instructions (using `spago` instead of the other tools). If you want to understand why you should do these commands, read [his article here](https://qiita.com/kimagure/items/570e6f2bbce5b4724564):
 1. Install Node 10 or greater: https://nodejs.org/en/download/
@@ -44,14 +44,14 @@ Unlike the manual install, `nvm` properly handles the npm prefix for you. So, yo
 
 Once you have installed `npm`, we can use it to install everything in one command:
 ```bash
-npm i -g purescript@0.13.9 spago@0.16.0 parcel
+npm i -g purescript@0.13.8 spago@0.16.0 parcel
 ```
 
 ### Versions Used in this Project
 
 The following commands should now work (the versions beside them are the versions I used when writing this project):
 ```bash
-purs --version        # 0.13.9
+purs --version        # 0.13.8
 spago version         # 0.16.0
 parcel --version      # 1.12.0
 ```
