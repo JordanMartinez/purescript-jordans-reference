@@ -177,7 +177,7 @@ However, sometimes the functional dependencies get a bit more complicated becaus
 For example, look at the second FD of [`Prim.Row.Cons`](https://pursuit.purescript.org/builtins/docs/Prim.Row#t:Cons):
 ```purescript
 -- Note: Symbol is a type-level String
-class Cons (label :: Symbol) (a :: Type) (tail :: # Type) (row :: # type)
+class Cons (label :: Symbol) (a :: Type) (tail :: # Type) (row :: # Type)
   | label a tail -> row
   , label row -> a tail
 ```
