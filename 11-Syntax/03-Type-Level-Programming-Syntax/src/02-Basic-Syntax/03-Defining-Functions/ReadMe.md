@@ -190,14 +190,42 @@ The second FD can be read as
 >   1) that label's type
 >   2) a row that excludes that label-value association (i.e. the tail)", or
 >   3) both
+
+Let's demonstrate a few different examples via the REPL. This will be covered in more detail in this folder:
+1. Run `spago repl`
+2. Import the `Prim.Row` module via `import Prim.Row`
+3. Use the `:paste` followed by `CTRL+D` to paste the multi-line `verify*` functions below into the REPL.
+4. Pass the corresponding arguments into the function to verify that it compiles.
 ```
--- Pseudo-code: this does not compile
-Cons "first" String () (first :: String)
-```
-... or ...
-```
--- Pseudo-code: this does not compile
-Cons "first" String (second :: Int) (first :: String, second :: Int)
+-- spago repl
+-- import Prim.Row
+
+-- :paste
+verifyAddingRowToTailCompiles
+  :: forall tail finalRow
+   . Cons "first" String tail finalRow
+  => Record tail -> Record finalRow -> String
+verifyAddingRowToTailCompiles _ _ =
+  "If you see this message rather than an error, the relationship is true."
+-- CTRL+D
+
+-- Run the below function
+verifyAddingRowToTailCompiles {apple: "haha"} {apple: "haha", first: "text" }
+
+-- Great! Let's now switch the `tail` and `finalRow` types
+-- in the `Cons` relationship. 
+
+-- :paste
+verifyRemovingRowFromTailCompiles
+  :: forall tail finalRow
+   . Cons "first" String finalRow tail
+  => Record tail -> Record finalRow -> String
+verifyRemovingRowFromTailCompiles _ _ =
+  "If you see this message rather than an error, the relationship is true."
+-- CTRL+D
+
+-- Run the below function
+verifyRemovingRowFromTailCompiles {apple: "haha", first: "text" } {apple: "haha"}
 ```
 
 ## Prolog Links
