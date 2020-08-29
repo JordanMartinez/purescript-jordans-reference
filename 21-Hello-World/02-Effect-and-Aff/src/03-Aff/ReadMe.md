@@ -15,7 +15,7 @@ If, after watching the above video, you are tempted to figure out how `Aff` work
 
 First, we'll overview some of `Aff`s API via some working examples that one can play with. Since all programs must be run in `Effect`, this will show the simplest way to start running computations in the `Aff` monad: `launchAff_`
 
-Second, we'll show _one_ way for getting around the "monads don't compose" problem, so that we can run `Effect`-based computations in an `Aff` monadic context. (Note: this solution won't work for the `ST` monadic context in the `Effect` folder's `Local-State.purs` example.) Then, we'll show how to fix the issue we experienced in our the `Effect` folder's `Timeout-and-Interval.purs` file.
+Second, we'll show _one_ way for making it possible to run an `Effect`-based computations in an `Aff` monadic context. (Note: this solution won't work for the `ST` monadic context in the `Effect` folder's `Local-State.purs` example.) Then, we'll show how to fix the issue we experienced in our the `Effect` folder's `Timeout-and-Interval.purs` file.
 
 Third, we'll use the `Node.ReadLine` library to show how to convert `Effect`-based computations that require callbacks into `Aff`-based computations via `makeAff`. We'll also show the more complicated way to run a computation in the `Aff` monad, but which exposes all of `Aff`'s features: `runAff`.
 

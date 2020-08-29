@@ -4,7 +4,7 @@
 
 So far, we have only shown you the `Box` monad to help you get used to the syntax and see the logic for how `Monad` and `bind`/`>>=` works. (The `Box` type is a learner-friendly name for the `Identity` monad, which we'll cover later in the `Application Structure` folder.)
 
-However, `Monads` are used to compose different functions. Whereas the `Box`/`Identity` monad only produces one output, the below types can produce 2 outputs. Functions that produce 2 outputs don't typically compose. However, the `Monad` type class enables us to compose them using "railway-oriented programming" (~Scott Wlaschin).
+However, `Monads` are used to compose two or more computations that occur within the same context (where context refers to the monadic type being used). Whereas the monadic type, `Box`/`Identity`, only has one possible value, the below types have two possible values. Functions that produce two possible outputs don't typically compose. However, the `Monad` type class enables us to compose them using "railway-oriented programming" (~Scott Wlaschin).
 
 When we compose different monadic types, we get different control flows. The `do` notation helps us avoid the [Pyramid of Doom](https://www.wikiwand.com/en/Pyramid_of_doom_(programming)) boilerplate code and emphasizes developer intent.
 
