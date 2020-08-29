@@ -1,7 +1,7 @@
 # MTL
 
 This folder does 5 things:
-- walks the reader through the `Function` monad and how to read its "do notation" and how functions can become monad transformers. At the end, we'll the whole point of using monad transformers.
+- walks the reader through the `Function` monad and how to read its `do notation` and how functions can become monad transformers. At the end, we'll describe the whole point of using monad transformers.
 - walks the reader through the problems that led us to define the `MonadState` type class and explains why its function's type signature is defined that way. We'll use this idea to teach the general idea behind all the other monad transformers
 - overviews each monad transformer
 - explains what problem `MonadTrans` solves and how the 'monad transformer stack' works

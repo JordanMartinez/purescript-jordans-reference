@@ -4,11 +4,13 @@
 
 So far, we have only shown you the `Box` monad to help you get used to the syntax and see the logic for how `Monad` and `bind`/`>>=` works. (The `Box` type is a learner-friendly name for the `Identity` monad, which we'll cover later in the `Application Structure` folder.)
 
-However, `Monads` are used to compose different functions. Whereas the `Box`/`Identity` monad only produces one output, the below types can produce 2 outputs. Functions that produce 2 outputs don't typically compose. However, the `Monad` type class enables us to compose them using "railway-oriented programming" (~Scott Wlaschin).
+However, `Monads` are used to compose two or more computations that occur within the same context (where context refers to the monadic type being used). Whereas the monadic type, `Box`/`Identity`, only has one possible value, the below types have two possible values. Functions that produce two possible outputs don't typically compose. However, the `Monad` type class enables us to compose them using "railway-oriented programming" (~Scott Wlaschin).
 
 When we compose different monadic types, we get different control flows. The `do` notation helps us avoid the [Pyramid of Doom](https://www.wikiwand.com/en/Pyramid_of_doom_(programming)) boilerplate code and emphasizes developer intent.
 
 ## The Maybe Monad
+
+### JavaScript Code
 
 In JavaScript, we might write this code:
 ```javascript
@@ -30,7 +32,34 @@ if (a == null) {
 }
 ```
 
-In PureScript, we would write the following code:
+### PureScript Code (non-idiomatic)
+
+In PureScript, we _could_ write the following **non-idiomatic** code that repeats this Pyramid of Doom:
+
+```purescript
+data Maybe a
+  = Nothing
+  | Just a
+
+someComputation :: Maybe Unit
+someComputation =
+  case computation of
+    Nothing -> Nothing
+    Just a -> case compute1 a of
+      Nothing -> Nothing
+      Just b -> case compute2 b of
+        Nothing -> Nothing
+        Just c -> compute3 c
+  where
+    computation :: Maybe a
+    compute1 :: a -> Maybe b
+    compute2 :: b -> Maybe c
+    compute3 :: c -> Maybe Unit
+```
+
+### PureScript Code (idiomatic)
+
+Or, we could use `Maybe`'s `Monad` instance via `do notation` to write **idiomatic** PureScript code:
 
 ```purescript
 data Maybe a
@@ -52,11 +81,16 @@ someComputation = do
   b <- compute1 1
   c <- compute2 b
   compute3 c
+  where
+    computation :: Maybe a
+    compute1 :: a -> Maybe b
+    compute2 :: b -> Maybe c
+    compute3 :: c -> Maybe Unit
 ```
 
 If a `Nothing` value is given at any point in the nested-`bind` computations, it will short-circuit and return immediately.
 
-What is a real-world example of using the Maybe monad? One often writes monadic code using Maybe as the Monad to lookup values in some structure (e.g. `Map`, `Array`, `List`, or `Tree`). Often, this control flow reads like this: "Try to get value X. If it exists, try to get value Y. If that exists, do something with both. If either one of them does not exist, throwdo something else." In other words...
+What is a real-world example of using the Maybe monad? One often writes monadic code using Maybe as the Monad to lookup values in some structure (e.g. `Map`, `Array`, `List`, or `Tree`). Often, this control flow reads like this: "Try to get value X. If it exists, try to get value Y. If that exists, do something with both. If either one of them does not exist, stop and return immediately." In other words...
 
 ```purescript
 example :: Maybe String
@@ -67,6 +101,8 @@ example = do
 ```
 
 ## The Either Monad
+
+### JavaScript Code
 
 In JavaScript, we might write this code:
 ```javascript
@@ -88,7 +124,32 @@ if (isError(a)) {
 }
 ```
 
-In PureScript, we would write this code:
+### PureScript Code (non-idiomatic)
+
+```purescript
+data Either a b
+  = Left a
+  | Right b
+
+someComputation :: Either ErrorType ReturnValue
+someComputation = do
+  case computation of
+    Left err -> Left err
+    Right a -> case compute1 a of
+      Left err -> Left err
+      Right b -> case compute2 b of
+        Left err -> Left err
+        Right c -> compute3 c
+  where
+    computation :: Either ErrorType a
+    compute1 :: a -> Either ErrorType b
+    compute2 :: b -> Either ErrorType c
+    compute3 :: c -> Either ErrorType Unit
+```
+
+### PureScript Code (idiomatic)
+
+Or, we could use `Either`'s `Monad` instance via `do notation` to write **idiomatic** PureScript code:
 
 ```purescript
 data Either a b
@@ -114,7 +175,7 @@ someComputation = do
 
 If a `Left` value is given at any point in the nested-`bind` computations, it will short-circuit and return immediately.
 
-What is a real-world example of using the Maybe monad? One often uses it to validate that some data is correct. It reads like, "Try to parse the given String into an Int. If it fails, stop. Otherwise, try to parse the given String into a Foo. If it fails, stop. Otherwise, take the Int and the Foo and do something with them."
+What is a real-world example of using the Either monad? One often uses it to validate that some data is correct. It reads like, "Try to parse the given `String` into an `Int`. If it fails, stop. Otherwise, try to parse the given `String` into a `Foo`. If it fails, stop. Otherwise, take the `Int` and the `Foo` and do something with them."
 
 ```purescript
 example :: String -> Either String ValidatedData
@@ -124,7 +185,11 @@ example string = do
   doSomethingWith intValue fooValue
 ```
 
-## The List Monad
+## The List / Array Monad
+
+We use the `List` type below in our examples. However, the `Array` type works exactly the same way.
+
+## JavaScript Code
 
 In JavaScript, we would might write this code:
 ```javascript
@@ -143,7 +208,9 @@ for (i of list1) {
 return finalList;
 ```
 
-In PureScript, we would write this code:
+## PureScript Code (idiomatic)
+
+The non-idiomatic version of the PureScript code below is complicated because it uses a lot of recusion. Thus, I do not show it here. Rather, we'll only show the idiomatic version:
 
 ```purescript
 data List a
@@ -157,7 +224,12 @@ instance bindList :: Bind List where
   bind Nil _ = Nil
   -- when given a non-empty list, run the future computations on the head
   -- and then prepend it to the rest of the computations on the tail.
-  bind (head : tail) f = f head <> bind tail f
+  bind (head : tail) f = append (f head) (bind tail f)
+
+append :: List x -> List x -> List x
+append =
+  -- implementation not shown here, but the result will be
+  -- append (1 : 2 : Nil) (3 : 4 : Nil) == (1 : 2 : 3 : 4 : Nil)
 
 someComputation :: List Int
 someComputation = do

@@ -15,9 +15,9 @@ instance box2_into_box1 :: LiftSourceIntoTargetMonad Box2 Box1 where {-
 ```
 When we introduced `LiftSourceIntoTargetMonad`, we mentioned that implementing this idea for two monads might be much more complicated than the above implementation. Why? Because we were referring to the newtyped function monads we explained in this folder (not exactly something you want to introduce to a new learner immediately).
 
-We stated beforehand that `MonadState`'s default implmenetation is `StateT`. Because `bind` only returns the same monad type (e.g. monads don't "compose"), if we want to write a program that uses state manipulation effects (i.e. uses  `MonadState`) and some other effects in the same computation (i.e. another type class introduced in this folder like `MonadReader`), we face a problem.
+We stated beforehand that `MonadState`'s default implmenetation is `StateT`. `bind` only returns the same monad type it originally received. Thus, we have a problem if we want to use two effects at once. For example, if we to write a program that uses state manipulation effects (i.e. uses  `MonadState`) and some other effects in the same computation (i.e. another type class introduced in this folder like `MonadReader`).
 
-However, because our monadic newtyped functions serve only to "transform" the base monad by handling all the 'behind the scenes' stuff, it's actually possible to "compose monads" by nesting one in another (this is where the "stack" idea comes from). In other words, we need to define a way to "lift" a monadic newtyped function into another. However, the direction should go both ways (former lifted into latter and latter lifted into former).
+However, because our monadic newtyped functions serve only to "transform" the base monad by handling all the 'behind the scenes' stuff, it's actually possible to support all of these effects within the same monadic type. One monadic type is nested in another. This is where the "stack" idea comes from. In other words, we need to define a way to "lift" a monadic newtyped function into another. However, the direction should go both ways (former lifted into latter and latter lifted into former).
 
 Since this idea is an abstraction that will repeat, will define it as a type class called, `MonadTrans`:
 ```purescript

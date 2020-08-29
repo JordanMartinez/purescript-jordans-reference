@@ -5,7 +5,7 @@ This folder accomplishes the following goals:
 - A demonstration of how to write the infamous "Hello World" app in Purescript
 - A demonstration of the various `Effect` types out there and their usage.
 - An overview of `Aff` and how to use some of its API.
-- An explanation of one solution to the "monads don't compose" problem: lifting one monad into another.
+- An explanation and example of using the first workaround to the "`bind` outputs the same box-like type it receives" restriction.
 - A how-to guide for dealing with "callback hell" via `Aff` and using `Node.ReadLine` as an example.
 
 These examples are compilable, enabling the reader to do two things.

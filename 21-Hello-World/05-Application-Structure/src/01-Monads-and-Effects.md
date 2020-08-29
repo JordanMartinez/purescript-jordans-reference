@@ -64,7 +64,7 @@ BaseMonad
 Pure MonadState
 ```
 
-Since each function is a different monadic type, they do not compose. Thus, one gets around this monad-composition problem by creating a "stack" of nested monad transformers (i.e. functions). Following the previous idea, we can define **something similar to** a `NaturalTransformation` that "lifts" the effects of one monadic function (e.g. a function that implements `MonadReader`) into another monadic function (e.g. a function that implements `MonadState`), which augments the base monad. Using a visual, it produces this diagram (read from bottom to top):
+Since each function is a different monadic type, they cannot be used within the same monadic context in `do notation`. Thus, one gets around this monad-composition problem by creating a "stack" of nested monad transformers (i.e. functions). Following the previous idea, we can define **something similar to** a `NaturalTransformation` that "lifts" the effects of one monadic function (e.g. a function that implements `MonadReader`) into another monadic function (e.g. a function that implements `MonadState`), which augments the base monad. Using a visual, it produces this diagram (read from bottom to top):
 ```
 BaseMonad
       ^
