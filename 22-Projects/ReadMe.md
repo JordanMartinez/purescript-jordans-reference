@@ -6,7 +6,6 @@ This folder's purposes are
     - Compare the various ways one can structure an FP program and analyze their pros/cons and other tradeoffs. The following approaches are covered here:
         - ReaderT approach (all folders)
         - Run approach (all folders)
-        - other approaches (only in the `Random Number Game` folder).
     - Explain and show how to test and benchmark our code
 - to introduce the reader to a few commonly-used libraries in the "real world."
     - We'll introduce/overview the libraries we'll use in later projects before using them in those projects.
@@ -44,7 +43,7 @@ Below is the current list of libraries we introduce and further explain here. Th
 - `Node.ReadLine` for console-based programs (`purescript-node-readline`)
 - `Halogen` for web-based programs (`purescript-halogen`)
 - `Aff` for using asynchronous effects (`purescript-aff`)
-- `Yargs` for command-line parsing (`purescript-yargs`)
+- `Optplicative` for command-line parsing (`purescript-optplicative`)
 - `Node.FS` for reading/writing files (`purescript-node-fs-aff`)
 - `StringParers` for parsing files' contents (`purescript-string-parsers`)
 - `Tree` for producing trees (`purescript-tree`)
