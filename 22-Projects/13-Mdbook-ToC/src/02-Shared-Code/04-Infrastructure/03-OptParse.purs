@@ -133,7 +133,7 @@ createProdEnv rootDirectory outputFile
              logLevel
              =
       { rootUri: { fs: rootDir
-                 , url: "./"
+                 , url: "."
                  }
       , addPath: addPath' sep
       , includePath: includePath
