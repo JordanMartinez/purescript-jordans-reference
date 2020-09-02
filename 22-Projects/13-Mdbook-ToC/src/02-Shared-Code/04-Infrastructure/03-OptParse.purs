@@ -34,12 +34,13 @@ argParser :: Parser ProductionEnv
 argParser = ado
     rootDir <- parseRootDir
     outputFile <- parseOutputFile
+    headerFile <- parseHeaderFile
     excludedTopLevelDirs <- parseExcludedTopLevelDirs
     excludedRegularDir <- parseExcludedRegularDirs
     includedFileExtensions <- parseIncludedFileExtensions
     logLevel <- parseLogLevel
     in createProdEnv
-        rootDir outputFile
+        rootDir outputFile headerFile
         excludedTopLevelDirs excludedRegularDir includedFileExtensions
         logLevel
   where
@@ -61,6 +62,16 @@ argParser = ado
                <> metavar "OUTPUT_FILE"
                 )
 
+    parseHeaderFile :: Parser String
+    parseHeaderFile =
+      strOption ( long "header-file"
+               <> short 's'
+               <> help "The path of the file form which to read the \
+                        \content that should appear before the outputted \
+                        \Table of Contents content"
+               <> metavar "HEADER_FILE"
+                )
+
     multiString :: ReadM (Array String)
     multiString = eitherReader \s ->
       let strArray = filter (not <<< String.null) $ split (Pattern ",") s
@@ -77,7 +88,7 @@ argParser = ado
          <> metavar "DIR1,DIR2,...,DIR3"
          <> help "A comma-separated list of top-level directories \
                  \(case-sensitive) to exclude."
-         <> value [ ".git", ".github", ".procedures", ".travis", "output"]
+         <> value [ ".git", ".github", ".procedures", ".travis", "output", "book", "mdbook"]
          <> showDefaultWith (\array -> intercalate "," array)
           )
 
@@ -98,6 +109,10 @@ argParser = ado
                 , "benchmark-results"
                 -- repo-specific files
                 , "assets", "modules-used-in-examples"
+                -- PS 0.14.x syntax folders
+                , "ps-0.14-syntax", "ps-0.14"
+                -- Ignore Mdbook work for time being
+                , "13-Mdbook-ToC"
                 ]
          <> showDefaultWith (\array -> intercalate "," array)
           )
@@ -124,11 +139,11 @@ argParser = ado
                <> showDefault
                 )
 
-createProdEnv :: FilePath -> FilePath ->
+createProdEnv :: FilePath -> FilePath -> FilePath ->
                  Array String -> Array String -> Array String ->
                  String ->
                  ProductionEnv
-createProdEnv rootDirectory outputFile
+createProdEnv rootDirectory outputFile headerFile
              excludedTopLevelDirs excludedRegularDir includedFileExtensions
              logLevel
              =
@@ -138,6 +153,7 @@ createProdEnv rootDirectory outputFile
       , addPath: addPath' sep
       , includePath: includePath
       , outputFile: outputFile
+      , headerFilePath: headerFile
       , sortPaths: sortPaths
       , renderFile: renderFile
       , logLevel: level

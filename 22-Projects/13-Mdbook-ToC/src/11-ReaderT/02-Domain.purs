@@ -13,10 +13,11 @@ import Data.Array (catMaybes, intercalate, sortBy)
 import Data.List (List)
 import Data.Maybe (Maybe(..))
 import Data.Foldable (fold, for_)
-import Data.Traversable (traverse)
+import Data.Traversable (traverse, for)
 import Data.Tree (Tree, showTree)
 import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), UriPath, WebUrl)
 import ToC.Domain.Types (Env, LogLevel(..))
+import ToC.Domain.Renderer.MarkdownRenderer (renderDir)
 
 program :: forall m r.
            Monad m =>
@@ -29,8 +30,22 @@ program :: forall m r.
 program = do
   output <- renderFiles
   logInfo "Finished rendering files. Now writing to file."
-  writeToFile output
+  header <- readHeaderFile
+  writeToFile (header <> output)
   logInfo "Done."
+
+readHeaderFile :: forall m r.
+           Monad m =>
+           MonadAsk (Env r) m =>
+           Logger m =>
+           ReadPath m =>
+           Renderer m =>
+           WriteToFile m =>
+           m String
+readHeaderFile = do
+  env <- ask
+  readFile env.headerFilePath
+
 
 -- | Recursively walks the file tree, starting at the root directory
 -- | and renders each file and directory that should be included.
@@ -55,7 +70,7 @@ renderFiles = do
     renderSectionsOrNothing :: Env r -> Array FilePath -> m (Array (Maybe String))
     renderSectionsOrNothing env paths =
       -- the function that follows 'parTraverse' is done in parallel
-      paths # traverse \topLevelPath -> do
+      for paths \topLevelPath -> do
         let fullPath = env.addPath env.rootUri topLevelPath
         pathType <- readPathType fullPath.fs
         case pathType of
@@ -76,11 +91,7 @@ renderTopLevelSection :: forall m r.
                          Renderer m =>
                          UriPath -> FilePath -> m String
 renderTopLevelSection topLevelFullPath topLevelPathSegment = do
-  env <- ask
-  unparsedPaths <- readDir topLevelFullPath.fs
-  let sortedPaths = sortBy env.sortPaths unparsedPaths
-  renderedPaths <- catMaybes <$> traverse (renderPath 0 topLevelFullPath) sortedPaths
-  pure $ fold renderedPaths
+  renderDirectory 0 topLevelFullPath topLevelPathSegment
 
 -- | Renders the given path, whether it is a directory or a file.
 renderPath :: forall m r.
@@ -130,7 +141,7 @@ renderDirectory depth fullDirPath dirPathSegment = do
   unparsedPaths <- readDir fullDirPath.fs
   let sortedPaths = sortBy env.sortPaths unparsedPaths
   renderedPaths <- catMaybes <$> traverse (renderPath (depth + 1) fullDirPath) sortedPaths
-  pure $ fold renderedPaths
+  pure $ renderDir depth dirPathSegment renderedPaths
 
 -- | Renders the given file and all of its headers
 renderOneFile :: forall m r.

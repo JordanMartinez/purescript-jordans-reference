@@ -16,6 +16,7 @@ import ToC.Core.Paths (AddPath, FilePath, IncludeablePathType, UriPath)
 -- |    - `includepath`
 -- | - A flag that indicates whether to verify links or not
 type Env r = { rootUri :: UriPath
+             , headerFilePath :: FilePath
              , addPath :: AddPath
              , sortPaths :: FilePath -> FilePath -> Ordering
              , includePath :: IncludeablePathType -> FilePath -> Boolean
