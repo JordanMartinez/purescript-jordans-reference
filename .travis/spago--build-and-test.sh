@@ -135,7 +135,7 @@ spago test -m Test.RandomNumber.ReaderT.Standard.SameMonad
 PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_SAME=$?
 cd ../../
 
-cd 22-Projects/11-ToC-Generator
+cd 22-Projects/12-ToC-Generator
 pwd
 # Build but do not run benchmark tests
 spago build
