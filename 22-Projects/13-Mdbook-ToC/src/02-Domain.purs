@@ -1,7 +1,7 @@
 module ToC.Domain
   ( program
   , class ReadPath, readDir, readFile, readPathType
-  , class WriteToFile, writeToFile
+  , class WriteToFile, writeToFile, mkDir
   , class Renderer, renderFile
   , class Logger, log, logInfo, logError, logDebug
   ) where
@@ -30,7 +30,9 @@ program :: forall m r.
            m Unit
 program = do
   env <- ask
-  -- mkdir env.mdbookCodeDir
+  -- Make the directory that will store generated markdown files
+  -- that wrap code's content in a code block
+  mkDir env.mdbookCodeDir
   output <- renderFiles
   logInfo "Finished rendering files. Now writing to file."
   header <- readFile env.headerFilePath
@@ -207,6 +209,8 @@ class (Monad m) <= Renderer m where
 -- | A monad that has the capability of writing content to a given file path.
 class (Monad m) <= WriteToFile m where
   writeToFile :: FilePath -> String -> m Unit
+
+  mkDir :: FilePath -> m Unit
 
 -- | A monad that has the capability of logging messages, whether to the
 -- | console or a file.

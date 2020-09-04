@@ -71,3 +71,8 @@ instance writeToFileAppM :: WriteToFile AppM where
   writeToFile filePath content = do
     liftAff do
       FS.writeTextFile UTF8 filePath content
+
+  mkDir :: FilePath -> AppM Unit
+  mkDir filePath = do
+    liftAff do
+      FS.mkdir filePath
