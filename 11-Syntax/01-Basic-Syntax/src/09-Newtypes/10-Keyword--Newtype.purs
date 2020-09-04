@@ -20,6 +20,32 @@ These are useful primarily for two reasons
 -- Syntax:
 newtype NewTypeName = OnlyAllowsOneConstructor WhichOnlyTakesOneArgument_TheWrappedType
 
+newtype NamedStringType = NamedStringType String
+
+-- Pattern matching on a type defined via the `newtype` keyword works
+-- just like a type defined via the `data` keyword.
+-- You can expose the value wrapped by the newtype constructor
+-- using a pattern match and/or `case _ of` syntax
+patternMatching :: String
+patternMatching =
+  unwrap_a_newtype_via_pattern_match
+    (wrap_a_value_via_constructor
+      (unwrap_a_newtype_via_pattern_match
+        (NamedStringType "example")
+      )
+    )
+
+  where
+    wrap_a_value_via_constructor :: String -> NamedStringType
+    wrap_a_value_via_constructor str = NamedStringType str
+
+    unwrap_a_newtype_via_pattern_match :: NamedStringType -> String
+    unwrap_a_newtype_via_pattern_match (NamedStringType str) = str
+
+    unwrap_a_newtype_via_case_of_syntax :: NamedStringType -> String
+    unwrap_a_newtype_via_case_of_syntax = case _ of
+      NamedStringType str -> str
+
 -- Given the following code:
 data Box a = Box a
 
