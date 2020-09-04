@@ -15,7 +15,7 @@ type Value_Level_Type = String
 foreign import kind KindName
 foreign import data Value :: KindName
 
--- The Proxy type usually has the first letter of the value-level type
+-- The name of the Proxy type is usually the first letter of the kind
 -- ("K" for "KindName") followed by "Proxy". The value name
 -- is the same as its type.
 data KProxy (a :: KindName) = KProxy
