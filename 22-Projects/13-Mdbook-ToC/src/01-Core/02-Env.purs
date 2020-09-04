@@ -24,6 +24,7 @@ type Env r = { rootUri :: UriPath
              , sortPaths :: FilePath -> FilePath -> Ordering
              , includePath :: IncludeablePathType -> FilePath -> Boolean
              , outputFile :: FilePath
+             , mdbookCodeDir :: FilePath
              | r
              }
 

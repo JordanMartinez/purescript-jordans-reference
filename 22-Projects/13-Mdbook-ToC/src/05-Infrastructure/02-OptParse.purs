@@ -30,18 +30,15 @@ parseCLIArgs =
       )
 
 argParser :: Parser ProductionEnv
-argParser = ado
-    rootDir <- parseRootDir
-    outputFile <- parseOutputFile
-    headerFile <- parseHeaderFile
-    excludedTopLevelDirs <- parseExcludedTopLevelDirs
-    excludedRegularDir <- parseExcludedRegularDirs
-    includedFileExtensions <- parseIncludedFileExtensions
-    logLevel <- parseLogLevel
-    in createProdEnv
-        rootDir outputFile headerFile
-        excludedTopLevelDirs excludedRegularDir includedFileExtensions
-        logLevel
+argParser =
+  createProdEnv <$> parseRootDir
+                <*> parseOutputFile
+                <*> parseHeaderFile
+                <*> parseCodeDir
+                <*> parseExcludedTopLevelDirs
+                <*> parseExcludedRegularDirs
+                <*> parseIncludedFileExtensions
+                <*> parseLogLevel
   where
     parseRootDir :: Parser String
     parseRootDir =
@@ -69,6 +66,16 @@ argParser = ado
                         \content that should appear before the outputted \
                         \Table of Contents content"
                <> metavar "HEADER_FILE"
+                )
+
+    parseCodeDir :: Parser String
+    parseCodeDir =
+      strOption ( long "mdbook-code-directory-path"
+               <> short 'm'
+               <> help "The path of the file form which to read the \
+                        \content that should appear before the outputted \
+                        \Table of Contents content"
+               <> metavar "MDBOOK_CODE_DIRECTORY_PATH"
                 )
 
     multiString :: ReadM (Array String)
@@ -138,11 +145,11 @@ argParser = ado
                <> showDefault
                 )
 
-createProdEnv :: FilePath -> FilePath -> FilePath ->
+createProdEnv :: FilePath -> FilePath -> FilePath -> FilePath ->
                  Array String -> Array String -> Array String ->
                  String ->
                  ProductionEnv
-createProdEnv rootDirectory outputFile headerFile
+createProdEnv rootDirectory outputFile headerFile mdbookCodeDir
              excludedTopLevelDirs excludedRegularDir includedFileExtensions
              logLevel
              =
@@ -153,6 +160,7 @@ createProdEnv rootDirectory outputFile headerFile
       , includePath: includePath
       , outputFile: outputFile
       , headerFilePath: headerFile
+      , mdbookCodeDir
       , sortPaths: sortPaths
       , renderFile: renderFile
       , logLevel: level

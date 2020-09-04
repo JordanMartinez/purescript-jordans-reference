@@ -29,11 +29,12 @@ program :: forall m r.
            WriteToFile m =>
            m Unit
 program = do
+  env <- ask
+  -- mkdir env.mdbookCodeDir
   output <- renderFiles
   logInfo "Finished rendering files. Now writing to file."
   header <- readHeaderFile
-  outputFilePath <- asks _.outputFile
-  writeToFile outputFilePath (header <> output)
+  writeToFile env.outputFile (header <> output)
   logInfo "Done."
 
 readHeaderFile :: forall m r.
