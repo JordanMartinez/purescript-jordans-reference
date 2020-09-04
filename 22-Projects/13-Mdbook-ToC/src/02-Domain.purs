@@ -152,8 +152,14 @@ renderOneFile depth fullFilePath filePathSegment = do
     Nothing ->
       renderFile depth fullUrl filePathSegment
     Just rec -> do
-      let mdContent = mkMarkdownContent rec fullPath filePathSegment
+      env <- ask
+      let
+        mdFilepath = env.mdbookCodeDir <> fsSep <> rec.name <> rec.suffix <> ".md"
+        mdContent = mkMarkdownContent rec fullPath filePathSegment
       -- write a file
+      -- writeTextFile mdFilePath mdContent
+      -- renderFile depth mdbookPathFullUrl mdbookPat
+      -- writeTextFile mdbookCodeDir <> fsSep <> rec.name <> rec.suffix <> ".md")
       renderFile depth fullUrl filePathSegment
 
 type CodeFileParts =
