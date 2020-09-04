@@ -8,7 +8,8 @@ The last data type keyword to explain here is `newtype`.
 It is a compile-time-only type that only takes one type as its argument.
 
 These are useful primarily for two reasons
-  - They add a more meaningful name to another type (like type aliases).
+  - They add a more meaningful name to another type (like type aliases)
+      but act as a completely different type (unlike type aliases).
   - They are compile-time-only types, so one does not incur runtime overhead
       (like type aliases).
   - They need to be constructed/deconstructed in code (unlike type aliases).
@@ -60,19 +61,18 @@ instance showBox :: (Show a) => Show (Box a) where
 -- name? We would do this:
 newtype Box2 a = Box2 (Box a)
 
+-- Since `Box2` is a different type than `Box`, we can define a type class
+-- instance on it. This is a way to provide an alternative `Show` instance
+-- on the underlying `Box` type.
 instance showBox2 :: (Show a) => Show (Box2 (Box a)) where
   show (Box2 (Box a)) = "Box with value of [" <> show a <> "] inside of it."
 
--- Or, to add more context to a type...
+-- Or, to add more context to a type, we can use a newtype to ensure we
+--   - don't use a `String` where we need to use a `Name`.
+--   - don't use an `Int` where we need to use an `Age`.
 newtype Name = Name String
 newtype Age = Age Int
 newtype Relationships = Relationships (List People)
-
--- Assuming all three above have a Show instance:
---
--- printPerson :: Name -> Age -> Relationships -> String
--- printPerson (Name n) (Age i) (Relationships l) =
---    "Name: " <> n <> ", Age: " <> show i <> ", Relationships: " <> show l
 
 -- needed to compile
 
