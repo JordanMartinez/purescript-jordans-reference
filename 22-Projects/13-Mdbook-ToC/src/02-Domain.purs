@@ -153,8 +153,17 @@ renderOneFile :: forall m r.
                   Renderer m =>
                   Int -> UriPath -> FilePath -> m String
 renderOneFile depth fullFilePath filePathSegment = do
-  let fullUrl = fullFilePath.url
-  renderFile depth fullUrl filePathSegment
+  let
+    fullUrl = fullFilePath.url
+    fullPath = fullFilePath.fs
+  case parseFileExtension filePathSegment of
+    Nothing ->
+      renderFile depth fullUrl filePathSegment
+    Just rec -> do
+      let mdContent = mkMarkdownContent rec fullPath filePathSegment
+      -- write a file
+      renderFile depth fullUrl filePathSegment
+
 type CodeFileParts =
   { name :: String
   , ext :: String
@@ -172,6 +181,25 @@ parseFileExtension filePathSegment = do
     ".purs" -> Just { name, ext, langHighlight: "haskell", suffix: "-ps" }
     ".js" -> Just { name, ext, langHighlight: "javascript", suffix: "-js" }
     _ -> Nothing
+
+-- | Generates the following markdown file based on the
+-- | file extension of the `filePathSegment` argument.
+-- | ---
+-- | # file-name.purs
+-- |
+-- | ```haskell
+-- | {{#include file-name.purs}}
+-- | ```
+-- ---
+mkMarkdownContent :: CodeFileParts -> FilePath -> FilePath -> String
+mkMarkdownContent { langHighlight } fullFilePath filePathSegment = do
+  joinWith "\n"
+    [ "# " <> filePathSegment
+    , ""
+    , "```" <> langHighlight
+    , "{{#include ../../" <> fullFilePath <> "}}"
+    , "```"
+    ]
 
 -- | A monad that has the capability of determining the path type of a path,
 -- | reading a directory for its child paths, and reading a file for its
