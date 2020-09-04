@@ -1,5 +1,5 @@
-module ToC.Domain.Renderer.MarkdownRenderer
-  ( module ToC.Domain.Renderer.MarkdownRenderer
+module ToC.Renderer.MarkdownRenderer
+  ( module ToC.Renderer.MarkdownRenderer
   ) where
 
 import Prelude
@@ -8,12 +8,12 @@ import Control.Comonad.Cofree (head, tail)
 import Control.Monad.Rec.Class (Step(..), tailRec)
 import Data.Foldable (foldl)
 import Data.List (List(..), (:))
-import Data.Maybe (Maybe(..))
+import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Int as Int
 import Data.String (Pattern(..), Replacement(..), take, replace, replaceAll, toLower, drop, stripSuffix)
 import Data.Tree (Tree)
 import ToC.Core.Paths (FilePath, WebUrl)
-import ToC.Domain.Renderer.Markdown (anchorLink, bulletList, emptyLine, h1, h2, indentedBulletList, hyperLink)
+import ToC.Renderer.Markdown (anchorLink, bulletList, emptyLine, h1, h2, indentedBulletList, hyperLink)
 
 formatHyphensInName :: String -> String
 formatHyphensInName =
@@ -31,7 +31,7 @@ removeNumberedPrefix s =
       | otherwise -> s
 
 removeMdFileExtension :: String -> String
-removeMdFileExtension s = maybe s $ stripSuffix (Pattern ".md") s
+removeMdFileExtension s = fromMaybe s $ stripSuffix (Pattern ".md") s
 
 cleanString :: String -> String
 cleanString =

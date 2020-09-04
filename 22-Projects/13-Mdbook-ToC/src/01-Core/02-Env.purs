@@ -1,8 +1,11 @@
-module ToC.Domain.Types (Env,LogLevel(..)) where
+module ToC.Core.Env where
 
 import Prelude
 
-import ToC.Core.Paths (AddPath, FilePath, IncludeablePathType, UriPath)
+import Data.List (List)
+import Data.Maybe (Maybe)
+import Data.Tree (Tree)
+import ToC.Core.Paths (AddPath, FilePath, IncludeablePathType, UriPath, WebUrl)
 
 -- | The Environment type specifies the following ideas:
 -- | - a backend-independent way to create file system paths. For example,
@@ -31,3 +34,22 @@ data LogLevel
 
 derive instance eqLogLevel :: Eq LogLevel
 derive instance ordLogLevel :: Ord LogLevel
+
+-- | Production Rows completes our Env type for the production monad
+-- | - a file to which we write the output when finished
+-- | - a function for parsing a file's content. One could use a different parser
+-- |   library is so desired:
+-- |    - `parseFile`
+-- | - functions that render specific parts of the content. One could render
+-- |   it as Markdown or as HTML:
+-- |    - `renderToC`
+-- |    - `renderTopLevel`
+-- |    - `renderDir`
+-- |    - `renderFile`
+-- | - A level that indicates how much information to log to the console
+-- |    - `logLevel`
+type ProductionRows = ( outputFile :: FilePath
+                      , renderFile :: Int -> WebUrl -> FilePath -> String
+                      , logLevel :: LogLevel
+                      )
+type ProductionEnv = Env ProductionRows

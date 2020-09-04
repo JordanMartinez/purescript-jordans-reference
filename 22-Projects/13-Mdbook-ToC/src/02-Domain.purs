@@ -1,4 +1,4 @@
-module ToC.ReaderT.Domain
+module ToC.Domain
   ( program
   , class ReadPath, readDir, readFile, readPathType
   , class WriteToFile, writeToFile
@@ -16,8 +16,8 @@ import Data.Foldable (fold, for_)
 import Data.Traversable (traverse, for)
 import Data.Tree (Tree, showTree)
 import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), UriPath, WebUrl)
-import ToC.Domain.Types (Env, LogLevel(..))
-import ToC.Domain.Renderer.MarkdownRenderer (renderDir)
+import ToC.Core.Env (Env, LogLevel(..))
+import ToC.Renderer.MarkdownRenderer (renderDir)
 
 program :: forall m r.
            Monad m =>

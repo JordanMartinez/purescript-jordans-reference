@@ -1,4 +1,4 @@
-module ToC.ReaderT.API (AppM(..), runAppM) where
+module ToC.API (AppM(..), runAppM) where
 
 import Prelude
 
@@ -12,11 +12,9 @@ import Node.Encoding (Encoding(..))
 import Node.FS.Aff as FS
 import Node.FS.Stats as Stats
 import ToC.Core.Paths (PathType(..), FilePath, WebUrl)
-import ToC.Domain.Types (LogLevel)
-import ToC.API (ProductionEnv)
-import ToC.ReaderT.Domain (class Logger, class ReadPath, class WriteToFile, class Renderer)
+import ToC.Core.Env (ProductionEnv, LogLevel)
+import ToC.Domain (class Logger, class ReadPath, class WriteToFile, class Renderer)
 import Type.Equality (class TypeEquals, from)
-
 
 newtype AppM a = AppM (ReaderT ProductionEnv Aff a)
 

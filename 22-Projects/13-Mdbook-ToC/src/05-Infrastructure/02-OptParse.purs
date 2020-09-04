@@ -15,10 +15,9 @@ import Data.Tree (Tree)
 import Node.Path (extname, sep)
 import Options.Applicative (Parser, ParserInfo, eitherReader, fullDesc, help, helper, info, long, metavar, option, progDesc, short, showDefault, showDefaultWith, strOption, switch, value)
 import Options.Applicative.Types (ReadM)
-import ToC.API (ProductionEnv)
 import ToC.Core.Paths (FilePath, IncludeablePathType(..), WebUrl, addPath')
-import ToC.Domain.Renderer.MarkdownRenderer (renderFile)
-import ToC.Domain.Types (LogLevel(..))
+import ToC.Core.Env (ProductionEnv, LogLevel(..))
+import ToC.Renderer.MarkdownRenderer (renderFile)
 import ToC.Infrastructure.OSFFI (endOfLine)
 
 parseCLIArgs :: ParserInfo ProductionEnv

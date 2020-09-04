@@ -1,5 +1,5 @@
 -- | Helper module for easily creating correctly-formatted Markdown text.
-module ToC.Domain.Renderer.Markdown
+module ToC.Renderer.Markdown
   ( h1
   , h2
   , anchorLink
