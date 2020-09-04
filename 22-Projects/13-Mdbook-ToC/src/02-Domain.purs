@@ -15,6 +15,7 @@ import Data.Maybe (Maybe(..))
 import Data.Foldable (fold, for_)
 import Data.Traversable (traverse, for)
 import Data.Tree (Tree, showTree)
+import Data.String (lastIndexOf, Pattern(..), take, drop, joinWith)
 import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), UriPath, WebUrl)
 import ToC.Core.Env (Env, LogLevel(..))
 import ToC.Renderer.MarkdownRenderer (renderDir)
@@ -154,6 +155,23 @@ renderOneFile :: forall m r.
 renderOneFile depth fullFilePath filePathSegment = do
   let fullUrl = fullFilePath.url
   renderFile depth fullUrl filePathSegment
+type CodeFileParts =
+  { name :: String
+  , ext :: String
+  , langHighlight :: String
+  , suffix :: String
+  }
+
+parseFileExtension :: FilePath -> Maybe CodeFileParts
+parseFileExtension filePathSegment = do
+  idx <- lastIndexOf (Pattern ".") filePathSegment
+  let
+    name = take idx filePathSegment
+    ext = drop (idx + 1) filePathSegment
+  case ext of
+    ".purs" -> Just { name, ext, langHighlight: "haskell", suffix: "-ps" }
+    ".js" -> Just { name, ext, langHighlight: "javascript", suffix: "-js" }
+    _ -> Nothing
 
 -- | A monad that has the capability of determining the path type of a path,
 -- | reading a directory for its child paths, and reading a file for its
