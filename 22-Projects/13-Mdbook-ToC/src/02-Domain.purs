@@ -33,21 +33,9 @@ program = do
   -- mkdir env.mdbookCodeDir
   output <- renderFiles
   logInfo "Finished rendering files. Now writing to file."
-  header <- readHeaderFile
+  header <- readFile env.headerFilePath
   writeToFile env.outputFile (header <> output)
   logInfo "Done."
-
-readHeaderFile :: forall m r.
-           Monad m =>
-           MonadAsk (Env r) m =>
-           Logger m =>
-           ReadPath m =>
-           Renderer m =>
-           WriteToFile m =>
-           m String
-readHeaderFile = do
-  env <- ask
-  readFile env.headerFilePath
 
 
 -- | Recursively walks the file tree, starting at the root directory
