@@ -8,7 +8,7 @@ module ToC.Domain
 
 import Prelude
 
-import Control.Monad.Reader (class MonadAsk, ask)
+import Control.Monad.Reader (class MonadAsk, ask, asks)
 import Data.Array (catMaybes, intercalate, sortBy)
 import Data.List (List)
 import Data.Maybe (Maybe(..))
@@ -32,7 +32,8 @@ program = do
   output <- renderFiles
   logInfo "Finished rendering files. Now writing to file."
   header <- readHeaderFile
-  writeToFile (header <> output)
+  outputFilePath <- asks _.outputFile
+  writeToFile outputFilePath (header <> output)
   logInfo "Done."
 
 readHeaderFile :: forall m r.
@@ -216,7 +217,7 @@ class (Monad m) <= Renderer m where
 
 -- | A monad that has the capability of writing content to a given file path.
 class (Monad m) <= WriteToFile m where
-  writeToFile :: String -> m Unit
+  writeToFile :: FilePath -> String -> m Unit
 
 -- | A monad that has the capability of logging messages, whether to the
 -- | console or a file.

@@ -23,6 +23,7 @@ type Env r = { rootUri :: UriPath
              , addPath :: AddPath
              , sortPaths :: FilePath -> FilePath -> Ordering
              , includePath :: IncludeablePathType -> FilePath -> Boolean
+             , outputFile :: FilePath
              | r
              }
 
@@ -48,8 +49,7 @@ derive instance ordLogLevel :: Ord LogLevel
 -- |    - `renderFile`
 -- | - A level that indicates how much information to log to the console
 -- |    - `logLevel`
-type ProductionRows = ( outputFile :: FilePath
-                      , renderFile :: Int -> WebUrl -> FilePath -> String
+type ProductionRows = ( renderFile :: Int -> WebUrl -> FilePath -> String
                       , logLevel :: LogLevel
                       )
 type ProductionEnv = Env ProductionRows

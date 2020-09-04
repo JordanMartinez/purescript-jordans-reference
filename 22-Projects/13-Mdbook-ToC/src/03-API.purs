@@ -67,8 +67,7 @@ instance rendererAppM :: Renderer AppM where
     asks (\e -> e.renderFile indent url path)
 
 instance writeToFileAppM :: WriteToFile AppM where
-  writeToFile :: String -> AppM Unit
-  writeToFile content = do
-    env <- ask
+  writeToFile :: FilePath -> String -> AppM Unit
+  writeToFile filePath content = do
     liftAff do
-      FS.writeTextFile UTF8 env.outputFile content
+      FS.writeTextFile UTF8 filePath content
