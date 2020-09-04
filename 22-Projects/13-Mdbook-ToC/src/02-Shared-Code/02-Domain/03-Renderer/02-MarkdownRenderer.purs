@@ -10,7 +10,7 @@ import Data.Foldable (foldl)
 import Data.List (List(..), (:))
 import Data.Maybe (Maybe(..))
 import Data.Int as Int
-import Data.String (Pattern(..), Replacement(..), take, replace, replaceAll, toLower, drop)
+import Data.String (Pattern(..), Replacement(..), take, replace, replaceAll, toLower, drop, stripSuffix)
 import Data.Tree (Tree)
 import ToC.Core.Paths (FilePath, WebUrl)
 import ToC.Domain.Renderer.Markdown (anchorLink, bulletList, emptyLine, h1, h2, indentedBulletList, hyperLink)
@@ -30,8 +30,14 @@ removeNumberedPrefix s =
       | first == " " -> drop 1 s
       | otherwise -> s
 
+removeMdFileExtension :: String -> String
+removeMdFileExtension s = maybe s $ stripSuffix (Pattern ".md") s
+
 cleanString :: String -> String
-cleanString = removeNumberedPrefix <<< formatHyphensInName
+cleanString =
+  formatHyphensInName
+    >>> removeNumberedPrefix
+    >>> removeMdFileExtension
 
 renderDir :: Int -> FilePath -> Array String -> String
 renderDir depth pathSeg renderedPaths = do
