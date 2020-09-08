@@ -69,22 +69,10 @@ renderFiles = do
         case pathType of
           Just Dir | env.includePath TopLevelDirectory topLevelPath -> do
             logDebug $ "Rendering top-level directory (start): " <> fullPath.fs
-            output <- renderTopLevelSection fullPath topLevelPath
+            output <- renderDirectory 0 topLevelFullPath topLevelPathSegment
             logDebug $ "Rendering top-level directory (done) : " <> fullPath.fs
             pure $ Just output
           _ -> pure $ Nothing
-
--- | Renders a single top-level directory, using its already-rendered
--- | child paths.
-renderTopLevelSection :: forall m r.
-                         Monad m =>
-                         MonadAsk (Env r) m =>
-                         Logger m =>
-                         ReadPath m =>
-                         Renderer m =>
-                         UriPath -> FilePath -> m String
-renderTopLevelSection topLevelFullPath topLevelPathSegment = do
-  renderDirectory 0 topLevelFullPath topLevelPathSegment
 
 -- | Renders the given path, whether it is a directory or a file.
 renderPath :: forall m r.
