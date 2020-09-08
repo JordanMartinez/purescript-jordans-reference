@@ -9,6 +9,7 @@ module ToC.Core.Paths
   ) where
 
 import Data.Semigroup ((<>))
+import Node.Path (sep)
 
 -- | Backend-independent indicator for whether a path is a directory or a file.
 -- | Note: there is no distinction between a top-level directory and a regular
@@ -29,6 +30,23 @@ data IncludeablePathType
 -- | "path" in "root/parent/path/child.txt", "file.txt" in
 -- | "root/parent/file.txt", or the entirety of "root/parent/file.txt"
 type FilePath = String
+
+type PathRec =
+  { parent :: FilePath
+  , path :: FilePath
+  }
+
+asPathRec :: FilePath -> PathRec
+asPathRec path = { parent: "", path }
+
+addPath :: PathRec -> FilePath -> PathRec
+addPath rec path =
+  { parent: fullPath rec
+  , path
+  }
+
+fullPath :: PathRec -> FilePath
+fullPath {parent, path} = parent <> sep <> path
 
 -- | Backend-independent type for a website url. It could be
 -- | "https://github.com", "https://github.com/userName", or
