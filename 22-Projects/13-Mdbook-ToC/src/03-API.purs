@@ -11,7 +11,7 @@ import Effect.Console as Console
 import Node.Encoding (Encoding(..))
 import Node.FS.Aff as FS
 import Node.FS.Stats as Stats
-import ToC.Core.Paths (PathType(..), FilePath, WebUrl)
+import ToC.Core.Paths (PathType(..), FilePath, WebUrl, PathRec)
 import ToC.Core.Env (ProductionEnv, LogLevel)
 import ToC.Domain (class Logger, class ReadPath, class WriteToFile, class Renderer)
 import Type.Equality (class TypeEquals, from)
@@ -62,9 +62,9 @@ instance readPathAppM :: ReadPath AppM where
         else Nothing
 
 instance rendererAppM :: Renderer AppM where
-  renderFile :: Int -> WebUrl -> FilePath -> AppM String
-  renderFile indent url path =
-    asks (\e -> e.renderFile indent url path)
+  renderFile :: Int -> FilePath -> PathRec -> AppM String
+  renderFile indent linkText urlPathRec =
+    asks (\e -> e.renderFile indent linkText urlPathRec)
 
 instance writeToFileAppM :: WriteToFile AppM where
   writeToFile :: FilePath -> String -> AppM Unit

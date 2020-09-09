@@ -18,7 +18,7 @@ import Options.Applicative.Types (ReadM)
 import ToC.Core.Paths (FilePath, IncludeablePathType(..), WebUrl, addPath')
 import ToC.Core.Env (ProductionEnv, LogLevel(..))
 import ToC.Renderer.MarkdownRenderer (renderFile)
-import ToC.Infrastructure.OSFFI (endOfLine)
+import ToC.Core.EOL (endOfLine)
 
 parseCLIArgs :: ParserInfo ProductionEnv
 parseCLIArgs =
@@ -153,9 +153,7 @@ createProdEnv rootDirectory outputFile headerFile mdbookCodeDir
              excludedTopLevelDirs excludedRegularDir includedFileExtensions
              logLevel
              =
-      { rootUri: { fs: rootDir
-                 , url: "."
-                 }
+      { rootPath: rootDir
       , addPath: addPath' sep
       , includePath: includePath
       , outputFile: outputFile

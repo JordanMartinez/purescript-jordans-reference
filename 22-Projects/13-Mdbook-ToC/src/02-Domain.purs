@@ -8,15 +8,13 @@ module ToC.Domain
 
 import Prelude
 
-import Control.Monad.Reader (class MonadAsk, ask, asks)
+import Control.Monad.Reader (class MonadAsk, ask)
 import Data.Array (catMaybes, intercalate, sortBy)
-import Data.List (List)
 import Data.Maybe (Maybe(..))
-import Data.Foldable (fold, for_)
-import Data.Traversable (traverse, for)
-import Data.Tree (Tree, showTree)
+import Data.Foldable (fold)
+import Data.Traversable (for)
 import Data.String (lastIndexOf, Pattern(..), take, drop, joinWith)
-import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), UriPath, WebUrl)
+import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), WebUrl, PathRec, fullPath, addPath, swapRoot, swapPath, getPath, mkPathRec)
 import ToC.Core.Env (Env, LogLevel(..))
 import ToC.Renderer.MarkdownRenderer (renderDir)
 
@@ -30,9 +28,6 @@ program :: forall m r.
            m Unit
 program = do
   env <- ask
-  -- Make the directory that will store generated markdown files
-  -- that wrap code's content in a code block
-  mkDir env.mdbookCodeDir
   output <- renderFiles
   logInfo "Finished rendering files. Now writing to file."
   header <- readFile env.headerFilePath
@@ -48,30 +43,31 @@ renderFiles :: forall m r.
                Logger m =>
                ReadPath m =>
                Renderer m =>
+               WriteToFile m =>
                m String
 renderFiles = do
   env <- ask
-  paths <- readDir env.rootUri.fs
+  paths <- readDir env.rootPath
   let sortedPaths = sortBy env.sortPaths paths
   logDebug $ "All possible top-level directories\n" <> intercalate "\n" sortedPaths
-  sections <- catMaybes <$> renderSectionsOrNothing env sortedPaths
+  sections <- catMaybes <$> renderSectionsOrNothing sortedPaths
   pure $ fold sections
 
   where
     -- | More or less maps the unrendered top-level directory array into
     -- | rendered top-level directory array.
-    renderSectionsOrNothing :: Env r -> Array FilePath -> m (Array (Maybe String))
-    renderSectionsOrNothing env paths =
+    renderSectionsOrNothing :: Array FilePath -> m (Array (Maybe String))
+    renderSectionsOrNothing paths = do
+      env <- ask
       -- the function that follows 'parTraverse' is done in parallel
       for paths \topLevelPath -> do
-        let fullPath = env.addPath env.rootUri topLevelPath
-        pathType <- readPathType fullPath.fs
+        let
+          topLevelPathRec = mkPathRec env.rootPath topLevelPath
+          topLevelFullPath = fullPath topLevelPathRec
+        pathType <- readPathType topLevelFullPath
         case pathType of
           Just Dir | env.includePath TopLevelDirectory topLevelPath -> do
-            logDebug $ "Rendering top-level directory (start): " <> fullPath.fs
-            output <- renderDirectory 0 topLevelFullPath topLevelPathSegment
-            logDebug $ "Rendering top-level directory (done) : " <> fullPath.fs
-            pure $ Just output
+            Just <$> renderDirectory 0 topLevelPathRec
           _ -> pure $ Nothing
 
 -- | Renders the given path, whether it is a directory or a file.
@@ -81,32 +77,29 @@ renderPath :: forall m r.
               Logger m =>
               ReadPath m =>
               Renderer m =>
-              Int -> UriPath -> FilePath -> m (Maybe String)
-renderPath depth fullParentPath childPath = do
+              WriteToFile m =>
+              Int -> PathRec -> m (Maybe String)
+renderPath depth pathRec = do
   env <- ask
-  let fullChildPath = env.addPath fullParentPath childPath
-  pathType <- readPathType fullChildPath.fs
+  let
+    fullChildPath = fullPath pathRec
+    childPath = getPath pathRec
+  pathType <- readPathType fullChildPath
   case pathType of
     Just Dir
       | env.includePath NormalDirectory childPath -> do
-          logDebug $ "Rendering directory (start): " <> fullChildPath.fs
-          output <- renderDirectory depth fullChildPath childPath
-          logDebug $ "Rendering directory (done) : " <> fullChildPath.fs
-          pure $ Just output
+          Just <$> renderDirectory depth pathRec
       | otherwise                       -> do
-          logDebug $ "Excluding directory: " <> fullChildPath.fs
+          logDebug $ "Excluding directory: " <> fullChildPath
           pure Nothing
     Just File
       | env.includePath A_File childPath -> do
-          logDebug $ "Rendering File (start): " <> fullChildPath.fs
-          output <- renderOneFile depth fullChildPath childPath
-          logDebug $ "Rendering File (done) : " <> fullChildPath.fs
-          pure $ Just output
+          Just <$> renderOneFile depth pathRec
       | otherwise                 -> do
-          logDebug $ "Excluding File: " <> fullChildPath.fs
+          logDebug $ "Excluding File: " <> fullChildPath
           pure Nothing
     _ -> do
-      logInfo $ "Unknown path type: " <> fullChildPath.fs
+      logInfo $ "Unknown path type: " <> fullChildPath
       pure Nothing
 
 -- | Renders the given directory and all of its already-rendered child paths
@@ -116,13 +109,19 @@ renderDirectory :: forall m r.
                    Logger m =>
                    ReadPath m =>
                    Renderer m =>
-                   Int -> UriPath -> FilePath -> m String
-renderDirectory depth fullDirPath dirPathSegment = do
+                   WriteToFile m =>
+                   Int -> PathRec -> m String
+renderDirectory depth pathRec = do
+  let entirePath = fullPath pathRec
+  -- logDebug $ "Rendering top-level directory (start): " <> entirePath
   env <- ask
-  unparsedPaths <- readDir fullDirPath.fs
+  unparsedPaths <- readDir entirePath
   let sortedPaths = sortBy env.sortPaths unparsedPaths
-  renderedPaths <- catMaybes <$> traverse (renderPath (depth + 1) fullDirPath) sortedPaths
-  pure $ renderDir depth dirPathSegment renderedPaths
+  mbRenderedPaths <- for sortedPaths \p ->
+    renderPath (depth + 1) (addPath pathRec p)
+  let renderedDir = renderDir depth (getPath pathRec) (catMaybes mbRenderedPaths)
+  logDebug $ "Rendering top-level directory (done) : " <> entirePath
+  pure renderedDir
 
 -- | Renders the given file and all of its headers
 renderOneFile :: forall m r.
@@ -131,30 +130,31 @@ renderOneFile :: forall m r.
                   Logger m =>
                   ReadPath m =>
                   Renderer m =>
-                  Int -> UriPath -> FilePath -> m String
-renderOneFile depth fullFilePath filePathSegment = do
-  let
-    fullUrl = fullFilePath.url
-    fullPath = fullFilePath.fs
-  case parseFileExtension filePathSegment of
-    Nothing ->
-      renderFile depth fullUrl filePathSegment
-    Just rec -> do
+                  WriteToFile m =>
+                  Int -> PathRec -> m String
+renderOneFile depth pathRec = do
+  let fullChildPath = fullPath pathRec
+  logDebug $ "Rendering File (start): " <> fullChildPath
+
+  let p = getPath pathRec
+  result <- case parseFileExtension p of
+    Nothing -> do
+      logDebug $ "Rendering normal markdown file"
+      renderFile depth p pathRec
+    Just extRec -> do
+      logDebug $ "Rendering code file"
       env <- ask
       let
-        mdFilepath = env.mdbookCodeDir <> fsSep <> rec.name <> rec.suffix <> ".md"
-        mdContent = mkMarkdownContent rec fullPath filePathSegment
-      -- write a file
-      -- writeTextFile mdFilePath mdContent
-      -- renderFile depth mdbookPathFullUrl mdbookPat
-      -- writeTextFile mdbookCodeDir <> fsSep <> rec.name <> rec.suffix <> ".md")
-      renderFile depth fullUrl filePathSegment
+        mdFilePath = pathRec `swapRoot` env.mdbookCodeDir `swapPath` extRec.mdfileName
+        mdContent = mkMarkdownContent extRec p pathRec
+      writeToFile (fullPath mdFilePath) mdContent
+      renderFile depth p mdFilePath
+  logDebug $ "Rendering File (done) : " <> fullChildPath
+  pure result
 
 type CodeFileParts =
-  { name :: String
-  , ext :: String
-  , langHighlight :: String
-  , suffix :: String
+  { langHighlight :: String
+  , mdfileName :: String
   }
 
 parseFileExtension :: FilePath -> Maybe CodeFileParts
@@ -164,8 +164,8 @@ parseFileExtension filePathSegment = do
     name = take idx filePathSegment
     ext = drop (idx + 1) filePathSegment
   case ext of
-    ".purs" -> Just { name, ext, langHighlight: "haskell", suffix: "-ps" }
-    ".js" -> Just { name, ext, langHighlight: "javascript", suffix: "-js" }
+    ".purs" -> Just { langHighlight: "haskell", mdfileName: name <> "-ps.md" }
+    ".js" -> Just { langHighlight: "javascript", mdfileName: name <> "-js.md" }
     _ -> Nothing
 
 -- | Generates the following markdown file based on the
@@ -177,13 +177,13 @@ parseFileExtension filePathSegment = do
 -- | {{#include file-name.purs}}
 -- | ```
 -- ---
-mkMarkdownContent :: CodeFileParts -> FilePath -> FilePath -> String
-mkMarkdownContent { langHighlight } fullFilePath filePathSegment = do
+mkMarkdownContent :: CodeFileParts -> FilePath -> PathRec -> String
+mkMarkdownContent { langHighlight } fileName fileUrl = do
   joinWith "\n"
-    [ "# " <> filePathSegment
+    [ "# " <> fileName
     , ""
     , "```" <> langHighlight
-    , "{{#include ../../" <> fullFilePath <> "}}"
+    , "{{#include ../../" <> (fullPath fileUrl) <> "}}"
     , "```"
     ]
 
@@ -198,7 +198,7 @@ class (Monad m) <= ReadPath m where
   readPathType :: FilePath -> m (Maybe PathType)
 
 class (Monad m) <= Renderer m where
-  renderFile :: Int -> WebUrl -> FilePath -> m String
+  renderFile :: Int -> FilePath -> PathRec -> m String
 
 -- | A monad that has the capability of writing content to a given file path.
 class (Monad m) <= WriteToFile m where

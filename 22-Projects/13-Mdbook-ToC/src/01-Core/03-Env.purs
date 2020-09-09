@@ -5,7 +5,7 @@ import Prelude
 import Data.List (List)
 import Data.Maybe (Maybe)
 import Data.Tree (Tree)
-import ToC.Core.Paths (AddPath, FilePath, IncludeablePathType, UriPath, WebUrl)
+import ToC.Core.Paths (AddPath, FilePath, IncludeablePathType, UriPath, WebUrl, PathRec)
 
 -- | The Environment type specifies the following ideas:
 -- | - a backend-independent way to create file system paths. For example,
@@ -18,7 +18,7 @@ import ToC.Core.Paths (AddPath, FilePath, IncludeablePathType, UriPath, WebUrl)
 -- | - a function to determine which directories and files to include/exclude:
 -- |    - `includepath`
 -- | - A flag that indicates whether to verify links or not
-type Env r = { rootUri :: UriPath
+type Env r = { rootPath :: FilePath
              , headerFilePath :: FilePath
              , addPath :: AddPath
              , sortPaths :: FilePath -> FilePath -> Ordering
@@ -50,7 +50,7 @@ derive instance ordLogLevel :: Ord LogLevel
 -- |    - `renderFile`
 -- | - A level that indicates how much information to log to the console
 -- |    - `logLevel`
-type ProductionRows = ( renderFile :: Int -> WebUrl -> FilePath -> String
+type ProductionRows = ( renderFile :: Int -> FilePath -> PathRec -> String
                       , logLevel :: LogLevel
                       )
 type ProductionEnv = Env ProductionRows

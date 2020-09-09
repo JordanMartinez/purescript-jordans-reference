@@ -12,7 +12,7 @@ import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Int as Int
 import Data.String (Pattern(..), Replacement(..), take, replace, replaceAll, toLower, drop, stripSuffix)
 import Data.Tree (Tree)
-import ToC.Core.Paths (FilePath, WebUrl)
+import ToC.Core.Paths (FilePath, WebUrl, PathRec, fullPath)
 import ToC.Renderer.Markdown (anchorLink, bulletList, emptyLine, h1, h2, indentedBulletList, hyperLink)
 
 formatHyphensInName :: String -> String
@@ -49,7 +49,7 @@ renderDir depth pathSeg renderedPaths = do
 -- | the corresponding website. When passed as 'Nothing' argument for the
 -- | `Maybe WebUrl` argument, it will simply render the file's name and
 -- | its headers as plain text.
-renderFile :: Int -> WebUrl -> FilePath -> String
-renderFile depth url pathSeg = do
-    let fileLink = hyperLink (cleanString pathSeg) url
+renderFile :: Int -> FilePath -> PathRec -> String
+renderFile depth linkText urlPathRec = do
+    let fileLink = hyperLink (cleanString linkText) (fullPath urlPathRec)
     indentedBulletList depth fileLink
