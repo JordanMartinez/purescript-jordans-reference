@@ -163,7 +163,7 @@ parseFileExtension filePathSegment = do
   idx <- lastIndexOf (Pattern ".") filePathSegment
   let
     name = take idx filePathSegment
-    ext = drop (idx + 1) filePathSegment
+    ext = drop idx filePathSegment
   case ext of
     ".purs" -> Just { langHighlight: "haskell", mdfileName: name <> "-ps.md" }
     ".js" -> Just { langHighlight: "javascript", mdfileName: name <> "-js.md" }
