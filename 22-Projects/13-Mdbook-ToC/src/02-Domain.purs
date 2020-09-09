@@ -10,12 +10,13 @@ import Prelude
 
 import Control.Monad.Reader (class MonadAsk, ask)
 import Data.Array (catMaybes, intercalate, sortBy)
-import Data.Maybe (Maybe(..))
 import Data.Foldable (fold)
-import Data.Traversable (for)
+import Data.Maybe (Maybe(..))
 import Data.String (lastIndexOf, Pattern(..), take, drop, joinWith)
-import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), PathRec, fullPath, addPath, mkPathRec)
+import Data.Traversable (for)
+import ToC.Core.EOL (endOfLine)
 import ToC.Core.Env (Env, LogLevel(..))
+import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), PathRec, fullPath, addPath, mkPathRec)
 import ToC.Renderer.MarkdownRenderer (renderDir)
 
 program :: forall m r.
@@ -179,7 +180,7 @@ parseFileExtension filePathSegment = do
 -- ---
 mkMarkdownContent :: CodeFileParts -> FilePath -> PathRec -> String
 mkMarkdownContent { langHighlight } fileName fileUrl = do
-  joinWith "\n"
+  joinWith endOfLine
     [ "# " <> fileName
     , ""
     , "```" <> langHighlight
