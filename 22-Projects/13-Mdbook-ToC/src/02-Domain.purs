@@ -113,14 +113,14 @@ renderDirectory :: forall m r.
                    Int -> PathRec -> m String
 renderDirectory depth pathRec = do
   let entirePath = fullPath pathRec
-  logDebug $ "Rendering top-level directory (start): " <> entirePath
+  logDebug $ "Rendering directory of depth " <> show depth <> " - (start): " <> entirePath
   env <- ask
   unparsedPaths <- readDir entirePath
   let sortedPaths = sortBy env.sortPaths unparsedPaths
   mbRenderedPaths <- for sortedPaths \p ->
     renderPath (depth + 1) (addPath pathRec p)
   let renderedDir = renderDir depth pathRec.path (catMaybes mbRenderedPaths)
-  logDebug $ "Rendering top-level directory (done) : " <> entirePath
+  logDebug $ "Rendering directory of depth " <> show depth <> " - (done) : " <> entirePath
   pure renderedDir
 
 -- | Renders the given file and all of its headers
