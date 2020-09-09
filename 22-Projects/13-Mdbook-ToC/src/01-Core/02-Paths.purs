@@ -34,7 +34,7 @@ addPath rec path = rec { parent = newParent, path = path }
   where
     newParent = case rec.parent of
       Nothing -> Just rec.path
-      Just par -> Just (rec.path <> sep <> rec.path)
+      Just par -> Just (par <> sep <> rec.path)
 
 fullPath :: PathRec -> FilePath
 fullPath { root, parent, path } = root <> parentPart <> sep <> path
