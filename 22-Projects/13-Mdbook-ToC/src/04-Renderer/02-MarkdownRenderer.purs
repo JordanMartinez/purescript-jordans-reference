@@ -35,10 +35,10 @@ cleanString =
     >>> removeNumberedPrefix
     >>> removeMdFileExtension
 
-renderDir :: Int -> FilePath -> Array String -> String
-renderDir depth pathSeg renderedPaths = do
+renderDir :: Int -> FilePath -> String
+renderDir depth pathSeg = do
   let urlNoLink = hyperLink (cleanString pathSeg) ""
-  indentedBulletList depth urlNoLink <> (foldl (<>) "" renderedPaths)
+  indentedBulletList depth urlNoLink
 
 -- | Renders a file and its headers. When passed a `Just webUrl` argument,
 -- | the file's entry and its headers will be rendered as hyperlinks to

@@ -1,6 +1,6 @@
 module ToC.Domain
   ( program
-  , class ReadPath, readDir, readFile, readPathType
+  , class ReadPath, readDir, readFile, readPathType, exists
   , class WriteToFile, writeToFile, mkDir
   , class Renderer, renderFile
   , class Logger, log, logInfo, logError, logDebug
@@ -9,7 +9,7 @@ module ToC.Domain
 import Prelude
 
 import Control.Monad.Reader (class MonadAsk, ask)
-import Data.Array (catMaybes, intercalate, sortBy)
+import Data.Array (catMaybes, intercalate, sortBy, filter)
 import Data.Foldable (fold)
 import Data.Function (applyN)
 import Data.Maybe (Maybe(..))
@@ -117,14 +117,33 @@ renderDirectory :: forall m r.
 renderDirectory depth pathRec = do
   let entirePath = fullPath pathRec
   logDebug $ "Rendering directory of depth " <> show depth <> " - (start): " <> entirePath
-  env <- ask
-  unparsedPaths <- readDir entirePath
-  let sortedPaths = sortBy env.sortPaths unparsedPaths
-  mbRenderedPaths <- for sortedPaths \p ->
-    renderPath (depth + 1) (addPath pathRec p)
-  let renderedDir = renderDir depth pathRec.path (catMaybes mbRenderedPaths)
+
+  renderedDirPath <- renderDirectoryPath
+  renderedContents <- renderDirectoryContents entirePath
+
   logDebug $ "Rendering directory of depth " <> show depth <> " - (done) : " <> entirePath
-  pure renderedDir
+  pure $ renderedDirPath <> renderedContents
+  where
+    renderDirectoryPath :: m String
+    renderDirectoryPath = do
+      let readmePath = addPath pathRec "Readme.md"
+      readmeExists <- exists (fullPath readmePath)
+      case readmeExists of
+        true -> do
+          logDebug "Rendering directory via its `Readme.md` file"
+          renderFile depth pathRec.path readmePath
+        false -> do
+          logDebug "Rendering directory as placeholder path"
+          pure $ renderDir depth pathRec.path
+
+    renderDirectoryContents :: FilePath -> m String
+    renderDirectoryContents entirePath = do
+      env <- ask
+      unparsedPaths <- (filter (_ /= "Readme.md")) <$> readDir entirePath
+      let sortedPaths = sortBy env.sortPaths unparsedPaths
+      mbRenderedPaths <- for sortedPaths \p ->
+        renderPath (depth + 1) (addPath pathRec p)
+      pure $ fold (catMaybes mbRenderedPaths)
 
 -- | Renders the given file and all of its headers
 renderOneFile :: forall m r.
@@ -202,6 +221,8 @@ class (Monad m) <= ReadPath m where
   readFile :: FilePath -> m String
 
   readPathType :: FilePath -> m (Maybe PathType)
+
+  exists :: FilePath -> m Boolean
 
 class (Monad m) <= Renderer m where
   renderFile :: Int -> FilePath -> PathRec -> m String

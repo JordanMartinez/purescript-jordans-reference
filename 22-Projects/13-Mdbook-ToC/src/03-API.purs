@@ -61,6 +61,11 @@ instance readPathAppM :: ReadPath AppM where
           then Just File
         else Nothing
 
+  exists :: FilePath -> AppM Boolean
+  exists path =
+    liftAff do
+      FS.exists path
+
 instance rendererAppM :: Renderer AppM where
   renderFile :: Int -> FilePath -> PathRec -> AppM String
   renderFile indent linkText urlPathRec =
