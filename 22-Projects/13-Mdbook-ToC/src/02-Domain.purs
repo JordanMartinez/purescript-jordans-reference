@@ -16,7 +16,7 @@ import Data.String (lastIndexOf, Pattern(..), take, drop, joinWith)
 import Data.Traversable (for)
 import ToC.Core.EOL (endOfLine)
 import ToC.Core.Env (Env, LogLevel(..))
-import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), PathRec, fullPath, addPath, mkPathRec)
+import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), PathRec, fullPath, parentPath, addPath, mkPathRec)
 import ToC.Renderer.MarkdownRenderer (renderDir)
 
 program :: forall m r.
@@ -148,6 +148,7 @@ renderOneFile depth pathRec = do
       let
         mdFilePath = pathRec { root = env.mdbookCodeDir, path = extRec.mdfileName }
         mdContent = mkMarkdownContent extRec p pathRec
+      mkDir (parentPath mdFilePath)
       writeToFile (fullPath mdFilePath) mdContent
       renderFile depth p mdFilePath
   logDebug $ "Rendering File (done) : " <> fullChildPath

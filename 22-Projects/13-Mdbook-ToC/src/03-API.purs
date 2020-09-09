@@ -75,4 +75,4 @@ instance writeToFileAppM :: WriteToFile AppM where
   mkDir :: FilePath -> AppM Unit
   mkDir filePath = do
     liftAff do
-      FS.mkdir filePath
+      FS.mkdirRecursive filePath

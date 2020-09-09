@@ -36,6 +36,11 @@ addPath rec path = rec { parent = newParent, path = path }
       Nothing -> Just rec.path
       Just par -> Just (par <> sep <> rec.path)
 
+parentPath :: PathRec -> FilePath
+parentPath { root, parent } = root <> parentPart
+  where
+    parentPart = maybe "" (\par -> sep <> par) parent
+
 fullPath :: PathRec -> FilePath
 fullPath { root, parent, path } = root <> parentPart <> sep <> path
   where
