@@ -39,8 +39,6 @@ data IncludeablePathType
 -- | "root/parent/file.txt", or the entirety of "root/parent/file.txt"
 type FilePath = String
 
-type PathRec =
-  { parent :: FilePath
 type PathRec = { root :: FilePath, parts :: FilePathParts }
 
 data FilePathParts
