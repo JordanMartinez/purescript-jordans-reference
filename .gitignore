@@ -26,3 +26,4 @@
 
 # Ignore any project-related files stored in temporary folder
 /**/tmp/
+/mdbook/code/
