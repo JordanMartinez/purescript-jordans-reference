@@ -4,12 +4,8 @@ module ToC.Core.Paths
   , FilePath
   , WebUrl
   , PathRec
-  , FilePathParts(..)
   , mkPathRec
   , addPath
-  , swapRoot
-  , swapPath
-  , getPath
   , fullPath
   , UriPath
   , AddPath
@@ -18,6 +14,7 @@ module ToC.Core.Paths
 
 import Data.Semigroup ((<>))
 import Node.Path (sep)
+import Data.Maybe (Maybe(..), maybe)
 
 -- | Backend-independent indicator for whether a path is a directory or a file.
 -- | Note: there is no distinction between a top-level directory and a regular
@@ -39,41 +36,22 @@ data IncludeablePathType
 -- | "root/parent/file.txt", or the entirety of "root/parent/file.txt"
 type FilePath = String
 
-type PathRec = { root :: FilePath, parts :: FilePathParts }
-
-data FilePathParts
-  = Path FilePath
-  | ParentPath FilePath FilePath
+type PathRec = { root :: FilePath, parent :: Maybe FilePath, path :: FilePath }
 
 mkPathRec :: FilePath -> FilePath -> PathRec
-mkPathRec root path = { root, parts: Path path }
+mkPathRec root path = { root, parent: Nothing, path }
 
 addPath :: PathRec -> FilePath -> PathRec
-addPath rec path = rec { parts = newParts }
+addPath rec path = rec { parent = newParent, path = path }
   where
-    newParts = case rec.parts of
-      Path p -> ParentPath p path
-      ParentPath parent p -> ParentPath (parent <> sep <> p) path
+    newParent = case rec.parent of
+      Nothing -> Just rec.path
+      Just par -> Just (rec.path <> sep <> rec.path)
 
 fullPath :: PathRec -> FilePath
-fullPath rec = case rec.parts of
-  Path p -> rec.root <> sep <> p
-  ParentPath parent p -> rec.root <> sep <> parent <> sep <> p
-
-swapRoot :: PathRec -> FilePath -> PathRec
-swapRoot rec newRoot = rec { root = newRoot }
-
-swapPath :: PathRec -> FilePath -> PathRec
-swapPath  rec path = rec { parts = newParts }
+fullPath { root, parent, path } = root <> parentPart <> sep <> path
   where
-    newParts = case rec.parts of
-      Path _ -> Path path
-      ParentPath parent _ -> ParentPath parent path
-
-getPath :: PathRec -> FilePath
-getPath { parts } = case parts of
-  Path p -> p
-  ParentPath _ p -> p
+    parentPart = maybe "" (\par -> sep <> par) parent
 
 -- | Backend-independent type for a website url. It could be
 -- | "https://github.com", "https://github.com/userName", or

@@ -14,7 +14,7 @@ import Data.Maybe (Maybe(..))
 import Data.Foldable (fold)
 import Data.Traversable (for)
 import Data.String (lastIndexOf, Pattern(..), take, drop, joinWith)
-import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), WebUrl, PathRec, fullPath, addPath, swapRoot, swapPath, getPath, mkPathRec)
+import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), WebUrl, PathRec, fullPath, addPath, mkPathRec)
 import ToC.Core.Env (Env, LogLevel(..))
 import ToC.Renderer.MarkdownRenderer (renderDir)
 
@@ -83,7 +83,7 @@ renderPath depth pathRec = do
   env <- ask
   let
     fullChildPath = fullPath pathRec
-    childPath = getPath pathRec
+    childPath = pathRec.path
   pathType <- readPathType fullChildPath
   case pathType of
     Just Dir
@@ -119,7 +119,7 @@ renderDirectory depth pathRec = do
   let sortedPaths = sortBy env.sortPaths unparsedPaths
   mbRenderedPaths <- for sortedPaths \p ->
     renderPath (depth + 1) (addPath pathRec p)
-  let renderedDir = renderDir depth (getPath pathRec) (catMaybes mbRenderedPaths)
+  let renderedDir = renderDir depth pathRec.path (catMaybes mbRenderedPaths)
   logDebug $ "Rendering top-level directory (done) : " <> entirePath
   pure renderedDir
 
@@ -136,7 +136,7 @@ renderOneFile depth pathRec = do
   let fullChildPath = fullPath pathRec
   logDebug $ "Rendering File (start): " <> fullChildPath
 
-  let p = getPath pathRec
+  let p = pathRec.path
   result <- case parseFileExtension p of
     Nothing -> do
       logDebug $ "Rendering normal markdown file"
@@ -145,7 +145,7 @@ renderOneFile depth pathRec = do
       logDebug $ "Rendering code file"
       env <- ask
       let
-        mdFilePath = pathRec `swapRoot` env.mdbookCodeDir `swapPath` extRec.mdfileName
+        mdFilePath = pathRec { root = env.mdbookCodeDir, path = extRec.mdfileName }
         mdContent = mkMarkdownContent extRec p pathRec
       writeToFile (fullPath mdFilePath) mdContent
       renderFile depth p mdFilePath
