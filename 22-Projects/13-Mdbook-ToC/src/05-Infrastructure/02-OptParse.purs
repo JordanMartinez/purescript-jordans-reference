@@ -7,18 +7,15 @@ import Data.Array (filter, intercalate)
 import Data.Array as Array
 import Data.Either (Either(..))
 import Data.Foldable (elem, notElem)
-import Data.List (List(..))
 import Data.String (Pattern(..), length, split, take)
 import Data.String as String
 import Data.String.Utils (endsWith)
-import Data.Tree (Tree)
 import Node.Path (extname, sep)
 import Options.Applicative (Parser, ParserInfo, eitherReader, fullDesc, help, helper, info, long, metavar, option, progDesc, short, showDefault, showDefaultWith, strOption, switch, value)
 import Options.Applicative.Types (ReadM)
-import ToC.Core.Paths (FilePath, IncludeablePathType(..), WebUrl, addPath')
+import ToC.Core.Paths (FilePath, IncludeablePathType(..))
 import ToC.Core.Env (ProductionEnv, LogLevel(..))
 import ToC.Renderer.MarkdownRenderer (renderFile)
-import ToC.Core.EOL (endOfLine)
 
 parseCLIArgs :: ParserInfo ProductionEnv
 parseCLIArgs =
@@ -154,7 +151,6 @@ createProdEnv rootDirectory outputFile headerFile mdbookCodeDir
              logLevel
              =
       { rootPath: rootDir
-      , addPath: addPath' sep
       , includePath: includePath
       , outputFile: outputFile
       , headerFilePath: headerFile

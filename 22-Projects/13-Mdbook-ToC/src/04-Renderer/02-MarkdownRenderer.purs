@@ -4,15 +4,11 @@ module ToC.Renderer.MarkdownRenderer
 
 import Prelude
 
-import Control.Comonad.Cofree (head, tail)
-import Control.Monad.Rec.Class (Step(..), tailRec)
 import Data.Foldable (foldl)
-import Data.List (List(..), (:))
 import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Int as Int
 import Data.String (Pattern(..), Replacement(..), take, replace, replaceAll, toLower, drop, stripSuffix)
-import Data.Tree (Tree)
-import ToC.Core.Paths (FilePath, WebUrl, PathRec, fullPath)
+import ToC.Core.Paths (FilePath, PathRec, fullPath)
 import ToC.Renderer.Markdown (anchorLink, bulletList, emptyLine, h1, h2, indentedBulletList, hyperLink)
 
 formatHyphensInName :: String -> String

@@ -2,10 +2,7 @@ module ToC.Core.Env where
 
 import Prelude
 
-import Data.List (List)
-import Data.Maybe (Maybe)
-import Data.Tree (Tree)
-import ToC.Core.Paths (AddPath, FilePath, IncludeablePathType, UriPath, WebUrl, PathRec)
+import ToC.Core.Paths (FilePath, IncludeablePathType, PathRec)
 
 -- | The Environment type specifies the following ideas:
 -- | - a backend-independent way to create file system paths. For example,
@@ -20,7 +17,6 @@ import ToC.Core.Paths (AddPath, FilePath, IncludeablePathType, UriPath, WebUrl, 
 -- | - A flag that indicates whether to verify links or not
 type Env r = { rootPath :: FilePath
              , headerFilePath :: FilePath
-             , addPath :: AddPath
              , sortPaths :: FilePath -> FilePath -> Ordering
              , includePath :: IncludeablePathType -> FilePath -> Boolean
              , outputFile :: FilePath

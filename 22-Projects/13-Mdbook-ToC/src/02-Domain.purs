@@ -14,7 +14,7 @@ import Data.Maybe (Maybe(..))
 import Data.Foldable (fold)
 import Data.Traversable (for)
 import Data.String (lastIndexOf, Pattern(..), take, drop, joinWith)
-import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), WebUrl, PathRec, fullPath, addPath, mkPathRec)
+import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), PathRec, fullPath, addPath, mkPathRec)
 import ToC.Core.Env (Env, LogLevel(..))
 import ToC.Renderer.MarkdownRenderer (renderDir)
 

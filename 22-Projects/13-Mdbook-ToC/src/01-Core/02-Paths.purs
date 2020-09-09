@@ -1,16 +1,4 @@
-module ToC.Core.Paths
-  ( PathType(..)
-  , IncludeablePathType(..)
-  , FilePath
-  , WebUrl
-  , PathRec
-  , mkPathRec
-  , addPath
-  , fullPath
-  , UriPath
-  , AddPath
-  , addPath'
-  ) where
+module ToC.Core.Paths where
 
 import Data.Semigroup ((<>))
 import Node.Path (sep)
@@ -52,26 +40,3 @@ fullPath :: PathRec -> FilePath
 fullPath { root, parent, path } = root <> parentPart <> sep <> path
   where
     parentPart = maybe "" (\par -> sep <> par) parent
-
--- | Backend-independent type for a website url. It could be
--- | "https://github.com", "https://github.com/userName", or
--- | "https://github.com/userName/projectName/blob/master/ReadMe.md"
-type WebUrl = String
-
--- | Indicates the absolute path of either a directory or a file
--- | in both 'path versions:' the file system and the website URL
-type UriPath = { fs :: FilePath
-               , url :: WebUrl
-               }
-
--- | Adds the file path to file system's path using an os-specific file
--- | separator character and to the current WebUrl
-type AddPath = UriPath -> FilePath -> UriPath
-
--- | Creates an `AddPath` given a backend-specific way to get the file separator
--- | character.
-addPath' :: String -> UriPath -> FilePath -> UriPath
-addPath' fsSep rec path =
-  { fs: rec.fs <> fsSep <> path
-  , url: rec.url <> "/" <> path
-  }
