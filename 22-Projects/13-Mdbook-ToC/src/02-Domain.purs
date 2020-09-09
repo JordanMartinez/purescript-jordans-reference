@@ -11,9 +11,11 @@ import Prelude
 import Control.Monad.Reader (class MonadAsk, ask)
 import Data.Array (catMaybes, intercalate, sortBy)
 import Data.Foldable (fold)
+import Data.Function (applyN)
 import Data.Maybe (Maybe(..))
 import Data.String (lastIndexOf, Pattern(..), take, drop, joinWith)
 import Data.Traversable (for)
+import Node.Path (sep)
 import ToC.Core.EOL (endOfLine)
 import ToC.Core.Env (Env, LogLevel(..))
 import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), PathRec, fullPath, parentPath, addPath, mkPathRec)
@@ -147,7 +149,8 @@ renderOneFile depth pathRec = do
       env <- ask
       let
         mdFilePath = pathRec { root = env.mdbookCodeDir, path = extRec.mdfileName }
-        relativeCodePath = pathRec { root = env.codeFilePathPrefix }
+        parentPrefix = applyN (\r -> r <> sep <> "..") depth (".." <> sep <> "..")
+        relativeCodePath = pathRec { root = parentPrefix }
         mdContent = mkMarkdownContent extRec p relativeCodePath
       mkDir (parentPath mdFilePath)
       writeToFile (fullPath mdFilePath) mdContent
@@ -186,7 +189,7 @@ mkMarkdownContent { langHighlight } fileName fileUrl = do
     [ "# " <> fileName
     , ""
     , "```" <> langHighlight
-    , "{{#include ../../" <> (fullPath fileUrl) <> "}}"
+    , "{{#include " <> (fullPath fileUrl) <> "}}"
     , "```"
     ]
 
