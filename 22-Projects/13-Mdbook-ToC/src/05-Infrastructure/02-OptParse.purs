@@ -32,6 +32,7 @@ argParser =
                 <*> parseOutputFile
                 <*> parseHeaderFile
                 <*> parseCodeDir
+                <*> parseCodeFilePathPrefix
                 <*> parseExcludedTopLevelDirs
                 <*> parseExcludedRegularDirs
                 <*> parseIncludedFileExtensions
@@ -73,6 +74,17 @@ argParser =
                         \content that should appear before the outputted \
                         \Table of Contents content"
                <> metavar "MDBOOK_CODE_DIRECTORY_PATH"
+                )
+
+    parseCodeFilePathPrefix :: Parser String
+    parseCodeFilePathPrefix =
+      strOption ( long "include-code-file-content-path-prefix"
+               <> short 'p'
+               <> help "The path that will be prefixed in front of the \
+                       \code file's `{{#include <prefix>relativePath}}`"
+               <> metavar "FILE_CONTENT_PREFIX"
+               <> value "../.."
+               <> showDefault
                 )
 
     multiString :: ReadM (Array String)
@@ -142,11 +154,11 @@ argParser =
                <> showDefault
                 )
 
-createProdEnv :: FilePath -> FilePath -> FilePath -> FilePath ->
+createProdEnv :: FilePath -> FilePath -> FilePath -> FilePath -> FilePath ->
                  Array String -> Array String -> Array String ->
                  String ->
                  ProductionEnv
-createProdEnv rootDirectory outputFile headerFile mdbookCodeDir
+createProdEnv rootDirectory outputFile headerFile mdbookCodeDir codeFilePathPrefix
              excludedTopLevelDirs excludedRegularDir includedFileExtensions
              logLevel
              =
@@ -155,6 +167,7 @@ createProdEnv rootDirectory outputFile headerFile mdbookCodeDir
       , outputFile: outputFile
       , headerFilePath: headerFile
       , mdbookCodeDir
+      , codeFilePathPrefix
       , sortPaths: sortPaths
       , renderFile: renderFile
       , logLevel: level

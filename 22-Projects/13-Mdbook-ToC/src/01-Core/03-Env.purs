@@ -21,6 +21,7 @@ type Env r = { rootPath :: FilePath
              , includePath :: IncludeablePathType -> FilePath -> Boolean
              , outputFile :: FilePath
              , mdbookCodeDir :: FilePath
+             , codeFilePathPrefix :: FilePath
              | r
              }
 

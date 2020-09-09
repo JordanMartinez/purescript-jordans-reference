@@ -147,7 +147,8 @@ renderOneFile depth pathRec = do
       env <- ask
       let
         mdFilePath = pathRec { root = env.mdbookCodeDir, path = extRec.mdfileName }
-        mdContent = mkMarkdownContent extRec p pathRec
+        relativeCodePath = pathRec { root = env.codeFilePathPrefix }
+        mdContent = mkMarkdownContent extRec p relativeCodePath
       mkDir (parentPath mdFilePath)
       writeToFile (fullPath mdFilePath) mdContent
       renderFile depth p mdFilePath
