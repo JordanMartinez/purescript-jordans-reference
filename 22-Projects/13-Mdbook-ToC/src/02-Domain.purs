@@ -113,7 +113,7 @@ renderDirectory :: forall m r.
                    Int -> PathRec -> m String
 renderDirectory depth pathRec = do
   let entirePath = fullPath pathRec
-  -- logDebug $ "Rendering top-level directory (start): " <> entirePath
+  logDebug $ "Rendering top-level directory (start): " <> entirePath
   env <- ask
   unparsedPaths <- readDir entirePath
   let sortedPaths = sortBy env.sortPaths unparsedPaths
