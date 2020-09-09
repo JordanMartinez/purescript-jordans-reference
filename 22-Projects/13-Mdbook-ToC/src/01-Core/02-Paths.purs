@@ -3,6 +3,14 @@ module ToC.Core.Paths
   , IncludeablePathType(..)
   , FilePath
   , WebUrl
+  , PathRec
+  , FilePathParts(..)
+  , mkPathRec
+  , addPath
+  , swapRoot
+  , swapPath
+  , getPath
+  , fullPath
   , UriPath
   , AddPath
   , addPath'
@@ -33,20 +41,41 @@ type FilePath = String
 
 type PathRec =
   { parent :: FilePath
-  , path :: FilePath
-  }
+type PathRec = { root :: FilePath, parts :: FilePathParts }
 
-asPathRec :: FilePath -> PathRec
-asPathRec path = { parent: "", path }
+data FilePathParts
+  = Path FilePath
+  | ParentPath FilePath FilePath
+
+mkPathRec :: FilePath -> FilePath -> PathRec
+mkPathRec root path = { root, parts: Path path }
 
 addPath :: PathRec -> FilePath -> PathRec
-addPath rec path =
-  { parent: fullPath rec
-  , path
-  }
+addPath rec path = rec { parts = newParts }
+  where
+    newParts = case rec.parts of
+      Path p -> ParentPath p path
+      ParentPath parent p -> ParentPath (parent <> sep <> p) path
 
 fullPath :: PathRec -> FilePath
-fullPath {parent, path} = parent <> sep <> path
+fullPath rec = case rec.parts of
+  Path p -> rec.root <> sep <> p
+  ParentPath parent p -> rec.root <> sep <> parent <> sep <> p
+
+swapRoot :: PathRec -> FilePath -> PathRec
+swapRoot rec newRoot = rec { root = newRoot }
+
+swapPath :: PathRec -> FilePath -> PathRec
+swapPath  rec path = rec { parts = newParts }
+  where
+    newParts = case rec.parts of
+      Path _ -> Path path
+      ParentPath parent _ -> ParentPath parent path
+
+getPath :: PathRec -> FilePath
+getPath { parts } = case parts of
+  Path p -> p
+  ParentPath _ p -> p
 
 -- | Backend-independent type for a website url. It could be
 -- | "https://github.com", "https://github.com/userName", or
