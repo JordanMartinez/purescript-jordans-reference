@@ -11,9 +11,9 @@ import Effect.Console as Console
 import Node.Encoding (Encoding(..))
 import Node.FS.Aff as FS
 import Node.FS.Stats as Stats
-import ToC.Core.Paths (PathType(..), FilePath, PathRec)
+import ToC.Core.Paths (PathType(..), FilePath, PathRec, parentPath, fullPath)
 import ToC.Core.Env (ProductionEnv, LogLevel)
-import ToC.Domain (class Logger, class ReadPath, class WriteToFile, class Renderer)
+import ToC.Domain (class Logger, class ReadPath, class WriteToFile, class Renderer, readFile, writeToFile, mkDir)
 import Type.Equality (class TypeEquals, from)
 
 newtype AppM a = AppM (ReaderT ProductionEnv Aff a)
@@ -76,6 +76,15 @@ instance writeToFileAppM :: WriteToFile AppM where
   writeToFile filePath content = do
     liftAff do
       FS.writeTextFile UTF8 filePath content
+
+  copyFile :: PathRec -> PathRec -> AppM Unit
+  copyFile fromRec toRec = do
+    mkDir (parentPath toRec)
+
+    -- really inefficient, but gets the job done due to FFI lacking in
+    -- corresponding repo...
+    content <- readFile (fullPath fromRec)
+    writeToFile (fullPath toRec) content
 
   mkDir :: FilePath -> AppM Unit
   mkDir filePath = do

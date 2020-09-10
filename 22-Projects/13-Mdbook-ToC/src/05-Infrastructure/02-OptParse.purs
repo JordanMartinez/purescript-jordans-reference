@@ -29,10 +29,8 @@ parseCLIArgs =
 argParser :: Parser ProductionEnv
 argParser =
   createProdEnv <$> parseRootDir
-                <*> parseOutputFile
+                <*> parseOutputDir
                 <*> parseHeaderFile
-                <*> parseCodeDir
-                <*> parseCodeFilePathPrefix
                 <*> parseExcludedTopLevelDirs
                 <*> parseExcludedRegularDirs
                 <*> parseIncludedFileExtensions
@@ -47,43 +45,24 @@ argParser =
                <> metavar "ROOT_DIR"
                )
 
-    parseOutputFile :: Parser String
-    parseOutputFile =
-      strOption ( long "output-file"
+    parseOutputDir :: Parser String
+    parseOutputDir =
+      strOption ( long "output-directory"
                <> short 'o'
-               <> help "The path of the file to which to write the \
-                        \program's Table of Contents output"
-               <> metavar "OUTPUT_FILE"
+               <> help "The path of the directory which corresponds to the \
+                        \`mdbook`'s source directory."
+               <> metavar "OUTPUT_DIRECTORY"
                 )
 
     parseHeaderFile :: Parser String
     parseHeaderFile =
-      strOption ( long "header-file"
+      strOption ( long "summary-header-file"
                <> short 's'
-               <> help "The path of the file form which to read the \
-                        \content that should appear before the outputted \
-                        \Table of Contents content"
-               <> metavar "HEADER_FILE"
-                )
-
-    parseCodeDir :: Parser String
-    parseCodeDir =
-      strOption ( long "mdbook-code-directory-path"
-               <> short 'm'
-               <> help "The path of the file form which to read the \
-                        \content that should appear before the outputted \
-                        \Table of Contents content"
-               <> metavar "MDBOOK_CODE_DIRECTORY_PATH"
-                )
-
-    parseCodeFilePathPrefix :: Parser String
-    parseCodeFilePathPrefix =
-      strOption ( long "include-code-file-content-path-prefix"
-               <> short 'p'
-               <> help "The path that will be prefixed in front of the \
-                       \code file's `{{#include <prefix>relativePath}}`"
-               <> metavar "FILE_CONTENT_PREFIX"
-               <> value "../.."
+               <> help "The path of the file within the output directory \
+                       \that should appear before the outputted \
+                       \Table of Contents content"
+               <> metavar "SUMMARY_HEADER_FILE"
+               <> value "Summary-header.md"
                <> showDefault
                 )
 
@@ -154,20 +133,20 @@ argParser =
                <> showDefault
                 )
 
-createProdEnv :: FilePath -> FilePath -> FilePath -> FilePath -> FilePath ->
+createProdEnv :: FilePath -> FilePath -> FilePath ->
                  Array String -> Array String -> Array String ->
                  String ->
                  ProductionEnv
-createProdEnv rootDirectory outputFile headerFile mdbookCodeDir codeFilePathPrefix
+createProdEnv rootDirectory outputDir headerFile
              excludedTopLevelDirs excludedRegularDir includedFileExtensions
              logLevel
              =
       { rootPath: rootDir
       , includePath: includePath
-      , outputFile: outputFile
-      , headerFilePath: headerFile
-      , mdbookCodeDir
-      , codeFilePathPrefix
+      , mdbook: { outputDir: outputDir
+                , headerFilePath: outputDir <> sep <> headerFile
+                , summaryFilePath: outputDir <> sep <> "SUMMARY.md"
+                }
       , sortPaths: sortPaths
       , renderFile: renderFile
       , logLevel: level

@@ -1,7 +1,7 @@
 module ToC.Domain
   ( program
   , class ReadPath, readDir, readFile, readPathType, exists
-  , class WriteToFile, writeToFile, mkDir
+  , class WriteToFile, writeToFile, mkDir, copyFile
   , class Renderer, renderFile
   , class Logger, log, logInfo, logError, logDebug
   ) where
@@ -18,7 +18,7 @@ import Data.Traversable (for)
 import Node.Path (sep)
 import ToC.Core.EOL (endOfLine)
 import ToC.Core.Env (Env, LogLevel(..))
-import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), PathRec, fullPath, parentPath, addPath, mkPathRec)
+import ToC.Core.Paths (FilePath, PathType(..), IncludeablePathType(..), PathRec, fullPath, parentPath, addParentPrefix, addPath, mkPathRec)
 import ToC.Renderer.MarkdownRenderer (renderDir)
 
 program :: forall m r.
@@ -33,8 +33,8 @@ program = do
   env <- ask
   output <- renderFiles
   logInfo "Finished rendering files. Now writing to file."
-  header <- readFile env.headerFilePath
-  writeToFile env.outputFile (header <> output)
+  header <- readFile env.mdbook.headerFilePath
+  writeToFile env.mdbook.summaryFilePath (header <> output)
   logInfo "Done."
 
 
@@ -126,15 +126,15 @@ renderDirectory depth pathRec = do
   where
     renderDirectoryPath :: m String
     renderDirectoryPath = do
-      let readmePath = addPath pathRec "Readme.md"
-      readmeExists <- exists (fullPath readmePath)
-      case readmeExists of
-        true -> do
-          logDebug "Rendering directory via its `Readme.md` file"
-          renderFile depth pathRec.path readmePath
-        false -> do
-          logDebug "Rendering directory as placeholder path"
-          pure $ renderDir depth pathRec.path
+      -- let readmePath = addPath pathRec "Readme.md"
+      -- readmeExists <- exists (fullPath readmePath)
+      -- case readmeExists of
+      --   true -> do
+      --     logDebug "Rendering directory via its `Readme.md` file"
+      --     renderFile depth pathRec.path readmePath
+      --   false -> do
+      --     logDebug "Rendering directory as placeholder path"
+      pure $ renderDir depth pathRec.path
 
     renderDirectoryContents :: FilePath -> m String
     renderDirectoryContents entirePath = do
@@ -158,28 +158,40 @@ renderOneFile depth pathRec = do
   let fullChildPath = fullPath pathRec
   logDebug $ "Rendering File (start): " <> fullChildPath
 
-  let p = pathRec.path
+  env <- ask
+  logDebug $ "Copying file into mdbook folder path"
+  let
+    updateRootToMdbookDir = pathRec { root = env.mdbook.outputDir }
+    mdbookContentDirPathRec = addParentPrefix updateRootToMdbookDir "content"
+
+  logDebug $ "Copying file: " <> (fullPath pathRec) <> " -> " <> (fullPath mdbookContentDirPathRec)
+  copyFile pathRec mdbookContentDirPathRec
+
+  let p = mdbookContentDirPathRec.path
   result <- case parseFileExtension p of
     Nothing -> do
-      logDebug $ "Rendering normal markdown file"
-      renderFile depth p pathRec
+      logDebug $ "Rendering markdown file"
+      renderFile depth p mdbookContentDirPathRec
     Just extRec -> do
-      logDebug $ "Rendering code file"
-      env <- ask
+      logDebug $ "Found code file"
+
+      logDebug $ "Creating markdown file"
       let
-        mdFilePath = pathRec { root = env.mdbookCodeDir, path = extRec.mdfileName }
-        parentPrefix = applyN (\r -> r <> sep <> "..") depth env.codeFilePathPrefix
-        relativeCodePath = pathRec { root = parentPrefix }
-        mdContent = mkMarkdownContent extRec p relativeCodePath
+        mdFilePath = mdbookContentDirPathRec { path = extRec.mdFileName }
+        -- parentPrefix = applyN (\r -> r <> sep <> "..") depth env.codeFilePathPrefix
+        -- relativeCodePath = pathRec { root = parentPrefix }
+        mdContent = mkMarkdownContent extRec p mdbookContentDirPathRec
       mkDir (parentPath mdFilePath)
       writeToFile (fullPath mdFilePath) mdContent
+
+      logDebug $ "Rendering code file"
       renderFile depth p mdFilePath
   logDebug $ "Rendering File (done) : " <> fullChildPath
   pure result
 
 type CodeFileParts =
   { langHighlight :: String
-  , mdfileName :: String
+  , mdFileName :: String
   }
 
 parseFileExtension :: FilePath -> Maybe CodeFileParts
@@ -189,8 +201,8 @@ parseFileExtension filePathSegment = do
     name = take idx filePathSegment
     ext = drop idx filePathSegment
   case ext of
-    ".purs" -> Just { langHighlight: "haskell", mdfileName: name <> "-ps.md" }
-    ".js" -> Just { langHighlight: "javascript", mdfileName: name <> "-js.md" }
+    ".purs" -> Just { langHighlight: "haskell", mdFileName: name <> "-ps.md" }
+    ".js" -> Just { langHighlight: "javascript", mdFileName: name <> "-js.md" }
     _ -> Nothing
 
 -- | Generates the following markdown file based on the
@@ -232,6 +244,8 @@ class (Monad m) <= WriteToFile m where
   writeToFile :: FilePath -> String -> m Unit
 
   mkDir :: FilePath -> m Unit
+
+  copyFile :: PathRec -> PathRec -> m Unit
 
 -- | A monad that has the capability of logging messages, whether to the
 -- | console or a file.

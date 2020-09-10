@@ -16,12 +16,12 @@ import ToC.Core.Paths (FilePath, IncludeablePathType, PathRec)
 -- |    - `includepath`
 -- | - A flag that indicates whether to verify links or not
 type Env r = { rootPath :: FilePath
-             , headerFilePath :: FilePath
              , sortPaths :: FilePath -> FilePath -> Ordering
              , includePath :: IncludeablePathType -> FilePath -> Boolean
-             , outputFile :: FilePath
-             , mdbookCodeDir :: FilePath
-             , codeFilePathPrefix :: FilePath
+             , mdbook :: { outputDir :: FilePath
+                         , headerFilePath :: FilePath
+                         , summaryFilePath :: FilePath
+                         }
              | r
              }
 
