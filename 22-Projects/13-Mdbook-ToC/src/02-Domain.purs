@@ -140,7 +140,7 @@ renderDirectory depth pathRec = do
             mdbookContentDirPathRec = addParentPrefix updateRootToMdbookDir contentFilePath
 
           logDebug $ "Copying file: " <> (fullPath readmePath) <> " -> " <> (fullPath mdbookContentDirPathRec)
-          copyFile pathRec mdbookContentDirPathRec
+          copyFile readmePath mdbookContentDirPathRec
 
           logDebug "Rendering directory via its `Readme.md` file"
           renderFile depth pathRec.path mdbookContentDirPathRec
