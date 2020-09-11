@@ -10,7 +10,7 @@ import Prelude
 
 import Control.Monad.Reader (class MonadAsk, ask)
 import Data.Array (catMaybes, intercalate, sortBy, filter)
-import Data.Foldable (fold)
+import Data.Foldable (fold, for_)
 import Data.Function (applyN)
 import Data.Maybe (Maybe(..))
 import Data.String (lastIndexOf, Pattern(..), take, drop, joinWith)
@@ -95,6 +95,28 @@ contentFilePath :: FilePath
 contentFilePath = "content"
 
 -- | Renders the given directory and all of its already-rendered child paths
+copyDirectory :: forall m r.
+                   Monad m =>
+                   MonadAsk (Env r) m =>
+                   Logger m =>
+                   ReadPath m =>
+                   WriteToFile m =>
+                   PathRec -> PathRec -> m Unit
+copyDirectory fromDirPathRec toDirPathRec = do
+  dirPaths <- readDir (fullPath fromDirPathRec)
+  for_ dirPaths \path -> do
+    let
+      fromPathRec = addPath fromDirPathRec path
+      toPathRec = addPath toDirPathRec path
+    pathType <- readPathType (fullPath fromPathRec)
+    for_ pathType case _ of
+      Dir ->
+        copyDirectory fromPathRec toPathRec
+      File -> do
+        mkDir (parentPath toPathRec)
+        copyFile fromPathRec toPathRec
+
+-- | Renders the given directory and all of its already-rendered child paths
 renderDirectory :: forall m r.
                    Monad m =>
                    MonadAsk (Env r) m =>
@@ -135,6 +157,16 @@ renderDirectory depth pathRec = do
           logDebug $ "Readme does not exist"
           logDebug "Rendering directory as placeholder path"
           pure $ renderDir depth pathRec.path
+
+    copyAssetsDirectoryIfExists :: m Unit
+    copyAssetsDirectoryIfExists = do
+      let assetsPath = addPath pathRec "assets"
+      whenM (exists (fullPath assetsPath)) do
+        logDebug "Assets folder exists for directory."
+        env <- ask
+        let targetPath = (assetsPath { root = env.mdbook.outputDir }) `addParentPrefix` contentFilePath
+        logDebug $ "Copying assets directory: " <> (fullPath assetsPath) <> " -> " <> (fullPath targetPath)
+        copyDirectory assetsPath targetPath
 
     renderDirectoryContents :: FilePath -> m String
     renderDirectoryContents entirePath = do
