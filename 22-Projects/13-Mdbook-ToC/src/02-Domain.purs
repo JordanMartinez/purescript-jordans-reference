@@ -136,14 +136,15 @@ renderDirectory depth pathRec = do
           env <- ask
           logDebug $ "Readme exists."
           let
-            updateRootToMdbookDir = readmePath { root = env.mdbook.outputDir }
-            mdbookContentDirPathRec = addParentPrefix updateRootToMdbookDir contentFilePath
+            contentPrefix = addParentPrefix readmePath contentFilePath
+            copyTargetPathRec = contentPrefix { root = env.mdbook.outputDir }
 
-          logDebug $ "Copying file: " <> (fullPath readmePath) <> " -> " <> (fullPath mdbookContentDirPathRec)
-          copyFile readmePath mdbookContentDirPathRec
+          logDebug $ "Copying file: " <> (fullPath readmePath) <> " -> " <> (fullPath copyTargetPathRec)
+          copyFile readmePath copyTargetPathRec
 
+          let mdbookRelativePathRec = contentPrefix { root = "." }
           logDebug "Rendering directory via its `Readme.md` file"
-          renderFile depth pathRec.path mdbookContentDirPathRec
+          renderFile depth pathRec.path mdbookRelativePathRec
         false -> do
           logDebug $ "Readme does not exist"
           logDebug "Rendering directory as placeholder path"
@@ -174,26 +175,27 @@ renderOneFile depth pathRec = do
   env <- ask
   logDebug $ "Copying file into mdbook folder path"
   let
-    updateRootToMdbookDir = pathRec { root = env.mdbook.outputDir }
-    mdbookContentDirPathRec = addParentPrefix updateRootToMdbookDir contentFilePath
+    contentPrefix = addParentPrefix pathRec contentFilePath
+    copyTargetPathRec = contentPrefix { root = env.mdbook.outputDir }
 
-  logDebug $ "Copying file: " <> (fullPath pathRec) <> " -> " <> (fullPath mdbookContentDirPathRec)
-  copyFile pathRec mdbookContentDirPathRec
+  logDebug $ "Copying file: " <> (fullPath pathRec) <> " -> " <> (fullPath copyTargetPathRec)
+  copyFile pathRec copyTargetPathRec
 
-  let p = mdbookContentDirPathRec.path
+  let mdbookRelativePathRec = contentPrefix { root = "." }
+  let p = mdbookRelativePathRec.path
   result <- case parseFileExtension p of
     Nothing -> do
       logDebug $ "Rendering markdown file"
-      renderFile depth p mdbookContentDirPathRec
+      renderFile depth p mdbookRelativePathRec
     Just extRec -> do
       logDebug $ "Found code file"
 
       logDebug $ "Creating markdown file"
       let
-        mdFilePath = mdbookContentDirPathRec { path = extRec.mdFileName }
+        mdFilePath = mdbookRelativePathRec { path = extRec.mdFileName }
         -- parentPrefix = applyN (\r -> r <> sep <> "..") depth env.codeFilePathPrefix
         -- relativeCodePath = pathRec { root = parentPrefix }
-        mdContent = mkMarkdownContent extRec p mdbookContentDirPathRec
+        mdContent = mkMarkdownContent extRec p copyTargetPathRec
       mkDir (parentPath mdFilePath)
       writeToFile (fullPath mdFilePath) mdContent
 
