@@ -53,25 +53,9 @@ renderFiles = do
   paths <- readDir env.rootPath
   let sortedPaths = sortBy env.sortPaths paths
   logDebug $ "All possible top-level directories\n" <> intercalate "\n" sortedPaths
-  sections <- catMaybes <$> renderSectionsOrNothing sortedPaths
-  pure $ fold sections
-
-  where
-    -- | More or less maps the unrendered top-level directory array into
-    -- | rendered top-level directory array.
-    renderSectionsOrNothing :: Array FilePath -> m (Array (Maybe String))
-    renderSectionsOrNothing paths = do
-      env <- ask
-      -- the function that follows 'parTraverse' is done in parallel
-      for paths \topLevelPath -> do
-        let
-          topLevelPathRec = mkPathRec env.rootPath topLevelPath
-          topLevelFullPath = fullPath topLevelPathRec
-        pathType <- readPathType topLevelFullPath
-        case pathType of
-          Just Dir | env.includePath TopLevelDirectory topLevelPath -> do
-            Just <$> renderDirectory 0 topLevelPathRec
-          _ -> pure $ Nothing
+  mbSections <- for sortedPaths \topLevelPath -> do
+    renderPath 0 $ mkPathRec env.rootPath topLevelPath
+  pure $ fold (catMaybes mbSections)
 
 -- | Renders the given path, whether it is a directory or a file.
 renderPath :: forall m r.
@@ -90,13 +74,15 @@ renderPath depth pathRec = do
   pathType <- readPathType fullChildPath
   case pathType of
     Just Dir
-      | env.includePath NormalDirectory childPath -> do
+      | depth == 0, env.includePath TopLevelDirectory childPath -> do
+          Just <$> renderDirectory depth pathRec
+      | depth /= 0, env.includePath NormalDirectory childPath -> do
           Just <$> renderDirectory depth pathRec
       | otherwise                       -> do
           logDebug $ "Excluding directory: " <> fullChildPath
           pure Nothing
     Just File
-      | env.includePath A_File childPath -> do
+      | depth /= 0, env.includePath A_File childPath -> do
           Just <$> renderOneFile depth pathRec
       | otherwise                 -> do
           logDebug $ "Excluding File: " <> fullChildPath
