@@ -3,7 +3,7 @@ title = "PureScript: Jordan's Reference"
 author = "Jordan Martinez, et al."
 description = "An in-depth beginner-oriented guide to learning PureScript from Foundations-up."
 lang = "en"
-src = "./"
+src = "./mdbook"
 
 [build]
 build-dir = "book"

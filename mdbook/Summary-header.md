@@ -1,5 +1,5 @@
 # PureScript: Jordan's reference
 
-[Preface](./mdbook/Preface.md)
-[License](./mdbook/License.md)
-[Versioning Policy](./mdbook/Versioning-Policy.md)
+[Preface](./Preface.md)
+[License](./License.md)
+[Versioning Policy](./Versioning-Policy.md)
