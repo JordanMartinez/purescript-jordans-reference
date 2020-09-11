@@ -176,31 +176,31 @@ renderOneFile depth pathRec = do
   logDebug $ "Copying file into mdbook folder path"
   let
     contentPrefix = addParentPrefix pathRec contentFilePath
-    copyTargetPathRec = contentPrefix { root = env.mdbook.outputDir }
+    program_copyFileToTarget = contentPrefix { root = env.mdbook.outputDir }
 
-  logDebug $ "Copying file: " <> (fullPath pathRec) <> " -> " <> (fullPath copyTargetPathRec)
-  copyFile pathRec copyTargetPathRec
+  logDebug $ "Copying file: " <> (fullPath pathRec) <> " -> " <> (fullPath program_copyFileToTarget)
+  copyFile pathRec program_copyFileToTarget
 
-  let mdbookRelativePathRec = contentPrefix { root = "." }
-  let p = mdbookRelativePathRec.path
+  let p = pathRec.path
   result <- case parseFileExtension p of
     Nothing -> do
       logDebug $ "Rendering markdown file"
-      renderFile depth p mdbookRelativePathRec
+      let mdbook_readFileFromSummary = contentPrefix { root = "." }
+      renderFile depth p mdbook_readFileFromSummary
     Just extRec -> do
       logDebug $ "Found code file"
 
       logDebug $ "Creating markdown file"
       let
-        mdFilePath = mdbookRelativePathRec { path = extRec.mdFileName }
-        -- parentPrefix = applyN (\r -> r <> sep <> "..") depth env.codeFilePathPrefix
-        -- relativeCodePath = pathRec { root = parentPrefix }
-        mdContent = mkMarkdownContent extRec p copyTargetPathRec
-      mkDir (parentPath mdFilePath)
-      writeToFile (fullPath mdFilePath) mdContent
+        mdbook_readCodeFileFromMarkdownFile = mkPathRec "." p
+        mdFileContent = mkMarkdownContent extRec p mdbook_readCodeFileFromMarkdownFile
+        program_writeMarkdownFilePath = program_copyFileToTarget { path = extRec.mdFileName }
+      mkDir (parentPath program_writeMarkdownFilePath)
+      writeToFile (fullPath program_writeMarkdownFilePath) mdFileContent
 
       logDebug $ "Rendering code file"
-      renderFile depth p mdFilePath
+      let mdbook_readFileFromSummary = contentPrefix { root = ".", path = extRec.mdFileName }
+      renderFile depth p mdbook_readFileFromSummary
   logDebug $ "Rendering File (done) : " <> fullChildPath
   pure result
 
