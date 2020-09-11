@@ -130,6 +130,7 @@ renderDirectory depth pathRec = do
   logDebug $ "Rendering directory of depth " <> show depth <> " - (start): " <> entirePath
 
   renderedDirPath <- renderDirectoryPath
+  copyAssetsDirectoryIfExists
   renderedContents <- renderDirectoryContents entirePath
 
   logDebug $ "Rendering directory of depth " <> show depth <> " - (done) : " <> entirePath
