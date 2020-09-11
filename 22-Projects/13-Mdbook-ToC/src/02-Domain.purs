@@ -105,6 +105,9 @@ renderPath depth pathRec = do
       logInfo $ "Unknown path type: " <> fullChildPath
       pure Nothing
 
+contentFilePath :: FilePath
+contentFilePath = "content"
+
 -- | Renders the given directory and all of its already-rendered child paths
 renderDirectory :: forall m r.
                    Monad m =>
@@ -126,15 +129,25 @@ renderDirectory depth pathRec = do
   where
     renderDirectoryPath :: m String
     renderDirectoryPath = do
-      -- let readmePath = addPath pathRec "Readme.md"
-      -- readmeExists <- exists (fullPath readmePath)
-      -- case readmeExists of
-      --   true -> do
-      --     logDebug "Rendering directory via its `Readme.md` file"
-      --     renderFile depth pathRec.path readmePath
-      --   false -> do
-      --     logDebug "Rendering directory as placeholder path"
-      pure $ renderDir depth pathRec.path
+      let readmePath = addPath pathRec "Readme.md"
+      readmeExists <- exists (fullPath readmePath)
+      case readmeExists of
+        true -> do
+          env <- ask
+          logDebug $ "Readme exists."
+          let
+            updateRootToMdbookDir = readmePath { root = env.mdbook.outputDir }
+            mdbookContentDirPathRec = addParentPrefix updateRootToMdbookDir contentFilePath
+
+          logDebug $ "Copying file: " <> (fullPath readmePath) <> " -> " <> (fullPath mdbookContentDirPathRec)
+          copyFile pathRec mdbookContentDirPathRec
+
+          logDebug "Rendering directory via its `Readme.md` file"
+          renderFile depth pathRec.path mdbookContentDirPathRec
+        false -> do
+          logDebug $ "Readme does not exist"
+          logDebug "Rendering directory as placeholder path"
+          pure $ renderDir depth pathRec.path
 
     renderDirectoryContents :: FilePath -> m String
     renderDirectoryContents entirePath = do
@@ -162,7 +175,7 @@ renderOneFile depth pathRec = do
   logDebug $ "Copying file into mdbook folder path"
   let
     updateRootToMdbookDir = pathRec { root = env.mdbook.outputDir }
-    mdbookContentDirPathRec = addParentPrefix updateRootToMdbookDir "content"
+    mdbookContentDirPathRec = addParentPrefix updateRootToMdbookDir contentFilePath
 
   logDebug $ "Copying file: " <> (fullPath pathRec) <> " -> " <> (fullPath mdbookContentDirPathRec)
   copyFile pathRec mdbookContentDirPathRec
