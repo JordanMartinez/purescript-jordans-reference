@@ -5,7 +5,7 @@ Before we can continue further, we must understand one of the implications of th
 ## Defining the Problem
 
 Let's look at the type signature for the `bind` function.
-```purescript
+```haskell
 class Apply boxLike <= Bind boxLike where
   bind :: forall a b. boxLike a -> (a -> boxLike b) -> boxLike b
 ```
@@ -22,7 +22,7 @@ For now, let's provide an example of this problem.
 ## Example of the Problem
 
 Let's say we have two `Box` types. They differ only in their name. Each implements the `Functor`, `Apply`, and `Bind` instances in the exact same way. Below, we will only show the `Bind` instance, but assume they have implemented the other type classes:
-```purescript
+```haskell
 data Box1 a = Box1 a
 data Box2 a = Box2 a
 
@@ -37,7 +37,7 @@ instance b2 :: Bind Box2 where
   bind               (Box2 a)   f              = f a
 ```
 Recall that `do notation` desugars into multiple `bind` calls:
-```purescript
+```haskell
 example :: Box1 int
 example = do
   u <- Box unit
@@ -52,17 +52,17 @@ example =
 ```
 
 The below `Box1` computation compiles fine.
-```purescript
+```haskell
 box1Computation :: Box1 Unit
 box1Computation = Box1 unit
 ```
 The below `Box2` computation compiles fine:
-```purescript
+```haskell
 box2Computation :: Box2 Unit
 box2Computation = Box2 unit
 ```
 If I write the following code, which (if any) will compile?
-```purescript
+```haskell
 box1ThenBox2 :: Box2 Unit
 box1ThenBox2 = do
   box1Computation
@@ -81,7 +81,7 @@ Neither will compile. In `box1ThenBox2`, the first computation is `box1Computati
 Sometimes, this restriction actually helps us write safer code. Other times, this restriction is problematic and we need to get around it.
 
 To help develop the necessary foundation for later understanding, we'll show a general approach to workaround this restriction. We use a type class that follows this idea:
-```purescript
+```haskell
 class LiftSourceIntoTargetMonad sourceMonad targetMonad where {-
   liftSourceMonad :: forall a. sourceMonad a -> targetMonad a -}
   liftSourceMonad ::           sourceMonad   ~> targetMonad
@@ -93,7 +93,7 @@ instance box2_into_box1 :: LiftSourceIntoTargetMonad Box2 Box1 where {-
   liftSourceMonad (Box2 a) = Box1 a
 ```
 This enables something like the following. It can be pasted into the REPL and one can try it out by calling `bindAttempt`:
-```purescript
+```haskell
 import Prelude -- for the (+) and (~>) function aliases
 
 data Box1 a = Box1 a

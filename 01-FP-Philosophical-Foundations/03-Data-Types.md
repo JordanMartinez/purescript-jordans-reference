@@ -8,7 +8,7 @@ In order to abide by the principle of pure functions, FP Data Types tend to adhe
 2. Persistent - Rather than creating the entire structure again when updating, an update should create a new 'version' of a data structure that includes the update
 
 For example...
-```purescript
+```haskell
 {-
 Given a linked-list type where
   "Nil" is a placeholder representing the end of the list
@@ -29,7 +29,7 @@ Using a more visual diagram:
 
 ![Immutable-Persistent-Via-List](./assets/Immutable-Persistent-via-List.svg)
 
-```purescript
+```haskell
 -- At the end of the computation, these are true:
 x == x
 x /= y

@@ -14,7 +14,7 @@ FP Data Types tend to adhere to two principles:
 2. Persistent - Rather than creating the entire structure again when updating, an update should create a new 'version' of a data structure that includes the update
 
 For example...
-```purescript
+```haskell
 {-
 Given a linked-list type where
   "Nil" is a placeholder representing the end of the list

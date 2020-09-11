@@ -6,7 +6,7 @@ These type classes often take two values of a given type and 'append' them into 
 
 ## Semigroup
 
-```purescript
+```haskell
 class Semigroup a where
   append :: a -> a -> a
 
@@ -29,7 +29,7 @@ A fourth is `List`. One can take two values of `List` and combine them together 
 
 ## Monoid
 
-```purescript
+```haskell
 class Semigroup a <= Monoid a where
   mempty :: a
 ```

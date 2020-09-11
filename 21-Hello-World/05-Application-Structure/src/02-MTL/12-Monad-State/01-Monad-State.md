@@ -1,7 +1,7 @@
 # MonadState
 
 `MonadState` is used to run state manipulating functions. Since only one type implements the class, we'll combine the class' definition and instance into one block:
-```purescript
+```haskell
 newtype StateT state monad output =
   StateT (\state -> monad (Tuple output state))
 
@@ -13,7 +13,7 @@ class (Monad m) <= MonadState s (StateT s m) where
 
 ## Reading Its Do Notation
 
-```purescript
+```haskell
 stateT_do_notation :: StateT State Value
 stateT_do_notation = do
     value1 <- state (\initialState -> Tuple value1 state2)
@@ -25,7 +25,7 @@ stateT_do_notation = do
 ## Derived Functions
 
 As we saw above, whenever we wrote `state function`, `function` always had to wrap our output into a `Tuple` type:
-```purescript
+```haskell
 (\state -> {- do stuff -} Tuple output nextState)
 ```
 This gets tedious really fast. Fortunately, `MonadState`'s derived functions remove that boilerplate and emphasize the developer's intent:
@@ -35,7 +35,7 @@ This gets tedious really fast. Fortunately, `MonadState`'s derived functions rem
 - `modify`: modify the state and return the updated state
 - `modify_`: same as `modify` but return `unit` so we can ignore the `binding <-` syntax
 
-```purescript
+```haskell
 sideBySideComparison :: State Int String
 sideBySideComparison = do
   state1  <- state (\s -> Tuple s s)
@@ -69,7 +69,7 @@ Returning to our previous example, `crazyFunction` was implemented like so:
 4. Return `addStringLengthTo`'s output: `Tuple value2 nextState3`
 
 With `MonadState`, we would now write:
-```purescript
+```haskell
 crazyFunction :: State Int String
 crazyFunction = do
   value1 <- modify (_ + 1)

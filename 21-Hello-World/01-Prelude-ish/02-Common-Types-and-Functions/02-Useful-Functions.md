@@ -4,7 +4,7 @@ These all come from `Data.Function` in Prelude.
 
 ## Const
 
-```purescript
+```haskell
 const :: forall a b. a -> b -> a
 const x _ = x
 
@@ -16,7 +16,7 @@ const 1 42      = 1
 
 ## Flip
 
-```purescript
+```haskell
 -- Flip the argument order
 flip :: forall a b c. (a -> b -> c) -> b -> a -> c
 flip twoArgFunction secondArg firstArg = twoArgFunction firstArg secondArg
@@ -32,7 +32,7 @@ Forewarning: `apply` via `$` shows up EVERYWHERE! Bookmark this until you get it
 
 I read somewhere (I think `@garyb` mentioned this on the FP Slack, maybe...?) that `$` was chosen because it's two parenthesis with a line through it, symbolizing that it removes the need to use parenthesis.
 
-```purescript
+```haskell
 -- Reduce the number of parenthesis needed
 apply :: (a -> b) -> a -> b
 apply function arg = function arg
@@ -47,7 +47,7 @@ print (append "foo" (4 + 4)) == print $ append "foo" $ 4 + 4
 
 ## Other Less-Used Functions
 
-```purescript
+```haskell
 -- apply with its arguments flipped
 applyFlipped :: forall a b. a -> (a -> b) -> b
 applyFlipped = flip apply

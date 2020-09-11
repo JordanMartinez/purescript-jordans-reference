@@ -11,7 +11,7 @@ This folder will do 4 things:
 The below summary and the rest of this folder's contents are quickly explained by Nate in his overview of `Free` and `CoFree`: [Unrolling Free & Cofree (stop at 1:19:23)](https://www.youtube.com/watch?v=eKkxmVFcd74&t=18) (Actual YouTube video name is "PS Unscripted - Free from Tree & Halogen VDOM")
 
 The `Free` approach deals with the "`bind` forces us to return the same monad type it receives" restriction by using only one monad. Rather than building a large function that is composed of smaller functions that runs once the initial arguments are given to it (i.e. `MTL`), the `Free` approach will create an Abstract Sytax Tree (AST) that describes the desired computation in a pure way. This tree is later "interpreted" via a `NaturalTransformation` into a base monad (i.e. `Effect`) that runs those computations in an inpure way. In other words, something akin to
-```purescript
+```haskell
 type DSL = DomainSpecificLanguage
 type AbstractSyntaxTree output = Free DSL output
 

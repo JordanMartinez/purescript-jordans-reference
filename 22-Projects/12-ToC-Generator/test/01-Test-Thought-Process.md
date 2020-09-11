@@ -84,7 +84,7 @@ Second, our test monad, `TestM`, will be a state monad (to store the final outpu
 Since the parser and renderer functions will not change between test runs, we'll implement them directly in `TestM`'s instance for their corresponding type classes rather than providing them via the `TestEnv` type and `ask`.
 
 In code:
-```purescript
+```haskell
 type TestRows = ( {- Undefined for now, but these will include other things -}
                 )
 type TestEnv = Env TestRows
@@ -97,7 +97,7 @@ We'll implement most of the impure code of our program via the reader monad part
 - verifying that a "link" works
 
 Most of the above capabilities can be defined by looking up their value that's stored in our reader monad. The below code communicates the general idea:
-```purescript
+```haskell
 -- covers `readDir`, `readPathType`, `verifyLink`
 mostFunctions :: FilePath -> m resultType
 mostFunctions fullFilePath = do
@@ -122,7 +122,7 @@ mostFunctions fullFilePath = do
 ```
 
 We'll handle the "write output to file" part using the state monad:
-```purescript
+```haskell
 writeToFile :: String -> m Unit
 writeToFile content = do
   put content
@@ -138,7 +138,7 @@ Using the above approach, we can now answer the above two questions...
 > Do the files/directories always appear in the correct order? (i.e. the ReadMe.md file always appear before all other directories and files)?
 
 ... using the below quick check test:
-```purescript
+```haskell
 quickCheckTest :: ToCTestData -> Boolean
 quickCheckTest (ToCTestData generatedData) =
     -- check whether the contents of the two renderings are the same
@@ -153,7 +153,7 @@ quickCheckTest (ToCTestData generatedData) =
 Most of the data we'll need to generate is the fake file system, which has a tree-like structure. However, the `Tree` we've used for storing headers isn't the best type to use for this situation. When storing headers, the branch and leaf types are the same. In a file system, the branch types are always directories and the leaves are always file types.
 
 Ideally, we'd want a tree type whose definition looks like this:
-```purescript
+```haskell
 data Tree branch leaf
   = Leaf leaf
   | Branch branch (Tree branch leaf)
@@ -162,7 +162,7 @@ data Tree branch leaf
 AFAIK, there isn't a library written in PureScript with this definition that also includes a Zipper (i.e. `Tree`'s `Loc` type). I'm not going to write one for this task because I can workaround `Tree`'s design to make it work for here.
 
 We'll need to store different data depending on whether the path is a directory or file. Since we're using `Tree`, we'll merge both file and directory types into one. While we may not use all of the data, the following should be future-proof:
-```purescript
+```haskell
 -- whether this path should be included or not
 type IncludedOrNot = Boolean
 

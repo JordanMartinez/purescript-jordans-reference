@@ -46,7 +46,7 @@ y == 2
 z == 3
 ```
 At this point, we could do state manipulation using a recursive function...
-```purescript
+```haskell
 runNTimes :: forall a. Int -> (a -> a) -> a
 runNTimes 0 _ output = output
 runNTimes count func arg = runNTimes (count - 1) func (func arg)
@@ -87,7 +87,7 @@ The solution is to make `nextInt` return two things via the `Tuple a b` type
 (Tuple y random3) = nextInt(random2);
 ```
 where `Tuple a b` is just a box that holds two values of the same/different types:
-```purescript
+```haskell
 data Tuple a b = Tuple a b
 ```
 ## Popping Stacks
@@ -147,6 +147,6 @@ Here's the solution we came up with:
 (Tuple value_N, value_N_plus_1) = stateManipulation(valueN);
 ```
 Turning this into Purescript syntax, we get:
-```purescript
+```haskell
 state_manipulation_function :: forall state value. (state -> Tuple value state)
 ```

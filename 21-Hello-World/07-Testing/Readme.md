@@ -3,7 +3,7 @@
 ## Test Conventions
 
 Normally, the code you test is found in the `src` folder and its corresponding test file is in the `test` folder with the following naming scheme for modules:
-```purescript
+```haskell
 -- in 'src/MyModule.purs' file
 module MyModule where
 -- imports and source code

@@ -11,14 +11,14 @@ Below, we'll be defining a long chain of nested functions. Since functions usual
 actualArgument # (\x -> body)
 ```
 In other words...
-```purescript
+```haskell
 function      arg == arg # function
 (\x -> x + 1) arg == arg # (\x -> x + 1)
 ```
 This will help the upcoming examples be much clearer and more understandable.
 
 Using this type and its instance...
-```purescript
+```haskell
 data Box a = Box a
 
 instance functor :: Functor Box where
@@ -47,7 +47,7 @@ print(five_string); // print the String to the console, which returns nothing
 ... into its corresponding Purescript "program" (next).
 
 In the following snippet of code, you will need to scroll to the right, so that the a previous reduction aligns with the next reduction. **Note: Read through this and practice writing it out multiple times until you get sick of it as this is at the heart of FP programming! Failure to understand this == Failure to write FP code.** Here's the code:
-```purescript
+```haskell
 unsafePerformEffect :: forall a. Box a -> a
 unsafePerformEffect (Box a) = a
 

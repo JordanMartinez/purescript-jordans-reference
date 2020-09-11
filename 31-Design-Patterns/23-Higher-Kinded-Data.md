@@ -3,7 +3,7 @@
 ## Reviewing Higher-Kinded Types
 
 We have higher-kinded types in PureScript (e.g. anything that requires another type to be specified before it becomes a concrete type):
-```purescript
+```haskell
 -- higher-kinded by 1
 data List :: Type -> Type
 data List a
@@ -21,7 +21,7 @@ In other words, we never have just `List`s. Rather, we always have a `List` of `
 
 We can apply this idea in a different manner called "higher-kinded data". I first saw this in a blog post called [Higher-Kinded Data](https://reasonablypolymorphic.com/blog/higher-kinded-data/), saw its usage in Thomas Honeyman's `halogen-formless`, and then saw `@kritzcreek`'s comment on the various types one could define with them (shown later in this file). We'll document the pattern below and why you might want to use it.
 
-```purescript
+```haskell
 -- Given this type...
 newtype HKD :: (Type -> Type) -> Type
 newtype HKD f = HKD (f Int)
@@ -33,7 +33,7 @@ We can specify `f` to a number of different types, thereby defining multiple typ
 
 ### Using `Unlift a` to Ignore the `f` Type Parameter
 
-```purescript
+```haskell
 -- Given a type that satisfies the (Type -> Type) kind signature
 -- but is the same type as the `a` type parameter...
 type Unlift a = a
@@ -48,7 +48,7 @@ type HKD_Unlift = HKD Unlift
 
 ### Using `Const a b` to Ignore/Override the `Int` Type Parameter
 
-```purescript
+```haskell
 -- Given a type that ignores its second type parameter
 type Const a b = a
 
@@ -64,7 +64,7 @@ type HKD_ConstBoolean = HKD (Const Boolean)
 
 ### Using `Maybe a` to Make the `Int` Type Parameter Optional
 
-```purescript
+```haskell
 -- Given a type that may contain a value
 type Maybe a
   = Nothing
@@ -80,7 +80,7 @@ type HKD_Maybe = HKD Maybe
 
 ### Using `Either e` to Provide an Alternative to the `Int` Type Parameter
 
-```purescript
+```haskell
 -- Given a type that may contain a value
 type Either e a
   = Left e
@@ -96,7 +96,7 @@ type HKD_Either = HKD (Either String)
 
 ### Using `List a` to Provide 0 or more `Int` values
 
-```purescript
+```haskell
 -- Given a type that may contain a value
 type List a
   = Nil
@@ -112,7 +112,7 @@ type HKD_List = HKD List
 
 ### Using `NonEmpty f a` to Provide 1 or more `Int` values
 
-```purescript
+```haskell
 -- Given a type that may contain a value
 newtype NonEmpty f a = NonEmpty a (f a)
 
@@ -128,7 +128,7 @@ type HKD_List = HKD (NonEmpty List)
 
 ### Using `Function a b` to Produce `Int` Values Given Some Argument
 
-```purescript
+```haskell
 -- Given a type that produces a value when given an argument
 data Function a b
 
@@ -145,7 +145,7 @@ type HKD_List = HKD ((->) String)
 
 ### Using `Op a b` to Produce Some Value Given an `Int` Argument
 
-```purescript
+```haskell
 -- Given a type that produces a value when given an argument
 newtype Op a b = Op (b -> a)
 
@@ -159,7 +159,7 @@ type HKD_List = HKD (Op String)
 
 ### Using `Compose f g a` to Model Miscellaenous Types Using `Int`
 
-```purescript
+```haskell
 -- Given a type that may contain a value
 newtype Compose f g a = Compose (f (g a))
 
@@ -192,7 +192,7 @@ You can see how `Compose` makes it possible to do some interesting things.
 
 Recall that product types (e.g. a AND b) and sum types (e.g. a OR b) are modeled by `Record` and `Variant`. So, what happens when we define a higher-kinded-data type that takes `rows` as the argument that it passes into `f`? It looks like this:
 
-```purescript
+```haskell
 data Record :: Row Type -> Type
 
 data Variant :: Row Type -> Type
@@ -212,7 +212,7 @@ type HKD_Row_Variant = HKD_Row Variant
 ### Reducing Boilerplate
 
 Now that we have an understanding for how these work, what happens if we interleave two higher-kinded data types together? We find that we get a number of types for free.
-```purescript
+```haskell
 type AllTypes recordOrVariant f =
   recordOrVariant ( name :: f String, age :: f Int )
 
@@ -235,7 +235,7 @@ type PersonToggleLabel = AllTypes Variant (Const Boolean)
 ### Reusing Labels in Rows for Multiple Things
 
 What if we used a version of `Unlift` that "selects" which type to use among multiple types? `Halogen Formless` uses this trick to use the same labels to refer to different things depending on the context (e.g. the input value, the output value, the error, etc.):
-```purescript
+```haskell
 data InvalidName = InvalidName
 data NotPositiveAge = NotPositiveAge
 newtype Name = Name String

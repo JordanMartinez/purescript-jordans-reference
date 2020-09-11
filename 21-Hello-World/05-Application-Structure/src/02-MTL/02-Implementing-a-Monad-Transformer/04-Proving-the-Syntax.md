@@ -6,7 +6,7 @@ This file will prove that the syntax works by doing a graph reduction of
 
 ## Reading StateT Do Notation
 
-```purescript
+```haskell
 newtype StateT state monad output = StateT (state -> monad (Tuple output state))
 
 stateT_do_notation :: StateT StateType MonadType ValueType
@@ -23,14 +23,14 @@ stateT_do_notation = do
 ## Reducing a StateT's Do Notation
 
 It's now time to reduce a simple `StateT`'s do notation expression into its final result. Here's the simple expression:
-```purescript
+```haskell
 f = do
   value1 <- state (\initialState -> Tuple value1 state2)
   state (\state2 -> Tuple value1 state3)
 ```
 
 It gets ugly pretty quickly, but we present it in a manner that reduces the information overload:
-```purescript
+```haskell
 -- Start!
 f = do
   value1 <- state (\initialState -> Tuple value1 state2)
@@ -138,7 +138,7 @@ finalFunction = StateT (\sY -> (g sY) >>= func2)
 ## Running a StateT with an Initial Value
 
 To run a `StateT`, we just need to unwarp the `StateT` newtype wrapper.:
-```purescript
+```haskell
 runStateT :: forall s m a. StateT s m a -> s -> m (Tuple a s)
 runStateT (StateT f) initS = f initS
 ```
@@ -146,7 +146,7 @@ runStateT (StateT f) initS = f initS
 ### Reducing a `runStateT` Call
 
 We'll run the de-sugared do-notation function from above on some initial state, `initS`. This won't produce anything important, but shows why/how it still type checks:
-```purescript
+```haskell
 -- From above
 f = StateT (\sY -> (g sY) >>= func2)
     where

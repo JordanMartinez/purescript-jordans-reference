@@ -19,7 +19,7 @@ Here's the link: [Functors, Applicatives, and Monads in Pictures](http://adit.io
 ### Lists' Map Function in Purescript
 
 Here's the `map` List function implemented in Purescript:
-```purescript
+```haskell
 data List a = Nil | Cons a (List a)
 
 instance Functor List where
@@ -42,7 +42,7 @@ These will be covered at a slower and clearer pace in the upcoming files. This i
 
 ## Simplest Monad Implementation
 
-```purescript
+```haskell
 data Box a = Box a
 
 instance f :: Functor Box where
@@ -63,7 +63,7 @@ instance m :: Monad Box
 ## Function Reduction
 
 In these files, we will "evaluate" functions by using graph reductions: replacing the left-hand side (LHS) of the `=` sign (the function's call signature) with the right-hand side (RHS) of the `=` sign (the function's implementation / body). In other words...
-```purescript
+```haskell
 someFunction arg1 arg2 arg3 = bodyOfFunction
 | call signature (LHS)    | = | body (RHS) |
 ```

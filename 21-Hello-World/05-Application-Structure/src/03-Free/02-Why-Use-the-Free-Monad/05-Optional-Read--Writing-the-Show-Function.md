@@ -10,7 +10,7 @@ There are two reasons why:
 <hr>
 
 We still have one more function to define: `show2` (which is just `show` but which prevents the name conflict from `Prelude`). In our original file, `show2` was defined like this:
-```purescript
+```haskell
 show2 :: Expression -> String
 show2 (Value i) = show i
 show2 (Add x y) = "(" <> show2 x <> " + " <> show2 y <> ")"
@@ -21,13 +21,13 @@ Since we changed the function, `evaluate`, into a type class, we should follow s
 
 `Expression` in our original `show2` function meant both `Value` and `Add`. To do the same thing in our new code, where these types are composed via `Either`, we would need to change the signature to `f (Expression f)`:
 
-```purescript
+```haskell
 class (Functor f) <= Show2 f where                                {-
   show2 :: AllExpressionTypes -> String                                   -}
   show2 :: f (Expression f)   -> String
 ```
 With that being our expression type, what would values for `Value`, `Add`, and `Multiply` look like that fit that signature?
-```purescript
+```haskell
 -- Value
 (Value 5)
 
@@ -53,7 +53,7 @@ Multiply
   ))))
 ```
 `Add` and `Multiply` both have an `In` value and an `Either` value separating the next expression. We can remove the `In` value using a function. However, removing the `Either` value would be best left to an instance of our own type class that just delegates it to the underlying expression.
-```purescript
+```haskell
 removeInAndShow :: Show2 f => Expression f -> String
 removeInAndShow (In t) = show2 t
 
@@ -74,7 +74,7 @@ instance ms :: Show2 Multiply where
 ## All Code So Far and Show2
 
 Again, **I have not checked whether this code works, but it will serve to give you an idea for how it works.**
-```purescript
+```haskell
 -- File 1
 data Value e = Value Int
 data Add e = Add e e

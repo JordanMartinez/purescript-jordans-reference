@@ -3,7 +3,7 @@
 Phantom Types come in two forms:
 1. a data type without any values
 2. a generic type that is declared in type's definition that is never used in its data constructors
-```purescript
+```haskell
 -- 1. ReadOnly has no values
 data ReadOnly
 

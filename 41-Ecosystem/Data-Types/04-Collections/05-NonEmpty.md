@@ -2,7 +2,7 @@
 
 To guarantee that a box-like type cannot be empty, we wrap it with a type.
 
-```purescript
+```haskell
 data NonEmpty box a = NonEmpty a (box a)
 infixr 5 NonEmpty as :|
 

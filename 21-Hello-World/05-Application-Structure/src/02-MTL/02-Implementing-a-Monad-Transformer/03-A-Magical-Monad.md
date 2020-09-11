@@ -7,7 +7,7 @@ We reached these conclusions previously:
     - Running the computation via `runSomeFunction` should return `Tuple value state`.
 
 In short, we need to implement the following two functions with these type signatures:
-```purescript
+```haskell
 class (Monad m) <= MonadState state monad | monad -> state where
   state :: forall value. (state -> Tuple value state) -> monad value
 
@@ -35,7 +35,7 @@ We can make `Function`'s kind one less by specifying either the input type or th
 - `Function a Int`/`(a -> Int)` has kind `Type -> Type`
 
 In other words, we need to turn `Function` into a completely new type (`data`, `type`, or `newtype`) that should only exist at compile time to reduce runtime overhead (e.g. `type` or `newtype`) that can also implement type classes (i.e. only `newtype`). Using a newtyped version of `Function`, we can specify all the types in the function:
-```purescript
+```haskell
 newtype TypedFunction input output =
   TypedFunction (input -> output)
 
@@ -55,7 +55,7 @@ Let's now implement the FAABM type classes by using pattern matching to expose t
 
 ### Functor
 
-```purescript
+```haskell
 newtype StateT state monad value =
   StateT (state -> monad (Tuple value state))
 
@@ -152,7 +152,7 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
 
 Since `Apply` is very similar to `Functor` (actually the exact same, but we just unwrap the `f` now, too), we'll just show the code.
 
-```purescript
+```haskell
 instance apply :: (Monad monad) => Apply (StateT state monad) where
   apply :: forall a b
         -- (state -> Tuple (a -> b) state)
@@ -178,7 +178,7 @@ instance apply :: (Monad monad) => Apply (StateT state monad) where
 ### Applicative
 
 The Applicative instance is actually quite straight forward:
-```purescript
+```haskell
 instance apctv :: (Monad monad) => Applicative (StateT state monad) where
   pure :: forall a. a -> StateT state monad a
   pure a = StateT (\s -> pure $ Tuple a s)
@@ -186,7 +186,7 @@ instance apctv :: (Monad monad) => Applicative (StateT state monad) where
 
 ### Bind & Monad
 
-```purescript
+```haskell
 instance bind :: (Monad monad) => Bind (StateT state monad) where
   bind :: forall a b
         . StateT state monad a
@@ -209,7 +209,7 @@ instance monad :: (Monad m) => Monad (StateT state monad)
 
 ### MonadState
 
-```purescript
+```haskell
 instance ms :: (Monad m) => Monad (StateT state monad) where
   state :: forall value. (state -> Tuple value state) -> StateT state monad value
   state f = StateT (\s -> pure $ f s)
@@ -219,7 +219,7 @@ instance ms :: (Monad m) => Monad (StateT state monad) where
 
 Notice, however, that the above `let ... in` syntax is really just a verbose way of doing `bind`/`>>=`. If we were to rewrite our instances using `bind`, they now look like this:
 
-```purescript
+```haskell
 instance map :: (Monad monad) => Functor (StateT state monad) where
   map :: forall a b
        . (a -> b)
@@ -266,7 +266,7 @@ instance monad :: (Monad m) => Monad (StateT state monad)
 ## Reviewing StateT's Bind Instance
 
 Let's look in particular at `StateT`'s `bind` implmentation as this is crucial to understanding how it enables the syntax we desire:
-```purescript
+```haskell
 instance bind :: (Monad monad) => Bind (StateT state monad) where
   bind :: forall a b
         . StateT state monad a
@@ -286,7 +286,7 @@ instance bind :: (Monad monad) => Bind (StateT state monad) where
 Behind the scenes, `StateT` is still using `Tuple value state` as normal. However, the value that is passed to `f` is the `value` type (i.e. `a`) and not `Tuple value state`.  This is what enables the syntax we desire.
 
 In other words, recall that
-```purescript
+```haskell
 bind (Box 4) (\four -> body)
 -- converts to
 (Box 4) >>= (\four -> body)

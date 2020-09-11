@@ -16,7 +16,7 @@ Below are other resources that are more reference material than clear explanatio
 **Note: due to Thomas' above blog post, the below section will be removed in the next major release.**
 
 Since FP data types cannot be subclassed like OO data types, one will often define a shared component and then define its 'subclasses' as having that shared component:
-```purescript
+```haskell
 type Shape = { fill :: Color }
 type Square = { width :: Number
               , height :: Number
@@ -28,7 +28,7 @@ type Circle = { radius :: Number
 ```
 
 As a result, when we wish to update the `shape` part of a Square or Circle, we need to deal with all that nesting:
-```purescript
+```haskell
 -- for example...
 user.config.personal.privacy.email { isPublic = false }
 ```

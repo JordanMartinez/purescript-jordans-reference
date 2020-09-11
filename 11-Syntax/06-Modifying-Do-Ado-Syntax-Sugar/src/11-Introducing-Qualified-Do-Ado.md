@@ -4,7 +4,7 @@
 
 When using Rebindable do/ado notation, I'd recommend using the `let ... in do/ado` aproach for rebinding function names. Let me give an example why. If we used the 'where' clause approach, it isn't immediately clear whether `do/ado notation` desugars to the standard functions or to some remapped version until the very end. For example,
 
-```purescript
+```haskell
 -- Reader thinks, "Oh hey! It's do notation.
 -- It's just standard `bind` desugaring."
 comp3 :: Box Int
@@ -40,7 +40,7 @@ comp3 = do
     bind = -- my custom bind definition...
 ```
 The above problem can be alleviated by bumping `bind` to the top using a let binding.
-```purescript
+```haskell
 -- Reader thinks, "Oh hey! It's do notation.
 -- It's just standard `bind` desugaring."
 comp3 :: Box Int
@@ -61,7 +61,7 @@ There are generally two problems with Rebindable do/ado notation.
 First, each function that uses this feature must rebind do/ado notation to the correct definition. If one was building a library where each function used this, it would get very tedious.
 
 For example,
-```purescript
+```haskell
 comp1 :: Box Int
 comp1 = let bind = NormalBind.bind in do
   three <- Box 3
@@ -85,7 +85,7 @@ comp3 = let bind = NormalBind.bind in do
 
 Second, rebindable do/ado notation might not be easily redable when running computations in various monadic contexts. For example
 
-```purescript
+```haskell
 someComputation :: Box Int
 someComputation = let bind = NormalBind.bind in do
   -- Box monadic context... use standard bind here

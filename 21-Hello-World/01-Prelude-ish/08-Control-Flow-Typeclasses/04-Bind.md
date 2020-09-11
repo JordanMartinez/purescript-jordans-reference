@@ -23,7 +23,7 @@ Below, we'll show two instances for `Bind`:
 1. A flipped version of bind that shows how it relates to `Functor` and `Apply`
 2. The correct version:
 
-```purescript
+```haskell
 -- in real definition, 'f' (functor) is really 'm' (monad)
 class (Appy f) <= Bind f where
   bind :: forall a b. f a -> (a -> f b) -> f b

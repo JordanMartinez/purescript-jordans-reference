@@ -1,7 +1,7 @@
 # From Coproduct to VariantF
 
 Previously, we explained `Coproduct`
-```purescript
+```haskell
 data Either l r = Left l | Right r
 
 newtype Coproduct f g a = Coproduct (Either (f a) (g a))
@@ -43,11 +43,11 @@ Since `Coproduct` is just a newtype wrapper over an `Either`, it suffers from th
 - requires the use of `Symbol` and `SProxy` to specify which field within the row is being used
 
 `VariantF` adds the additional requirement of using a proxy called `FProxy` to wrap a type-level higher-kinded type:
-```purescript
+```haskell
 data FProxy (f :: Type -> Type) = FProxy
 ```
 Looking at `VariantF`, we see the following definition, whose type names I have modified to make it look similar to `Coproduct`:
-```purescript
+```haskell
 data    VariantF (f_and_g :: # Type) a
 
 -- for example
@@ -56,7 +56,7 @@ newtype Coproduct f g                a  = Coproduct (Either (f a) (g a))
 ```
 
 Let's see what the code looks like now:
-```purescript
+```haskell
 -- Rather than writing this...
 data Fruit_ConcreteType
   = Apple
@@ -81,7 +81,7 @@ forall v. VariantF (fruit :: FProxy Fruit_HigherKindedType | v) Int
 When we wanted to compose two or more data types, we used nested `Either`s. When we wanted to compose two or more higher-kinded data types, we used nested `Coproduct`s. What, then, do we write to compose two or more type-level higher-kinded types?
 
 We use type aliases for rows and [`RowApply`/`+`](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row#t:RowApply) from `Prelude`:
-```purescript
+```haskell
 import Type.Row (type (+)) -- infix for RowApply
 data ValueF e = ValueF Int
 data AddF e = AddF e e
@@ -104,7 +104,7 @@ VariantF (ValueAdd + ()) e
 ## Defining Composable Algebras for Data Types
 
 To evaluate an expression, we will write this:
-```purescript
+```haskell
 fold (
   case_
     -- valueAlgebra
@@ -113,7 +113,7 @@ fold (
   ) expression
 ```
 Thus, to make one `Algebra` (i.e. a fancy name for `f a -> a`) composable with other algebras of future data types that we might declare, we will write things like this:
-```purescript
+```haskell
 valueAlgebra :: forall r
 
              -- this is the `case_` function
@@ -126,7 +126,7 @@ valueAlgebra = on valueSymbol \(ValueF x) -> x
 ## Running an Algebra on an Expression
 
 When we are ready to evaluate an expression, we will need the `algebra` (`f a -> a`) that can compute a value when given an expression, and the actual expression. To make it work for all output types, we'll use a generic type. Thus, we get something like this:
-```purescript
+```haskell
 run :: forall f a b output
       . Functor f
      -- |   composed algebra waiting for `case_`     |

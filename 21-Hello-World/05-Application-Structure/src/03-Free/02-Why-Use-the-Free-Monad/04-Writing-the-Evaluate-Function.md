@@ -1,7 +1,7 @@
 # Writing the Evaluate Function
 
 Since we'll be doing graph reductions later that will get somewhat complicated, we will rename `Placeholder` to `In` to make it easier to read. `In` is the same name used in the paper. This should make reading this "commentary" alongside of the paper easier.
-```purescript
+```haskell
 data Expression f = In (f (Expression f))
 
 -- A full value
@@ -17,7 +17,7 @@ In ( Right ( Left ( Add (
 ## The Types' Functor Instances
 
 Due to how `Value`, `Add`, and `Multiply` are now defined, they are also `Functor`s. `Add` and `Multiply` implement `map` as one would expect:
-```purescript
+```haskell
 map :: (e -> z) -> Add e -> Add z
 map f (Add e1 e2) = Add (f e1) (f e2)
 
@@ -25,7 +25,7 @@ map :: (e -> z) -> Multiply e -> Multiply z
 map f (Multiply e1 e2) = Multiply (f e1) (f e2)
 ```
 However, `Value` implements it differently in an important way. Since `Value`'s generic type, `e`, is never used in its value and since the `Value` constructor can only wrap an `Int` type, one cannot really "map" a `Value` (i.e. change the inner `Int` type) to anything else. Rather, they can only change `Value`'s `e` type:
-```purescript
+```haskell
 data Value e = ValueConstructor Int
 map :: (e -> z) -> Value e            ->             Value z
 map    _          (ValueConstructor x)             = ValueConstructor x
@@ -36,7 +36,7 @@ map    _          (ValueConstructor x)             = ValueConstructor x
 Thus, `Value` is a no-op `Functor`: using `map` on it just returns the same value.
 
 An `Either` that wraps higher-kinded types implements `Functor` as we would expect:
-```purescript
+```haskell
 instance f :: (Functor f, Functor g) => Functor (Either (f e) (g e)) where
   map func (Left f)  = Left  (map func f)
   map func (Right g) = Right (map func g)
@@ -50,7 +50,7 @@ instance f :: (Functor f, Functor g) => Functor Coproduct f g e where
 We will soon see why it matters that these types are `Functor`s.
 
 Let's write a function that can evaluate the simplest version of our nested data structure. We'll exclude `Add` and `Multiply` and only focus on `Value`. To simulate the `Left` value in `Either (Value e) (SomethingElse e)`, we'll use `BoxF`:
-```purescript
+```haskell
 data BoxF f a = BoxF (f a)
 
 instance functor :: Functor f => Functor (Box f) where
@@ -66,7 +66,7 @@ What do we need to do to take `valueExample` and evaluate it to `2`? We need a w
 2. We implement a type class that specifies an 'unwrap' function that each implements.
 
 We'll take the second approach because it adheres to the idea of adding more types later on:
-```purescript
+```haskell
 class (Functor f) <= Evaluate f where
   evaluate :: forall a. f a -> Int
 
@@ -86,7 +86,7 @@ evaluate valueExample
 ## Including `Add` again
 
 This solution works until we make our code more complicatd by composing `Add` with `Value` via `Either` again.
-```purescript
+```haskell
 addExample :: Expression (Coproduct Value Add e)
 addExample =
   In (Right (Add            -- Coproduct's wrapper value
@@ -95,7 +95,7 @@ addExample =
   ))
 ```
 Returning to the `Eval` type class, how would we implement an instance for `Add`?
-```purescript
+```haskell
 class (Functor f) <= Evaluate f where
   evaluate :: forall a. f a -> Int
 
@@ -113,12 +113,12 @@ So, let's look at what we need to do to evaluate `Add`. We need to
 - convert `Add x y` to `x + y`
 
 Starting with an easier problem, we could guarantee that all `In` values are removed by calling an unwrapping function, `removeIn`, followed by a `map` call:
-```purescript
+```haskell
 removeIn :: Expression f -> f
 removeIn (In f) = map removeIn f
 ```
 To see why this works, we'll run this function on `addExample`:
-```purescript
+```haskell
 -- Start!
 removeIn (
   In (Right (Add
@@ -161,7 +161,7 @@ Right (Add
 This approach effectively removes all `In` values. However, we are still left with the same problem above: converting an `Add` expression into an `Int` value by defining an `Evaluate` instance.
 
 However, the reduction of our graph shows something important. What is the type signature for the result of our reduction? We can see it below:
-```purescript
+```haskell
 result :: Coproduct Value Add e
 result =
   Right (Add
@@ -170,7 +170,7 @@ result =
   )
 ```
 Looking at the `Evaluate` type class definition again, we can see that we don't force `a` (which corresponds to our `e` type in `result`) to be anything. However, what if we changed it to `Int`? If we do, it solves our dilemma above:
-```purescript
+```haskell
 class (Functor f) <= Evaluate f where
   evaluate :: f Int -> Int
 
@@ -186,7 +186,7 @@ instance e :: (Evaluate f, Evaluate g) => Evaluate (Either f g) where
   evaluate (Right g) = evaluate g
 ```
 If we call `evaluate` on the result of our graph reduction above, what do we get?
-```purescript
+```haskell
 -- Start!
 evaluate (Right (Add
   (Left (Value 2))
@@ -200,7 +200,7 @@ evaluate (Add
 -- Compiler error! Expected `Add Int` but got `Add (Either (Value e) (Add e))
 ```
 The problem with this approach is that the nested `Value int` values were not evaluated before we evaluated the `Add`. If we could somehow change how our code works, we need something more like this:
-```purescript
+```haskell
 -- Start!
 evaluate (Right (Add
   (evaluate (Left (Value 2)))
@@ -228,12 +228,12 @@ evaluate (Add
 6
 ```
 So, how do we use the `removeIn` approach to remove the `In` values and also evaluate `Value int` before evaluating `Add`, so that the types are correct by the time it happens? We make just a slight change to `removeIn`. It will now take an "unwrapping" function that gets applied to the result of our mapping. To make it adhere to the paper, we'll rename it to "fold" and explain that name later:
-```purescript
+```haskell
 fold :: Functor f => (f a -> a) -> Expression f -> a
 fold function (In f) = function (map (fold function) f)
 ```
 How should this function be understood? Rather than explain it using words, we'll demonstrate it using a graph reduction. Then, we'll explain the name:
-```purescript
+```haskell
 -- Start
 fold evaluate addExample
 -- replace addExample with its definition
@@ -305,7 +305,7 @@ There's a term we did not explain but which appears in the paper: `algebra`. An 
 ## All Code So Far and Evaluate
 
 **I have not checked whether this code works, but it will serve to give you an idea for how it works.**
-```purescript
+```haskell
 -- File 1
 data Value e = Value Int
 data Add e = Add e e

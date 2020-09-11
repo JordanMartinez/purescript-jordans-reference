@@ -6,7 +6,7 @@ The following is not an exact copy of the code, but accurate enough to get the i
 
 A type with no values that is useful for proving that a type can never exist or a computation path can never occur
 
-```purescript
+```haskell
 -- Data.Void (Void, absurd)
 
 newtype Void = Void Void
@@ -29,7 +29,7 @@ function Right i = i
 ## Unit
 
 A type with 1 value, Unit, though most will see it used via `unit`. It usually indicates a "side effect", mutation, or impure code.
-```purescript
+```haskell
 -- Data.Unit (Unit, unit)
 
 data Unit = Unit
@@ -38,7 +38,7 @@ unit :: Unit
 unit = Unit
 ```
 It's also used to indicate a `thunk`, a computation that we know how to do but have chosen to delay executing/evaluating until later:
-```purescript
+```haskell
 type ComputationThatReturns a = (Unit -> a)
 
 thunk :: forall a. a -> ComputationThatReturns a
@@ -54,7 +54,7 @@ runPendingComputation thunk = thunk unit
 
 Takes an `a` out of some `Box`-like type and puts it into another `Box`-like type
 
-```purescript
+```haskell
 -- Data.NaturalTransformation (NaturalTransformation, (~>))
 
 -- Given this code

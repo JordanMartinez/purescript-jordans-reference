@@ -48,7 +48,7 @@ Exits the REPL, returning control to your shell.
 #### The Problem
 
 You can only define a binding once. Defining it again with a different expression will output an error
-```purescript
+```haskell
 x = 5 -- first time
 x = 6 -- second time raises error
 -- REPL's outputs error: "Multiple value declarations exist for x."
@@ -56,7 +56,7 @@ x = 6 -- second time raises error
 You need to clear the `x` binding name to be able to reuse it for other bindings.
 
 For example, let's say you wrote two functions and the second uses the first. However, you wrote the wrong implementation for the second and need to rewrite it:
-```purescript
+```haskell
 add1 = (\x -> x + 1)
 times2 = (\x -> x * 3) -- "3" should be "2"
 ```
@@ -67,7 +67,7 @@ Ideally, you could just clear the second function's binding and rewrite it. Unfo
 1. use the `:reload` command to clear out both functions' bindings, redefine the first one, and then define the second one with the correct implementation
 2. define a new binding for the correct implementation:
 
-```purescript
+```haskell
 -- 1st option
 add1 = (\x -> x + 1)
 times2 = (\x -> x * 3) -- Whoops! "3" should be "2"
@@ -84,7 +84,7 @@ times2_fix = (\x -> x * 2) -- define new function with correct implementation
 3. define your code in a file (as a module) and import that module into your REPL session. Any edits made to this file are picked-up upon a REPL reload.
 
 Create a file containing your REPL script:
-```purescript
+```haskell
 -- MyModule.file
 module MyModule where
 

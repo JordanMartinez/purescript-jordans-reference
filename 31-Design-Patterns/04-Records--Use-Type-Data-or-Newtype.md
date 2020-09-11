@@ -3,16 +3,16 @@
 Short answer: use `type`
 
 **Type:** ideal, but defining typeclass instances on it requires defining it for all records, which is usually not what you want.
-```purescript
+```haskell
 type TypedRecord = { anInt :: Int }
 ```
 
 **Newtype:** use if you need a type class instance and you only need to wrap a single record
-```purescript
+```haskell
 newtype NewtypedRecord = NR { anInt :: Int }
 ```
 
 **Data:** use if you need a type class instance and you need to wrap a record AND something else. Unfortunately, this will perform unboxing during runtime.
-```purescript
+```haskell
 data DataRecord = DR { anInt :: Int } { aString :: String }
 ```

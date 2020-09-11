@@ -19,7 +19,7 @@ Let's say the randomly generated number is `x` where `x` is a `Number`:
 ## The `Gen` Monad and its `MonadGen` Type Class
 
 In [`purescript-gen`](https://pursuit.purescript.org/packages/purescript-gen/), [MonadGen](https://pursuit.purescript.org/packages/purescript-gen/docs/Control.Monad.Gen.Class) is the type class that has a default implementation via [Gen](https://pursuit.purescript.org/packages/purescript-quickcheck/docs/Test.QuickCheck.Gen#t:Gen). To see all of the definitions of the types used in `Gen`, look below:
-```purescript
+```haskell
 -- This Int will always be between 1 and 2147483647,
 -- which is (2^31 - 1), a Mersenne prime.
 -- It is used in a linear congruential generator.

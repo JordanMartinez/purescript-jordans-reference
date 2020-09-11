@@ -64,7 +64,7 @@ spago run -m TimeoutAndInterval.Aff
 
 The following examples must be compiled first and then run by `node`:
 
-```purescript
+```haskell
 spago bundle-app -m ConsoleLessons.ReadLine.Effect -t dist/readline-effect.js && node dist/readline-effect.js
 
 spago bundle-app -m ConsoleLessons.ReadLine.Aff -t dist/readline-aff.js && node dist/readline-aff.js

@@ -14,7 +14,7 @@ Let's explain a problem that highlights the third point: storing more informatio
 An `Array` is a very fast data structure, but it's problematic because we never know its exact size at compile-time. In other words, we don't get a compiler error if we reference an invalid spot in the array, and we won't know about the bug until it occurs when running the program. In short, this kind of function will always be a partial function.
 
 Here's an example in code. If the array is empty or has fewer than `n - 1` elements, the function can only throw an error when we try to reference a non-existent element at index `n`. If the array has `n - 1` or more elements, it can return that element.
-```purescript
+```haskell
 elemAtIndex :: forall a. Partial => Int -> Array a -> a
 elemAtIndex idx [] = Partial.crash "cannot get " <> show idx <> "th element of an empty array"
 elemAtIndex index fullArray = unsafePartial $ unsafeIndex fullArray index
@@ -24,7 +24,7 @@ elemAtIndex index fullArray = unsafePartial $ unsafeIndex fullArray index
 
 What if we could modify the type of `Array`, so that it included the size of that array at compile-time? Then, the type-checker could ensure that the "elemAtIndex" function described above only receives correct arguments (i.e. specific types) that make the function "total," meaning the function will always return a valid output and never throw an error. If it receives an invalid argument, it results in a compiler error and we can fix the bug before shipping the code to customers.
 
-```purescript
+```haskell
 -- This entire block of code is pseduo syntax and does not actually work!
 -- Use it only to get the idea and don't hold onto any of the syntax used here.
 elemAtIndex :: forall a n. HasElemAtIndex n => n -> IndexedArray n a

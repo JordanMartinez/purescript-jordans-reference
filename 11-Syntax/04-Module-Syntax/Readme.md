@@ -33,7 +33,7 @@ Warning [current] of [total]:
 
 ## File Location Conventions
 
-```purescript
+```haskell
 -- a module named...
 module Module1 where
 -- imports and source code

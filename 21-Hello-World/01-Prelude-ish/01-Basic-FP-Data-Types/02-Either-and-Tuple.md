@@ -7,7 +7,7 @@ There are generally two data types in FP languages:
 These are better explained [in this video](https://youtu.be/Up7LcbGZFuo?t=19m8s) as to how they get their names.
 
 The simplest form of them are `Either` and `Tuple`
-```purescript
+```haskell
 -- sum
 data Either a b   -- is an `a` value OR  a `b` value
   = Left a
@@ -33,7 +33,7 @@ These types are 'closed' (to see what open/closed sum/product types mean, see "E
 
 ## Tuple
 
-```purescript
+```haskell
 data Tuple a b = Tuple a b
 ```
 

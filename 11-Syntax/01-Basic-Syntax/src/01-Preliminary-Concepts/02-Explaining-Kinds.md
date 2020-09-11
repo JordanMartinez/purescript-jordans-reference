@@ -1,20 +1,20 @@
 # Explaining Kinds
 
 This code...
-```purescript
+```haskell
 function :: Int -> String
 function x = "an integer value!"
 ```
 ... translates to, "I cannot give you a concrete value (i.e. `String`) until you give me an `Int` value"
 
 Similarly, this code...
-```purescript
+```haskell
 data Box a = Box a
 ```
 ... translates to, "I cannot give you a concrete type (e.g. `Box Int`, a box that stores an `Int` value (rather than a `String` value or some other value)) until you tell me what `a` is."
 
 Let's rewrite the above `Box` type. Things on the left of the `=` indicate type information. Things on the right of the `=` indicate value information.
-```purescript
+```haskell
 {-
 | Type information | Value information |                                     -}
 data BoxType a     = BoxValue a
@@ -29,7 +29,7 @@ The above code now says, "I cannot give you a concrete type (e.g. `BoxType Int`)
 ^^ This is a "working definition." There's more to it than that when one considers type-level programming, but for now, this will suffice."
 
 We saw earlier that we annotate functions with type signatures via `->`:
-```purescript
+```haskell
 --              ||
 --              \/
 function :: Int -> String
@@ -53,7 +53,7 @@ Kind signatures annotate type-level entities like `BoxType`. They are basically 
 ## Concrete Types
 
 Concrete types can usually be written with literal values:
-```purescript
+```haskell
 integerValue :: Int
 integerValue = 1
 
@@ -80,7 +80,7 @@ arrayOfIntsValue = [1, 2, 3]
 ## Higher-Kinded Types
 
 Higher-kinded types are those that still need one or more types to be defined.
-```purescript
+```haskell
 -- Kind Signature: Type -> Type
 -- Reason: the `a` type needs to be defined
 data Box a = Box a
@@ -97,7 +97,7 @@ boxedBoxedInt :: Box (Box Int)
 boxedBoxedInt = Box boxedInt
 ```
 We can make the type's kind higher by adding more types that need to be specified. For example:
-```purescript
+```haskell
 -- A box that holds two values of same or different types!
 -- Kind Signature: `Type -> Type -> Type`
 data BoxOfTwo a b = BoxOfTwo a b
@@ -118,7 +118,7 @@ concreteType :: BoxOfTwo Int String
 concreteType = BoxOfTwo 3 "a string value"
 ```
 Generic types can also be split across the values of a type:
-```purescript
+```haskell
 -- It's either an A or it's a B, but not both!
 -- Kind signature is implicit: `Type -> Type -> Type`
 data Either a b
@@ -143,7 +143,7 @@ higherKindedBy1L_ignoreBoth a b = Left 3
 `Either` (where the `a` and `b` are not yet specified) has kind `Type -> Type -> Type` because it cannot become a concrete type until both `a` and `b` types are defined, even if only constructing one of its values whose generic type is known.
 
 In other words
-```purescript
+```haskell
 allSpecified :: Either Int String
 allSpecified = Right "foo"
 

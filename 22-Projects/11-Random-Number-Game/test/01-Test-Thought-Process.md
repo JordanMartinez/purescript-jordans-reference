@@ -57,7 +57,7 @@ So, how do we generate this? It should be obvious that we cannot generate the `G
 ### Random Number
 
 First, let's start with the random number. How could we generate it? We could generate it by creating a random integer and then defining a lower and upper value that corresponds to that. We can also define the bounds first and then generate a random int within that bounds. Both can work, but we've opted for the second approach. Thus, we get this type:
-```purescript
+```haskell
 type MockedBounds = Tuple Int Int
 
 genTestData :: Gen TestData
@@ -76,7 +76,7 @@ The way the program works, it will request items in this order:
 4. Recursively make guess until game ends
 
 Due to the above, we have already generated the bounds value, so let's not focus on that. However, we have not generated a value for remaining guesses. To define the remaining guesses, we just generate a positive integer
-```purescript
+```haskell
 type MockedBounds = Tuple Int Int
 
 genTestData :: Gen TestData
@@ -94,7 +94,7 @@ Thus, we need to determine whether the player wins/loses in our test data genera
 - `Just takesXGuessesToWin` represents a winning state and the total guesses needed before one wins
 - `Nothing` represents a losing state.
 
-```purescript
+```haskell
 type MockedBounds = Tuple Int Int
 
 genTestData :: Gen TestData
@@ -111,7 +111,7 @@ genTestData = do
 ```
 
 At this point, we need to generate a specified number of incorrect guesses. The `Just` path should generate one less than the `takesXGuessesToWin` whereas the `Nothing` path should use `totalGuesses` to create it:
-```purescript
+```haskell
 type MockedBounds = Tuple Int Int
 
 genTestData :: Gen TestData
@@ -127,7 +127,7 @@ genTestData = do
       incorrectGuesses <- genIncorrectGuesses totalGuesses
 ```
 In the `Just` path, we should append the random number to get all of our guesses. In the `Nothing` path, we're already done.
-```purescript
+```haskell
 type MockedBounds = Tuple Int Int
 
 genTestData :: Gen TestData
@@ -146,7 +146,7 @@ genTestData = do
 To finish creating the user's inputs, we need to combine our `bounds.lower`, `bounds.upper`, `totalGuesses`, and `gueses` values into a `ListLike String` type. Then, we will have generated all of our user's inputs.
 
 Now, we need to convert our `guesses` values into `ListLike String` type. We could use `List String` or `Array String`:
-```purescript
+```haskell
 type MockedBounds = Tuple Int Int
 type GuessLimit = Int
 type ListLike a = -- define it later
@@ -159,7 +159,7 @@ mkUserInputs (Tuple lower upper) total guesses =
 ```
 
 We can now generate our test's inputs.
-```purescript
+```haskell
 type MockedBounds = Tuple Int Int
 
 genTestData :: Gen TestData
@@ -185,7 +185,7 @@ Now, we just need to generate our test's output, the `GameResult`. It has two me
 - `PlayerLoses RandomInt`
 
 The only way to create the types that are wrapped by `GameResult`'s members require us to use their smart constructors, which require `Either ErrorType TheTypeWeWant`. To get around that, we'll use partial functions since we can guarantee that these functions are only being passed correct values. They will follow this idea: `unsafePartial $ fromRight $ smartConstructor`. Since that is a lot of character to type, which will clutter our code and make it harder to read, we'll defined our own code for that by adding a `_` suffix to the smart constructor names:
-```purescript
+```haskell
 type MockedBounds = Tuple Int Int
 
 genTestData :: Gen TestData
@@ -212,7 +212,7 @@ mkType_ args = unsafePartial $ fromRight $ mkType args
 ### Defining its Arbitrary instance
 
 Now, we just need to lift all the three values into a `Gen` via `pure`. Since `pure` only takes one value, we'll wrap them up using a Record:
-```purescript
+```haskell
 type TestDataRecord = { random :: Int
                       , userInputs :: ListLike String
                       , result :: GameResult
@@ -240,7 +240,7 @@ genTestData = do
 ```
 
 Finally, to make it usable in QuickCheck, we need to define an `Arbitrary` instance for it. This is why we defined `TestData` as a newtype:
-```purescript
+```haskell
 instance tda :: Arbitrary TestData where
   arbitrary = genTestData
 ```

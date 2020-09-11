@@ -25,7 +25,7 @@ PureScript's [`purescript-effect`](https://pursuit.purescript.org/packages/pures
 ## Understanding the Effect Monad
 
 The following code is not necessarily how `Effect` is implemented, but it does help one quickly understand it by analogy:
-```purescript
+```haskell
 data Unit = Unit
 
 unit :: Unit
@@ -56,7 +56,7 @@ The following explanation is not what happens in practice, but understanding it 
 > When one executes the command `spago bundle-app`, one could say that, conceptually, spago will compile `unsafePerformEffect main` into Javascript and the resulting Javascript is what gets run by the RunTime System (RTS) when the program is executed.
 
 In other words, spago "creates" a function called `runProgram` and tells the RunTime System (RTS) to execute it
-```purescript
+```haskell
 runProgram :: Unit
 runProgram = unsafePerformEffect main
 ```

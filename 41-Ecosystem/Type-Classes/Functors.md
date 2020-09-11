@@ -5,7 +5,7 @@
 This is a summary of [this post](https://typeclasses.com/contravariance) and [this post](https://www.schoolofhaskell.com/user/commercial/content/covariance-contravariance).
 
 When we look a `Function`'s definition, we see that it is higher-kinded by two, that is, two types need to be defined before we can have a concrete type:
-```purescript
+```haskell
 foreign import data Function :: Type -> Type -> Type
 
 infix ? Function as ->
@@ -23,7 +23,7 @@ generic_on_output :: forall b. Input -> b
 generic_on_both :: forall a b. a -> b
 ```
 A type can be a `Functor` if it is higher-kinded by one. In the below example, we specify its input type and leave the output type to be defined in `map`:
-```purescript
+```haskell
                    -- (input ->)
 instance a :: Functor (Function input) where
                               -- (input -> a)     -> (input -> b)
@@ -31,7 +31,7 @@ instance a :: Functor (Function input) where
   map aToB inputToA = (\input -> aToB (inputToA input))
 ```
 However, what if we specified the output type of `Function` in the instance head and left the input type to be defined in `map`? If so, it would look like this:
-```purescript
+```haskell
 type FlippedFunc output input = (input -> output)
                    -- (-> output)
 instance a :: Functor (FlippedFunc output) where
@@ -40,7 +40,7 @@ instance a :: Functor (FlippedFunc output) where
   map inputA_To_InputB inputA_To_Output = -- this isn't possible to implement!
 ```
 We cannot define an instance of `Functor` in this way because the first argument in `map` changes an `a` value to a `b` value. However, if we flipped the direction of the arrow, we could write the function's body:
-```purescript
+```haskell
 type FlippedFunc output input = (input -> output)
 
                          -- (-> output)

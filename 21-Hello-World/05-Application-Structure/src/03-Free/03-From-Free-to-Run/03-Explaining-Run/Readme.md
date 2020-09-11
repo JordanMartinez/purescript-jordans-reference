@@ -9,13 +9,13 @@ If you recall, `xgromxx` mentions [`purescript-run`](https://pursuit.purescript.
 What is `purescript-run`? Why would we use that over `Free`? There are three reasons.
 
 First, let's look at the type of `Run` :
-```purescript
+```haskell
 newtype Run r a = Run (Free (VariantF r) a)
 ```
 We can see that `Run` is a compile-time-only type that specifies the `Functor` type of `Free` to the open `CoProduct` type: `VariantF`.
 
 Let's compare the same idea encoded in both forms (note: `Run` will use naming conventions that will be explained below):
-```purescript
+```haskell
 free :: Free (VariantF (add :: FProxy Add, subtract :: FProxy Subtract)) a
 -- is the same as
 run  :: Run (ADD + SUBTRACT) a
@@ -31,7 +31,7 @@ Third, **this library already defines types and functions for using and working 
 ### Free and Run: Some Core Functions Compared
 
 Let's look at a few core functions (the following block of code is licensed under [the MIT license](https://github.com/natefaubion/purescript-run/blob/v2.0.0/LICENSE):
-```purescript
+```haskell
 newtype Run r a = Run (Free (VariantF r) a)
 
 -- `Run`'s version of `Free`'s `liftF`
@@ -58,7 +58,7 @@ peel :: forall a r. Run r a -> Either (VariantF r (Run r a)) a
 ### Naming Conventions for Effects
 
 Let's look at some of the type aliases it provides:
-```purescript
+```haskell
 type EFFECT = FProxy Effect
 type AFF = FProxy Aff
 ```
@@ -69,7 +69,7 @@ Rather than typing `(fieldName :: FProxy Functor)`, we use an all-caps type alia
 #### Type Aliases
 
 `purescript-run` has a few other type aliases that will look familiar.
-```purescript
+```haskell
 newtype Reader e a = Reader (e → a)
 type READER e = FProxy (Reader e)
 
@@ -93,7 +93,7 @@ The takeaways here:
 If we look at some of the functions that each of the above MTL-like types provide, we'll notice another pattern. Each type (e.g. `Reader`) seems to define its own `Symbol` (e.g. `_reader :: SProxy "reader"`) for the corresponding type in `VariantF`'s row type (e.g. `READER`).
 
 However, if one wanted to use a custom `Symbol` name for their usage of an MTL-like type (e.g. `Reader`), they can append `at` to the function and get the same thing. In other words:
-```purescript
+```haskell
 liftReader readerObj = liftReaderAt _reader readerObj
 
 liftReaderAt symbol readerObj = -- implementation

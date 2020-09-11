@@ -13,13 +13,13 @@ We will explain and illustrate what is meant by each property
 While the above effects (e.g. `MonadState`) are pretty obvious, we might one day wish to define a new effect for handling authentication, `MonadAuthenticate`. If a function that uses state-manipulation effects via `MonadState` now needs to add the "authenticate" effect, it should be easy to add that and not require us to refactor a whole lot of code.
 
 In other words, going from this function ...
-```purescript
+```haskell
 f :: forall m.
      MonadState m =>
      InitialState -> m OutputtedState
 ```
 ... to this function...
-```purescript
+```haskell
 f' :: forall m.
       MonadState m =>
       MonadAuthenticate m =>

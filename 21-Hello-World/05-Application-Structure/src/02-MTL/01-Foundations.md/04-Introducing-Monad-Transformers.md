@@ -3,7 +3,7 @@
 ## Comparing `Function input output` to `OutputBox input output`
 
 When we initially covered the original monadic function, `(a -> b)`, we discovered that it's "do notation" could be read like this:
-```purescript
+```haskell
 produceValue = someComputation 4
   where
   someComputation = do
@@ -14,7 +14,7 @@ produceValue = someComputation 4
 ```
 
 The above computation demonstrates something important: the argument, `4`, passed to `someComputation` is always available in its do notation despite the argument, `4`, never appearing as an argument in `someComputation`'s definition.
-```purescript
+```haskell
 -- In other words, we have this...
 someComputation = do
   -- code...
@@ -28,7 +28,7 @@ The normal `(a -> b)` function allows us to reference the argument we pass into 
 
 But what happens if we use the `OutputMonad`/`(a -> monad b)` function? Since it outputs a monadic data type, what if that monadic data type was `Effect` or `Aff`? If so, the resulting code would be very hard to read:
 
-```purescript
+```haskell
 produceComputation = runOutputEffect someComputation 4
   where                                                                     {-
   someComputation :: OutputMonad a   m      b                               -}
@@ -41,7 +41,7 @@ produceComputation = runOutputEffect someComputation 4
 ```
 
 But what if we expressed the same idea using capabilities via type class constraints? This is the same code as above:
-```purescript
+```haskell
 produceComputation = runOutputMonad someComputation 4
   where
   someComputation :: forall m. Monad m =>

@@ -36,7 +36,7 @@ if (a == null) {
 
 In PureScript, we _could_ write the following **non-idiomatic** code that repeats this Pyramid of Doom:
 
-```purescript
+```haskell
 data Maybe a
   = Nothing
   | Just a
@@ -61,7 +61,7 @@ someComputation =
 
 Or, we could use `Maybe`'s `Monad` instance via `do notation` to write **idiomatic** PureScript code:
 
-```purescript
+```haskell
 data Maybe a
   = Nothing
   | Just a
@@ -92,7 +92,7 @@ If a `Nothing` value is given at any point in the nested-`bind` computations, it
 
 What is a real-world example of using the Maybe monad? One often writes monadic code using Maybe as the Monad to lookup values in some structure (e.g. `Map`, `Array`, `List`, or `Tree`). Often, this control flow reads like this: "Try to get value X. If it exists, try to get value Y. If that exists, do something with both. If either one of them does not exist, stop and return immediately." In other words...
 
-```purescript
+```haskell
 example :: Maybe String
 example = do
   x <- index 4 array
@@ -126,7 +126,7 @@ if (isError(a)) {
 
 ### PureScript Code (non-idiomatic)
 
-```purescript
+```haskell
 data Either a b
   = Left a
   | Right b
@@ -151,7 +151,7 @@ someComputation = do
 
 Or, we could use `Either`'s `Monad` instance via `do notation` to write **idiomatic** PureScript code:
 
-```purescript
+```haskell
 data Either a b
   = Left a
   | Right b
@@ -177,7 +177,7 @@ If a `Left` value is given at any point in the nested-`bind` computations, it wi
 
 What is a real-world example of using the Either monad? One often uses it to validate that some data is correct. It reads like, "Try to parse the given `String` into an `Int`. If it fails, stop. Otherwise, try to parse the given `String` into a `Foo`. If it fails, stop. Otherwise, take the `Int` and the `Foo` and do something with them."
 
-```purescript
+```haskell
 example :: String -> Either String ValidatedData
 example string = do
   intValue <- parseString string
@@ -212,7 +212,7 @@ return finalList;
 
 The non-idiomatic version of the PureScript code below is complicated because it uses a lot of recusion. Thus, I do not show it here. Rather, we'll only show the idiomatic version:
 
-```purescript
+```haskell
 data List a
   = Nil
   | Cons a (List a)
@@ -239,7 +239,7 @@ someComputation = do
   pure (a + b + c)
 ```
 which outputs:
-```purescript
+```haskell
 -- a = 1, b = 2
 ( 6 : 7 : 8
 -- a = 1, b = 3

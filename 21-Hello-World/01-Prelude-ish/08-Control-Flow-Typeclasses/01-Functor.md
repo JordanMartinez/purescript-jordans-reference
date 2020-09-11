@@ -13,7 +13,7 @@ into `b`
 
 See its docs: [Functor](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Functor)
 
-```purescript
+```haskell
 class Functor f where
   map :: forall a b. (a -> b) -> f a -> f b
 
@@ -27,7 +27,7 @@ instance f :: Functor Box where
 ```
 
 Put differently, `Functor` solves a specific problem. If I have a function of type `(a -> b)`, I cannot use that function on values of `a` if they are stored in a box-like type:
-```purescript
+```haskell
 function :: Int -> String
 function 0 = "0"
 function _ = "1"
@@ -36,7 +36,7 @@ function 5 -- This works!
 function (Box 5) -- compiler error! Oh noes!
 ```
 One could also see `map` as "transforming" a function, so that it also operates on Box-like types. This is often described as "lifting" a function into a Box-like type:
-```purescript
+```haskell
 map :: forall a b. (a -> b) -> (Box a -> Box b)
 map f = (\(Box a) -> Box (f b))
 ```
@@ -47,7 +47,7 @@ map f = (\(Box a) -> Box (f b))
 
 Definition: `(\x -> x) <$> fa == fa`
 
-```purescript
+```haskell
 -- Start!
 (\a -> a) <$> (Box 4)
 -- De-infix "<$>" to map
@@ -72,7 +72,7 @@ true
 
 Definition: `map (g <<< f) = (map g) <<< (map f)`
 
-```purescript
+```haskell
 -- # Reduce left side of the law #
 
 -- Start!

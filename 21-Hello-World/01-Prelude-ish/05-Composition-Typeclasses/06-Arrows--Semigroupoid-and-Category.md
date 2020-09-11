@@ -5,18 +5,18 @@ We'll explain this idea before `Control Flow`-related type classes so that you u
 ## Cleaner Function Notation
 
 Let's say I have two functions:
-```purescript
+```haskell
 (\x -> x + 1)
 (\y -> y * 10)
 ```
 
 If we want to apply an argument to the first and pass its output into the second, we would have to write something ugly-looking:
-```purescript
+```haskell
 (\x -> (\y -> y * 10) (x + 1) )
 ```
 
 What we mean is something like this
-```purescript
+```haskell
 f = (\x -> x + 1)
 g = (\y -> y * 10)
 
@@ -24,20 +24,20 @@ expression = (\arg -> g (f arg))
 ```
 
 We have just defined function composition, which can be written in such a way to reduce "noise:"
-```purescript
+```haskell
 -- The arrow determines where the output goes
 (\a -> g (f a)) == (g <<< f)
 (\a -> g (f a)) == (f >>> g)
 ```
 
 Moreover, sometimes we want a function that returns the input:
-```purescript
+```haskell
 (\x -> x)
 -- so that we can use it like...
 (\x -> x) 4 == 4
 ```
 We call this function, `identity`:
-```purescript
+```haskell
 (\x -> x) == identity
 -- same thing
 identity 4 == 4
@@ -54,7 +54,7 @@ To summarize...
 | identity | `(\x -> x) a` | `identity a`
 
 If we were to turn `compose` into a function, it would appear with the type signature below:
-```purescript
+```haskell
 compose :: forall a b c. (b -> c)     -> (a -> b)     -> (a -> c)
 -- However, "->" is just sugar syntax for Function:
 compose :: forall a b c. Function b c -> Function a c -> Function a c

@@ -2,7 +2,7 @@
 
 `MonadCont`, the Continuation Monad, is used to handle callback hell among other things.
 
-```purescript
+```haskell
            -- r      m     a
 newtype ContT return monad input =
   ContT ((input -> monad return) -> monad return)

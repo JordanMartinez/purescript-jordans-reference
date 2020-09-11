@@ -8,7 +8,7 @@ Monad = Sequential Computation (`Bind`) + Lift a Value/Function into Box-like Ty
 
 See its docs: [Monad](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Control.Monad)
 
-```purescript
+```haskell
 class (Applicative m, Bind m) <= Monad m
 
 data Box a = Box a
@@ -37,7 +37,7 @@ instance monad :: Monad Box
 ### Unofficial
 
 Taken from [this slide in this YouTube video](https://youtu.be/EoJ9xnzG76M?t=7m9s), here's an "unofficial" but clearer way to understand the laws for Monad by comparing them to a Function:
-```purescript
+```haskell
 -- Recall: `identity a == (\x -> x) a`
 
 -- Given a function whose type signature is...
@@ -64,7 +64,7 @@ f >=> (g >=> h) == (f >=> g) >=> h
 
 Definition (left) : `pure x >>= f = f x`
 
-```purescript
+```haskell
 -- start
 pure x  >>= f
 -- replace call signature with body

@@ -2,7 +2,7 @@
 
 `MonadTrans` enables one computational monad to run inside another, thereby exposing multiple type class' functions for usage in `bind`/`>>=` / do notation in the same function. It enables one to write an entire program via newtyped function monads (or functions with monadic syntax).
 
-```purescript
+```haskell
 class MonadTrans t where
   lift :: forall m a. m a -> t m a
 ```

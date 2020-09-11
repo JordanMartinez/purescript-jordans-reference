@@ -3,13 +3,13 @@
 ## What is Unit Testing
 
 Unit- / behavior- / example-testing verifies that a function (e.g. `reverse`) that receives a specific value (e.g. `"apple"`) of some data type (e.g. `String`) will output a specific value (e.g. `"elppa"`) of the same/different data type. In code:
-```purescript
+```haskell
 unitTest :: Boolean
 unitTest = (reverse "apple") == "elppa"
 ```
 
 If we want to test `reverse` for a different value of `String` (e.g. "pineapple"), we would need to write a second test:
-```purescript
+```haskell
 unitTest2 :: Boolean
 unitTest2 = (reverse "pineapple") == "elppaenip"
 ```
@@ -42,12 +42,12 @@ For more details, see these links:
 Property-testing verifies that a function (e.g. `reverse`) that receives **any** value of some data type (e.g. `String`) will output an expected value of the same/different data type; the expected value is calculated using the given input.
 
 One might immediately think of this code before realizing that it doesn't work:
-```purescript
+```haskell
 propertyTestFail :: String -> Boolean
 propertyTestFail input = (reverse input) == -- ???
 ```
 What should the expected output be? One way to resolve this is to call reverse twice on the input and see if it matches the original input. In code:
-```purescript
+```haskell
 propertyTest :: String -> Boolean
 propertyTest input = (reverse (reverse input)) == input
 ```
@@ -61,7 +61,7 @@ Lastly, Problem 4 is solved with a feature called "shrinking." While a unit test
 ## The Trustworthiness of Property Testing
 
 In some cases, such as `Boolean`, one has a finite number of input values to verify:
-```purescript
+```haskell
 testBooleanWithAnd :: Boolean -> Boolean
 testBooleanWithAnd randomBoolean = (randomBoolean && true) == randomBoolean
 ```

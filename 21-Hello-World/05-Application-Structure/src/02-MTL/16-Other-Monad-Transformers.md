@@ -11,7 +11,7 @@
 [MaybeT](https://pursuit.purescript.org/packages/purescript-transformers/4.1.0/docs/Control.Monad.Maybe.Trans#t:MaybeT), a computation the returns a `Maybe a`. The below code snippet shows why you'd use it and when:
 
 Before (ugly verbose code):
-```purescript
+```haskell
 getName :: Effect (Maybe String)
 getAge :: Effect (Maybe Int)
 
@@ -28,7 +28,7 @@ main = do
           log $ "Got name: " <> name <> " and age " <> show age
 ```
 After (clear readable code):
-```purescript
+```haskell
 getName :: Effect (Maybe String)
 getAge :: Effect (Maybe Int)
 

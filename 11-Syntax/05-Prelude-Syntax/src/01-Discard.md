@@ -1,7 +1,7 @@
 # Discard
 
 There is a type class in Prelude called [`Discard`](https://pursuit.purescript.org/packages/purescript-prelude/docs/Control.Bind#t:Discard) that does not appear in our diagram of Prelude's type classes. It is implemented only by `Unit`.:
-```purescript
+```haskell
 -- Pseudo-Syntax: combines the class and its only instance into one block:
 class Discard Unit where
   discard :: forall f b. Bind f => f Unit -> (Unit -> f b) -> f b

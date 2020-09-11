@@ -17,7 +17,7 @@ into `b`
 
 See its docs: [Apply](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Control.Apply)
 
-```purescript
+```haskell
 class (Functor f) <= Apply f where
   apply :: forall a b. f (a -> b) -> f a -> f b
 
@@ -35,7 +35,7 @@ instance apply :: Apply Box where
 ```
 
 Put differently, `Apply` solves a problem that occurs when using `Functor`. If I have a function of type `(a -> b -> c)`, I can use `Functor`'s `map`/`<$>` to lift that function into a Box-like type as before....
-```purescript
+```haskell
 mapResult :: Box (Int -> Int)
 mapResult = map (\first second -> first + second) (Box 1)
 ```
@@ -43,7 +43,7 @@ mapResult = map (\first second -> first + second) (Box 1)
 However, the resulting value stored in that Box-like type is a function. In other words, `mapResult == Box (\second -> 1 + second)`. `Functor`'s `map` only works if the function takes only one argument. If it takes 2+ arguments, `map` will return a function stored in a `Box`.
 
 This is where `Apply` comes to the rescue. We can continue to apply boxed arguments to that function until we eventually get a Box with a value in it:
-```purescript
+```haskell
 finalResult :: Box Int
 finalResult =
   apply mapResult (Box 2)                                 {-
@@ -74,20 +74,20 @@ TODO: prove the above law using `Box` (a lot of work, so ignoring for now...)
 ### LiftN Notation
 
 Let's rename that `Functor`'s `map` function to `lift1`:
-```purescript
+```haskell
 {-
 map   (\oneArg -> doStuffWith oneArg) (Box 4) -}
 lift1 (\oneArg -> doStuffWith oneArg) (Box 4)
 ```
 This function can only take one arg. What if want to take two args? We should call it `lift2`:
-```purescript
+```haskell
 lift2 (\arg1 arg2 -> andThen (doStuffWith arg1) arg2) (Box 4) (Box 4)
 ```
 That works, but we could also write it:
-```purescript
+```haskell
 (\arg1 arg2 -> andThen (doStuffWith arg1) arg2) <$> (Box 4) <*> (Box 4)
 ```
 Using meta-language
-```purescript
+```haskell
 function_NotInBox_takes_n_args <$> boxedArg1 <*> boxedArg2 -- <*> boxedArgN ...
 ```

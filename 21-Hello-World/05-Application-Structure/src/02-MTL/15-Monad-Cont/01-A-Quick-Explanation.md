@@ -12,7 +12,7 @@ The following explanation builds upon and modifies [this article's explanation](
 ## Why Callbacks Exist
 
 When writing a library (e.g. GUI toolkit, game engine, etc.), one may want the end-developer to be able to run their own custom code at some point. In the example below, the custom code is represented by the type hole, `?doSomething`:
-```purescript
+```haskell
 attack :: Target -> Effect Unit
 attack target = do
   valid <- isTargetValid target
@@ -21,7 +21,7 @@ attack target = do
   else ignoreAttack
 ```
 Since the library developer does not know how the end-developer will use this function, they can convert `?doSomething` into a callback function that the end-developer supplies:
-```purescript
+```haskell
 -- library developer's code
 attack :: Target -> (Target -> Effect Unit) -> Effect Unit
 attack target doSomething = do
@@ -38,7 +38,7 @@ This makes life easy for the library-developer, but not for the end-developer as
 ## The Continutation Solution
 
 The problem is not the callback function; there is no other solution for the library-developer. The problem is "where" that function appears in `attackUnit`. In short, the type appears in the argument part of the function (`attackUnit_arg`) instead of in the return part of the function (`attackUnit_return`):
-```purescript
+```haskell
 -- original version (curried function)
 attack ::           Target ->  (Target -> Effect Unit)  -> Effect Unit
 
@@ -56,12 +56,12 @@ attack ::           Target -> ((Target -> Effect Unit)  -> Effect Unit)
 ```
 
 `Effect` is a monad, so we can chain multiple sequential computations like that together using `bind`/`>>=`. If we can do that for `Effect`, why not do so for every monad? This changes our type signature of `attack`:
-```purescript
+```haskell
 attack_no_monad ::  Target -> ((Target -> Effect Unit) -> Effect Unit)
 attack_monad    ::  Target -> ((Target -> monad  Unit) -> monad  Unit)
 ```
 That's a lot of code to write each time, so it can be converted into a `newtype`:
-```purescript
+```haskell
 newtype ContT return monad input =
   ContT ((input -> monad return) -> monad return)
 
@@ -70,7 +70,7 @@ attack_monad    ::  Target -> ((Target -> monad  Unit) -> monad  Unit)
 attack_cont     ::  Target -> ContT Unit Effect Target
 ```
 To create a `ContT`, we create a function whose only argument is the callback function:
-```purescript
+```haskell
 ContT (\callbackFunction -> do
   -- everything else we did beforehand...
   callbackFunction arg
@@ -78,7 +78,7 @@ ContT (\callbackFunction -> do
 )
 ```
 Let's implement it for `attack` and compare the two approaches:
-```purescript
+```haskell
 attack_original :: Target -> (Target -> Effect Unit) -> Effect Unit
 attack_original target doSomething = do
   valid <- isTargetValid target
@@ -95,14 +95,14 @@ attack_contT target = ContT (\doSomething -> do
   )
 ```
 And if we didn't want to use a monad, we could use `Identity` as a placeholder monad:
-```purescript
+```haskell
 type Cont return input = ContT return Identity input
 ```
 
 ## Comparing ContT to Another Function
 
 Let's play with `ContT` for a bit and see what it reminds us of:
-```purescript
+```haskell
 -- Original version
 newtype ContT return monad input =
   ContT ((input -> monad return) -> monad return)
@@ -128,7 +128,7 @@ apply function arg = function arg
 infixr 0 apply as $
 ```
 Exactly. `ContT` is just a monad transformer for the `apply`/`$` function. Let's compare them further:
-```purescript
+```haskell
 print   10
 -- ==
 print $ 10
@@ -145,7 +145,7 @@ runCont (Cont (\f -> f     (10))) print
 ## When You Need Two or More Callback Functions
 
 If `attack` is modified, so that it requires two callback functions, `?doSomethingWithDamage` and `doSomethingWithBoth`, it would seem that our nice solution from above would no longer work since we can only specify one of the two functions:
-```purescript
+```haskell
 attackWith :: Target -> Weapon -> ContT Unit Effect Target
 attackWith target weapon = ContT (\only1CallbackFunction -> do
     damage <- calculateDamageFor weapon (modifiedBy 1.5)
@@ -158,7 +158,7 @@ attackWith target weapon = ContT (\only1CallbackFunction -> do
 ```
 
 The solution is to pass in a callback function that takes a sum type as its argument. When using `ContT`/`Cont`, the callback function is usually called `k`, so we'll do that here, too:
-```purescript
+```haskell
 data AllPossibleInputs
   -- where each constructor wraps the arguments
   -- that will be used in a function

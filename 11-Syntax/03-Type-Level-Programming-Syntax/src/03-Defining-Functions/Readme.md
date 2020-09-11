@@ -3,7 +3,7 @@
 ## Solve for X
 
 Normally, when we define a function for value-level programming, it looks like this:
-```purescript
+```haskell
 function :: InputType -> OutputType
 function InputValue = OutputValue
 ```
@@ -44,7 +44,7 @@ This is the same idea used in type-level programming. So, how does this actually
 | a multi-parameter type class | functional dependencies (the exact number depends) | type class instances
 
 For example, assuming we had 1) a type-level number called `IntK`, 2) its value-level Proxy type, `IProxy`, and 3) instances for the below type class, we could write an `add` and two `subtract` functions using just one relationship:
-```purescript
+```haskell
 -- the relationship itself
 class AddOrSubtract (x :: IntK) (y :: IntK) (total :: IntK)
   -- the normal "add" function: "total = x + y"
@@ -56,7 +56,7 @@ class AddOrSubtract (x :: IntK) (y :: IntK) (total :: IntK)
   , y total -> x
 ```
 Then, we could use this one relationship as three different functions:
-```purescript
+```haskell
 -- given two IntK values, I can add them together by returning
 -- `total`, which is "calculated" via the type class `AddOrSubtract`
 addTwoIntK :: forall x y total
@@ -85,7 +85,7 @@ subtractIntK_2 _ _ = IProxyValue
 Recall that the type checker / type constraint solver "computes" type-level expressions by figuring out what type something is. Thus, the above analogy is helpful for understanding type-level programming, but it is incomplete without an explanation on how types "unify". In short, **unification** is the way by which the compiler infers or figures out some type. For our context, it is how the type checker computes the "type-level output" of a type-level function. It does this by unifying the undefined types in a type class' definition with a concrete type's instance of that type class.
 
 Let's review something first. In a type class definition and its instance, we have terms to refer to specific parts of it:
-```purescript
+```haskell
 class Show a where
   show :: a -> String
 
@@ -136,7 +136,7 @@ A type-level function can only "compute" a type-level expression when the types 
 ### Backtracking Is Not (Currently) Supported
 
 Here is an example of "backtracking". It will make more sense after you have read through the `Pattern-Matching-Using-Instance-Chains.purs` file.
-```purescript
+```haskell
 class MyClass a
   someValue :: Boolean
 
@@ -166,7 +166,7 @@ To understand unification at a deeper level, see these links:
 ## Functional Dependencies Reexamined
 
 At times, it can be difficult for the type checker to infer what a given type is. Thus, one uses functional dependencies (FDs) to help the compiler. As a reminder, FDs inform the compiler how to infer what some types are given that it knows other types:
-```purescript
+```haskell
 class Add (x :: IntK) (y :: IntK) (total :: IntK)
   | x y -> total
   , y total -> x
@@ -175,7 +175,7 @@ class Add (x :: IntK) (y :: IntK) (total :: IntK)
 However, sometimes the functional dependencies get a bit more complicated because there are two types on the right-hand side of the arrow. This is where our analogy of a "FDs are type-level functions" starts to break down since a value-level function can only return one value at a time. (Granted, one can use a `Tuple` or `Record` to return multiple values in a container, but the principle still applies.) **With our "relationships", a single FD can sometimes define multiple type-level functions depending on how we use them.**
 
 For example, look at the second FD of [`Prim.Row.Cons`](https://pursuit.purescript.org/builtins/docs/Prim.Row#t:Cons):
-```purescript
+```haskell
 -- Note: Symbol is a type-level String
 class Cons (label :: Symbol) (a :: Type) (tail :: # Type) (row :: # Type)
   | label a tail -> row

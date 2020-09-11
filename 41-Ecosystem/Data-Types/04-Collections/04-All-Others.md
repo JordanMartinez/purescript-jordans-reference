@@ -2,7 +2,7 @@
 
 ## Finger Tree
 
-```purescript
+```haskell
 data FingerTree measurement a = -- implementation
 -- measurement can be many things, such as length or size
 ```

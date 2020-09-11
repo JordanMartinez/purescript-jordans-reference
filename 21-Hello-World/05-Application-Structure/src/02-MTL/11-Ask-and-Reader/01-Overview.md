@@ -3,7 +3,7 @@
 ## Monad Reader
 
 `MonadAsk` is used to expose a read-only value to a monadic context. It's default implmentation is `ReaderT`:
-```purescript
+```haskell
              -- r        m     a
 newtype ReaderT readOnly monad finalOutput =
   ReaderT (\readOnly -> monad finalOutput)
@@ -17,7 +17,7 @@ class (Monad m) <= MonadAsk r (ReaderT r m) where
 ## Do Notation
 
 When writing `StateT`'s do notation, we have a function called `get` that does not take any argument but still returns a value:
-```purescript
+```haskell
 stateManipulation :: State Int Int
 stateManipulation =
   get
@@ -37,7 +37,7 @@ stateManipulation =
 ```
 
 `MonadAsk`'s function works similarly:
-```purescript
+```haskell
 type Settings = { editable :: Boolean, fontSize :: Int }
 useSettings :: Reader Settings Settings
 useSettings = ask
@@ -57,7 +57,7 @@ useSettings = ask
 ## MonadReader
 
 `MonadReader` extends `MonadAsk` by allowing the read-only value to be modified first before being used in one computation.
-```purescript
+```haskell
 class MonadAsk r m <= MonadReader r m | m -> r where
   local :: forall a. (r -> r) -> m a -> m a
 ```

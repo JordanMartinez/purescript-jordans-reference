@@ -20,19 +20,19 @@ In programming, there are usually two terms we use to describe "when" a problem/
 ### Types Reexamined
 
 When we define a type like so...
-```purescript
+```haskell
 data MyType
   = Value1
   | Value2
 ```
 ... we are saying there is a set or domain called `MyType` that has two members, `Value1` and `Value2`.
 Thus, when we write...
-```purescript
+```haskell
 value1 :: MyType
 value1 = Value1
 ```
 ... we could also write it with more type information:
-```purescript
+```haskell
 value1 :: MyType
 value1 = (Value1 :: MyType)
 ```
@@ -51,7 +51,7 @@ Functions can be either pure or impure. Pure functions have 3 properties, but th
 | *Does it throw exceptions? | Never | | Sometimes | `function (e) { throw Exception("error") }` |
 
 Pure functions can better be explained as mapping some input to some output. The simplest example is pattern matching:
-```purescript
+```haskell
 data Fruit = Apple | Orange
 
 stringify :: Fruit -> String

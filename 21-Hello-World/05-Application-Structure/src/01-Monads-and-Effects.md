@@ -37,7 +37,7 @@ In this folder, we'll only cover `MTL`/`ReaderT Design Pattern` and `Free`/`Run`
 ### Composing Monads
 
 As we explained previously, `bind`/`>>=`'s type signature forces one to only return the same `Box`-like monad type that is used in bind:
-```purescript
+```haskell
 bind :: forall a. f   a -> ( a    -> f   b)           -> f    b
 bind :: forall a. Box a -> ( a    -> Box b         )  -> Box  b
 bind             (Box 4)   (\four -> Box (show four)) == Box "4"

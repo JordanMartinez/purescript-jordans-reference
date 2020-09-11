@@ -9,7 +9,7 @@ We can now return to the original question we raised at the start of the `Free` 
 Unfortunately, this `Coproduct` + `Free` approach only works on `Free` monads; it does not work for other non-`Free` monads. As the paper says, the `ListT` and `StateT` monads are not free monads. Why? Let's consider the `StateT` monad. The issue at hand are its laws. If I call `set 4` and then later call `get`, `get` should return `4`. By using `Free` as we have so far, we cannot uphold that law.
 
 So, how do we get around that limitation? We can define a type that has an instance for `Functor` and whose values represent terms in a language (similar to our `Add`, `Multiply`, `Value` language) that provides the operations we would expect from such a monad. The paper's example shows how one could create a `State` monad using this approach. Since it will follow much of what we have already covered before, we'll just show the Purescript version of their code.
-```purescript
+```haskell
 data Add      theRestOfTheComputation = Add Int theRestOfTheComputation
 data GetValue theRestOfTheComputation = GetValue (Int -> theRestOfTheComputation)
 
@@ -85,7 +85,7 @@ Whereas the `ReaderT` design pattern would use type class instances to implement
 ## Defining and Interpreting Languages for the Free Monad
 
 When we look at how to define a language data type for the `Free` monad, it follows this pattern (written in meta-language):
-```purescript
+```haskell
 data Language theRestOfTheComputation
   -- Statement that tells interpreter to do something but
   -- doesn't pass down any arguments into the interpreter
@@ -105,7 +105,7 @@ data Language theRestOfTheComputation
   | Function_With_Getter Arg_Passed_to_Interpreter (Value_Provided_By_Interpreter -> theRestOfTheComputation)
 ```
 So far, we've only defined a data type with one value and composed those data types together. However, what if we treated a data type as a "family" of operations where each value in that data type was an operation? Then our data types might look like this:
-```purescript
+```haskell
 -- A "language" that supports the capabilities of reading from
 -- a file and writing to a file
 data FileSystem a
@@ -122,7 +122,7 @@ data ConsoleIO a
   | WriteThenRead String (String -> a)
 ```
 Using these data structure, we can "interpret" these non-runnable pure programs into an equivalent runnable impure program (e.g. `Effect`). Assuming these functions exist...
-```purescript
+```haskell
 consoleRead :: Effect String
 
 consoleWrite :: String -> Effect Unit
@@ -132,7 +132,7 @@ readFromFile :: FilePath -> Effect String
 writeToFile :: FilePath -> String -> Effect Unit
 ```
 ... we could take our pure "description" of computations (e.g. `Free ConsoleIO a`) and "interpret" it into an impure `Effect` monad:
-```purescript
+```haskell
 class Functor f => Exec f where                                      {-
   execAlgebra :: f (Effect a) -> Effect a                            -}
   execAlgebra :: f  Effect    ~> Effect
@@ -192,7 +192,7 @@ Thus, say we had a program that needed a number of capabilities:
 - gets current date/time
 
 That program might look something like this:
-```purescript
+```haskell
 type Message = String
 type Prompt = String
 type UserInput = String

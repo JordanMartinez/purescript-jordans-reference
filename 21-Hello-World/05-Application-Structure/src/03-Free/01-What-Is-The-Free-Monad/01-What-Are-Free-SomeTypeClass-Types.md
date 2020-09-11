@@ -25,7 +25,7 @@ In short, to create a "free" `SomeTypeClass`, we do 2 things:
 ## A "Free" Monoid
 
 When we look at `Monoid`, we see this type class:
-```purescript
+```haskell
 class Monoid a where                                                    {-
   append :: a -> a -> a       -- include Semigroup's function           -}
   mempty :: a
@@ -35,11 +35,11 @@ class Monoid a where                                                    {-
 -- mempty  <> "hello" == "hello"
 ```
 Let's follow the instructions from above: First, we'll translate the type class into a data type that can take any type:
-```purescript
+```haskell
 data FreeMonoid a
 ```
 Second and starting with the easier function `mempty`, we'll translate it into a constructor for `FreeMonoid`. `mempty` is easy, since it translates into a placeholder constructor:
-```purescript
+```haskell
 data FreeMonoid a
   = Mempty
 
@@ -51,13 +51,13 @@ instance m :: Monoid (FreeMonoid a) where
   mempty = Mempty
 ```
 `append` is a bit harder. We need to store a value of type `a`, so we can try this:
-```purescript
+```haskell
 data FreeMonoid a
   = Mempty
   | Append a
 ```
 However, if we try to implement this as `(Append a1) <> (Append a2)`, we can't combine `a1` and `a2`. Rather, we need to store both an `a1` and an `a2` in a single `Append`:
-```purescript
+```haskell
 data FreeMonoid a
   = Mempty
   --       a1 a2
@@ -80,7 +80,7 @@ instance s :: Semigroup (FreeMonoid a) where
 Our previous solution doesn't work either. If the failure case above is just another append, we get something like this:
 `((Append a1 Mempty) <> (Append a2 Mempty)) <> (Append a3 Mempty)`
 Rather than defining a second `a` for `Append`, what if we nested the types together? This approach makes our code finally work:
-```purescript
+```haskell
 data FreeMonoid a
   = Mempty
   --       a1  Mempty / Append a
@@ -97,7 +97,7 @@ instance m :: Monoid (FreeMonoid a) where
   mempty = Mempty
 ```
 The above code is the exact same thing as a familiar data type, `List`:
-```purescript
+```haskell
 data List a
   = Nil
   | Cons a (List a)
@@ -113,7 +113,7 @@ instance m :: Monoid (List a) where
   mempty = Nil
 ```
 Thus, we say that `List` is a "free" monoid because by wrapping some type (e.g. `Fruit`) into a `List`, we get a monoid instance for `Fruit` for free:
-```purescript
+```haskell
 data Fruit
   = Apple
   | Orange

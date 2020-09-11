@@ -16,14 +16,14 @@ Here's the solution we came up with:
 (Tuple value_N, value_N_plus_1) = stateManipulation(valueN);
 ```
 Turning this into Purescript syntax, we get:
-```purescript
+```haskell
 state_manipulation_function :: forall state value. (state -> Tuple value state)
 ```
 
 ## Syntax Familiarity
 
 Starting with a simple example written using meta-language, we can simulate the state manipulation syntax when it's only run once. Unlike the "add 1 to integer" problem from before, this will return the integer state as a `String`, not an `Int`:
-```purescript
+```haskell
 type State = Int
 type Value = String
 
@@ -55,7 +55,7 @@ Knowing that we have more complicated state manipulation ahead of us (e.g. Stack
 5. Pass the last state into `add` and return its output: `Tuple lastStateAsString lastState`.
 
 In code, this looks like:
-```purescript
+```haskell
 type State = Int
 type Value = String
 type Count = Int
@@ -81,7 +81,7 @@ runNTimes count add1_ nextState =
 This works but only because it's so simple. Let's say we want to call `add1` on the first state, then call `times2` on the second state, and then return the output of calling `add1` on the third state. How would we update our code to do that?
 
 We could try to specify a stack of functions (using an array or some other stack-like data structure) that are used to recursively evaluate the next state outputted by the previous function. **Below is not a working example** of how one would write that, **but merely demonstrates the heart** behind it:
-```purescript
+```haskell
 type Stack a = Array a
 type State = Int
 type Value = String
@@ -103,7 +103,7 @@ Conceptually, there are two problems with the above code.
 2. We cannot use a function that receives the next state AND value(s) produced by previous function(s) as its arguments.
 
 As an example for the second point, how could we use these two functions in the same state manipulation workflow:
-```purescript
+```haskell
 firstFunction :: State1 -> Tuple Value1 State2
 
 fourthFunction :: State4 -> Value1 -> Tuple Value4 State5
@@ -119,7 +119,7 @@ The following function, `crazyFunction`, demonstrates both of these problems wit
 4. Return `addStringLengthTo`'s output: `Tuple value2 nextState3`
 
 To write `crazyFunction`, we need something more like sequential computation, which implies `bind`/`>>=`. However, `bind` requires a Monad to work. With these clues, we need a function whose type signature looks something like this:
-```purescript
+```haskell
 someFunction :: forall state monad value
               . Monad monad
              => (state -> Tuple value state) -- the state manipulation function
@@ -128,7 +128,7 @@ someFunction :: forall state monad value
 someFunction function state = pure $ function state
 ```
 Putting this all together, we get this:
-```purescript
+```haskell
 someFunction :: forall state monad value
               . Monad monad
 
@@ -186,7 +186,7 @@ There's two problems with the above approach, which the next sections will refin
 `Box` is a literal runtime Box. So, using it here as our monad type means we'll be runtime boxing and unboxing the result of our functions, thereby slowing down our code needlessly. We only need `Box` so we can use a Monad for sequential computation, not because we need the type, `Box`, specifically (we could use `Box2` and our code wouldn't change). Why don't we get rid of this needless runtime overhead by using a type that only exists at compile-time? This implies using `newtype` because the type still needs to implement an instance for `Monad`.
 
 Since we have a "placeholder" function called `identity`, let's reuse this name for our compile-time-only type:
-```purescript
+```haskell
 -- placeholder for a function!
 identity :: forall a. a -> a
 identity x = x
@@ -202,7 +202,7 @@ newtype Identity a = Identity a
 ## The Syntax Problem
 
 `crazyFunction` showed an issue with our current approach: we have to pass the previous `state` result back into the next function. If the developer passes in the wrong state value, the code will no longer work as expected:
-```purescript
+```haskell
 crazyFunction :: Int -> Identity (Tuple Int Int)
 crazyFunction initial = do
   -- Computation 1: here we calculate what state2 is
@@ -228,7 +228,7 @@ Another benefit: it gets rid of the boilerplate-y noise-y `Tuple`s
 What would we need to change to get this syntax? This gets tricky.
 
 First, `initialState` should now be located outside `crazyFunction` and appear in another function, `runSomeFunction`. `runSomeFunction` should pass the `initialState` value into the final composition of all the state manipulating functions:
-```purescript
+```haskell
 runSomeFunction :: forall state value.
                    (state -> Identity (Tuple value state)) ->
                    state ->
@@ -257,7 +257,7 @@ crazyFunction = do
 Second (and as the above example shows), `someFunction` must somehow return just `value` and not `Tuple value state`.
 
 From these clues, we get this new type signature:
-```purescript
+```haskell
 someFunction :: forall state monad value.
                 Monad monad =>
                 (state -> Tuple value state) -> monad value
@@ -277,7 +277,7 @@ It would seem that this idea is not possible. We'll reveal how in the next file.
 ### Abstracting the Concept into a Type Class
 
 We want to use `someFunction` for numerous state manipulating functions on numerous data structures (e.g. `add1`, `popStack`, `replaceElemAtIndex`). This implies that we need to convert `someFunction` into a type class, so we can use `someFunction` in other situations via a type class constraint. Let's attempt to define it and call the type class `MonadState`. Its function, `state`, should be the same as `someFunction`'s type signature:
-```purescript
+```haskell
 someFunction :: forall state monad value
               . Monad monad
              => (state -> Tuple value state)
@@ -290,14 +290,14 @@ class MonadState ??? where
              -> m a
 ```
 Because we know we need `bind`, let's add a Monad constraint, `m`, to `???`:
-```purescript
+```haskell
 class (Monad m) <= MonadState m where
   state :: forall s a
              .  (s -> Tuple a s )
              -> m a
 ```
 We need to make sure the `state` type does not change, so we'll also define a functional dependency from `m` to `s`
-```purescript
+```haskell
 class (Monad m) <= MonadState s m | m -> s where
   state :: forall a
              .  (s -> Tuple a s )
@@ -306,7 +306,7 @@ class (Monad m) <= MonadState s m | m -> s where
 
 Combining this definition with its corresponding `runSomeFunction`, we get this (where `runSomeFunction` is now called `runStateFunction`)
 
-```purescript
+```haskell
 class (Monad m) <= MonadState s m | m -> s where
   state :: forall a. (s -> Tuple a s) -> m a
 

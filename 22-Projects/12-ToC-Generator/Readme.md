@@ -37,6 +37,6 @@ node 22-Projects/dist/table-of-contents/run-ghtoc.js -r . -o ./table-of-contents
 ```
 
 To test the code in both approaches, run this code:
-```purescript
+```haskell
 spago test -m Test.ToC.MainLogic.QuickCheckTest
 ```

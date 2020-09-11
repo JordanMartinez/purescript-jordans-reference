@@ -53,7 +53,7 @@ If you recall in `Syntax/Basic Syntax/src/Data-and-Functions/Type-Directed-Searc
 3. see better ways to code something via type classes
 
 As an example, let's say we have a really complicated function or type
-```purescript
+```haskell
 main :: Effect Unit
 main = do
   a <- computeA
@@ -61,7 +61,7 @@ main = do
   c <- (\a -> (\c -> doX c) <$> box a) <$> (Box 5) <*> (Box 8)
 ```
 If we want to know what the type will be for `doX`, we can rewrite that entity using a type direction search, `?doX`, and see what the compiler outputs:
-```purescript
+```haskell
 main :: Effect Unit
 main = do
   a <- computeA
@@ -69,7 +69,7 @@ main = do
   c <- (\a -> (\c -> ?doX c) <$> box a) <$> (Box 5) <*> (Box 8)
 ```
 If we're not sure what type a function outputs, we can precede the function with our search using `?name $ function`:
-```purescript
+```haskell
 main :: Effect Unit
 main = do
   a <- computeA
@@ -85,7 +85,7 @@ This is known as "typed wildcards".
 
 In a function body, wrapping some term with `(term :: _)` will cause the compiler to infer the type for you.
 
-```purescript
+```haskell
 main :: Effect Unit
 main = do
   a <- computeA
@@ -100,7 +100,7 @@ There are two possible situations where this idea might help:
 - You're exploring a new unfamiliar library and are still figuring out how to piece things together. So, you attempt to write the body of a function but aren't sure what it's type signature will be.
 
 In such cases, we can completely omit the type signature and the compiler will usually infer what it is for us:
-```purescript
+```haskell
 -- no type signature here for `f`,
 -- so the compiler will output a warning
 -- stating what its inferred type is
@@ -108,7 +108,7 @@ f = (\a -> (\c -> doX c) <$> box a) <$> (Box 5) <*> (Box 8)
 ```
 
 However, the above is not always useful when one only wants to know what the type of either an argument or the return type. In such situations, one can use typed wildcards from above in the type signature:
-```purescript
+```haskell
 doesX :: String -> _ -> Int
 doesX str anotherString = length (concat str anotherString)
 ```
@@ -118,7 +118,7 @@ doesX str anotherString = length (concat str anotherString)
 Sometimes, I wish we could have a 'unification trace' or a 'type inference trace'. I know the code I wrote works, but there's some mistake somewhere in my code that's making the compiler infer the wrong type at point X, which then produces the type inference problem much later at point Y. To solve Y, I need to fix the problem X, but I'm not sure where X is.
 
 Here's an example:
-```purescript
+```haskell
 type Rec = { a :: String }
 
 f :: String -> String
@@ -170,7 +170,7 @@ in value declaration main
 where t0 is an unknown type
 ```
 It's because you forgot to add the `do` keyword. Here's the code that produces the error:
-```purescript
+```haskell
 main :: Effect Unit
 main = -- missing `do` keyword!
   log "Here's a message"
@@ -183,7 +183,7 @@ main = -- missing `do` keyword!
 (This section assumes familiarity with the `Design Patterns/Partial Functions/` folder)
 
 Taken from [safareli's comment in "When should you use primitive types instead of custom types?""](https://discourse.purescript.org/t/when-should-you-use-primitive-types-instead-of-custom-types/450/14), there might be times where you want to use a partial function to get or compute some value that might not be there. If one just uses `unsafePartial $ <unsafeFunction>`, the error message will likely not be helpful:
-```purescript
+```haskell
 -- Don't do this.
 foo :: forall a. Maybe a -> a
 foo mightBeHere =
@@ -191,7 +191,7 @@ foo mightBeHere =
   unsafePartial $ fromJust mightBeHere
 ```
 `sarafeli`'s suggestion is to pattern match on the value and use `unsafeCrashWith` instead to provide a much better error message in case your assumption is proven invalid.
-```purescript
+```haskell
 foo :: forall a. Maybe a -> a
 foo mightBeHere = case mightBeHere of
   Nothing -> unsafeCrashWith "'mightBeHere' should be a valid 'a'"

@@ -6,7 +6,7 @@ The following type classes come from [`purescript-filterable`](https://pursuit.p
 
 [`Compactable`](https://pursuit.purescript.org/packages/purescript-filterable/docs/Data.Compactable#t:Compactable)
 
-```purescript
+```haskell
 class Compactable f where
   compact :: forall a.    f (Maybe a)    ->           f a
 
@@ -14,7 +14,7 @@ class Compactable f where
 ```
 
 [`catMaybes`](https://pursuit.purescript.org/packages/purescript-arrays/docs/Data.Array#v:catMaybes) is a function that removes all `Nothing`s in an `Array`. `compact` and `separate` generalize this idea to work across more `f` types and works for both `Maybe` and `Either`:
-```purescript
+```haskell
 catMaybes [Just 1, Nothing] == [1]
 
 compact [Just 1, Nothing] == [1]
@@ -27,7 +27,7 @@ separate [Left 1, Left 2, Right 3, Right 4] == { left: [1, 2], right: [3, 4] }
 
 [`Filterable`](https://pursuit.purescript.org/packages/purescript-filterable/docs/Data.Filterable#t:Filterable) generalizes the concept of [`Array.filter`](https://pursuit.purescript.org/packages/purescript-arrays/docs/Data.Array#v:filter) and [`Array.partition`](https://pursuit.purescript.org/packages/purescript-arrays/docs/Data.Array#v:partition) to work arcross more `f` types.
 
-```purescript
+```haskell
 class (Compactable f, Functor f) <= Filterable f where
   filter :: forall a.
     (a -> Boolean)    -> f a ->         f a
@@ -46,7 +46,7 @@ class (Compactable f, Functor f) <= Filterable f where
 
 [`Witherable`](https://pursuit.purescript.org/packages/purescript-filterable/docs/Data.Witherable) is the same as `Traversable`'s `traverse` but either removes the resulting `Nothing`s like `compact` or distinguishes the `Left`s and the `Rights` like `separate`.
 
-```purescript
+```haskell
 -- traverse :: forall a b m. Applicative m =>
 --  (a -> m b           ) -> t a -> m          (t b)
 
@@ -59,7 +59,7 @@ class (Filterable t, Traversable t) <= Witherable t where
 ```
 
 Its derived functions, `wilted` and `withered`, use `sequence` instead of `traverse`.
-```purescript
+```haskell
 -- sequence :: forall a m. Applicative m =>
 --  t (m a           ) -> m          (t a)
 

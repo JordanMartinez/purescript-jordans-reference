@@ -3,7 +3,7 @@
 ## Reviewing Old Ideas
 
 Thus far, we've overviewed individual Monad Transformers. However, we have not yet combined them into a "stack" that allows us to write anything useful. It's now time to reveal this. It will look similar to something we've seen before:
-```purescript
+```haskell
 class LiftSourceIntoTargetMonad sourceMonad targetMonad where {-
   liftSourceMonad :: forall a. sourceMonad a -> targetMonad a -}
   liftSourceMonad ::           sourceMonad   ~> targetMonad
@@ -20,7 +20,7 @@ We stated beforehand that `MonadState`'s default implmenetation is `StateT`. `bi
 However, because our monadic newtyped functions serve only to "transform" the base monad by handling all the 'behind the scenes' stuff, it's actually possible to support all of these effects within the same monadic type. One monadic type is nested in another. This is where the "stack" idea comes from. In other words, we need to define a way to "lift" a monadic newtyped function into another. However, the direction should go both ways (former lifted into latter and latter lifted into former).
 
 Since this idea is an abstraction that will repeat, will define it as a type class called, `MonadTrans`:
-```purescript
+```haskell
 class MonadTrans t where
   lift :: forall m a. Monad m => m a -> t m a
 

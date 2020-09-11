@@ -3,7 +3,7 @@
 `Debug.Trace` uses Custom Type Errors to warn the developer when it is being used.
 
 Let's examine it further since it provides an example for us to follow should we wish to do something similar in the future. The source code is [here](https://github.com/garyb/purescript-debug/blob/v4.0.0/src/Debug/Trace.purs#L8-L8), but we'll provide type signatures for the parts we need below and explain their usage:
-```purescript
+```haskell
 -- See the copyright notice at the bottom of this file for this code:
 
 -- | Nullary type class used to raise a custom warning for the debug functions.

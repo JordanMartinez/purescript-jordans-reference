@@ -11,7 +11,7 @@
 
 See its docs: [Applicative](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Control.Applicative)
 
-```purescript
+```haskell
 class (Apply f) <= Applicative f where
   pure :: forall a. a -> f a
 
@@ -36,7 +36,7 @@ instance applicative :: Applicative Box where
 
 Definition: `(pure (\x -> x) <*> v == v)`
 
-```purescript
+```haskell
 -- Start: 'v' == (Box 4)
 (pure (\x -> x)) <*> (Box 4)
 -- Replace pure call signature with body

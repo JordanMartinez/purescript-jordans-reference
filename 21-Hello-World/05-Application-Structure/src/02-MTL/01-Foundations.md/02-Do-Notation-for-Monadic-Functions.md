@@ -5,7 +5,7 @@ This file will help you learn how to read a monadic function's "do notation." We
 ## Function Implementations
 
 To help us evaluate these examples manually, we'll include our verbose "not cleaned up" solutions from the previous file here (except for the `Applicative` one):
-```purescript
+```haskell
 class Functor (Function inputType) where
   map :: forall originalOutputType newOutputType.
          (originalOutputType -> newOutputType) ->
@@ -47,13 +47,13 @@ class (Apply (Function inputType)) <= Bind (Function inputType) where
 ## Example 1: `pure`
 
 Let's say I have the following code using "do notation"
-```purescript
+```haskell
 someComputation = do
   pure 1
 ```
 
 Let's break it down:
-```purescript
+```haskell
 pure 1
 
 -- replace `pure` with implementation
@@ -63,7 +63,7 @@ pure 1
 This reveals the first issue with learning how to read "do notation" for monadic functions: the entire thing is one massive function. `someComputation` is not a value; it's a function that expects an input.
 
 To actually use it, we'd need to write something like this:
-```purescript
+```haskell
 produceAValue = someComputation "example input"
   where
   someComputation = do
@@ -73,7 +73,7 @@ produceAValue = someComputation "example input"
 ## Example 2: single `bind`
 
 Let's say I have the following code using "do notation"
-```purescript
+```haskell
 produceValue = someComputation 4
   where
   someComputation = do
@@ -82,7 +82,7 @@ produceValue = someComputation 4
 ```
 
 Let's break it down:
-```purescript
+```haskell
 produceValue = someComputation 4
   where
   someComputation = do
@@ -213,7 +213,7 @@ produceValue = 10
 ## Example 3: multiple `bind`
 
 I'll leave this up to the reader to reduce, but the syntax should make it clear how it works (4 is always the initial input in each function below):
-```purescript
+```haskell
 produceValue = someComputation 4
   where
   someComputation = do

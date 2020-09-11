@@ -1,7 +1,7 @@
 # From `Expression` to `Free`
 
 We've been defining the function, `fold`, the same way for a while. However, there's another way to write the function. To help you understand the upcoming code, we'll rewrite it in this new way:
-```purescript
+```haskell
 fold :: forall f a. Functor f => (f a -> a) -> Expression f -> a
 fold f (In t) = f (map (fold f) t)                                          {-
 ... which can be rewritten using infix notation                             -}
@@ -16,7 +16,7 @@ fold f = go where
 ```
 
 With that out of the way, let's compare `Expression` to `Free`. We can see that `Expression` is really just a variant of the `Free` monad without the `Pure` constructor.
-```purescript
+```haskell
 newtype Expression f
   -- no pure here...
   = In     (f (Expression f  ))
@@ -30,7 +30,7 @@ How would we rewrite our solution from before to use `Free` instead of `Expressi
 
 To see an example of this for just `Value` and `Add` (`Multiply` is excluded) and to understand its code, refer to the below code and table before viewing [ADT8.purs](https://github.com/xgrommx/purescript-from-adt-to-eadt/blob/master/src/ADT8.purs).
 
-```purescript
+```haskell
 -- when Value and Add were both `f`
 fold    f = go where
   go in_t = case in_t of
@@ -58,7 +58,7 @@ Purescript's `Free` monad is implemented in the "reflection without remorse" sty
 ### LiftF
 
 The `Free` monad has its own way of injecting a value into it called [`liftF`](https://pursuit.purescript.org/packages/purescript-free/5.2.0/docs/Control.Monad.Free#v:liftF). It can be understood like this:
-```purescript
+```haskell
 -- Before
 someValue :: forall a. a -> Expression SomeFunctor
 someValue a =
@@ -73,7 +73,7 @@ liftF = Impure (SomeFunctor a)
 
 `LiftF` is useful, but it won't let us compile the examples we will show next because it expects the `a` to be any `a`. In cases like `AddF`/`MultiplyF`, sometimes that `a` has to be `Free AddF`/`Free MultiplyF` instead of just the `Int` type. In such cases, we can use [`wrap`](https://pursuit.purescript.org/packages/purescript-free/5.2.0/docs/Control.Monad.Free#v:wrap):
 
-```purescript
+```haskell
 -- Using `liftF`
 add :: Int -> Int -> Free AddF Int
 add x y = liftF $ AddF x y

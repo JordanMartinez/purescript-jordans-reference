@@ -2,7 +2,7 @@
 
 ## Map (Ord-based)
 
-```purescript
+```haskell
 data Map key value = -- implementation
 ```
 

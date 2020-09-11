@@ -3,12 +3,12 @@
 This post comes out of my dialogue with `thomashoneyman` on Slack.
 
 Some might say that there's a problem with how `AppM` works. Due to hard-coding the `Aff` monad in `AppM`'s type definition...
-```purescript
+```haskell
 -- source code: AppM
 newtype AppM a = AppM (ReaderT Environment Aff a)
 ```
 ... we must create and use a completely different monad (i.e. `TestM`) for our tests:
-```purescript
+```haskell
 -- test code: TestM
 newtype TestM a = TestM (ReaderT Environment (State (Array String)) a)
 ```

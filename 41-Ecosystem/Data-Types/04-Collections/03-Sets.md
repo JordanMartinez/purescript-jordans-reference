@@ -2,7 +2,7 @@
 
 ## Set (Ord-based)
 
-```purescript
+```haskell
 newtype Set a = -- implementation
 ```
 
