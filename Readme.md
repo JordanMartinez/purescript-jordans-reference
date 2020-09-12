@@ -1,24 +1,23 @@
-# Purescript-Jordans-Reference
+# Purescript: Jordan's Reference
 
 This repo is my way of using the [Feynman Technique](https://medium.com/taking-note/learning-from-the-feynman-technique-5373014ad230) to learn Purescript and its ecosystem.
 
 All code uses PureScript `0.13.8`
 
-## Table of Contents
+To learn PureScript using this project:
+1. Git clone this repo
+2. [Bookmark and read through this repo online](https://jordanmartinez.github.io/purescript-jordans-reference-site/)
+3. Compile the code locally where possible, follow along, and experiment
 
-[**Table of Contents (Detailed)**](https://github.com/JordanMartinez/purescript-jordans-reference/blob/latestRelease/table-of-contents.md)
+## Guidelines for this project
 
-Below is a concise ToC that shows the kind of questions each folder answers:
-- **00-Getting-Started**: Why learn/use PureScript? How do I set up an editor (using Atom)? How do I use the REPL? What other things should I know before starting my learning journey?
-- **01-Philosophical Foundations**: What are some foundational ideas I need to understand before FP makes more sense? What is the "big idea" behind using FP languages? What are the drawbacks of using FP languages?
-- **02-Build-Tools**: Which tools do I use to compile, build, and deploy my libraries/applications, and how do I use them? What does a typical project workflow look like? What other tools help me be more productive?
-- **11-Syntax**: Purescript's syntax explained using the very clear examples that are verified by the compiler. How do I read/write type-level programming? What other compiler features exist syntactically?
-- **21-Hello-World**: How do I use FP techniques to write a refactorable, testable, readable program? How do I debug FP programs?
-- **22-Projects**: What are some real-world beginner-friendly examples of FP programs? How do I use a given library?
-    - Random Number Game - a game that runs on the console and in the browser using the same "business logic"
-    - Table of Contents Generator - a program that generates a table of contents for a GitHub repository.
-- **31-Design Patterns**: (WIP) What are commonly-used patterns to solve problems in FP languages?
-- **41-Ecosystem**: - (WIP) What is broad overview of the libraries in Purescript (categorized by tags)?
+### Contributing
+
+Feel free to open a new issue for:
+- Clarification on something you don't understand. If I don't know it yet and I'm interested, it'll force me to learn it
+- A link to something you'd like me to research more. If I'm interested or see the value, I'll look into it and try to document it or explain the idea in a clear way
+- Corrections for any mistakes I've made
+- Improvements to anything I've written thus far
 
 ## Project Labels
 
@@ -35,34 +34,6 @@ The following labels give insight into this project's development:
 Unless stated otherwise in a specific folder or file, this project is licensed under the `Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license`: [(Human-readable version)](https://creativecommons.org/licenses/by-nc-sa/4.0/), [(Actual License)](https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode)
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a>
-
-## Guidelines for this project
-
-### Contributing
-
-Feel free to open a new issue for:
-- Clarification on something you don't understand. If I don't know it yet and I'm interested, it'll force me to learn it
-- A link to something you'd like me to research more. If I'm interested or see the value, I'll look into it and try to document it or explain the idea in a clear way
-- Corrections for any mistakes I've made
-- Improvements to anything I've written thus far
-
-### Learning Purescript Using This Project
-
-- Git clone this repo
-- Use these rules to read through the folders' contents in the correct order:
-    - **Read a folder's "ReadMe.md" file first (if it exists).** It may provide additional info for how to read a folder's contents.
-    - **Read a folder's files or subfolders in numerical order.** For example, read things in the order they appear below:
-        - 00-Getting-Started/ReadMe.md
-        - 00-Getting-Started/01-Install-Guide.md
-        - 00-Getting-Started/... (the rest of the folder's contents)
-        - 01-Build-Tools/... (the folder's contents)
-        - 11-Syntax/ReadMe.md
-        - 11-Syntax/01-Basic-Syntax/src/00-Comments-and-Documentation.purs
-        - 11-Syntax/01-Basic-Syntax/src/01-Preliminary-Concepts/01-Value-Function-Data-Syntax.purs
-        - 11-Syntax/01-Basic-Syntax/src/01-Preliminary-Concepts/02-Explainng-Kinds.md
-        - 11-Syntax/01-Basic-Syntax/src/01-Preliminary-Concepts/03-The-Prim-Module.purs
-        - 11-Syntax/01-Basic-Syntax/src/02-Data-and-Functions/... (the rest of the folder's content)
-- Compile the code where possible, either before or after you experiment
 
 ## Naming Conventions Used In This Repo
 
@@ -91,45 +62,3 @@ In situations, where 9 files were not enough, I converted a file into a folder a
 ### An 'x' in a File/Folder Name
 
 If a file or folder name has `x` in the numerical part of its name (e.g. `0x-File-or-Folder-Name`, `9x-File-or-Folder-Name`), it means I am still deciding where it should appear in the numerical order (and it is likely still a work in progress).
-
-### Referring to Files/Folders in this repo
-
-Lastly, when referring to folders/files, we'll omit the numerical ordering (since the final order is still being determined). So, rather than `00-Getting-Started`, you'll see `Getting Started` folder. Rather than `00-Getting-Started/01-Install-Guide.md`, you'll see `Getting-Started/Install-Guide.md`
-
-## Versioning Policy
-
-See this section to help you understand what a new release means
-
-### Principles
-
-- **Provide "stable" versions...**:
-    - Readers of a given version should be able to read and bookmark files without worrying about those files/links breaking due to changes in its name (via renaming/reordering files, headers in files, etc.)
-    - Older versions should be available via `git tag`.
-- **...without restricting developer creativity**:
-    - I should be able to continue writing new content and re-ordering things without concern
-- **Load the latest release:**
-    - This repo should show the latest release version of this project, not the one on which I'm working. In other words, the default branch should coincide with the last release.
-- **Lessen maintenance as much as possible:**
-    - There should only be two branches, `latestRelease` and `development` since a branch name like `master` is overloaded with connotations. Those who want to read older versions can checkout a tag.
-    - I currently will not hyperlink to other files within this project until either a `1.0.0` release is made or I find a way to automate that.
-- **Indicate PS version:**
-    - As Purescript continues to evolve, the release should use a prefix indicating which major PS version for which this library is up-to-date.
-
-### Release Syntax and Explanation
-
-`ps-[purescript's major release]-v[Major].[Minor].[Patch]` where
-- purescript's major release means
-    - Normally, this would be `1.x.x`, but we don't yet have a `1.0` release yet. Thus, it is currently `0.12.x`
-    - `x` is a placeholder for the latest minor/patch release.
-- major change means
-    - a file/folder name has changed, so that bookmarks or links to that file/folder are now broken
-    - files/folders have been modified, so that one is recommended to re-read the modified parts
-    - Spago was updated to a breaking change release
-- minor change means
-    - a file's contents have been modified/updated to such a degree that one is recommended to re-read the modified parts- Read through these links about learning:
-    - a file's header name has changed, so that bookmarks or links to that header/section are now broken
-    - Spago was updated to a minor release
-- patch means
-    - additional files/folders have been added without breaking links
-    - a file's contents have been modified/updated to a minor degree that one could re-read the modified parts but is not likely to benefit much from it.
-    - a file's contents have been slightly updated (typos, markdown rendering issues, etc.)
