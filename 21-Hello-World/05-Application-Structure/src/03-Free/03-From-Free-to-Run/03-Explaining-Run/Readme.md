@@ -4,7 +4,7 @@ This folder will explain the basic idea of `purescript-run` and then solve the p
 
 ## What is `Run`?
 
-If you recall, `xgromxx` mentions [`purescript-run`](https://pursuit.purescript.org/packages/purescript-run/2.0.0) in [a comment in `ADT8.purs`](https://github.com/xgrommx/purescript-from-adt-to-eadt/blob/master/src/ADT8.purs#L11). (The ReadMe of this library provides an overview of the ideas we've explained here.)
+If you recall, `xgrommx` mentions [`purescript-run`](https://pursuit.purescript.org/packages/purescript-run/2.0.0) in [a comment in `ADT8.purs`](https://github.com/xgrommx/purescript-from-adt-to-eadt/blob/master/src/ADT8.purs#L11). (The ReadMe of this library provides an overview of the ideas we've explained here.)
 
 What is `purescript-run`? Why would we use that over `Free`? There are three reasons.
 

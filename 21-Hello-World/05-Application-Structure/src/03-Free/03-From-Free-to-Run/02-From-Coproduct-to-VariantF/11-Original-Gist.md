@@ -7,7 +7,7 @@ My code diverges from the original gist's code by
 
 The following table will help you understand the upcoming links to code:
 
-| Our Code | xgromxx's code |
+| Our Code | xgrommx's code |
 | - | - |
 | `newtype Expression f` | [`newtype Mu f`](https://pursuit.purescript.org/packages/purescript-fixed-points/5.1.0/docs/Data.Functor.Mu#t:Mu)
 | `Expression (VariantF t)` | `MuV t`

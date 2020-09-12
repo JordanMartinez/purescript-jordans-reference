@@ -43,7 +43,7 @@ fold    f = go where
     Impure t -> f (go <$> t)   -- Add
 ```
 
-| xgromxx's code | Our code |
+| xgrommx's code | Our code |
 | - | - |
 | `Free ExprF a`<br>or<br>`Expr` | `Expression (Coproduct Value ExprF) a`
 | `lit` | `value`
