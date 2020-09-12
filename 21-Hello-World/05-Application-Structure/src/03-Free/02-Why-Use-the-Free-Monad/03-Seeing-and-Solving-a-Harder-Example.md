@@ -12,7 +12,7 @@ To start, we'll define the `Value` type that wraps an `Int` and the `Addition` t
 3. Adds two add expressions.
 
 To achieve this result, we'll define our type like so:
-```purescript
+```haskell
 data Expression
   = Value Int
   | Add Expression Expression
@@ -26,7 +26,7 @@ show2 (Value i) = show i
 show2 (Add x y) = "(" <> show x <> " + " <> show y <> ")"
 ```
 Now, if we want to add `Multiply` in "file 2" without changing or recompiling "file 1", how does that fare? If we define our data type for `Multiply` like this...
-```purescript
+```haskell
 data Multiply = Multiply Expression Expression
 ```
 ... then `Multiply` will work similarly to `Add`:
@@ -41,7 +41,7 @@ The problem with our above definition is that it does not account for two other 
 ## Exploring Our Options
 
 Let's model these types differently by separating them all into their own types that we can later compose. We won't include `Multiply` yet:
-```purescript
+```haskell
 data Value = Value Int
 data Add = Add Expression Expression
 
@@ -62,7 +62,7 @@ evaluate (Left (Value i)) = i
 evaluate (Right (Add x y)) = (evaluate x) + (evaluate y)
 ```
 To achieve the capability to add and multiply `Multiply` expressions, what would we need to do, even if it means breaking the constraints of the Expression Problem?
-```purescript
+```haskell
 -- File 1
 data Value = Value Int
 data Add = Add Expression Expression
@@ -78,17 +78,17 @@ There are two places where we could define `Expression`, each with its own probl
 - If we define it in File 2, then File 1 will not compile because the compiler does not know what the type, `Expression`, is.
 
 Hmm... The Expression Problem is more nuanced than first thought. Still, the above refactoring helps shed light on what needs to be done. Let's look back at `Add`:
-```purescript
+```haskell
 data Add = Add Expression Expression
 ```
 `Add` must add 2 Expressions. However, we've hard-coded what `Expression` means. Since the location declaration of `Expression` causes a problem, we must turn this hard-coded type into a generic type to enable us to define it at a later time. The same goes for `Multiply`:
-```purescript
+```haskell
 data Add expression = Add expression expression
 -- or a less verbose version
 data Multiply e = Multiply e e
 ```
 We also know from our previous simpler problem that we will need to eventually compose our data types together into a big `Expression` type. In other words, we should get something like this:
-```purescript
+```haskell
 --        L             RL  RR
 -- Either Value (Either Add Multiply)
 
@@ -107,7 +107,7 @@ To summarize, we need to
 ## Solving the Problem
 
 We'll show you how the paper solved this, starting with the type's value and then showing the actual type declaration/definition:
-```purescript
+```haskell
 -- Value of our Expression type with Placeholder commented out
 {- Placeholder ( -} Right ( Left ( Add (
   {- (Placeholder -} ( Left  (Value 1))   -- )
@@ -150,18 +150,18 @@ newtype AMV_Expression = AMV_Expression (Expression AMV)
 ## Revealing Coproduct
 
 Above, we wrote this:
-```purescript
+```haskell
 Either (Value e) (Either (Add e)    (Multiply e))
        (Value e) \/      (Add e) \/ (Multiply e)
 ```
 However, this is just a more verbose form of [`Coproduct`](https://pursuit.purescript.org/packages/purescript-functors/3.0.1/docs/Data.Functor.Coproduct#t:Coproduct):
-```purescript
+```haskell
 newtype Coproduct f g a = Coproduct (Either (f a) (g a))
 ```
 Indeed, just as there was a library for nested `Either`s via `purescript-either`, there is also a library for nested `Coproduct`s: [`purescript-functors`](https://pursuit.purescript.org/packages/purescript-functors/3.0.1/docs/Data.Functor.Coproduct#t:Coproduct), which also includes [convenience functions and types for dealing with nested versions of `Coproduct`](https://pursuit.purescript.org/packages/purescript-functors/3.0.1/docs/Data.Functor.Coproduct.Nested) as well as [inject values into and project values out of it](https://pursuit.purescript.org/packages/purescript-functors/3.0.1/docs/Data.Functor.Coproduct.Inject).
 
 To help us understand how to read and write `Coproduct`, let's compare the `Coproduct` version to its equivalent `Either` version:
-```purescript
+```haskell
 -- not nested
 Either   (Value e) (Add e)
 Coproduct Value     Add e

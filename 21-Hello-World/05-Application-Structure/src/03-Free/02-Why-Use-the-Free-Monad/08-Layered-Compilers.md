@@ -1,7 +1,7 @@
 # Layered Compilers
 
 Previously, we saw that we could "interpret" the `Free` monad into another monad, namely, `Effect`, to simulate state manipulation effects. This idea is similar to a compiler: a high-level language (i.e. `Free`'s languages) get "compiled"/"interpreted" into a lower-level language (i.e. `Effect`/`Aff`). However, what if we recursively interpreted the `Free` monad into another `Free` monad for a few rounds until the last one gets interpreted into the `Effect` monad?
-```purescript
+```haskell
 type Free1 = Free f a
 type Free2 = Free g a
 type Free3 = Free h a
@@ -14,7 +14,7 @@ Free3 ~> Effect
 Free1 ~> Effect
 ```
 This allows us to write one high-level language that gets "interpreted" into a lower-level language, which itself gets interpreted into an even lower-level language. Each `~>` is going from a high-level abstract language to a lower-level more-platform-specific language. In other words, a chain of compiler, where the output of the previous is the input of the next. Updating our code above to use meta-language, we would have something like this:
-```purescript
+```haskell
 -- Let your domain experts write their domain-specific "programs"
 -- using a familiar domain-specific language...
 type HighestLevelLanguage = CoproductN Language1 Language2 Language3 -- ...

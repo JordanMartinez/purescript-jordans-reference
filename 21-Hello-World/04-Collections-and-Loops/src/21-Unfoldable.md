@@ -34,7 +34,7 @@ It enables:
 
 Don't look at its docs until after looking at the visual overview in the next section: [Unfoldable](https://pursuit.purescript.org/packages/purescript-unfoldable/docs/Data.Unfoldable#t:Unfoldable)
 
-```purescript
+```haskell
 -- We'll ignore the `Unfoldable1` superclass for now..
 class Unfoldable1 t <= Unfoldable t where
   unfoldr :: forall a b. (b -> Maybe (Tuple a b)) -> b -> t a
@@ -51,7 +51,7 @@ We'll implement an instance for `List a`.
 
 #### `List`'s Instance
 
-```purescript
+```haskell
 data List a = Nil | Cons a
 
 instance unfoldableList :: Unfoldable List where
@@ -70,7 +70,7 @@ None
 ### Overview of Possible Functions for `f`
 
 The only part of `unfoldr f initialB` we can hard-code in a derived function is the `f` function. There are three different functions we could use for `f`:
-```purescript
+```haskell
 -- We'll use this type alias in the next couple of sections
 type UnfoldrFunction a b = b -> Maybe Tuple a b
 
@@ -94,7 +94,7 @@ itDepends = -- possibilities are shown later
 | case 3 | `replicate`, `replicateA`, and `fromMaybe` | see below overviews of each function
 
 Case 1 functions always produce a runtime error due to creating an infinite loop. They will appear in two ways:
-```purescript
+```haskell
 -- obvious because Just is always returned
 example1 = unfoldr (const Just (Tuple 0 0)) 0
 
@@ -115,7 +115,7 @@ example2 =
 
 #### Using a countdown or countup function to do something `n`-many times
 
-```purescript
+```haskell
 countUp :: forall a. Int -> UnfoldrFunction a Int
 countUp limit = \nextInt ->
   if nextInt >= limit then Nothing

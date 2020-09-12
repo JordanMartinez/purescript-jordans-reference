@@ -7,7 +7,7 @@ In this file, we'll show one way to workaround this limitation. This solution wi
 ## Reviewing a Previous Workaround: Lifting one Monad into another
 
 When overviewing the ""`bind` outputs the same box-like type it receives" restriction, we described the previous workaround:
-```purescript
+```haskell
 import Prelude -- for the (+) and (~>) function aliases
 
 data Box1 a = Box1 a
@@ -57,13 +57,13 @@ instance bs :: (Show a) => Show (Box1 a) where
 
 When we have an `Effect`-based computation that we want to run in some other monadic context, we can use `liftEffect` from [MonadEffect](https://pursuit.purescript.org/packages/purescript-effect/2.0.0/docs/Effect.Class#v:liftEffect) **if the target monad has an instance for `MonadEffect`**:
 
-```purescript
+```haskell
 class (Monad m) <= MonadEffect m where
   liftEffect :: Effect ~> m
 ```
 
 `Aff` has an instance for `MonadEffect`, so we can lift `Effect`-based computations into an `Aff` monadic context. Below was how we defined `specialLog`. You can see it in the next file:
-```purescript
+```haskell
 specialLog :: String -> Aff Unit
 specialLog message = liftEffect $ log message
 ```

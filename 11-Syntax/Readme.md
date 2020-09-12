@@ -1,18 +1,18 @@
 # Syntax
 
 This folder contains compileable Purescript syntax using meta-language (a language that describes the syntax). Thus, rather than saying something like
-```purescript
+```haskell
 f :: String -> Int
 ```
 which doesn't tell you anything, it'll say:
-```purescript
+```haskell
 functionName :: ParameterType -> ReturnType
 ```
 
 Since the syntax can be compiled, it can be verified as valid and correct syntax.
 
 As a result, most files will appear like so:
-```purescript
+```haskell
 -- The module will be declared at the top of the file
 --   It can be ignored.
 module Syntax.ModuleName where

@@ -1,7 +1,7 @@
 # Reading Do Notation as Nested Binds
 
 Be aware of where the parenthesis appear when using multiple bind expressions (e.g. `m a >>= aToMB >>= bToMC`). Below provides a summary of the section called "Do notation" in [this article](https://sras.me/haskell/miscellaneous-enlightenments.html):
-```purescript
+```haskell
 data Maybe a
   = Nothing
   | Just a

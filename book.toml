@@ -1,0 +1,21 @@
+[book]
+title = "PureScript: Jordan's Reference"
+author = "Jordan Martinez, et al."
+description = "An in-depth beginner-oriented guide to learning PureScript from Foundations-up."
+lang = "en"
+src = "./mdbook"
+
+[build]
+build-dir = "book"
+create-missing = false
+
+[preprocessor.index]
+
+[preprocessor.links]
+
+[output.html]
+no-section-label = false
+git-repository-url = "https://github.com/jordanmartinez/purescript-jordans-reference"
+
+[output.html.search]
+limit-results = 15

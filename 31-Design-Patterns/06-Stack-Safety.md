@@ -7,7 +7,7 @@ In FP, we often use recusive functions to solve problems:
 - running some computation and, if it fails, retrying it again until it succeeds
 
 For example, the below `factorial'` function calculates its result by calling itself recursively.
-```purescript
+```haskell
 factorial :: Int -> Int
 factorial n = n * (factorial (n - 1))
 ```
@@ -19,7 +19,7 @@ So, how do we prevent this?
 ## Tail-Call Optimization for Pure Functions via the Last Branch
 
 Our first defense against this is "tail-call optimization." In short, we indicate that a recursive function should be converted into a stack-friendly `while` loop. When writing simple recursive functions, we can trigger the tail-call optimization only if we call the function recursively in the final "branch." For example, if we rewrote the above computation to store the "accumulated value" as another argument to the function, then we could call the function recursively in the last branch:
-```purescript
+```haskell
 factorial :: Int -> Int
 factorial n = go n 1
   where
@@ -44,7 +44,7 @@ go (1) (24)
 The above recursive function is stack-safe only because the recursion occurs once in the last pattern match branch. However, what if we had multiple branches where we needed to call it recursively? In such situations, the tail-call optimization won't be triggered.
 
 Recursive functions always have a "base case" that ends the recursion and a "recursive case" that continues it. In PureScript, we use a special function called [`tailRec`](https://pursuit.purescript.org/packages/purescript-tailrec/4.0.0/docs/Control.Monad.Rec.Class#v:tailRec) alongside of a data type called `Step` to achieve stack-safety at the cost of some performance. `Step` indicates whether our function has finished (base case) or needs to continue looping (recursive case):
-```purescript
+```haskell
 data Step accumulatedValue finalValue
   -- recursive case: keep looping
   = Loop accumulatedValue
@@ -53,7 +53,7 @@ data Step accumulatedValue finalValue
 ```
 
 Here is our previous stack-safe `factorial` function:
-```purescript
+```haskell
 factorial :: Int -> Int
 factorial n = go n 1
   where
@@ -64,7 +64,7 @@ factorial n = go n 1
 ```
 
 Here is the same implementation via `tailRec`:
-```purescript
+```haskell
 factorial :: Int -> Int
 factorial n = tailRec go { loopsRemaining: n, accumulatedSoFar: 1 }
   where
@@ -76,7 +76,7 @@ factorial n = tailRec go { loopsRemaining: n, accumulatedSoFar: 1 }
 ```
 
 Let's write the same function but utilize more branches without losing stack-safety. In the below example, if one calls `factorial 1`, `factorial 2`, or `factorial 3`, the function will return in one "loop." If one calls `factorial n` where `n` is greater than 3, the function will return in 2 less loops than our previous implementation at the cost of more checks per loop:
-```purescript
+```haskell
 factorial :: Int -> Int
 factorial n = tailRec go { loopsRemaining: n, accumulatedSoFar: 1 }
   where
@@ -92,7 +92,7 @@ factorial n = tailRec go { loopsRemaining: n, accumulatedSoFar: 1 }
 ## Tail-Call Optimization for Monadic Computations
 
 But what happens when we need to run a side-effectful monadic computation recursively? For example, let's say we wanted to print the same message to the console a specific number of times and then stop:
-```purescript
+```haskell
 printMessageAndLoop :: Effect Unit
 printMessageAndLoop 0 = pure unit
 printMessageAndLoop loopsRemaining = do
@@ -108,7 +108,7 @@ Fortunately, we can use the [`MonadRec` type class' `tailRecM` function](https:/
 The only change from above is that now we wrap the returned `Step` data type in the monadic type.
 
 In other words:
-```purescript
+```haskell
 tailRec  go initialValue
   where
   go ::             Accumulator
@@ -122,7 +122,7 @@ tailRecM go initialValue
 ```
 
 Once again, our original stack-unsafe code:
-```purescript
+```haskell
 printMessageAndLoop :: Effect Unit
 printMessageAndLoop 0 = pure unit
 printMessageAndLoop loopsRemaining = do
@@ -133,7 +133,7 @@ main :: Effect Unit
 main = printMessageAndLoop 10000
 ```
 Now our modified stack-safe code:
-```purescript
+```haskell
 printMessageAndLoop ::              { loopsRemaining :: Int }
                     -> Effect (Step { loopsRemaining :: Int } Unit )
 printMessageAndLoop 0 = pure (Done unit)

@@ -9,7 +9,7 @@
 ## A Very Simple Example of The Problem
 
 Given this code
-```purescript
+```haskell
 data Fruit
   = Apple
   | Banana
@@ -19,14 +19,14 @@ showFruit Apple = "apple"
 showFruit Banana = "banana"
 ```
 We can easily add a new function to our code without needing to recompile our existing code
-```purescript
+```haskell
 -- in another file...
 intFruit :: Fruit -> Int
 intFruit Apple = 0
 intFruit Banana = 1
 ```
 However, if we want to add another data constructor to `Fruit`, we can only do so by updating `Fruit` to include `Orange` **and then** updating all of our functions to include `Orange` as well:
-```purescript
+```haskell
 data Fruit
   = Apple
   | Banana
@@ -42,7 +42,7 @@ Since `Fruit` has already been compiled, we will need to recompile our code with
 ## The Solution
 
 The solution, then, is to be able to define data types in such a way that they "compose". The best way to compose data types is to group two types into one type via a type wrapper:
-```purescript
+```haskell
 -- original file
 data Fruit
   = Apple
@@ -60,13 +60,13 @@ How should `FruitGrouper` be defined? A value of `FruitGrouper` should only be o
 3. FruitGrouper Orange
 
 We can define it using this approach:
-```purescript
+```haskell
 data FruitGrouper
   = Fruit_  Fruit
   | Fruit2_ Fruit2
 ```
 This approach will enable `showFruit` and `intFruit` to continue to work as expected. If we wanted to define a new function that uses both, we would pass in `FruitGrouper` instead:
-```purescript
+```haskell
 -- original file. This cannot change once written!
 data Fruit
   = Apple

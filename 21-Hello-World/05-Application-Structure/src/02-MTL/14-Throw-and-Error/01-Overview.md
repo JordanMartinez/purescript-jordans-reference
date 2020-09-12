@@ -5,7 +5,7 @@
 `MonadThrow` is used to immediately stop `bind`'s sequential computation and return a value of its error type because of some unforeseeable error (e.g. error encountered when connecting to a database, file that was supposed to exist did not exist, etc).
 
 It's default implmentation is `ExceptT`:
-```purescript
+```haskell
              -- e     m     a
 newtype ExceptT error monad output =
   ExceptT (monad (Either error output))
@@ -19,7 +19,7 @@ class (Monad m) => MonadThrow e (ExceptT e m) where
 ### ExceptT: Before and After
 
 Before using `ExceptT`, we would write this ugly verbose code:
-```purescript
+```haskell
 getName :: Effect (Either Error String)
 getAge :: Effect (Either Error Int)
 
@@ -37,7 +37,7 @@ main = do
 ```
 
 After using `ExceptT`, we would write this clear readable code:
-```purescript
+```haskell
 getName :: Effect (Either Error String)
 getAge :: Effect (Either Error Int)
 
@@ -57,7 +57,7 @@ main = do
 
 `MonadError` extends `MonadThrow` by enabling a monad to catch the thrown error, attempt to handle it (by changing the error type to an output type), and then continue `bind`'s sequential computation. If `catchError` can't handle the error, `bind`'s sequential computation will still stop at that point and return the value of the error type.
 
-```purescript
+```haskell
 newtype ExceptT e m a = ExceptT (m (Either e a))
 
 class (Monad m) => MonadError e (ExceptT e m) where
@@ -69,7 +69,7 @@ class (Monad m) => MonadError e (ExceptT e m) where
 ```
 
 For example,
-```purescript
+```haskell
 getFileContents :: forall m.
                    MonadError m =>
                    String ->
@@ -94,7 +94,7 @@ getFileContents pathToFile = do
 ## Do Notation
 
 Since MonadThrow/MonadError are error-related, we'll show the do notation in meta-language here since it will be harder to do so in the code examples:
-```purescript
+```haskell
 -- MonadThrow
 stopped <- throwError e
 value1 <- otherComputation stopped

@@ -1,7 +1,7 @@
 # What Is and Is Not The Free Monad
 
 Since `List` was the free monoid type, what would be the free monad type?
-```purescript
+```haskell
 -- monad class fully expanded...
 class Monad f where
   map   :: forall a. (a -> b) -> f a -> f b
@@ -18,7 +18,7 @@ Using our previous instructions...
 >     - Fix problems that arise
 
 We'll start with the simplest function, `pure`:
-```purescript
+```haskell
 data FreeMonad a
   = Pure a
 
@@ -35,7 +35,7 @@ instance bind :: Bind FreeMonad where
   bind (Pure a) f = f a
 ```
 Well, that was easy... Wasn't this the same implementation as `Identity` from before? You are correct.
-```purescript
+```haskell
 data Identity a = Identity a
 
 instance applicative :: Applicative Identity where

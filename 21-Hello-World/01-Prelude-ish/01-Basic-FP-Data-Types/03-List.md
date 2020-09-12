@@ -14,7 +14,7 @@ head   tail
           /  \
        head  Nil
 ```
-```purescript
+```haskell
 -- Data.List.Types
 
 data List a

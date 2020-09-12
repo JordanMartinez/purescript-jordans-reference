@@ -5,7 +5,7 @@
 Rows in particular are where type-level programming gets interesting and fun.
 
 First, there is a long and short way to write `Record rowType`:
-```purescript
+```haskell
 long :: forall r. Record r
 
 short :: forall r. { | r }
@@ -13,7 +13,7 @@ short :: forall r. { | r }
 Since the left part of `{ | r}` does not contain any rows, this reduces to `Record r`.
 
 Second, there is syntax sugar via [`RowApply`](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row#t:RowApply)/[`+`](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row#t:type%20(+)) for adding additional rows:
-```purescript
+```haskell
 type EmptyRow = ()
 type ClosedRow1 = (a :: Int)
 type OpenRow1 r = (b :: String | r)
@@ -28,7 +28,7 @@ type SuperMixedOpenRow r = (a :: Int, b :: Int, c :: Int | Row1 + Row2 + Row3 + 
 ```
 
 Third, we sometimes need to close the "open" row type by using the empty row, `()`:
-```purescript
+```haskell
 -- Example 1
 type Row1 r = (a :: Int | r)
 type Row2 r = (b :: Int | r)
@@ -53,7 +53,7 @@ Rows can make our life easier in a number of ways. We'll see some examples befor
 3. Look at the `IsKind` constraints and any `Proxy` types to see how the function type checks.
 
 For example, look at [Prim.Row](https://pursuit.purescript.org/builtins/docs/Prim.Row) to understand the relationships used below and then use the above guidelines to understand this type-level computation:
-```purescript
+```haskell
 f :: forall row1 row2 row1And2 row1And2PlusAge nubbedRow1And2PlusAge finalRow.
   Union row1 row2 row1And2 =>
   Cons "age" Int row1And2 row1And2PlusAge =>
@@ -77,7 +77,7 @@ There are generally five stages when writing a type-level expression:
     - use `unsafeCoerce` when needed (explained more in next section)
 
 For example, let's say we were trying to write a simple expression using `Symbol`. Our goal is to append two symbols together. The following code block demonstrates the process one might go through in writing the function:
-```purescript
+```haskell
 -- we want to append two symbols together into one
 -- It's the type-level expression of: "some string" <> "another string"
 

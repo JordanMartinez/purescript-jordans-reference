@@ -21,7 +21,7 @@ Looking at the above from a top-down perspective, we get this:
 | Layer 0 | Machine Code<br>(no equivalent onion term) | the "base" monad that runs the program (e.g. production: `Effect`/`Aff`; test: `Identity`/`Trampoline`)
 
 Putting it into code, we would get something that looks like this:
-```purescript
+```haskell
 -- Layer 4
 
 newtype Name = Name String

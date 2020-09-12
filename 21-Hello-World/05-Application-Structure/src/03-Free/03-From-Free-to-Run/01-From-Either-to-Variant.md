@@ -14,7 +14,7 @@ Moreover, `purescript-either` only grants us the ability to define 10 total type
 So, what are our options here? We saw previously that we could not define our own special nested `Either` type without knowing at the type-declaration-time what the next few types are. However, we do know at compile-time what those types will be. We also know at compile-time how many types will exist in a nested `Either`-like type. This implies that we might want to stop looking at value-level programming for our solutions and instead look at type-level programming. More specifically, we should look at row kinds.
 
 We can use row kinds specified to type (i.e. `# Type`) to specify n-different types that are known at compile-time. As an example, we can look at `Record`, which is a nested `Tuple` that uses row kinds to work:
-```purescript
+```haskell
 -- first AND second AND third AND fourth AND last
 Tuple first (Tuple second (Tuple third (Tuple fourth last)))
 Record (a :: first, b :: second, c :: third, d :: fourth, e :: last)
@@ -22,7 +22,7 @@ Record (a :: first, b :: second, c :: third, d :: fourth, e :: last)
        {a :: first, b :: second, c :: third, d :: fourth, e :: last}
 ```
 Is it possible to take this same idea and apply it to `Either`? Yes, which is what `purescript-variant` does:
-```purescript
+```haskell
 -- first OR second OR third OR fourth OR last
 Either first (Either second (Either third (Either fourth last)))
 Variant (a :: first, b :: second, c :: third, d :: fourth, e :: last)
@@ -36,7 +36,7 @@ Looking at our requirements from before...
 3. Change one type to another: `Either String Boolean` <=> `Either Int Boolean`
 
 ... we can see that `Record` meets our requirements because of row polymorphism:
-```purescript
+```haskell
 -- the function
 getName :: forall allOtherFields. { name :: String | allOtherFields } -> String
 getName :: { name: theName } = theName
@@ -64,14 +64,14 @@ Here's the link to the library: [`purescript-variant`](https://pursuit.purescrip
 
 ### Injection
 
-```purescript
+```haskell
 injectFruit :: forall v. Fruit -> Variant (fieldName :: Fruit | v)
 injectFruit fruit = inj (SProxy :: SProxy "fieldName") fruit
 ```
 
 ### Projection
 
-```purescript
+```haskell
 projectFruit :: forall v. Variant (fieldName :: Fruit | v) -> Maybe Fruit
 projectFruit variant = prj (SProxy :: SProxy "fieldName") variant
 ```
@@ -117,7 +117,7 @@ For each of the above run commands, do the following to "simulate" one file exis
 2. Copy and paste each "file" below into the REPL.
 3. Run the commands at the end of this snippet
 
-```purescript
+```haskell
 -- File1's original code: once compiled, it cannot change
 import Data.Maybe
 import Data.Variant

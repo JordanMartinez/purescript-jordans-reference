@@ -7,7 +7,7 @@
 Since we can only return one object and we want to return something in addition to the output, we'll need to return a `Tuple` that wraps the output and additional data. In cases where we already have non-output data and need to "store" another alue of non-output data, we'll need to combine the two together, which implies a `Semigroup`. Lastly, to implement `Applicative`, we will need an "empty" value of that data, which implies `Monoid`.
 
 Putting this into code, we get this:
-```purescript
+```haskell
              -- w               m     a
 newtype WriterT non_output_data monad output =
   WriterT (monad (Tuple output non_output_data))
@@ -21,7 +21,7 @@ class (Monoid w, Monad m) <= MonadTell w (WriterT w m) where
 ## Do Notation
 
 Since `tell` returns an `m Unit`, which will be discarded in do notation, we'll only be writing:
-```purescript
+```haskell
 useReader :: Reader NonOuputData Output
 useReader = do                                                          {-
   unit <- tell nonOuputData                                             -}

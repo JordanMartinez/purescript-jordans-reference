@@ -43,7 +43,7 @@ It enables:
 
 Don't look at its docs until after looking at the visual overview in the next section: [Foldable](https://pursuit.purescript.org/packages/purescript-foldable-traversable/4.0.1/docs/Data.Foldable#t:Foldable)
 
-```purescript
+```haskell
 class (Functor f) => Foldable f where
   foldMap :: forall a m. Monoid m => (a -> m) -> f a -> m
 
@@ -109,7 +109,7 @@ We'll implement instances for three types: `Box a`, `Maybe a`, and `List a`. Eac
 
 #### `Box`'s Instance
 
-```purescript
+```haskell
 data Box a = Box a
 
 -- Box's implementation doesn't show the difference between `foldl` and `foldr`.
@@ -127,7 +127,7 @@ instance foldableBox :: Foldable Box where
 
 #### `Maybe`'s instance
 
-```purescript
+```haskell
 -- Maybe's implementation doesn't show the difference between `foldl` and `foldr`.
 -- However, the initial `b` value is necessary
 -- because of the possible `Nothing` case.
@@ -149,7 +149,7 @@ instance foldableMaybe :: Foldable Maybe where
 
 #### `List`'s instance
 
-```purescript
+```haskell
 -- Cons 1 (Cons 2 Nil)
 -- 1 : (Cons 2 Nil)
 -- 1 : 2 : Nil
@@ -187,7 +187,7 @@ instance functorList :: Functor List where
 
 We'll see more of this in the upcoming overview of the derived functions. However, `foldl` and its corresponding members tend to follow a few patterns:
 
-```purescript
+```haskell
 reduceAllAsIntoOneAValue = foldl reduce initial foldableType
   where
     iniital = -- a type class value or hard-coded value
@@ -325,7 +325,7 @@ A related function is `foldM`, which allows one to run a monadic computation mul
 [`foldM`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Foldable#v:foldM)
 
 Here's an example:
-```purescript
+```haskell
 main :: Effect Unit
 main = do
   int <- randomInt 1 10
@@ -337,7 +337,7 @@ main = do
       pure (anotherInt + initialOrAccumulatedValue)
 ```
 ... which is the same as writing...
-```purescript
+```haskell
 main :: Effect Unit
 main = do
   int <- randomInt 1 10

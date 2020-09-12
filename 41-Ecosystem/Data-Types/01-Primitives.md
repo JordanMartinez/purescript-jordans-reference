@@ -6,7 +6,7 @@ This folder documents both additional 'primitive' data types and their utils lib
 
 ### Identity
 
-```purescript
+```haskell
 newtype Identity a = Identity a
 ```
 Compile-time wrapper that wraps any type, `a`, into a higher-kinded type, `Identity a`.

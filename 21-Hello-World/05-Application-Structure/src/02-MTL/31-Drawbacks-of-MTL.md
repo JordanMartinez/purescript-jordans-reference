@@ -9,7 +9,7 @@ Note:
 ## `MonadState` Allows Only One State Manipulation Type
 
 First, due to the functional dependency from `m` to `s` in `MonadState`'s definition, it's impossible to do two different state manipulations within the same function. For example...
-```purescript
+```haskell
 f :: forall m ouput.
   => MonadState Int m
   => MonadState String m
@@ -21,7 +21,7 @@ f = do
 The compiler will complain because it doesn't know which value it should 'get'. See the answer to [Haskell -- Chaining two states using StateT monad transformer](https://stackoverflow.com/a/49782427)
 
 One solution to this is to store all states in one larger state type and then use a `Lens` to access/change it:
-```purescript
+```haskell
 type IntAndString = { i :: Int, s :: String }
 f :: forall m output.
   => MonadState IntAndString m
@@ -29,7 +29,7 @@ f :: forall m output.
 ```
 
 The second solution is to use type-level programming to specify which `MonadState` we are referring to via an `id` Symbol. This would force us to change `MonadState`'s definition to:
-```purescript
+```haskell
 class (Monad m) <= MonadState (id :: Symbol) state m | m -> state
   state :: forall a. SProxy id -> (s -> m (Tuple a s)) -> m a
 
@@ -65,7 +65,7 @@ Since `RWST` also encodes things via `WriterT`, it also suffers from this proble
 Whenever one wants to define a new monad transformer (e.g. `MonadAuthenticate`) to encode some effect, one must define ~`n^2` instances:
 - 1 `MonadAuthenticate` instance for each `[Word]T` type via `MonadTrans` to lift the monadic newtyped `AuthenticateT` function.
 
-```purescript
+```haskell
 -- Given this stack of monad transformers
 runCode :: AuthenticateT Credentials (StateT state (ReaderT value Identity Unit))
 
@@ -76,7 +76,7 @@ runCode :: AuthenticateT Credentials (StateT state (ReaderT value Identity Unit)
 
 - n instances for the monadic newtyped `AuthenticateT` function, so that it can lift its computation into all the other monad transformer type classes (e.g. `AuthenticateT` -> `MonadState`, `MonadWriter`, etc.)
 
-```purescript
+```haskell
 -- Given this stack of monad transformers
 runCode :: ReaderT Value (StateT state (AuthenticateT Credentials Identity Unit))
 
@@ -91,7 +91,7 @@ Note: I say roughly **~**`n^2` because apparently there are some cases where "li
 ## Monad transformer stacks' type signatures get complicated quickly
 
 Related to the previous point, but the type signatures start getting crazy very quickly. For new beginners who are just learning about monad transformers, this can be quite offsetting:
-```purescript
+```haskell
 -- as an example using pseudo-syntax...
 f :: StateT State (ReaderT reader (WriterT writer (ExceptT error Effect output) output))
 ```
@@ -99,7 +99,7 @@ f :: StateT State (ReaderT reader (WriterT writer (ExceptT error Effect output) 
 ## The Order of the Monad Transformer Stack Matters
 
 We mentioned this previously when covering how to use a monad transformer:
-```purescript
+```haskell
 type Output = Int
 type StateType = Int
 type NonOutputData = String

@@ -115,24 +115,39 @@ spago build
 HELLO_BENCHMARK=$?
 cd ../../
 
-cd 22-Projects/
+cd 22-Projects/01-Libraries
 pwd
 # Build but do not run benchmark tests
 spago build
-PROJECTS_BUILT_OK=$?
+PROJECTS_LIBRARIES_BUILT_OK=$?
+cd ../../
+
+cd 22-Projects/11-Random-Number-Game
+pwd
+# Build but do not run benchmark tests
+spago build
+PROJECTS_RANDOM_NUMBER_GAME=$?
 
 # Node-based tests
 spago test -m Test.RandomNumber.ReaderT.Standard.DifferentMonad
-RANDOM_TEST_READERT_DIFFERENT=$?
+PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_DIFFERENT=$?
 spago test -m Test.RandomNumber.ReaderT.Standard.SameMonad
-RANDOM_TEST_READERT_SAME=$?
+PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_SAME=$?
+cd ../../
 
+cd 22-Projects/12-ToC-Generator
+pwd
+# Build but do not run benchmark tests
+spago build
+PROJECTS_TOC_GENERATOR=$?
+
+# Node-based tests
 # spago test -m Test.ToC.MainLogic.QuickCheckTest
 echo "Skipping 'ToC.MainLogic.QuickCheckTest' due to bug that I will fix later."
-TOC_TEST_MAIN_LOGIC_BOTH=$?
+PROJECTS_TOC_GENERATOR_TEST_MAIN_LOGIC_BOTH=$?
 spago test -m Test.ToC.ParserLogic.QuickCheckTest
-TOC_TEST_PARSER_LOGIC_BOTH=$?
-cd ../
+PROJECTS_TOC_GENERATOR_TEST_PARSER_LOGIC_BOTH=$?
+cd ../../
 
 echo ""
 echo "Finished. Summarizing Results:"
@@ -156,11 +171,13 @@ echo "$HELLO_EXAMPLE_NUMBER_COMPARISON_RUN - Hello World - Application Structure
 echo "$HELLO_TLP - Hello World - Type-Level Programming"
 echo "$HELLO_TESTING - Hello World - Testing"
 echo "$HELLO_BENCHMARK - Hello World - Benchmarking"
-echo "$PROJECTS_BUILT_OK - Projects - All - Builds Correctly"
-echo "$RANDOM_TEST_READERT_DIFFERENT - Projects - RandomNumber - ReaderT Test (Different)"
-echo "$RANDOM_TEST_READERT_SAME - Projects - RandomNumber - ReaderT Test (Same)"
-echo "$TOC_TEST_MAIN_LOGIC_BOTH - Projects - ToC - Main - Both"
-echo "$TOC_TEST_PARSER_LOGIC_BOTH - Projects - ToC - Parser - Both"
+echo "$PROJECTS_LIBRARIES_BUILT_OK - Projects - Libraries"
+echo "$PROJECTS_RANDOM_NUMBER_GAME - Projects - RandomNumber"
+echo "$PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_DIFFERENT - Projects - RandomNumber - ReaderT Test (Different)"
+echo "$PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_SAME - Projects - RandomNumber - ReaderT Test (Same)"
+echo "$PROJECTS_TOC_GENERATOR - Projects ToC"
+echo "$PROJECTS_TOC_GENERATOR_TEST_MAIN_LOGIC_BOTH - Projects - ToC - Main - Both"
+echo "$PROJECTS_TOC_GENERATOR_TEST_PARSER_LOGIC_BOTH - Projects - ToC - Parser - Both"
 
 if [ $SYNTAX_BASIC == 0 ] &&
    [ $SYNTAX_FFI == 0 ] &&
@@ -181,11 +198,13 @@ if [ $SYNTAX_BASIC == 0 ] &&
    [ $HELLO_TLP == 0 ] &&
    [ $HELLO_TESTING == 0 ] &&
    [ $HELLO_BENCHMARK == 0 ] &&
-   [ $PROJECTS_BUILT_OK == 0 ] &&
-   [ $RANDOM_TEST_READERT_DIFFERENT == 0 ] &&
-   [ $RANDOM_TEST_READERT_SAME == 0 ] &&
-   [ $TOC_TEST_MAIN_LOGIC_BOTH == 0 ] &&
-   [ $TOC_TEST_PARSER_LOGIC_BOTH == 0 ]
+   [ $PROJECTS_LIBRARIES_BUILT_OK == 0 ] &&
+   [ $PROJECTS_RANDOM_NUMBER_GAME == 0 ] &&
+   [ $PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_DIFFERENT == 0 ] &&
+   [ $PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_SAME == 0 ] &&
+   [ $PROJECTS_TOC_GENERATOR == 0 ] &&
+   [ $PROJECTS_TOC_GENERATOR_TEST_MAIN_LOGIC_BOTH == 0 ] &&
+   [ $PROJECTS_TOC_GENERATOR_TEST_PARSER_LOGIC_BOTH == 0 ]
 then
   echo "Build Succeeded"
   exit 0;

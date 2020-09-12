@@ -1,6 +1,6 @@
 # Maybe
 
-```purescript
+```haskell
 data Maybe a
   = Nothing
   | Just a

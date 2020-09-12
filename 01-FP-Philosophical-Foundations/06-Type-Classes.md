@@ -53,7 +53,7 @@ Here are some examples that demonstrate the combination of the 2-3 elements from
 Lastly, the `Functor` type class (explained in more detail later) has all three:
 
 (1) The type class `Functor` specifies the type signature of a function called `map`. It does not specify a type signature for a value:
-```purescript
+```haskell
 class Functor f where
   map :: forall a b. (a -> b) -> f a -> f b
 ```
@@ -76,7 +76,7 @@ Some type classes have a corresponding "dual." While there are better ways to ex
 
 For example, a function like `toB` would have its arrow flipped to produce `toA`::
 
-```purescript
+```haskell
 toB :: a -> b
 toB = -- function's implementation
 

@@ -43,13 +43,13 @@ In source code, we can describe the various parts of a function based on which s
 - Left-Hand Side (LHS): the function name and all of its arguments
 - Right-Hand Side (RHS): the body or implementation of the function\
 
-```purescript
+```haskell
 |         LHS         |    |     RHS     |
 functionName int1 int2   =   int1 + int2
 ```
 
 When using pure functions, one can replace the LHS with the RHS, and the program will still work the same. This concept is known as **referential transparency**:
-```purescript
+```haskell
 functionName 4 3
 -- replace LHS with RHS
 4 + 3
@@ -74,7 +74,7 @@ Although the above examples are very simple functions, imagine if one's entire p
 
 ## Execution vs Description and Interpretation
 
-```purescript
+```haskell
 -- Most OO languages
 executeCode :: Int
 executeCode = 3

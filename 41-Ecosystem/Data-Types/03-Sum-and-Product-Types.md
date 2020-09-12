@@ -7,7 +7,7 @@ There are generally two data types in FP languages:
 These are better explained [in this video](https://youtu.be/Up7LcbGZFuo?t=19m8s) as to how they get their names.
 
 The simplest form of them are `Either` and `Tuple`
-```purescript
+```haskell
 -- sum
 data Either a b   -- is an `a` value OR  a `b` value
   = Left a
@@ -28,7 +28,7 @@ However, these types can also be 'open' or 'closed':
 ## What does 'Open' mean?
 
 Using this example from the Syntax folder...
-```purescript
+```haskell
 -- the 'r' means, 'all other fields in the record'
 function :: forall r. { fst :: String, snd :: String | r } -> String
 function record = record.fst <> record.snd
@@ -44,7 +44,7 @@ Here's another way to think about this:
 - `Record`s are 'nested `Tuple`s'
 - `Variant`s are 'nested `Either`s'
 
-```purescript
+```haskell
 -- We could write
 Tuple a (Tuple b (Tuple c (Tuple d e)))
 -- or we could write
@@ -59,7 +59,7 @@ Variant ( a :: A, b :: B, c :: C, d :: D, e :: E)
 ```
 
 Keep in mind that records/variants **can be but do not necessarily have to be** open. If we changed the above function's type signature to remove the `r`, it would restrict its arguments to a closed Record:
-```purescript
+```haskell
 closed :: { fst :: String, snd :: String } -> String
 closed record = record.fst <> record.snd
 
@@ -71,7 +71,7 @@ closed { fst: "hello", snd: "world", unrelatedField: 0 } -- compiler error
 
 ### Tuple
 
-```purescript
+```haskell
 data Tuple a b = Tuple a b
 ```
 
@@ -85,7 +85,7 @@ data Tuple a b = Tuple a b
 
 ### Record
 
-```purescript
+```haskell
 forall r. { a :: A, b :: B, {- ... -} | r } -- open record
           { a :: A, b :: B, {- ... -}     } -- closed record
 ```
@@ -100,7 +100,7 @@ forall r. { a :: A, b :: B, {- ... -} | r } -- open record
 
 ### Either
 
-```purescript
+```haskell
 data Either a b
   = Left a
   | Right b
@@ -127,7 +127,7 @@ data Either a b
 
 ### These
 
-```purescript
+```haskell
 data These a b
   = This a      -- Left  a
   | That b      -- Right b

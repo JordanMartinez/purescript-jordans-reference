@@ -3,7 +3,7 @@
 You will want to bookmark this page.
 
 Generalizing the idea we discovered in the previous file into a pattern, we get something like this:
-```purescript
+```haskell
 program :: forall m
          . MonadState StateType m
         => MonadWriter NonOutputData m

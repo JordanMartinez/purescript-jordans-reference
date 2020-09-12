@@ -6,7 +6,7 @@ https://pursuit.purescript.org/packages/purescript-arrays/5.0.0/docs/Data.Array.
 
 ## Array (Immutable)
 
-```purescript
+```haskell
 []  -- empty array
 [1] -- array with content
 ```
@@ -22,7 +22,7 @@ https://pursuit.purescript.org/packages/purescript-arrays/5.0.0/docs/Data.Array.
 
 ## Vec
 
-```purescript
+```haskell
 newtype Vec s a = -- implementation
 
 empty :: -- TypeLevel Programming
@@ -40,7 +40,7 @@ infixr 5 cons as +>
 
 ## List (Strict)
 
-```purescript
+```haskell
 -- Data.List.Types
 
 data List a
@@ -64,7 +64,7 @@ infixr 6 Cons as :
 
 ## List (Lazy)
 
-```purescript
+```haskell
 -- Data.List.Lazy.Types
 
 newtype List a = -- implementation

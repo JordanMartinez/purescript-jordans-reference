@@ -11,7 +11,7 @@ However, we never stopped to consider the data type, `Function`. When we re-exam
 ## Reviewing `Function` as a Data Type
 
 Putting it into syntax, `Function` is defined like this:
-```purescript
+```haskell
 data Function a b = -- implementation
 
 infix ? Function as ->
@@ -34,13 +34,13 @@ Let's start implement instances for these type classes. For now, take my word fo
 #### Initial Problems
 
 Let's look at `Functor`. It's type signature looks like this.
-```purescript
+```haskell
 class Functor f where
   map :: forall a b. (a -> b) -> f a -> f b
 ```
 
 This creates the first problem: `Functor` expects a higher-kinded type, `f`, that only takes one type. For example, `Box a` only takes one type. However, `Function a b` takes two types. So, how can this be resolved? We must assume that `Function a b` already has its first type. For example...
-```purescript
+```haskell
 data Function a b = -- implementation
 
 noTypesDefined :: forall a b. Function a   b
@@ -53,14 +53,14 @@ allTypesDefined ::            Function Int Int
 allTypesDefined = -- implementation
 ```
 To make `Function` higher-kinded by only one type, and not two, we should use something like `oneTypeDefined` above:
-```purescript
+```haskell
 class Functor (Function inputType) where
 ```
 
 #### Implementing `map`
 
 Getting back to the problem at hand, here's the type signature for Function's `map` implementation with very helpful names:
-```purescript
+```haskell
 class Functor (Function inputType) where
   map :: forall originalOutputType newOutputType.
          (originalOutputType -> newOutputType) ->
@@ -69,7 +69,7 @@ class Functor (Function inputType) where
 It should seem pretty obvious how this gets implemented. Let's walk through this slowly.
 
 1. `map` returns a new function whose input is `input`. So, let's use an inline function to do that:
-```purescript
+```haskell
 class Functor (Function inputType) where
   map :: forall originalOutputType newOutputType.
          (originalOutputType -> newOutputType) ->
@@ -78,7 +78,7 @@ class Functor (Function inputType) where
 ```
 
 2. Since `f` is the only function that can "receive" a value of type, `input`, we have to pass that value into `f`. `f` will produce `originalOutput`, so let's store that in a let binding:
-```purescript
+```haskell
 class Functor (Function inputType) where
   map :: forall originalOutputType newOutputType.
          (originalOutputType -> newOutputType) ->
@@ -89,7 +89,7 @@ class Functor (Function inputType) where
 ```
 
 3. Since `originalToNew` is the only function that can "receive" a value of type, `originalOutput`, we have to pass the value outputted by `f` into that function. `originalToNew` produces a value of the type, `newOutput`, which gives us the return value of our created function:
-```purescript
+```haskell
 class Functor (Function inputType) where
   map :: forall originalOutputType newOutputType.
          (originalOutputType -> newOutputType) ->
@@ -100,7 +100,7 @@ class Functor (Function inputType) where
 ```
 
 As we can see, the types guided us on how to implement this function. If we look at this closer, we can see that it's just function composition.
-```purescript
+```haskell
 class Functor (Function inputType) where
   map :: forall originalOutputType newOutputType.
          (originalOutputType -> newOutputType) ->
@@ -113,7 +113,7 @@ class Functor (Function inputType) where
 ```
 
 In real code, normally we use `a`, `b` as type variable. Therefore, the above snippet will be simplfied to
-```purescript
+```haskell
 class Functor (Function i) where
   map :: forall a b. (a -> b) -> Function i a -> Function i b
   map = (<<<)
@@ -130,13 +130,13 @@ Our first example taught us two things:
 #### Initial Problems
 
 Let's now look at `Apply`'s `apply` function. It's type signature looks like this.
-```purescript
+```haskell
 class (Functor f) <= Apply f where
   apply :: forall a b. f (a -> b) -> f a -> f b
 ```
 
 Again, let's take this slowly. Notice first the first argument, what should the full type signature of `f (a -> b)` be if `f` is `Function`? Since the `f` has to be the same for both situations, then `f` has to be `Function input`. In other words, the first argument is a function that returns another function:
-```purescript
+```haskell
 class (Functor (Function inputType)) <= Apply (Function inputType) where
   apply :: forall originalOutputType newOutputType.
            Function inputType (originalOutputType -> newOutputType) ->
@@ -149,7 +149,7 @@ class (Functor (Function inputType)) <= Apply (Function inputType) where
 Let's see how to implement this function.
 
 1. Since `apply` returns a new function, let's start creating one using lambda syntax:
-```purescript
+```haskell
 class (Functor (Function inputType)) <= Apply (Function inputType) where
   apply :: forall originalOutputType newOutputType.
            Function inputType (originalOutputType -> newOutputType) ->
@@ -159,7 +159,7 @@ class (Functor (Function inputType)) <= Apply (Function inputType) where
 ```
 
 2. At this point, both `f` and `functionInFunction` can receive an value of type, `input`. For right now, let's do what we did last time and only pass it into `f`. We'll store the output in a let binding:
-```purescript
+```haskell
 class (Functor (Function inputType)) <= Apply (Function inputType) where
   apply :: forall originalOutputType newOutputType.
            Function inputType (originalOutputType -> newOutputType) ->
@@ -171,7 +171,7 @@ class (Functor (Function inputType)) <= Apply (Function inputType) where
 ```
 
 3. At this point, the only way to get map `originalOutput` into `newOutput` is to pass it into the function that's hidden in `functionInFunction`. How do we get that out? We can pass `input` into that function. Again, we'll store that output in a let binding:
-```purescript
+```haskell
 class (Functor (Function inputType)) <= Apply (Function inputType) where
   apply :: forall originalOutputType newOutputType.
            Function inputType (originalOutputType -> newOutputType) ->
@@ -185,7 +185,7 @@ class (Functor (Function inputType)) <= Apply (Function inputType) where
 ```
 
 4. We now have all the pieces we need to return `newOutput`. Let's pass `originalOutput` into `originalTonew`:
-```purescript
+```haskell
 class (Functor (Function inputType)) <= Apply (Function inputType) where
   apply :: forall originalOutputType newOutputType.
            Function inputType (originalOutputType -> newOutputType) ->
@@ -199,7 +199,7 @@ class (Functor (Function inputType)) <= Apply (Function inputType) where
 ```
 
 Great! Can we clean it up now?
-```purescript
+```haskell
 class (Functor (Function inputType)) <= Apply (Function inputType) where
   apply :: forall originalOutputType newOutputType.
            Function inputType (originalOutputType -> newOutputType) ->
@@ -216,13 +216,13 @@ Our second example taught us the following:
 ### Applicative
 
 Let's now look at `Applicative`'s `pure` function. It's type signature looks like this.
-```purescript
+```haskell
 class (Apply f) <= Applicative f where
   pure :: forall a. a -> f a
 ```
 
 Converting `f` into `Function input`, we get this type signature:
-```purescript
+```haskell
 class (Apply (Function inputType)) <= Applicative (Function inputType) where
   pure :: forall outputType. outputType -> Function inputType outputType
 ```
@@ -230,21 +230,21 @@ class (Apply (Function inputType)) <= Applicative (Function inputType) where
 Let's see how to implement it.
 
 1. Since `pure` returns a new function, let's start creating one using lambda syntax:
-```purescript
+```haskell
 class (Apply (Function inputType)) <= Applicative (Function inputType) where
   pure :: forall outputType. outputType -> Function inputType outputType
   pure value = (\input -> {- body of function -})
 ```
 
 2. Since the function must return `value` as its output, let's ignore the argument and just return that value.
-```purescript
+```haskell
 class (Apply (Function inputType)) <= Applicative (Function inputType) where
   pure :: forall outputType. outputType -> outputType
   pure value = (\input -> value)
 ```
 
 Let's clean this one up:
-```purescript
+```haskell
 class (Apply (Function inputType)) <= Applicative (Function inputType) where
   pure :: forall outputType. outputType -> Function inputType outputType
   pure value = (\_ -> value)
@@ -255,13 +255,13 @@ class (Apply (Function inputType)) <= Applicative (Function inputType) where
 #### Implementing `bind`
 
 Let's now look at `Bind`'s `bind` function. It's type signature looks like this.
-```purescript
+```haskell
 class (Functor m) <= Bind m where
   bind :: forall a b. (a -> m b) -> m a -> m b
 ```
 
 Converting `m` into `Function input`, we get this type signature:
-```purescript
+```haskell
 class (Apply (Function inputType)) <= Bind (Function inputType) where
   bind :: forall originalOutputType newOutputType.
           (originalOutputType -> Function inputType newOutputType) ->
@@ -272,7 +272,7 @@ class (Apply (Function inputType)) <= Bind (Function inputType) where
 Let's see how to implement it.
 
 1. Since `bind` returns a new function, let's start creating one using lambda syntax:
-```purescript
+```haskell
 class (Apply (Function inputType)) <= Bind (Function inputType) where
   bind :: forall originalOutputType newOutputType.
           (originalOutput -> Function inputType newOutputType) ->
@@ -282,7 +282,7 @@ class (Apply (Function inputType)) <= Bind (Function inputType) where
 ```
 
 2. Since `f` is the only function that can "receive" the `input` value, let's pass it into `f` and store the output:
-```purescript
+```haskell
 class (Apply (Function inputType)) <= Bind (Function inputType) where
   bind :: forall originalOutputType newOutputType.
           (originalOutputType -> Function inputType newOutputType) ->
@@ -294,7 +294,7 @@ class (Apply (Function inputType)) <= Bind (Function inputType) where
 ```
 
 3. Since `originalToFunction` can "receive" the `originalOutput` value, let's pass that into `originalToFunction` and store its result in a let binding:
-```purescript
+```haskell
 class (Apply (Function inputType)) <= Bind (Function inputType) where
   bind :: forall originalOutputType newOutputType.
           (originalOutputType -> Function inputType newOutputType) ->
@@ -308,7 +308,7 @@ class (Apply (Function inputType)) <= Bind (Function inputType) where
 ```
 
 4. Since `inputToNewOutput` is the only function that can produce the `newOutput` value, let's pass `input` into it to get that value:
-```purescript
+```haskell
 class (Apply (Function inputType)) <= Bind (Function inputType) where
   bind :: forall originalOutputType newOutputType.
           (originalOutputType -> Function inputType newOutputType) ->
@@ -322,7 +322,7 @@ class (Apply (Function inputType)) <= Bind (Function inputType) where
 ```
 
 Let's now clean it up. First we'll get rid of that `inputToNewOutput` binding:
-```purescript
+```haskell
 class (Apply (Function inputType)) <= Bind (Function inputType) where
   bind :: forall originalOutputType newOutputType.
           (originalOutputType -> Function inputType newOutputType) ->
@@ -335,7 +335,7 @@ class (Apply (Function inputType)) <= Bind (Function inputType) where
 ```
 
 Second, we'll get rid of that `originalOutput` binding:
-```purescript
+```haskell
 class (Apply (Function inputType)) <= Bind (Function inputType) where
   bind :: forall originalOutputType newOutputType.
           (originalOutputType -> Function inputType newOutputType) ->
@@ -357,7 +357,7 @@ As can be seen, this example was a slightly more complicated version of `apply` 
 ## Resugaring `Function`
 
 In our code above, we desugared `(a -> b)` into `Function a b`. What would happen if we resugared our type class instances above back into `->`? How would we write it then?
-```purescript
+```haskell
 class Functor ((->) inputType) where
   map :: forall originalOutputType newOutputType.
          (originalOutputType -> newOutputType) ->

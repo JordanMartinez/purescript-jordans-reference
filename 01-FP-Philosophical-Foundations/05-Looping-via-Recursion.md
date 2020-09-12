@@ -13,7 +13,7 @@ for (var i = 2; i < count; i++) {
 }
 ```
 
-```purescript
+```haskell
 -- This is a stack-unsafe function (explained and improved next)
 factorial :: Int -> Int
 factorial 1 = 1                       -- base case
@@ -35,7 +35,7 @@ factorial 3
 The above Purescript example illustrates a problem that comes with writing loops this way: stack overflows. Thus, when one says "this function is `stack-safe`", they mean that calling the function will not risk the possibility of a stack overflow runtime error being produced. One usually prevents this risk via tail-call optimization (which usually converts the recursive loop back into an OO loop) or trampolining (when tail-call optimization isn't possible)
 
 Thus, one will usually write recursive functions in this manner. Rather than using recursion to calculate the value by creating a 'stack' of `*` operations (as done above), one will pass into the function an additional argument that acts as the accumulated value. The necessary state change / calculation is done and its result is passed in as the new accumulated value in the next iteration of the recursive function call:
-```purescript
+```haskell
 factorial :: Int -> Int
 factorial n = factorial' n 1
 
@@ -77,7 +77,7 @@ var findFirst = (array, condition) => {
 findFirst([0, 1, 2], (i) => i == 1);
 ```
 
-```purescript
+```haskell
 -- linked list
 data List a
   = Nil             -- end of the list
@@ -112,7 +112,7 @@ Just 1
 The above Purescript example illustrates another problem with writing loops this way: `short-circuiting`. There are times when we wish to break out of a recursion-based loop early, such as when we have found the first element of a collection. In the above example, the function does not short-circuit, so it continues to iterate through the list even after it has found the element, leading to wasted CPU time and work.
 
 To make the function above short-circuit, we would rewrite the function to this:
-```purescript
+```haskell
 -- linked list
 data List a
   = Nil             -- end of the list
@@ -151,7 +151,7 @@ while (condition == true) {
 }
 ```
 
-```purescript
+```haskell
 data Unit = Unit
 
 whileLoop :: Boolean -> (Unit -> Boolean) -> (Unit -> Unit) -> Unit
@@ -172,7 +172,7 @@ for (value in list) {
 }
 ```
 
-```purescript
+```haskell
 data List a
   = Nil
   | Cons a (List a)

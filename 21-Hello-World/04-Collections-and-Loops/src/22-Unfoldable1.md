@@ -6,13 +6,13 @@ This is the same as `Unfoldable` except the returned `t` value must always have 
 
 ### Code Definition
 
-```purescript
+```haskell
 class Unfoldable1 t where
   unfoldr1 :: forall a b. (b -> Tuple a (Maybe b)) -> b -> t a
 ```
 
 The only difference between `Unfoldable` and `Unfoldable1` is the type signature for `f`. In both cases, the `b` value is inside of a `Maybe`:
-```purescript
+```haskell
 -- Unfoldable
 f :: forall a b. b -> Maybe (Tuple a b)
 

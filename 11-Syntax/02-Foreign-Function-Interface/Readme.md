@@ -40,7 +40,7 @@ pulp browserify --main GCD --skip-entry-point --standalone index --to js/index.j
 > Can you give an example of what that would look like specifically?
 
 > Sure.
-```purescript
+```haskell
 module GCD.Interop where
 import Prelude
 import GCD as GCD

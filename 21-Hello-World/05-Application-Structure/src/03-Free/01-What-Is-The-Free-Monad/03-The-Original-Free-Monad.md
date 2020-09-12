@@ -2,13 +2,13 @@
 
 Rather than explaining how one can eventually reason their way through defining what the type is for the original `Free` monad (a bottom-up approach), we'll simply show its definition, its instances, and demonstrate why it has to work that way (a top-down approach).
 
-```purescript
+```haskell
 data Free f a
   = Pure a
   | Impure (f (Free f a))
 ```
 Let's say that `Identity` is our `f`/`Functor` type. What does a concrete value of the `Free` data type look like?
-```purescript
+```haskell
 Impure ( Identity (
   Impure ( Identity (
     Impure ( Identity (
@@ -18,7 +18,7 @@ Impure ( Identity (
 ))
 ```
 In other words, `Free` is just a tree-like data structure of nested `Identity` values (the branches in our tree) that eventually wrap a final value (the leaf in our tree). In our current example, the tree is unbalanced, so that it appears more like a linked-list than a tree:
-```purescript
+```haskell
 {- Impure ( -} Identity (
   {- Impure ( -} Identity (
     {- Impure ( -} Identity (
@@ -28,7 +28,7 @@ In other words, `Free` is just a tree-like data structure of nested `Identity` v
 {- ) -}        )
 ```
 The only difference is that `Identity` itself is wrapped in another type. So how do we change a value that is wrapped in a box-like type? We use `Functor`'s `map`, of course! We'll use `map` in most of `Free`'s instances for the needed type classes:
-```purescript
+```haskell
 -- easiest one!
 instance Applicative :: Applicative (Free f) where
   pure a = Pure a
@@ -46,7 +46,7 @@ instance functor :: (Functor f) => Functor (Free f) where
     ))
 ```
 Let's see `map` in action via a graph reduction:
-```purescript
+```haskell
 -- Start!
 map f (
   Impure ( Identity (
@@ -112,7 +112,7 @@ map f (
   ))
 ```
 Let's look at the `Apply` instance now:
-```purescript
+```haskell
 instance apply :: (Functor f) => Apply (Free f) where
   apply (Pure f) (Pure a) = Pure (f a)
   apply (Impure f_of_Free_F) pure_A =
@@ -131,7 +131,7 @@ instance apply :: (Functor f) => Apply (Free f) where
     ))
 ```
 Let's see `apply` in action via a graph reduction:
-```purescript
+```haskell
 -- Reminder: function arg == arg # function
 
 -- Start
@@ -162,7 +162,7 @@ Impure (Identity (Impure (Identity (apply (Pure f) (Pure a)))))
 Impure (Identity (Impure (Identity (Pure (f a)))))
 ```
 Now let's define `Bind`, again using the `map` recursively:
-```purescript
+```haskell
 instance bind :: (Functor f) => Bind (Free f) where
   bind (Pure a) f = f a
   bind (Impure f_of_Free) f =
@@ -174,7 +174,7 @@ instance bind :: (Functor f) => Bind (Free f) where
     ))
 ```
 Let's see `bind` in action via a graph reduction:
-```purescript
+```haskell
 -- Start!
 bind (Impure ( Identity (Pure a))) f
 
@@ -196,7 +196,7 @@ Impure ( Identity (Pure (f a)))
 ## Definition of Free Monad
 
 Putting it all together, we get this:
-```purescript
+```haskell
 data Free f a
   = Pure a
   | Impure (f (Free f a))

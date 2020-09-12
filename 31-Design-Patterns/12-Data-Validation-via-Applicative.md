@@ -26,7 +26,7 @@ The difference between `Either` and `V` is their implementation of `Apply`. Eith
 ## The Pattern
 
 To validate data, it follows this idea:
-```purescript
+```haskell
 mkData :: forall a b. a -> a -> b
 mkData arg1 arg2 = B_Constructor arg1 arg2
 

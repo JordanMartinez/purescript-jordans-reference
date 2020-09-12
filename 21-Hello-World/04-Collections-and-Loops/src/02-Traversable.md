@@ -16,7 +16,7 @@ Plain English names:
 
 I have `Array (Maybe a)`. I need `Maybe (Array a)`. The box-like types, `Array` and `Maybe` need to swap places.
 
-```purescript
+```haskell
 sequence [Just 1, Just 2, Nothing] == Nothing -- because the array had at least 1 `Nothing`.
 sequence [Just 1, Just 2, Just 8] == Just [1, 2, 8] -- because the array only had `Just`s.
 ```
@@ -26,7 +26,7 @@ sequence [Just 1, Just 2, Just 8] == Just [1, 2, 8] -- because the array only ha
 This box-swapping property is quite useful as the below example illustrates.
 
 We'll start with sequence first. I could write:
-```purescript
+```haskell
 main :: Effect Unit
 main = do
   let produceInt = randomInt 1 10
@@ -41,7 +41,7 @@ main = do
 The above code works. However, if I want to add a fifth one, I need to add another `outputN <- produceInt` line and add the `outputN` to the array.
 
 Instead, I could write
-```purescript
+```haskell
 main :: Effect Unit
 main = do
   outputArray <- sequence
@@ -57,7 +57,7 @@ main = do
 ### Traverse: convert each `a` value in the `Traversable` type into a computation, run all computations, and store their outputs in the same `Traversable` type
 
 I could write:
-```purescript
+```haskell
 main :: Effect Unit
 main = do
   let produceInt = \maxBound -> randomInt 1 maxBound
@@ -70,7 +70,7 @@ main = do
   log $ "Generated Ints were: " <> show [output1, output2, output3, output4]
 ```
 The same problems as before arise. Instead, I could write
-```purescript
+```haskell
 main :: Effect Unit
 main = do
   let produceInt = \maxBound -> randomInt 1 maxBound
@@ -80,7 +80,7 @@ main = do
 
 ## Definition
 
-```purescript
+```haskell
 class (Functor t, Foldable t) <= Traversable t where
   traverse :: forall a b m. Applicative m => (a -> m b) -> t a -> m (t b)
   sequence :: forall a m. Applicative m => t (m a) -> m (t a)
@@ -109,7 +109,7 @@ sequence = traverse identity
 - [`for`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable#v:for)
 
 Using the same `traverse` example as above:
-```purescript
+```haskell
 main :: Effect Unit
 main = do
   outputArray <- for [8, 20, 40, 90] \maxBound -> randomInt 1 maxBound
@@ -120,7 +120,7 @@ main = do
 
 The downside of using `foldl`/`foldr` is that you only know the `foldl`/`foldr` computation's final output. You don't know how that output was reached / what each step's accumulated value was.
 
-```purescript
+```haskell
 foldl (+) 0 [1, 2, 3, 4,  5 ] ==
             15 -- <= know the output, but don't know how we reached that conclusion
                --    What was the output of `accumulatedValueAtThatPoint + 2`?
@@ -130,7 +130,7 @@ In such cases, you use
 - [`scanl`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable#v:scanl)
 - [`scanr`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable#v:scanr)
 
-```purescript
+```haskell
 foldl (+) 0 [1, 2, 3, 4,  5 ] ==
             15 -- <= know the output, but don't know how we reached that conclusion
 
@@ -149,7 +149,7 @@ In other words, the value at index `n` in the outtputted array is the output of 
 
 The downside of using `scanl`/`scanr` is that we don't have access to **both** the final output of the fold **and** the path it took to get there.
 
-```purescript
+```haskell
 foldl (+) 0 [1, 2, 3, 4,  5 ] ==
             15 -- <= know the output, but don't know the path of how we got there
 
@@ -161,7 +161,7 @@ In such cases, you can use
 - [`mapAccumL`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable#v:mapAccumL)
 - [`mapAccumR`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Traversable#v:mapAccumR)
 
-```purescript
+```haskell
 foldl (+) 0 [1, 2, 3, 4,  5 ] ==
             15 -- <= know the output, but don't know the path of how we got there
 
@@ -180,7 +180,7 @@ mapAccumL (\accumulationSoFar nextValue ->
 You can see how `mapAccumL`/`mapAccumR` enables you to write even complex computations fairly easily. Still, these two functions are more expressive than just a combining the outputs of `foldl` and `scanl` in one computation, since they allow for more types to be used in the computation.
 
 Below is a nonsensical example demonstrating this:
-```purescript
+```haskell
 import Prelude
 import Data.Traversable (mapAccumL)
 import Data.Traversable.Accum (Accum)

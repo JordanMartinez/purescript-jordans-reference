@@ -7,13 +7,13 @@ Since `b` must still be polymorphic, why don't we wrap it in a higher-kinded typ
 ## Newtyping our `Function`
 
 If our goal is to write instances for the function, `(a -> Box b)`, how can we ensure this function's type signature never changes? We can wrap the function in a newtype:
-```purescript
+```haskell
 newtype OutputBox a b = OutputBox (a -> Box b)
 ```
 This creates a new problem. When we originally evaluated a monadic function, we could pass the value to the function without problem: `produceValue = someComputation 4`.
 
 Since our above function is now wrapped in a newtype, we need a way to easily unwrap the newtype and pass the argument to the function. Why don't we create a function called `runOutputBox` to do just that?
-```purescript
+```haskell
 runOutputBox :: forall a b. OutputBox a b -> a -> Box b
 runOutputBox (OutputBox function) argument = function argument
 ```
@@ -25,13 +25,13 @@ Now we're ready to implement instances for `OutputBox`
 ### Implementing `map`
 
 Let's look at `Functor` again.
-```purescript
+```haskell
 class Functor f where
   map :: forall a b. (a -> b) -> f a -> f b
 ```
 
 Following the same idea as before, we can convert `m` into `OutputBox input` and get this type signature:
-```purescript
+```haskell
 instance functorOutputBox :: Functor (OutputBox input) where
   map :: forall originalOutput newOutput.
          (originalOutput -> newOutput) ->
@@ -43,7 +43,7 @@ instance functorOutputBox :: Functor (OutputBox input) where
 Let's see how to implement it.
 
 1. Since `map` returns an `OutputBox` type, let's start by first creating a newtype constructor:
-```purescript
+```haskell
 instance functorOutputBox :: Functor (OutputBox input) where
   map :: forall originalOutput newOutput.
          (originalOutput -> newOutput) ->
@@ -53,7 +53,7 @@ instance functorOutputBox :: Functor (OutputBox input) where
 ```
 
 2. The type, `OutputBox`, wraps a function, so let's use lambda syntax to create a new one:
-```purescript
+```haskell
 instance functorOutputBox :: Functor (OutputBox input) where
   map :: forall originalOutput newOutput.
          (originalOutput -> newOutput) ->
@@ -63,7 +63,7 @@ instance functorOutputBox :: Functor (OutputBox input) where
 ```
 
 3. Since `f` is the only argument that can receive the `input` value, let's pass `input` into `f` and store its output in a let binding:
-```purescript
+```haskell
 instance functorOutputBox :: Functor (OutputBox input) where
   map :: forall originalOutput newOutput.
          (originalOutput -> newOutput) ->
@@ -81,19 +81,19 @@ Hmm... When we defined `map` for `Function input`, we could pass `originalOutput
 2. Once we get a value of the desired type, `newOutput`, how do we stick it back into the `Box`?
 
 In other words, our situation can be expressed in a type signature:
-```purescript
+```haskell
 someFunction :: Box originalOutput -> Box newOutput
 ```
 
 Wait! Doesn't that look very similar to `Functor`'s `map`?
-```purescript
+```haskell
 map :: (originalOutput -> newOutput) -> Box originalOutput -> Box newOutput
 ```
 
 And isn't `originalToNew` a function with this exact type signature: `(originalOutput -> newOutput)`? And doesn't `Box` itself have an instance for `Functor`.
 
 4. Use `Box`'s `map` to finish implementing the function.
-```purescript
+```haskell
 instance functorOutputBox :: Functor (OutputBox input) where
   map :: forall originalOutput newOutput.
          (originalOutput -> newOutput) ->
@@ -106,7 +106,7 @@ instance functorOutputBox :: Functor (OutputBox input) where
 ```
 
 Great! Let's clean it up by inlining `boxStoringOriginalOutput`.
-```purescript
+```haskell
 instance functorOutputBox :: Functor (OutputBox input) where
   map :: forall originalOutput newOutput.
          (originalOutput -> newOutput) ->
@@ -125,13 +125,13 @@ Lessons we learned in this example:
 ## Apply
 
 Let's now look at `Apply`.
-```purescript
+```haskell
 class (Functor f) <= Apply f where
   apply :: forall a b. f (a -> b) -> f a -> f b
 ```
 
 Our function will have this type signature:
-```purescript
+```haskell
 instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input) where
   apply :: forall originalOutput newOutput.
            OutputBox input (originalOutput -> newOutput) ->
@@ -141,7 +141,7 @@ instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input
 ```
 
 1. As before, let's implement the shell of our return type: a newtype wrapper around a function created using lambda syntax:
-```purescript
+```haskell
 instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input) where
   apply :: forall originalOutput newOutput.
            OutputBox input (originalOutput -> newOutput) ->
@@ -153,7 +153,7 @@ instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input
 ```
 
 2. Let's pass `input` into `f`:
-```purescript
+```haskell
 instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input) where
   apply :: forall originalOutput newOutput.
            OutputBox input (originalOutput -> newOutput) ->
@@ -166,7 +166,7 @@ instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input
 ```
 
 3. Let's pass `input` into `inputToFunction` to expose function:
-```purescript
+```haskell
 instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input) where
   apply :: forall originalOutput newOutput.
            OutputBox input (originalOutput -> newOutput) ->
@@ -182,7 +182,7 @@ instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input
 
 Hmm... This seems similar to what happened before. We have two boxes that are both storing values. When we tried implementing the `Functor` instance for our function, we used `Box`'s `Functor` definition. If we look at the types of our `Box`es, we'll see that this coincidence applies here, too. `boxStoringOriginalToNew` has type, `Box (originalOutput -> newOutput)` while `boxStoringOriginalOutput` has type, `Box originalOutput`. So, let's use `Box`'s `Apply` instance to finish the funciton!
 
-```purescript
+```haskell
 instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input) where
   apply :: forall originalOutput newOutput.
            OutputBox input (originalOutput -> newOutput) ->
@@ -207,7 +207,7 @@ You've probably noticed a pattern by now. To implement a type class for our func
 
 We'll do this one quickly.
 
-```purescript
+```haskell
 class (Apply f) <= Applicative f where
   pure :: forall a. a -> f a
 
@@ -221,7 +221,7 @@ instance applicativeOutputBox :: (Apply (OutputBox input)) <= Applicative (Outpu
 
 We'll do this one a bit more slowly.
 
-```purescript
+```haskell
 class (Apply m) <= Bind m where
   bind :: forall a b. m a -> (a -> m b) -> m b
 
@@ -300,7 +300,7 @@ instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) wh
 ```
 
 If we were to clean up the finished code above, we would write this:
-```purescript
+```haskell
 instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) where
   bind :: forall originalOutput newOutput.
           OutputBox input originalOutput ->
@@ -318,7 +318,7 @@ instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) wh
 
 If we look at our final instances below (they were copied from above), we'll see that we never once used `Box` explicitly. Rather, we could have replaced `Box` with any monadic data type and we would still be able to implement instances of these type class' functions that satisfy their type signatures.
 
-```purescript
+```haskell
 instance functorOutputBox :: Functor (OutputBox input) where
   map :: forall originalOutput newOutput.
          (originalOutput -> newOutput) ->
@@ -358,7 +358,7 @@ instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) wh
 ```
 
 If we were to generalize our function to a monad, it would look like this:
-```purescript
+```haskell
 newtype OutputMonad a m b = (a -> m b)
 
 runOutputMonad :: forall m a b. Monad m => OutputMonad a m b -> a -> m b
