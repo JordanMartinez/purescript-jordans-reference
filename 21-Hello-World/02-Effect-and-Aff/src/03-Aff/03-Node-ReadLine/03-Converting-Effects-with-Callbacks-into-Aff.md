@@ -11,7 +11,7 @@ Let's first overview some of `Aff`'s concepts, so that the upcoming code is easi
 
 To model the possibility for a computation to return an error or actual output, we can use `Either a b`. Handling errors and output implies a function. `Aff` uses the type signature, `Either errorType outputType -> Effect Unit`, for that.
 
-Lastly, cancelling implies what to do when the computation is either no longer needed or it has failed (but we aren't using the function just discussed above). As an example, one will use `Canceller`s to clean up resources (e.g. `clearTimeout`).
+Lastly, cancelling implies what to do when the computation is either no longer needed or it has failed (but we aren't using the function just discussed above). As an example, one will use `Canceler`s to clean up resources (e.g. `clearTimeout`).
 
 ```haskell
 newtype Canceler = Canceler (Error -> Aff Unit)
@@ -30,7 +30,7 @@ runAff_ :: forall a.
 ```
 Breaking this down, `runAff_` takes two arguments (explained in reverse):
 - an `Aff` computation to run
-- a function for handling a possible asynchronous `Error` if the computation fails or a the computation's output, `a`, if it succeeds.
+- a function for handling a possible asynchronous `Error` if the computation fails or the computation's output, `a`, if it succeeds.
 
 Using it should look something like:
 ```haskell
@@ -126,7 +126,7 @@ affValue = makeAff go
 Cleaning it up and including the arguments, we get:
 ```haskell
 affQuestion :: String -> Interface -> Aff String
-affQuestion mesage interface = makeAff go
+affQuestion message interface = makeAff go
   where
   go :: (Either Error a -> Effect Unit) -> Effect Canceler
   go runAffFunction =
