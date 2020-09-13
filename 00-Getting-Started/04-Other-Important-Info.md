@@ -27,7 +27,7 @@ Then, you use a search query like the following:
 | Find real-world examples of code that uses libraries (e.g. `aff-bus`) | [`language:purescript path:src/ in:file "Effect.Aff.Bus"`](https://github.com/search?q=language%3Apurescript+path%3Asrc%2F+in%3Afile+Bus) | Search a project's `src` directory for files whose content mentions the `Effect.Aff.Bus` module at some point. (Note: the full module name must be surrounded by quotes)
 | Find real-world examples of code that uses testing libraries (e.g. `aff-bus`) | [`language:purescript path:test/ in:file "Test.QuickCheck"`](https://github.com/search?q=language%3Apurescript+path%3Atest%2F+in%3Afile+QuickCheck) | Search a project's `test` directory for files whose content mentions the `Test.QuickCheck` module at some point. (Note: the full module name must be surrounded by quotes)
 
-## Documenation
+## Documentation
 
 - Anytime you need to look up the documentation for a package, you have two options:
     - use [Pursuit](http://pursuit.purescript.org/).

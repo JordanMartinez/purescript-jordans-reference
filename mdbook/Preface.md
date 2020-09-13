@@ -1,5 +1,9 @@
 # Preface
 
+This repo is my way of using the [Feynman Technique](https://medium.com/taking-note/learning-from-the-feynman-technique-5373014ad230) to learn Purescript and its ecosystem.
+
+Feynman used simple language, storytelling, comprehensively wrote down everything he knew about the topic, then attempted to teach it such that a child could understand it. Without jargon but with brevity, he identified what he didn't know to the audience and had his content organized.
+
 ## Intended Audience
 
 The intended reader is one who has some background in programming, but no background in the Functional Programming paradigm. A reader should consult the summarized version of the Table of Contents below before determining what and how much to read.
