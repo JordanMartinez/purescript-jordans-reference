@@ -18,3 +18,4 @@ mdbook build
 # Deploy it
 git add *
 git commit -m "Update book to $1"
+git push
