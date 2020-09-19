@@ -25,6 +25,18 @@
 -- | | --- | --- | ----- |
 -- | | a   | b   | c     |
 -- |
+-- | # Headers level 1 work
+-- |
+-- | ## Headers level 2 work
+-- |
+-- | ### Headers level 3 work
+-- |
+-- | #### Headers level 4 work
+-- |
+-- | ##### Headers level 5 work
+-- |
+-- | ###### Headers level 6 work
+-- |
 -- | Some code:
 -- | ```purescript
 -- | f :: Int
