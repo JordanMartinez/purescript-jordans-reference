@@ -47,7 +47,7 @@ import GCD as GCD
 import Data.Function.Uncurried (mkFn2)
 
 gcd2 :: Fn2 Int Int Int
-gcd2 = mkFn2 GCD.gcd2```
+gcd2 = mkFn2 GCD.gcd2
 ```
 > That gets compiled to `./output/GCD.Interop/index.js` and then in a js file I can do
 ```javascript
