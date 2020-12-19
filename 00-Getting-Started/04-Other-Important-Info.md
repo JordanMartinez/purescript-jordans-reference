@@ -2,6 +2,7 @@
 
 - [Purescript By Example](https://book.purescript.org/) is the official up-to-date book that teaches Purescript.
 - [PureScript Cookbook](https://github.com/JordanMartinez/purescript-cookbook) is an unofficial cookbook that shows "How to do X" in PureScript.
+- ["Not Yet Awesome" PureScript](https://github.com/milesfrain/not-yet-awesome-purescript) is a list of things that are not _yet_ awesome in PureScript
 
 ## Functional Programming Jargon
 
