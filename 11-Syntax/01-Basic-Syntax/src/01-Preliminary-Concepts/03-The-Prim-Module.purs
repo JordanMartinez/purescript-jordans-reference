@@ -62,6 +62,17 @@ data Char_ -- Type -- doesn't support astral plane characters (code points > 0xF
 exampleChar :: Char
 exampleChar = 'c'
 
+unicodeA :: Char
+unicodeA = '\x0061'
+
+-- Astral plane characters (i.e. those with code point values greater than
+-- `0xFFFF`) cannot be represented as `Char` values.
+unicodeChar :: Char
+unicodeChar = '\xFFFF'
+
+unicodeChar2 :: Char
+unicodeChar2 = '\xffff'
+
 data String_ -- Type
 
 literal_string_syntax :: String
