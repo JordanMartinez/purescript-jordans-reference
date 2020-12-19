@@ -4,7 +4,24 @@ REPL stands for Read, Evaluate, Print, Loop.
 
 ## Starting the REPL
 
-Use `spago repl`
+Use `spago repl`. The REPL should print something like the following:
+```
+$ spago repl
+PSCi, version 0.13.8
+Type :? for help
+
+import Prelude
+
+> |
+```
+Let's walk through each part:
+- `PSCi` means "PureScript Compiler interactive". It's similar to GHCi, the Haskell language's REPL.
+- `version` prints the PureScript version you are using.
+- `:?` indicates how to print a list of commands with their description. These are described below in this file.
+
+After this, you may see zero or more `import <ModuleName>` lines. Spago will read the `.purs-repl` file to get this list and import the modules automatically. The `.purs-repl` file is covered at the end of this file.
+
+Note: if you do not see `import Prelude` appear above, expressions like `5 + 5` will produce an error. To fix that, you should import the Prelude module by typing `import Prelude` followed by pressing Enter.
 
 ## Using the REPL
 
@@ -26,6 +43,7 @@ Sometimes, the REPL will output errors. These errors may not be immediately unde
 | - | - | - |
 | "No type class instance was found for `Data.Show.Show [Type]`" | An expression cannot be turned into a `String`. For example, a function's implementation (`(\x -> x + 1)`) cannot be turned into a `String` whereas a value (`5`) or expression (`10 + 10`) can be (`5` and `20`, respectively). | If it's possible for you to define one, define an instance of the `Show` type class. If not, then ignore it and move on.
 | "Multiple value declarations exist for [binding]." | You defined the binding twice, which you cannot do | See [the Reload command section](#reload) for what your options are |
+| "Unknown operator (+)" | The `+` function was not imported because the `Prelude` module was imported | Import the Prelude module by typing `import Prelude` followed by pressing Enter. |
 
 ## A Quick Overview of Some of the REPL Commands
 
@@ -168,3 +186,31 @@ The REPL will then parse and all of the code, enabling you to use it from that p
 ### Complete
 
 The REPL already supports tab-completion. So, this command isn't meant to be used by humans. Rather, it's for tools that need a way to get tab-completion. For context, see [Harry's comment](https://github.com/purescript/purescript/issues/3746#issuecomment-550512591).
+
+## The `.purs-repl` File
+
+If you ever want to automatically import a list of modules, modify the `.purs-repl` file. By default, it will only display the following content:
+```
+import Prelude
+```
+You can add more modules there so you don't have to type them in later:
+```
+import Prelude
+import Data.Maybe
+import Data.Either
+```
+
+Unfortunately, defining variables in the file will not automatically create them before the REPL starts. Let's say you update `.purs-repl` to the below content
+```
+import Prelude
+
+x = 5
+```
+When you run `spago repl`, it will produce the following error:
+```
+$ spago repl
+PSCi, version 0.13.8
+Type :? for help
+
+Unexpected or mismatched indentation at line 3, column 1
+```
