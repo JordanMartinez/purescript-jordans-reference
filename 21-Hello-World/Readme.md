@@ -12,6 +12,8 @@ This folder will document everything necessary to create a simple console-based 
 - An overview of various type-level programming libraries
 - A few console-based games written in Purescript (putting it all together)
 
+While you may not be at the top of [this Haskell Competency Matrix](https://gist.github.com/graninas/833a9ff306338aefec7e543100c16ea1/86bcd2da3cd5d25073622316206b3fbfbd181b9e) by the end of this repo, you will have taken a significant step towards that direction.
+
 In pursuing these goals, it will overview the following libraries:
 - Basic
     - Prelude
