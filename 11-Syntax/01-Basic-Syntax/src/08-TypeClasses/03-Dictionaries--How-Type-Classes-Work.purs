@@ -13,7 +13,7 @@ implementation to use. But how does it do this? How do Type Classes work?
 Dictionaries are what enable a function/value to magically appear in the
 implementation of a function's body. The below code is a summary of
 this article about type class 'dictionaries':
-https://www.schoolofhaskell.com/user/jfischoff/instances-and-dictionaries
+https://web.archive.org/web/20200116160958/https://www.schoolofhaskell.com/user/jfischoff/instances-and-dictionaries
 
 I could not explain it clearer nor more concisely than they did.
 -}
