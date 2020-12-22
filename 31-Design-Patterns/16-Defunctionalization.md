@@ -1,4 +1,6 @@
-# Refactoring via the ContT Monad
+# Defunctionalization
+
+Or converting recursive stack-unsafe code into stack-safe code
 
 See these resources:
 - [The reasonable effectivness of the ConT monad](https://blog.poisson.chat/posts/2019-10-26-reasonable-continuations.html)
