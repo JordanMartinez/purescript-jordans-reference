@@ -77,6 +77,8 @@ These terms are used so that one can ultimately determine whether a given type i
 | - | + | - |
 | + | - | - |
 
+To understand how this works in practice, see [Contravariant Functors are Weird](https://sanj.ink/posts/2020-06-13-contravariant-functors-are-weird.html)
+
 ## The 2+ Different Functors
 
 As explained in `../Variance of Functors.md`, there are two different kinds of `Functor`s: covariant Functors and contravariant Functors.
