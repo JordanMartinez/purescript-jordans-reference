@@ -36,11 +36,15 @@ infixl 4 two_arg_function as >>
 infix  2 Constructor as ?->
 infix  4 type TypeAlias as :$>
 
-allPossibleCharactersForSymbolicAlias :: forall a. a -> a
-allPossibleCharactersForSymbolicAlias x = x
+mostCharactersForSymbolicAlias :: forall a. a -> a
+mostCharactersForSymbolicAlias x = x
 
--- Note: '@', '\', and '.' cannot be used alone (see next comment)
-infix 4 allPossibleCharactersForSymbolicAlias as ~\!@#$%^&*/><=+.
+-- Notes:
+-- 1. '@', '\', and '.' cannot be used alone (see next comment)
+-- 2. the below symbols are the ones you will typically see. However,
+--      characters where Haskell's `isSymbol` returns true also work.
+--      (https://hackage.haskell.org/package/base-4.14.1.0/docs/Data-Char.html#v:isSymbol)
+infix 4 mostCharactersForSymbolicAlias as ~!@#$%^&*-+=\|:<>./?
 
 {-
 These characters, when used individually as aliases, are illegal:
