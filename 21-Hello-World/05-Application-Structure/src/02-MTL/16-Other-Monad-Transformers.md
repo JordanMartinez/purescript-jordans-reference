@@ -34,9 +34,9 @@ getAge :: Effect (Maybe Int)
 
 main :: Effect Unit
 main = do
-  result <- runMaybeT $ MaybeT do
-    name <- getName
-    age <- getAge
+  result <- runMaybeT do
+    name <- MaybeT getName
+    age <- MaybeT getAge
     pure { name, age }
   case result of
     Nothing -> log "Didn't work"
