@@ -43,9 +43,9 @@ getAge :: Effect (Either Error Int)
 
 main :: Effect Unit
 main = do
-  eitherResult <- runExceptT $ ExceptT do
-    name <- getName
-    age <- getAge
+  eitherResult <- runExceptT do
+    name <- ExceptT getName
+    age <- ExceptT getAge
     pure { name, age }
   case eitherResult of
     Left error -> log $ "Error: " <> show error
