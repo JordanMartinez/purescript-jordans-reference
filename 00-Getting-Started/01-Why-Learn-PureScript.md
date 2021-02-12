@@ -88,6 +88,10 @@ Elm
 
 Elm and PureScript can both be used to build a complex website. However, one will need to write more lines of code in Elm than they would in PureScript.
 
+#### PureScript vs OCaml / Reason
+
+This section has not yet been written.
+
 #### PureScript vs GHCJS
 
 Haskell, which heavily influenced PureScript, has an option for compiling Haskell to JavaScript via GHCJS. However, that comes with its own tradeoffs. PureScript was developed partly because those tradeoffs were too costly.
