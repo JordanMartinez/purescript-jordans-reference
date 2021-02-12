@@ -30,7 +30,7 @@ Then I'll answer a few possible questions the below audiences may have in the FA
 - The web browser is the new ["dumb terminal"](https://www.youtube.com/embed/YI34UIMgkxs?start=1762&end=1828) / platform-independent OS:
     - [What can web do today?](https://whatwebcando.today/)
 - [Why Founders Should Start With a Website, Not a Mobile App](https://www.atrium.co/blog/founders-should-build-website-not-mobile-app/)
-- The points mentioned in this article: [Learn Javascript in 2018](https://hackernoon.com/learn-to-code-in-2018-get-hired-and-have-fun-along-the-way-b338247eed6a)
+- The points mentioned in this article: [Learn Javascript in 2018](https://web.archive.org/web/20181201032915/https://medium.com/zerotomastery/learn-to-code-in-2018-get-hired-and-have-fun-along-the-way-b338247eed6a)
 
 ## ...but not write Javascript to build it...
 
