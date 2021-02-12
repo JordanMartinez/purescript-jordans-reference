@@ -74,17 +74,17 @@ One of the main issues with JavaScript is a poor type system. TypeScript seems t
 
 #### PureScript vs Elm
 
-**TL;DR**: Since Elm is founded on the similar philosophical foundations, one can use Elm and gain benefits similar to using PureScript. Elm sacrifices powerful language features to gain a simpler learning curve. Thus, it's more suited for simple applications. PureScript buys powerful language features at the cost of a harder learning curve. Thus, it's more suited for complex applications.
+Since Elm is founded on the similar philosophical foundations as PureScript, one can use Elm and gain many of the same benefits as PureScript. However, there is a ceiling on the abstractions one can express in Elm. PureScript's ceiling is much higher than Elm's because it has type classes.
 
-TODO, but the general idea is:
-- Benefits of Elm:
-    - Good documentation and error messages, making it easier for JavaScript-background developers to learn
-    - Works very well for simple applications without complex business logic
-    - Uses a simpler type system than PureScript to insure correctness
-- Costs of Elm:
-    - Incurs a lot of boilerplate code to do anything
-    - Due to its simpler type system, it lacks more powerful abstractions, such as type classes. Thus, ideas that take a few lines of code in PureScript take much longer or cannot be done in Elm.
-    - Elm is works very well for simple applications, but incurs a lot of boilerplate code. For some applications, it's all that's needed
+Elm
+- ... sacrifices the following features ...
+    - type classes, which
+        - reduce boilerplate code since the compiler can write code for you
+        - enable one to define and uphold constraints about their program (e.g. this sequence of commands must be executed in the correct order)
+- ... to gain the following ...
+    - clear actionable error messages because there are less ambiguous cases to deal with in the type system
+
+Elm and PureScript can both be used to build a complex website. However, one will need to write more lines of code in Elm than they would in PureScript.
 
 #### PureScript vs GHCJS
 
