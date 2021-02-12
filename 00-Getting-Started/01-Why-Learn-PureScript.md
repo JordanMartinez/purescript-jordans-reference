@@ -68,7 +68,7 @@ In short, the below comparison will be biased towards PureScript and will not ye
 
 One of the main issues with JavaScript is a poor type system. Many errors aren't discovered until a person, usually a customer, runs the program. Many of these same errors could be detected and fixed before shipping code if one used a language with a better type system.
 
-TypeScript seems to address this type safety issue. Just consider its name! However, one will often find that writing TypeScript is not much different than writing Javascript. TypeScript does not provide any real guarantees; it only pretends. PureScript does provide such guarantees.
+TypeScript seems to address this type safety issue. Just consider its name! However, a few people who are using PureScript now have said this about TypeScript: "You might as well be writing Javascript." TypeScript does not provide any real guarantees; it only pretends. PureScript does provide such guarantees.
 
 - [TypeScript vs PureScript: Not All Compilers Are Created Equal](https://blog.logrocket.com/typescript-vs-purescript-not-all-compilers-are-created-equal-c16dadaa7d3e)
 - [JavaScript, TypeScript, and PureScript](https://www.youtube.com/watch?v=JTEfpNtEoSA) or "Why TypeScript only 'pretends' to have types."
@@ -236,13 +236,12 @@ The average time for learning FP languages in general is usually 6 months due to
 You might regret it if you are not being honest or thoughtful about the purpose you are trying to achieve. Not being aware of your expectations, nor having realistic ones, will almost always end in having those expectatiosn broken, leaving you angry, disappointed, or frustrated.
 
 Some facts:
-- Rust has a learning curve as well (i.e. lifetimes, borrow checker)
 - WebAssembly holds promise, but it is still being developed.
 - Languages that are popular or backed by companies with many resources are not necessarily the best languages to use for your particular purposes
-- PureScript's type system is more powerful than similar languages' type system (if it exists)
+- While PureScript offers more guarantees than most other languages, it unfortunately might not be the best language to use/learn if
+    - you need mature libraries for a particular need that hasn't yet been written in PureScript. This is one benefit of TypeScript/Javascript.
+    - you find that Elm's tradeoffs are "good enough" for your purposes.
 - A few people who are using PureScript now have said this about TypeScript: "You might as well be writing Javascript"
-- Elm forces you to write code in only one way. If it suits your needs, that's great. If it doesn't, it hurts.
-- There's a general saying about FP languages: "Once you go FP, you never go back."
 
 ### How mature is the Ecosystem? Will I need to initially spend time writing/improving/documenting libraries for this language or can I immediately use libraries that are stable and mature?
 
