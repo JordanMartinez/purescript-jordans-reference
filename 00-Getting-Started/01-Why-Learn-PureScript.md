@@ -131,10 +131,12 @@ Above, I stated that PureScript makes specific tradeoffs. I'd like to cover what
 
 #### Immutable Persistent Data Structures by Default
 
-TODO, but the general idea is:
-- Immutable data structures are the default and always work as such (unlike some other languages)
-- Mutable data structures are opt-in
-- Such data structures are easier to use and reason about because they don't change
+In PureScript, immutable data structures are the default rather than being "opt-in." In most other languages, mutable data structures are the default with immutable ones being "opt-in."
+
+Immutable data structures are
+- easier to reason about because the value never changes
+- are always thread-safe, preventing many typical issues with concurrency
+- can be as performant as mutable data structures in most cases
 
 #### Multiple Backends with Easy Foreign Function Interface
 
