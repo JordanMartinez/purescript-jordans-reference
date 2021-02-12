@@ -56,8 +56,6 @@ Some other ideas that are relevant:
     - See the [React version of 'Real World App'](https://github.com/jonasbuntinx/purescript-react-realworld)
 - [A Discourse pose describing some of the disadvantages of TypeScript and Elm when compared to PureScript](https://discourse.purescript.org/t/language-highlights/1471)
 
-For those that say "PureScript is dead, bad, stupid, not worth learning, etc." In response to these things, I'd recommend you watch [The Hard Parts of Open Source](https://www.youtube.com/watch?v=o_4EX4dPppA)
-
 ### Language Comparisons
 
 For a full list of possible alternatives to JavaScript, see [CoffeeScript's wiki's list of 'Languages that compile to JavaScript'](https://github.com/jashkenas/coffeescript/wiki/List-of-languages-that-compile-to-JS)
