@@ -185,8 +185,8 @@ Even if one ultimately decides not to use PureScript, the language itself can be
 ### If I learn PureScript, can I get a good developer job?
 
 - See the community-curated list of [companies who use PureScript in production right now](https://github.com/ajnsit/purescript-companies).
-- Check for PureScript jobs listed on [Functional Jobs](https://functionaljobs.com/jobs/search/?q=PureScript)
 - See [Do you have a PureScript app in production?](https://discourse.purescript.org/t/do-you-have-a-purescript-app-in-production/20)
+- Check for PureScript jobs listed on [Functional Jobs](https://functionaljobs.com/jobs/search/?q=PureScript)
 
 ### Should I learn PureScript now or wait until sometime later?
 
