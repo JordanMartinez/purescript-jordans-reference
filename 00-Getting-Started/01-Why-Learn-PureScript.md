@@ -255,15 +255,16 @@ Writing bindings is simple. See the `Syntax/Foreign Function Interface` folder f
 
 However, using FFI via bindings can introduce runtime errors. Whenever one uses a library via FFI, you don't know whether a function will throw an exception or not. This can produce unexpected runtime errors even though you've written your code in a type-safe language. On stable mature well-tested libraries, this shouldn't be a big problem.
 
-Lastly, writing bindings is tedious. PureScript uses algebraic data types (ADTs), but most libraries will define one function that can take multiple sets of arguments. For example, one might call `foo` with any of these sets of arguments:
-- `foo("apple")`
-- `foo("apple", ["banana", "orange"])`
-- `foo("apple", ["banana", "orange"], true)`
-- `foo("apple", {"first":"banana", "second":"orange"}, true)`
+Lastly, writing bindings is tedious. PureScript uses algebraic data types (ADTs), but most libraries will define one function that can take multiple sets of arguments. For example, one might call the function, `foo`, with any of these sets of arguments:
+- `foo("apple")` (the first String argument, `apple`, is required)
+- `foo("apple", ["banana", "orange"])` (the Array of Strings argument is optional)
+- `foo("apple", ["banana", "orange"], true)` (the boolean flag is optional, too)
+- `foo("apple", {first:"banana", second:"orange"}, true)` (the array can be passed in as a record/map/dictionary/object, too)
+- `foo("apple", {first:"banana", second:"orange", optional: true}, true)` (the second argument can have optional fields in addition to its required ones)
 
-Writing bindings for `foo`, which checks for types at runtime, is tedious to do in a language like PureScript, which checks for types at compile time and which does not allow function overloading. However, there is a [library for handling](https://github.com/jvliwanag/purescript-untagged-union) these kind of situations.
+In reality, `foo` is at least 5 different functions that are all using the same name. Thus, writing bindings for `foo` is tedious to do in a language like PureScript due to PureScript's type-safe nature. However, there is a [library for handling](https://github.com/jvliwanag/purescript-untagged-union) these kind of situations.
 
-Others have also worked on writing code-generators that, for example, can look at the code of a library written in TypeScript and generate the corresponding PureScript bindings for that code.
+Others have also worked on writing code-generators that, for example, can look at the code of a library written in TypeScript and generate the corresponding PureScript bindings for that code. Such a tool is still a work-in-progress.
 
 ### How easy/pleasant is it to use the language's build tools (e.g. compiler, linter/type checker, dependency manager, etc.) and text editor tools (e.g. ease of setup, refactoring support, pop-up documentation, etc.)?
 
