@@ -10,17 +10,15 @@ The intended reader is one who has some background in programming, but no backgr
 
 If you want to understand why you should care about PureScript, read through the [Why Learn PureScript](./00-Getting-Started/01-Why-Learn-PureScript.md) page and **Philosophical Foundations** section, starting with [Composition Everywhere](./01-FP-Philosophical-Foundations/01-Composition-Everywhere.md).
 
-Composition Everywhere
-
-If you want to learn PureScript for web development, read the entire work from start to finish.
+If you want to learn PureScript, read the entire work from start to finish.
 
 ## Overview and Scope of the Work
 
 All code in this work uses PureScript `0.13.8`
 
-This work was created so a reader can understand PureScript and how to use it properly from a deep foundational understanding. Most other resources will get you started quickly, but then you will get confused at some point along the way. This resources takes longer to get started, but you will either not be confused or be less confused when we get to more advanced topics (e.g. monad transformers, type-level programming, etc.)
+This work was created so a reader can understand PureScript and how to use it properly from a deep foundational understanding. Most other resources will get you started quickly, but then you will get confused at some point along the way. This resource takes longer to get started, but you will either not be confused or be less confused when we get to more advanced topics (e.g. monad transformers, type-level programming, etc.)
 
-This work does not cover how to use PureScript to do web-development. In other words, things lik ethe following:
+This work does not cover how to use PureScript to do web-development. In other words, things like the following:
 - how to use a PureScript single-page application (SPA) framework to build a frontend
 - how to use a web server framework to build a backend
 - how to do bundling and/or code-splitting effectively
@@ -71,7 +69,7 @@ There are currently 8 parts to this book. I summarize what is in each section be
     - How do I debug a program?
     - How do I write a complex program using modern FP architecture?
     - How do I test a program?
-    - How do I benchmark a program or function within a prograhttps://github.com/jordanmartinez/purescript-jordans-reference/issuesm?
+    - How do I benchmark a program or function within a program?
 - **22-Projects**:
     - If you walked me through a complete but simple program from initial design to complete testing, what would that process look like?
         - Random Number Game - a game that runs on the console and in the browser using the same "business logic"
