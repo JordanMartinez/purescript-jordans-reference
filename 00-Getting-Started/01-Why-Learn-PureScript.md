@@ -251,9 +251,19 @@ Also, attempting to port over Haskell libraries to this language are harder at t
 
 ### How hard it is to use another language's libraries via bindings?
 
-Creating bindings are easy. However, since the code was not written via PureScript, you don't know whether a function will throw an exception or not. On stable mature well-tested libraries, this shouldn't be a big problem.
+Writing bindings is simple. See the `Syntax/Foreign Function Interface` folder for examples of how simple bindings are and things related to this.
 
-See the `Syntax/Foreign Function Interface` folder for examples of how easy bindings are and things related to this.
+However, using FFI via bindings can introduce runtime errors. Whenever one uses a library via FFI, you don't know whether a function will throw an exception or not. This can produce unexpected runtime errors even though you've written your code in a type-safe language. On stable mature well-tested libraries, this shouldn't be a big problem.
+
+Lastly, writing bindings is tedious. PureScript uses algebraic data types (ADTs), but most libraries will define one function that can take multiple sets of arguments. For example, one might call `foo` with any of these sets of arguments:
+- `foo("apple")`
+- `foo("apple", ["banana", "orange"])`
+- `foo("apple", ["banana", "orange"], true)`
+- `foo("apple", {"first":"banana", "second":"orange"}, true)`
+
+Writing bindings for `foo`, which checks for types at runtime, is tedious to do in a language like PureScript, which checks for types at compile time and which does not allow function overloading. However, there is a [library for handling](https://github.com/jvliwanag/purescript-untagged-union) these kind of situations.
+
+Others have also worked on writing code-generators that, for example, can look at the code of a library written in TypeScript and generate the corresponding PureScript bindings for that code.
 
 ### How easy/pleasant is it to use the language's build tools (e.g. compiler, linter/type checker, dependency manager, etc.) and text editor tools (e.g. ease of setup, refactoring support, pop-up documentation, etc.)?
 
