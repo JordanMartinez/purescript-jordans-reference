@@ -10,7 +10,7 @@ The intended reader is one who has some background in programming, but no backgr
 
 If you want to understand why you should care about PureScript, read through the [Why Learn PureScript](./00-Getting-Started/01-Why-Learn-PureScript.md) page and **Philosophical Foundations** section, starting with [Composition Everywhere](./01-FP-Philosophical-Foundations/01-Composition-Everywhere.md).
 
-If you want to learn PureScript for web development, read the entire work from start to finish.
+If you want to learn PureScript, read the entire work from start to finish.
 
 ## Overview and Scope of the Work
 
