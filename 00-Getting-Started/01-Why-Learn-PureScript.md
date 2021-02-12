@@ -178,9 +178,9 @@ Let's answer these one at a time. **Each answer is my opinion and could be backe
 
 ### Is the price of the steep learning curve worth the benefits of using PureScript in code?
 
-Yes, but you won't really see why until you have learned it. PureScript (and FP languages in general) will expand your understanding of what programming can be and do.
+Yes. Most mainstream languages force you to depend on the IDE, linters, and other tools outside of the language to help you write correct code. Such languages often lack the features within the language itself to help you express certain ideas and constraints within your program. PureScript's powerful language features allow you to express what other languages cannot.
 
-As always, some people prefer some languages over others and some languages are better suited for some problems as others. Feel free to disagree with me.
+Even if one ultimately decides not to use PureScript, the language itself can be a helpful environment for training your mind to think more precisely about how to write code.
 
 ### If I learn PureScript, can I get a good developer job?
 
