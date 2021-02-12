@@ -267,7 +267,7 @@ Others have also worked on writing code-generators that, for example, can look a
 
 ### How easy/pleasant is it to use the language's build tools (e.g. compiler, linter/type checker, dependency manager, etc.) and text editor tools (e.g. ease of setup, refactoring support, pop-up documentation, etc.)?
 
-The build tools are pretty good. One will typically use a `pulp + Bower`-based workflow or a `spago`-based workflow. These are explained in `Build Tools/Tool Comparisons/Dependency Managers.md`.
+The build tools are pretty good. One will typically use a `spago`-based workflow. These are explained in `Build Tools/Tool Comparisons/Dependency Managers.md`.
 
 See the `Build Tools/` folder for more up-to-date information. Likewise, see [Editor and Tool Support](https://github.com/purescript/documentation/blob/master/ecosystem/Editor-and-tool-support.md) for other editor-related configurations.
 
