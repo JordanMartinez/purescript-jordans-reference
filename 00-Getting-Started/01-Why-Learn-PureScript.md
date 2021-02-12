@@ -76,7 +76,7 @@ TypeScript seems to address this type safety issue. Just consider its name! Howe
 
 #### PureScript vs Elm
 
-Since Elm is founded on the similar philosophical foundations as PureScript, one can use Elm and gain many of the same benefits as PureScript. However, there is a ceiling on the abstractions one can express in Elm. PureScript's ceiling is much higher than Elm's because it has type classes.
+Since Elm is founded on the similar philosophical foundations as PureScript, one can use Elm and gain many of the same benefits as PureScript due to its type safety. However, there is a ceiling on the abstractions one can express in Elm. PureScript's ceiling is much higher than Elm's because it has type classes.
 
 Elm
 - ... sacrifices the following features ...
