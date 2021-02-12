@@ -16,9 +16,9 @@ If you want to learn PureScript, read the entire work from start to finish.
 
 All code in this work uses PureScript `0.13.8`
 
-This work was created so a reader can understand PureScript and how to use it properly from a deep foundational understanding. Most other resources will get you started quickly, but then you will get confused at some point along the way. This resources takes longer to get started, but you will either not be confused or be less confused when we get to more advanced topics (e.g. monad transformers, type-level programming, etc.)
+This work was created so a reader can understand PureScript and how to use it properly from a deep foundational understanding. Most other resources will get you started quickly, but then you will get confused at some point along the way. This resource takes longer to get started, but you will either not be confused or be less confused when we get to more advanced topics (e.g. monad transformers, type-level programming, etc.)
 
-This work does not cover how to use PureScript to do web-development. In other words, things lik ethe following:
+This work does not cover how to use PureScript to do web-development. In other words, things like the following:
 - how to use a PureScript single-page application (SPA) framework to build a frontend
 - how to use a web server framework to build a backend
 - how to do bundling and/or code-splitting effectively
