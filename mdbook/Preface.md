@@ -69,7 +69,7 @@ There are currently 8 parts to this book. I summarize what is in each section be
     - How do I debug a program?
     - How do I write a complex program using modern FP architecture?
     - How do I test a program?
-    - How do I benchmark a program or function within a prograhttps://github.com/jordanmartinez/purescript-jordans-reference/issuesm?
+    - How do I benchmark a program or function within a program?
 - **22-Projects**:
     - If you walked me through a complete but simple program from initial design to complete testing, what would that process look like?
         - Random Number Game - a game that runs on the console and in the browser using the same "business logic"
