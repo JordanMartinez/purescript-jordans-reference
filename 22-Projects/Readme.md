@@ -8,7 +8,6 @@ This folder's purposes are
         - Run approach (all folders)
     - Explain and show how to test and benchmark our code
 - to introduce the reader to a few commonly-used libraries in the "real world."
-    - We'll introduce/overview the libraries we'll use in later projects before using them in those projects.
 - to help the reader determine which approach with which they feel most comfortable (there is no "the one and only way" to doing this)
 
 Note: each 'project' folder in the `src` folder has a corresponding folder in the `test` and `benchmark` folders. When reading through a project's files, read through its `src` folder's content before its `test` folder's content, followed by its `benchmark` folder's content.
@@ -36,17 +35,6 @@ When overviewing the design process of the program, we'll use the following term
 | Layer 2 | API | the "production" or "test" monad which "links" these effects/capabilties to their implementations: <ul><li>a newtyped `ReaderT` and its instances</li><li>the `Free`/`Run` monad's language and its interpretation</li></ul>
 | Layer 1 | Infrastructure | the platform-specific framework/libraries we'll use to implement some special effects/capabilities (i.e. `Node.ReadLine`/`Halogen`/`StateT`)
 | Layer 0 | Main<br>(no equivalent onion term) | the program's entry point<br>the "base" monad that runs the program (e.g. production: `Effect`/`Aff`; test: `Identity`)
-
-## Libraries Overviewed
-
-Below is the current list of libraries we introduce and further explain here. This list may grow over time.
-- `Node.ReadLine` for console-based programs (`purescript-node-readline`)
-- `Halogen` for web-based programs (`purescript-halogen`)
-- `Aff` for using asynchronous effects (`purescript-aff`)
-- `Optplicative` for command-line parsing (`purescript-optplicative`)
-- `Node.FS` for reading/writing files (`purescript-node-fs-aff`)
-- `StringParers` for parsing files' contents (`purescript-string-parsers`)
-- `Tree` for producing trees (`purescript-tree`)
 
 ## Projects
 

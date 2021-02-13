@@ -122,13 +122,6 @@ npm install benchmark
 spago build
 cd ../../
 
-cd 22-Projects/01-Libraries
-pwd
-rm -rf output/ .spago/ node_modules/
-rm -rf .psc-package/ .pulp-cache/ .psc-package.json
-spago build
-cd ../../
-
 # Node-based tests
 cd 22-Projects/11-Random-Number-Game
 pwd
