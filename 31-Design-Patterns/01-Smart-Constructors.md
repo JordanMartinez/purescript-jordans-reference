@@ -20,6 +20,8 @@ module FlawedConstructors
   , example
   ) where
 
+import Partial.Unsafe (unsafeCrashWith)
+
 -- Let's assume that String value below
 -- should only be of three kinds: "apple", "orange", and "banana".
 -- (Note: "String" is the wrong type for our situation. We should be using
@@ -31,11 +33,11 @@ example :: TheType -> Int
 example (DumbConstructor "apple")  = 1
 example (DumbConstructor "orange") = 2
 example (DumbConstructor "banana") = 42
-example (DumbConstructor _)        = error "This should never occur!"
+example (DumbConstructor _)        = unsafeCrashWith "This should never occur!"
 ```
 Since the type and its constructor are both exported, this enables a user of this module to use it incorrectly. For example, in code outside this module, one could incorrectly write:
 ```purscript
-example (DumbConstructor "fire") -- throws an error
+example (DumbConstructor "fire") -- crashes program with an error
 ```
 
 ## The Solution
@@ -64,6 +66,8 @@ module SmartConstructors
   , banana
   ) where
 
+import Partial.Unsafe (unsafeCrashWith)
+
 data TheType = DumbConstructor String
 
 apple :: TheType
@@ -79,7 +83,7 @@ example :: TheType -> Int
 example (DumbConstructor "apple")  = 1
 example (DumbConstructor "orange") = 2
 example (DumbConstructor "banana") = 42
-example (DumbConstructor _) = error "We can guarantee that this will never occur!"
+example (DumbConstructor _) = unsafeCrashWith "We can guarantee that this will never occur!"
 ```
 Since `DumbConstructor` isn't exported, one is forced to use the apple, orange, or banana smart constructors to get a value of `TheType`. Thus, it prevents one from creating incorrect `TheType` values.
 ```haskell
