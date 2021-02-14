@@ -115,26 +115,6 @@ spago build
 HELLO_BENCHMARK=$?
 cd ../../
 
-cd 22-Projects/01-Libraries
-pwd
-# Build but do not run benchmark tests
-spago build
-PROJECTS_LIBRARIES_BUILT_OK=$?
-cd ../../
-
-cd 22-Projects/11-Random-Number-Game
-pwd
-# Build but do not run benchmark tests
-spago build
-PROJECTS_RANDOM_NUMBER_GAME=$?
-
-# Node-based tests
-spago test -m Test.RandomNumber.ReaderT.Standard.DifferentMonad
-PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_DIFFERENT=$?
-spago test -m Test.RandomNumber.ReaderT.Standard.SameMonad
-PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_SAME=$?
-cd ../../
-
 cd 22-Projects/12-ToC-Generator
 pwd
 # Build but do not run benchmark tests
@@ -171,10 +151,6 @@ echo "$HELLO_EXAMPLE_NUMBER_COMPARISON_RUN - Hello World - Application Structure
 echo "$HELLO_TLP - Hello World - Type-Level Programming"
 echo "$HELLO_TESTING - Hello World - Testing"
 echo "$HELLO_BENCHMARK - Hello World - Benchmarking"
-echo "$PROJECTS_LIBRARIES_BUILT_OK - Projects - Libraries"
-echo "$PROJECTS_RANDOM_NUMBER_GAME - Projects - RandomNumber"
-echo "$PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_DIFFERENT - Projects - RandomNumber - ReaderT Test (Different)"
-echo "$PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_SAME - Projects - RandomNumber - ReaderT Test (Same)"
 echo "$PROJECTS_TOC_GENERATOR - Projects ToC"
 echo "$PROJECTS_TOC_GENERATOR_TEST_MAIN_LOGIC_BOTH - Projects - ToC - Main - Both"
 echo "$PROJECTS_TOC_GENERATOR_TEST_PARSER_LOGIC_BOTH - Projects - ToC - Parser - Both"
@@ -198,10 +174,6 @@ if [ $SYNTAX_BASIC == 0 ] &&
    [ $HELLO_TLP == 0 ] &&
    [ $HELLO_TESTING == 0 ] &&
    [ $HELLO_BENCHMARK == 0 ] &&
-   [ $PROJECTS_LIBRARIES_BUILT_OK == 0 ] &&
-   [ $PROJECTS_RANDOM_NUMBER_GAME == 0 ] &&
-   [ $PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_DIFFERENT == 0 ] &&
-   [ $PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_SAME == 0 ] &&
    [ $PROJECTS_TOC_GENERATOR == 0 ] &&
    [ $PROJECTS_TOC_GENERATOR_TEST_MAIN_LOGIC_BOTH == 0 ] &&
    [ $PROJECTS_TOC_GENERATOR_TEST_PARSER_LOGIC_BOTH == 0 ]

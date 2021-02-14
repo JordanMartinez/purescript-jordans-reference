@@ -122,19 +122,6 @@ npm install benchmark
 spago build
 cd ../../
 
-# Node-based tests
-cd 22-Projects/11-Random-Number-Game
-pwd
-rm -rf output/ .spago/ node_modules/
-rm -rf .psc-package/ .pulp-cache/ .psc-package.json
-
-npm install benchmark
-spago build
-
-spago test -m Test.RandomNumber.ReaderT.Standard.DifferentMonad
-spago test -m Test.RandomNumber.ReaderT.Standard.SameMonad
-cd ../
-
 cd 22-Projects/
 pwd
 rm -rf output/ .spago/ node_modules/

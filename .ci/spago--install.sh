@@ -74,17 +74,6 @@ npm install benchmark
 spago install
 cd ../../
 
-cd 22-Projects/01-Libraries
-pwd
-spago install
-cd ../
-
-cd 22-Projects/11-Random-Number-Game
-pwd
-npm install benchmark
-spago install
-cd ../
-
 cd 22-Projects/12-ToC-Generator
 pwd
 spago install
