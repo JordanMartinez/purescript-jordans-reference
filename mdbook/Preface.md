@@ -71,9 +71,7 @@ There are currently 8 parts to this book. I summarize what is in each section be
     - How do I test a program?
     - How do I benchmark a program or function within a program?
 - **22-Projects**:
-    - If you walked me through a complete but simple program from initial design to complete testing, what would that process look like?
-        - Random Number Game - a game that runs on the console and in the browser using the same "business logic"
-        - Table of Contents Generator - a program that generates a table of contents for a GitHub repository.
+    - Links to various projects to help you see how FP ideas are applied in the real world to solve problems.
 - **31-Design Patterns**:
     - What are commonly-used patterns or idioms to solve problems in FP languages?
     - What are other FP principles or concepts not explained in the "Hello World" part of this work?
