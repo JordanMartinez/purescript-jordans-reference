@@ -30,11 +30,11 @@ See [Justin Woo's short tutorial on it](https://purescript-simple-json.readthedo
 
 This SVG file (WIP, but still helpful) shows the relationships between the type classes (inheritance hierarchy, dual relationships, usage frequency, and package location) throughout the ecosystem:
 
-![typeclass-relationships](./Type-Class-Relationships.svg "Type Class Relationships")
+![typeclass-relationships](./assets/Type-Class-Relationships.svg "Type Class Relationships")
 
 ## Functions
 
-There is also an Excel file ([Type-Class-Functions.xlsx](./Type-Class-Functions.xlsx)) that documents the functions of said type classes using a chart like so (**Note: the following chart is long-vertically and short-horizontally to reduce horizontal scrolling. In the real chart, this is inverted**):
+There is also an Excel file ([Type-Class-Functions.xlsx](./assets/Type-Class-Functions.xlsx)) that documents the functions of said type classes using a chart like so (**Note: the following chart is long-vertically and short-horizontally to reduce horizontal scrolling. In the real chart, this is inverted**):
 
 | | Example1 | Example2
 | - | - | - |
