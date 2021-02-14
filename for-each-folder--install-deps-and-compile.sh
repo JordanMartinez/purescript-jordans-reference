@@ -122,15 +122,4 @@ npm install benchmark
 spago build
 cd ../../
 
-cd 22-Projects/
-pwd
-rm -rf output/ .spago/ node_modules/
-rm -rf .psc-package/ .pulp-cache/ .psc-package.json
-spago build
-
-# Node-based tests
-spago test -m Test.ToC.MainLogic.QuickCheckTest
-spago test -m Test.ToC.ParserLogic.QuickCheckTest
-cd ../
-
 echo "... Finished ...."

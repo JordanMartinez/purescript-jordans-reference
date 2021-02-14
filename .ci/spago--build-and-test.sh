@@ -151,9 +151,6 @@ echo "$HELLO_EXAMPLE_NUMBER_COMPARISON_RUN - Hello World - Application Structure
 echo "$HELLO_TLP - Hello World - Type-Level Programming"
 echo "$HELLO_TESTING - Hello World - Testing"
 echo "$HELLO_BENCHMARK - Hello World - Benchmarking"
-echo "$PROJECTS_TOC_GENERATOR - Projects ToC"
-echo "$PROJECTS_TOC_GENERATOR_TEST_MAIN_LOGIC_BOTH - Projects - ToC - Main - Both"
-echo "$PROJECTS_TOC_GENERATOR_TEST_PARSER_LOGIC_BOTH - Projects - ToC - Parser - Both"
 
 if [ $SYNTAX_BASIC == 0 ] &&
    [ $SYNTAX_FFI == 0 ] &&
@@ -173,10 +170,7 @@ if [ $SYNTAX_BASIC == 0 ] &&
    [ $HELLO_EXAMPLE_NUMBER_COMPARISON_RUN == 0 ] &&
    [ $HELLO_TLP == 0 ] &&
    [ $HELLO_TESTING == 0 ] &&
-   [ $HELLO_BENCHMARK == 0 ] &&
-   [ $PROJECTS_TOC_GENERATOR == 0 ] &&
-   [ $PROJECTS_TOC_GENERATOR_TEST_MAIN_LOGIC_BOTH == 0 ] &&
-   [ $PROJECTS_TOC_GENERATOR_TEST_PARSER_LOGIC_BOTH == 0 ]
+   [ $HELLO_BENCHMARK == 0 ]
 then
   echo "Build Succeeded"
   exit 0;
