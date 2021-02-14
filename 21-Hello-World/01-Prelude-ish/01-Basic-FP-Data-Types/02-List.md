@@ -1,6 +1,6 @@
 # List
 
-Rather than using `Array` to store multiple values of some type, FP programmers usually use `List`. Why? The former is not recursive-friendly whereas the latter is.
+`List` is what FP programmers typically use to store a sequence of values because it is friendly to recursion. `Array` is what most mainstream languages use. Due to JavaScript's strict runtime (as opposed to Haskell's lazy runtime), most PureScript developers will use `Array` instead of `List`. However, explaining some FP concepts are easier to do using `List` rather than `Array`.
 
 Understand the upcoming definition using this diagram:
 ```
@@ -34,5 +34,3 @@ infixr 6 Cons as :
 | Usage | Values & their Usage
 | - | -
 | Recursive-friendly, not-best-performant list type | <ul><li>`Nil` - Indicates the end of a List in pattern matching</li><li>`Cons a (List a)` - stores one value of the list (head) and the tail, which is either the rest of the list (another `Cons`) or the end of the list (`Nil`).</li></ul>
-
-(To improve `List`'s performance, one could use a tree-like data structure instead.)
