@@ -62,8 +62,8 @@ derive instance newtypeEmailAddress :: Newtype EmailAddress3 _
 
 -- Data.Newtype provides other useful functions that lets us avoid manually
 -- wrapping and unwrapping. For example:
-upperEmail :: EmailAddress -> EmailAddress
-upperEmail = over EmailAddress toUpper
+upperEmail :: EmailAddress3 -> EmailAddress3
+upperEmail = over EmailAddress3 toUpper
 
 -- To see the full list, look at the package's docs:
 -- https://pursuit.purescript.org/packages/purescript-newtype/3.0.0/docs/Data.Newtype
