@@ -6,13 +6,13 @@ data InputType1 = InputValue1
 data InputType2 = InputValue2
 data OutputType = OutputValue
 
-foreign import kind InputKind1
+data InputKind1
 foreign import data InputValueK1 :: InputKind1
 
-foreign import kind InputKind2
+data InputKind2
 foreign import data InputValueK2 :: InputKind2
 
-foreign import kind OutputKind
+data OutputKind
 foreign import data OutputValueK :: OutputKind
 
 -- ... a value-level function...
@@ -25,9 +25,8 @@ function InputValue1 InputValue2 = OutputValue
 -- ... converts to
 
 -- The relationship
-class TypeLevelFunction
-  (input1 :: InputKind1) (input2 :: InputKind2) (output :: OutputKind)
-
+class TypeLevelFunction :: InputKind1 -> InputKind2 -> OutputKind -> Constraint
+class TypeLevelFunction input1 input2 output
   -- the functions' type signatures
   | input1 input2 -> output
   , input1 output -> input2

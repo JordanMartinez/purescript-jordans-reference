@@ -46,7 +46,8 @@ This is the same idea used in type-level programming. So, how does this actually
 For example, assuming we had 1) a type-level number called `IntK`, 2) its value-level Proxy type, `IProxy`, and 3) instances for the below type class, we could write an `add` and two `subtract` functions using just one relationship:
 ```haskell
 -- the relationship itself
-class AddOrSubtract (x :: IntK) (y :: IntK) (total :: IntK)
+class AddOrSubtract :: IntK -> IntK -> IntK -> Constraint
+class AddOrSubtract x y total
   -- the normal "add" function: "total = x + y"
   | x y -> total
 
@@ -167,7 +168,8 @@ To understand unification at a deeper level, see these links:
 
 At times, it can be difficult for the type checker to infer what a given type is. Thus, one uses functional dependencies (FDs) to help the compiler. As a reminder, FDs inform the compiler how to infer what some types are given that it knows other types:
 ```haskell
-class Add (x :: IntK) (y :: IntK) (total :: IntK)
+class Add :: IntK -> IntK -> IntK -> Constraint
+class Add x y total
   | x y -> total
   , y total -> x
   , x total -> y
@@ -177,7 +179,8 @@ However, sometimes the functional dependencies get a bit more complicated becaus
 For example, look at the second FD of [`Prim.Row.Cons`](https://pursuit.purescript.org/builtins/docs/Prim.Row#t:Cons):
 ```haskell
 -- Note: Symbol is a type-level String
-class Cons (label :: Symbol) (a :: Type) (tail :: # Type) (row :: # Type)
+class Cons :: forall kind. Symbol -> kind -> Row kind -> Row kind -> Constraint
+class Cons label a tail row
   | label a tail -> row
   , label row -> a tail
 ```

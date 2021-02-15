@@ -17,55 +17,58 @@ reflectVL TypeValue = "value-level value"
 ----------------------------
 -- ... converts to...
 ----------------------------
-foreign import kind CustomKind
+data CustomKind
 foreign import data CustomKindValue :: CustomKind
 
-data CustomKindProxy (a :: CustomKind) = CustomKindProxyValue
+data Proxy :: forall k. k -> Type
+data Proxy kind = Proxy
 
 -- "type-level value to value-level value"
-class TLI_to_VLI (a :: CustomKind) where
-  reflectCustomKind :: CustomKindProxy a -> Value_Level_Type
+class TLI_to_VLI :: CustomKind -> Constraint
+class TLI_to_VLI customKind where
+  reflectCustomKind :: Proxy customKind -> Value_Level_Type
 
 instance tli_to_vlI :: TLI_to_VLI CustomKindValue where {-
-  reflectCustomKind CustomKindProxyValue = "value-level value" -}
-  reflectCustomKind _                       = "value-level value"
+  reflectCustomKind Proxy = "value-level value" -}
+  reflectCustomKind _     = "value-level value"
 ----------------------------
 
 -- An example using the Boolean-like data type YesNo:
 data YesNo = Yes | No
 
-foreign import kind YesNoKind
+data YesNoKind
 foreign import data YesK :: YesNoKind
 foreign import data NoK  :: YesNoKind
-data YesNoProxy (a :: YesNoKind) = YesNoProxyValue
 
 {-
 Read yesK and noK as:
   yesK = (YesNoProxyValue :: YesNoProxy Yes) - a value of type "YesNoProxy Yes"
   noK  = (YesNoProxyValue :: YesNoProxy No)  - a value of type "YesNoProxy No" -}
-yesK :: YesNoProxy YesK
-yesK = YesNoProxyValue
+yesK :: Proxy YesK
+yesK = Proxy
 
-noK :: YesNoProxy NoK
-noK = YesNoProxyValue
+noK :: Proxy NoK
+noK = Proxy
 
-class IsYesNoKind (a :: YesNoKind) where
-  reflectYesNo :: YesNoProxy a -> YesNo
+class IsYesNoKind :: YesNoKind -> Constraint
+class IsYesNoKind a where
+  reflectYesNo :: Proxy a -> YesNo
 
 instance yesTL_VL :: IsYesNoKind YesK where
--- reflectYesNo (YesNoProxyValue :: YesNoProxy Yes) = Yes
-   reflectYesNo _                                      = Yes
+-- reflectYesNo (Proxy :: Proxy Yes) = Yes
+   reflectYesNo _                    = Yes
 
 instance noTL_VL :: IsYesNoKind NoK where
--- reflectYesNo (YesNoProxyValue :: YesNoProxy No) = No
-   reflectYesNo _                                     = No
+-- reflectYesNo (Proxy :: Proxy No) = No
+   reflectYesNo _                   = No
 
 
 -- We can also use instance chains here to distinguish
 -- one from another
 
-class IsYes (a :: YesNoKind) where
-  isYes :: YesNoProxy a -> YesNo
+class IsYes :: YesNoKind -> Constraint
+class IsYes a where
+  isYes :: Proxy a -> YesNo
 
 instance isYes_Yes :: IsYes YesK where
   isYes _ = Yes
