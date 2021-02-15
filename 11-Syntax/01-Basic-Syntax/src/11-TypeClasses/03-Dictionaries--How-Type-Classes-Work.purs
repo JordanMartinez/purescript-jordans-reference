@@ -1,7 +1,5 @@
 module Syntax.Basic.Typeclass.Dictionaries where
 
-import Prelude
-
 {-
 Previously, we saw that `show` could be used "implicitly" when we
 knew what the type was and "explicitly" when we did not know what

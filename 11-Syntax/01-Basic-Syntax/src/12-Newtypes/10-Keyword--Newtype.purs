@@ -74,9 +74,25 @@ newtype Name = Name String
 newtype Age = Age Int
 newtype Relationships = Relationships (List People)
 
+-- Assuming all three above have a Show instance:
+--
+-- printPerson :: Name -> Age -> Relationships -> String
+-- printPerson (Name n) (Age i) (Relationships l) =
+--    "Name: " <> n <> ", Age: " <> show i <> ", Relationships: " <> show l
+
+-- Similar to `data` and `type`, newtypes can also have a kind signature:
+
+-- Implicit kind signature: Type -> Type
+newtype SomeValue a = SomeValue (Box a)
+
+newtype SomeValue_ExplicitKindSignature :: Type -> Type
+newtype SomeValue_ExplicitKindSignature a = SomeValueExplicit (Box a)
+
 -- needed to compile
 
 type WhichOnlyTakesOneArgument_TheWrappedType = String
 
+data List :: Type -> Type
 data List a
+
 data People

@@ -75,6 +75,8 @@ instance wrapInt :: Wrap Int where
 instance unwrapInt :: Unwrap Int where
   unwrapFromBox (Box i) = i
 
+instance boxableInt :: Boxable Int
+
 useBoxable :: forall a. (Boxable a) => a -> a
 useBoxable a = unwrapFromBox (wrapIntoBox a)
 

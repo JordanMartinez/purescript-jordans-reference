@@ -55,7 +55,7 @@ Running `failsToCompile` will produce the following error:
 
   Error found:
   in module Syntax.Basic.LetLacksGeneralization
-  at src/02-Data-and-Functions/07-Some-Keywords-and-Their-Syntax/07-Let-Lacks-Generalization.purs:48:34 - 48:39 (line 48, column 34 - line 48, column 39)
+  at src/04-Various-Keywords/05-Let-Lacks-Generalization.purs:48:34 - 48:39 (line 48, column 34 - line 48, column 39)
 
     Could not match type
 

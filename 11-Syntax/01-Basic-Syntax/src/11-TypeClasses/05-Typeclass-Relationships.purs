@@ -41,12 +41,10 @@ instance plusFiveBoolean :: PlusFive Boolean where
 
 -- using it in code
 test1 :: Boolean
-test1 =
-  (plusFive true) == 6
+test1 = (plusFive true) == 6
 
 test2 :: Boolean
-test2 =
-  (plusFive false) == 5
+test2 = (plusFive false) == 5
 
 -- Now let's explain what we mean by "conditional."
 instance toIntInt :: ToInt Int where

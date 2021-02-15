@@ -7,6 +7,7 @@ import Unsafe.Coerce (unsafeCoerce)
 -- ### Example of the Problem
 
 -- Given a type class like so...
+class TwoTypesButTheyAreTheSameThing :: Type -> Type -> Constraint
 class TwoTypesButTheyAreTheSameThing a b | a -> b, b -> a
 
 -- and an instance like so...
@@ -47,6 +48,7 @@ Compiler Error:
 
 -- ### Current Workaround
 
+class A_Determines_B :: Type -> Type -> Constraint
 class A_Determines_B a b | a -> b
 
 instance aDeterminesB :: A_Determines_B Int String

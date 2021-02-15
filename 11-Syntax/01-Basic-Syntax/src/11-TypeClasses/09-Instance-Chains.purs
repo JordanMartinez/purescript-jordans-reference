@@ -8,6 +8,10 @@ data Type1 = Type1
 data Type2 = Type2
 data Type3 = Type3
 
+-- A kind signature is necessary here because `theType`
+-- `ExampleClass1` doesn't define a function or value that refers to `theType`
+-- in that function/value's type signature.
+class ExampleClass1 :: Type -> Constraint
 class ExampleClass1 theType
 
 -- Instance chains are a workaround to the problem of "overlapping instances."
@@ -19,6 +23,7 @@ else instance name3 :: ExampleClass1 Type3
 
 -- For readability, the `else` and `instance` keywords can appear on
 -- their own line or with a newline separating the keywords
+class ExampleClass2 :: Type -> Constraint
 class ExampleClass2 theType
 
 instance nameA :: ExampleClass2 Type1

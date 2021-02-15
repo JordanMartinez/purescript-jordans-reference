@@ -93,10 +93,12 @@ test5 = showIt (Box (Box (Box 5)))
 class TypeClass1 a where
   function1 :: a -> String
 
+class InstanceContext :: Type -> Constraint
 class InstanceContext a
 
 instance ih :: InstanceContext a
 
+data InstanceHead :: Type -> Type
 data InstanceHead a = InstanceHead
 
 class A_TypeClass a where
@@ -105,6 +107,7 @@ class A_TypeClass a where
 instance typeclass1 :: TypeClass1 String where
   function1 a = a
 
+class TypeClass2 :: Type -> Constraint
 class TypeClass2 a
 
 instance typeclass2 :: TypeClass2 String
@@ -112,4 +115,5 @@ instance typeclass2 :: TypeClass2 String
 type Type1 = String
 type Type2 = String
 type ReturnType = String
+
 data IntanceType a = InstanceType a

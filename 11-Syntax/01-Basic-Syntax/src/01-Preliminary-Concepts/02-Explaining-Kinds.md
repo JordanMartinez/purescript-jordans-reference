@@ -5,7 +5,7 @@ This code...
 function :: Int -> String
 function x = "an integer value!"
 ```
-... translates to, "I cannot give you a concrete value (i.e. `String`) until you give me an `Int` value"
+... translates to, "I cannot give you a concrete value (i.e. `String`) until you give me an `Int` value."
 
 Similarly, this code...
 ```haskell
@@ -41,7 +41,7 @@ The `->` indicates that the thing to the right (i.e. `String`) cannot be produce
 Type signatures annotate value-level entities like values (i.e. `4` or `BoxValue`) and functions.
 Kind signatures annotate type-level entities like `BoxType`. They are basically type signatures for types, not values.
 
-| # of types that still need to be defined | Special Name | Their "kind signature" (Purescript)^^ | Their "kind signature" (Haskell)^^ Their "Kind" signature (Haskell)^^
+| # of types that still need to be defined | Special Name | Their "kind signature" (Purescript)^^ | Their "kind signature" (Haskell)^^
 | - | - | -: | -: |
 | 0 | Concrete Type             | `                Type` | `          *`
 | 1 | Higher-Kinded Type (by 1) | `        Type -> Type` | `     * -> *`
@@ -85,6 +85,12 @@ Higher-kinded types are those that still need one or more types to be defined.
 -- Reason: the `a` type needs to be defined
 data Box a = Box a
 
+-- This is the same definition as above.
+-- However, the kind signature of the above `Box` definition is implicit.
+-- The below definition has an explicit kind signature.
+data BoxType :: Type -> Type
+data BoxType a = BoxValue a
+
 -- As we can see, there can be many different concrete 'Box' types
 -- depending on what 'a' is:
 boxedInt :: Box Int
@@ -101,6 +107,9 @@ We can make the type's kind higher by adding more types that need to be specifie
 -- A box that holds two values of same or different types!
 -- Kind Signature: `Type -> Type -> Type`
 data BoxOfTwo a b = BoxOfTwo a b
+
+data BoxOfTwo_ExplicitKindSignature :: Type -> Type -> Type
+data BoxOfTwo_ExplicitKindSignature a b = BoxOfTwoValue a b
 
 -- The below syntax is not valid because it is missing `forall a b.`,
 --   but it gets the idea across. The "forall" syntax will be covered later.
@@ -125,6 +134,11 @@ data Either a b
   = Left a
   | Right b
 
+data Either_ExplicitKindSignature :: Type -> Type -> Type
+data Either_ExplicitKindSignature a b
+  = Left a
+  | Right b
+
 higherKindedBy2L :: a -> b -> Either a b
 higherKindedBy2L a b = Left a
 
@@ -140,6 +154,7 @@ higherKindedBy1L_useB b = Right b
 higherKindedBy1L_ignoreBoth :: a -> b -> Either Int b
 higherKindedBy1L_ignoreBoth a b = Left 3
 ```
+
 `Either` (where the `a` and `b` are not yet specified) has kind `Type -> Type -> Type` because it cannot become a concrete type until both `a` and `b` types are defined, even if only constructing one of its values whose generic type is known.
 
 In other words
@@ -150,10 +165,13 @@ allSpecified = Right "foo"
 {-
 (value)                                                                       -}
 (Right "foo")                                                                 {-
+
 (value       :: Type             )                                            -}
 (Right "foo" :: Either Int String)                                            {-
+
 ((value       :: Type             ) :: Kind)                                  -}
 ((Right "foo" :: Either Int String) :: Type)                                  {-
+
 ((value       :: Type           ) :: Kind        )                            -}
 ((Right "foo" :: Either a String) :: Type -> Type)
 ```

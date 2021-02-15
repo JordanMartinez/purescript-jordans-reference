@@ -57,6 +57,11 @@ class ManyTypesDetermineAnotherType a b c | a b {- n -} -> c  where
 class OneTypeDeterminesManyTypes a b c | a -> b c where
   functionName3 :: a -> b -> c
 
+-- We can also add an explicit kind signature here:
+class OneInfersMany_ExplicitKindSignature :: Type -> Type -> Type -> Constraint
+class OneInfersMany_ExplicitKindSignature a b c | a -> b c where
+  functionName4 :: a -> b -> c
+
 ------------------------
 
 {-
@@ -74,7 +79,12 @@ The following two FDs can be read as,
   use that instance to infer what the `a` type and `b` type are."
 -}
 class ManyFDRelationships a b c | a b -> c, c -> a b where
-  functionName4 :: a -> b -> c
+  functionName5 :: a -> b -> c
+
+-- Same thing but with a kind signature.
+class ManyFDRelationships_KindSignature :: Type -> Type -> Type -> Constraint
+class ManyFDRelationships_KindSignature a b c | a b -> c, c -> a b where
+  functionName6 :: a -> b -> c
 
 {-
 In short, the type checker will use the FDs to determine how it should "unify"

@@ -29,12 +29,19 @@ type ConvertAToString a = (a -> String)
 example :: forall a. a -> ConvertAToString a -> String
 example a convertAToString = convertAToString a
 
+-- Type aliases also have kind signatures. The above examples have
+-- implicit kind signatures. The below example has an explicit one:
 data Pair a b = Pair a b
 
+-- kind signature (implicit): Type -> Type
+-- reason: the `a` needs to be defined before we have a "concrete" type alias
 type IntAnd a = Pair Int a
 
-type SomeTypeAndInt a = Pair a Int
+type IntAnd_ExplicitKindSignature :: Type -> Type
+type IntAnd_ExplicitKindSignature a = Pair Int a
 
+type SomeTypeAndInt :: Type -> Type
+type SomeTypeAndInt a = Pair a Int
 
 -- required to get this to compile correctly
 data RunTimeType
