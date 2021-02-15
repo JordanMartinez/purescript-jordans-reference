@@ -47,10 +47,7 @@ module Syntax.Module.FullExample
   -- export all entities in this module by exporting itself
   , module Syntax.Module.FullExample
 
-  -- PureScript 0.13.x - Kinds require the `kind` keyword to precede them
-  , kind ExportedKind
-  -- PureScript 0.14.x - `kind` keyword no longer exists
-  -- , ExportedKind
+  , ExportedKind
   , ExportedKindValue
   ) where
 
@@ -100,10 +97,7 @@ import Module2 (anInt2) as Exports
 import Module3 (anInt3) as Exports
 import Module4.SubModule1 (someFunction) as Exports
 
--- PureScript 0.13.x - import a kind and its value
-import ModuleKind (kind ImportedKind, ImportedKindValue) as Exports
--- PureScript 0.14.x - import a kind and its value
--- import ModuleKind (ImportedKind, ImportedKindValue) as Exports
+import ModuleKind (ImportedKind, ImportedKindValue) as Exports
 
 import Prelude
 
