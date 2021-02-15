@@ -24,4 +24,5 @@ let additions =
         }
       }
 
-in  upstream // additions
+in  (upstream // additions)
+      with metadata = upstream.metadata // { version = "v0.14.0-rc5" }
