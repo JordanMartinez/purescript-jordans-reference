@@ -63,10 +63,6 @@ cd ../../
 
 echo "... Hello World ...."
 
-# Removes the old folders due to breaking change in ps-0.13.x-v0.19.0
-rm -rf 21-Hello-World/03-Effect-and-Aff/
-rm -rf 21-Hello-World/04-Debugging/
-
 # Continues on from here as normal
 cd 21-Hello-World/02-Effect-and-Aff/
 pwd
