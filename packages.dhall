@@ -26,3 +26,9 @@ let additions =
 
 in  (upstream // additions)
       with metadata = upstream.metadata // { version = "v0.14.0-rc5" }
+      with variant =
+        { repo = "https://github.com/jordanmartinez/purescript-variant.git"
+        , version = "updateTo0.14"
+        , dependencies =
+          ["prelude", "tuples", "unsafe-coerce", "partial", "maybe", "lists", "record", "enums"]
+        }
