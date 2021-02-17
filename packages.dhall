@@ -39,3 +39,9 @@ in  (upstream // additions)
         }
       with spec.dependencies =
         ["exceptions", "console", "fork", "now", "aff", "foldable-traversable", "avar", "prelude", "pipes", "asni", "transformers", "strings"]
+      with ansi =
+        { repo = "https://github.com/hdgarrood/purescript-ansi.git"
+        , version = "v5.0.0"
+        , dependencies =
+          ["strings", "lists", "foldable-traversable"]
+        }
