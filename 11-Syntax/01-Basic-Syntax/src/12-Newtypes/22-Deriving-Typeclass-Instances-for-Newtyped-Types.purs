@@ -72,5 +72,5 @@ upperEmail = over EmailAddress3 prefixWithText
 -- needed to compile
 
 -- | prefixes a given string with 'text'
-prefixWithText :: String
+prefixWithText :: String -> String
 prefixWithText str = "text" <> str
