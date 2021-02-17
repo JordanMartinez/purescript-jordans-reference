@@ -22,12 +22,6 @@ let additions =
         , repo = "https://github.com/JordanMartinez/purescript-benchotron.git"
         , version = "updateTo0.14"
         }
-      , ansi =
-        { repo = "https://github.com/hdgarrood/purescript-ansi.git"
-        , version = "v5.0.0"
-        , dependencies =
-          ["strings", "lists", "foldable-traversable"]
-        }
       }
 
 in  (upstream // additions)
@@ -39,4 +33,4 @@ in  (upstream // additions)
           ["prelude", "tuples", "unsafe-coerce", "partial", "maybe", "lists", "record", "enums"]
         }
       with spec.dependencies =
-        ["exceptions", "console", "fork", "now", "aff", "foldable-traversable", "avar", "prelude", "pipes", "asni", "transformers", "strings"]
+        ["exceptions", "console", "fork", "now", "aff", "foldable-traversable", "avar", "prelude", "pipes", "ansi", "transformers", "strings"]
