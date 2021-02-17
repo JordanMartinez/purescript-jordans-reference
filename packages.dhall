@@ -37,3 +37,5 @@ in  (upstream // additions)
         , version = "updateTo0.14"
         , dependencies = upstream.benchotron.dependencies
         }
+      with spec.dependencies =
+        ["exceptions", "console", "fork", "now", "aff", "foldable-traversable", "avar", "prelude", "pipes", "asni", "transformers", "strings"]
