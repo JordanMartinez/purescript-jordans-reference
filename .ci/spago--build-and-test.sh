@@ -115,20 +115,6 @@ spago build
 HELLO_BENCHMARK=$?
 cd ../../
 
-cd 22-Projects/12-ToC-Generator
-pwd
-# Build but do not run benchmark tests
-spago build
-PROJECTS_TOC_GENERATOR=$?
-
-# Node-based tests
-# spago test -m Test.ToC.MainLogic.QuickCheckTest
-echo "Skipping 'ToC.MainLogic.QuickCheckTest' due to bug that I will fix later."
-PROJECTS_TOC_GENERATOR_TEST_MAIN_LOGIC_BOTH=$?
-spago test -m Test.ToC.ParserLogic.QuickCheckTest
-PROJECTS_TOC_GENERATOR_TEST_PARSER_LOGIC_BOTH=$?
-cd ../../
-
 echo ""
 echo "Finished. Summarizing Results:"
 
