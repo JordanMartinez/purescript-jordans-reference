@@ -140,7 +140,6 @@ HELLO_BENCHMARK=$?
 cd ../../
 echo "::endgroup::"
 
-echo "::group::Build Summary"
 echo ""
 echo "Finished. Summarizing Results:"
 
@@ -190,5 +189,3 @@ else
   echo "Build Failed"
   exit 1;
 fi
-
-echo "::endgroup::"
