@@ -11,62 +11,81 @@
 
 ## Syntax
 
+echo "::group::Basic Syntax"
 cd 11-Syntax/01-Basic-Syntax/
 pwd
 spago build
 SYNTAX_BASIC=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Foreign Function Interface Syntax"
 cd 11-Syntax/02-Foreign-Function-Interface/
 pwd
 spago build
 SYNTAX_FFI=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Type Level Programming Syntax"
 cd 11-Syntax/03-Type-Level-Programming-Syntax/
 pwd
 spago build
 SYNTAX_TLP=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Module Syntax"
 cd 11-Syntax/04-Module-Syntax/
 pwd
 spago build
 SYNTAX_MODULE=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Prelude Syntax"
 cd 11-Syntax/05-Prelude-Syntax/
 pwd
 spago build
 SYNTAX_PRELUDE=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Rebindable Do/Ado Syntax"
 cd 11-Syntax/06-Modifying-Do-Ado-Syntax-Sugar/
 pwd
 spago build
 SYNTAX_DO_ADO_NOTATION=$?
 cd ../../
+echo "::endgroup::"
 
 ## Hello World
 
+echo "::group::Hello World - Effect and Aff"
 cd 21-Hello-World/02-Effect-and-Aff/
 pwd
 spago build
 HELLO_EFFECT_AND_AFF=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Hello World - Debugging"
 cd 21-Hello-World/03-Debugging/
 pwd
 spago build
 HELLO_DEBUGGING=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Hello World - Collections and Loops"
 cd 21-Hello-World/04-Collections-and-Loops
 pwd
 spago build
 HELLO_COLLECTIONS_LOOPS=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Hello World - Application Structure"
 cd 21-Hello-World/05-Application-Structure/
 pwd
 spago build
@@ -90,14 +109,17 @@ spago run -m Examples.NumberComparison.Run
 HELLO_EXAMPLE_NUMBER_COMPARISON_RUN=$?
 
 cd ../../
+echo "::endgroup::"
 
-
+echo "::group::Hello World - Type Level Programming"
 cd 21-Hello-World/06-Type-Level-Programming/
 pwd
 spago build
 HELLO_TLP=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Hello World - Testing"
 cd 21-Hello-World/07-Testing/
 pwd
 # This folder includes tests that are designed to fail. So, rather than
@@ -108,13 +130,17 @@ pwd
 spago build
 HELLO_TESTING=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Hello World - Benchmarking"
 cd 21-Hello-World/08-Benchmarking/
 pwd
 spago build
 HELLO_BENCHMARK=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Build Summary"
 echo ""
 echo "Finished. Summarizing Results:"
 
@@ -164,3 +190,5 @@ else
   echo "Build Failed"
   exit 1;
 fi
+
+echo "::endgroup::"
