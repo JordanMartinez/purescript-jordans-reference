@@ -32,3 +32,8 @@ in  (upstream // additions)
         , dependencies =
           ["prelude", "tuples", "unsafe-coerce", "partial", "maybe", "lists", "record", "enums"]
         }
+      with benchotron =
+        { repo = "https://github.com/jordanmartinez/purescript-benchotron.git"
+        , version = "updateTo0.14"
+        , dependencies = upstream.benchotron.dependencies
+        }
