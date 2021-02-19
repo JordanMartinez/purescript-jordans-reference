@@ -32,5 +32,9 @@ in  (upstream // additions)
         , dependencies =
           ["prelude", "tuples", "unsafe-coerce", "partial", "maybe", "lists", "record", "enums"]
         }
-      with spec.dependencies =
-        ["exceptions", "console", "fork", "now", "aff", "foldable-traversable", "avar", "prelude", "pipes", "ansi", "transformers", "strings"]
+      with spec =
+        { repo = "https://github.com/jordanmartinez/purescript-spec.git"
+        , version = "updateTo0.14"
+        , dependencies =
+          ["exceptions", "console", "fork", "now", "aff", "foldable-traversable", "avar", "prelude", "pipes", "ansi", "transformers", "strings"]
+        }
