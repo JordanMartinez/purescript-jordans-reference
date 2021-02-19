@@ -9,9 +9,12 @@ import Effect (Effect)
 import Effect.Console (log)
 
 -- needed to compile
+import Data.Maybe (fromJust)
 import Data.NonEmpty ((:|), singleton)
+import Data.Array.NonEmpty as NEA
 import Data.List.Types (List(..), (:))
 import Data.Tuple (Tuple(..))
+import Partial.Unsafe (unsafePartial)
 
 import Test.QuickCheck (quickCheck)
 import Test.QuickCheck.Gen (elements, frequency, Gen)
@@ -32,7 +35,7 @@ data Fruit
   | Orange
 
 instance arbitraryFruit :: Arbitrary Fruit where
-  arbitrary = elements $ Apple :| [Banana, Orange]
+  arbitrary = elements $ unsafePartial fromJust $ NEA.fromArray [ Apple, Banana, Orange]
 
 -- ... the below (useless) code would compile
 -- main :: Effect Unit
@@ -53,7 +56,7 @@ newtype FrequentApple = FrequentApple Fruit
 
 -- helper function
 constant :: Fruit -> Gen FrequentApple
-constant fruit = elements $ singleton $ FrequentApple fruit
+constant fruit = elements $ NEA.singleton $ FrequentApple fruit
 
 -- write its instance
 instance arbitraryFrequentApple :: Arbitrary FrequentApple where

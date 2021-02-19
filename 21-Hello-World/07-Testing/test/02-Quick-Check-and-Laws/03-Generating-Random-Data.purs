@@ -3,8 +3,10 @@
 module Test.RandomDataGeneration.Combinators where
 
 import Prelude
+import Data.Maybe (fromJust)
 import Effect (Effect)
 import Effect.Console (log)
+import Data.Array.NonEmpty as NEA
 
 -- new imports
 -- these are all explained below
@@ -23,6 +25,7 @@ import Data.Int (even)
 import Data.Traversable (for)
 import Data.List.Types (List(..), (:))
 import Data.Tuple (Tuple(..))
+import Partial.Unsafe (unsafePartial)
 
 {-
 An array can be empty "[]" or full of stuff "[a, b, c...]"
@@ -60,8 +63,8 @@ main = do                                                                 {-
   printData "choose - choose a random Number between" $
     choose    1.0 10.0
 
-   -- oneToThree = NonEmptyArray 1 [2 3]
-  let oneToThree = 1 :| [2, 3]
+   -- oneToThree = NonEmptyArray [1, 2, 3]
+  let oneToThree = unsafePartial fromJust $ NEA.fromArray [1, 2, 3]
   printData ("elements - Choose an random element from the array where \
              \each element has the same probability of being chosen") $
     elements oneToThree
@@ -78,8 +81,11 @@ main = do                                                                 {-
   printData ("oneOf - Randomly choose a generator (where each generator has \
              \the same probability of being chosen) and use it to generate \
              \a random instance of the data type") $
-    oneOf $ (chooseInt 0 9) :| [chooseInt 10 99, chooseInt 100 999]
-
+    oneOf $ unsafePartial fromJust $ NEA.fromArray
+      [ chooseInt   0   9
+      , chooseInt  10  99
+      , chooseInt 100 999
+      ]
 
   let array_1 = singleton 1 -- (NonEmpty 1 [] :: NonEmpty Array Int)
       array_2 = singleton 2
