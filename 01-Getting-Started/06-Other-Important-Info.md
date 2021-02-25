@@ -10,6 +10,10 @@
 
 While reading through this repo, the [Functional Programming Jargon](https://github.com/hemanth/functional-programming-jargon) might be a helpful reference whenever you come across a term that isn't covered in this project.
 
+## Writing Algorithms in an FP Language
+
+This repo will not explain how to write algorithms in a performant way using an FP language. Consider reading [Algorithm Design with Haskell](https://www.amazon.com/Algorithm-Design-Haskell-Richard-Bird/dp/1108491618) which does teach algorithms using an FP language.
+
 ## Differences From Haskell
 
 If you're coming to PureScript with a Haskell background, be sure to consult the following resources:
