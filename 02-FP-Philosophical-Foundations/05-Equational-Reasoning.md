@@ -1,6 +1,8 @@
 # Equational Reasoning
 
-## Graph Reduction
+Functions in FP languages often work like equations: the left-hand side can be replaced by the right-hand side. We'll cover this idea more in the graph reduction section. This idea enables a developer to solve a problem using a simple but not performant solution that can be easily refactored to a much more performant version of the solution. We'll cover this in the "Optimizing Functions" section.
+
+## Graph Reduction: Running a Function
 
 In source code, we can describe the various parts of a function based on which side of the `=` character the content appears:
 - Left-Hand Side (LHS): the function name and all of its arguments
