@@ -4,7 +4,7 @@
 
 In source code, we can describe the various parts of a function based on which side of the `=` character the content appears:
 - Left-Hand Side (LHS): the function name and all of its arguments
-- Right-Hand Side (RHS): the body or implementation of the function\
+- Right-Hand Side (RHS): the body or implementation of the function
 
 ```haskell
 |         LHS         |    |     RHS     |
