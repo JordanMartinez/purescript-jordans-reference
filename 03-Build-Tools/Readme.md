@@ -10,7 +10,7 @@ This folder accomplishes the following:
 
 ## History: How We Got Here
 
-The following explanation does not cover all the tools used in PureScript's ecosystem. However it provides context for later files.
+The following explanation does not cover all the tools used in PureScript's ecosystem. However it provides context for later files. In short, `spago` is both the official dependency manager and build tool. `bower` can be thought of as a deprecated dependency manager; the community is in the process of building a registry that will replace the Bower registry since it no longer accepts uploads. `pulp` is a build tool that uses `bower`; its usage will become more common again once the registry is built.
 
 ### Phase 1: Initial Tooling
 
@@ -48,11 +48,24 @@ The below image summarizes the current state:
 
 ### Phase 4: `Spago` becomes mainstream while `psc-package` is less used
 
-Spago dropped support for `psc-package` commands in the `v0.11.0` release. `psc-package` is still usable and is more or less feature-complete. However, no further work on it will likely be done. Rather, Spago has become the main dependency manager when utilizing package-sets.
+Spago dropped support for `psc-package` commands in the `v0.11.0` release. `psc-package` is still usable and is more or less feature-complete. However, no further work on it will be done. Rather, Spago has become the main dependency manager when utilizing package-sets.
 
-### Phase 5: The `bower` package registry no longer accepts new uploads
+The community is now split between `pulp` + `bower` workflows and `spago` workflows. One must still use `pulp` + `bower` if they want to do the following:
+- publish their library's docs to Pursuit
+- include their library in a package set, so `spago` users can use it
+
+### Phase 5: The need for a PureScript registry (`bower` registry no longer accepts new uploads)
+
+The Bower registry stopped accepting new uploads. Thus, library authors could no longer publish new libraries. Some quick fixes were implemented to renable doc publishing and avoid package name collisions. However, it was clear that PureScript now needed to create a registry.
+
+Fabrizio Ferrai led the effort to build this registry with significant input from Harry Garrood. The registry is not yet complete, so the community is in this in-between stage.
+
+Regardless, the following is still true:
+- most people are now using `spago`
+- the `pulp` + `bower` workflow is still needed to publish a library, but it works differently now
 
 See [The `bower` registry is no longer accepting package submissions](https://discourse.purescript.org/t/the-bower-registry-is-no-longer-accepting-package-submissions/1103/) for more context.
+
 
 ## Overview of Tools
 
@@ -60,9 +73,9 @@ See [The `bower` registry is no longer accepting package submissions](https://di
 | - | - | - | - |
 | purs | PureScript Compiler | Used to be called `psc` | -- |
 | psvm-js | PureScript Version Manager | -- | https://github.com/ThomasCrevoisier/psvm-js
-| bower | Dependency Manager | -- | https://bower.io/ |
+| bower | Dependency Manager (being deprecated) | -- | https://bower.io/ |
 | pulp | Build Tool | Front-end to `purs`. Builds & publishes projects | https://github.com/purescript-contrib/pulp |
-| spago | Build Tool | Front-end to `purs` and `psc-package` projects | https://github.com/purescript/spago
+| spago | Build Tool | Front-end to `purs` and `package-set`-based projects | https://github.com/purescript/spago
 | pscid | `pulp --watch build` on steroids | Seems to be a more recent version of `psc-pane` (see below) and uses `psa` | https://github.com/kRITZCREEK/pscid
 | psa | Pretty, flexible error/warning frontend for `purs` | -- | https://github.com/natefaubion/purescript-psa
 
