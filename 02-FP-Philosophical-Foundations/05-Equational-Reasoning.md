@@ -1,6 +1,6 @@
 # Equational Reasoning
 
-### Graph Reduction
+## Graph Reduction
 
 In source code, we can describe the various parts of a function based on which side of the `=` character the content appears:
 - Left-Hand Side (LHS): the function name and all of its arguments
