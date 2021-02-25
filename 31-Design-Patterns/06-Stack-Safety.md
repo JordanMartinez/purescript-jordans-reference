@@ -2,11 +2,11 @@
 
 ## An Example of Stack-Unsafe Code
 
-In FP, we often use recusive functions to solve problems:
+In FP, we often use recursive functions to solve problems:
 - changing all elements in a container-like type (e.g. `List`, `Tree`, `Array`, etc.) from one thing to another
 - running some computation and, if it fails, retrying it again until it succeeds
 
-For example, the below `factorial'` function calculates its result by calling itself recursively.
+For example, the below `factorial` function calculates its result by calling itself recursively.
 ```haskell
 factorial :: Int -> Int
 factorial n = n * (factorial (n - 1))
