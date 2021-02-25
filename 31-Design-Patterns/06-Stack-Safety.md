@@ -93,7 +93,7 @@ factorial n = tailRec go { loopsRemaining: n, accumulatedSoFar: 1 }
 
 But what happens when we need to run a side-effectful monadic computation recursively? For example, let's say we wanted to print the same message to the console a specific number of times and then stop:
 ```haskell
-printMessageAndLoop :: Effect Unit
+printMessageAndLoop :: Int -> Effect Unit
 printMessageAndLoop 0 = pure unit
 printMessageAndLoop loopsRemaining = do
   log "Printing a message to the console!"
