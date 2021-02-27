@@ -72,12 +72,12 @@ See [The `bower` registry is no longer accepting package submissions](https://di
 | Name | Type/Usage | Comments | URL |
 | - | - | - | - |
 | purs | PureScript Compiler | Used to be called `psc` | -- |
-| psvm-js | PureScript Version Manager | -- | https://github.com/ThomasCrevoisier/psvm-js
-| bower | Dependency Manager (being deprecated) | -- | https://bower.io/ |
-| pulp | Build Tool | Front-end to `purs`. Builds & publishes projects | https://github.com/purescript-contrib/pulp |
 | spago | Build Tool | Front-end to `purs` and `package-set`-based projects | https://github.com/purescript/spago
-| pscid | `pulp --watch build` on steroids | Seems to be a more recent version of `psc-pane` (see below) and uses `psa` | https://github.com/kRITZCREEK/pscid
+| pulp | Build Tool | Front-end to `purs`. Builds & publishes projects | https://github.com/purescript-contrib/pulp |
+| bower | Dependency Manager (being deprecated) | -- | https://bower.io/ |
 | psa | Pretty, flexible error/warning frontend for `purs` | -- | https://github.com/natefaubion/purescript-psa
+| pscid | `pulp --watch build` on steroids | Seems to be a more recent version of `psc-pane` (see below) and uses `psa` | https://github.com/kRITZCREEK/pscid
+| psvm-js | PureScript Version Manager | -- | https://github.com/ThomasCrevoisier/psvm-js
 
 The following seem to be deprecated or no longer used:
 
