@@ -1,5 +1,5 @@
 let upstream =
-      https://raw.githubusercontent.com/purescript/package-sets/prepare-0.14/src/packages.dhall
+      https://raw.githubusercontent.com/purescript/package-sets/9f4d289897cdb16e193097b1cb009714366cebe2/src/packages.dhall
 
 let additions =
       { benchotron =
@@ -25,7 +25,6 @@ let additions =
       }
 
 in  (upstream // additions)
-      with metadata = upstream.metadata // { version = "v0.14.0-rc5" }
       with variant =
         { repo = "https://github.com/jordanmartinez/purescript-variant.git"
         , version = "updateTo0.14"
@@ -33,8 +32,20 @@ in  (upstream // additions)
           ["prelude", "tuples", "unsafe-coerce", "partial", "maybe", "lists", "record", "enums"]
         }
       with spec =
-        { repo = "https://github.com/jordanmartinez/purescript-spec.git"
-        , version = "updateTo0.14"
+        { repo = "https://github.com/fsoikin/purescript-spec.git"
+        , version = "purescript-0.14"
         , dependencies =
-          ["exceptions", "console", "fork", "now", "aff", "foldable-traversable", "avar", "prelude", "pipes", "ansi", "transformers", "strings"]
+          [ "avar"
+          , "console"
+          , "aff"
+          , "exceptions"
+          , "strings"
+          , "prelude"
+          , "transformers"
+          , "foldable-traversable"
+          , "pipes"
+          , "ansi"
+          , "fork"
+          , "now"
+          ]
         }
