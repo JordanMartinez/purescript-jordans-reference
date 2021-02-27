@@ -19,6 +19,25 @@ bower install package1 package2 --save
 bower install
 ```
 
+Due to the Bower registry being deprecated, there are some packages that will have to be installed using a longer name format because the library couldn't be uploaded into the Bower registry. While the registry is deprecated, `bower` can still download the files from GitHub if one uses this longer name format. Harry described how one could do that here and also mentions `bower link` as another possible option:
+
+> in `bower.json`, instead of writing...
+>> ```json
+>> "dependencies":{
+>>    "purescript-some-library":"^0.1.0"
+>> }
+>> ```
+>
+> ... you can write
+>> ```json
+>> "dependencies": {
+>>    "purescript-some-library":"https://github.com/githubUser/purescript-some-library#my-branch"
+>> }
+>> ```
+>
+> you can also use `bower link` which is similar but gives you a bit more flexibility
+
+
 ### Write the Code
 
 ```bash

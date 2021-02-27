@@ -54,18 +54,20 @@ The community is now split between `pulp` + `bower` workflows and `spago` workfl
 - publish their library's docs to Pursuit
 - include their library in a package set, so `spago` users can use it
 
-### Phase 5: The need for a PureScript registry (`bower` registry no longer accepts new uploads)
+### Phase 5: The need for a PureScript registry (Bower registry no longer accepts new uploads)
 
-The Bower registry stopped accepting new uploads. Thus, library authors could no longer publish new libraries. Some quick fixes were implemented to renable doc publishing and avoid package name collisions. However, it was clear that PureScript now needed to create a registry.
+The Bower registry stopped accepting new uploads. The community quickly updated their tooling to workaround how libraries are published and installed. However, it was clear that PureScript now needed to create a registry.
 
 Fabrizio Ferrai led the effort to build this registry with significant input from Harry Garrood. The registry is not yet complete, so the community is in this in-between stage.
 
 Regardless, the following is still true:
 - most people are now using `spago`
-- the `pulp` + `bower` workflow is still needed to publish a library, but it works differently now
+- the `pulp` + `bower` workflow is still needed to publish a library, but it works differently now.
+    - See [these instructions for how to use `bower` to publish a library in this in-between context](https://discourse.purescript.org/t/up-to-date-instructions-for-publishing-new-packages/1953)
+    - See the `Dependency Managers/Bower Explained` file for clarification on how to install packages as dependencies if one is using `bower`
+- Thomas has written a [Recommended Tooling for PureScript Applications](https://discourse.purescript.org/t/recommended-tooling-for-purescript-applications-in-2019/948) post.
 
 See [The `bower` registry is no longer accepting package submissions](https://discourse.purescript.org/t/the-bower-registry-is-no-longer-accepting-package-submissions/1103/) for more context.
-
 
 ## Overview of Tools
 
