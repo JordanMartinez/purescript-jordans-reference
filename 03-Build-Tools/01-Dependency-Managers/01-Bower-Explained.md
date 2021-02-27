@@ -1,10 +1,16 @@
 # Bower Explained
 
-**Note:** The `Bower` registry has been deprecated. While you still must use `bower` to publish libraries' docs to Pursuit, one will need to refer to other libraries using the full repo url. The PureScript community is in the process of creating a registry. When that is done, we will stop using `bower` entirely.
+**Note:** The `Bower` registry has been deprecated. The PureScript community is in the process of creating a registry. When that is done, we will stop using `bower` entirely. In the meantime, you must still use `bower` + `pulp` to publish libraries' docs to Pursuit. One can still use `bower` as a dependency manager, however, one will need to depend on other libraries using the full repo url in the `bower.json` file:
+```diff
+"dependencies": {
+-    "purescript-some-library": "^0.1.0"
++    "purescript-some-library":"https://github.com/githubUser/purescript-some-library#my-branch"
+}
+```
 
 ## What is it?
 
-A typical dependency manager that downloads dependencies from a centralized repository
+A typical dependency manager that downloads dependencies from a centralized repository (i.e. Bower Registry) or GitHub.
 
 ![Bower-flowchart](./assets/bower-flowchart.svg)
 
@@ -13,10 +19,6 @@ A typical dependency manager that downloads dependencies from a centralized repo
 When developing a library, one needs to refer to specific versions of dependencies that do not change over time.
 
 If one uses `spago`, they can modify the "binary" of the dependency without changing the version to which it refers. For application developers, this can be desirable. Not so for library developers.
-
-Still, that doesn't mean one can't do something similar via `bower`. Taken from the FP Slack from `hdgarrood`:
-> in `bower.json`, instead of writing `"dependencies":{"purescript-some-library":"^0.1.0"}`, you can write `"dependencies":{"purescript-some-library":"https://github.com/githubUser/purescript-some-library#my-branch"}`
-> you can also use `bower link` which is similar but gives you a bit more flexibility
 
 Some people prefer `bower` over `spago` while others do not. Learn about both and make your decision.
 
