@@ -1,5 +1,7 @@
 # Bower Explained
 
+**Note:** The `Bower` registry has been deprecated. While you still must use `bower` to publish libraries' docs to Pursuit, one will need to refer to other libraries using the full repo url. The PureScript community is in the process of creating a registry. When that is done, we will stop using `bower` entirely.
+
 ## What is it?
 
 A typical dependency manager that downloads dependencies from a centralized repository
