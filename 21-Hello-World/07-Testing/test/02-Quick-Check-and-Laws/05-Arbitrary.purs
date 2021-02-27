@@ -10,9 +10,8 @@ import Effect.Console (log)
 
 -- needed to compile
 import Data.Maybe (fromJust)
-import Data.NonEmpty ((:|), singleton)
+import Data.List.NonEmpty as NEL
 import Data.Array.NonEmpty as NEA
-import Data.List.Types (List(..), (:))
 import Data.Tuple (Tuple(..))
 import Partial.Unsafe (unsafePartial)
 
@@ -61,10 +60,9 @@ constant fruit = elements $ NEA.singleton $ FrequentApple fruit
 -- write its instance
 instance arbitraryFrequentApple :: Arbitrary FrequentApple where
   arbitrary = frequency $
-    (Tuple 6.0 (constant Apple)) :|
-    (Tuple 2.0 (constant Banana)) :
-    (Tuple 1.0 (constant Orange)) :
-     Nil
+    NEL.cons      (Tuple 6.0 (constant Apple))  $
+    NEL.cons      (Tuple 2.0 (constant Banana)) $
+    NEL.singleton (Tuple 1.0 (constant Orange))
 
 -- write a helper function for unwrapping the type
 runApple :: FrequentApple -> Fruit
