@@ -22,30 +22,62 @@ let additions =
         , repo = "https://github.com/JordanMartinez/purescript-benchotron.git"
         , version = "updateTo0.14"
         }
+      , run =
+        { dependencies =
+          [ "aff"
+          , "console"
+          , "control"
+          , "effect"
+          , "either"
+          , "free"
+          , "identity"
+          , "maybe"
+          , "minibench"
+          , "newtype"
+          , "prelude"
+          , "profunctor"
+          , "psci-support"
+          , "tailrec"
+          , "tuples"
+          , "type-equality"
+          , "unsafe-coerce"
+          , "variant"
+          ]
+        , repo = "https://github.com/natefaubion/purescript-run"
+        , version = "master"
+        }
       }
 
 in  (upstream // additions)
-      with variant =
-        { repo = "https://github.com/jordanmartinez/purescript-variant.git"
-        , version = "updateTo0.14"
-        , dependencies =
-          ["prelude", "tuples", "unsafe-coerce", "partial", "maybe", "lists", "record", "enums"]
-        }
-      with spec =
-        { repo = "https://github.com/fsoikin/purescript-spec.git"
-        , version = "purescript-0.14"
-        , dependencies =
-          [ "avar"
-          , "console"
-          , "aff"
-          , "exceptions"
-          , "strings"
-          , "prelude"
-          , "transformers"
-          , "foldable-traversable"
-          , "pipes"
-          , "ansi"
-          , "fork"
-          , "now"
-          ]
-        }
+  with variant =
+    { repo = "https://github.com/jordanmartinez/purescript-variant.git"
+    , version = "updateTo0.14"
+    , dependencies =
+      [ "prelude"
+      , "tuples"
+      , "unsafe-coerce"
+      , "partial"
+      , "maybe"
+      , "lists"
+      , "record"
+      , "enums"
+      ]
+    }
+  with spec =
+    { repo = "https://github.com/fsoikin/purescript-spec.git"
+    , version = "purescript-0.14"
+    , dependencies =
+      [ "avar"
+      , "console"
+      , "aff"
+      , "exceptions"
+      , "strings"
+      , "prelude"
+      , "transformers"
+      , "foldable-traversable"
+      , "pipes"
+      , "ansi"
+      , "fork"
+      , "now"
+      ]
+    }
