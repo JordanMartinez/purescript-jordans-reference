@@ -36,11 +36,13 @@ run :: forall f a b output
 run algebra expression = fold (case_ # algebra) expression
 
 -- data stuff
+data ValueF :: Type -> Type
 data ValueF e = ValueF Int
 
 derive instance vf :: Functor ValueF
 
 -- VariantF stuff
+type Value :: Row (Type -> Type) -> Row (Type -> Type)
 type Value r = (value :: ValueF | r)
 
 valueSymbol :: Proxy "value"
