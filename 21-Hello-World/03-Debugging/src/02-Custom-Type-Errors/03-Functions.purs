@@ -1,9 +1,9 @@
 module Debugging.CustomTypeErrors.Functions where
 
 import Prelude
-import Data.Symbol (SProxy(..))
 import Effect (Effect)
 import Effect.Console (log)
+import Type.Proxy (Proxy(..))
 
 import Prim.TypeError (kind Doc, Text, Quote, Above, Beside, QuoteLabel, class Warn, class Fail)
 
@@ -67,12 +67,12 @@ regularValue = 4
 -- QuoteLabel vs Text
 labelAsText :: forall l. Warn
   ( Text "Text Label " <> Text l
-  ) => SProxy l -> String
+  ) => Proxy l -> String
 labelAsText _ = ""
 
 labelAsQuote :: forall l. Warn
   ( Text "Quote Label " <> QuoteLabel l
-  ) => SProxy l -> String
+  ) => Proxy l -> String
 labelAsQuote _ = ""
 
 main :: Effect Unit
@@ -83,14 +83,14 @@ main = do
   log $ show besideExample
 
   -- Demonstrates the difference between Text and QuoteLabel
-  log $ show (labelAsText (SProxy :: SProxy "boo"))
-  log $ show (labelAsQuote (SProxy :: SProxy "boo"))
+  log $ show (labelAsText (Proxy :: Proxy "boo"))
+  log $ show (labelAsQuote (Proxy :: Proxy "boo"))
 
-  log $ show (labelAsText (SProxy :: SProxy "b\"oo"))
-  log $ show (labelAsQuote (SProxy :: SProxy "b\"oo"))
+  log $ show (labelAsText (Proxy :: Proxy "b\"oo"))
+  log $ show (labelAsQuote (Proxy :: Proxy "b\"oo"))
 
-  log $ show (labelAsText (SProxy :: SProxy "b o o"))
-  log $ show (labelAsQuote (SProxy :: SProxy "b o o"))
+  log $ show (labelAsText (Proxy :: Proxy "b o o"))
+  log $ show (labelAsQuote (Proxy :: Proxy "b o o"))
 
   -- Uncomment the next line, save the file, run it, and see what happens
   -- log $ show failValue

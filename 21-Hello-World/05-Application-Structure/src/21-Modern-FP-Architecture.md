@@ -105,7 +105,7 @@ If you are using Atom as your editor, you can use snippets to help reduce the bo
 
       derive instance functor${1:Type_Name} :: Functor ${1:Type_Name}
 
-      _${2:symbol} = SProxy :: SProxy "${2:symbol}"
+      _${2:symbol} = Proxy :: Proxy "${2:symbol}"
 
       type ${3:ALL_CAPS_TYPE_NAME} r = (${2:symbol} :: FProxy $1 | r)
     """

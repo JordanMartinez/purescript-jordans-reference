@@ -41,7 +41,7 @@ lift
   ⇒ IsSymbol sym
   ⇒ Functor f
 
-  ⇒ SProxy sym
+  ⇒ Proxy sym
   → f a
   → Run r2 a
                     -- Run    (Free    ( VariantF (row :: type)) output)
@@ -90,7 +90,7 @@ The takeaways here:
 
 #### MTL-Like Functions
 
-If we look at some of the functions that each of the above MTL-like types provide, we'll notice another pattern. Each type (e.g. `Reader`) seems to define its own `Symbol` (e.g. `_reader :: SProxy "reader"`) for the corresponding type in `VariantF`'s row type (e.g. `READER`).
+If we look at some of the functions that each of the above MTL-like types provide, we'll notice another pattern. Each type (e.g. `Reader`) seems to define its own `Symbol` (e.g. `_reader :: Proxy "reader"`) for the corresponding type in `VariantF`'s row type (e.g. `READER`).
 
 However, if one wanted to use a custom `Symbol` name for their usage of an MTL-like type (e.g. `Reader`), they can append `at` to the function and get the same thing. In other words:
 ```haskell

@@ -66,14 +66,14 @@ Here's the link to the library: [`purescript-variant`](https://pursuit.purescrip
 
 ```haskell
 injectFruit :: forall v. Fruit -> Variant (fieldName :: Fruit | v)
-injectFruit fruit = inj (SProxy :: SProxy "fieldName") fruit
+injectFruit fruit = inj (Proxy :: Proxy "fieldName") fruit
 ```
 
 ### Projection
 
 ```haskell
 projectFruit :: forall v. Variant (fieldName :: Fruit | v) -> Maybe Fruit
-projectFruit variant = prj (SProxy :: SProxy "fieldName") variant
+projectFruit variant = prj (Proxy :: Proxy "fieldName") variant
 ```
 
 ### Pattern Matching in Variant
@@ -92,7 +92,7 @@ where a `<combinator chain>` is:
 
 | Combinator | Expected arguments
 | - | - |
-| `on` | `(SProxy :: SProxy "fieldName") (\value -> {- body -})`
+| `on` | `(Proxy :: Proxy "fieldName") (\value -> {- body -})`
 | `onMatch` | `{ fieldNameN :: (FieldType -> a) }` |
 
 Besides those above, `Variant` also has `expand` and `contract`. One takes a `Variant` that has more fields than just those specified in some function and "expands" it into its full number of nested types. The other takes a fully-expanded `Variant` and "contracts" it down to a smaller subset of its nested types.
@@ -139,7 +139,7 @@ showFruitVariant = default Nothing
     }
 
 injFruit :: forall v. Fruit -> Variant (fruit :: Fruit | v)
-injFruit fruit = inj (SProxy :: SProxy "fruit") fruit
+injFruit fruit = inj (Proxy :: Proxy "fruit") fruit
 
 -- File 2. This should work without the previous file being recompiled
 data Fruit2 = Orange
@@ -156,7 +156,7 @@ showFruit2Variant = default Nothing
     }
 
 injFruit2 :: forall v. Fruit2 -> Variant (fruit2 :: Fruit2 | v)
-injFruit2 fruit2 = inj (SProxy :: SProxy "fruit2") fruit2
+injFruit2 fruit2 = inj (Proxy :: Proxy "fruit2") fruit2
 
 -- File 3. This should work without the previous 2 files being recompiled
 data Fruit3 = Cherry
@@ -175,7 +175,7 @@ showFruit3Variant = default Nothing
 injFruit3 :: forall v
           -> Fruit3
            . Variant (fruit3 :: Fruit3 | v)
-injFruit3 fruit3 = inj (SProxy :: SProxy "fruit3") fruit3
+injFruit3 fruit3 = inj (Proxy :: Proxy "fruit3") fruit3
 ```
 Now run the following commands in the REPL:
 
