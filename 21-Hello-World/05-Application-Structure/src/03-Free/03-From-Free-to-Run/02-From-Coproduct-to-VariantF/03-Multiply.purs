@@ -3,9 +3,9 @@ module Free.ExpressionBased.VariantF.Multiply where
 import Prelude hiding (add)
 import Effect (Effect)
 import Effect.Console (log)
-import Data.Functor.Variant (VariantF, FProxy, inj, on)
-import Data.Symbol (SProxy(..))
+import Data.Functor.Variant (VariantF, inj, on)
 import Type.Row (type (+))
+import Type.Proxy (Proxy(..))
 import Free.ExpressionBased.VariantF.Value (
     Value, value
   , example_value, valueAlgebra
@@ -24,10 +24,10 @@ data MultiplyF e = MultiplyF e e
 derive instance mf :: Functor MultiplyF
 
 -- VariantF stuff
-type Multiply r = (multiply :: FProxy MultiplyF | r)
+type Multiply r = (multiply :: MultiplyF | r)
 
-multiplySymbol :: SProxy "multiply"
-multiplySymbol = SProxy
+multiplySymbol :: Proxy "multiply"
+multiplySymbol = Proxy
 
 multiply :: forall r
        . Expression (VariantF (Multiply + r))

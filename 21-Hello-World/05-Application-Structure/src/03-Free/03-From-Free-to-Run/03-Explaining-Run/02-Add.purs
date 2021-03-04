@@ -9,9 +9,9 @@ import Prelude hiding (add)
 import Effect (Effect)
 import Effect.Console (log)
 import Data.Either (Either(..))
-import Data.Functor.Variant (VariantF, FProxy, on, case_)
-import Data.Symbol (SProxy(..))
+import Data.Functor.Variant (VariantF, on, case_)
 import Type.Row (type (+))
+import Type.Proxy (Proxy(..))
 import Free.RunBased.Value (value)
 import Run (Run, lift, peel)
 
@@ -21,10 +21,10 @@ data AddF e = AddF e e
 derive instance af :: Functor AddF
 
 -- Variant Stuff
-type ADD r = (add :: FProxy AddF | r)
+type ADD r = (add :: AddF | r)
 
-_add :: SProxy "add"
-_add = SProxy
+_add :: Proxy "add"
+_add = Proxy
 
 {-
 We know from previous code that we need a type signature like
