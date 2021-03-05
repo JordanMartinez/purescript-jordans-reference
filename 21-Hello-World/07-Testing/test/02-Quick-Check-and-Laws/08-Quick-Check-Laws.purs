@@ -10,9 +10,11 @@ module Test.QuickCheckLaws where
 
 import Prelude
 import Effect (Effect)
-import Data.NonEmpty ((:|))
+import Data.Array.NonEmpty as NEA
+import Data.Maybe (fromJust)
 import Test.QuickCheck.Gen (elements)
 import Test.QuickCheck.Arbitrary (class Arbitrary, arbitrary)
+import Partial.Unsafe (unsafePartial)
 
 -- new imports
 import Test.QuickCheck.Laws (checkLaws, A)
@@ -103,7 +105,7 @@ instance monadBox :: Monad Box
 data Fruit = Apple | Orange
 
 instance aribtraryFruit :: Arbitrary Fruit where
-  arbitrary = elements $ Apple :| [Orange]
+  arbitrary = elements $ unsafePartial fromJust $ NEA.fromArray [Apple, Orange]
 
 derive instance eqFruit :: Eq Fruit
 

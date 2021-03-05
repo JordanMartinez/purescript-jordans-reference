@@ -34,11 +34,8 @@ This work is intended to be read in the following order:
 1. Building Tools
 1. Syntax
 1. Hello World
-1. Projects
 
-The "Design Patterns" section should be read alongside of the "Syntax", "Hello World", and "Projects" folders.
-
-The "Ecosystem" section is a reference guide.
+The "Design Patterns" section should be read alongside of the "Syntax" and "Hello World" folders.
 
 Check the issue tracker for any [unresolved issues via the `bug` label](https://github.com/JordanMartinez/purescript-jordans-reference/issues?q=is%3Aissue+is%3Aopen+label%3Abug).
 
@@ -70,17 +67,10 @@ There are currently 8 parts to this book. I summarize what is in each section be
     - How do I write a complex program using modern FP architecture?
     - How do I test a program?
     - How do I benchmark a program or function within a program?
-- **22-Projects**:
-    - If you walked me through a complete but simple program from initial design to complete testing, what would that process look like?
-        - Random Number Game - a game that runs on the console and in the browser using the same "business logic"
-        - Table of Contents Generator - a program that generates a table of contents for a GitHub repository.
+    - What are some examples of simple and complex real-world projects?
 - **31-Design Patterns**:
     - What are commonly-used patterns or idioms to solve problems in FP languages?
     - What are other FP principles or concepts not explained in the "Hello World" part of this work?
-- **41-Ecosystem**:
-    - What are all of the data types that PureScript currently has?
-    - What is a broad overview of the libraries in Purescript (categorized by tags)?
-    - What are all of the type classes and their relationship to one another?
 
 ## Contributing
 

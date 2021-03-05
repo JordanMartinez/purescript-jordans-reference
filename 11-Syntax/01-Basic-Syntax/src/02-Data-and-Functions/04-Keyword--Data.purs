@@ -1,6 +1,7 @@
 module Syntax.Basic.Keyword.Data where
 
 -- Basic syntax for the `data` keyword
+-- For most of these examples, we will not need to use explicit kind signatures.
 
 data Singleton_no_Args = SingletonConstructor
 
@@ -21,7 +22,9 @@ data Type_with_Generic_Types aType bType
 
 -- We can refer to various parts in these definitions by the following names.
 -- Wherever a name appears, that's what you would call it if you were talking
--- to someone else about it.
+-- to someone else about it. In this example, we will need a kind signature
+-- because `typeParameter` isn't used in the data constructor.
+data TypeConstructor :: Type -> Type
 data TypeConstructor typeParameter = DataConstructor
 
 ---------------------------------
@@ -71,13 +74,32 @@ data Type_with_Higher_Kinded_Generic_Type higherKindedBy1 a
   = MyConstructor (higherKindedBy1 a)
   | OtherC (higherKindedBy1 Int)
 
-data Type_With_HigherKindedByTwo_Generic higherKindedBy2 first second
-  = Example (higherKindedBy2 first second)
+data Type_with_Higher_Kinded_Generic_Type2 higherKindedBy2 a b
+  = MyConstructor2 (higherKindedBy2 a b)
+  | OtherCInt (higherKindedBy2 Int b)
+  | OtherCIntString (higherKindedBy2 Int String)
 
+-- In the next two examples, we need an explicit kind signature.
+-- The reason will become more evident in later files, but you will
+-- understand it in full when you read through the Type-Level Syntax folder
+-- ============================================================================
+-- Since `a` and `b` aren't defined here, we need an explicit kind signature
+data Type_With_HigherKindedByTwo_Generic
+  :: (Type -> Type -> Type) -- higherKindedBy2
+  -> Type                   -- a
+  -> Type                   -- b
+  -> Type                   -- the "concrete" type
+data Type_With_HigherKindedByTwo_Generic higherKindedBy2 a b
+  = Example (higherKindedBy2 a b)
+
+
+-- Since `ignoredType` isn't used in one of the data constructors
+-- we need an explicit kind signature.
+data Type_whose_implementations_ignore_generic_type :: Type -> Type
 data Type_whose_implementations_ignore_generic_type ignoredType
   = Constructor_without_generic_type
   | Other_Constructor_no_generic_type Int String
-
+-- ============================================================================
 
 data Type_with_no_implementation -- no equals sign followed by right-hand-side
 
@@ -98,6 +120,9 @@ Recursion_Here__Store_A "first"
 ------------------------------------------
 
 -- Full Syntax
+-- Here we need a kind signature because `ignored` does not appear
+-- in any of the below data constructors.
+data DataType :: Type -> Type -> (Type -> Type) -> Type -> Type
 data DataType aType bType hktBy1 ignored
   = NoArgs
   | Args Type1 Type2 Type3

@@ -6,9 +6,9 @@ data Value_Level_Type
   = Value_Level_Value1
   | Value_Level_Value2
 ----------------------
--- We use this FFI-like syntax:
--- equivalent to    Kind
-foreign import kind Type_Level_Type
+-- We first define a data type that does not have any data constructors.
+-- This indicates that `Type_Level_Type` is a kind we created.
+data Type_Level_Type
 
 -- Then, we use FFI-like syntax to declare the type-level values that kind
 -- has. We do not declare a right hand side (RHS) since it has no values
@@ -26,7 +26,7 @@ foreign import data Type_Level_Value2 :: Type_Level_Type
 -- Using a Boolean-like value-level type as an example...
 data YesNo = Yes | No
 
-foreign import kind YesNoKind
+data YesNoKind
 
 foreign import data YesK :: YesNoKind
 foreign import data NoK  :: YesNoKind

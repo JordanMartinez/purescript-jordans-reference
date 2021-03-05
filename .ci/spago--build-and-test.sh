@@ -11,62 +11,81 @@
 
 ## Syntax
 
+echo "::group::Basic Syntax"
 cd 11-Syntax/01-Basic-Syntax/
 pwd
 spago build
 SYNTAX_BASIC=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Foreign Function Interface Syntax"
 cd 11-Syntax/02-Foreign-Function-Interface/
 pwd
 spago build
 SYNTAX_FFI=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Type Level Programming Syntax"
 cd 11-Syntax/03-Type-Level-Programming-Syntax/
 pwd
 spago build
 SYNTAX_TLP=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Module Syntax"
 cd 11-Syntax/04-Module-Syntax/
 pwd
 spago build
 SYNTAX_MODULE=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Prelude Syntax"
 cd 11-Syntax/05-Prelude-Syntax/
 pwd
 spago build
 SYNTAX_PRELUDE=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Rebindable Do/Ado Syntax"
 cd 11-Syntax/06-Modifying-Do-Ado-Syntax-Sugar/
 pwd
 spago build
 SYNTAX_DO_ADO_NOTATION=$?
 cd ../../
+echo "::endgroup::"
 
 ## Hello World
 
+echo "::group::Hello World - Effect and Aff"
 cd 21-Hello-World/02-Effect-and-Aff/
 pwd
 spago build
 HELLO_EFFECT_AND_AFF=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Hello World - Debugging"
 cd 21-Hello-World/03-Debugging/
 pwd
 spago build
 HELLO_DEBUGGING=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Hello World - Collections and Loops"
 cd 21-Hello-World/04-Collections-and-Loops
 pwd
 spago build
 HELLO_COLLECTIONS_LOOPS=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Hello World - Application Structure"
 cd 21-Hello-World/05-Application-Structure/
 pwd
 spago build
@@ -90,14 +109,17 @@ spago run -m Examples.NumberComparison.Run
 HELLO_EXAMPLE_NUMBER_COMPARISON_RUN=$?
 
 cd ../../
+echo "::endgroup::"
 
-
+echo "::group::Hello World - Type Level Programming"
 cd 21-Hello-World/06-Type-Level-Programming/
 pwd
 spago build
 HELLO_TLP=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Hello World - Testing"
 cd 21-Hello-World/07-Testing/
 pwd
 # This folder includes tests that are designed to fail. So, rather than
@@ -108,46 +130,15 @@ pwd
 spago build
 HELLO_TESTING=$?
 cd ../../
+echo "::endgroup::"
 
+echo "::group::Hello World - Benchmarking"
 cd 21-Hello-World/08-Benchmarking/
 pwd
 spago build
 HELLO_BENCHMARK=$?
 cd ../../
-
-cd 22-Projects/01-Libraries
-pwd
-# Build but do not run benchmark tests
-spago build
-PROJECTS_LIBRARIES_BUILT_OK=$?
-cd ../../
-
-cd 22-Projects/11-Random-Number-Game
-pwd
-# Build but do not run benchmark tests
-spago build
-PROJECTS_RANDOM_NUMBER_GAME=$?
-
-# Node-based tests
-spago test -m Test.RandomNumber.ReaderT.Standard.DifferentMonad
-PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_DIFFERENT=$?
-spago test -m Test.RandomNumber.ReaderT.Standard.SameMonad
-PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_SAME=$?
-cd ../../
-
-cd 22-Projects/12-ToC-Generator
-pwd
-# Build but do not run benchmark tests
-spago build
-PROJECTS_TOC_GENERATOR=$?
-
-# Node-based tests
-# spago test -m Test.ToC.MainLogic.QuickCheckTest
-echo "Skipping 'ToC.MainLogic.QuickCheckTest' due to bug that I will fix later."
-PROJECTS_TOC_GENERATOR_TEST_MAIN_LOGIC_BOTH=$?
-spago test -m Test.ToC.ParserLogic.QuickCheckTest
-PROJECTS_TOC_GENERATOR_TEST_PARSER_LOGIC_BOTH=$?
-cd ../../
+echo "::endgroup::"
 
 echo ""
 echo "Finished. Summarizing Results:"
@@ -171,13 +162,6 @@ echo "$HELLO_EXAMPLE_NUMBER_COMPARISON_RUN - Hello World - Application Structure
 echo "$HELLO_TLP - Hello World - Type-Level Programming"
 echo "$HELLO_TESTING - Hello World - Testing"
 echo "$HELLO_BENCHMARK - Hello World - Benchmarking"
-echo "$PROJECTS_LIBRARIES_BUILT_OK - Projects - Libraries"
-echo "$PROJECTS_RANDOM_NUMBER_GAME - Projects - RandomNumber"
-echo "$PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_DIFFERENT - Projects - RandomNumber - ReaderT Test (Different)"
-echo "$PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_SAME - Projects - RandomNumber - ReaderT Test (Same)"
-echo "$PROJECTS_TOC_GENERATOR - Projects ToC"
-echo "$PROJECTS_TOC_GENERATOR_TEST_MAIN_LOGIC_BOTH - Projects - ToC - Main - Both"
-echo "$PROJECTS_TOC_GENERATOR_TEST_PARSER_LOGIC_BOTH - Projects - ToC - Parser - Both"
 
 if [ $SYNTAX_BASIC == 0 ] &&
    [ $SYNTAX_FFI == 0 ] &&
@@ -197,14 +181,7 @@ if [ $SYNTAX_BASIC == 0 ] &&
    [ $HELLO_EXAMPLE_NUMBER_COMPARISON_RUN == 0 ] &&
    [ $HELLO_TLP == 0 ] &&
    [ $HELLO_TESTING == 0 ] &&
-   [ $HELLO_BENCHMARK == 0 ] &&
-   [ $PROJECTS_LIBRARIES_BUILT_OK == 0 ] &&
-   [ $PROJECTS_RANDOM_NUMBER_GAME == 0 ] &&
-   [ $PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_DIFFERENT == 0 ] &&
-   [ $PROJECTS_RANDOM_NUMBER_GAME_TEST_READERT_SAME == 0 ] &&
-   [ $PROJECTS_TOC_GENERATOR == 0 ] &&
-   [ $PROJECTS_TOC_GENERATOR_TEST_MAIN_LOGIC_BOTH == 0 ] &&
-   [ $PROJECTS_TOC_GENERATOR_TEST_PARSER_LOGIC_BOTH == 0 ]
+   [ $HELLO_BENCHMARK == 0 ]
 then
   echo "Build Succeeded"
   exit 0;

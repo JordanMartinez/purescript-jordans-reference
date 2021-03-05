@@ -98,20 +98,20 @@ combineSymbol l r = -- TODO
 
 -- 3. Add in the `Proxy` types
 combineSymbol :: Append left right combination
-              => SProxy left -> SProxy right -> SProxy combination
+              => Proxy left -> Proxy right -> Proxy combination
 combineSymbol l r = -- TODO
 
 -- 4. Add the `forall` syntax
 combineSymbol :: forall left right combination
                . Append left right combination
-              => SProxy left -> SProxy right -> SProxy combination
+              => Proxy left -> Proxy right -> Proxy combination
 combineSymbol l r = -- TODO
 
 -- 5. Implement the value-level code
 combineSymbol :: forall left right combination
                . Append left right combination
-              => SProxy left -> SProxy right -> SProxy combination
-combineSymbol _ _ = SProxy
+              => Proxy left -> Proxy right -> Proxy combination
+combineSymbol _ _ = Proxy
 ```
 
 ### UnsafeCoerce

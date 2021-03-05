@@ -38,25 +38,18 @@ then I will return a value of type 'a'
 --
 --    f :: forall a b. a -> b -> (forall c. c -> String) -> String
 --
+-- These are called "Rank-N Types."
 -- This means that the third argument, the function with `forall c`,
--- can be used on different types. These are known as "Rank-N Types."
--- "Rank" is a term the compiler uses when inferring a given type.
--- Thus, we can write something like this:
+-- can be used on different types. Thus, we can write something like this:
 
 ignoreArg_returnString :: forall a. a -> String
 ignoreArg_returnString _ = "some string"
 
-example
-  :: forall first second
-   . (forall anyType. anyType -> String)
-   -> first
-   -> second
-   -> String
-example function firstValue secondValue =
-  concat (function firstValue) (function secondValue)
+example :: forall a b. a -> b -> (forall c. c -> String) -> String
+example a b function = concat (function a) (function b)
 
 testExample :: String
-testExample = example ignoreArg_returnString true 5
+testExample = example true 5 ignoreArg_returnString
 
 -- needed to compile
 

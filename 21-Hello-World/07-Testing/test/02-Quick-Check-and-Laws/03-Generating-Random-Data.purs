@@ -3,13 +3,14 @@
 module Test.RandomDataGeneration.Combinators where
 
 import Prelude
+import Data.Maybe (fromJust)
 import Effect (Effect)
 import Effect.Console (log)
+import Data.Array.NonEmpty as NEA
+import Data.List.NonEmpty as NEL
 
 -- new imports
 -- these are all explained below
-import Data.NonEmpty ((:|), singleton)
-
 import Test.QuickCheck.Gen (
     uniform
   , choose, chooseInt, elements, shuffle
@@ -21,25 +22,8 @@ import Test.QuickCheck.Gen (
   )
 import Data.Int (even)
 import Data.Traversable (for)
-import Data.List.Types (List(..), (:))
 import Data.Tuple (Tuple(..))
-
-{-
-An array can be empty "[]" or full of stuff "[a, b, c...]"
-To insure tha an array is not empty, we can wrap the array with
-another type to guarantee this: NonEmpty
-
-NonEmpty looks like the following:                                        -}
-data NonEmpty_ box value = NonEmptyConstructor_ value (box value)
-{-
-In other words, it has one value and an empty/full array/list
-
-Rather than using the constructor, we use an infix notation of
-    firstValue :| boxedValue
-
-For example
-  1 :| [2, 3, 4, 5]
--}
+import Partial.Unsafe (unsafePartial)
 
 -- Prints the results of the combinators in Test.QuickCheck.Gen
 main :: Effect Unit
@@ -60,8 +44,8 @@ main = do                                                                 {-
   printData "choose - choose a random Number between" $
     choose    1.0 10.0
 
-   -- oneToThree = NonEmptyArray 1 [2 3]
-  let oneToThree = 1 :| [2, 3]
+   -- oneToThree = NonEmptyArray [1, 2, 3]
+  let oneToThree = unsafePartial fromJust $ NEA.fromArray [1, 2, 3]
   printData ("elements - Choose an random element from the array where \
              \each element has the same probability of being chosen") $
     elements oneToThree
@@ -78,22 +62,24 @@ main = do                                                                 {-
   printData ("oneOf - Randomly choose a generator (where each generator has \
              \the same probability of being chosen) and use it to generate \
              \a random instance of the data type") $
-    oneOf $ (chooseInt 0 9) :| [chooseInt 10 99, chooseInt 100 999]
+    oneOf $ unsafePartial fromJust $ NEA.fromArray
+      [ chooseInt   0   9
+      , chooseInt  10  99
+      , chooseInt 100 999
+      ]
 
-
-  let array_1 = singleton 1 -- (NonEmpty 1 [] :: NonEmpty Array Int)
-      array_2 = singleton 2
-      array_4 = singleton 4
+  let array_1 = NEA.singleton 1 -- (NonEmptyArray Int)
+      array_2 = NEA.singleton 2
+      array_4 = NEA.singleton 4
       lessOften = 1.0
       sometimes = 2.0
       moreOften = 4.0
   printData ("frequency - Generate an instance from an array of generators \
                   \where each generator is used unequally") $
     frequency $
-      (Tuple lessOften (elements $ array_1)) :|
-      (Tuple sometimes (elements $ array_2)) :
-      (Tuple moreOften (elements $ array_4)) :
-       Nil
+      NEL.cons      (Tuple lessOften (elements $ array_1)) $
+      NEL.cons      (Tuple sometimes (elements $ array_2)) $
+      NEL.singleton (Tuple moreOften (elements $ array_4))
 
   printData "suchThat - Create a generator (e.g. even numbers) by filtering \
             \out invalid instances that are generated from another generator \

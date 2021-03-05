@@ -20,18 +20,19 @@ function2 InputValue3 = OutputValue3 -- third pattern match
 
 -- ... converts to...
 
-foreign import kind InputKind
+data InputKind
 foreign import data InputValue1 :: InputKind
 foreign import data InputValue2 :: InputKind
 foreign import data InputValue3 :: InputKind
 
-foreign import kind OutputKind
+data OutputKind
 foreign import data OutputValue1 :: OutputKind
 foreign import data OutputValue2 :: OutputKind
 foreign import data OutputValue3 :: OutputKind
 
 -- the relationship
-class TypeLevelFunction (input :: InputKind) (output :: OutputKind)
+class TypeLevelFunction :: InputKind -> OutputKind -> Constraint
+class TypeLevelFunction input output
   -- the functions' type signatures
   | input -> output
   , output -> input
@@ -53,14 +54,16 @@ toInt No = Zero
 
 -- converts to
 
-foreign import kind YesNoKind
+data YesNoKind
 foreign import data YesK :: YesNoKind
 foreign import data NoK  :: YesNoKind
 
-foreign import kind ZeroOrOneKind
+data ZeroOrOneKind
 foreign import data OneK  :: ZeroOrOneKind
 foreign import data ZeroK :: ZeroOrOneKind
 
-class ToInt (input :: YesNoKind) (output :: ZeroOrOneKind) | input -> output
+class ToInt :: YesNoKind -> ZeroOrOneKind -> Constraint
+class ToInt input output | input -> output
+
 instance toInt_YesOne :: ToInt YesK OneK
 instance toInt_NoZero :: ToInt NoK  ZeroK

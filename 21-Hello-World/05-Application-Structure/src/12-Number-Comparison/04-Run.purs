@@ -6,9 +6,9 @@ import Effect.Console as Console
 import Effect.Random (randomInt)
 import Type.Row (type (+))
 import Data.Functor.Variant (on)
-import Run (Run, FProxy, lift, interpret, case_)
+import Run (Run, lift, interpret, case_)
 import Run.Reader (READER, runReader, ask)
-import Data.Symbol (SProxy(..))
+import Type.Proxy (Proxy(..))
 
 -----------------------------------------
 -- Core: Define any domain-specific concepts and their rules/relationships to
@@ -32,11 +32,12 @@ newtype HardCodedInt = HardCodedInt Int
 program :: forall r.
            Run                     -- A program that, given an interpreter that...
             -- effects go first
-            ( reader ::            --    can provide values/functions from the
-                READER Environment --       global configuration type, Environment
+            (
+            | READER Environment   --    can provide values/functions from the
+                                   --       global configuration type, Environment
 
             -- capabilities go second
-            | LOG_TO_SCREEN        --    can enable logging to the screen
+            + LOG_TO_SCREEN        --    can enable logging to the screen
             + GENERATE_RANDOM_INT  --    can enable generating a random int
             + r                    --    and any other effects/capabilities
             )                      --       we may add later
@@ -78,10 +79,10 @@ type Environment = { hardCodedInt :: HardCodedInt }
 data LogToScreen a = LogToScreen String a
 derive instance functorLogToScreen :: Functor LogToScreen
 
-_logToScreen :: SProxy "logToScreen"
-_logToScreen = SProxy
+_logToScreen :: Proxy "logToScreen"
+_logToScreen = Proxy
 
-type LOG_TO_SCREEN r = (logToScreen :: FProxy LogToScreen | r)
+type LOG_TO_SCREEN r = (logToScreen :: LogToScreen | r)
 
 logToScreen :: forall r. String -> Run (LOG_TO_SCREEN + r) Unit
 logToScreen msg = lift _logToScreen $ LogToScreen msg unit
@@ -89,10 +90,10 @@ logToScreen msg = lift _logToScreen $ LogToScreen msg unit
 data GenerateRandomInt a = GenerateRandomInt (Int -> a)
 derive instance functorGenerateRandomInt :: Functor GenerateRandomInt
 
-_generateRandomInt :: SProxy "generateRandomInt"
-_generateRandomInt = SProxy
+_generateRandomInt :: Proxy "generateRandomInt"
+_generateRandomInt = Proxy
 
-type GENERATE_RANDOM_INT r = (generateRandomInt :: FProxy GenerateRandomInt | r)
+type GENERATE_RANDOM_INT r = (generateRandomInt :: GenerateRandomInt | r)
 
 generateRandomInt :: forall r. Run (GENERATE_RANDOM_INT + r) Int
 generateRandomInt = lift _generateRandomInt $ GenerateRandomInt identity
@@ -127,8 +128,9 @@ generateRandomIntToEffect (GenerateRandomInt reply) = do
 --   Any values or functions that are needed by Reader are passed in
 --      from the outside (i.e. `envRecord`)
 runProgram :: Environment ->
-              Run ( reader :: READER Environment
-                  | LOG_TO_SCREEN
+              Run ( 
+                  | READER Environment
+                  + LOG_TO_SCREEN
                   + GENERATE_RANDOM_INT
                   + () -- closes the "open" row of "program"
                   )

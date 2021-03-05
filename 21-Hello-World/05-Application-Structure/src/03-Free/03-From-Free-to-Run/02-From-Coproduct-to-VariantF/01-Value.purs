@@ -15,9 +15,9 @@ module Free.ExpressionBased.VariantF.Value
 import Prelude
 import Effect (Effect)
 import Effect.Console (log)
-import Data.Functor.Variant (VariantF, FProxy, inj, on, case_)
-import Data.Symbol (SProxy(..))
+import Data.Functor.Variant (VariantF, inj, on, case_)
 import Type.Row (type (+))
+import Type.Proxy (Proxy(..))
 
 -- Expression, fold, and algebra-unspecific run
 -- (These would be imported from the libraries that provide them)
@@ -36,15 +36,17 @@ run :: forall f a b output
 run algebra expression = fold (case_ # algebra) expression
 
 -- data stuff
+data ValueF :: Type -> Type
 data ValueF e = ValueF Int
 
 derive instance vf :: Functor ValueF
 
 -- VariantF stuff
-type Value r = (value :: FProxy ValueF | r)
+type Value :: Row (Type -> Type) -> Row (Type -> Type)
+type Value r = (value :: ValueF | r)
 
-valueSymbol :: SProxy "value"
-valueSymbol = SProxy
+valueSymbol :: Proxy "value"
+valueSymbol = Proxy
 
 value :: forall r. Int -> Expression (VariantF (Value + r))
 value i = In $ inj valueSymbol (ValueF i)

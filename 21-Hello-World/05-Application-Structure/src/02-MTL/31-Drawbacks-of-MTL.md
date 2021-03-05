@@ -31,13 +31,13 @@ f :: forall m output.
 The second solution is to use type-level programming to specify which `MonadState` we are referring to via an `id` Symbol. This would force us to change `MonadState`'s definition to:
 ```haskell
 class (Monad m) <= MonadState (id :: Symbol) state m | m -> state
-  state :: forall a. SProxy id -> (s -> m (Tuple a s)) -> m a
+  state :: forall a. Proxy id -> (s -> m (Tuple a s)) -> m a
 
-_i :: SProxy "i"
-_i = SProxy
+_i :: Proxy "i"
+_i = Proxy
 
-_s :: SProxy "s"
-_s = SProxy
+_s :: Proxy "s"
+_s = Proxy
 
 f :: forall m ouput.
   => MonadState "i" Int m

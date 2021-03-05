@@ -1,11 +1,11 @@
 -- PureScript 0.13.x
-module ModuleKind (kind ImportedKind, ImportedKindValue) where
+module ModuleKind (ImportedKind, ImportedKindValue) where
 
 -- PureScript 0.14.x
 -- module ModuleKind (ImportedKind, ImportedKindValue) where
 
 -- PureScript 0.13.x
-foreign import kind ImportedKind
+data ImportedKind
 -- PureScript 0.14.x
 -- data ImportedKind
 

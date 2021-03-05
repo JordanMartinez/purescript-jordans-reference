@@ -13,22 +13,13 @@ module Syntax.Module.FullExample
   -- the keyword 'module'
   , module ExportedModule
 
-  -- The type is exported, but no one can create an value of it
+  -- The type is exported, but no one can create a value of it
   -- outside of this module
   , ExportDataType1_ButNotItsConstructors
 
-  -- The type is exported and only one of its constructors is exported. Thus,
-  -- everyone else can create a `Constructor2A' value but not a
-  -- `Constructor2B` value. That one can only be created inside this module.
-  , ExportDataType2_AndOneOfItsConstructors(Constructor2A)
-
-  -- The type is exported and some of its constructors are exported. Thus,
-  -- everyone else can create a `Constructor3A' value
-  -- and a `Constructor3B` value, but not a `Constructor3C` value, which
-  --  can only be created inside this module.
-  , ExportDataType3_AndSomeOfItsConstructors(Constructor3A, Constructor3B)
-
-  , ExportDataType4_AndAllOfItsConstructors(..) -- syntax sugar for 'all constructors'
+  -- syntax sugar for 'all constructors'
+  -- Either all or none of a type's constructors must be exported
+  , ExportDataType2_AndAllOfItsConstructors(..)
 
   -- Type aliases can also be exported
   , ExportedTypeAlias
@@ -40,17 +31,9 @@ module Syntax.Module.FullExample
 
   -- Data constructor alias; exporting the alias requires you
   -- to also export the constructor it aliases
-  , ExportedDataType4_InfixNotation(Infix_Constructor), (<||||>)
+  , ExportedDataType3_InfixNotation(Infix_Constructor), (<||||>)
 
-  , module Exports
-
-  -- export all entities in this module by exporting itself
-  , module Syntax.Module.FullExample
-
-  -- PureScript 0.13.x - Kinds require the `kind` keyword to precede them
-  , kind ExportedKind
-  -- PureScript 0.14.x - `kind` keyword no longer exists
-  -- , ExportedKind
+  , ExportedKind
   , ExportedKindValue
   ) where
 
@@ -100,10 +83,7 @@ import Module2 (anInt2) as Exports
 import Module3 (anInt3) as Exports
 import Module4.SubModule1 (someFunction) as Exports
 
--- PureScript 0.13.x - import a kind and its value
-import ModuleKind (kind ImportedKind, ImportedKindValue) as Exports
--- PureScript 0.14.x - import a kind and its value
--- import ModuleKind (ImportedKind, ImportedKindValue) as Exports
+import ModuleKind (ImportedKind, ImportedKindValue) as Exports
 
 import Prelude
 
@@ -134,26 +114,16 @@ myFunction2 a = M1.sameFunctionName1 (M2.sameFunctionName1 a)
 dataDifferences :: M1.SameDataName -> M2.SameDataName -> String
 dataDifferences M1.Constructor M2.Constructor = "code works despite name clash"
 
-
 data ExportDataType1_ButNotItsConstructors = Constructor1A
 
-data ExportDataType2_AndOneOfItsConstructors
+data ExportDataType2_AndAllOfItsConstructors
   = Constructor2A
   | Constructor2B
-
-data ExportDataType3_AndSomeOfItsConstructors
-  = Constructor3A
-  | Constructor3B
-  | Constructor3C
-
-data ExportDataType4_AndAllOfItsConstructors
-  = Constructor4A
-  | Constructor4B
-  | Constructor4C
+  | Constructor2C
 
 type ExportedTypeAlias = Int
 
-data ExportedDataType4_InfixNotation = Infix_Constructor Int Int
+data ExportedDataType3_InfixNotation = Infix_Constructor Int Int
 
 infixr 4 Infix_Constructor as <||||>
 
@@ -161,9 +131,6 @@ type ExportedTypeAlias_InfixNotation = String
 
 infixr 4 type ExportedTypeAlias_InfixNotation as <|<>|>
 
--- PureScript 0.13.x
-foreign import kind ExportedKind
--- PureScript 0.14.x
--- kind ExportedKind
+data ExportedKind
 
 foreign import data ExportedKindValue :: ExportedKind

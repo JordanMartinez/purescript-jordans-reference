@@ -35,20 +35,22 @@ Reification works by using callback functions:
 --   - defines the reflection function for both values ...
 data YesNo = Yes | No
 
-foreign import kind YesNoKind
+data YesNoKind
 foreign import data YesK :: YesNoKind
 foreign import data NoK  :: YesNoKind
 
-data YesNoProxy (b :: YesNoKind) = YesNoProxyValue
+data Proxy :: forall k. k -> Type
+data Proxy kind = Proxy
 
-yesK :: YesNoProxy YesK
-yesK = YesNoProxyValue
+yesK :: Proxy YesK
+yesK = Proxy
 
-noK :: YesNoProxy NoK
-noK = YesNoProxyValue
+noK :: Proxy NoK
+noK = Proxy
 
-class IsYesNoKind (b :: YesNoKind) where
-  reflectYesNo :: YesNoProxy b -> YesNo
+class IsYesNoKind :: YesNoKind -> Constraint
+class IsYesNoKind a where
+  reflectYesNo :: Proxy a -> YesNo
 
 instance yesYesNo :: IsYesNoKind YesK where
   reflectYesNo _ = Yes
@@ -62,7 +64,7 @@ instance noYesNo :: IsYesNoKind NoK where
 
 reifyYesNo :: forall returnType
             . YesNo
-            -> (forall b. IsYesNoKind b => YesNoProxy b -> returnType)
+            -> (forall b. IsYesNoKind b => Proxy b -> returnType)
             -> returnType
 reifyYesNo Yes function = function yesK
 reifyYesNo No  function = function noK

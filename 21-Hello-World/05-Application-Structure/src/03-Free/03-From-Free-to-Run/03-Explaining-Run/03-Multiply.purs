@@ -3,9 +3,9 @@ module Free.RunBased.Multiply where
 import Prelude hiding (add)
 import Effect (Effect)
 import Effect.Console (log)
-import Data.Functor.Variant (VariantF, FProxy, on)
-import Data.Symbol (SProxy(..))
+import Data.Functor.Variant (VariantF, on)
 import Type.Row (type (+))
+import Type.Proxy (Proxy(..))
 import Free.RunBased.Value (value)
 import Free.RunBased.Add (ADD, add, addAlgebra, eval)
 import Run (Run, lift)
@@ -16,10 +16,10 @@ data MultiplyF e = MultiplyF e e
 derive instance af :: Functor MultiplyF
 
 -- Variant Stuff
-type MULTIPLY r = (multiply :: FProxy MultiplyF | r)
+type MULTIPLY r = (multiply :: MultiplyF | r)
 
-_multiply :: SProxy "multiply"
-_multiply = SProxy
+_multiply :: Proxy "multiply"
+_multiply = Proxy
 
 multiply :: forall r a
      . Run (MULTIPLY + r) a

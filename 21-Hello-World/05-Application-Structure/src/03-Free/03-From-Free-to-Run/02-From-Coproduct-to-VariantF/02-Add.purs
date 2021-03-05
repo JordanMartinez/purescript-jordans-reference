@@ -8,9 +8,9 @@ module Free.ExpressionBased.VariantF.Add
 import Prelude hiding (add)
 import Effect (Effect)
 import Effect.Console (log)
-import Data.Functor.Variant (VariantF, FProxy, inj, on)
-import Data.Symbol (SProxy(..))
+import Data.Functor.Variant (VariantF, inj, on)
 import Type.Row (type (+))
+import Type.Proxy (Proxy(..))
 import Free.ExpressionBased.VariantF.Value (
     Value, value
   , example_value, valueAlgebra
@@ -23,10 +23,10 @@ data AddF e = AddF e e
 derive instance af :: Functor AddF
 
 -- Variant Stuff
-type Add r = (add :: FProxy AddF | r)
+type Add r = (add :: AddF | r)
 
-addSymbol :: SProxy "add"
-addSymbol = SProxy
+addSymbol :: Proxy "add"
+addSymbol = Proxy
 
 add :: forall r
        . Expression (VariantF (Add + r))

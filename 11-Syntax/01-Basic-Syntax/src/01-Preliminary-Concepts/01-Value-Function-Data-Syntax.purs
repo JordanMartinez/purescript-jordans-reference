@@ -1,5 +1,7 @@
 module Syntax.Meta where
 
+-- This file simply shows enough syntax so that the
+-- explanation on Kinds (next) makes sense.
 --
 -- entity_name :: Type Signature
 -- entity_name = definition

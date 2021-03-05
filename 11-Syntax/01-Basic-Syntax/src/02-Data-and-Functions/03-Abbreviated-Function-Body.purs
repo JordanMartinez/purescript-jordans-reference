@@ -5,6 +5,7 @@ import Prelude
 -- if the body of a function is another function that expects an argument,
 -- one can omit the argument entirely.
 --    Note: 'show' converts a value of most types into a `String` value.
+
 function_normal      :: Int -> String
 function_normal         x    = show    x
 --    is the same as ...
@@ -26,17 +27,17 @@ exampleAbbreviation2 = (function_abbreviated2 4) == "4"
 warning :: String
 warning = """
 
-Sometimes, using an abbreviated function / eta-reducing will cause problems.
+Sometimes, using an abbreviated function / eta-reduction will cause problems.
 See this issue for more details:
 https://github.com/purescript/purescript/issues/950
 
-To fix it, eta-expand the function (i.e. include the argument):
+To fix it, just un-abbreviate the function body by eta-expanding it
+(i.e. include the argument):
 -- change this:
 f :: Int -> String
 f = show
 
 -- to
-f :: Int -> String
-f x = show x
-
+f' :: Int -> String
+f' x = show x
 """

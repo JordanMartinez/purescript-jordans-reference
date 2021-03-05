@@ -4,9 +4,9 @@ import Prelude
 import Effect (Effect)
 import Effect.Console as Console
 import Type.Row (type (+))
+import Type.Proxy (Proxy(..))
 import Data.Functor.Variant (on)
-import Run (Run, FProxy, lift, interpret, case_)
-import Data.Symbol (SProxy(..))
+import Run (Run, lift, interpret, case_)
 
 -----------------------------------------
 -- Core: Define any domain-specific concepts and their rules/relationships to
@@ -41,10 +41,10 @@ program = do
 data LogToScreen a = LogToScreen String a
 derive instance functorLogToScreen :: Functor LogToScreen
 
-_logToScreen :: SProxy "logToScreen"
-_logToScreen = SProxy
+_logToScreen :: Proxy "logToScreen"
+_logToScreen = Proxy
 
-type LOG_TO_SCREEN r = (logToScreen :: FProxy LogToScreen | r)
+type LOG_TO_SCREEN r = (logToScreen :: LogToScreen | r)
 
 logToScreen :: forall r. String -> Run (LOG_TO_SCREEN + r) Unit
 logToScreen msg = lift _logToScreen $ LogToScreen msg unit

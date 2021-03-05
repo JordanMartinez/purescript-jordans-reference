@@ -2,11 +2,12 @@ module TLP.SymbolExample where
 
 import Prelude
 import Data.Tuple(Tuple(..))
-import Data.Symbol (SProxy(..), class IsSymbol, reflectSymbol)
+import Data.Symbol (class IsSymbol, reflectSymbol)
 import Effect (Effect)
 import Effect.Console (log)
 import Prim.Symbol as Symbol
-import Type.Data.Ordering (OProxy(..), class IsOrdering, reflectOrdering)
+import Type.Proxy (Proxy(..))
+import Type.Data.Ordering (class IsOrdering, reflectOrdering)
 
 main :: Effect Unit
 main = do
@@ -16,29 +17,29 @@ main = do
 
 --- Append ---
 
-apple :: SProxy "apple"
-apple = SProxy
+apple :: Proxy "apple"
+apple = Proxy
 
-app :: SProxy "app"
-app = SProxy
+app :: Proxy "app"
+app = Proxy
 
-le :: SProxy "le"
-le = SProxy
+le :: Proxy "le"
+le = Proxy
 
 combine :: forall l r both
          . Symbol.Append l r both
-        => SProxy l -> SProxy r -> SProxy both
-combine _ _ = SProxy
+        => Proxy l -> Proxy r -> Proxy both
+combine _ _ = Proxy
 
 prefix :: forall prefix suffix string
         . Symbol.Append prefix suffix string
-       => SProxy string -> SProxy suffix -> SProxy prefix
-prefix _ _ = SProxy
+       => Proxy string -> Proxy suffix -> Proxy prefix
+prefix _ _ = Proxy
 
 suffix :: forall prefix suffix string
         . Symbol.Append prefix suffix string
-       => SProxy string -> SProxy prefix -> SProxy suffix
-suffix _ _ = SProxy
+       => Proxy string -> Proxy prefix -> Proxy suffix
+suffix _ _ = Proxy
 
 printAppend :: Effect Unit
 printAppend = do
@@ -51,36 +52,36 @@ printAppend = do
 
 symbolHead :: forall head tail string
             . Symbol.Cons head tail string
-           => SProxy string -> SProxy head
-symbolHead _ = SProxy
+           => Proxy string -> Proxy head
+symbolHead _ = Proxy
 
 symbolTail :: forall head tail string
             . Symbol.Cons head tail string
-           => SProxy string -> SProxy tail
-symbolTail _ = SProxy
+           => Proxy string -> Proxy tail
+symbolTail _ = Proxy
 
 symbolHeadTail :: forall head tail string
                 . Symbol.Cons head tail string
-               => SProxy string -> Tuple (SProxy head) (SProxy tail)
-symbolHeadTail _ = Tuple SProxy SProxy
+               => Proxy string -> Tuple (Proxy head) (Proxy tail)
+symbolHeadTail _ = Tuple Proxy Proxy
 
-appleHead :: SProxy "a"
-appleHead = SProxy
+appleHead :: Proxy "a"
+appleHead = Proxy
 
-appleTail :: SProxy "pple"
-appleTail = SProxy
+appleTail :: Proxy "pple"
+appleTail = Proxy
 
 showHeadTail :: forall head tail
               . IsSymbol head
              => IsSymbol tail
-             => Tuple (SProxy head) (SProxy tail) -> String
+             => Tuple (Proxy head) (Proxy tail) -> String
 showHeadTail (Tuple h t) =
   "(" <> reflectSymbol h <> ", " <> reflectSymbol t <> ")"
 
 symbolCons :: forall head tail string
             . Symbol.Cons head tail string
-           => SProxy head -> SProxy tail -> SProxy string
-symbolCons _ _ = SProxy
+           => Proxy head -> Proxy tail -> Proxy string
+symbolCons _ _ = Proxy
 
 printCons :: Effect Unit
 printCons = do
@@ -92,13 +93,13 @@ printCons = do
 
 --- Compare ---
 
-banana :: SProxy "banana"
-banana = SProxy
+banana :: Proxy "banana"
+banana = Proxy
 
 symbolCompare :: forall left right ordering
                . Symbol.Compare left right ordering
-              => SProxy left -> SProxy right -> OProxy ordering
-symbolCompare _ _ = OProxy
+              => Proxy left -> Proxy right -> Proxy ordering
+symbolCompare _ _ = Proxy
 
 printCompare :: Effect Unit
 printCompare = do
@@ -112,10 +113,10 @@ printCompare = do
 printHeader :: String -> Effect Unit
 printHeader s = log $ "=== " <> s <> " ==="
 
-printOrdering :: forall a. IsOrdering a => String -> OProxy a -> Effect Unit
+printOrdering :: forall a. IsOrdering a => String -> Proxy a -> Effect Unit
 printOrdering subhead ord = printLine subhead $ show $ reflectOrdering ord
 
-printSymbol :: forall a. IsSymbol a => String -> SProxy a -> Effect Unit
+printSymbol :: forall a. IsSymbol a => String -> Proxy a -> Effect Unit
 printSymbol subhead sym = printLine subhead $ reflectSymbol sym
 
 printLine :: String -> String -> Effect Unit
