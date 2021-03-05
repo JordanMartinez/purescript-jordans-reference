@@ -32,11 +32,12 @@ newtype HardCodedInt = HardCodedInt Int
 program :: forall r.
            Run                     -- A program that, given an interpreter that...
             -- effects go first
-            ( reader ::            --    can provide values/functions from the
-                READER Environment --       global configuration type, Environment
+            (
+            | READER Environment   --    can provide values/functions from the
+                                   --       global configuration type, Environment
 
             -- capabilities go second
-            | LOG_TO_SCREEN        --    can enable logging to the screen
+            + LOG_TO_SCREEN        --    can enable logging to the screen
             + GENERATE_RANDOM_INT  --    can enable generating a random int
             + r                    --    and any other effects/capabilities
             )                      --       we may add later
@@ -127,8 +128,9 @@ generateRandomIntToEffect (GenerateRandomInt reply) = do
 --   Any values or functions that are needed by Reader are passed in
 --      from the outside (i.e. `envRecord`)
 runProgram :: Environment ->
-              Run ( reader :: READER Environment
-                  | LOG_TO_SCREEN
+              Run ( 
+                  | READER Environment
+                  + LOG_TO_SCREEN
                   + GENERATE_RANDOM_INT
                   + () -- closes the "open" row of "program"
                   )
