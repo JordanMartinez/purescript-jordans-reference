@@ -44,7 +44,7 @@ Unlike the manual install, `nvm` properly handles the npm prefix for you. So, yo
 
 Once you have installed `npm`, we can use it to install everything in one command:
 ```bash
-npm i -g purescript@0.14.0 spago@0.19.1 parcel
+npm i -g purescript@0.14.0 spago@0.20.0 parcel
 ```
 
 ### Versions Used in this Project

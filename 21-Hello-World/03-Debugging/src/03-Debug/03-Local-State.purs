@@ -10,7 +10,7 @@ import Prelude
 
 import Control.Monad.ST as ST
 import Control.Monad.ST.Ref as STRef
-import Debug.Trace (traceM)
+import Debug (traceM)
 import Effect (Effect)
 import Effect.Console (log)
 

@@ -7,9 +7,10 @@ You can edit this file as you like.
 , name =
     "ignore"
 , dependencies =
-    [ "console"
-    , "prelude"
+    [ "prelude"
     , "effect"
+    , "foldable-traversable"
+    , "newtype"
     , "psci-support"
     , "quickcheck"
     , "benchotron"

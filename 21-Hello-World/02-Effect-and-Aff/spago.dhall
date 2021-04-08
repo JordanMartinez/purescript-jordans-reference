@@ -10,12 +10,15 @@ You can edit this file as you like.
     [ "aff"
     , "console"
     , "effect"
+    , "either"
     , "js-timers"
     , "node-readline"
     , "now"
     , "prelude"
     , "psci-support"
     , "random"
+    , "refs"
+    , "st"
     ]
 , packages =
     ../../packages.dhall
