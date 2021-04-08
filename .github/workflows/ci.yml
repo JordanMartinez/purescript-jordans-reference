@@ -2,9 +2,8 @@ name: CI
 
 on:
   push:
-    branches: [latestRelease, development]
+    branches: [latestRelease]
   pull_request:
-    branches: [latestRelease, development]
 
 jobs:
   build:
