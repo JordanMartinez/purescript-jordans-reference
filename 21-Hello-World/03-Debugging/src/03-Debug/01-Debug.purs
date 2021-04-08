@@ -1,7 +1,7 @@
 -- When you compile this file, it will output compiler warnings.
 -- If you wish to remove that noise, comment out everything below
 -- the "module" declaration.
-module Debugging.DebugTrace where
+module Debugging.Debug where
 
 -- Comment out everything below this line to prevent compiler warning.
 ----------------------------------------------------------------------
@@ -9,7 +9,7 @@ module Debugging.DebugTrace where
 import Prelude
 import Effect (Effect)
 import Effect.Console  (log)
-import Debug.Trace (spy, trace, traceM)
+import Debug (spy, trace, traceM)
 
 -- Given a simple Box Monad
 data Box a = Box a
