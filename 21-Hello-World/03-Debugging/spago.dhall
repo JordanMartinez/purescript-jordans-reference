@@ -7,19 +7,12 @@ You can edit this file as you like.
 , name =
     "untitled"
 , dependencies =
-    [ "aff"
-    , "console"
+    [ "console"
     , "debug"
     , "effect"
-    , "either"
-    , "node-readline"
-    , "partial"
     , "prelude"
     , "psci-support"
-    , "random"
-    , "refs"
     , "st"
-    , "typelevel-prelude"
     ]
 , packages =
     ../../packages.dhall

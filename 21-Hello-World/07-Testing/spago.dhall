@@ -7,15 +7,24 @@ You can edit this file as you like.
 , name =
     "untitled"
 , dependencies =
-    [ "console"
+    [ "aff"
+    , "arrays"
+    , "console"
     , "effect"
-    , "newtype"
+    , "enums"
+    , "exceptions"
+    , "foldable-traversable"
+    , "integers"
+    , "lists"
+    , "maybe"
+    , "partial"
     , "prelude"
     , "psci-support"
     , "quickcheck"
     , "quickcheck-laws"
     , "spec"
     , "strings"
+    , "tuples"
     ]
 , packages =
     ../../packages.dhall
