@@ -8,7 +8,7 @@ All languages make tradeoffs in various areas and on various spectrums:
 - type systems
 - etc.
 
-The question is "Which combination of tradeoffs provides the most benefits in prioritized areas?" "Good" languages happen to select specific tradeoffs that make the language well-suited for specific problems. For example, Python is well-suited for creating dirty one-time-run scripts to do tedious work on a computer. While Python can be used to create a financial or medical applications that need to extremely fast and secure, it would be better to use a different language that is better suited for such a task, such as Rust.
+The question is "Which combination of tradeoffs provides the most benefits in prioritized areas?" "Good" languages happen to select specific tradeoffs that make the language well-suited for specific problems. For example, Python is well-suited for creating dirty one-time-run scripts to do tedious work on a computer. While Python can be used to create financial or medical applications that need to be extremely fast and secure, it would be better to use a different language that is better suited for such a task, such as Rust.
 
 PureScript has chosen tradeoffs that its developers think are the best for creating simple to complex front-end applications that "just work;" that are easy to refactor, debug, and test; and help make developers more productive rather than less.
 
@@ -24,7 +24,7 @@ To fully answer "Why learn PureScript?" we must answer three other questions:
 
 - The web browser is the new ["dumb terminal"](https://www.youtube.com/embed/YI34UIMgkxs?start=1762&end=1828) / platform-independent OS:
     - [What can web do today?](https://whatwebcando.today/)
-- [Why Founders Should Start With a Website, Not a Mobile App](https://www.atrium.co/blog/founders-should-build-website-not-mobile-app/)
+- [Why Founders Should Start With a Website, Not a Mobile App](https://article.voxsnap.com/atrium/founders-should-build-website-not-mobile-app)
 - The points mentioned in this article: [Learn Javascript in 2018](https://web.archive.org/web/20181201032915/https://medium.com/zerotomastery/learn-to-code-in-2018-get-hired-and-have-fun-along-the-way-b338247eed6a)
 
 ## ...but not write Javascript to build it...
