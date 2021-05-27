@@ -42,7 +42,7 @@ fruitToInt :: Fruit -> ZeroOrOne
 fruitToInt Apple                    = Zero
 fruitToInt _ {- Orange .. Cherry -} = One
 
--- we can use a feature called "Value Chains:"
+-- we can use a feature called "Type Class Instance Chains:"
 
 class FruitToInt :: FruitKind -> ZeroOrOneKind -> Constraint
 class FruitToInt a i
