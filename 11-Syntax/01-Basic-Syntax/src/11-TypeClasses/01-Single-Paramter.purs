@@ -17,12 +17,26 @@ class ToInt a where
   toInt :: a -> Int
 
 -- ... and its implementation for SomeType
-instance typeClassNameDefinitionForSomeType :: TypeClassName SomeType where
+instance TypeClassName SomeType where
   functionName type_ = ReturnType
 
--- Note: type class' instances unfortunately must be named due to the
--- JavaScript backend. One should use the following naming scheme:
---    [TypeClassName][ParemeterTypeName]
+-- ## Type Class Instance Name Requirement
+--
+-- Previously, naming type class instances was required.
+-- As of `v0.14.2`, this requirement has been dropped as the compiler
+-- generates the instance name instead now.
+--
+-- Below is an example of a named type class instance. You
+-- may continue to see these while the ecosystem catches up.
+-- The name typically follows this naming convention:
+--    `classNameType1NameType2Name...TypeNName`.
+{-
+instance typeClassNameSomeType :: TypeClassName SomeType where
+  functionName type_ = ReturnType
+-}
+
+-- The rest of this repo will use unnamed type class instances.
+
 
 instance toIntBoolean :: ToInt Boolean where
   toInt true = 1
