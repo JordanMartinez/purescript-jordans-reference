@@ -11,7 +11,7 @@ class TwoTypesButTheyAreTheSameThing :: Type -> Type -> Constraint
 class TwoTypesButTheyAreTheSameThing a b | a -> b, b -> a
 
 -- and an instance like so...
-instance exampleTypeClass :: TwoTypesButTheyAreTheSameThing Int Int
+instance TwoTypesButTheyAreTheSameThing Int Int
 
 -- ... the below code will fail to compile
 {-
@@ -51,7 +51,7 @@ Compiler Error:
 class A_Determines_B :: Type -> Type -> Constraint
 class A_Determines_B a b | a -> b
 
-instance aDeterminesB :: A_Determines_B Int String
+instance A_Determines_B Int String
 
 -- The below "foreign import" syntax will be covered more in the FFI folder
 foreign import data Computed :: Type -> Type

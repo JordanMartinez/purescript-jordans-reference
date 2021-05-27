@@ -10,7 +10,7 @@ import Free.Value (iter, value)
 -- Code in this section will be reused in upcoming file
 
 data AddF e = AddF e e
-derive instance af :: Functor AddF
+derive instance Functor AddF
 
 addAlgebra :: AddF Int -> Int
 addAlgebra (AddF a b) = a + b

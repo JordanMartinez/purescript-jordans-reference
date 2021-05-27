@@ -32,7 +32,7 @@ data Box a = Box a
 -- (instances appear at the bottom of the file)
 
 -- ... and an Arbitrary for our Box type
-instance arbitraryBox :: (Arbitrary a) => Arbitrary (Box a) where
+instance (Arbitrary a) => Arbitrary (Box a) where
   arbitrary = map pure arbitrary
 
 -- ... and a helper function for checking all of them at once
@@ -76,40 +76,40 @@ main = do
 
 -- Box's instances
 
-instance eqBox :: (Eq a) => Eq (Box a) where
+instance (Eq a) => Eq (Box a) where
   eq (Box a1) (Box a2) = eq a1 a2
 
-instance ordBox :: (Ord a) => Ord (Box a) where
+instance (Ord a) => Ord (Box a) where
   compare (Box a1) (Box a2) = compare a1 a2
 
-instance functorBox :: Functor Box where
+instance Functor Box where
   map :: forall a b. (a -> b) -> Box a -> Box  b
   map f (Box a) = Box (f a)
 
-instance applyBox :: Apply Box where
+instance Apply Box where
   apply :: forall a b. Box (a -> b) -> Box a -> Box  b
   apply (Box f) (Box a) = Box (f a)
 
-instance bindBox :: Bind Box where
+instance Bind Box where
   bind :: forall a b. Box a -> (a -> Box b) -> Box b
   bind (Box a) f = f a
 
-instance applicativeBox :: Applicative Box where
+instance Applicative Box where
   pure :: forall a. a -> Box a
   pure a =  Box a
 
-instance monadBox :: Monad Box
+instance Monad Box
 
 -- Fruit's type, arbitrary, and instances
 
 data Fruit = Apple | Orange
 
-instance aribtraryFruit :: Arbitrary Fruit where
+instance Arbitrary Fruit where
   arbitrary = elements $ unsafePartial fromJust $ NEA.fromArray [Apple, Orange]
 
-derive instance eqFruit :: Eq Fruit
+derive instance Eq Fruit
 
-instance ordFruit :: Ord Fruit where
+instance Ord Fruit where
   compare Apple Orange = LT
   compare Orange Apple = GT
   compare _ _ = EQ

@@ -7,7 +7,7 @@ See Phil's explanation of [Counterexamples of Type Classes](https://blog.functor
 ## Automatically Deriving Instances
 
 This was the conversation I had with monoidmusician on the Slack channel about `purescript-generics-rep` and what need it satisfies for deriving type class instances. I've edited it for clarity:
-> Me: I have quick question about deriving type class instances via the `purescript-generics-rep` library. Type classes can be derived in a few ways if the underlying types already have an instance. For example, if I have `data T = T Int`, I can use `derive instance name :: Eq/Show/etc. T`. If I have `newtype T = T Int`, I can use `derive newtype instance [rest of the stuff]`. What does `purescript-generics-rep` add that is not already covered by those two?
+> Me: I have quick question about deriving type class instances via the `purescript-generics-rep` library. Type classes can be derived in a few ways if the underlying types already have an instance. For example, if I have `data T = T Int`, I can use `derive instance Eq/Show/etc. T`. If I have `newtype T = T Int`, I can use `derive newtype instance [rest of the stuff]`. What does `purescript-generics-rep` add that is not already covered by those two?
 
 > monoidmusician: `generics-rep` lets you work with the representations of sum and product types (all ADTs basically, not just those with one constructor with one field) in a type-safe way
 > one of the coolest uses I’ve found is deriving optics, but you need some background in lenses and prisms to understand what’s happening and the benefits of it: https://pursuit.purescript.org/packages/purescript-generics-rep-optics/0.1.0

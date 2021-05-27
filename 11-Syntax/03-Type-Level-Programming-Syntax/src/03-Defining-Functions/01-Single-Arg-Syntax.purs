@@ -32,4 +32,4 @@ class TypeLevelFunction input output
   , output -> input
 
 -- the implementation for both functions (since this is a simple example)
-instance implementation :: TypeLevelFunction InputValueK OutputValueK
+instance TypeLevelFunction InputValueK OutputValueK

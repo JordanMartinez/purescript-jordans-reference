@@ -53,7 +53,7 @@ data Box a = Box a
 class Show_ a where
   show_ :: a -> String
 
-instance showBox :: (Show a) => Show (Box a) where
+instance (Show a) => Show (Box a) where
   show (Box a) = "Box(" <> show a <> ")"
 
 -- What if we wanted to use a different type class instance for `Box` in some
@@ -64,7 +64,7 @@ newtype Box2 a = Box2 (Box a)
 -- Since `Box2` is a different type than `Box`, we can define a type class
 -- instance on it. This is a way to provide an alternative `Show` instance
 -- on the underlying `Box` type.
-instance showBox2 :: (Show a) => Show (Box2 (Box a)) where
+instance (Show a) => Show (Box2 (Box a)) where
   show (Box2 (Box a)) = "Box with value of [" <> show a <> "] inside of it."
 
 -- Or, to add more context to a type, we can use a newtype to ensure we

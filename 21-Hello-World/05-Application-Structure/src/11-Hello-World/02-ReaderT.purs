@@ -50,24 +50,24 @@ runAppM (AppM m) = runReaderT m unit
 
 -- - Since there is no global configuration value for this program
 --      we do not need AppM to have an instance for MonadAsk
--- derive newtype instance a7 :: MonadAsk e AppM
+-- derive newtype instance MonadAsk e AppM
 
 -- - write instances for capabilities above, so that AppM can use them
-instance logToScreenAppM :: LogToScreen AppM where
+instance LogToScreen AppM where
   logToScreen :: String -> AppM Unit
   logToScreen message = liftEffect $ Console.log message
 
 
 -- - derive instances for AppM, so that it is a Monad via ReaderT
-derive newtype instance functorAppM :: Functor AppM
-derive newtype instance applicativeAppM :: Applicative AppM
-derive newtype instance applyAppM :: Apply AppM
-derive newtype instance bindAppM :: Bind AppM
-derive newtype instance monadAppM :: Monad AppM
+derive newtype instance Functor AppM
+derive newtype instance Applicative AppM
+derive newtype instance Apply AppM
+derive newtype instance Bind AppM
+derive newtype instance Monad AppM
 
 -- - enable functions that return `Effect a` to be run inside our `AppM` program
 --      such as Effect.Console.log
-derive newtype instance monadEffectAppM :: MonadEffect AppM
+derive newtype instance MonadEffect AppM
 
 -----------------------------------------
 -- Infrastructure: any other code (i.e. databases, frameworks, libraries)

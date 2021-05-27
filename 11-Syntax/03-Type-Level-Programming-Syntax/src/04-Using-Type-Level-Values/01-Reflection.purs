@@ -28,7 +28,7 @@ class TLI_to_VLI :: CustomKind -> Constraint
 class TLI_to_VLI customKind where
   reflectCustomKind :: Proxy customKind -> Value_Level_Type
 
-instance tli_to_vlI :: TLI_to_VLI CustomKindValue where {-
+instance TLI_to_VLI CustomKindValue where {-
   reflectCustomKind Proxy = "value-level value" -}
   reflectCustomKind _     = "value-level value"
 ----------------------------
@@ -54,11 +54,11 @@ class IsYesNoKind :: YesNoKind -> Constraint
 class IsYesNoKind a where
   reflectYesNo :: Proxy a -> YesNo
 
-instance yesTL_VL :: IsYesNoKind YesK where
+instance IsYesNoKind YesK where
 -- reflectYesNo (Proxy :: Proxy Yes) = Yes
    reflectYesNo _                    = Yes
 
-instance noTL_VL :: IsYesNoKind NoK where
+instance IsYesNoKind NoK where
 -- reflectYesNo (Proxy :: Proxy No) = No
    reflectYesNo _                   = No
 
@@ -70,9 +70,9 @@ class IsYes :: YesNoKind -> Constraint
 class IsYes a where
   isYes :: Proxy a -> YesNo
 
-instance isYes_Yes :: IsYes YesK where
+instance IsYes YesK where
   isYes _ = Yes
-else instance isYes_catchall :: IsYes a where
+else instance IsYes a where
   isYes _ = No
 
 -- Using instance chains here is more convenient if we had
@@ -89,6 +89,6 @@ else instance isYes_catchall :: IsYes a where
 
 -- necessary for not getting errors while trying the functions in the REPL
 
-instance showYNVLT :: Show YesNo where
+instance Show YesNo where
     show Yes = "Yes"
     show No  = "No"

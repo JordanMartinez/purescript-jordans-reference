@@ -32,21 +32,21 @@ infixl 1 bind as >>=
 
 data Box a = Box a
 
-instance functor :: Functor Box where
+instance Functor Box where
   map :: forall a b.         (a ->     b) -> Box a -> Box  b
   map                         f             (Box a) = Box (f a)
 
-instance apply :: Apply Box where
+instance Apply Box where
   apply :: forall a b.   Box (a ->     b) -> Box a -> Box  b
   apply                 (Box  f         )   (Box a) = Box (f a)
 
 -- Wrong: Flipped order of two args!
-instance bindWrong :: Bind_ Box where
+instance Bind_ Box where
   bindFlipped :: forall a b. (a -> Box b) -> Box a -> Box  b
   bindFlipped                 f             (Box a) = f a
 
 -- Correct order of args
-instance bind :: Bind Box where
+instance Bind Box where
   bind :: forall a b.  Box a -> (a -> Box b) -> Box b
   bind                (Box a)    f            = f a
 ```

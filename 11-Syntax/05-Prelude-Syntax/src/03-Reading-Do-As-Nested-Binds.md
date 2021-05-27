@@ -6,7 +6,7 @@ data Maybe a
   = Nothing
   | Just a
 
-instance bindMonad :: Bind Maybe where
+instance Bind Maybe where
   bind :: forall a b. Maybe a -> (a -> Maybe b) -> Maybe b
   -- when given a Nothing, stop all future computations and return immediately.
   bind Nothing _ = Nothing

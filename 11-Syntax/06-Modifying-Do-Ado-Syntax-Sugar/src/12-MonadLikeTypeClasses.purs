@@ -15,7 +15,7 @@ import Data.Semigroup ((<>))
 -- hierarchy (type class instances are below each type class)
 data Box phantomInput phantomOutput storedValue = Box storedValue
 
-instance showBox :: (Show a) => Show (Box x x a) where
+instance (Show a) => Show (Box x x a) where
   show (Box a) = "Box(" <> show a <> ")"
 
 -- Requirement 1: type classes that are similar to Functor to Monad hierarchy
@@ -25,7 +25,7 @@ instance showBox :: (Show a) => Show (Box x x a) where
 class IxFunctor f where
   imap :: forall a b x. (a -> b) -> f   x x a -> f   x x b
 
-instance ixFunctorBox :: IxFunctor Box where
+instance IxFunctor Box where
   imap :: forall a b x. (a -> b) -> Box x x a -> Box x x b
   imap f (Box a) = Box (f a)
 
@@ -33,7 +33,7 @@ instance ixFunctorBox :: IxFunctor Box where
 class (IxFunctor f) <= IxApply f where
   iapply :: forall a b x y z. f   x y (a -> b) -> f   y z a -> f   x z b
 
-instance ixApplyBox :: IxApply Box where
+instance IxApply Box where
   iapply :: forall a b x y z. Box x y (a -> b) -> Box y z a -> Box x z b
   iapply (Box f) (Box a) = Box (f a)
 
@@ -41,7 +41,7 @@ instance ixApplyBox :: IxApply Box where
 class (IxApply f) <= IxApplicative f where
   ipure :: forall a x. a -> f   x x a
 
-instance ixApplicativeBox :: IxApplicative Box where
+instance IxApplicative Box where
   ipure :: forall a x. a -> Box x x a
   ipure a = Box a
 
@@ -49,7 +49,7 @@ instance ixApplicativeBox :: IxApplicative Box where
 class (IxApply m) <= IxBind m where
   ibind :: forall a b x y z. m   x y a -> (a -> m   y z b) -> m   x z b
 
-instance ixBindBox :: IxBind Box where
+instance IxBind Box where
   ibind :: forall a b x y z. Box x y a -> (a -> Box y z b) -> Box x z b
   ibind (Box a) f =
     -- `f a` produces a value with the type, `Box y z b`, which is
@@ -63,7 +63,7 @@ instance ixBindBox :: IxBind Box where
 
 class (IxApplicative m, IxBind m) <= IxMonad m
 
-instance ixMonadBox :: IxMonad Box
+instance IxMonad Box
 
 -- Requirement 2: define functions whose names correspond to the ones used
 -- in the regular type classes: `map`, `apply`, 'pure', 'bind', and

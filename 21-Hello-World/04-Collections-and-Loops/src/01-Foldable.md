@@ -114,7 +114,7 @@ data Box a = Box a
 
 -- Box's implementation doesn't show the difference between `foldl` and `foldr`.
 -- Moreover, the initial `b` value isn't really necessary.
-instance foldableBox :: Foldable Box where
+instance Foldable Box where
   foldl :: forall a b. (b -> a -> b) -> b -> Box a -> b
   foldl reduceToB initialB (Box a) = reduceToB initialB a
 
@@ -131,7 +131,7 @@ instance foldableBox :: Foldable Box where
 -- Maybe's implementation doesn't show the difference between `foldl` and `foldr`.
 -- However, the initial `b` value is necessary
 -- because of the possible `Nothing` case.
-instance foldableMaybe :: Foldable Maybe where
+instance Foldable Maybe where
   foldl :: forall a b. (b -> a -> b) -> b -> Maybe a -> b
   foldl reduceToB initialB (Just a) = reduceToB initialB a
   foldl _         initialB Nothing  =           initialB
@@ -155,7 +155,7 @@ instance foldableMaybe :: Foldable Maybe where
 -- 1 : 2 : Nil
 -- same as [1, 2]
 -- In the below implementations, `op` stands for `operation`
-instance foldableList :: Foldable List where
+instance Foldable List where
   -- Same as...
   -- ((((intialB `op` firstElem) `op` secondElem) `op` ...) `op` lastElem)
   foldl :: forall a b. (b -> a -> b) -> b -> List a -> b
@@ -176,7 +176,7 @@ instance foldableList :: Foldable List where
   foldMap aToMonoid list =
     foldl (\b a -> b <> (aToMonoid a)) mempty list
 
-instance functorList :: Functor List where
+instance Functor List where
   map f list =
     -- Due to stack safety, this is not how this is implemented
     -- but it communicates the same idea

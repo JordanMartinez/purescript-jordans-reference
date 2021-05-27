@@ -38,7 +38,7 @@ instance typeClassNameSomeType :: TypeClassName SomeType where
 -- The rest of this repo will use unnamed type class instances.
 
 
-instance toIntBoolean :: ToInt Boolean where
+instance ToInt Boolean where
   toInt true = 1
   toInt false = 0
 
@@ -50,7 +50,7 @@ test = (toInt true) == 0
 class TypeClassDefiningValue a where
   value :: a
 
-instance typeClassDefiningValueInt :: TypeClassDefiningValue Int where
+instance TypeClassDefiningValue Int where
   value = 42
 
 -- Type classes usually only specify one function, but sometimes
@@ -60,7 +60,7 @@ class ZeroAppender a where
   append :: a -> a -> a
   zeroValue :: a
 
-instance zeroAppenderInt :: ZeroAppender Int where
+instance ZeroAppender Int where
   append = (+)
   zeroValue = 0
 
@@ -80,7 +80,7 @@ will fail to compile. The following code demonstrates this.
 
 -- Uncomment me and I'll become a compiler error
 -- type Age = Int
--- instance ageValue :: TypeClassDefiningValue Age where
+-- instance TypeClassDefiningValue Age where
 --   value = 2
 
 -- Type classes are useful for constraining types, which will be covered next.

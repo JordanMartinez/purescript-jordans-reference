@@ -43,11 +43,11 @@ Second and starting with the easier function `mempty`, we'll translate it into a
 data FreeMonoid a
   = Mempty
 
-instance s :: Semigroup (FreeMonoid a) where
+instance Semigroup (FreeMonoid a) where
   append a Mempty = a
   append Mempty a = a
 
-instance m :: Monoid (FreeMonoid a) where
+instance Monoid (FreeMonoid a) where
   mempty = Mempty
 ```
 `append` is a bit harder. We need to store a value of type `a`, so we can try this:
@@ -66,7 +66,7 @@ data FreeMonoid a
 -- since `Mempty` is our placeholder instance, we can use it
 -- to fill the a2's spot
 
-instance s :: Semigroup (FreeMonoid a) where
+instance Semigroup (FreeMonoid a) where
   append Mempty Mempty = Mempty
   append a Mempty = a
   append Mempty a = a
@@ -86,14 +86,14 @@ data FreeMonoid a
   --       a1  Mempty / Append a
   | Append a  (FreeMonoid a     )
 
-instance s :: Semigroup (FreeMonoid a) where
+instance Semigroup (FreeMonoid a) where
   append Mempty Mempty = Mempty
   append a Mempty = a
   append Mempty a = a
   append (Append a memptyOrAppend) otherAppend =
     Append a (memptyOrAppend <> otherAppend)
 
-instance m :: Monoid (FreeMonoid a) where
+instance Monoid (FreeMonoid a) where
   mempty = Mempty
 ```
 The above code is the exact same thing as a familiar data type, `List`:
@@ -102,14 +102,14 @@ data List a
   = Nil
   | Cons a (List a)
 
-instance s :: Semigroup (List a) where
+instance Semigroup (List a) where
   append Nil Nil = Nil
   append a Nil = a
   append Nil a = a
   append (Cons head tail) otherList =
     Cons head (tail <> otherList)
 
-instance m :: Monoid (List a) where
+instance Monoid (List a) where
   mempty = Nil
 ```
 Thus, we say that `List` is a "free" monoid because by wrapping some type (e.g. `Fruit`) into a `List`, we get a monoid instance for `Fruit` for free:

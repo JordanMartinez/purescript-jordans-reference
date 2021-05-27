@@ -13,7 +13,7 @@ import Run (Run, lift)
 -- Data stuff
 data MultiplyF e = MultiplyF e e
 
-derive instance af :: Functor MultiplyF
+derive instance Functor MultiplyF
 
 -- Variant Stuff
 type MULTIPLY r = (multiply :: MultiplyF | r)

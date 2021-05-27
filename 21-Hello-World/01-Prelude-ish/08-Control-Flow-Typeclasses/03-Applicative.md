@@ -17,15 +17,15 @@ class (Apply f) <= Applicative f where
 
 data Box a = Box a
 
-instance f :: Functor Box where
+instance Functor Box where
   map :: forall a b.       (a -> b) -> Box a -> Box  b
   map                       f         (Box a) = Box (f a)
 
-instance apply :: Apply Box where
+instance Apply Box where
   apply :: forall a b. Box (a -> b) -> Box a -> Box  b
   apply               (Box  f     )   (Box a) = Box (f a)
 
-instance applicative :: Applicative Box where
+instance Applicative Box where
   pure :: forall a. a -> Box a
   pure              a =  Box a
 ```

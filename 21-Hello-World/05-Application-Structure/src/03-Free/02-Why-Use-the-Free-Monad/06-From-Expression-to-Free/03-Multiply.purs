@@ -10,7 +10,7 @@ import Free.Value (iter, value)
 -- Code in this section will be reused in upcoming file
 
 data MultiplyF e = MultiplyF e e
-derive instance mf :: Functor MultiplyF
+derive instance Functor MultiplyF
 
 multiplyAlgebra :: MultiplyF Int -> Int
 multiplyAlgebra (MultiplyF a b) = a * b

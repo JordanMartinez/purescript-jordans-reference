@@ -21,7 +21,7 @@ import Free.ExpressionBased.VariantF.Add (
 
 -- data stuff
 data MultiplyF e = MultiplyF e e
-derive instance mf :: Functor MultiplyF
+derive instance Functor MultiplyF
 
 -- VariantF stuff
 type Multiply r = (multiply :: MultiplyF | r)

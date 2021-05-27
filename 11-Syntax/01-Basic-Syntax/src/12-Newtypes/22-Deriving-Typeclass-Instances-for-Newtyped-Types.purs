@@ -20,7 +20,7 @@ newtype EmailAddress1 = EmailAddress1 String
 -- However, defining type class instances for them
 -- can get tedious:
 
-instance eqEmailAddress1 :: Eq EmailAddress1 where
+instance Eq EmailAddress1 where
   eq (EmailAddress1 s1) (EmailAddress1 s2) = s1 == s2
 -- same for Ord type class
 
@@ -37,9 +37,9 @@ newtype FirstName = FirstName String
 
 newtype EmailAddress2 = EmailAddress2 String
 
-derive newtype instance eqEmailAddress2 :: Eq EmailAddress2
-derive newtype instance eqPhone :: Eq Phone
-derive newtype instance eqFirstName :: Eq FirstName
+derive newtype instance Eq EmailAddress2
+derive newtype instance Eq Phone
+derive newtype instance Eq FirstName
 
 -- <--- End
 
@@ -58,7 +58,7 @@ class Newtype_ new old | new -> old
 newtype EmailAddress3 = EmailAddress3 String
 
 -- no need to indicate what "_" is since the compiler can figure it out
-derive instance newtypeEmailAddress :: Newtype EmailAddress3 _
+derive instance Newtype EmailAddress3 _
 
 -- Data.Newtype provides other useful functions that lets us avoid manually
 -- wrapping and unwrapping. For example:

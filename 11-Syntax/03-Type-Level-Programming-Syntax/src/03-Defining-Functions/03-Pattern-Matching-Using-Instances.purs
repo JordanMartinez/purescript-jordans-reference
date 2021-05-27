@@ -39,7 +39,7 @@ class TypeLevelFunction input output
 
 -- the implementations via pattern matching
 instance firstPatternMatch  :: TypeLevelFunction InputValue1 OutputValue1
-instance secondPatternMatch :: TypeLevelFunction InputValue2 OutputValue2
+instance TypeLevelFunction InputValue2 OutputValue2
 instance thirdPatternMatch  :: TypeLevelFunction InputValue3 OutputValue3
 
 --------------------------------------------
@@ -65,5 +65,5 @@ foreign import data ZeroK :: ZeroOrOneKind
 class ToInt :: YesNoKind -> ZeroOrOneKind -> Constraint
 class ToInt input output | input -> output
 
-instance toInt_YesOne :: ToInt YesK OneK
-instance toInt_NoZero :: ToInt NoK  ZeroK
+instance ToInt YesK OneK
+instance ToInt NoK  ZeroK

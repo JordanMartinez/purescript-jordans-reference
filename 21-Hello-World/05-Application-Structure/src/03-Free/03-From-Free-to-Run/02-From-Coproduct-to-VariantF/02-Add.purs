@@ -20,7 +20,7 @@ import Free.ExpressionBased.VariantF.Value (
 -- Data stuff
 data AddF e = AddF e e
 
-derive instance af :: Functor AddF
+derive instance Functor AddF
 
 -- Variant Stuff
 type Add r = (add :: AddF | r)

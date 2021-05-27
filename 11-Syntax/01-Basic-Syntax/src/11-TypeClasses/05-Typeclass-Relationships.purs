@@ -28,15 +28,15 @@ class ToInt a <= PlusFive a where
 -- Writing an instance of ActualTypeClass does not require a constraint
 -- from RequiredTypeClass in its type signature as this is already known due
 -- to `ActualTypeClass`'s definition
-instance actualTypeClass :: ActualTypeClass TheType where
+instance ActualTypeClass TheType where
   functionName _ = "body"
 
 -- example
-instance toIntBoolean :: ToInt Boolean where
+instance ToInt Boolean where
   toInt true = 1
   toInt false = 0
 
-instance plusFiveBoolean :: PlusFive Boolean where
+instance PlusFive Boolean where
   plusFive b = 5 + toInt b
 
 -- using it in code
@@ -47,12 +47,12 @@ test2 :: Boolean
 test2 = (plusFive false) == 5
 
 -- Now let's explain what we mean by "conditional."
-instance toIntInt :: ToInt Int where
+instance ToInt Int where
   -- notice how the required type class, `ToInt`, is using functions
   -- from its extension type class, `PlusFive`.
   toInt x = plusFive x
 
-instance plusFiveInt :: PlusFive Int where
+instance PlusFive Int where
   plusFive b = 5 + b
 
 -- If a type implements instances for a number of type classes, its instances
@@ -89,5 +89,5 @@ data TheType = TheType
 class RequiredTypeClass a where
   fn :: a -> String
 
-instance requiredTypeClassTheTypeInstance :: RequiredTypeClass TheType where
+instance RequiredTypeClass TheType where
   fn _ = "body"

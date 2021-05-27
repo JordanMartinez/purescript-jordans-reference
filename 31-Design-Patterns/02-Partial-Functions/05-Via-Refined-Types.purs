@@ -28,5 +28,5 @@ mkNonZeroInt x = Right x
 data NonZeroIntError = IntWasZero
 
 -- Then we'll make it printable to the screen
-instance divisionErrorShow :: Show NonZeroIntError where
+instance Show NonZeroIntError where
   show IntWasZero = "Error: the integer was 0."

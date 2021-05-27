@@ -46,18 +46,18 @@ newtype Memory = Memory Int
 class Functor f => Free f where
   runAlgebra :: f (Memory -> Tuple a Memory) -> (Memory -> Tuple a Memory)
 
-instance i :: Free Add where
+instance Free Add where
   runAlgebra (Add amount restOfComputation) (Memory i) =
     restOfComputation (Memory (i + amount))
-instance r :: Free GetValue where
+instance Free GetValue where
   runAlgebra (GetValue intToRestOfComputation) (Memory i) =
     (intToRestOfComputation i) (Memory i)
 
-instance e :: (Functor f, Functor g) => Free (Either f g) where
+instance (Functor f, Functor g) => Free (Either f g) where
   runAlgebra (Left r) = runAlgebra r
   runAlgebra (Right r) = runAlgebra r
 
-instance c :: (Functor f, Functor g) => Free (Coproduct f g) where
+instance (Functor f, Functor g) => Free (Coproduct f g) where
   runAlgebra (Coproduct either) = runAlgebra either
 
 run :: Functor f => Free f a -> Memory -> Tuple a Memory

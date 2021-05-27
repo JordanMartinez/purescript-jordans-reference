@@ -54,7 +54,7 @@ We'll implement an instance for `List a`.
 ```haskell
 data List a = Nil | Cons a
 
-instance unfoldableList :: Unfoldable List where
+instance Unfoldable List where
   unfoldr :: forall a b. (b -> Maybe (Tuple a b)) -> b -> List a
   unfoldr f initialB = case f initialB of
     Nothing -> Nil

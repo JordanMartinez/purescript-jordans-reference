@@ -29,10 +29,10 @@ data Box2 a = Box2 a
 class Apply m <= Bind m where
   bind :: forall a b. m    a -> (a -> m    b) -> m    b
 
-instance b1 :: Bind Box1 where
+instance Bind Box1 where
   bind :: forall a b. Box1 a -> (a -> Box1 b) -> Box1 b
   bind               (Box1 a)   f              = f a
-instance b2 :: Bind Box2 where
+instance Bind Box2 where
   bind :: forall a b. Box2 a -> (a -> Box2 b) -> Box2 b
   bind               (Box2 a)   f              = f a
 ```
@@ -87,7 +87,7 @@ class LiftSourceIntoTargetMonad sourceMonad targetMonad where {-
   liftSourceMonad ::           sourceMonad   ~> targetMonad
 
 -- Note: instances of this idea might be more complicated than this one
-instance box2_into_box1 :: LiftSourceIntoTargetMonad Box2 Box1 where {-
+instance LiftSourceIntoTargetMonad Box2 Box1 where {-
   liftSourceMonad :: forall a. Box2 a -> Box1 a                      -}
   liftSourceMonad ::           Box2   ~> Box1
   liftSourceMonad (Box2 a) = Box1 a
@@ -103,7 +103,7 @@ class LiftSourceIntoTargetMonad sourceMonad targetMonad where                 {-
   liftSourceMonad :: forall a. sourceMonad a -> targetMonad a                 -}
   liftSourceMonad ::           sourceMonad   ~> targetMonad
 
-instance box2_to_box1 :: LiftSourceIntoTargetMonad Box2 Box1 where
+instance LiftSourceIntoTargetMonad Box2 Box1 where
   liftSourceMonad :: Box2 ~> Box1
   liftSourceMonad (Box2 a) = Box1 a
 
@@ -115,26 +115,26 @@ bindAttempt = do
 
 -- type class instances for Monad hierarchy
 
-instance functor :: Functor Box1 where
+instance Functor Box1 where
   map :: forall a b. (a -> b) -> Box1 a -> Box1  b
   map f (Box1 a) = Box1 (f a)
 
-instance apply :: Apply Box1 where
+instance Apply Box1 where
   apply :: forall a b. Box1 (a -> b) -> Box1 a -> Box1  b
   apply (Box1 f) (Box1 a) = Box1 (f a)
 
-instance bind :: Bind Box1 where
+instance Bind Box1 where
   bind :: forall a b. Box1 a -> (a -> Box1 b) -> Box1 b
   bind (Box1 a) f = f a
 
-instance applicative :: Applicative Box1 where
+instance Applicative Box1 where
   pure :: forall a. a -> Box1 a
   pure a =  Box1 a
 
-instance monad :: Monad Box1
+instance Monad Box1
 
 -- Needed to print the result to the console in the REPL session
 
-instance bs :: (Show a) => Show (Box1 a) where
+instance (Show a) => Show (Box1 a) where
   show (Box1 a) = show a
 ```

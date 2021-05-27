@@ -91,7 +91,7 @@ class Show a where
   show :: a -> String
 
 {-            |  1   |         |  2  |                                -}
-instance s :: (Show a) => Show (Box a) where
+instance (Show a) => Show (Box a) where
   show (Box a) = show a
 ```
 1. Instance Context
@@ -116,14 +116,14 @@ Unification is how logic programming works. A popular language which uses logic 
 4. Complex "term chains" (e.g. a type class and a concrete type's instance of that type class) unify if and only if all of their corresponding arguments unify:
     - the number of parameter terms in the type class is the same number of terms in the instance
         - `class MyClass first second`
-        - `instance i :: MyClass String Int`
+        - `instance MyClass String Int`
     - instance types unify with the class' constraints
         - `class (SuperClass constrained) <= ThisClass constrained`
-        - `instance a :: SuperClass String`
-        - `instance i :: ThisClass String`
+        - `instance SuperClass String`
+        - `instance ThisClass String`
     - types in the instance context unify with their corresponding class
-        - `instance a :: OtherConstraint a`
-        - `instance i :: (OtherConstraint a) => FastClass a`
+        - `instance OtherConstraint a`
+        - `instance (OtherConstraint a) => FastClass a`
     - the type of terms in the type class unify only with their corresponding term type in the instance:
         - The type class' Kind terms are made to unify only with other Kind terms, not Type terms, in the instance
         - The type class' Type terms are made to unify only with other Type terms, not Kind terms, in the instance.
@@ -141,9 +141,9 @@ Here is an example of "backtracking". It will make more sense after you have rea
 class MyClass a
   someValue :: Boolean
 
-instance firstInstance :: (SomeConstraint a) => MyClass a where
+instance (SomeConstraint a) => MyClass a where
   someValue = true
-else instance secondInstance :: MyClass a where
+else instance MyClass a where
   someValue = false
 ```
 Here's the steps the compiler walks through:

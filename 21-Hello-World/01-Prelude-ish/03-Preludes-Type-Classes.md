@@ -36,7 +36,7 @@ data ColoredBox
   = RedBox
   | GreenBox
 
-instance ordColoredBox :: Ord ColoredBox where
+instance Ord ColoredBox where
   compare RedBox GreenBox = LT
   compare GreenBox RedBox = GT
   compare _ _ = EQ {- which expands to...
@@ -44,7 +44,7 @@ instance ordColoredBox :: Ord ColoredBox where
   compare GreenBox GreenBox = EQ
   -}
 
-instance eqColoredBox :: Eq ColoredBox where
+instance Eq ColoredBox where
   eq a b = (compare a b) == EQ
 
   notEq a b = (compare a b) /= EQ

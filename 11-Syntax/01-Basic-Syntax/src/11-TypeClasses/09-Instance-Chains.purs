@@ -16,22 +16,22 @@ class ExampleClass1 theType
 
 -- Instance chains are a workaround to the problem of "overlapping instances."
 -- Here's how the syntax works:
-instance name1 :: ExampleClass1 Type1
-else instance name2 :: ExampleClass1 Type2
+instance ExampleClass1 Type1
+else instance ExampleClass1 Type2
 -- ...
-else instance name3 :: ExampleClass1 Type3
+else instance ExampleClass1 Type3
 
 -- For readability, the `else` and `instance` keywords can appear on
 -- their own line or with a newline separating the keywords
 class ExampleClass2 :: Type -> Constraint
 class ExampleClass2 theType
 
-instance nameA :: ExampleClass2 Type1
+instance ExampleClass2 Type1
 else
-instance nameB :: ExampleClass2 Type2
+instance ExampleClass2 Type2
 else
 
-instance nameC :: ExampleClass2 Type3
+instance ExampleClass2 Type3
 
 -- ## Instance Chains: Use Cases
 
@@ -48,17 +48,17 @@ class ProduceAnInt a where
 
 -- When solving for `ProduceAnInt someType`, the compiler will
 -- solve for `someType` in the following order:
-instance tryMeFirst :: ProduceAnInt Int where
+instance ProduceAnInt Int where
   mkInt theInt = theInt
 else
-instance tryMeSecond :: ProduceAnInt String where
+instance ProduceAnInt String where
   mkInt _ = 13
 else
-instance tryMeThird :: ProduceAnInt SomeRandomType where
+instance ProduceAnInt SomeRandomType where
   mkInt FirstValue = 89
   mkInt SecondValue = 98
 else
-instance catchAll :: ProduceAnInt allOtherPossibleTypes where
+instance ProduceAnInt allOtherPossibleTypes where
   mkInt _ = 42
 
 data HasNoInstance = HasNoInstance
@@ -83,10 +83,10 @@ class Stringify a where
 -- 1. First attempt to show the item using that type class instance
 -- 2. Otherwise, indicate that it cannot be shown.
 
-instance doMeFirst :: (Show allPossibleTypes) => Stringify allPossibleTypes where
+instance (Show allPossibleTypes) => Stringify allPossibleTypes where
   stringify a = show a
 else
-instance defaultToMeOtherwise :: Stringify a where
+instance Stringify a where
   stringify _ = "The value could not be converted into a String."
 
 -- Then, one might attempt to use that code like so:

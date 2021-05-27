@@ -84,25 +84,25 @@ runAppM env (AppM m) = runReaderT m env
 
 -- - a MonadAsk instance that uses TypeEquals to work around a restriction:
 --      "cannot use a type alias (i.e. `Environent` type) in type class instance"
-instance monadAskAppM :: TypeEquals e Environment => MonadAsk e AppM where
+instance TypeEquals e Environment => MonadAsk e AppM where
   ask = AppM $ asks from
 
 -- - write instances for capabilities above, so that AppM can use them
-instance logToScreenAppM :: LogToScreen AppM where
+instance LogToScreen AppM where
   logToScreen :: String -> AppM Unit
   logToScreen message = liftEffect $ Console.log message
 
-instance generateRandomIntAppM :: GenerateRandomInt AppM where
+instance GenerateRandomInt AppM where
   generateRandomInt :: AppM Int
   generateRandomInt = liftEffect $ randomInt bottom top
 
 -- - derive instances for AppM, so that it is a Monad via ReaderT
-derive newtype instance functorAppM :: Functor AppM
-derive newtype instance applicativeAppM :: Applicative AppM
-derive newtype instance applyAppM :: Apply AppM
-derive newtype instance bindAppM :: Bind AppM
-derive newtype instance monadAppM :: Monad AppM
-derive newtype instance monadEffectAppM :: MonadEffect AppM
+derive newtype instance Functor AppM
+derive newtype instance Applicative AppM
+derive newtype instance Apply AppM
+derive newtype instance Bind AppM
+derive newtype instance Monad AppM
+derive newtype instance MonadEffect AppM
 
 -----------------------------------------
 -- Infrastructure: any other code (i.e. databases, frameworks, libraries)

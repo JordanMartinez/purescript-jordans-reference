@@ -21,7 +21,7 @@ infixl 4 map as <$>
 
 data Box a = Box a
 
-instance f :: Functor Box where
+instance Functor Box where
   map :: forall a b. (a -> b) -> Box a ->  Box  b
   map                 f         (Box a) =  Box (f a)
 ```

@@ -33,7 +33,7 @@ With that being our expression type, what would values for `Value`, `Add`, and `
 
 -- Value does not use the `In` value here
 -- so its implementation is trivial
-instance vs :: Show2 Value where
+instance Show2 Value where
   show2 (Value x) = show x
 
 -- Add
@@ -57,16 +57,16 @@ Multiply
 removeInAndShow :: Show2 f => Expression f -> String
 removeInAndShow (In t) = show2 t
 
-instance es :: (Show2 f, Show2 g) => Show2 (Either f g) where
+instance (Show2 f, Show2 g) => Show2 (Either f g) where
   show2 (Left f)  = show2 f
   show2 (Right g) = show2 g
 
 -- Now we can define the values for Add and Multiply
-instance as :: Show2 Add where
+instance Show2 Add where
   show2 (Add x y) =
     "(" <> removeInAndShow x <> " + " <> removeInAndShow y <> ")"
 
-instance ms :: Show2 Multiply where
+instance Show2 Multiply where
   show2 (Multiply x y) =
     "(" <> removeInAndShow x <> " * " <> removeInAndShow y <> ")"
 ```
@@ -79,8 +79,8 @@ Again, **I have not checked whether this code works, but it will serve to give y
 data Value e = Value Int
 data Add e = Add e e
 
-derive instance vf :: Functor Value
-derive instance af :: Functor Add
+derive instance Functor Value
+derive instance Functor Add
 
 data Expression f = In (f (Expression f))
 
@@ -94,10 +94,10 @@ add x y = inj (Add x y)
 class (Functor f) <= Evaluate f where
   evaluate :: f Int -> Int
 
-instance ve :: Evaluate Value where
+instance Evaluate Value where
   evaluate (Value x) = x
 
-instance ae :: Evaluate Add where
+instance Evaluate Add where
   evaluate (Add x y) = x + y
 
 fold :: Functor f => (f a -> a) -> Expression f -> a
@@ -112,17 +112,17 @@ eval expression = fold evaluate expression
 class (Functor f) <= Show2 f where
   show2 :: forall a. f a -> String
 
-instance vs :: Show2 Value where
+instance Show2 Value where
   show2 (Value x) = show x
 
 removeInAndShow :: Show2 f => Expression f -> String
 removeInAndShow (In t) = show2 t
 
-instance es :: (Show2 f, Show2 g) => Show2 (Either f g) where
+instance (Show2 f, Show2 g) => Show2 (Either f g) where
   show2 (Left f)  = show2 f
   show2 (Right g) = show2 g
 
-instance as :: Show2 Add where
+instance Show2 Add where
   show2 (Add x y) =
     "(" <> removeInAndShow x <> " + " <> removeInAndShow y <> ")"
 
@@ -132,15 +132,15 @@ file1Example = add (value 5) (value 6)
 
 -- File 2
 data Multiply e = Multiply e e
-derive instance mf :: Functor Multiply
+derive instance Functor Multiply
 
 multiply :: forall f. Expression f -> Expression f -> Expression f
 multiply x y = inj $ Multiply x y
 
-instance ae :: Evaluate Multiply where
+instance Evaluate Multiply where
   evaluate (Multiply x y) = x * y
 
-instance ms :: Show2 Multiply where
+instance Show2 Multiply where
   show2 (Multiply x y) =
     "(" <> removeInAndShow x <> " * " <> removeInAndShow y <> ")"
 

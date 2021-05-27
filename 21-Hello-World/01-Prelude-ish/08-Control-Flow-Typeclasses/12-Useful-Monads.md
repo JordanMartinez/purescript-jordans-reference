@@ -66,7 +66,7 @@ data Maybe a
   = Nothing
   | Just a
 
-instance bindMonad :: Bind Maybe where
+instance Bind Maybe where
   bind :: forall a b. Maybe a -> (a -> Maybe b) -> Maybe b
   -- when given a Nothing, stop all possible future computations
   -- and return immediately.
@@ -156,7 +156,7 @@ data Either a b
   = Left a
   | Right b
 
-instance bindEither :: Bind (Either a) where
+instance Bind (Either a) where
   bind :: forall b c. Either a b -> (b -> Either a c) -> Either a c
   -- when given a Left, stop all possible future computations
   -- and return immediately.
@@ -218,7 +218,7 @@ data List a
   | Cons a (List a)
 
 -- bind implementation not shown here
-instance bindList :: Bind List where
+instance Bind List where
   bind :: forall a b. List a -> (a -> List b) -> List b
   -- when given a Nil (end of list), stop all potential future computations and return immediately.
   bind Nil _ = Nil

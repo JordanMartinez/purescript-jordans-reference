@@ -28,14 +28,14 @@ class IsKindName a where
   -- and the reflect function is usually "reflect[KindName]"
   reflectKindName :: Proxy a -> Value_Level_Type
 
-instance reflectValue :: IsKindName Value where
+instance IsKindName Value where
   reflectKindName _ = "value-level value"
 
 -- NANS
 class IsKindName a <= ConstrainedToKindName a
 
 -- NANS
-instance constraintValue :: ConstrainedToKindName Value
+instance ConstrainedToKindName Value
 
 -- Usually reify[KindName]
 reifyKindName :: forall r

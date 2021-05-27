@@ -33,7 +33,7 @@ data Fruit
   | Banana
   | Orange
 
-instance arbitraryFruit :: Arbitrary Fruit where
+instance Arbitrary Fruit where
   arbitrary = elements $ unsafePartial fromJust $ NEA.fromArray [ Apple, Banana, Orange]
 
 -- ... the below (useless) code would compile
@@ -58,7 +58,7 @@ constant :: Fruit -> Gen FrequentApple
 constant fruit = elements $ NEA.singleton $ FrequentApple fruit
 
 -- write its instance
-instance arbitraryFrequentApple :: Arbitrary FrequentApple where
+instance Arbitrary FrequentApple where
   arbitrary = frequency $
     NEL.cons      (Tuple 6.0 (constant Apple))  $
     NEL.cons      (Tuple 2.0 (constant Banana)) $
@@ -76,7 +76,7 @@ runApple (FrequentApple fruit) = fruit
 -- Likewise, we can use the type's arbitrary to create a newtype's arbitrary
 newtype SmallInt = SmallInt Int
 
-instance arbitrarySmallInt :: Arbitrary SmallInt where
+instance Arbitrary SmallInt where
   arbitrary = (SmallInt <<< (_ / 1000)) <$> arbitrary -- Arbitrary Int
 
 runInt :: SmallInt -> Int

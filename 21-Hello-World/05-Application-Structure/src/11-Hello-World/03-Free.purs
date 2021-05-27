@@ -40,7 +40,7 @@ type AllEffects =
 -- - declare what the capabilities/effects are as data types with
 --     derived instances for `Functor` and write their smart constructors.
 data LogToScreen a = LogToScreen String a
-derive instance functorLogToScreen :: Functor LogToScreen
+derive instance Functor LogToScreen
 
 logToScreen :: String -> Free AllEffects Unit
 logToScreen message = liftF $ LogToScreen message unit
