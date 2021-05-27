@@ -33,7 +33,7 @@ class TypeClassWithFunctionalDependency type1 type2 | type1 -> type2  where
 
 data Box a = Box a
 
-class Unwrap a b where
+class Unwrap a b | a -> b where
   unwrap :: a -> b
 
 -- Here, the type of "a" (i.e. Box String) determines what "b" will be:
