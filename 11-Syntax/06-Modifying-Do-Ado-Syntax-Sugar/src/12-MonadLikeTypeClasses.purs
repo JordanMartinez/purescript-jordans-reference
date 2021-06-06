@@ -13,7 +13,7 @@ import Data.Semigroup ((<>))
 
 -- Given a data type with instances for the IndexedMonad type class
 -- hierarchy (type class instances are below each type class)
-data Box :: forall kindIn kindOut. kindIn -> kindOut -> Type -> Type
+data Box :: forall k. k -> k -> Type -> Type
 data Box phantomInput phantomOutput storedValue = Box storedValue
 
 instance (Show a) => Show (Box x x a) where
@@ -23,7 +23,7 @@ instance (Show a) => Show (Box x x a) where
 --  - ado requirements: Functor, Apply, and Applicative
 --  - do requirements: Functor, Apply, Applicative, Bind, and Monad
 
-class IxFunctor :: forall kIn. (kIn -> kIn -> Type -> Type) -> Constraint
+class IxFunctor :: forall k. (k -> k -> Type -> Type) -> Constraint
 class IxFunctor f where
   imap :: forall a b x. (a -> b) -> f   x x a -> f   x x b
 
@@ -32,7 +32,7 @@ instance IxFunctor Box where
   imap f (Box a) = Box (f a)
 
 
-class IxApply :: forall kIn kOut. (kIn -> kOut -> Type -> Type) -> Constraint
+class IxApply :: forall k. (k -> k -> Type -> Type) -> Constraint
 class (IxFunctor f) <= IxApply f where
   iapply :: forall a b x y z. f   x y (a -> b) -> f   y z a -> f   x z b
 
@@ -41,7 +41,7 @@ instance IxApply Box where
   iapply (Box f) (Box a) = Box (f a)
 
 
-class IxApplicative :: forall kIn kOut. (kIn -> kOut -> Type -> Type) -> Constraint
+class IxApplicative :: forall k. (k -> k -> Type -> Type) -> Constraint
 class (IxApply f) <= IxApplicative f where
   ipure :: forall a x. a -> f   x x a
 
@@ -50,7 +50,7 @@ instance IxApplicative Box where
   ipure a = Box a
 
 
-class IxBind :: forall kIn kOut. (kIn -> kOut -> Type -> Type) -> Constraint
+class IxBind :: forall k. (k -> k -> Type -> Type) -> Constraint
 class (IxApply m) <= IxBind m where
   ibind :: forall a b x y z. m   x y a -> (a -> m   y z b) -> m   x z b
 
@@ -66,7 +66,7 @@ instance IxBind Box where
     case f a of Box b -> Box b
 
 
-class IxMonad :: forall kIn kOut. (kIn -> kOut -> Type -> Type) -> Constraint
+class IxMonad :: forall k. (k -> k -> Type -> Type) -> Constraint
 class (IxApplicative m, IxBind m) <= IxMonad m
 
 instance IxMonad Box
