@@ -7,7 +7,7 @@ import Data.Unit (Unit)
 import Data.Function (($))
 import Control.Bind (discard)
 
-import Prim.TypeError (kind Doc, Text, class Warn, class Fail)
+import Prim.TypeError (Text, class Warn, class Fail)
 
 warnFunction :: Warn
   (  Text "Deprecated! Use betterFunction instead"
