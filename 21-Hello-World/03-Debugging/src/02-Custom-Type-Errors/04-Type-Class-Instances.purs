@@ -6,7 +6,7 @@ import Data.Show (show)
 import Data.Unit (Unit)
 import Data.Function (($))
 
-import Prim.TypeError (kind Doc, Text, Above, class Warn, class Fail)
+import Prim.TypeError (Text, Above, class Warn, class Fail)
 
 infixr 1 type Above as |>
 

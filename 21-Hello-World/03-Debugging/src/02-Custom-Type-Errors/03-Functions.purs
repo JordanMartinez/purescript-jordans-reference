@@ -5,7 +5,7 @@ import Effect (Effect)
 import Effect.Console (log)
 import Type.Proxy (Proxy(..))
 
-import Prim.TypeError (kind Doc, Text, Quote, Above, Beside, QuoteLabel, class Warn, class Fail)
+import Prim.TypeError (Text, Quote, Above, Beside, QuoteLabel, class Warn, class Fail)
 
 data Doc_
   = Text_ String      -- wraps a Symbol
