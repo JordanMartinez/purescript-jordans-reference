@@ -32,7 +32,7 @@ class Functor f where
 
 Following the same idea as before, we can convert `m` into `OutputBox input` and get this type signature:
 ```haskell
-instance functorOutputBox :: Functor (OutputBox input) where
+instance Functor (OutputBox input) where
   map :: forall originalOutput newOutput.
          (originalOutput -> newOutput) ->
          OutputBox input originalOutput ->
@@ -44,7 +44,7 @@ Let's see how to implement it.
 
 1. Since `map` returns an `OutputBox` type, let's start by first creating a newtype constructor:
 ```haskell
-instance functorOutputBox :: Functor (OutputBox input) where
+instance Functor (OutputBox input) where
   map :: forall originalOutput newOutput.
          (originalOutput -> newOutput) ->
          OutputBox input originalOutput ->
@@ -54,7 +54,7 @@ instance functorOutputBox :: Functor (OutputBox input) where
 
 2. The type, `OutputBox`, wraps a function, so let's use lambda syntax to create a new one:
 ```haskell
-instance functorOutputBox :: Functor (OutputBox input) where
+instance Functor (OutputBox input) where
   map :: forall originalOutput newOutput.
          (originalOutput -> newOutput) ->
          OutputBox input originalOutput ->
@@ -64,7 +64,7 @@ instance functorOutputBox :: Functor (OutputBox input) where
 
 3. Since `f` is the only argument that can receive the `input` value, let's pass `input` into `f` and store its output in a let binding:
 ```haskell
-instance functorOutputBox :: Functor (OutputBox input) where
+instance Functor (OutputBox input) where
   map :: forall originalOutput newOutput.
          (originalOutput -> newOutput) ->
          OutputBox input originalOutput ->
@@ -94,7 +94,7 @@ And isn't `originalToNew` a function with this exact type signature: `(originalO
 
 4. Use `Box`'s `map` to finish implementing the function.
 ```haskell
-instance functorOutputBox :: Functor (OutputBox input) where
+instance Functor (OutputBox input) where
   map :: forall originalOutput newOutput.
          (originalOutput -> newOutput) ->
          OutputBox input originalOutput ->
@@ -107,7 +107,7 @@ instance functorOutputBox :: Functor (OutputBox input) where
 
 Great! Let's clean it up by inlining `boxStoringOriginalOutput`.
 ```haskell
-instance functorOutputBox :: Functor (OutputBox input) where
+instance Functor (OutputBox input) where
   map :: forall originalOutput newOutput.
          (originalOutput -> newOutput) ->
          OutputBox input originalOutput ->
@@ -132,7 +132,7 @@ class (Functor f) <= Apply f where
 
 Our function will have this type signature:
 ```haskell
-instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input) where
+instance (Functor (OutputBox input)) <= Apply (OutputBox input) where
   apply :: forall originalOutput newOutput.
            OutputBox input (originalOutput -> newOutput) ->
            OutputBox input originalOutput ->
@@ -142,7 +142,7 @@ instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input
 
 1. As before, let's implement the shell of our return type: a newtype wrapper around a function created using lambda syntax:
 ```haskell
-instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input) where
+instance (Functor (OutputBox input)) <= Apply (OutputBox input) where
   apply :: forall originalOutput newOutput.
            OutputBox input (originalOutput -> newOutput) ->
            OutputBox input originalOutput ->
@@ -154,7 +154,7 @@ instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input
 
 2. Let's pass `input` into `f`:
 ```haskell
-instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input) where
+instance (Functor (OutputBox input)) <= Apply (OutputBox input) where
   apply :: forall originalOutput newOutput.
            OutputBox input (originalOutput -> newOutput) ->
            OutputBox input originalOutput ->
@@ -167,7 +167,7 @@ instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input
 
 3. Let's pass `input` into `inputToFunction` to expose function:
 ```haskell
-instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input) where
+instance (Functor (OutputBox input)) <= Apply (OutputBox input) where
   apply :: forall originalOutput newOutput.
            OutputBox input (originalOutput -> newOutput) ->
            OutputBox input originalOutput ->
@@ -183,7 +183,7 @@ instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input
 Hmm... This seems similar to what happened before. We have two boxes that are both storing values. When we tried implementing the `Functor` instance for our function, we used `Box`'s `Functor` definition. If we look at the types of our `Box`es, we'll see that this coincidence applies here, too. `boxStoringOriginalToNew` has type, `Box (originalOutput -> newOutput)` while `boxStoringOriginalOutput` has type, `Box originalOutput`. So, let's use `Box`'s `Apply` instance to finish the funciton!
 
 ```haskell
-instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input) where
+instance (Functor (OutputBox input)) <= Apply (OutputBox input) where
   apply :: forall originalOutput newOutput.
            OutputBox input (originalOutput -> newOutput) ->
            OutputBox input originalOutput ->
@@ -212,7 +212,7 @@ class (Apply f) <= Applicative f where
   pure :: forall a. a -> f a
 
 
-instance applicativeOutputBox :: (Apply (OutputBox input)) <= Applicative (OutputBox input) where
+instance (Apply (OutputBox input)) <= Applicative (OutputBox input) where
   pure :: forall a. a -> (OutputBox input) a
   pure value = OutputBox (\input -> pure a {- Box's `pure` -})
 ```
@@ -226,7 +226,7 @@ class (Apply m) <= Bind m where
   bind :: forall a b. m a -> (a -> m b) -> m b
 
 -- convert `f` into `OutputBox input`
-instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) where
+instance (Apply (OutputBox input)) <= Bind (OutputBox input) where
   bind :: forall originalOutput newOutput.
           OutputBox input originalOutput ->
           (originalOutput -> OutputBox input newOutput) ->
@@ -235,7 +235,7 @@ instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) wh
 
 -- Write the initial newtype constructor wrapping a function created
 -- via lambda syntax
-instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) where
+instance (Apply (OutputBox input)) <= Bind (OutputBox input) where
   bind :: forall originalOutput newOutput.
           OutputBox input originalOutput ->
           (originalOutput -> OutputBox input newOutput) ->
@@ -245,7 +245,7 @@ instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) wh
     )
 
 -- expose the `boxOriginalOutput` value
-instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) where
+instance (Apply (OutputBox input)) <= Bind (OutputBox input) where
   bind :: forall originalOutput newOutput.
           OutputBox input originalOutput ->
           (originalOutput -> OutputBox input newOutput) ->
@@ -256,7 +256,7 @@ instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) wh
     )
 
 -- use `Box`'s `bind` to reveal `originalOutput`
-instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) where
+instance (Apply (OutputBox input)) <= Bind (OutputBox input) where
   bind :: forall originalOutput newOutput.
           OutputBox input originalOutput ->
           (originalOutput -> OutputBox input newOutput) ->
@@ -270,7 +270,7 @@ instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) wh
 
 -- pass `originalOutput` into `originalToFunction`
 -- and use pattern matching to expose the function wrapped in the `OutpuBox`
-instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) where
+instance (Apply (OutputBox input)) <= Bind (OutputBox input) where
   bind :: forall originalOutput newOutput.
           OutputBox input originalOutput ->
           (originalOutput -> OutputBox input newOutput) ->
@@ -285,7 +285,7 @@ instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) wh
 
 -- pass `input` into `inputToNew`, which produces `Box newOutput` and
 -- satisfies the type signature of `bind`.
-instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) where
+instance (Apply (OutputBox input)) <= Bind (OutputBox input) where
   bind :: forall originalOutput newOutput.
           OutputBox input originalOutput ->
           (originalOutput -> OutputBox input newOutput) ->
@@ -301,7 +301,7 @@ instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) wh
 
 If we were to clean up the finished code above, we would write this:
 ```haskell
-instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) where
+instance (Apply (OutputBox input)) <= Bind (OutputBox input) where
   bind :: forall originalOutput newOutput.
           OutputBox input originalOutput ->
           (originalOutput -> OutputBox input newOutput) ->
@@ -319,7 +319,7 @@ instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) wh
 If we look at our final instances below (they were copied from above), we'll see that we never once used `Box` explicitly. Rather, we could have replaced `Box` with any monadic data type and we would still be able to implement instances of these type class' functions that satisfy their type signatures.
 
 ```haskell
-instance functorOutputBox :: Functor (OutputBox input) where
+instance Functor (OutputBox input) where
   map :: forall originalOutput newOutput.
          (originalOutput -> newOutput) ->
          OutputBox input originalOutput ->
@@ -328,7 +328,7 @@ instance functorOutputBox :: Functor (OutputBox input) where
       map originalToNew (f input)
     )
 
-instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input) where
+instance (Functor (OutputBox input)) <= Apply (OutputBox input) where
   apply :: forall originalOutput newOutput.
            OutputBox input (originalOutput -> newOutput) ->
            OutputBox input originalOutput ->
@@ -340,11 +340,11 @@ instance applyOutputbox :: (Functor (OutputBox input)) <= Apply (OutputBox input
       in apply boxStoringOriginalToNew boxStoringOriginalOutput
     )
 
-instance applicativeOutputBox :: (Apply (OutputBox input)) <= Applicative (OutputBox input) where
+instance (Apply (OutputBox input)) <= Applicative (OutputBox input) where
   pure :: forall a. a -> (OutputBox input) a
   pure value = OutputBox (\input -> pure a)
 
-instance bindOutputBox :: (Apply (OutputBox input)) <= Bind (OutputBox input) where
+instance (Apply (OutputBox input)) <= Bind (OutputBox input) where
   bind :: forall originalOutput newOutput.
           OutputBox input originalOutput ->
           (originalOutput -> OutputBox input newOutput) ->

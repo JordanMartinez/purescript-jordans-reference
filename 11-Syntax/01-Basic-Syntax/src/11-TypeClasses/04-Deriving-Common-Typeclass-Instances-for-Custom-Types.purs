@@ -27,12 +27,12 @@ data Type1
   | Second String
 
 -- To create instances of `Eq` and `Ord` for `Type` we'd usually write it by hand:
-instance eqType :: Eq Type1 where
+instance Eq Type1 where
   eq (First a) (First b) = a == b
   eq (Second a) (Second b) = a == b
   eq _ _ = false
 
-instance ordType :: Ord Type1 where
+instance Ord Type1 where
   compare (First a) (First b) = compare a b
   compare (First _) _ = LT
   compare (Second a) (Second b) = compare a b
@@ -49,8 +49,8 @@ data Type2
   = First2 Int
   | Second2 String
 
-derive instance eqType2 :: Eq Type2
-derive instance ordType2 :: Ord Type2
+derive instance Eq Type2
+derive instance Ord Type2
 
 test2 :: Boolean
 test2 =
@@ -62,8 +62,8 @@ data Type3
   = Second3 String
   | First3 Int
 
-derive instance eqType3 :: Eq Type3
-derive instance ordType3 :: Ord Type3
+derive instance Eq Type3
+derive instance Ord Type3
 
 test3 :: Boolean
 test3 =
@@ -72,8 +72,8 @@ test3 =
 -- In other cases (like higher-kinded types),
 -- we can use type class constraints to derive them:
 data Box a = Box a
-derive instance eqBox :: Eq a => Eq (Box a)
-derive instance ordBox :: Ord a => Ord (Box a)
+derive instance Eq a => Eq (Box a)
+derive instance Ord a => Ord (Box a)
 
 {-
 Note: this works for only two reasons:

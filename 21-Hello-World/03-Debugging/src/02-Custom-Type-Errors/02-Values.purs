@@ -7,7 +7,7 @@ import Data.Unit (Unit)
 import Data.Function (($))
 import Control.Bind (discard)
 
-import Prim.TypeError (kind Doc, Text, class Warn, class Fail)
+import Prim.TypeError (Text, class Warn, class Fail)
 
 warnFunction :: Warn
   (  Text "Deprecated! Use betterFunction instead"
@@ -20,10 +20,10 @@ betterFunction = 5.0
 failFunction :: Fail
   (  Text "Broken! Use betterFunction instead"
   ) => Int -> Int
-failFunction x = 20
+failFunction _ = 20
 
 regularFunction :: Int -> Int
-regularFunction x = 4
+regularFunction _ = 4
 
 main :: Effect Unit
 main = do

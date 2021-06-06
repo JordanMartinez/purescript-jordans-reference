@@ -20,7 +20,7 @@ Thus, we'll define a type for our DivisionError:
 data DivisionError = DividedByZero
 
 -- Then we'll make it printable to the screen
-instance divisionErrorShow :: Show DivisionError where
+instance Show DivisionError where
   show DividedByZero = "Error: you attempted to divide by zero!"
 
 -- We'll update `safeDivision` to return the error type rather than a String

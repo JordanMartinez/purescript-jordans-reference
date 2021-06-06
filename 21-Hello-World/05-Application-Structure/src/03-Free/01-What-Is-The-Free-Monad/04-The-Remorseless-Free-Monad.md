@@ -24,7 +24,7 @@ class Semigroup a where
 
 infix 4 append as <>
 
-instance a :: Semigroup Int where
+instance Semigroup Int where
   append i1 i2 = i1 + i2
 ```
 `Semigroup` requires its implementation to adhere to the law of association, meaning that, when `append` is used on the output of a previous `append` and some other value, the location of the parenthenses don't matter:

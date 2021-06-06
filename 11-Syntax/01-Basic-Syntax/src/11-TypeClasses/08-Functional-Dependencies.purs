@@ -33,11 +33,11 @@ class TypeClassWithFunctionalDependency type1 type2 | type1 -> type2  where
 
 data Box a = Box a
 
-class Unwrap a b where
+class Unwrap a b | a -> b where
   unwrap :: a -> b
 
 -- Here, the type of "a" (i.e. Box String) determines what "b" will be:
-instance unwrapBox :: Unwrap (Box String) String where
+instance Unwrap (Box String) String where
   unwrap (Box s) = s
 
 {-
@@ -45,7 +45,7 @@ If we defined another instance of `Unwrap` where
 "a" is the same type (e.g. `Box String`) but `b` is different,
 the compiler will throw an error:
 
-instance unwrapBox2 :: Unwrap (Box String) Int where
+instance Unwrap (Box String) Int where
   unwrap (Box s) = length s                                                 -}
 
 ------------------------

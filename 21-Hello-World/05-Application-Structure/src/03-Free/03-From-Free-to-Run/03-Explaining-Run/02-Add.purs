@@ -18,7 +18,7 @@ import Run (Run, lift, peel)
 -- Data stuff
 data AddF e = AddF e e
 
-derive instance af :: Functor AddF
+derive instance Functor AddF
 
 -- Variant Stuff
 type ADD r = (add :: AddF | r)

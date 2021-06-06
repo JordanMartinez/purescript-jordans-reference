@@ -9,7 +9,7 @@ Let's examine it further since it provides an example for us to follow should we
 -- | Nullary type class used to raise a custom warning for the debug functions.
 class DebugWarning
 
-instance warn :: Warn (Text "Debug usage") => DebugWarning
+instance Warn (Text "Debug usage") => DebugWarning
 
 foreign import trace :: forall a b. DebugWarning => a -> (Unit -> b) -> b
 

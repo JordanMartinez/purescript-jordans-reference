@@ -58,7 +58,7 @@ type Environment = { someValue :: Int } -- mutable state, read-only values, etc.
 newtype AppM a = AppM (ReaderT Environment Effect a)
 derive newtype instance functorTestM    :: Functor AppM
 derive newtype instance applyAppM       :: Apply AppM
-derive newtype instance applicativeAppM :: Applicative AppM
+derive newtype instance Applicative AppM
 derive newtype instance bindAppM        :: Bind AppM
 derive newtype instance monadAppM       :: Monad AppM
 derive newtype instance monadEffect     :: MonadEffect AppM
@@ -67,10 +67,10 @@ runApp :: AppM a -> Environment -> Effect a
 runApp (AppM reader_T) env = runReaderT reader_T env
 
 -- Layer 1 (the implementations of each instance)
-instance logToScreenAppM :: LogToScreen AppM where
+instance LogToScreen AppM where
   log = liftEffect <<< Console.log
 
-instance getUserNameAppM :: GetUserName AppM where
+instance GetUserName AppM where
   getUserName = liftEffect do
     -- some effectful thing that produces a string
     pure $ Name "some name"
@@ -88,7 +88,7 @@ main = do
 newtype TestM a = TestM (Reader Environment a)
 derive newtype instance functorTestM     :: Functor TestM
 derive newtype instance applyTestM       :: Apply TestM
-derive newtype instance applicativeTestM :: Applicative TestM
+derive newtype instance Applicative TestM
 derive newtype instance bindTestM        :: Bind TestM
 derive newtype instance monadTestM       :: Monad TestM
 
@@ -97,10 +97,10 @@ runTest :: TestM a -> Environment -> a
 runTest (TestM reader) env = runReader reader env
 
 -- Layer 1 (test: implementations of instances)
-instance logToScreenTestM :: LogToScreen TestM where
+instance LogToScreen TestM where
   log _ = pure unit -- no need to implement this
 
-instance getUserNameTestM :: GetUserName TestM where
+instance GetUserName TestM where
   getUserName = pure (Name "John") -- general idea. Don't do this in real code.
 
 -- Layer 0 (test)

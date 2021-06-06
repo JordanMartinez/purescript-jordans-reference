@@ -103,7 +103,7 @@ If you are using Atom as your editor, you can use snippets to help reduce the bo
       data ${1:Type_Name} a
         = -- create data constructors via a different snippet
 
-      derive instance functor${1:Type_Name} :: Functor ${1:Type_Name}
+      derive instance Functor ${1:Type_Name}
 
       _${2:symbol} = Proxy :: Proxy "${2:symbol}"
 
@@ -127,16 +127,16 @@ If you are using Atom as your editor, you can use snippets to help reduce the bo
       runAppM :: Env -> AppM ~> Aff
       runAppM env (AppM m) = runReaderT m env
 
-      instance monadAskAppM :: TypeEquals e Env => MonadAsk e AppM where
+      instance TypeEquals e Env => MonadAsk e AppM where
         ask = AppM $ asks from
 
-      derive newtype instance functorAppM :: Functor AppM
-      derive newtype instance applyAppM :: Apply AppM
-      derive newtype instance applicativeAppM :: Applicative AppM
-      derive newtype instance bindAppM :: Bind AppM
-      derive newtype instance monadAppM :: Monad AppM
-      derive newtype instance monadEffectAppM :: MonadEffect AppM
-      derive newtype instance monadAffAppM :: MonadAff AppM
+      derive newtype instance Functor AppM
+      derive newtype instance Apply AppM
+      derive newtype instance Applicative AppM
+      derive newtype instance Bind AppM
+      derive newtype instance Monad AppM
+      derive newtype instance MonadEffect AppM
+      derive newtype instance MonadAff AppM
       """
 
   'ReaderT Design Pattern (TestM)':
@@ -149,13 +149,13 @@ If you are using Atom as your editor, you can use snippets to help reduce the bo
         let (Identity a) = runReaderT program env
         in a
 
-      instance monadAskTestM :: TypeEquals e Env => MonadAsk e TestM where
+      instance TypeEquals e Env => MonadAsk e TestM where
         ask = TestM $ asks from
 
-      derive newtype instance functorTestM :: Functor TestM
-      derive newtype instance applyTestM :: Apply TestM
-      derive newtype instance applicativeTestM :: Applicative TestM
-      derive newtype instance bindTestM :: Bind TestM
-      derive newtype instance monadTestM :: Monad TestM
+      derive newtype instance Functor TestM
+      derive newtype instance Apply TestM
+      derive newtype instance Applicative TestM
+      derive newtype instance Bind TestM
+      derive newtype instance Monad TestM
       """
 ```

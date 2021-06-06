@@ -69,7 +69,7 @@ forall v. Variant  (fruit ::        Fruit_ConcreteType     | v)
 data Fruit_HigherKindedType e
   = Apple
   | Banana
-derive instance f :: Functor Fruit_HigherKindedType
+derive instance Functor Fruit_HigherKindedType
 
 -- Either (Fruit_HigherKindedType Int) (v Int)
 -- Coproduct Fruit_HigherKindedType v Int

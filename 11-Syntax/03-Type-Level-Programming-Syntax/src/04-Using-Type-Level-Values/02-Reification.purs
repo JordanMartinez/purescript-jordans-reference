@@ -52,10 +52,10 @@ class IsYesNoKind :: YesNoKind -> Constraint
 class IsYesNoKind a where
   reflectYesNo :: Proxy a -> YesNo
 
-instance yesYesNo :: IsYesNoKind YesK where
+instance IsYesNoKind YesK where
   reflectYesNo _ = Yes
 
-instance noYesNo :: IsYesNoKind NoK where
+instance IsYesNoKind NoK where
   reflectYesNo _ = No
 
 -- We can reify a YesNo by defining a callback function that receives
@@ -71,7 +71,7 @@ reifyYesNo No  function = function noK
 
 -- necessary for not getting errors while trying the functions in the REPL
 
-instance showYesNo :: Show YesNo where
+instance Show YesNo where
     show Yes = "Yes"
     show No  = "No"
 

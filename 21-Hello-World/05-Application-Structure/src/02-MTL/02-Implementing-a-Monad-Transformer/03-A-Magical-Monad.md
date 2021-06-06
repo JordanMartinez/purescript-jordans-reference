@@ -61,7 +61,7 @@ newtype StateT state monad value =
 
 -- Let's follow the types. We'll need to return a `StateT` value
 -- so we'll start by doing that:
-instance functor :: (Monad monad) => Functor (StateT state monad) where
+instance (Monad monad) => Functor (StateT state monad) where
   map :: forall a b
        . (a -> b)
       -> StateT state monad a
@@ -70,7 +70,7 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
 
 -- Since StateT wraps a function whose only argument
 -- is state, we'll add that now:
-instance functor :: (Monad monad) => Functor (StateT state monad) where
+instance (Monad monad) => Functor (StateT state monad) where
   map :: forall a b
        . (a -> b)
       -> StateT state monad a
@@ -83,7 +83,7 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
 -- argument. So, we need to get that `a` by using `g`
 -- Thus, we'll pass the returning StateT's state argument into `g`
 -- Then we get a `monad (Tuple a state)`
-instance functor :: (Monad monad) => Functor (StateT state monad) where
+instance (Monad monad) => Functor (StateT state monad) where
   map :: forall a b
        . (a -> b)
       -> StateT state monad a
@@ -95,7 +95,7 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
         -- todo
     )
 -- So we can use `bind/>>=` to expose the Tuple within this monad
-instance functor :: (Monad monad) => Functor (StateT state monad) where
+instance (Monad monad) => Functor (StateT state monad) where
   map :: forall a b
        . (a -> b)
       -> StateT state monad a
@@ -110,7 +110,7 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
     )
 
 -- Great. Now let's pass `value` into the `f` function
-instance functor :: (Monad monad) => Functor (StateT state monad) where
+instance (Monad monad) => Functor (StateT state monad) where
   map :: forall a b
        . (a -> b)
       -> StateT state monad a
@@ -130,7 +130,7 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
 -- Now we have our `b`. However, the returned `StateT` needs
 -- to wrap a function that returns `monad (Tuple value state)`
 -- Let's do that now and finish implementing Functor for StateT
-instance functor :: (Monad monad) => Functor (StateT state monad) where
+instance (Monad monad) => Functor (StateT state monad) where
   map :: forall a b
        . (a -> b)
       -> StateT state monad a
@@ -153,7 +153,7 @@ instance functor :: (Monad monad) => Functor (StateT state monad) where
 Since `Apply` is very similar to `Functor` (actually the exact same, but we just unwrap the `f` now, too), we'll just show the code.
 
 ```haskell
-instance apply :: (Monad monad) => Apply (StateT state monad) where
+instance (Monad monad) => Apply (StateT state monad) where
   apply :: forall a b
         -- (state -> Tuple (a -> b) state)
          . StateT state monad (a -> b)
@@ -179,7 +179,7 @@ instance apply :: (Monad monad) => Apply (StateT state monad) where
 
 The Applicative instance is actually quite straight forward:
 ```haskell
-instance apctv :: (Monad monad) => Applicative (StateT state monad) where
+instance (Monad monad) => Applicative (StateT state monad) where
   pure :: forall a. a -> StateT state monad a
   pure a = StateT (\s -> pure $ Tuple a s)
 ```
@@ -187,7 +187,7 @@ instance apctv :: (Monad monad) => Applicative (StateT state monad) where
 ### Bind & Monad
 
 ```haskell
-instance bind :: (Monad monad) => Bind (StateT state monad) where
+instance (Monad monad) => Bind (StateT state monad) where
   bind :: forall a b
         . StateT state monad a
        -> (a -> StateT state monad b)
@@ -204,13 +204,13 @@ instance bind :: (Monad monad) => Bind (StateT state monad) where
     )
 
 -- The Monad instance is just declared since there is nothing to implement.
-instance monad :: (Monad m) => Monad (StateT state monad)
+instance (Monad m) => Monad (StateT state monad)
 ```
 
 ### MonadState
 
 ```haskell
-instance ms :: (Monad m) => Monad (StateT state monad) where
+instance (Monad m) => Monad (StateT state monad) where
   state :: forall value. (state -> Tuple value state) -> StateT state monad value
   state f = StateT (\s -> pure $ f s)
 ```
@@ -220,7 +220,7 @@ instance ms :: (Monad m) => Monad (StateT state monad) where
 Notice, however, that the above `let ... in` syntax is really just a verbose way of doing `bind`/`>>=`. If we were to rewrite our instances using `bind`, they now look like this:
 
 ```haskell
-instance map :: (Monad monad) => Functor (StateT state monad) where
+instance (Monad monad) => Functor (StateT state monad) where
   map :: forall a b
        . (a -> b)
       -> StateT state monad a
@@ -231,7 +231,7 @@ instance map :: (Monad monad) => Functor (StateT state monad) where
       )
     )
 
-instance apply :: (Monad monad) => Apply (StateT state monad) where
+instance (Monad monad) => Apply (StateT state monad) where
   apply :: forall a b
         -- (state -> Tuple (a -> b) state)
          . StateT state monad (a -> b)
@@ -245,11 +245,11 @@ instance apply :: (Monad monad) => Apply (StateT state monad) where
       )
     )
 
-instance apctv :: (Monad monad) => Applicative (StateT state monad) where
+instance (Monad monad) => Applicative (StateT state monad) where
   pure :: forall a. a -> StateT state monad a
   pure a = StateT (\s -> pure $ Tuple a s)
 
-instance bind :: (Monad monad) => Bind (StateT state monad) where
+instance (Monad monad) => Bind (StateT state monad) where
   bind :: forall a b
         . StateT state monad a
        -> (a -> StateT state monad b)
@@ -260,14 +260,14 @@ instance bind :: (Monad monad) => Bind (StateT state monad) where
       )
     )
 
-instance monad :: (Monad m) => Monad (StateT state monad)
+instance (Monad m) => Monad (StateT state monad)
 ```
 
 ## Reviewing StateT's Bind Instance
 
 Let's look in particular at `StateT`'s `bind` implmentation as this is crucial to understanding how it enables the syntax we desire:
 ```haskell
-instance bind :: (Monad monad) => Bind (StateT state monad) where
+instance (Monad monad) => Bind (StateT state monad) where
   bind :: forall a b
         . StateT state monad a
        -> (a -> StateT state monad b)

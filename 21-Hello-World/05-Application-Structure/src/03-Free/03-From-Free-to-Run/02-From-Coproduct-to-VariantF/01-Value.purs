@@ -39,7 +39,7 @@ run algebra expression = fold (case_ # algebra) expression
 data ValueF :: Type -> Type
 data ValueF e = ValueF Int
 
-derive instance vf :: Functor ValueF
+derive instance Functor ValueF
 
 -- VariantF stuff
 type Value :: Row (Type -> Type) -> Row (Type -> Type)

@@ -17,14 +17,28 @@ class ToInt a where
   toInt :: a -> Int
 
 -- ... and its implementation for SomeType
-instance typeClassNameDefinitionForSomeType :: TypeClassName SomeType where
+instance TypeClassName SomeType where
   functionName type_ = ReturnType
 
--- Note: type class' instances unfortunately must be named due to the
--- JavaScript backend. One should use the following naming scheme:
---    [TypeClassName][ParemeterTypeName]
+-- ## Type Class Instance Name Requirement
+--
+-- Previously, naming type class instances was required.
+-- As of `v0.14.2`, this requirement has been dropped as the compiler
+-- generates the instance name instead now.
+--
+-- Below is an example of a named type class instance. You
+-- may continue to see these while the ecosystem catches up.
+-- The name typically follows this naming convention:
+--    `classNameType1NameType2Name...TypeNName`.
+{-
+instance typeClassNameSomeType :: TypeClassName SomeType where
+  functionName type_ = ReturnType
+-}
 
-instance toIntBoolean :: ToInt Boolean where
+-- The rest of this repo will use unnamed type class instances.
+
+
+instance ToInt Boolean where
   toInt true = 1
   toInt false = 0
 
@@ -36,7 +50,7 @@ test = (toInt true) == 0
 class TypeClassDefiningValue a where
   value :: a
 
-instance typeClassDefiningValueInt :: TypeClassDefiningValue Int where
+instance TypeClassDefiningValue Int where
   value = 42
 
 -- Type classes usually only specify one function, but sometimes
@@ -46,7 +60,7 @@ class ZeroAppender a where
   append :: a -> a -> a
   zeroValue :: a
 
-instance zeroAppenderInt :: ZeroAppender Int where
+instance ZeroAppender Int where
   append = (+)
   zeroValue = 0
 
@@ -66,7 +80,7 @@ will fail to compile. The following code demonstrates this.
 
 -- Uncomment me and I'll become a compiler error
 -- type Age = Int
--- instance ageValue :: TypeClassDefiningValue Age where
+-- instance TypeClassDefiningValue Age where
 --   value = 2
 
 -- Type classes are useful for constraining types, which will be covered next.

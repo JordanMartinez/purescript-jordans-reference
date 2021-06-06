@@ -25,7 +25,7 @@ generic_on_both :: forall a b. a -> b
 A type can be a `Functor` if it is higher-kinded by one. In the below example, we specify its input type and leave the output type to be defined in `map`:
 ```haskell
                    -- (input ->)
-instance a :: Functor (Function input) where
+instance Functor (Function input) where
                               -- (input -> a)     -> (input -> b)
   map :: forall a b. (a -> b) -> Function input a -> Function input b
   map aToB inputToA = (\input -> aToB (inputToA input))
@@ -34,7 +34,7 @@ However, what if we specified the output type of `Function` in the instance head
 ```haskell
 type FlippedFunc output input = (input -> output)
                    -- (-> output)
-instance a :: Functor (FlippedFunc output) where
+instance Functor (FlippedFunc output) where
                               -- (a -> output)        -> (b -> output)
   map :: forall a b. (a -> b) -> FlippedFunc output a -> FlippedFunc output b
   map inputA_To_InputB inputA_To_Output = -- this isn't possible to implement!
@@ -44,7 +44,7 @@ We cannot define an instance of `Functor` in this way because the first argument
 type FlippedFunc output input = (input -> output)
 
                          -- (-> output)
-instance a :: SomethingElse (FlippedFunc output) where
+instance SomethingElse (FlippedFunc output) where
                                   -- (a -> output)        -> (b -> output)
   map_ish :: forall a b. (b -> a) -> FlippedFunc output a -> FlippedFunc output b
   map_ish inputB_To_InputA inputA_To_Output =

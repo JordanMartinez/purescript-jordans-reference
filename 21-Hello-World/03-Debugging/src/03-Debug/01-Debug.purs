@@ -58,16 +58,16 @@ main = do
   log $ "Value is: " <> show value
 
 -- Box's type class instances
-instance functorBox :: Functor Box where
+instance Functor Box where
   map f (Box a) = Box (f a)
 
-instance applyBox :: Apply Box where
+instance Apply Box where
   apply (Box f) (Box a) = Box (f a)
 
-instance applicativeBox :: Applicative Box where
+instance Applicative Box where
   pure a = Box a
 
-instance bindBox :: Bind Box where
+instance Bind Box where
   bind (Box a) f = f a
 
-instance monadBox :: Monad Box
+instance Monad Box

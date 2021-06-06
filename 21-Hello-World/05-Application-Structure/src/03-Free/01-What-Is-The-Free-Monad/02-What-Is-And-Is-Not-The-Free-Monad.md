@@ -22,32 +22,32 @@ We'll start with the simplest function, `pure`:
 data FreeMonad a
   = Pure a
 
-instance applicative :: Applicative FreeMonad where
+instance Applicative FreeMonad where
   pure a = Pure a
 
-instance functor :: Functor FreeMonad where
+instance Functor FreeMonad where
   map f (Pure a) = Pure (f a)
 
-instance apply :: Apply FreeMonad where
+instance Apply FreeMonad where
   apply (Pure f) (Pure a) = Pure (f a)
 
-instance bind :: Bind FreeMonad where
+instance Bind FreeMonad where
   bind (Pure a) f = f a
 ```
 Well, that was easy... Wasn't this the same implementation as `Identity` from before? You are correct.
 ```haskell
 data Identity a = Identity a
 
-instance applicative :: Applicative Identity where
+instance Applicative Identity where
   pure a = Identity a
 
-instance functor :: Functor Identity where
+instance Functor Identity where
   map f (Identity a) = Identity (f a)
 
-instance apply :: Apply Identity where
+instance Apply Identity where
   apply (Identity f) (Identity a) = Identity (f a)
 
-instance bind :: Bind Identity where
+instance Bind Identity where
   bind (Identity a) f = f a
 ```
 We can see here that `Identity` is a free `Functor`, `Apply`, `Applicative`, `Bind`, and therefore `Monad` for any type with kind `Type`.

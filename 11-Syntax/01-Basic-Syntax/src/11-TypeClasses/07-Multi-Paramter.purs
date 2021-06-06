@@ -16,11 +16,11 @@ class MultiParameterTypeClass2 type1 type2 {- typeN -} where
 class ConvertFromAToB a b where
   convert :: a -> b
 
-instance convertFromAToBBooleanString :: ConvertFromAToB Boolean String where
+instance ConvertFromAToB Boolean String where
   convert true = "true"
   convert false = "false"
 
-instance convertFromAToBBooleanInt :: ConvertFromAToB Boolean Int where
+instance ConvertFromAToB Boolean Int where
   convert true = 1
   convert false = 0
 

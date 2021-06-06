@@ -30,11 +30,11 @@ In other words, `Free` is just a tree-like data structure of nested `Identity` v
 The only difference is that `Identity` itself is wrapped in another type. So how do we change a value that is wrapped in a box-like type? We use `Functor`'s `map`, of course! We'll use `map` in most of `Free`'s instances for the needed type classes:
 ```haskell
 -- easiest one!
-instance Applicative :: Applicative (Free f) where
+instance Applicative (Free f) where
   pure a = Pure a
 
 -- a <#> f == mapFlipped a f == map f a
-instance functor :: (Functor f) => Functor (Free f) where
+instance (Functor f) => Functor (Free f) where
   map f (Pure a) = Pure (f a)
   map f (Impure f_of_Free) =
     Impure (f_of_Free <#> (
@@ -113,7 +113,7 @@ map f (
 ```
 Let's look at the `Apply` instance now:
 ```haskell
-instance apply :: (Functor f) => Apply (Free f) where
+instance (Functor f) => Apply (Free f) where
   apply (Pure f) (Pure a) = Pure (f a)
   apply (Impure f_of_Free_F) pure_A =
     Impure (f_of_Free_F <#> (
@@ -163,7 +163,7 @@ Impure (Identity (Impure (Identity (Pure (f a)))))
 ```
 Now let's define `Bind`, again using the `map` recursively:
 ```haskell
-instance bind :: (Functor f) => Bind (Free f) where
+instance (Functor f) => Bind (Free f) where
   bind (Pure a) f = f a
   bind (Impure f_of_Free) f =
     Impure (f_of_Free <#> (
@@ -201,10 +201,10 @@ data Free f a
   = Pure a
   | Impure (f (Free f a))
 
-instance applicative :: Applicative (Free f) where
+instance Applicative (Free f) where
   pure a = Pure a
 
-instance functor :: (Functor f) => Functor (Free f) where
+instance (Functor f) => Functor (Free f) where
   map f (Pure a) = Pure (f a)
   map f (Impure f_of_Free) =
     Impure (f_of_Free <#> (
@@ -215,7 +215,7 @@ instance functor :: (Functor f) => Functor (Free f) where
       -- and then rewraps the `Impure` values
     ))
 
-instance apply :: (Functor f) => Apply (Free f) where
+instance (Functor f) => Apply (Free f) where
   apply (Pure f) (Pure a) = Pure (f a)
   apply (Impure f_of_Free_F) pure_A =
     Impure (f_of_Free_F <#> (
@@ -232,7 +232,7 @@ instance apply :: (Functor f) => Apply (Free f) where
       -- apply the function and then rewrap `Impure` values
     ))
 
-instance bind :: (Functor f) => Bind (Free f) where
+instance (Functor f) => Bind (Free f) where
   bind (Pure a) f = f a
   bind (Impure f_of_Free) f =
     Impure (f_of_Free <#> (

@@ -58,7 +58,7 @@ f = bind (state (\initialState -> Tuple value1 state2)) func
 func = (\value1 -> state (\state2 -> Tuple value2 state3))
 
 -- Recall what StateT's MonadState implementation is...
-instance monadState :: Monad m => MonadState s (StateT s m) where
+instance Monad m => MonadState s (StateT s m) where
   state f = StateT (\sA -> pure $ f sA)
 -- ... and use it to replace `state`'s LHS with its RHS
 func = (\value1 -> StateT (\sA -> pure $ f sA))
@@ -84,7 +84,7 @@ f = bind (state (\initialState -> Tuple value1 state2)) func
 f = bind (state (\initialState -> Tuple value1 state2)) func
 
 -- Recall what StateT's MonadState implementation is...
-instance monadState :: Monad m => MonadState s (StateT s m) where
+instance Monad m => MonadState s (StateT s m) where
   state f = StateT (\s -> pure $ g s)
 -- ... and use it to replace `state`'s LHS with its RHS
 f = bind (StateT (\s -> pure $ g s)) func
@@ -107,7 +107,7 @@ f = bind (
     ) func
 
 -- Recall what StateT's bind instance is...
-instance bind :: (Monad m) => Bind (StateT s m) where
+instance (Monad m) => Bind (StateT s m) where
   bind :: forall a b. StateT s m a -> (a -> StateT s m b) -> StateT s m b
   bind (StateT g) f = StateT (\sY -> (g sY) >>= func2)
     where

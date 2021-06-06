@@ -37,11 +37,11 @@ Thus, `Value` is a no-op `Functor`: using `map` on it just returns the same valu
 
 An `Either` that wraps higher-kinded types implements `Functor` as we would expect:
 ```haskell
-instance f :: (Functor f, Functor g) => Functor (Either (f e) (g e)) where
+instance (Functor f, Functor g) => Functor (Either (f e) (g e)) where
   map func (Left f)  = Left  (map func f)
   map func (Right g) = Right (map func g)
 
-instance f :: (Functor f, Functor g) => Functor Coproduct f g e where
+instance (Functor f, Functor g) => Functor Coproduct f g e where
   map func (Coproduct either)  = Coproduct (map func either)
 ```
 
@@ -53,7 +53,7 @@ Let's write a function that can evaluate the simplest version of our nested data
 ```haskell
 data BoxF f a = BoxF (f a)
 
-instance functor :: Functor f => Functor (Box f) where
+instance Functor f => Functor (Box f) where
   map function (BoxF f_of_a) = Box (map function f_of_a)
 
 -- the `e` type in `Value e` can be anything.
@@ -70,13 +70,13 @@ We'll take the second approach because it adheres to the idea of adding more typ
 class (Functor f) <= Evaluate f where
   evaluate :: forall a. f a -> Int
 
-instance v :: Evaluate Value where
+instance Evaluate Value where
   evaluate (Value x) = x
 
-instance b :: Evaluate f => Evaluate (BoxF f) where
+instance Evaluate f => Evaluate (BoxF f) where
   evaluate (Boxf f) = evaluate f
 
-instance i :: Evaluate f => Evaluate (Expression f) where
+instance Evaluate f => Evaluate (Expression f) where
   evaluate (In f) = evaluate f
 
 -- then we could write:
@@ -99,7 +99,7 @@ Returning to the `Eval` type class, how would we implement an instance for `Add`
 class (Functor f) <= Evaluate f where
   evaluate :: forall a. f a -> Int
 
-instance a :: Evaluate Add where
+instance Evaluate Add where
   evaluate (Add x y) = -- ???
 ```
 The difficulty above lies in one problem: what is `x` and `y` for `Add`? We might immediately presume that they are another `Expression`. However, the `e` in `Add e` could be anything. Moreover, the `Eval` type class does not force that `e` to be anything in particular. Here's the dilemma we run into now:
@@ -174,14 +174,14 @@ Looking at the `Evaluate` type class definition again, we can see that we don't 
 class (Functor f) <= Evaluate f where
   evaluate :: f Int -> Int
 
-instance v :: Evaluate Value where
+instance Evaluate Value where
   evaluate (Value x) = x
 
-instance v :: Evaluate Add where
+instance Evaluate Add where
   evaluate :: Add Int -> Int
   evaluate (Add x y) = x + y
 
-instance e :: (Evaluate f, Evaluate g) => Evaluate (Either f g) where
+instance (Evaluate f, Evaluate g) => Evaluate (Either f g) where
   evaluate (Left f)  = evaluate f
   evaluate (Right g) = evaluate g
 ```
@@ -310,8 +310,8 @@ There's a term we did not explain but which appears in the paper: `algebra`. An 
 data Value e = Value Int
 data Add e = Add e e
 
-derive instance vf :: Functor Value
-derive instance af :: Functor Add
+derive instance Functor Value
+derive instance Functor Add
 
 data Expression f = In (f (Expression f))
 
@@ -325,10 +325,10 @@ add x y = inj (Add x y)
 class (Functor f) <= Evaluate f where
   evaluate :: f Int -> Int
 
-instance ve :: Evaluate Value where
+instance Evaluate Value where
   evaluate (Value x) = x
 
-instance ae :: Evaluate Add where
+instance Evaluate Add where
   evaluate (Add x y) = x + y
 
 fold :: Functor f => (f a -> a) -> Expression f -> a
@@ -346,12 +346,12 @@ file1Example = add (value 5) (value 6)
 
 -- File 2
 data Multiply e = Multiply e e
-derive instance mf :: Functor Multiply
+derive instance Functor Multiply
 
 multiply :: forall f. Expression f -> Expression f -> Expression f
 multiply x y = inj $ Multiply x y
 
-instance ae :: Evaluate Multiply where
+instance Evaluate Multiply where
   evaluate (Multiply x y) = x * y
 
 type VAM e = Coproduct3 Value Add Multiply e

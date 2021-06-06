@@ -72,5 +72,5 @@ class MyClass a b | a -> b where
   myFunction :: a -> b
 
 -- | Documentation for a particular instance of a type class
-instance example :: MyClass String Int where
+instance MyClass String Int where
   myFunction _ = 4

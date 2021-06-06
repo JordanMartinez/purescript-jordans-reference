@@ -8,7 +8,7 @@ class LiftSourceIntoTargetMonad sourceMonad targetMonad where {-
   liftSourceMonad :: forall a. sourceMonad a -> targetMonad a -}
   liftSourceMonad ::           sourceMonad   ~> targetMonad
 
-instance box2_into_box1 :: LiftSourceIntoTargetMonad Box2 Box1 where {-
+instance LiftSourceIntoTargetMonad Box2 Box1 where {-
   liftSourceMonad :: forall a. Box2 a -> Box1 a                      -}
   liftSourceMonad ::           Box2   ~> Box1
   liftSourceMonad (Box2 a) = Box1 a

@@ -41,7 +41,7 @@ class Show_ a where -- this is the same signature for Show found in Prelude
 data Boxx a = Boxx a
 
 -- If we want to implement the `Show` typeclass for it, we are limited to this:
-instance showBoxx :: Show (Boxx a) where
+instance Show (Boxx a) where
   show (Boxx _) = "Box(<unknown value>)"
 
 {-
@@ -49,7 +49,7 @@ We would like to also show the 'a' value stored in Box. How do we do that?
   By constraining our types in the Box to also have a Show instance: -}
 
 -- Syntax
-instance syntax :: (TypeClass1 a) => {-
+instance (TypeClass1 a) => {-
                    (TypeClassN a) => -} TypeClass1 (IntanceType a) where
   function1 _ = "body"
 
@@ -57,11 +57,11 @@ data Box a = Box a
 {- example: Read the following as:
 "I can 'show' a Box only if the type stored in the Box can also be shown."
 -}
-instance showBox :: (Show a) => Show (Box a) where
+instance (Show a) => Show (Box a) where
   show (Box a) = "Box(" <> show a <> ")"
 
 -- We have names for specific parts of the instance
-instance instancePartNames :: (InstanceContext a) => A_TypeClass (InstanceHead a) where
+instance (InstanceContext a) => A_TypeClass (InstanceHead a) where
   function2 _ = "body"
 
 -- Implicit Usage: Since we know that the values below are of type "Box Int"
@@ -96,7 +96,7 @@ class TypeClass1 a where
 class InstanceContext :: Type -> Constraint
 class InstanceContext a
 
-instance ih :: InstanceContext a
+instance InstanceContext a
 
 data InstanceHead :: Type -> Type
 data InstanceHead a = InstanceHead
@@ -104,13 +104,13 @@ data InstanceHead a = InstanceHead
 class A_TypeClass a where
   function2 :: a -> String
 
-instance typeclass1 :: TypeClass1 String where
+instance TypeClass1 String where
   function1 a = a
 
 class TypeClass2 :: Type -> Constraint
 class TypeClass2 a
 
-instance typeclass2 :: TypeClass2 String
+instance TypeClass2 String
 
 type Type1 = String
 type Type2 = String

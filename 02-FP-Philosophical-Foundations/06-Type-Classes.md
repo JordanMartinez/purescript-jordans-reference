@@ -30,6 +30,8 @@ Type classes make developers productive. They enable programmers...
 
 ## Type Classes as Encodings of Mathematical Concepts
 
+Type classes often encode ideas that are true regardless of what we call them (i.e. "necessary" concepts), but functional programmers will refer to them via jargon (i.e "arbitrary" names like `Functor`). (For more context on the usage of "necessary" and "arbitrary" as terms, see [Arbitrary and Necessary Part 1: a Way of Viewing the Mathematics Curriculum](https://flm-journal.org/Articles/2D02A71022192F96A5A92F55B04AB0.pdf)).
+
 Putting it differently, if `Some type` can implement some `function(s)/value(s) with a specified type signature` in such a way that the implementation adheres to `specific laws`, one can say it **has** an instance of the given type class. Some types cannot satisfy a given type class' conditions; others can satisfy them in only one way; and still others can satisfy them in multiple ways. Thus, one does not say "`Type X` **is** an instance of &lt;some type class&gt;." Rather, one says "`Type X` **has** an instance of &lt;some type class&gt;." To see this concept in a clearer way and using pictures, see https://www.youtube.com/watch?v=iJ7V1KXJpsE
 
 Thus, type classes abstract general concepts into an "interface" that can be implemented by various data types. They are usually an encapsulation of 2-3 things:

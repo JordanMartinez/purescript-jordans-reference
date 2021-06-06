@@ -9,14 +9,14 @@ We will provide two brief examples showing this problem below. For more context 
 **The Problem of Overlapping Instances**:
 ```purescript
 newtype MyRec = MyRec { a :: String, b :: Int }
-instance arbitraryMyRec :: Arbitrary MyRec where
+instance Arbitrary MyRec where
   arbitrary = do
     a <- genString
     b <- chooseInt 1 100
     pure $ MyRec { a, b }
 
 newtype MyRecVariation = MyRecVariation MyRec
-instance arbitraryMyRecVariation :: Arbitrary MyRecVariation where
+instance Arbitrary MyRecVariation where
   arbitrary = do
     a <- map (\str -> str <> " and more") genString
     b <- chooseInt 1 200

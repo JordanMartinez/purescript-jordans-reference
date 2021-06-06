@@ -55,5 +55,5 @@ main = do
 -- needed to compile
 
 data Pet = Pet
-instance showPet :: Show Pet where
+instance Show Pet where
   show _ = "Pet"

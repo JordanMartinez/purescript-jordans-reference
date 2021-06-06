@@ -45,19 +45,19 @@ These will be covered at a slower and clearer pace in the upcoming files. This i
 ```haskell
 data Box a = Box a
 
-instance f :: Functor Box where
+instance Functor Box where
   map        f  (Box a) = Box (f a)
 
-instance a1 :: Apply Box where
+instance Apply Box where
   apply (Box f) (Box a) = Box (f a)
 
-instance b :: Bind Box where
+instance Bind Box where
   bind  (Box a) f       = f a
 
-instance a2 :: Applicative Box where
+instance Applicative Box where
   pure a = Box a
 
-instance m :: Monad Box
+instance Monad Box
 ```
 
 ## Function Reduction

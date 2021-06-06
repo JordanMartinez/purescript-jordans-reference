@@ -105,11 +105,11 @@ handleError :: TheseErrors -> Except ErrorType Int
 handleError Error1 = ExceptT (pure $ Right 5)
 handleError Error2 = ExceptT (pure $ Right 6)
 
-instance s1 :: Show ErrorType where
+instance Show ErrorType where
   show FailedCompletely  = "FailedCompletely"
   show (CanHandle error) = "CanHandle2 (" <> show error <> ")"
 
-instance s2 :: Show TheseErrors where
+instance Show TheseErrors where
   show Error1 = "Error1"
   show Error2 = "Error2"
 
@@ -140,7 +140,7 @@ compute' theComputation =
 -------------------
 
 data Resource = Resource
-instance showResource :: Show Resource where
+instance Show Resource where
   show x = "Resource"
 
 example_withResource :: Effect Unit

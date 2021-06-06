@@ -6,27 +6,27 @@ import Data.Show (show)
 import Data.Unit (Unit)
 import Data.Function (($))
 
-import Prim.TypeError (kind Doc, Text, Above, class Warn, class Fail)
+import Prim.TypeError (Text, Above, class Warn, class Fail)
 
 infixr 1 type Above as |>
 
 class ExampleClass a where
   emitMessage :: a -> String
 
-instance intExample :: ExampleClass Int where
+instance ExampleClass Int where
   emitMessage _ = "an integer I'm sure..."
 
 data WarnType = WarnType
 data FailType = FailType
 
-instance warnExample :: Warn
+instance Warn
   (  Text "No worries! This warning is supposed to happen!"
   |> Text ""
   |> Text "[Some warning message here...]"
   ) => ExampleClass WarnType where
   emitMessage _ = "The message!"
 
-instance failExample :: Fail
+instance Fail
   (  Text "Using this instance will cause code to fail"
   ) => ExampleClass FailType where
   emitMessage _ = "This will never occur"

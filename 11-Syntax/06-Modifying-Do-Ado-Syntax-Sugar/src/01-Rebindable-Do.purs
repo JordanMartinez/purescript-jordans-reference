@@ -178,23 +178,23 @@ For example, someting like:
 
 -- Type class instances
 
-instance functor :: Functor Box where
+instance Functor Box where
   map :: forall a b. (a -> b) -> Box a -> Box  b
   map f (Box a) = Box (f a)
 
-instance apply :: Apply Box where
+instance Apply Box where
   apply :: forall a b. Box (a -> b) -> Box a -> Box  b
   apply (Box f) (Box a) = Box (f a)
 
-instance bind :: Bind Box where
+instance Bind Box where
   bind :: forall a b. Box a -> (a -> Box b) -> Box b
   bind (Box a) f = f a
 
-instance applicative :: Applicative Box where
+instance Applicative Box where
   pure :: forall a. a -> Box a
   pure a =  Box a
 
-instance monad :: Monad Box
+instance Monad Box
 
-instance showBox :: (Show a) => Show (Box a) where
+instance (Show a) => Show (Box a) where
   show (Box a) = "Box(" <> show a <> ")"
