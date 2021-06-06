@@ -23,7 +23,7 @@ instance (Show a) => Show (Box x x a) where
 --  - ado requirements: Functor, Apply, and Applicative
 --  - do requirements: Functor, Apply, Applicative, Bind, and Monad
 
-class IxFunctor :: forall kIn kOut. (kIn -> kOut -> Type -> Type) -> Constraint
+class IxFunctor :: forall kIn. (kIn -> kIn -> Type -> Type) -> Constraint
 class IxFunctor f where
   imap :: forall a b x. (a -> b) -> f   x x a -> f   x x b
 
