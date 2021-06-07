@@ -197,12 +197,13 @@ instance (
     keyList = buildKeyList2 (Proxy :: Proxy rowList)
                                                                               {-
 Below are a few examples to prove that this works.
-Run the following to confirm it for yourself:
+Run the following in the REPL to confirm it for yourself:
 ---
 spago repl
 example1
 example2
----                                                                           -}
+---
+                                                                              -}
 example1 :: ShowKeysOnly ( a :: String, b :: Int, c :: Boolean )
 example1 = ShowKeysOnly { a: "", b: 0, c: false }
 
