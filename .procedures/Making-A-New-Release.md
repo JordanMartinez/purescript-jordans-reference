@@ -25,6 +25,8 @@ Generate the files via the program
 node .procedures/mdbook-toc.js -r "." -o "../purescript-jordans-reference-site/src" -s "Summary-header.md"
 ```
 
+If you changed the contents in `./mdbook`, you'll need to copy those changes over to the `../purescript-jordans-reference-site` files.
+
 Regenerate the book and deploy
 ```bash
 cd ../purescript-jordans-reference-site
