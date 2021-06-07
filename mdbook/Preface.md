@@ -14,7 +14,7 @@ If you want to learn PureScript, read the entire work from start to finish.
 
 ## Overview and Scope of the Work
 
-All code in this work uses PureScript `0.14.0`
+All code in this work uses PureScript `0.14.2`
 
 This work was created so a reader can understand PureScript and how to use it properly from a deep foundational understanding. Most other resources will get you started quickly, but then you will get confused at some point along the way. This resource takes longer to get started, but you will either not be confused or be less confused when we get to more advanced topics (e.g. monad transformers, type-level programming, etc.)
 
