@@ -17,11 +17,11 @@ a newtype and its `Show` instance to achieve this desired behavior.             
 newtype ShowKeysOnly :: Row Type -> Type
 newtype ShowKeysOnly r = ShowKeysOnly (Record r)
                                                                               {-
-Once implemented, our code should work like this:
-```
+Once implemented, our code should work like this in the REPL:
+---
 > show $ ShowKeysOnly { a: 4, b: 6, c: "apple", z: false }
 ["a", "b", "c", "z"]
-```
+---
 
 How would we implement the `Show` instance for `ShowKeysOnly`?
 
@@ -45,11 +45,11 @@ computation on a record where the "next" element is the next key/field in
 that record.
 
 Let's remember what a fold-left looks like by using List.
-```
+---
 data List a
   = Nil
   | Cons a (List a)
-```
+---
 
 Read the below function as
   Given
