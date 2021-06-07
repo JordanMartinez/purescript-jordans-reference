@@ -39,9 +39,12 @@ proof
   -> Unit
 proof _ _ = unit
                                                                             {-
+Verify the code compiles via the REPL
+---
 spago repl
 proof1
 proof2                                                                      -}
+---
 
 proof1 :: Unit
 proof1 =
