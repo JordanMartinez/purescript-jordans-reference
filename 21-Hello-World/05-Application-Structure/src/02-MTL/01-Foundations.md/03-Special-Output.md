@@ -214,7 +214,7 @@ class (Apply f) <= Applicative f where
 
 instance (Apply (OutputBox input)) <= Applicative (OutputBox input) where
   pure :: forall a. a -> (OutputBox input) a
-  pure value = OutputBox (\input -> pure a {- Box's `pure` -})
+  pure value = OutputBox (\_ -> pure value {- Box's `pure` -})
 ```
 
 ## Bind
@@ -342,7 +342,7 @@ instance (Functor (OutputBox input)) <= Apply (OutputBox input) where
 
 instance (Apply (OutputBox input)) <= Applicative (OutputBox input) where
   pure :: forall a. a -> (OutputBox input) a
-  pure value = OutputBox (\input -> pure a)
+  pure value = OutputBox (\_ -> pure value)
 
 instance (Apply (OutputBox input)) <= Bind (OutputBox input) where
   bind :: forall originalOutput newOutput.
