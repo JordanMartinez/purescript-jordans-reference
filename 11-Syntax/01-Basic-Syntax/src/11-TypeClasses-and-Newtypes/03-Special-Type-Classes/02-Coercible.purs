@@ -103,8 +103,8 @@ newtype NewtypedBox theValue = NewtypedBox theValue
 -- whether a Coercible instance between two types is valid. There are
 -- three possible values: representational, phantom, and nominal.
 
--- Role annotation syntax follows this pattern:
--- type role TheAnnotatedType oneRoleAnnotationForEachTypeParameter
+-- Role annotation syntax follows this syntax pattern:
+-- `type role TheAnnotatedType oneRoleAnnotationForEachTypeParameter`
 
 -- ### Representational
 
