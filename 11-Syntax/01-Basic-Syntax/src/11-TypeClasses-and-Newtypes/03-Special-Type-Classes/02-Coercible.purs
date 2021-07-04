@@ -99,6 +99,9 @@ newtype NewtypedBox theValue = NewtypedBox theValue
 
 -- ## Role Annotations
 
+-- For another short explanation, see the answer to the post,
+-- "What is a role?" https://discourse.purescript.org/t/what-is-a-role/2109/2
+
 -- Role annotations tell the compiler what rules to follow when determining
 -- whether a Coercible instance between two types is valid. There are
 -- three possible values: representational, phantom, and nominal.
