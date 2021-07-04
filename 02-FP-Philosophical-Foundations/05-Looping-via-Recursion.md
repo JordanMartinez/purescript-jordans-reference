@@ -60,6 +60,8 @@ factorial' 1 24
 24
 ```
 
+In some cases, one will need to write more complex code to get the desired performance using a combination of defunctionalization and continuation-passing style (CPS). This is covered in more detail in the `Design Patterns/Defunctionalization.md` file.
+
 ## For ... Break If
 
 ```javascript
