@@ -13,6 +13,7 @@ There are three different ways one can handle partial functions in Purescript:
     - via `Maybe a`
     - via `Either String a`
     - via `Either CustomErrorType a`
+    - via `Veither errorRows a`
 3. Use refined types
     - via `NonZeroInt` (or some other refined type)
 
