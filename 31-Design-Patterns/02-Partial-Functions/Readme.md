@@ -16,6 +16,7 @@ There are three different ways one can handle partial functions in Purescript:
     - via `Veither errorRows a`
 3. Use refined types
     - via `NonZeroInt` (or some other refined type)
+4. Return the output on valid inputs and a default value on invalid inputs
 
 ## Compilation Instruction
 
