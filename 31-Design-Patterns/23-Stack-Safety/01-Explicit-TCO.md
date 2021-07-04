@@ -1,4 +1,4 @@
-# Stack Safety
+# Explicit Tail-Call Optimization
 
 ## An Example of Stack-Unsafe Code
 

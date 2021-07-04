@@ -8,7 +8,7 @@ See these resources:
 - [The best refactoring you've never heard of](https://web.archive.org/web/20201107223338/http://www.pathsensitive.com/2019/07/the-best-refactoring-youve-never-heard.html)
 
 The rest of this page will do two things:
-1. Pprovide a few examples showing the simple but stack-unsafe code and its corresponding stack-safe but complex code.
+1. Provide a few examples showing the simple but stack-unsafe code and its corresponding stack-safe but complex code.
 2. Provide general principles to follow to help you figure out how to write stack-safe code for any given situation.
 
 ## Stack-Safety: Opening Example
