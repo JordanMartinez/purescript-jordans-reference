@@ -35,6 +35,7 @@ To get a general idea for the concept this folder is going to try to teach:
     - 'Which code is more reusable' (45:28 - 50:29):
         - Final Encoding = Provide an implementation as an argument = monad transformers (what we cover first in this folder)
         - Initial Encoding = Interpret a result = `Free` monad (what we cover second in this folder)
+- Optional reading: [Final tagless encodings have little to do with typeclasses](https://www.foxhound.systems/blog/final-tagless/)
 
 Another learning resource that is still a work-in-progress but which will explain more than this work is 'Functional Design and Architecture':
 - [Reddit post introducing it](https://np.reddit.com/r/haskell/comments/avaxda/the_campaign_for_my_book_functional_design_and/?st=jsowhkm4&sh=d2be89c4)
