@@ -14,6 +14,7 @@ Throughout your learning process, it will be helpful to ask others for help. The
 We'll show how to install the following programs:
 - `purescript` - the PureScript language & compiler
 - `spago` - a dependency manager and build tool for PureScript
+- (optional) a formatter for PureScript
 - `parcel` - a build tool for bundling a PureScript application into a multiple JS backends (node, browser, electron)
 
 ### Installation
@@ -44,14 +45,18 @@ Unlike the manual install, `nvm` properly handles the npm prefix for you. So, yo
 
 Once you have installed `npm`, we can use it to install everything in one command:
 ```bash
-npm i -g purescript@0.14.2 spago@0.20.3 parcel
+npm i -g purescript@0.14.3 spago@0.20.3 parcel
 ```
+
+If you want to install a PureScript formatter, refer to their instructions. The history behind these tools will be covered in the `Build Tools` folder:
+- [purs-tidy](https://github.com/natefaubion/purescript-tidy) - A self-contained formatter written in PureScript
+- [pose](https://pose.rowtype.yoga/) - A plugin written in PureScript for the [`Prettier`](https://prettier.io/) formatter
 
 ### Versions Used in this Project
 
 The following commands should now work (the versions beside them are the versions I used when writing this project):
 ```bash
-purs --version        # 0.14.2
+purs --version        # 0.14.3
 spago version         # 0.20.3
 parcel --version      # 1.12.4
 ```

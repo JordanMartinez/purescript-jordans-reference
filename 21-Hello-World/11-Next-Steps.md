@@ -30,6 +30,7 @@ The below programs were written by me when I was first learning how to design pr
 - [jonasbuntinx' - 'Real World App' (React Version)](https://github.com/jonasbuntinx/purescript-react-realworld)
 - [jaspervdj's 'Beeraffe' game](https://github.com/jaspervdj/beeraffe/)
 - [AndrewBrownK's 'Minesweeper CLI' game](https://github.com/AndrewBrownK/purescript-minesweeper-cli)
+- [`aftok`](https://github.com/aftok/aftok)
 
 ### Projects in non-JS backends
 
