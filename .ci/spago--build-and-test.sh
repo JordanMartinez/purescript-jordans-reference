@@ -1,13 +1,12 @@
-#!/bin/bash
+#!/bin/sh
 
-# This file uses `spago` to build/test each folder's contents
-# The exit code from the build/test command is stored via "$?"
-# At the end of this file, all exit codes are displayed and this shell
-# exits with 0 if everything worked correctly. Otherwise, it exits with 1.
+# This script uses `spago` to build/test each folder's contents.
 #
-# Run this from the root of this project. In other words
-#   `chmod +x .travis/spago--build-and-test.sh`
-#   `./.travis/spago--build-and-test.sh`
+# A user should use this script to build and test the example programs
+# and tests.  When this script finishes, it will output a concise summary
+# of each build/test's success or failure, and finally deliver a prominent
+# announcement whether this script was completely successful or had any
+# failures.
 
 ## Syntax
 
@@ -163,29 +162,27 @@ echo "$HELLO_TLP - Hello World - Type-Level Programming"
 echo "$HELLO_TESTING - Hello World - Testing"
 echo "$HELLO_BENCHMARK - Hello World - Benchmarking"
 
-if [ $SYNTAX_BASIC == 0 ] &&
-   [ $SYNTAX_FFI == 0 ] &&
-   [ $SYNTAX_TLP == 0 ] &&
-   [ $SYNTAX_MODULE == 0 ] &&
-   [ $SYNTAX_PRELUDE == 0 ] &&
-   [ $SYNTAX_DO_ADO_NOTATION == 0 ] &&
-   [ $HELLO_EFFECT_AND_AFF == 0 ] &&
-   [ $HELLO_DEBUGGING == 0 ] &&
-   [ $HELLO_COLLECTIONS_LOOPS == 0 ] &&
-   [ $HELLO_APP_STRUCT_BUILT_OK == 0 ] &&
-   [ $HELLO_EXAMPLE_HELLO_WORLD_READERT == 0 ] &&
-   [ $HELLO_EXAMPLE_HELLO_WORLD_FREE == 0 ] &&
-   [ $HELLO_EXAMPLE_HELLO_WORLD_RUN == 0 ] &&
-   [ $HELLO_EXAMPLE_NUMBER_COMPARISON_READERT == 0 ] &&
-   [ $HELLO_EXAMPLE_NUMBER_COMPARISON_FREE == 0 ] &&
-   [ $HELLO_EXAMPLE_NUMBER_COMPARISON_RUN == 0 ] &&
-   [ $HELLO_TLP == 0 ] &&
-   [ $HELLO_TESTING == 0 ] &&
-   [ $HELLO_BENCHMARK == 0 ]
+if [ $SYNTAX_BASIC = 0 ] &&
+   [ $SYNTAX_FFI = 0 ] &&
+   [ $SYNTAX_TLP = 0 ] &&
+   [ $SYNTAX_MODULE = 0 ] &&
+   [ $SYNTAX_PRELUDE = 0 ] &&
+   [ $SYNTAX_DO_ADO_NOTATION = 0 ] &&
+   [ $HELLO_EFFECT_AND_AFF = 0 ] &&
+   [ $HELLO_DEBUGGING = 0 ] &&
+   [ $HELLO_COLLECTIONS_LOOPS = 0 ] &&
+   [ $HELLO_APP_STRUCT_BUILT_OK = 0 ] &&
+   [ $HELLO_EXAMPLE_HELLO_WORLD_READERT = 0 ] &&
+   [ $HELLO_EXAMPLE_HELLO_WORLD_FREE = 0 ] &&
+   [ $HELLO_EXAMPLE_HELLO_WORLD_RUN = 0 ] &&
+   [ $HELLO_EXAMPLE_NUMBER_COMPARISON_READERT = 0 ] &&
+   [ $HELLO_EXAMPLE_NUMBER_COMPARISON_FREE = 0 ] &&
+   [ $HELLO_EXAMPLE_NUMBER_COMPARISON_RUN = 0 ] &&
+   [ $HELLO_TLP = 0 ] &&
+   [ $HELLO_TESTING = 0 ] &&
+   [ $HELLO_BENCHMARK = 0 ]
 then
-  echo "Build Succeeded"
-  exit 0;
+  echo "***** PASS: All Build Tasks and Tests Succeeded *****"
 else
-  echo "Build Failed"
-  exit 1;
+  echo "***** FAIL: At Least One Build Task or Test Failed *****"
 fi
