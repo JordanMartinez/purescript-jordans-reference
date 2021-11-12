@@ -85,7 +85,7 @@ Examples of the above language:
 
 ### The Simplest Type Checker
 
-The second part is the type checker. The type checker uses one rule for each term to determine whether the expression is "well-typed." Before covering this further, it's necessary to introduce syntax frequently used in type systems.
+The second part is the type checker. The type checker uses one rule for each term to determine whether the expression is "well-typed." In this work, we'll be using unification to type check expressions using these rules. Before covering the rules or the unification algorithm further, it's necessary to introduce syntax frequently used in type systems.
 
 #### Explaining the Visuals
 
@@ -202,8 +202,6 @@ We get a visual like the following for $(\lambda f. f x) \ 1$
 $$COMB: {\Gamma \vdash {\color{red} 1 : \tau' \rightarrow \tau } \qquad \Gamma \vdash x : \tau' \over{\Gamma \vdash (\lambda f. f x) \ 1 : \tau}}$$
 
 Following the logic above, we can see that $1$ must be proved to have type $\tau' \rightarrow \tau$ for the rest of the proof to work. Intuitively, we know that $1$, being a literal constant value, must have type $\tau$, not $\tau \rightarrow \tau$.
-
-The algorithm that type checks such an expression using these rules is called unification.
 
 ### Unification: Type-Checking an Expression
 
