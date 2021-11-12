@@ -205,7 +205,7 @@ Following the logic above, we can see that $1$ must be proved to have type $\tau
 
 The algorithm that type checks such an expression using these rules is called unification.
 
-### Unification: Type-Checking an expression
+### Unification: Type-Checking an Expression
 
 ### The Bounds Check
 
