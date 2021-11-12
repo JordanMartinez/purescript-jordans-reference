@@ -54,18 +54,18 @@ To address the problem raised above, we need a tool that checks the expression. 
 The first restriction made to lambda calculus is annotating terms with monomorphic types. For example:
 
 A type, $\tau$, is one of the following:
-1. a primitive type, $i$
+1. a primitive type, $t$
 2. a function type, $\tau \rightarrow \tau$
 
 $$
-(types) \quad \tau = i | \tau \rightarrow \tau
+(types) \quad \tau = t | \tau \rightarrow \tau
 $$
 
 Examples include:
-- $i$
-- $i \rightarrow i$
-- $i \rightarrow (i \rightarrow i)$
-- $(i \rightarrow i) \rightarrow (i \rightarrow i)$
+- $t$
+- $t \rightarrow t$
+- $t \rightarrow (t \rightarrow t)$
+- $(t \rightarrow t) \rightarrow (t \rightarrow t)$
 
 A term, $e$, is one of the following:
 1. a variable
@@ -73,15 +73,15 @@ A term, $e$, is one of the following:
 3. function application:
 
 $$
-(terms) \quad e = x : \tau | \lambda x. e : \tau \rightarrow \tau | e_{1} \ e_{2} : \tau \\
+(terms) \quad e = x : \tau | \lambda x. e : \tau_{1} \rightarrow \tau_{2} | e_{1} \ e_{2} : \tau \\
 $$
 
 When using LaTeX, $x : \tau$ reads "The expression $x$ has type $\tau$.
 
 Examples of the above language:
-- $x : i$
-- $\lambda x. \lambda y. y : i \rightarrow i \rightarrow i$
-- $\lambda x. \lambda y. x \ y : (i \rightarrow i) \rightarrow i \rightarrow i$
+- $x : \tau$
+- $\lambda x. \lambda y. y : \tau_{1} \rightarrow \tau_{2} \rightarrow \tau_{2}$
+- $\lambda x. \lambda y. x \ y : (\tau_{1} \rightarrow \tau_{2}) \rightarrow \tau_{1} \rightarrow \tau_{2}$
 
 ### The Simplest Type Checker
 
