@@ -175,7 +175,9 @@ With that being explained, each term above has a corresponding rule with how to 
 - Function application. The below expression reads, "$e_{1} e_{2}$ has type $\tau$ if $e_{1}$ has type $\tau \rightarrow \tau$ and $e_{2}$ has type $\tau$."
     $$COMB: {\Gamma \vdash e : \tau' \rightarrow \tau \qquad \Gamma \vdash e' : \tau' \over{\Gamma \vdash \epsilon \ \epsilon' : \tau}}$$
 
-For example, the expression $\lambda f. \lambda x. x$ would produce the following visual:
+#### Example 1
+
+The expression $\lambda f. \lambda x. x$ would produce the following visual:
 $$\large
       ABS: {\large
         {\large ABS:
@@ -190,6 +192,20 @@ $$\large
         \{\} \vdash (\lambda f. \lambda x. x) : \tau \rightarrow \tau' \rightarrow \tau'}
       }
       $$
+
+Following the logic represented above, we can conclude that the expression is well-typed.
+
+#### Example 2
+
+We get a visual like the following for $(\lambda f. f x) \ 1$
+
+$$COMB: {\Gamma \vdash {\color{red} 1 : \tau' \rightarrow \tau } \qquad \Gamma \vdash x : \tau' \over{\Gamma \vdash (\lambda f. f x) \ 1 : \tau}}$$
+
+Following the logic above, we can see that $1$ must be proved to have type $\tau' \rightarrow \tau$ for the rest of the proof to work. Intuitively, we know that $1$, being a literal constant value, must have type $\tau$, not $\tau \rightarrow \tau$.
+
+The algorithm that type checks such an expression using these rules is called unification.
+
+### Unification: Type-Checking an expression
 
 ### The Bounds Check
 
