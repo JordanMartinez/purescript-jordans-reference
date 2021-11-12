@@ -35,11 +35,11 @@ $$
 
 The reduction steps taken above were "normal order reduction," whereby one reduces the left-most outer-most function application by applying its argument to the function.
 
-While the untyped lambda calculus above can express many things, it also enables one to "compute" an expression that is inconsistent. For example, the expression, `(\x. x x) (\x. x x)`, is an infinite loop: applying the function argument to the function produces the same expression.
+While the untyped lambda calculus above can express many things, it also enables one to "compute" an expression that crashes. For example, $((\lambda f. \lambda x. f x) x) 1)$ assumes `1` is a function, not a value, passes `x` as an argument to the supposed function, and then crashes when it realizes that `1` is not a function.
 
-The first problem in this language is that it enables "bad" programs like the example above. Ideally, the programmer would know before running the computation whether it is "good" and reduces as expected or "bad" like the example above. One way to move towards this ideal is by adding restrictions to the language (e.g. types). Unfortunately, while such restrictions may reject "bad" programs, they might also reject "good" programs. Ideally, the "perfect" lambda calculus is one that
+The above example highlights the first problem with this language: it can express "bad" programs. Ideally, the programmer would know before running the computation whether it is "good" and reduces to a final value or "bad" like the example above. One way to move towards this ideal is by adding restrictions to the language (e.g. types). Unfortunately, while such restrictions may reject "bad" programs, they might also reject "good" programs. Ideally, the "perfect" lambda calculus is one that
 - has all the computational power of untyped lamda calculus
-- rejects all "bad" program without rejecting any "good" program.
+- rejects all "bad" programs without rejecting any "good" program.
 
 It is the second principle that makes this hard. All attempts towards this goal come with tradeoffs as the rest of this document attempts to cover.
 
@@ -192,6 +192,8 @@ $$\large
       $$
 
 ### The Bounds Check
+
+For example, the expression, `(\x. x x) (\x. x x)`, is an infinite loop: applying the function argument to the function produces the same expression.
 
 Returning to the "bad" program we had previously...
 $$
