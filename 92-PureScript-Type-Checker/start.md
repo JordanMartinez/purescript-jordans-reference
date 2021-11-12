@@ -89,7 +89,7 @@ Examples of the above language:
 
 ### The Simplest Type Checker
 
-The second part is the type checker. The type checker uses one rule for each term to determine whether the expression is "well-typed." In this work, we'll be using unification to type check expressions using these rules. Before covering the rules or the unification algorithm further, it's necessary to introduce syntax frequently used in type systems.
+The second part is the type checker. The type checker uses one rule for each term to determine whether the expression is "well-typed." Before covering the rules, it's necessary to introduce syntax frequently used in type systems.
 
 #### Explaining the Visuals
 
@@ -179,7 +179,7 @@ With that being explained, each term above has a corresponding rule with how to 
 - Function application. The below expression reads, "$e_{1} e_{2}$ has type $\tau$ if $e_{1}$ has type $\tau \rightarrow \tau$ and $e_{2}$ has type $\tau$."
     $$COMB: {\Gamma \vdash e : \tau' \rightarrow \tau \qquad \Gamma \vdash e' : \tau' \over{\Gamma \vdash \epsilon \ \epsilon' : \tau}}$$
 
-#### Example 1
+##### Example 1
 
 The expression $\lambda f. \lambda x. x$ would produce the following visual:
 $$\large
@@ -199,7 +199,7 @@ $$\large
 
 Following the logic represented above, we can conclude that the expression is well-typed.
 
-#### Example 2
+##### Example 2
 
 We get a visual like the following for $(\lambda f. f x) \ 1$
 
