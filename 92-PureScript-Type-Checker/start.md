@@ -89,12 +89,12 @@ The second part is the type checker. The type checker uses one rule for each ter
 
 #### Explaining the Visuals
 
-A horizontal bar (below) is often used in this syntax. This bar visual typically represents the following idea: $expression_{1}$ is true if and only if $expression_{2}$ is true:
+A horizontal bar (below) is often used in this syntax. This bar visual typically represents the following idea: $Conclusion$ is true if and only if $Premise$ is true:
 $$
 {
-expression_{2}
+Premise
 }\over{
-  expression_{1}
+  Conclusion
 }
 $$
 
