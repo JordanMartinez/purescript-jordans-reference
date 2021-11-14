@@ -156,4 +156,4 @@ The expression $(\lambda f. f x) \ 1$ would produce the following visual:
 
 $$COMB: {\Gamma \vdash {\color{red} 1 : \tau' \rightarrow \tau } \qquad \Gamma \vdash x : \tau' \over{\Gamma \vdash (\lambda f. f x) \ 1 : \tau}}$$
 
-Following the logic above, we can see that $1$ must be proved to have type $\tau' \rightarrow \tau$ for the rest of the proof to work. Intuitively, we know that $1$, being a literal constant value, must have type $\tau$, not $\tau \rightarrow \tau$.
+Following the logic above, we can see that $1$ must be proved to have type $\tau' \rightarrow \tau$ for the rest of the proof to work. Intuitively, we know that $1$, being a literal constant value, must have type $\tau$, not $\tau' \rightarrow \tau$.
