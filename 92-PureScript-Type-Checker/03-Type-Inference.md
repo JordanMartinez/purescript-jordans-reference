@@ -8,7 +8,19 @@ rather than the below language:
 $$
 (terms) \quad e = x | \lambda x. e | e_{1} \ e_{2} \\
 $$
-Ideally, the type checker would itself be able to infer what the type for each term is with no guidance from the programmer. If this ideal cannot be achieved, then the next ideal is one in which the programmer only needs to provide type annotations to some terms some of the time.
+
+Or, more concretely..
+$$
+(\lambda x. (\lambda y. y {\color{red}: \tau \rightarrow \tau}) {\color{red}: \tau \rightarrow (\tau \rightarrow \tau)}) (x_{1} {\color{red}: \tau}) (x_{2} {\color{red}: \tau})
+$$
+... vs ...
+$$
+(\lambda x. \lambda y. y) x_{1} x_{2}
+$$
+
+Ideally, the type checker should be able to infer what the type for each term is with no guidance from the programmer.
+
+For our current language, this is possible.
 
 ### Unification: Type-Checking an Expression
 
