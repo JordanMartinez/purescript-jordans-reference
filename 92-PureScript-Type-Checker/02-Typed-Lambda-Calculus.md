@@ -152,7 +152,7 @@ Following the logic represented above, we can conclude that the expression is we
 
 #### Example 2
 
-We get a visual like the following for $(\lambda f. f x) \ 1$
+The expression $(\lambda f. f x) \ 1$ would produce the following visual:
 
 $$COMB: {\Gamma \vdash {\color{red} 1 : \tau' \rightarrow \tau } \qquad \Gamma \vdash x : \tau' \over{\Gamma \vdash (\lambda f. f x) \ 1 : \tau}}$$
 
