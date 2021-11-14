@@ -1,5 +1,4 @@
 # TypeChecker Docs
-
 ## The Basics of an Untyped Lambda Calculus
 
 Lambda calculus is a language with three terms to it:
