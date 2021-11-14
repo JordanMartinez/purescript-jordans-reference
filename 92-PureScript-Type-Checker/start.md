@@ -1,12 +1,5 @@
 # TypeChecker Docs
 
-## Preface
-
-**Disclaimer: all of the content written here is my interpretation of various papers, articles and other such sources. All of this might be wrong in whole or in part.**
-
-- [Using Latex in Markdown](https://ashki23.github.io/markdown-latex.html#latex)
-- [List of LaTeX Symbols](https://latex.wikia.org/wiki/List_of_LaTeX_symbols)
-
 ## The Basics of an Untyped Lambda Calculus
 
 Lambda calculus is a language with three terms to it:
