@@ -58,7 +58,7 @@ $$
 {
 }\over
 {
-  expression
+  Conclusion
 }
 $$
 
