@@ -2,6 +2,8 @@
 
 **Disclaimer: all of the content written here is my interpretation of various papers, articles and other such sources. All of this might be wrong in whole or in part.**
 
+This folder's content is currently a work-in-progress! The breaking changes policy does not apply to this folder's contents.
+
 This work is my attempt at explaining PureScript's type system from the bottom up by
 - providing an explanation of the academic theory of type systems by
     - building an intuition for a basic static type system
