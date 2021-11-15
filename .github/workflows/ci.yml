@@ -49,3 +49,4 @@ jobs:
         run: |
           chmod +x .ci/spago--build-and-test.sh
           ./.ci/spago--build-and-test.sh
+          exit
