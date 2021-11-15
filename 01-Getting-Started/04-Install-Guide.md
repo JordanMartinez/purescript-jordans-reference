@@ -44,28 +44,40 @@ Unlike the manual install, `nvm` properly handles the npm prefix for you. So, yo
 #### Installing PureScript and Related Tooling
 
 Once you have installed `npm`, we can use it to install everything in one command:
-```bash
+
+```sh
 npm i -g purescript@0.14.3 spago@0.20.3 parcel
 ```
 
 If you want to install a PureScript formatter, refer to their instructions. The history behind these tools will be covered in the `Build Tools` folder:
+
 - [purs-tidy](https://github.com/natefaubion/purescript-tidy) - A self-contained formatter written in PureScript
 - [pose](https://pose.rowtype.yoga/) - A plugin written in PureScript for the [`Prettier`](https://prettier.io/) formatter
 
 ### Versions Used in this Project
 
 The following commands should now work (the versions beside them are the versions I used when writing this project):
-```bash
-purs --version        # 0.14.3
-spago version         # 0.20.3
-parcel --version      # 1.12.4
+
+```sh
+purs --version        # 0.14.4 -- works through 0.14.5 as well
+spago --version       # 0.20.3
+parcel --version      # 1.12.4 -- works through 2.00-rc0 as well
 ```
 
 ### Building This Project
 
-Once the above has been verified, run the below script, which will download, install, and build every folder in this project. Open a shell in this project's parent folder and run this command:
-```bash
-./for-each-folder--install-deps-and-compile.sh
+Once the above has been verified, you can build this project.
+
+First of all, if you haven't yet cloned this project locally, then do so now:
+
+```sh
+git clone https://github.com/JordanMartinez/purescript-jordans-reference
+```
+
+Then execute the script below which will install, build, and test every folder in this project:
+
+```sh
+source .ci/install-build-test-all.sh
 ```
 
 Whenever I make a new release with breaking changes, this script will remove any outdated dependencies, reinstall the correct ones, and rebuild all of the folders' code.
