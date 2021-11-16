@@ -20,6 +20,6 @@ The second and third formatters, [`purs-tidy`](https://github.com/natefaubion/pu
 
 | Formatter | Language | Author | Initial Announcement |
 | - | - | - | - |
-| [`purs-tidy`](https://github.com/natefaubion/purescript-tidy) | PureScript | `@natefaubion` | [Announcing `purs-tidy`: a syntax tidy-upper for PureScript](https://discourse.purescript.org/t/tiny-announcement-yet-another-purescript-formatter/2525) |
+| [`purs-tidy`](https://github.com/natefaubion/purescript-tidy) | PureScript | `@natefaubion` | [Announcing `purs-tidy`: a syntax tidy-upper for PureScript](https://discourse.purescript.org/t/announcing-purs-tidy-a-syntax-tidy-upper-for-purescript/2524) |
 | [`pose`](https://pose.rowtype.yoga/) | PureScript | `@Zelenaya`/`@i-am-the-slime` | [Tiny announcement: yet another PureScript formatter](https://discourse.purescript.org/t/tiny-announcement-yet-another-purescript-formatter/2525) |
 | [`purty`](https://gitlab.com/joneshf/purty) | Haskell | `@joneshf` | [Purty 1.0.0 released](https://discourse.purescript.org/t/purty-1-0-0-released/225) |
