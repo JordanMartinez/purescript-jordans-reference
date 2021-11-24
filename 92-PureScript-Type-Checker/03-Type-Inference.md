@@ -1,4 +1,6 @@
-## Type Inference
+# Type Inference
+
+## The Problem
 
 While the language described so far works, it comes with an annoyance: every single usage of a term must be annotated with a type. In other words, our language is
 $$
@@ -22,15 +24,22 @@ Ideally, the type checker should be able to infer what the type for each term is
 
 For our current language, this is possible.
 
-### Unification: Type-Checking an Expression
+## The Solution
 
-### The Bounds Check
+Given that we have the following language where type annotations are removed:
 
-For example, the expression, `(\x. x x) (\x. x x)`, is an infinite loop: applying the function argument to the function produces the same expression.
-
-Returning to the "bad" program we had previously...
 $$
-(\lambda x. x x) (\lambda x. x x)
+(terms) \quad e = x | \lambda x. e | e_{1} \ e_{2}
 $$
-...here is its visual:
+$$
+(types) \quad \tau = t | \tau \rightarrow \tau
+$$
 
+A type-inference algorithm is one that takes as input an environment, $\Gamma$, and an expression, $e$, and returns a type, $\tau$, for that expression. In other words <code>INFER($\Gamma$, $e$)</code> returns <code>$\tau$</code>. We'll express this function as ${\color{orange} \Gamma} \vdash {\color{orange} e} : {\color{green} \tau}$. It follows the same rules we've seen previously.
+
+- A variable term. The below expression reads, "$x$ has the inferred type $\tau$ if the assumption exists in $\Gamma$."
+    $$VAR: {{x : \tau \in \Gamma}\over{\Gamma \vdash x : \tau}}$$
+- Function definition. The below expression reads, "$\lambda x. e$ has the inferred type $\tau \rightarrow \tau$ if we can infer that $x$ has type $\tau$ while and that $e$ has type $\tau$."
+    $$ABS: {{\Gamma_{x} \cup \{x : \tau' \} \vdash \epsilon : \tau}\over{\Gamma \vdash (\lambda x. \epsilon) : \tau' \rightarrow \tau}}$$
+- Function application. The below expression reads, "$e_{1} e_{2}$ has the inferred type $\tau$ if we can infer that $e_{1}$ has type $\tau \rightarrow \tau$ and $e_{2}$ has type $\tau$."
+    $$COMB: {\Gamma \vdash e : \tau' \rightarrow \tau \qquad \Gamma \vdash e' : \tau' \over{\Gamma \vdash \epsilon \ \epsilon' : \tau}}$$
