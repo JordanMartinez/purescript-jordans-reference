@@ -36,7 +36,7 @@ $$
 $$
 $$
 (environment) \quad \Gamma = { \{ \\
-  (+) : Int \rightarrow Int, \\
+  (+) :: Int \rightarrow Int, \\
   (intEq) :: Int \rightarrow Int \rightarrow Boolean, \\
   (\&\&) :: Boolean \rightarrow Boolean \rightarrow Boolean, \\
   (||) :: Boolean \rightarrow Boolean \rightarrow Boolean, \\
@@ -51,17 +51,17 @@ The diagrams for both type checking an expression and type inferring an expressi
 We add the following rule.
 
 - A let binding. The below expression reads, "$x$ must have type $e_{1} and $e$ must have type $e_{2}$
-    $$LET: {\Gamma \vdash e_{1} : \tau_{1} \qquad \Gamma_{x} \cup { \{ x : \tau_{1} \} } \vdash e_{2} : \tau_{2} \over{\Gamma \vdash let \ x = e_{1} in \ e_{2} : \tau_{2}}}$$
+    $$LET: {\Gamma \vdash e_{1} :: \tau_{1} \qquad \Gamma_{x} \cup { \{ x :: \tau_{1} \} } \vdash e_{2} :: \tau_{2} \over{\Gamma \vdash let \ x = e_{1} in \ e_{2} :: \tau_{2}}}$$
 
 The rest remain unchanged.
 
 - An integer constant term. The below expression reads, "$i$ must have type `Int`."
-    $$CONST\_INTEGER : {\over{\Gamma \vdash i : Int}}$$
+    $$CONST\_INTEGER: {\over{\Gamma \vdash i :: Int}}$$
 - A boolean constant term. The below expression reads, "$b$ must have type `Boolean`."
-    $$CONST\_BOOLEAN : {\over{\Gamma \vdash b : Boolean}}$$
+    $$CONST\_BOOLEAN: {\over{\Gamma \vdash b :: Boolean}}$$
 - A variable term. The below expression reads, "$x$ has type $\tau$ if the assumption exists in $\Gamma$."
-    $$TAUT: {{x : \tau \in \Gamma}\over{\Gamma \vdash x : \tau}}$$
+    $$TAUT: {{x :: \tau \in \Gamma}\over{\Gamma \vdash x :: \tau}}$$
 - Function definition. The below expression reads, "$\lambda x. e$ has type $\tau \rightarrow \tau$ if we assume $x$ has type $\tau$ while verifying that $e$ has type $\tau$."
-    $$ABS: {{\Gamma_{x} \cup \{x : \tau' \} \vdash \epsilon : \tau}\over{\Gamma \vdash (\lambda x. \epsilon) : \tau' \rightarrow \tau}}$$
+    $$ABS: {{\Gamma_{x} \cup \{x :: \tau' \} \vdash \epsilon :: \tau}\over{\Gamma \vdash (\lambda x. \epsilon) :: \tau' \rightarrow \tau}}$$
 - Function application. The below expression reads, "$e_{1} e_{2}$ has type $\tau$ if $e_{1}$ has type $\tau \rightarrow \tau$ and $e_{2}$ has type $\tau$."
-    $$COMB: {\Gamma \vdash e : \tau' \rightarrow \tau \qquad \Gamma \vdash e' : \tau' \over{\Gamma \vdash \epsilon \ \epsilon' : \tau}}$$
+    $$COMB: {\Gamma \vdash e :: \tau' \rightarrow \tau \qquad \Gamma \vdash e' :: \tau' \over{\Gamma \vdash \epsilon \ \epsilon' :: \tau}}$$
