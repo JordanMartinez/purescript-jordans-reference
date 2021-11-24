@@ -121,10 +121,19 @@ $$
 
 ### Type Checker Rules
 
-With that being explained, each term above has a corresponding rule with how to check its type:
+Below is our language so far:
+
+$$
+(terms) \quad e = x : \tau | \lambda x. e : \tau_{1} \rightarrow \tau_{2} | e_{1} \ e_{2} : \tau \\
+$$
+$$
+(types) \quad \tau = t | \tau \rightarrow \tau
+$$
+
+With the visuals explained, each term above has a corresponding rule with how to check its type:
 
 - A variable term. The below expression reads, "$x$ has type $\tau$ if the assumption exists in $\Gamma$."
-    $$TAUT: {\over{\Gamma \vdash x : \tau}} (x : \tau \in \Gamma)$$
+    $$TAUT: {{x : \tau \in \Gamma}\over{\Gamma \vdash x : \tau}}$$
 - Function definition. The below expression reads, "$\lambda x. e$ has type $\tau \rightarrow \tau$ if we assume $x$ has type $\tau$ while verifying that $e$ has type $\tau$."
     $$ABS: {{\Gamma_{x} \cup \{x : \tau' \} \vdash \epsilon : \tau}\over{\Gamma \vdash (\lambda x. \epsilon) : \tau' \rightarrow \tau}}$$
 - Function application. The below expression reads, "$e_{1} e_{2}$ has type $\tau$ if $e_{1}$ has type $\tau \rightarrow \tau$ and $e_{2}$ has type $\tau$."
@@ -137,7 +146,7 @@ $$\large
       ABS: {\large
         {\large ABS:
           {\large {\large TAU:
-            {\large \over{\large
+            {\large {\large x : \tau' \in \{f : \tau,\ x : \tau' \}}\over{\large
               \{f : \tau,\ x : \tau' \} \vdash x : \tau'
             }}
           }\over{\large
