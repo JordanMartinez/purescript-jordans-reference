@@ -1,6 +1,6 @@
 ## Type Inference
 
-While the above language works, it comes with an annoyance: every single usage of a term must be annotated with a type. In other words, our language is
+While the language described so far works, it comes with an annoyance: every single usage of a term must be annotated with a type. In other words, our language is
 $$
 (terms) \quad e = x {\color{red} : \tau} | \lambda x. e {\color{red}: \tau_{1} \rightarrow \tau_{2}} | e_{1} \ e_{2} {\color{red}: \tau} \\
 $$
