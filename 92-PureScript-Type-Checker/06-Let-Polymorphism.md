@@ -110,7 +110,7 @@ Did I apply the substitutions correctly? The answer is no. The $\alpha$ type in 
 
 $({\color{red} \alpha} \rightarrow \beta \rightarrow {\color{red} \alpha}) \rightarrow ({\color{blue} \alpha} \rightarrow \beta \rightarrow {\color{blue} \alpha}) \rightarrow ({\color{red} \alpha} \rightarrow \beta \rightarrow {\color{red} \alpha})$
 
-We need to bind these types to some type-level variable that has scope. To resolve this ambiguity, we will further modify our language to have "type schemas." A value-level lambda function (e.g. $1$ in "$(\lambda x. x + 2) \ 1$") uses bounded variables (e.g. the $x$ in $\lambda x. 1$) to indicate when and where $x$ refers to the value `1`. We will use a similar notion to indicate the scope of a variable via "$\forall variableName .$" because types correspond to logic (a handwavy explanation, but true nonetheless).
+To resolve this ambiguity, we need to bind these types to some type-level variable that has scope. We'll do that by further modifying our language to have "type schemas." A value-level lambda function (e.g. $1$ in "$(\lambda x. x + 2) \ 1$") uses bounded variables (e.g. the $x$ in $\lambda x. 1$) to indicate when and where $x$ refers to the value `1`. All variables defined in a given scope must have a unique name to ensure we don't refer to one when we meant to refer to another. We will use a similar notion of lambda functions to indicate the scope of a type-level variable via "$\forall variableName .$" because types correspond to logic (a handwavy explanation, but true nonetheless).
 
 Thus, we update our language to include $\sigma$:
 
@@ -121,24 +121,24 @@ $$
 {\color{red} (polymorphic \ types) \quad \sigma = \forall \alpha. \sigma | \tau}
 $$
 
-Note: $\sigma$ represents either a polymorphic type or a monomorphic type. Rather than using its official term of "type schema", which is more accurate, I'm using "polymorphic types" for clarity. A language that supports $\sigma$ as defined here is one that supports polymorphic types in addition to monomorphic ones.
+Note: $\sigma$ represents either a polymorphic type or a monomorphic type. Rather than using its official term of "type schema", which is more accurate, I'll be using "polymorphic types" in this language for clarity. A language that supports $\sigma$ as defined here is one that supports polymorphic types in addition to monomorphic ones.
 
 Returning to our expression....
 
 $$
 let \ const_{1} = \lambda x. \lambda y. x :: \forall \alpha. \forall \beta. \alpha \rightarrow \beta \rightarrow \alpha \\
-let \ const_{2} = \lambda x. \lambda y. x :: \forall \alpha_{1}. \forall \alpha_{2}. \alpha_{1} \rightarrow \alpha_{2} \rightarrow \alpha_{1} \\
-let \ const_{3} = \lambda x. \lambda y. x :: \forall \beta_{1}. \forall \beta_{2}. \beta_{1} \rightarrow \beta_{2} \rightarrow \beta_{1} \\
+let \ const_{2} = \lambda x. \lambda y. x :: \forall \alpha. \forall \beta. \alpha \rightarrow \beta \rightarrow \alpha \\
+let \ const_{3} = \lambda x. \lambda y. x :: \forall \alpha. \forall \beta. \alpha \rightarrow \beta \rightarrow \alpha \\
 in \ const_{1} \ const_{2} \ const_{3}
 $$
 
 ... we now get the following:
 1. Let's start with $const_{1}$
     - $\forall \alpha. \forall \beta. \alpha \rightarrow \beta \rightarrow \alpha$
-2. Replace all $\alpha$s with the type for $const_{2}$:
-    - $\forall \beta. \forall \alpha_1. \forall \alpha_2. (\alpha_1 \rightarrow \alpha_2 \rightarrow \alpha_1) \rightarrow \beta \rightarrow (\alpha_1 \rightarrow \alpha_2 \rightarrow \alpha_1)$
-3. Replace all $\beta$s with the type for $const_{3}$:
-    - $\forall \alpha_1. \forall \alpha_2. \forall \beta_1. \forall \beta_2. (\alpha_1 \rightarrow \alpha_2 \rightarrow \alpha_1) \rightarrow (\beta_1 \rightarrow \beta_2 \rightarrow \beta_1) \rightarrow (\alpha_1 \rightarrow \alpha_2 \rightarrow \alpha_1)$
+2. Replace all $\alpha$s with the type for $const_{2}$. Since $\alpha$ was already used as a type variable name, we'll use $alpha_{1}$. Similarly, since $\beta$ is alrady being used as a type variable, we'll refer to $const{2}$'s $\beta$ as $\beta_{1}:
+    - $\forall \beta. \forall \alpha_{1}. \forall \beta_{1}. (\alpha_ \rightarrow \beta_{1} \rightarrow \alpha_) \rightarrow \beta \rightarrow (\alpha_ \rightarrow \beta_{1} \rightarrow \alpha_)$
+3. Replace all $\alpha$s with the type for $const_{2}$. Since $\alpha$ and $\alpha_{1} was already used as a type variable name, we'll use $\alpha_{2}$ and similarly for $\beta_{2}$:
+    - $\forall \alpha_{1}. \forall \beta_{1}. \forall \alpha_{2}. \forall \beta_{1}. (\alpha_{1} \rightarrow \beta_{2} \rightarrow \alpha_{1}) \rightarrow (\alpha_{2} \rightarrow \beta_{2} \rightarrow \alpha_{2}) \rightarrow (\alpha_{1} \rightarrow \beta_{1} \rightarrow \alpha_{1})$
 
 Put differently, we can only state what the full type of $const_{1} const_{2} const{3}$ is once we have substituted all 4 type variables with another type.
 
