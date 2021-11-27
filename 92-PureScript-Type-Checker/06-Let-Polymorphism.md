@@ -141,5 +141,3 @@ $$
     - $\forall \alpha_{1}. \forall \beta_{1}. \forall \alpha_{2}. \forall \beta_{1}. (\alpha_{1} \rightarrow \beta_{2} \rightarrow \alpha_{1}) \rightarrow (\alpha_{2} \rightarrow \beta_{2} \rightarrow \alpha_{2}) \rightarrow (\alpha_{1} \rightarrow \beta_{1} \rightarrow \alpha_{1})$
 
 Put differently, we can only state what the full type of $const_{1} const_{2} const{3}$ is once we have substituted all 4 type variables with another type.
-
-
