@@ -36,7 +36,7 @@ $$
 $$
 $$
 (environment) \quad \Gamma = { \{ \\
-  (+) :: Int \rightarrow Int, \\
+  (+) :: Int \rightarrow Int \rightarrow Int, \\
   (intEq) :: Int \rightarrow Int \rightarrow Boolean, \\
   (\&\&) :: Boolean \rightarrow Boolean \rightarrow Boolean, \\
   (||) :: Boolean \rightarrow Boolean \rightarrow Boolean, \\
