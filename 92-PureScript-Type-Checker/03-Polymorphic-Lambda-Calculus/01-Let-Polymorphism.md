@@ -18,7 +18,7 @@ $$
 
 ... we get a type checking issue. Using our previous type inferencing rules, we would infer that `identity` in the first usage has type $Boolean \rightarrow Boolean$ and in the second usage has type $Integer \rightarrow Integer$. When we type check the first usage with its second usage, the type check fails.
 
-This problem is known as "Let Polymorphism." Polymorphism is when a given expression can have two or more types depending on how that expression.
+This problem is known as "Let Polymorphism." Polymorphism is when a given expression can have two or more types depending on how that expression is used.
 ## What Humans Do
 
 Returning to `identity` function above, why is it that we as humans can tell that the usage of it is safe whereas the type checker and inferencer cannot?
