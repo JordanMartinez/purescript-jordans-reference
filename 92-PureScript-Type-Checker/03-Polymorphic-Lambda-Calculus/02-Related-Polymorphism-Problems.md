@@ -2,7 +2,7 @@
 
 ## Adding Support for Unknown Types
 
-We know that the `identity` function has type $unknown \rightarrow unknown$ where `unknown` could refer to `Int`, `Boolean`, `Int -> Boolean`, or any such type. However, $unknown \rightarrow unknown$ is not a valid type because `unknown` isn't `Int`, `Boolean`, or $\tau \rightarrow \tau$. We'll update our language to add another case in $\tau$ that represents `unknown`. We'll use lowercase greek letters to indicate such `unknown` types:
+We know that the `identity` function has type $unknown \rightarrow unknown$ where `unknown` could refer to `Int`, `Boolean`, `Int -> Boolean`, or any such type. However, $unknown \rightarrow unknown$ is not a valid type because `unknown` isn't `Int`, `Boolean`, or $\tau \rightarrow \tau$. The problem is that our language does not support a notion of `unknown` / "this is a type that will be known later." To solve it, we'll update our language to add another case in $\tau$ that represents `unknown`. We'll use lowercase greek letters to indicate such `unknown` types:
 - $\alpha$ - pronounced "alpha"
 - $\beta$ - pronounced "beta". (While this may appear uppercase, it's not. An uppercase beta is $\Beta$)
 - etc.
@@ -85,3 +85,18 @@ $$
     - $\forall \alpha_{1}. \forall \beta_{1}. \forall \alpha_{2}. \forall \beta_{1}. (\alpha_{1} \rightarrow \beta_{2} \rightarrow \alpha_{1}) \rightarrow (\alpha_{2} \rightarrow \beta_{2} \rightarrow \alpha_{2}) \rightarrow (\alpha_{1} \rightarrow \beta_{1} \rightarrow \alpha_{1})$
 
 Put differently, we can only state what the full type of $const_{1} const_{2} const{3}$ is once we have substituted all 4 type variables with another type.
+
+## Summary
+
+We've updated our language in the following two ways:
+
+$$
+(monomorphic \ types) \quad \tau = Int | Boolean | {\color{red} \alpha} | \tau \rightarrow \tau
+$$
+$$
+{\color{red} (polymorphic \ types) \quad \sigma = \forall \alpha. \sigma | \tau}
+$$
+
+When it's safe to substitute one unknown type (e.g. $\alpha$) with another type (e.g. $Int$), we'll use the notion "$\alpha \mapsto Int$". However, we haven't yet determined how type inference rules should be updated to do this correctly.
+
+The type inference algorithm will need to ensure type variables (e.g. $\alpha$) are unique for a given scope to ensure we only substitute the correct types with their corresponding type.
