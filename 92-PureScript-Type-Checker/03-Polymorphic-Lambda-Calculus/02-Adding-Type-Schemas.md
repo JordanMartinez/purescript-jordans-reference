@@ -1,4 +1,4 @@
-# Adding Support for Type Schemas
+# Adding Type Schemas
 
 ## Missing Language Constructs
 
