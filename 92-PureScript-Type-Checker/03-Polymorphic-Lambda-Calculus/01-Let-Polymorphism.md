@@ -27,7 +27,7 @@ When we see the definition of `identity` as $\lambda x. x$, there are 4 facts:
 1. `identity` is a function
 1. that function takes only one argument
 1. the type of that function's returned value must be the same as the type of the argument
-1. we cannot know what the type of the argument and returned value is.
+1. we will know what the argument and returned value's type is once the function is passed an argument
 
 Thus, these expressions would typecheck...
 - $identity \ 1$
