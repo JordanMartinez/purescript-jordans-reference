@@ -54,7 +54,7 @@ $\sigma$ looks a bit weird at first, but let's follow its rules for defining one
 
 ### Summary
 
-We made the following two changes to support the notion of a type-level variable:
+We made the following two changes to support the notion of a type-level variable. We won't update our type checker and type inference rules yet because there are still other issues to resolve:
 
 $$
 (monomorphic \ types) \quad \tau = Int | Boolean | {\color{red} \alpha} | \tau \rightarrow \tau
