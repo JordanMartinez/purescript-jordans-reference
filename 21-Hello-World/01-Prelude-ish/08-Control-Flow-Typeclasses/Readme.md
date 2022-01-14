@@ -30,6 +30,16 @@ instance Functor List where
 
 ## Functor, Apply, Applicative, Bind, Monad
 
+### In Short
+
+| Concept | Argument is NOT inside a Box / context | Argument is inside a Box / context | Name
+| - | - | - | - |
+| 1-arg function application | `function arg` | `function <$> (Box arg)` | `Functor` |
+| 2+-arg function application | `function arg1 arg2` | `function <$> (Box arg1) <*> (Box arg2)` | `Applicative` |
+| function composition | `aToB >>> bToC` | `aToBoxB >=> bToBoxC` | `Monad` |
+
+### Somewhat longer
+
 These will be covered at a slower and clearer pace in the upcoming files. This is just an overview of them.
 
 | Typeclass | "Plain English" | Function | Infix | Laws | Usage
