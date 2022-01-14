@@ -2,7 +2,7 @@
 
 ## Why Are PureScript's Type Classes So Granular?
 
-See Phil's explanation of [Counterexamples of Type Classes](https://blog.functorial.com/posts/2015-12-06-Counterexamples.html)
+See Phil's explanation of [Counterexamples of Type Classes](https://blog.functorial.com/posts/2021-10-29-Counterexamples-Interactive.html)
 
 ## Automatically Deriving Instances
 

@@ -105,9 +105,9 @@ class Functor (Function inputType) where
   map :: forall originalOutputType newOutputType.
          (originalOutputType -> newOutputType) ->
          Function inputType originalOutputType -> Function inputType newOutput
-  map originalToNew f = (\input -> originalOutput $ f input)
+  map originalToNew f = (\input -> originalToNew $ f input)
   -- or
-  map originalToNew f = (originalOutput <<< f)
+  map originalToNew f = (originalToNew <<< f)
   -- or even
   map = (<<<)
 ```

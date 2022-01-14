@@ -161,12 +161,11 @@ nestedRecord_overwrite1 newName p  = p { person { skills { name = newName } } }
 nestedRecord_overwrite2 :: String -> NestedRecordType -> NestedRecordType
 nestedRecord_overwrite2 newName    = _ { person { skills { name = newName } } }
 
--- -- This fails to compile!
--- nestedRecord_overwrite3 :: String -> NestedRecordType -> NestedRecordType
--- nestedRecord_overwrite3            = _ { person { skills { name = _       } } }
+nestedRecord_overwrite3 :: NestedRecordType -> String -> NestedRecordType
+nestedRecord_overwrite3            = _ { person { skills { name = _       } } }
 
--- -- This fails to compile
--- nestedRecord_overwrite4 :: String -> NestedRecordType -> NestedRecordType
+-- -- This fails to compile because the fields aren't specified
+-- nestedRecord_overwrite4 :: NestedRecordType -> String -> NestedRecordType
 -- nestedRecord_overwrite4            = _ { _      { _      { name = _       } } }
 
 -- ## Pattern Matching on Records

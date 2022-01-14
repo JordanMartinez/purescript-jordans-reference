@@ -46,7 +46,7 @@ Unlike the manual install, `nvm` properly handles the npm prefix for you. So, yo
 Once you have installed `npm`, we can use it to install everything in one command:
 
 ```sh
-npm i -g purescript@0.14.3 spago@0.20.3 parcel
+npm i -g purescript@0.14.5 spago@0.20.3 parcel
 ```
 
 If you want to install a PureScript formatter, refer to their instructions. The history behind these tools will be covered in the `Build Tools` folder:
@@ -59,7 +59,7 @@ If you want to install a PureScript formatter, refer to their instructions. The 
 The following commands should now work (the versions beside them are the versions I used when writing this project):
 
 ```sh
-purs --version        # 0.14.4 -- works through 0.14.5 as well
+purs --version        # 0.14.5
 spago --version       # 0.20.3
 parcel --version      # 1.12.4 -- works through 2.00-rc0 as well
 ```
