@@ -11,6 +11,8 @@ Below are other resources that are more reference material than clear explanatio
 - The [Racket Programming Languages's Lenses Guide](https://docs.racket-lang.org/lens/index.html).
 - [Profunctor Optics, a Categorical Update (Extended Abstract)](https://cs.ttu.ee/events/nwpt2019/abstracts/paper14.pdf)
 
+If you're looking to generate optics for your types, consider [`purescript-tidy-codgen-lens`](https://github.com/jordanmartinez/purescript-tidy-codegen-lens).
+
 ## Lenses
 
 **Note: due to Thomas' above blog post, the below section will be removed in the next major release.**
