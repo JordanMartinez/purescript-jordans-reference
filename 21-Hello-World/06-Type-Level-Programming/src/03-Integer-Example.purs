@@ -109,6 +109,9 @@ printToString = do
 --   -> Int
 -- toValueLevel = reflectType
 
+_maxReflectableInt = Proxy :: Proxy 2147483647
+_minReflectableInt = Proxy :: Proxy (-2147483648)
+
 printReflectable :: Effect Unit
 printReflectable = do
   printHeader "Reflectable"
@@ -116,6 +119,17 @@ printReflectable = do
   log "0: " <> show $ reflectType _0
   log "1: " <> show $ reflectType _1
   log "1,000,000: " <> show $ reflectType _1_000_000
+  log ""
+  log $ "Type-Level Int values outside the JavaScript range for an integers will not /
+        /be solved by the compiler"
+  log $ "(max)  2147483647: " <> show $ reflectType _maxReflectableInt
+  log $ "(min) -2147483648: " <> show $ reflectType _minReflectableInt
+
+  -- These two examples will fail to compile since both values are outside the range of JavaScript integer.
+  -- log $ " 2147483648: " <> show $ reflectType $ intAdd _maxReflectableInt _1
+  -- log $ "-2147483649: " <> show $ reflectType $ intSubtract _maxReflectableInt _1
+
+  -- See `purescript-bigints` to reflect the integer to a BigInt as a workaround.
 
 -------------
 
