@@ -16,10 +16,13 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: purescript-contrib/setup-purescript@main
-
-      - uses: actions/setup-node@v1
         with:
-          node-version: "12"
+          purescript: "0.15.0"
+          purs-tidy: "0.8.0"
+
+      - uses: actions/setup-node@v
+        with:
+          node-version: "14"
 
       - name: Install dependencies
         run: |
@@ -51,8 +54,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Set up PureScript toolchain
-        uses: purescript-contrib/setup-purescript@main
+      - uses: purescript-contrib/setup-purescript@main
+        with:
+          purescript: "0.15.0"
+          purs-tidy: "0.8.0"
+          spago: "0.20.9"
 
       - name: Cache PureScript dependencies
         uses: actions/cache@v2
@@ -63,9 +69,9 @@ jobs:
             output
 
       - name: Set up Node toolchain
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: "12.x"
+          node-version: "14"
 
       - name: Cache NPM dependencies
         uses: actions/cache@v2
