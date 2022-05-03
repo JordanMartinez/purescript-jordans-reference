@@ -1,7 +1,7 @@
 // don't forget to add this line here!
 "use strict";
 
-export var basicValue = 4.0;
+export const basicValue = 4.0;
 
 export function basicCurriedFunction(number) {
   return number * 4.0;
