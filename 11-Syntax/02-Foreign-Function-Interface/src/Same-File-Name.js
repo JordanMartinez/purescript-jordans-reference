@@ -1,6 +1,3 @@
-// don't forget to add this line here!
-"use strict";
-
 export const basicValue = 4.0;
 
 export function basicCurriedFunction(number) {
