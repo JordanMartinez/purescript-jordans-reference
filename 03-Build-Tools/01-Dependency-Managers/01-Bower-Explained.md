@@ -47,7 +47,7 @@ When in doubt, run the following command, reinstall things, and see if that fixe
 # Deletes the 'bower_components' and 'output' directories,
 # ensuring that the cache mechanism is not corrupting your build
 # and that the next build will be completely fresh.
-rm -rf bower_components/ output/
+bower cache clean && rm -rf bower_components/ output/
 ```
 
 ### Horrible User Experience Occurs After a Breaking Change Release
