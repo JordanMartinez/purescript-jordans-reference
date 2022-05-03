@@ -24,8 +24,12 @@ This example: data DataType_ -- Kind
 -}
 data Number_ -- Type -- double-precision float number
 
-exampleNumber :: Number
-exampleNumber = 1.0
+exampleNumber1 :: Number
+exampleNumber1 = 1.0
+
+-- negative values must be wrapped in parenthesis:
+exampleNumber2 :: Number
+exampleNumber2 = (-1.0)
 
 data Int_ -- Type
 
@@ -37,6 +41,16 @@ exampleInt2 = 0x01 -- alternative way to write them
 
 exampleInt3 :: Int
 exampleInt3 = 1_000_000 -- use underscores for thousands character
+
+-- negative values must be wrapped in parenthesis:
+exampleInt4 :: Int
+exampleInt4 = (-1)
+
+exampleInt5 :: Int
+exampleInt5 = (-0x01)
+
+exampleInt6 :: Int
+exampleInt6 = (-1_000_000)
 
 data Boolean_ -- Type
 
