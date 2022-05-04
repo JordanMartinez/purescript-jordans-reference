@@ -120,8 +120,8 @@ printReflectable = do
   log "1: " <> show $ reflectType _1
   log "1,000,000: " <> show $ reflectType _1_000_000
   log ""
-  log $ "Type-Level Int values outside the JavaScript range for an integers will not /
-        /be solved by the compiler"
+  log $ "Type-Level Int values outside the JavaScript range for an integers "
+      <> " will not be solved by the compiler"
   log $ "(max)  2147483647: " <> show $ reflectType _maxReflectableInt
   log $ "(min) -2147483648: " <> show $ reflectType _minReflectableInt
 
