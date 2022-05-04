@@ -34,16 +34,16 @@ tl_literalInt3 = Proxy
 
 -- negative values must be wrapped in parenthesis
 -- use literal int syntax
-tl_literalInt1 :: Proxy (-1234)
-tl_literalInt1 = Proxy
+tl_literalInt1' :: Proxy (-1234)
+tl_literalInt1' = Proxy
 
 -- use hexadecimal syntax!
-tl_literalInt2 :: Proxy (-0x01)
-tl_literalInt2 = Proxy
+tl_literalInt2' :: Proxy (-0x01)
+tl_literalInt2' = Proxy
 
 -- use underscore syntax
-tl_literalInt3 :: Proxy (-1_000_000)
-tl_literalInt3 = Proxy
+tl_literalInt3' :: Proxy (-1_000_000)
+tl_literalInt3' = Proxy
 
 {-
 Int's other type-level programming constructs are in other modules
