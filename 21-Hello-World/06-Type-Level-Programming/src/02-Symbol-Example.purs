@@ -10,6 +10,9 @@ import Prim.Symbol as Symbol
 import Type.Proxy (Proxy(..))
 import Type.Data.Ordering (class IsOrdering, reflectOrdering)
 
+-- Note: the `Data.Symbol` imports will likely be removed
+-- and replaced with `Data.Reflectable` imports in PureScript `0.16.0`.
+
 main :: Effect Unit
 main = do
   printAppend
