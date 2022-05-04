@@ -12,7 +12,6 @@ You can edit this file as you like.
     , "newtype"
     , "partial"
     , "prelude"
-    , "psci-support"
     , "strings"
     , "unsafe-coerce"
     ]

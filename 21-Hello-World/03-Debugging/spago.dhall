@@ -11,7 +11,6 @@ You can edit this file as you like.
     , "debug"
     , "effect"
     , "prelude"
-    , "psci-support"
     , "st"
     ]
 , packages =

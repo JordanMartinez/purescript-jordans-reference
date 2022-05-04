@@ -15,7 +15,6 @@ You can edit this file as you like.
     , "node-readline"
     , "now"
     , "prelude"
-    , "psci-support"
     , "random"
     , "refs"
     , "st"

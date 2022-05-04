@@ -10,7 +10,6 @@ You can edit this file as you like.
   , "effect"
   , "lists"
   , "prelude"
-  , "psci-support"
   , "tuples"
   , "typelevel-prelude"
   ]
