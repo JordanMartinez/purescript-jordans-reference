@@ -1,19 +1,17 @@
 module TLP.IntegerExample where
 
 import Prelude
-import Data.Tuple(Tuple(..))
 import Data.Reflectable (class Reflectable, reflectType)
 import Effect (Effect)
 import Effect.Console (log)
 import Prim.Int as Int
 import Type.Proxy (Proxy(..))
-import Type.Data.Ordering (class IsOrdering, reflectOrdering)
 
 main :: Effect Unit
 main = do
-  printAdd
+  printAddSubtract
   printMul
-  printString
+  printToString
 
 -- Type-Level Values
 
@@ -95,10 +93,10 @@ toTLString _ = Proxy
 printToString :: Effect Unit
 printToString = do
   printHeader "ToString"
-  printOrdering "neg1: " $ reflectType $ toTLString _neg1
-  printOrdering "0: " $ reflectType $ toTLString _0
-  printOrdering "1: " $ reflectType $ toTLString _1
-  printOrdering "1,000,000: " $ reflectType $ toTLString _1_000_000
+  printLine "neg1: " $ reflectType $ toTLString _neg1
+  printLine "0: " $ reflectType $ toTLString _0
+  printLine "1: " $ reflectType $ toTLString _1
+  printLine "1,000,000: " $ reflectType $ toTLString _1_000_000
 
 --- Reflectable ---
 
@@ -115,15 +113,15 @@ _minReflectableInt = Proxy :: Proxy (-2147483648)
 printReflectable :: Effect Unit
 printReflectable = do
   printHeader "Reflectable"
-  log $ "neg1: " <> show $ reflectType _neg1
-  log "0: " <> show $ reflectType _0
-  log "1: " <> show $ reflectType _1
-  log "1,000,000: " <> show $ reflectType _1_000_000
+  log $ "neg1: " <> (show $ reflectType _neg1)
+  log $ "0: " <> (show $ reflectType _0)
+  log $ "1: " <> (show $ reflectType _1)
+  log $ "1,000,000: " <> (show $ reflectType _1_000_000)
   log ""
   log $ "Type-Level Int values outside the JavaScript range for an integers "
       <> " will not be solved by the compiler"
-  log $ "(max)  2147483647: " <> show $ reflectType _maxReflectableInt
-  log $ "(min) -2147483648: " <> show $ reflectType _minReflectableInt
+  log $ "(max)  2147483647: " <> (show $ reflectType _maxReflectableInt)
+  log $ "(min) -2147483648: " <> (show $ reflectType _minReflectableInt)
 
   -- These two examples will fail to compile since both values are outside the range of JavaScript integer.
   -- log $ " 2147483648: " <> show $ reflectType $ intAdd _maxReflectableInt _1
@@ -140,7 +138,7 @@ printOrdering :: forall o. Reflectable o Ordering => String -> Proxy o -> Effect
 printOrdering subhead ord = printLine subhead $ show $ reflectType ord
 
 printInt :: forall i. Reflectable i Int => String -> Proxy i -> Effect Unit
-printInt subhead sym = printLine subhead $ reflectSymbol sym
+printInt subhead int = printLine subhead $ show $ reflectType int
 
 printLine :: String -> String -> Effect Unit
 printLine s computation = log $ s <> computation
