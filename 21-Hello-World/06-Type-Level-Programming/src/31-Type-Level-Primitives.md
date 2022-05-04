@@ -18,13 +18,14 @@ In my current understanding, I'd guess that these likely do not appear that ofte
 
 In the below table, **"ValueTypeN" was abbreviated to VTN**
 
-| Value-Level Type | Value-Level Value(s) | Kind Name<br>(Corresponding Type&#8209;Level Type) | Kind Values | Proxy |
-| - | - | - | - | - |
-| [Ordering](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Ordering) | `LT` `GT` `EQ` | [Ordering](https://pursuit.purescript.org/builtins/docs/Prim.Ordering) | `LT` `GT` `EQ` | [OProxy](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Ordering)
-| [String](https://pursuit.purescript.org/builtins/docs/Prim#t:String) | `"literal string"` | [Symbol](https://pursuit.purescript.org/builtins/docs/Prim#k:Symbol) | `"literal symbol"` | [Proxy](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Symbol#t:Proxy)
-| [Record](https://pursuit.purescript.org/builtins/docs/Prim#t:Record)<br>(closest idea) | `Record (keyN :: VTN, ...)` | [row kinds](https://github.com/purescript/documentation/blob/master/language/Types.md#rows) | `(keyN :: Kind, ...)` | [RProxy](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Type.Data.Row#t:RProxy)
-| [Boolean](https://pursuit.purescript.org/builtins/docs/Prim#t:Boolean) | `true`/`false` | [Boolean](https://pursuit.purescript.org/builtins/docs/Prim.Boolean) | `True`/`False` | [BProxy](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/4.0.0/docs/Type.Data.Boolean#t:BProxy)
-| List ( keyN :: VTN, ... )<br>(analogy; not real type) | `Nil`<br><br>`Cons a (ListR a)` | [RowList](https://pursuit.purescript.org/builtins/docs/Prim.RowList#k:RowList) | `Nil`<br><br>`Cons :: Symbol -> Type -> RowList` |  [RLProxy](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Type.Data.RowList#t:RLProxy)
+| Value-Level Type | Value-Level Value(s) | Kind Name<br>(Corresponding Type&#8209;Level Type) | Kind Values |
+| - | - | - | - |
+| [Ordering](https://pursuit.purescript.org/packages/purescript-prelude/4.1.1/docs/Data.Ordering) | `LT` `GT` `EQ` | [Ordering](https://pursuit.purescript.org/builtins/docs/Prim.Ordering) | `LT` `GT` `EQ` |
+| [String](https://pursuit.purescript.org/builtins/docs/Prim#t:String) | `"literal string"` | [Symbol](https://pursuit.purescript.org/builtins/docs/Prim#k:Symbol) | `"literal symbol"` |
+| [Int](https://pursuit.purescript.org/builtins/docs/Prim#t:Int) | `1`<br />`(-1)` | [Int](https://pursuit.purescript.org/builtins/docs/Prim#k:Int) | `1`<br />`(-1)` |
+| [Record](https://pursuit.purescript.org/builtins/docs/Prim#t:Record)<br>(closest idea) | `Record (keyN :: VTN, ...)` | [row kinds](https://github.com/purescript/documentation/blob/master/language/Types.md#rows) | `(keyN :: Kind, ...)` |
+| [Boolean](https://pursuit.purescript.org/builtins/docs/Prim#t:Boolean) | `true`/`false` | [Boolean](https://pursuit.purescript.org/builtins/docs/Prim.Boolean) | `True`/`False` |
+| List ( keyN :: VTN, ... )<br>(analogy; not real type) | `Nil`<br><br>`Cons a (ListR a)` | [RowList](https://pursuit.purescript.org/builtins/docs/Prim.RowList#k:RowList) | `Nil`<br><br>`Cons :: Symbol -> Type -> RowList` |
 
 ## Type-Level Modules
 
@@ -32,14 +33,14 @@ Rather than explaining things, read through the source code of these modules and
 
 | Kind | Modules |
 | - | - |
-| Boolean | [Prim.Boolean](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Boolean)
+| Boolean | [Prim.Boolean](https://pursuit.purescript.org/builtins/docs/Prim.Boolean)
 | Ordering | [Prim.Ordering](https://pursuit.purescript.org/builtins/docs/Prim.Ordering)<br>
-| Symbol | [Prim.Symbol](https://pursuit.purescript.org/builtins/docs/Prim.Symbol)<br> [Type.Data.Symbol](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Data.Symbol)
-| Number | [Data.Typelevel.Number](https://pursuit.purescript.org/packages/purescript-typelevel/4.0.0/docs/Data.Typelevel.Num)<br>[Tanghulu](https://github.com/justinwoo/purescript-tanghulu)
-| Row | [Prim.Row]()<br>[Type.Row](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row)<br>[Type.Row.Homoegeneous](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/3.0.0/docs/Type.Row.Homogeneous)<br>[Record](https://pursuit.purescript.org/packages/purescript-record/1.0.0)<br>[Heterogenous](https://pursuit.purescript.org/packages/purescript-heterogenous/0.1.0)^^
+| Symbol | [Prim.Symbol](https://pursuit.purescript.org/builtins/docs/Prim.Symbol)<br> [Type.Data.Symbol](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/7.0.0/docs/Type.Data.Symbol)
+| Int | [Prim.Int](https://pursuit.purescript.org/builtins/docs/Prim.Int)
+| Row | [Prim.Row]()<br>[Type.Row](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/7.0.0/docs/Type.Row)<br>[Type.Row.Homoegeneous](https://pursuit.purescript.org/packages/purescript-typelevel-prelude/7.0.0/docs/Type.Row.Homogeneous)<br>[Record](https://pursuit.purescript.org/packages/purescript-record/3.0.0)<br>[Heterogenous](https://pursuit.purescript.org/packages/purescript-heterogenous/0.1.0)^^
 | RowList | [Prim.RowList](https://pursuit.purescript.org/builtins/docs/Prim.RowList)
 | Higher-Order Functions | [Type.Eval](https://pursuit.purescript.org/packages/purescript-typelevel-eval/0.2.0)
-| N/A | [Type.IsEqual](https://pursuit.purescript.org/packages/purescript-type-isequal/0.1.0)<br> [Type.Proxy](https://pursuit.purescript.org/packages/purescript-proxy/3.0.0/docs/Type.Proxy)<br>[Data.Typelevel.Undefined](https://pursuit.purescript.org/packages/purescript-typelevel/4.0.0/docs/Data.Typelevel.Undefined) |
+| N/A | [Type.IsEqual](https://pursuit.purescript.org/packages/purescript-type-isequal/0.1.0)<br> [Type.Proxy](https://pursuit.purescript.org/packages/purescript-prelude/6.0.0/docs/Type.Proxy) |
 
 ^^ **The `purescript-heterogenous` library is mind-blowing** and is exlained by its author in the following video. This video is potentially difficult-to-understand but will make more sense as one gets used to more FP concepts. **Around 14 minutes in, Nate gets up and moves elsewhere. So, skip to `16:37` when this occurs to avoid wasting time**:
 [PS Unscripted - Heterogenous](https://www.youtube.com/watch?v=oNbkpZZAhgk&index=11&list=WL&t=0s)
