@@ -1,6 +1,6 @@
 # Monoids Reconsidered
 
-The below table is a summarized version of something `cvlad` explained in the FP Slack channel.
+The below table is a summarized version of something `cvlad` explained:
 
 | When we want to compose... | ...and we don't need "empty" value, we use | ...and we do need "empty" value, we use |
 | - | - | - |

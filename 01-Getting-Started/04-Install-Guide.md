@@ -2,9 +2,10 @@
 
 ## Getting Additional Help
 
-Throughout your learning process, it will be helpful to ask others for help. The two places this is often done is on the ML forum and the Slack group chat. If you encounter problems when installing anything below, ask for help on the Slack group's `#purescript-beginner` channel and you should receive help.
+Throughout your learning process, it will be helpful to ask others for help. The two places this is often done is on PureScript's Discourse forum and its Discord server.
 
-- Register for an account on the Functional Programming Slack group [here](https://fpchat-invite.herokuapp.com/) and add yourself to these two channels:`#purescript-beginner`, `#purescript`. You may also be interested in these channels: `#categoryTheory`, `#haskell`, and `#haskell-beginner` .
+- Register for an account on [PureScript's Discord server](https://purescript.org/chat)
+    - Note: I'll refer to this as PureScript's chatroom throughout this work.
 - Register for the Purescript ML forum [here](https://discourse.purescript.org/)
 
 ## Setting up Purescript for the First Time

@@ -138,7 +138,7 @@ f theString = wrap (unwrap theString)
     unwrap rec = rec.b
 ```
 
-From the Slack channel, garyb mentioned passing the `--verbose-errors` flag to the compiler. **This will output a LOT of information**, but it's that or nothing. To do that, run this code:
+In the PureScript chatroom, `garyb` mentioned passing the `--verbose-errors` flag to the compiler. **This will output a LOT of information**, but it's that or nothing. To do that, run this code:
 
 ```bash
 spago build -u --verbose-errors
