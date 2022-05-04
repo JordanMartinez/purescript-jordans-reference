@@ -73,6 +73,8 @@ See [The `bower` registry is no longer accepting package submissions](https://di
 
 In PureScript `0.15.0`, we stopped compiling PureScript source code to CommonJS modules and started compiling to ES modules. As a result, we dropped the buggy and broken bundler provided via `purs bundle` and instead directed endusers to use 3rd-party bundlers like `esbuild`, `webpack`, and `parecel`. Such bundlers often produced smaller bundles than `purs bundle`. Moreover, it gave the core team in charge of PureScript one less thing to maintain.
 
+See the [0.15.0 Migration Guide](https://github.com/purescript/documentation/blob/master/migration-guides/0.15-Migration-Guide.md) for more details.
+
 ## Overview of Tools
 
 | Name | Type/Usage | Comments | URL |
@@ -85,6 +87,7 @@ In PureScript `0.15.0`, we stopped compiling PureScript source code to CommonJS 
 | psa | Pretty, flexible error/warning frontend for `purs` | -- | https://github.com/natefaubion/purescript-psa
 | pscid | `pulp --watch build` on steroids | Seems to be a more recent version of `psc-pane` (see below) and uses `psa` | https://github.com/kRITZCREEK/pscid
 | psvm-js | PureScript Version Manager | -- | https://github.com/ThomasCrevoisier/psvm-js
+| esbuild | Low-Config bundler | -- | https://esbuild.github.io/
 
 The following seem to be deprecated or no longer used:
 
