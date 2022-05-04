@@ -188,7 +188,7 @@ instance (
   -- 2. Then bring `buildKeyList2` into scope
   ShowKeysInRowList2 rowList
   ) => Show (ShowKeysOnly recordRows) where
-  show (ShowKeysOnly rec) =
+  show (ShowKeysOnly _rec) =
     -- 4. And convert the `List` into an `Array` and reuse the
     --    Array's `show` to produce our desired result.
     show $ Array.fromFoldable keyList
