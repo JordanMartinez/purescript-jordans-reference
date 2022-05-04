@@ -42,4 +42,4 @@ reifyKindName :: forall r
            . Value_Level_Type
           -> (forall a. IsKindName a => Proxy a -> r)
           -> r
-reifyKindName valueLevel function = function inst
+reifyKindName _valueLevel function = function inst
