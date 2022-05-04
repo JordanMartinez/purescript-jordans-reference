@@ -28,7 +28,7 @@ We can install everything using `npm`. However, getting `npm` is it's own proble
 Justin Woo explains how to set up one's environment for the `0.12.x` release but has not been updated for two things. First, the PureScript release at the time was `0.12.0` but now `0.13.8` is out. Second, the instructions use `pulp` and `psc-package`, a different build tool workflow than the one we'll use here.
 
 If you just want to get things set up ASAP, follow the below summary of his article's instructions (using `spago` instead of the other tools). If you want to understand why you should do these commands, read [his article here](https://qiita.com/kimagure/items/570e6f2bbce5b4724564):
-1. Install Node 10 or greater: https://nodejs.org/en/download/
+1. Install Node 14 or greater: https://nodejs.org/en/download/
 2. Set your npm prefix: `npm set prefix ~/.npm`
     - Note: this prevents having to use `sudo` when using NPM to install things since it's default prefix is in a place that requires admin privileges
 3. Set your PATH: `export PATH="$HOME/.npm/bin:$PATH"`
@@ -46,7 +46,7 @@ Unlike the manual install, `nvm` properly handles the npm prefix for you. So, yo
 Once you have installed `npm`, we can use it to install everything in one command:
 
 ```sh
-npm i -g purescript@0.14.5 spago@0.20.3 parcel
+npm i -g purescript@0.15.0 spago@0.20.9 esbuild@0.14.38
 ```
 
 If you want to install a PureScript formatter, refer to their instructions. The history behind these tools will be covered in the `Build Tools` folder:
@@ -56,12 +56,12 @@ If you want to install a PureScript formatter, refer to their instructions. The 
 
 ### Versions Used in this Project
 
-The following commands should now work (the versions beside them are the versions I used when writing this project):
+The following commands should now work:
 
 ```sh
-purs --version        # 0.14.5
-spago --version       # 0.20.3
-parcel --version      # 1.12.4 -- works through 2.00-rc0 as well
+purs --version        # 0.15.0
+spago --version       # 0.20.9
+esbuild --version     # 0.14.38
 ```
 
 ### Building This Project
