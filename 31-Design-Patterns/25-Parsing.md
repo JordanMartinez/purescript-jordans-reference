@@ -2,9 +2,7 @@
 
 This file will store various links related to parsing.
 
-## Regular Expressions and why FPers don't use them
-
-Regular Expressions are infamous for being hard to read, hard to write, and hard to document. Parser combinators provide a solution to the same goals of regular expressions. They sacrifice a small amount of performance to be much easier to read, write, and document.
+For a good introduction to parsing text via parser combinators, the approach used in FP instead of regular expressions, see [Monadic Parsing at the input boundary](https://hasgeek.com/FP-Juspay/pureconf/schedule/monadic-parsers-at-the-input-boundary-W7Hvh68RGtuyZQ7qttTq4z).
 
 ## Left Recursion Problem
 
