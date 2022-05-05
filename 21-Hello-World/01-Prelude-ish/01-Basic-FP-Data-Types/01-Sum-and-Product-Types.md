@@ -22,6 +22,10 @@ data These a b
   = This a        --  - an `a` value
   | That b        --  - a `b` value
   | Both a b      --  - an `a` value AND a `b` value
+
+-- For example, These could be rewritten to
+-- use a combination of Either and Tuple:
+type These_ a b = Either a (Either b (Tuple a b))
 ```
 
 However, these types can also be 'open' or 'closed':
