@@ -5,7 +5,7 @@ import Prelude
 import Data.Array as Array
 import Data.List.Types (List(..))
 import Prim.RowList as RL
-import Data.Symbol (class IsSymbol, reflectSymbol)
+import Data.Reflectable (class Reflectable, reflectType)
 import Type.Proxy (Proxy(..))
 
                                                                               {-
@@ -124,14 +124,14 @@ instance ShowKeysInRowList (RL.Cons sym k rest) where
 
 Third, we'll compute what `key` should be. We know that a `Symbol`,
 a type-level `String`, can be converted into a value-level `String`
-via `reflectSymbol` as defined by the `IsSymbol` type class. So,
-let's add the `IsSymbol` class as a constraint to expose `reflectSymbol`
+via `reflectType` as defined by the `Reflectable` type class. So,
+let's add the `Reflectable` class as a constraint to expose `reflectType`
 and then use that function to produce our key:
 
-instance (IsSymbol sym) => ShowKeysInRowList (RL.Cons sym k rest) where
+instance (Reflectable sym String) => ShowKeysInRowList (RL.Cons sym k rest) where
   buildKeyList _ = Cons key remainingKeys
     where
-      key = reflectSymbol (Proxy :: Proxy sym)
+      key = reflectType (Proxy :: Proxy sym)
       remainingKeys = ???
 
 Fourth, we need to compute what the remaining keys are. Wait, isn't that
@@ -139,11 +139,11 @@ what we're already doing? Let's use `buildKeyList` on the rest of the
 rows. Since `buildKeyList` is defined by `ShowKeysInRowList`, we need
 to add that constraint, so we can use that function:
 
-instance (IsSymbol sym, ShowKeysInRowList rest)
+instance (Reflectable sym String, ShowKeysInRowList rest)
   => ShowKeysInRowList (RL.Cons sym k rest) where
   buildKeyList _ = Cons key remainingKeys
     where
-      key = reflectSymbol (Proxy :: Proxy sym)
+      key = reflectType (Proxy :: Proxy sym)
       remainingKeys = buildKeyList (Proxy :: Proxy rest)
 
 And that's it! We've now defined our type class instance. You'll notice
@@ -151,12 +151,12 @@ that the constraints get a bit long. So, the final version below
 will use indentation to make it easier to read (at least in my opinion):      -}
 
 instance (
-  IsSymbol sym,
+  Reflectable sym String,
   ShowKeysInRowList rest
   )  => ShowKeysInRowList (RL.Cons sym k rest) where
   buildKeyList _ = Cons key remainingKeys
     where
-      key = reflectSymbol (Proxy :: Proxy sym)
+      key = reflectType (Proxy :: Proxy sym)
       remainingKeys = buildKeyList (Proxy :: Proxy rest)
 
 -- Let's show all three parts together now for easier readability.
@@ -170,12 +170,12 @@ instance ShowKeysInRowList2 RL.Nil where
   buildKeyList2 _ = Nil
 
 instance (
-  IsSymbol sym,
+  Reflectable sym String,
   ShowKeysInRowList2 rest
   )  => ShowKeysInRowList2 (RL.Cons sym k rest) where
   buildKeyList2 _ = Cons key remainingKeys
     where
-      key = reflectSymbol (Proxy :: Proxy sym)
+      key = reflectType (Proxy :: Proxy sym)
       remainingKeys = buildKeyList2 (Proxy :: Proxy rest)
 
 {-
@@ -188,7 +188,7 @@ instance (
   -- 2. Then bring `buildKeyList2` into scope
   ShowKeysInRowList2 rowList
   ) => Show (ShowKeysOnly recordRows) where
-  show (ShowKeysOnly rec) =
+  show (ShowKeysOnly _rec) =
     -- 4. And convert the `List` into an `Array` and reuse the
     --    Array's `show` to produce our desired result.
     show $ Array.fromFoldable keyList

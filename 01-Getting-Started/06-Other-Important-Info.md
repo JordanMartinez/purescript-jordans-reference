@@ -6,6 +6,7 @@
 - ["Not Yet Awesome" PureScript](https://github.com/milesfrain/not-yet-awesome-purescript) is a list of things that are not _yet_ awesome in PureScript
 - [Configure Web Browser for Convenient Pursuit Lookup](https://discourse.purescript.org/t/tip-configure-web-browser-for-convenient-pursuit-lookup/1561) shows how to make it easy to search all documentation.
     - Consider using this same approach to setup a search using **Starsuit**, a Pursuit copy that works only packages in the latest package-set (a concept described more in the Build Tools folder of this repo). Use "https://spacchetti.github.io/starsuit/#search:" as your search.
+- [PureScript Migration Guides](https://github.com/purescript/documentation/tree/master/migration-guides) when a breaking change is made.
 
 ## Functional Programming Jargon
 

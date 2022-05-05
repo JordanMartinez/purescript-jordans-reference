@@ -3,11 +3,14 @@ module TLP.SymbolExample where
 import Prelude
 import Data.Tuple(Tuple(..))
 import Data.Symbol (class IsSymbol, reflectSymbol)
+import Data.Reflectable (class Reflectable, reflectType)
 import Effect (Effect)
 import Effect.Console (log)
 import Prim.Symbol as Symbol
 import Type.Proxy (Proxy(..))
-import Type.Data.Ordering (class IsOrdering, reflectOrdering)
+
+-- Note: the `Data.Symbol` imports will likely be removed
+-- and replaced with `Data.Reflectable` imports in PureScript `0.16.0`.
 
 main :: Effect Unit
 main = do
@@ -108,16 +111,31 @@ printCompare = do
   printOrdering "LT: " $ symbolCompare apple banana
   printOrdering "GT: " $ symbolCompare banana apple
 
+--- Reflectable ---
+
+-- toValueLevel
+--   :: forall sym
+--    . Data.Reflectable i String
+--   => Proxy sym
+--   -> String
+-- toValueLevel = reflectType
+
+printReflectable :: Effect Unit
+printReflectable = do
+  printHeader "Reflectable"
+  log $ "apple: " <> reflectType apple
+  log $ "banana: " <> reflectType banana
+
 -------------
 
 printHeader :: String -> Effect Unit
 printHeader s = log $ "=== " <> s <> " ==="
 
-printOrdering :: forall a. IsOrdering a => String -> Proxy a -> Effect Unit
-printOrdering subhead ord = printLine subhead $ show $ reflectOrdering ord
+printOrdering :: forall a. Reflectable a Ordering => String -> Proxy a -> Effect Unit
+printOrdering subhead ord = printLine subhead $ show $ reflectType ord
 
-printSymbol :: forall a. IsSymbol a => String -> Proxy a -> Effect Unit
-printSymbol subhead sym = printLine subhead $ reflectSymbol sym
+printSymbol :: forall a. Reflectable a String => String -> Proxy a -> Effect Unit
+printSymbol subhead sym = printLine subhead $ reflectType sym
 
 printLine :: String -> String -> Effect Unit
 printLine s computation = log $ s <> computation

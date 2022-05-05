@@ -1,41 +1,38 @@
-// don't forget to add this line here!
-"use strict";
+export const basicValue = 4.0;
 
-exports.basicValue = 4.0;
-
-exports.basicCurriedFunction = function(number) {
+export function basicCurriedFunction(number) {
   return number * 4.0;
-};
+}
 
-exports.basicEffect = function() {
+export function basicEffect() {
   return 4.0;
-};
+}
 
-exports.threeArgCurriedFunction = function(arg1) {
+export function threeArgCurriedFunction(arg1) {
   return function(arg2) {
     return function(arg3) {
       // body of function
       return arg1 * arg2 * arg3;
     };
   };
-};
+}
 
-exports.curriedFunctionProducingEffect = function(string) {
+export function curriedFunctionProducingEffect(string) {
   return function() {
     return string;
   };
-};
+}
 
-exports.basicUncurriedFunction = function(fn) {
+export function basicUncurriedFunction(fn) {
   return function(arg1) {
     return function(arg2) {
       return fn(arg1)(arg2)();
     };
   };
-};
+}
 
 var twoArgFunction = function(arg1, arg2) {
   console.log(arg1 + " " + arg2);
 };
 
-exports.twoArgCurriedFunctionImpl = twoArgFunction;
+export {twoArgFunction as twoArgCurriedFunctionImpl};

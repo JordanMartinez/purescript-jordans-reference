@@ -12,17 +12,17 @@ import Prelude
 import Effect (Effect)
 import Data.Array.NonEmpty as NEA
 import Data.Maybe (fromJust)
-import Test.QuickCheck.Gen (elements)
+import Test.QuickCheck.Gen (Gen, elements)
 import Test.QuickCheck.Arbitrary (class Arbitrary, arbitrary)
 import Partial.Unsafe (unsafePartial)
 
 -- new imports
-import Test.QuickCheck.Laws (checkLaws, A)
+import Test.QuickCheck.Laws (checkLaws, A, B, C)
 import Test.QuickCheck.Laws.Control as Control
 import Test.QuickCheck.Laws.Data as Data
 
 -- necessary to compile
-import Type.Proxy (Proxy(..), Proxy2(..))
+import Type.Proxy (Proxy(..))
 
 -- Given a type...
 -- (e.g. our Box type from before)
@@ -37,32 +37,54 @@ instance (Arbitrary a) => Arbitrary (Box a) where
 
 -- ... and a helper function for checking all of them at once
 checkBox :: Effect Unit
-checkBox =
+checkBox = do
   -- checkLaws "data type" do
   --   type-class 1 check
   --   type-class 2 check
   --   ...
 
-  checkLaws "Box" do
+  checkLaws "Box (using Arbitrary instance)" do
+    let
+      -- When using type classes like `Eq` or `Ord` that
+      -- are not higher-kinded types, use `prxBoxA`
+      -- `A` is a filler type from the laws package
+      prxBoxA = Proxy :: Proxy (Box A)
+
+      -- When using type classes like `Functor` or `Apply` that
+      -- are higher-kinded types, use `prxBox`
+      prxBox = Proxy ∷ Proxy Box
+
     -- type classes with concrete types
-    Data.checkEq  prxBox
-    Data.checkOrd prxBox
+    Data.checkEq  prxBoxA
+    Data.checkOrd prxBoxA
 
     -- type classes with higher-kinded types
-    Data.checkFunctor        prx2Box
-    Control.checkApply       prx2Box
-    Control.checkApplicative prx2Box
-    Control.checkBind        prx2Box
-    Control.checkMonad       prx2Box
-    where
-    -- When using type classes like `Eq` or `Ord` that
-    -- are not higher-kinded types, use `prxBox`
-    -- `A` is a filler type from the laws package
-    prxBox = Proxy :: Proxy (Box A)
+    Data.checkFunctor        prxBox
+    Control.checkApply       prxBox
+    Control.checkApplicative prxBox
+    Control.checkBind        prxBox
+    Control.checkMonad       prxBox
 
-    -- When using type classes like `Functor` or `Apply` that
-    -- are higher-kinded types, use prx2Box
-    prx2Box = Proxy2 ∷ Proxy2 Box
+  checkLaws "Box (using specific generator)" do
+    let
+      boxAGenerator :: Gen (Box A)
+      boxAGenerator = Box <$> (arbitrary :: Gen A)
+      boxAToBGenerator :: Gen (Box (A -> B))
+      boxAToBGenerator = Box <$> (arbitrary :: Gen (A -> B))
+      boxBToCGenerator :: Gen (Box (B -> C))
+      boxBToCGenerator = Box <$> (arbitrary :: Gen (B -> C))
+      boxAToBoxAGenerator :: Gen (A -> Box A)
+      boxAToBoxAGenerator = map Box <$> (arbitrary :: Gen (A -> A))
+    -- type classes with concrete types
+    Data.checkEqGen boxAGenerator
+    Data.checkOrdGen boxAGenerator
+
+    -- type classes with higher-kinded types
+    Data.checkFunctorGen boxAGenerator
+    Control.checkApplyGen boxAGenerator boxAToBGenerator boxBToCGenerator
+    Control.checkApplicativeGen boxAGenerator boxAToBGenerator boxBToCGenerator
+    Control.checkBindGen boxAGenerator boxAToBoxAGenerator
+    Control.checkMonadGen boxAGenerator boxAToBoxAGenerator
 
 -- We can test multiple types' instances to insure they adhere to those
 -- type classes' laws.
@@ -115,12 +137,17 @@ instance Ord Fruit where
   compare _ _ = EQ
 
 checkFruit :: Effect Unit
-checkFruit =
-  checkLaws "Fruit" do
+checkFruit = do
+  checkLaws "Fruit (using Arbitrary instance)" do
+    let
+      -- since Fruit is not a higher-kinded type,
+      -- we don't need the filler `A` type here
+      prxFruit = Proxy :: Proxy Fruit
+
     Data.checkEq  prxFruit
     Data.checkOrd prxFruit
 
-    where
-    -- since Fruit is not a higher-kinded type,
-    -- we don't need the filler `A` type here
-    prxFruit = Proxy :: Proxy Fruit
+  checkLaws "Fruit (using specific generator)" do
+    let fruitGen = elements $ unsafePartial fromJust $ NEA.fromArray [Apple, Orange]
+    Data.checkEqGen fruitGen
+    Data.checkOrdGen fruitGen

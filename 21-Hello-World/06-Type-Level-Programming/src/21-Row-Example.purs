@@ -49,8 +49,8 @@ main = do
   -- These examples show that the output is the same regardless of
   -- whether we use the short/long Record syntax
   -- in our function's type signature.
-  log $ show $ g (Proxy :: Proxy (name :: String)) 5 (\five -> { name: "a"})
-  log $ show $ z (Proxy :: Proxy (name :: String)) 5 (\five -> { name: "a"})
+  log $ show $ g (Proxy :: Proxy (name :: String)) 5 (\five -> { name: "a " <> show five })
+  log $ show $ z (Proxy :: Proxy (name :: String)) 5 (\five -> { name: "a " <> show five })
 
 -- needed to compile
 

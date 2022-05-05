@@ -1,6 +1,6 @@
 # Other Tips
 
-This file includes tips I've seen people share on the FP Slack channel:
+This file includes tips I've seen people share in the PureScript chatroom:
 
 > How do you guys typically go about debugging runtime issues? Especially bad FFI interactions? Right now I end up using `Debug.Trace` pretty frequently. I’m trying to move toward a workflow where I can resolve more of these issues with automated testing and in the REPL. I think the REPL is probably the way to go for most logic issues in PS? However, if API definitions are wonky in the FFI then the REPL isn’t generally super useful since I’ll just get some error from deep in the bundle in some dependency typically.
 

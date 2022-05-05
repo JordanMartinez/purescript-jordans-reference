@@ -1,4 +1,4 @@
-module Syntax.FFI where
+module Syntax.FFI.Simple where
 
 import Prelude
 

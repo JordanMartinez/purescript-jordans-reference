@@ -47,7 +47,7 @@ You might want to learn it **later** for these reasons:
 
 ### How long will it take me before I can write idiomatic code and be productive in PureScript?
 
-The average time for learning FP languages in general is usually 6 months due to the below reasons. This repository hopes to speed that process up, but, as always, people learn at different paces:
+The average time for learning FP languages in general is usually 3-6 months due to the below reasons. This repository hopes to speed that process up, but, as always, people learn at different paces:
 - Many tutorials/guides assume their readers already know foundational principles. New learners who read them often do not know, nor are even aware of, those foundational principles.
     - This project's `Hello World/FP Philosophical Foundations` folder exists to counter this issue
 - No one really explains what the "big picture" that FP programming is all about. Thus, it's hard to see how some concept fits in the larger scheme of things, much less why that concept is so fundamental to everything.
@@ -62,12 +62,12 @@ The average time for learning FP languages in general is usually 6 months due to
 - Due to their powerful type systems, FP languages trade errors that occur when running the program (runtime errors) with errors that occur when attempting to build the program via the compiler (compile-time errors). To understand how to debug these compile-time "your program would not work if it was built" errors, one must have a strong understanding of how the compiler and its type system works.
     - This project's `Syntax` folder (and more specifically, the `Syntax/Type-Level Programming Syntax` folder) explain enough to help one understand why some (but not all) problems arise.
     - The [Error Documentation](https://github.com/purescript/documentation/tree/master/errors) sometimes explains what the error is and how to fix it ([example](https://github.com/purescript/documentation/blob/master/errors/NoInstanceFound.md)) and other times is simply left unexplained ([example](https://github.com/purescript/documentation/blob/master/errors/AmbiguousTypeVariables.md)).
-    - The `purescript-beginner` Slack channel is active and often helps people troubleshoot the error messages.
+    - The PureScript Discord server is active and often helps people troubleshoot the error messages.
 - Related to the above point, the powerful type system enables one to model some abstract ideas in a very precise way using well-defined types or things called type classes. When these features start to stack, a new learner can become overwhelmed.
     - If one reads this work in order, they are unlikely to be overwhelmed.
     - Most of the "cool type things" one can do are helpful but not always necessary. Consider [the Haskell Pyramid](https://patrickmn.com/software/the-haskell-pyramid/). "Monads" are an important and fundamental FP concept, but new learners do not need to learn what they are or how to use them right away.
 - Many people try to re-explain something that another has already explained well and they write a poor re-explanation. It's hard to determine which explanations are accurate and correct and which are vague and mistaken until after you have already read it and/or know better.
-    - I've been you. This work is my attempt to sift through the noise and present things in the best and simplest way possible. In various cases, I summarize and/or link to other posts that I believe to be credible that also explain a concept clearly. My sources include `Haskell Weekly`, the Functional Programming Slack channels of `#purescript` and `#purescript-beginners`, a number of books I've read on FP programming, a number of papers I've read on FP programming, and various videos I've watched regarding FP programming.
+    - I've been you. This work is my attempt to sift through the noise and present things in the best and simplest way possible. In various cases, I summarize and/or link to other posts that I believe to be credible that also explain a concept clearly. My sources include `Haskell Weekly`, the PureScript Discord server, a number of books I've read on FP programming, a number of papers I've read on FP programming, and various videos I've watched regarding FP programming.
 - There are few sites or locations that "centralize" a lot of high-quality FP guides/explanations. Thus, it's hard for new learners to find them.
     - This project exists partly because of this issue and hopes to resolve some of these problems.
     - For other "centralized" locations, see `Hello World/ReadMe.md#other-learning-resources`.

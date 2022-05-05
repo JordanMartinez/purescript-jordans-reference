@@ -51,8 +51,7 @@ pulp --watch --before 'clear' build
 pulp --watch --before 'clear' test
 
 # Build a developer version
-pulp browserify --to dist/fileName.js # if program
-pulp browserify --no-main-check --to dist/fileName.js # if library
+esbuild --bundle --outfile dist/fileName.js output/Main/index.js # if program
 
 # Run the program and pass args to the underlying program
 pulp run -- arg1PassedToProgram arg2PassedToProgram
@@ -65,12 +64,6 @@ See this [help page for authors](https://pursuit.purescript.org/help/authors) on
 # Build the docs
 pulp docs -- --format html
 # Then read over them to insure there aren't any formatting issues or typos
-
-# Make a production build via Browserify
-#   If building a program...
-pulp browserify --optimise --to dist/fileName.js
-#   If building a library
-pulp browserify --no-main-check --optimise --to dist/fileName.js
 
 # Set the initial version
 pulp version v0.1.0
@@ -85,12 +78,6 @@ pulp publish
 # Build and check the docs
 pulp docs -- --format html
 
-# Make a production build
-#   If building a program...
-pulp browserify --optimise --to dist/fileName.js
-#   If building a library
-pulp browserify --no-main-check --optimise --to dist/fileName.js
-
 # bump project version
 pulp version major
 pulp version minor
@@ -99,5 +86,6 @@ pulp version patch
 pulp version v1.5.0
 
 # publish it
+# Note: you may need to run this command twice.
 pulp publish
 ```

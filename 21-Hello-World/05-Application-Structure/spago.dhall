@@ -15,7 +15,6 @@ You can edit this file as you like.
     , "identity"
     , "maybe"
     , "prelude"
-    , "psci-support"
     , "random"
     , "run"
     , "strings"

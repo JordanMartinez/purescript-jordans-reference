@@ -185,4 +185,5 @@ then
   echo "***** PASS: All Build Tasks and Tests Succeeded *****"
 else
   echo "***** FAIL: At Least One Build Task or Test Failed *****"
+  exit 1
 fi

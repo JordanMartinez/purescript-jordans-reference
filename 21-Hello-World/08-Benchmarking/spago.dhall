@@ -11,7 +11,6 @@ You can edit this file as you like.
     , "effect"
     , "foldable-traversable"
     , "newtype"
-    , "psci-support"
     , "quickcheck"
     , "benchotron"
     ]

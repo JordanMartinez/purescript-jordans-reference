@@ -30,7 +30,7 @@ flip twoArgFunction secondArg firstArg = twoArgFunction firstArg secondArg
 
 Forewarning: `apply` via `$` shows up EVERYWHERE! Bookmark this until you get it.
 
-I read somewhere (I think `@garyb` mentioned this on the FP Slack, maybe...?) that `$` was chosen because it's two parenthesis with a line through it, symbolizing that it removes the need to use parenthesis.
+I read somewhere (I think `@garyb` mentioned this in the PureScript chatroom) that `$` was chosen because it's two parenthesis with a line through it, symbolizing that it removes the need to use parenthesis.
 
 ```haskell
 -- Reduce the number of parenthesis needed

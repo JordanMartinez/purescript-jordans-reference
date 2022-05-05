@@ -36,7 +36,9 @@ Long answer:
 
 ## Problem Points?
 
-Besides those stated below, you must use `npm` to install any JavaScript libraries for bindings. This is true for `bower` and `spago` alike.
+- The issues stated above.
+- You must use `npm` to install any JavaScript libraries for bindings. This is true for `bower` and `spago` alike.
+- `pulp` doesn't provide a command that wraps `esbuild` (e.g. `pulp bundle-app`) whereas `spago` does.
 
 ### Solution to Most Common Bower Problem: The Cache Mechanism
 
@@ -45,7 +47,7 @@ When in doubt, run the following command, reinstall things, and see if that fixe
 # Deletes the 'bower_components' and 'output' directories,
 # ensuring that the cache mechanism is not corrupting your build
 # and that the next build will be completely fresh.
-rm -rf bower_components/ output/
+bower cache clean && rm -rf bower_components/ output/
 ```
 
 ### Horrible User Experience Occurs After a Breaking Change Release

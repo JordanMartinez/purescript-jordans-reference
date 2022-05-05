@@ -50,5 +50,6 @@ Consider purchasing the `Thinking with Types` book mentioned in `ROOT_FOLDER/Syn
 
 ```bash
 spago run -m TLP.SymbolExample
+spago run -m TLP.IntegerExample
 spago run -m TLP.RowExample
 ```

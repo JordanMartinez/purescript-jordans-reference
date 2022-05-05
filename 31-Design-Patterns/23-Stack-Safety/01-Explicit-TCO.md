@@ -165,7 +165,7 @@ There are two main drawbacks to `MonadRec`:
 - Performance: there's additional overhead because we have to box and unbox the `Loop`/`Done` data constructors
 - Support: as `MonadRec`'s documentation implies, not all monadic types support tail-call optimization. Only some monadic types can do this.
 
-The third caveat is that `tailRecM` isn't always heap-safe. Responding to another's question on the FP Slack channel:
+The third caveat is that `tailRecM` isn't always heap-safe. Responding to another's question in the PureScript chatroom:
 > the `tailRecM` basically moves the stack usage you'd usually get for recursion onto the heap. If you use too much, you run out of heapspace. I'd suggest taking a heap snapshot before [your code] explodes (I think there's an `--inspect` flag for node) and seeing what's taking up that space.
 > If it's the JSON structure you're building up, you'll need to write it out in chunks, so you can free up some memory for your process. Or if it's the `tailRecM` allocations, you can look into not using `tailRecM` and using `Ref`s + `whileE`/`forE` to write `Effect` code that doesn't hold on to thunks.
 

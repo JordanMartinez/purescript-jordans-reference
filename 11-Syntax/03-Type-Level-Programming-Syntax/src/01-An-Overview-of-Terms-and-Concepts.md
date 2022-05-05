@@ -13,7 +13,7 @@ In programming, there are usually two terms we use to describe "when" a problem/
 | Value-Level Programming | Writing source code that gets executed during runtime | Node / Browser
 | Type-Level Programming | Writing source code that gets executed during compile-time | Type Checker / Type Class Constraint Solver^
 
-^ First heard of this from @natefaubion when he mentioned it in the #purescript Slack channel
+^ First heard of this from @natefaubion in the PureScript chatroom.
 
 ## What Are Types and Functions?
 

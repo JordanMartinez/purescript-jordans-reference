@@ -7,7 +7,6 @@ import Data.Maybe (fromJust)
 import Effect (Effect)
 import Effect.Console (log)
 import Data.Array.NonEmpty as NEA
-import Data.List.NonEmpty as NEL
 
 -- new imports
 -- these are all explained below
@@ -76,10 +75,11 @@ main = do                                                                 {-
       moreOften = 4.0
   printData ("frequency - Generate an instance from an array of generators \
                   \where each generator is used unequally") $
-    frequency $
-      NEL.cons      (Tuple lessOften (elements $ array_1)) $
-      NEL.cons      (Tuple sometimes (elements $ array_2)) $
-      NEL.singleton (Tuple moreOften (elements $ array_4))
+    frequency $ unsafePartial fromJust $ NEA.fromArray
+      [ Tuple lessOften (elements $ array_1)
+      , Tuple sometimes (elements $ array_2)
+      , Tuple moreOften (elements $ array_4)
+      ]
 
   printData "suchThat - Create a generator (e.g. even numbers) by filtering \
             \out invalid instances that are generated from another generator \

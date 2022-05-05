@@ -8,7 +8,6 @@ You can edit this file as you like.
   [ "newtype"
   , "partial"
   , "prelude"
-  , "psci-support"
   , "unsafe-coerce"
   , "safe-coerce"
   ]

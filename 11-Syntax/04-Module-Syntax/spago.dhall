@@ -7,7 +7,7 @@ You can edit this file as you like.
 , name =
     "untitled"
 , dependencies =
-    [ "console", "effect", "newtype", "partial", "prelude", "psci-support" ]
+    [ "console", "effect", "newtype", "partial", "prelude" ]
 , packages =
     ../../packages.dhall
 }
