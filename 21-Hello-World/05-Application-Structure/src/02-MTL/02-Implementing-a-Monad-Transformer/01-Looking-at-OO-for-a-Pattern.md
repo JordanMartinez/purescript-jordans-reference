@@ -47,7 +47,7 @@ z == 3
 ```
 At this point, we could do state manipulation using a recursive function...
 ```haskell
-runNTimes :: forall a. Int -> (a -> a) -> a
+runNTimes :: forall a. Int -> (a -> a) -> a -> a
 runNTimes 0 _ output = output
 runNTimes count func arg = runNTimes (count - 1) func (func arg)
 ```
