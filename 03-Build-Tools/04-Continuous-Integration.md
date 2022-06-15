@@ -17,7 +17,7 @@ jobs:
 
       - uses: purescript-contrib/setup-purescript@main
         with:
-          purescript: "0.15.0"
+          purescript: "0.15.2"
           purs-tidy: "0.8.0"
 
       - uses: actions/setup-node@v
@@ -56,7 +56,7 @@ jobs:
 
       - uses: purescript-contrib/setup-purescript@main
         with:
-          purescript: "0.15.0"
+          purescript: "0.15.2"
           purs-tidy: "0.8.0"
           spago: "0.20.9"
 
