@@ -66,7 +66,7 @@ type HKD_ConstBoolean = HKD (Const Boolean)
 
 ```haskell
 -- Given a type that may contain a value
-type Maybe a
+data Maybe a
   = Nothing
   | Just a
 
@@ -82,7 +82,7 @@ type HKD_Maybe = HKD Maybe
 
 ```haskell
 -- Given a type that may contain a value
-type Either e a
+data Either e a
   = Left e
   | Right a
 
@@ -98,7 +98,7 @@ type HKD_Either = HKD (Either String)
 
 ```haskell
 -- Given a type that may contain a value
-type List a
+data List a
   = Nil
   | Cons a (List a)
 
