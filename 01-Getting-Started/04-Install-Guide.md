@@ -55,6 +55,12 @@ If you want to install a PureScript formatter, refer to their instructions. The 
 - [purs-tidy](https://github.com/natefaubion/purescript-tidy) - A self-contained formatter written in PureScript
 - [pose](https://pose.rowtype.yoga/) - A plugin written in PureScript for the [`Prettier`](https://prettier.io/) formatter
 
+If you want to produce optimized JavaScript for your production environment (rather than a developer environment), install [`purs-backend-es`](https://github.com/aristanetworks/purescript-backend-optimizer):
+
+```sh
+npm i -g purs-backend-es
+```
+
 ### Versions Used in this Project
 
 The following commands should now work:
