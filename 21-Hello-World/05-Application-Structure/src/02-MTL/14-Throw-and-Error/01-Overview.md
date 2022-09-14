@@ -20,37 +20,36 @@ class (Monad m) => MonadThrow e (ExceptT e m) where
 
 Before using `ExceptT`, we would write this ugly verbose code:
 ```haskell
-getName :: Effect (Either Error String)
-getAge :: Effect (Either Error Int)
+getBestCompany :: Industry -> Effect (Either Error Company)
+getBoss :: Company -> Effect (Either Error Name)
 
 main :: Effect Unit
 main = do
-  eitherName <- getName
-  case eitherName of
+  eitherCompany <- getBestCompany ComputerIndustry
+  case eitherCompany of
     Left error -> log $ "Error: " <> show error
-    Right name -> do
-      eitherName <- getAge
-      case maybeAge of
+    Right bestCompany -> do
+      eitherName <- getBoss bestCompany
+      case eitherName of
         Left error -> log $ "Error: " <> show error
-        Right age -> do
-          log $ "Got name: " <> name <> " and age " <> show age
+        Right name -> do
+          log $ "The name of the best company is: " <> name
 ```
 
 After using `ExceptT`, we would write this clear readable code:
 ```haskell
-getName :: Effect (Either Error String)
-getAge :: Effect (Either Error Int)
+getBestCompany :: Industry -> Effect (Either Error Company)
+getBoss :: Company -> Effect (Either Error Name)
 
 main :: Effect Unit
 main = do
   eitherResult <- runExceptT do
-    name <- ExceptT getName
-    age <- ExceptT getAge
-    pure { name, age }
+    bestCompany <- getBestCompany ComputerIndustry
+    getBoss bestCompany
   case eitherResult of
     Left error -> log $ "Error: " <> show error
-    Right rec -> do
-      log $ "Got name: " <> rec.name <> " and age " <> show rec.age
+    Right name -> do
+      log $ "The name of the best company is: " <> name
 ```
 
 ## MonadError

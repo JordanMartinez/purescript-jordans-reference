@@ -75,6 +75,14 @@ In PureScript `0.15.0`, we stopped compiling PureScript source code to CommonJS 
 
 See the [0.15.0 Migration Guide](https://github.com/purescript/documentation/blob/master/migration-guides/0.15-Migration-Guide.md) for more details.
 
+### Phase 7: Producing Optimized JavaScript and Compiling to Other Languages
+
+While the Purescript compiler produces correct JavaScript code, there were a number of optimizations that haven't been implemented in the compiler. However, the compiler was designed to output not just JavaScript, but an intermediate representation called `CoreFn`. This enables others to transform `CoreFn` to another language.
+
+Soon after the time that PureScript `0.15.4` was released, a new project called `purs-backend-es` was released. This project works on the `CoreFn` representation and transforms it to JavaScript. However, it also optimizes the code significantly during this tranformation. For a few example, see [the `purs` and `purs-backend-es` comparison table in its README](https://github.com/aristanetworks/purescript-backend-optimizer#overview).
+
+While this tool's main purpose is to produce optimized JavaScript code, it enables others to produce new backends. A backend is a target language to which PureScript can be compiled. Before this tool, every backend had to reinvent a lot of code to make it work for that language. With the underlying library, `purescript-backend-optimizer`, one can more easily produce a new backend.
+
 ## Overview of Tools
 
 | Name | Type/Usage | Comments | URL |
@@ -84,6 +92,7 @@ See the [0.15.0 Migration Guide](https://github.com/purescript/documentation/blo
 | pulp | Build Tool | Front-end to `purs`. Builds & publishes projects | https://github.com/purescript-contrib/pulp |
 | bower | Dependency Manager (being deprecated) | -- | https://bower.io/ |
 | purs-tidy | PureScript Formatter | -- | https://github.com/natefaubion/purescript-tidy
+| purs-backend-es | Produces optimized JavaScript from PureScript | Only intended for production-level usage | https://github.com/aristanetworks/purescript-backend-optimizer
 | psa | Pretty, flexible error/warning frontend for `purs` | -- | https://github.com/natefaubion/purescript-psa
 | pscid | `pulp --watch build` on steroids | Seems to be a more recent version of `psc-pane` (see below) and uses `psa` | https://github.com/kRITZCREEK/pscid
 | psvm-js | PureScript Version Manager | -- | https://github.com/ThomasCrevoisier/psvm-js

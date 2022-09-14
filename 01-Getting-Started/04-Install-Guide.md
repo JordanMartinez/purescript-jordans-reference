@@ -47,7 +47,7 @@ Unlike the manual install, `nvm` properly handles the npm prefix for you. So, yo
 Once you have installed `npm`, we can use it to install everything in one command:
 
 ```sh
-npm i -g purescript@0.15.0 spago@0.20.9 esbuild@0.14.38
+npm i -g purescript@0.15.4 spago@0.20.9 esbuild@0.15.7
 ```
 
 If you want to install a PureScript formatter, refer to their instructions. The history behind these tools will be covered in the `Build Tools` folder:
@@ -55,14 +55,20 @@ If you want to install a PureScript formatter, refer to their instructions. The 
 - [purs-tidy](https://github.com/natefaubion/purescript-tidy) - A self-contained formatter written in PureScript
 - [pose](https://pose.rowtype.yoga/) - A plugin written in PureScript for the [`Prettier`](https://prettier.io/) formatter
 
+If you want to produce optimized JavaScript for your production environment (rather than a developer environment), install [`purs-backend-es`](https://github.com/aristanetworks/purescript-backend-optimizer):
+
+```sh
+npm i -g purs-backend-es
+```
+
 ### Versions Used in this Project
 
 The following commands should now work:
 
 ```sh
-purs --version        # 0.15.0
+purs --version        # 0.15.4
 spago --version       # 0.20.9
-esbuild --version     # 0.14.38
+esbuild --version     # 0.15.7
 ```
 
 ### Building This Project

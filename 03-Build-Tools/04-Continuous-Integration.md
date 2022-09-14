@@ -5,20 +5,29 @@
 ```yml
 name: CI
 
+# Run CI when a PR is opened against the branch `main`
+# and when one pushes a commit to `main`.
 on:
   push:
-    branches: [master]
+    branches: [main]
+  pull_request:
+    branches: [main]
 
+# Run CI on all 3 latest OSes
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
 
       - uses: purescript-contrib/setup-purescript@main
         with:
-          purescript: "0.15.0"
-          purs-tidy: "0.8.0"
+          purescript: "0.15.4"
+          purs-tidy: "0.8.2"
+          psa: "0.7.2"
 
       - uses: actions/setup-node@v
         with:
@@ -29,13 +38,22 @@ jobs:
           npm install -g bower
           npm install
           bower install --production
+
+      # Compile the library/project
+      #   censor-lib: ignore warnings emitted by dependencies
+      #   strict: convert warnings into errors
       - name: Build source
-        run: npm run-script build
+        run: |
+          pulp build -- --censor-lib --strict
 
       - name: Run tests
         run: |
           bower install
-          npm run-script test --if-present
+          pulp test
+
+      - name: Check Formatting
+        run: |
+          purs-tidy check src test
 ```
 
 ## GitHub Actions - `Spago`-based
@@ -43,22 +61,31 @@ jobs:
 ```yml
 name: CI
 
+# Run CI when a PR is opened against the branch `main`
+# and when one pushes a commit to `main`.
 on:
   push:
-    branches: [master]
+    branches: [main]
+  pull_request:
+    branches: [main]
 
+# Run CI on all 3 latest OSes
 jobs:
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v2
 
       - uses: purescript-contrib/setup-purescript@main
         with:
-          purescript: "0.15.0"
-          purs-tidy: "0.8.0"
+          purescript: "0.15.4"
+          purs-tidy: "0.8.2"
           spago: "0.20.9"
+          psa: "0.7.2"
 
       - name: Cache PureScript dependencies
         uses: actions/cache@v2
@@ -88,9 +115,19 @@ jobs:
       - name: Install NPM dependencies
         run: npm install
 
+      # Compile the library/project
+      #   censor-lib: ignore warnings emitted by dependencies
+      #   strict: convert warnings into errors
+      # Note: `purs-args` actually forwards these args to `psa`
       - name: Build the project
-        run: npm run build
+        run: |
+          spago build --purs-args "--censor-lib --strict"
 
       - name: Run tests
-        run: npm run test
+        run: |
+          spago test
+
+      - name: Check Formatting
+        run: |
+          purs-tidy check src test
 ```
