@@ -168,7 +168,7 @@ instance Bind (Either a) where
 someComputation :: Either ErrorType ReturnValue
 someComputation = do
   a <- computation
-  b <- compute1 1
+  b <- compute1 a
   c <- compute2 b
   compute3 c
 ```
