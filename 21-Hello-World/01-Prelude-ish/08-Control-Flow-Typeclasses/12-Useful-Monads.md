@@ -78,7 +78,7 @@ instance Bind Maybe where
 someComputation :: Maybe ReturnValue
 someComputation = do
   a <- computation
-  b <- compute1 1
+  b <- compute1 a
   c <- compute2 b
   compute3 c
   where
