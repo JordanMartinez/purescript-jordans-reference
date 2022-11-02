@@ -191,7 +191,7 @@ We use the `List` type below in our examples. However, the `Array` type works ex
 
 ## JavaScript Code
 
-In JavaScript, we would might write this code:
+In JavaScript, we might write this code:
 ```javascript
 let list1 = [1, 2, 3];
 let list2 = [2, 3, 4];
