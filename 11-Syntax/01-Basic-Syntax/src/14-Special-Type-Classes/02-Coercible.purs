@@ -125,6 +125,7 @@ type role Box representational
 -- Here's another example that shows what to do when we have
 -- multiple type parameters
 data BoxOfThreeValues a b c = BoxOfThreeValues a b c
+
 type role BoxOfThreeValues representational representational representational
 
 -- ### Phantom
@@ -170,6 +171,7 @@ instance hashableInt :: Hashable Int where
   hash key = key
 
 newtype SpecialInt = SpecialInt Int
+
 derive instance eqSpecialInt :: Eq SpecialInt
 instance hashableSpecialInt :: Hashable SpecialInt where
   hash (SpecialInt key) = key * 31
@@ -179,18 +181,23 @@ data Map key value = Map key value
 type role Map representational representational
 
 data Maybe a = Nothing | Just a
+
 derive instance eqMaybe :: (Eq a) => Eq (Maybe a)
 
-lookup :: forall key1 key2 value
-        . Coercible key2 key1 => Hashable key1
-       => Map key1 value -> key2 -> Maybe value
+lookup
+  :: forall key1 key2 value
+   . Coercible key2 key1
+  => Hashable key1
+  => Map key1 value
+  -> key2
+  -> Maybe value
 lookup (Map k value) key =
   let
     coercedKey :: key1
     coercedKey = coerce key
-  in if hash k == hash coercedKey
-       then Just value
-       else Nothing
+  in
+    if hash k == hash coercedKey then Just value
+    else Nothing
 
 normalMap :: Map Int Int
 normalMap = Map 4 28
@@ -203,9 +210,9 @@ testLookupNormal = (lookup normalMap 4) == (Just 4)
 testLookupSpecial :: Boolean
 testLookupSpecial = (lookup specialMap 4) == (Just 4)
   where
-    -- changes `Map 4 28` to `Map (SpecialInt 4) 28`
-    specialMap :: Map SpecialInt Int
-    specialMap = coerce normalMap
+  -- changes `Map 4 28` to `Map (SpecialInt 4) 28`
+  specialMap :: Map SpecialInt Int
+  specialMap = coerce normalMap
 
 -- To prevent this possibility from ever occurring, we indicate that
 -- a type parameter's role is 'nominal'. Rewriting our `Map` implementation
