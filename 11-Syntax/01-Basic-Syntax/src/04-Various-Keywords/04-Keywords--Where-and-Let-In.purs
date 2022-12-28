@@ -43,8 +43,8 @@ you can use multiple let bindings.
 
 (Note: the below verbose/tedious syntax is much cleaner
 when using the "do-let" style. That style is covered in the Prelude syntax. -}
-letInFunction2 :: String -> String -> String
-letInFunction2 expression1 expression2 =
+letInFunction2NonRecursive :: String -> String -> String
+letInFunction2NonRecursive expression1 expression2 =
   let {- start -} binding1 = expression1 {- end -} in
   let {- start -} binding2 = expression2 {- end -} in
   let {- start -} binding3 = binding1 {- end -} in
