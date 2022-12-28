@@ -65,6 +65,44 @@ letInFunction2 expression =
   in
     bodyOfFunctionThatUses binding
 
+-- For more context,
+-- see https://discourse.purescript.org/t/peculiar-indentation-rules-for-let-in-do-block/3192/2
+--
+-- The indentation of the expression for a `let` or `where` binding matters.
+-- It must be at least one character to the right of the start of the binding name.
+bindingExpressionIndentation1 :: String -> String
+bindingExpressionIndentation1 expression =
+  let binding =                                                             {-
+      | the expression must be to the right of this pipe character
+invalid
+ invalid
+   invalid
+    invalid
+     invalid
+      invalid 
+      |                                                                      -}
+       valid <>
+        valid <>
+         valid
+  in
+    bodyOfFunctionThatUses binding
+
+bindingExpressionIndentation2 :: String -> String
+bindingExpressionIndentation2 expression =
+  let
+    binding =                                                             {-
+    | the expression must be to the right of this pipe character
+invalid
+ invalid
+   invalid
+    invalid
+    |                                                                      -}
+     valid <>
+        valid <>
+         valid
+  in
+    bodyOfFunctionThatUses binding
+
 -- See the `do` notation syntax for how to use `let` properly there
 
 -- Necessary to make this file compile
@@ -81,3 +119,6 @@ validAndConventional = ""
 
 validButNotConventional :: String
 validButNotConventional = ""
+
+valid :: String
+valid = ""
