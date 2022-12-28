@@ -48,9 +48,25 @@ Thus, type classes abstract general concepts into an "interface" that can be imp
 ### Examples
 
 Here are some examples that demonstrate the combination of the 2-3 elements from above:
-- The `Eq` type class specifies a type signature for a function called `eq`/`==` and `notEq`/`/=`, and laws for the two (e.g. if `a == b` and `b == c`, then `a == c`), but there are not any derived functions.
-- The `Ord` type class is similar to `Eq`, but it does have derived functions.
-- The `Functor` type class (explained in more detail later) has all three.
+- The `Eq` type class.
+    - Required type signatures:
+      - `eq :: a -> a -> Boolean` (Note: `a == b` is the same as `eq a b`)
+    - Laws
+      - Reflexivity: `x == x`
+      - Symmetry: if `x == y`, then `y == x`
+      - Transitivity: if `x == y` and `y == z`, then `x == z`
+    - Derived Functions
+      - `notEq`, which inverts the result of `eq`: `notEq a b = not (a == b)`
+- The `Monoid` type class
+    - Required type signatures:
+      - `append :: a -> a -> a` (Note: `a <> b` is the same as `append a b`)
+      - `mempty :: a`
+    - Laws
+      - Left unit: `(mempty <> x) == x` (Note: `0 + 1 == 1` is an example of this idea)
+      - Right unit: `(x <> mempty) == x` (Note: `"hello" <> "" == "hello"` is an example of this idea)
+    - Derived Functions
+      - `power :: a -> Int -> a`: append a value to itself N times (e.g. `power "a" 4 == "aaaa"`)
+      - `guard :: Boolean -> a -> a`: return either the `a` or `mempty` (e.g. `guard false "a" == ""` and `guard true "a" == "a"`)
 
 ## Similarities and Dual Relationships Among Type Classes
 
