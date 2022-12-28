@@ -68,6 +68,7 @@ TypeScript seems to address this type safety issue. Just consider its name! Howe
 - [TypeScript vs PureScript: Not All Compilers Are Created Equal](https://blog.logrocket.com/typescript-vs-purescript-not-all-compilers-are-created-equal-c16dadaa7d3e)
 - [JavaScript, TypeScript, and PureScript](https://www.youtube.com/watch?v=JTEfpNtEoSA) or "Why TypeScript only 'pretends' to have types."
 - [Various examples comparing PureScript and TypeScript](https://discourse.purescript.org/t/type-system-showdown-purescript-and-typescript/2084)
+- [Experience Report: PureScript+Halogen > TypeScript+React](https://web.archive.org/web/20221026181022/https://twitter.com/christopherdone/status/1572329195858018307)
 
 #### PureScript vs Elm
 
