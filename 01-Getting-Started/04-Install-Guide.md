@@ -16,6 +16,7 @@ We'll show how to install the following programs:
 - [`purescript`](https://github.com/purescript/purescript) - the PureScript language & compiler
 - [`spago`](https://github.com/purescript/spago/) - a dependency manager and build tool for PureScript
 - [`esbuild`](https://esbuild.github.io/) - a build tool for bundling a PureScript application into a multiple JS backends (node, browser)
+- (optional, recommended) [`purescript-psa`](https://www.npmjs.com/package/purescript-psa) - pretty-prints compiler warnings/errors with stats; promotes compiler warnings to errors
 - (optional, recommended) [`purs-tidy`](https://www.npmjs.com/package/purs-tidy) - a formatter for PureScript
 - (optional, recommended) [`purs-backend-es`](https://github.com/aristanetworks/purescript-backend-optimizer) - a tool for producing optimized JavaScript code from the compiler's output.
 
@@ -45,7 +46,7 @@ Unlike the manual install, `nvm` properly handles the npm prefix for you. So, yo
 Once you have installed `npm`, we can use it to install everything in one command:
 
 ```sh
-npm i -g purescript@0.15.7 spago@0.20.9 esbuild@0.15.7 purs-tidy@0.9.2 purs-backend-es@1.3.1
+npm i -g purescript@0.15.7 spago@0.20.9 esbuild@0.15.7 purs-tidy@0.9.2 purs-backend-es@1.3.1 purescript-psa@0.8.2
 ```
 
 
