@@ -20,6 +20,8 @@ We'll show how to install the following programs:
 - (optional, recommended) [`purs-tidy`](https://www.npmjs.com/package/purs-tidy) - a formatter for PureScript
 - (optional, recommended) [`purs-backend-es`](https://github.com/aristanetworks/purescript-backend-optimizer) - a tool for producing optimized JavaScript code from the compiler's output.
 
+Thomas Honeyman, a core contributor to PureScript, usually posts an annual ["Recommended Tooling for PureScript in &lt;year&gt;"](https://discourse.purescript.org/t/recommended-tooling-for-purescript-in-2022/3206). At the time of writing, this one was for 2022.
+
 ### Installation
 
 #### Installing NPM
