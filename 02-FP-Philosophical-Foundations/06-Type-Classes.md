@@ -70,7 +70,7 @@ Here are some examples that demonstrate the combination of the 2-3 elements from
 
 ## Similarities and Dual Relationships Among Type Classes
 
-Some type classes have a corresponding "dual." While there are better ways to explain duals, the basic idea is that the "direction" of the function's arrow gets flipped. When this happens, we usually prefix them with "Co". For example, if we have a type class called `Monad`, the dual of it is called `Comonad`. If `Monad` has laws `A` and `B`, then it's likely that `Comonad` will have laws `A'` and `B'`, which are "flipped" version of `A` and `B`.
+Some type classes have a corresponding "dual". While there are better ways to explain duals, the basic idea is that the "direction" of the function's arrow gets flipped. When this happens, we usually prefix them with "Co". For example, if we have a type class called `Monad`, the dual of it is called `Comonad`. If `Monad` has laws `A` and `B`, then it's likely that `Comonad` will have laws `A'` (pronounced "A-prime") and `B'` (pronounced "B-prime"), which are "flipped" version of `A` and `B`.
 
 For example, a function like `toB` would have its arrow flipped to produce `toA`::
 
