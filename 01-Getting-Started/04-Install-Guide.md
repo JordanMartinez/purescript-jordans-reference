@@ -13,10 +13,11 @@ Throughout your learning process, it will be helpful to ask others for help. The
 ### Overview
 
 We'll show how to install the following programs:
-- `purescript` - the PureScript language & compiler
-- `spago` - a dependency manager and build tool for PureScript
-- (optional) a formatter for PureScript
-- `parcel` - a build tool for bundling a PureScript application into a multiple JS backends (node, browser, electron)
+- [`purescript`](https://github.com/purescript/purescript) - the PureScript language & compiler
+- [`spago`](https://github.com/purescript/spago/) - a dependency manager and build tool for PureScript
+- [`esbuild`](https://esbuild.github.io/) - a build tool for bundling a PureScript application into a multiple JS backends (node, browser)
+- (optional, recommended) [`purs-tidy`](https://www.npmjs.com/package/purs-tidy) - a formatter for PureScript
+- (optional, recommended) [`purs-backend-es`](https://github.com/aristanetworks/purescript-backend-optimizer) - a tool for producing optimized JavaScript code from the compiler's output.
 
 ### Installation
 
@@ -26,13 +27,10 @@ We can install everything using `npm`. However, getting `npm` is it's own proble
 
 ##### Manual Install
 
-Justin Woo explains how to set up one's environment for the `0.12.x` release but has not been updated for two things. First, the PureScript release at the time was `0.12.0` but now `0.13.8` is out. Second, the instructions use `pulp` and `psc-package`, a different build tool workflow than the one we'll use here.
-
-If you just want to get things set up ASAP, follow the below summary of his article's instructions (using `spago` instead of the other tools). If you want to understand why you should do these commands, read [his article here](https://qiita.com/kimagure/items/570e6f2bbce5b4724564):
-1. Install Node 14 or greater: https://nodejs.org/en/download/
+1. Install Node 16 or greater: https://nodejs.org/en/download/
 2. Set your npm prefix: `npm set prefix ~/.npm`
     - Note: this prevents having to use `sudo` when using NPM to install things since it's default prefix is in a place that requires admin privileges
-3. Set your PATH: `export PATH="$HOME/.npm/bin:$PATH"`
+3. Set your PATH: `export PATH="$PATH:$HOME/.npm/bin"`
 
 ##### NVM Install
 
@@ -47,19 +45,9 @@ Unlike the manual install, `nvm` properly handles the npm prefix for you. So, yo
 Once you have installed `npm`, we can use it to install everything in one command:
 
 ```sh
-npm i -g purescript@0.15.7 spago@0.20.9 esbuild@0.15.7
+npm i -g purescript@0.15.7 spago@0.20.9 esbuild@0.15.7 purs-tidy@0.9.2 purs-backend-es@1.3.1
 ```
 
-If you want to install a PureScript formatter, refer to their instructions. The history behind these tools will be covered in the `Build Tools` folder:
-
-- [purs-tidy](https://github.com/natefaubion/purescript-tidy) - A self-contained formatter written in PureScript
-- [pose](https://pose.rowtype.yoga/) - A plugin written in PureScript for the [`Prettier`](https://prettier.io/) formatter
-
-If you want to produce optimized JavaScript for your production environment (rather than a developer environment), install [`purs-backend-es`](https://github.com/aristanetworks/purescript-backend-optimizer):
-
-```sh
-npm i -g purs-backend-es
-```
 
 ### Versions Used in this Project
 
