@@ -79,49 +79,13 @@ Whenever I make a new release with breaking changes, this script will remove any
 
 ### Setting up your editor
 
-The following are instructions for setting up the Atom editor. For Emacs, Vim, or Visual Studio, [consult Justin Woo's post on the matter](https://qiita.com/kimagure/items/570e6f2bbce5b4724564#install-some-editor-plugins) and [the respective page in the documentation repo](https://github.com/purescript/documentation/blob/master/ecosystem/Editor-and-tool-support.md#emacs)
+The following are instructions for setting up the VS Code editor. For other editors, see [the respective page in the documentation repo](https://github.com/purescript/documentation/blob/master/ecosystem/Editor-and-tool-support.md#emacs)
 
-Atom setup instructions:
-1. Install Atom: `sudo apt-get install atom`
-2. Launch Atom and install the following packages:
+1. Install VS Code
+2. Launch VS Code and install the following packages:
     - ide-purescript
-    - atom-ide-ui
     - language-purescript
 3. Configure `ide-purescript`
-
-The Atom package, `ide-purescript`, is configured to `Bower`, but we'll be using `spago` as our dependency manager for this project. Follow these instructions
-1. Open Atom's settings dialog (`CTRL+,`)
-2. Click on the `Packages` tab
-3. Search for `ide-purescript`
-4. Click on the `Settings` button in the entry that appears
-5. Check the `Add spago sources` checkbox
-6. Change the `build command` to: `spago build -u --json-errors`
-
-### Getting IDE support (autocomplete, documentation-on-hover, etc.) in Atom
-
-While this repository's contents are useful for learning various lessons, IDE support (autocomplete, documentation, etc.) will only work if you open this repository's contents in a specific way when using Atom. Follow the instructions below:
-1. Click "File" and click "Open Folder..." (shortcut: `CTRL+O`)
-2. In the folder chooser, choose one of this repo's project folders (i.e. a folder with a `spago.dhall` file and `src` folder)
-3. Click on "Packages" and click on "PureScript" and then on "Build". The IDE server will start running and rebuild just that project.*
-    - Autocomplete, importing, and documentation will now work.
-
-* This is a command you will use frequently, so consider adding a keyboard shortcut for it.
-1. Open the Atom settings dialog (`CTRL+,`)
-2. Click on the "KeyBindings" tab
-3. Click on the "your keymap file" hyperlink that appears before the bindings
-4. Follow the instructions for adding your personal shortcut for the `ide-purescript:build` command.
-
-For mine, I did:
-```cson
-'.platform-linux atom-workspace atom-text-editor:not([mini])':
-  'ctrl-shift-b': 'ide-purescript:build'
-```
-
-#### Dealing with IDE Server issues in Atom
-
-Sometimes when editing a file, the IDE server will go out-of-sync. For example, you might change the definition of a type and the IDE doesn't realize that occured, so it will tell you that you have used a type incorrectly. In such cases, rebuild the project using Step 3 (or your keyboard shortcut) above and things should correct themselves from there.
-
-In situations where I have used the same names for things, the autocomplete might actually import a function or type with the same name as the one you want but from a different module. So, if you have weird compiler errors, check the imports to insure the IDE server didn't accidentally import something incorrect or from the wrong location.
 
 ## Setting up Module Linker
 
