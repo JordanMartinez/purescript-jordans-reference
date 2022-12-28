@@ -101,6 +101,10 @@ g x y | x + y == 0 = "x == -y"
 h :: Int -> Int -> String
 h x y | x == 4 && y == 5 = "body"
 
+   -- ... same as...
+   -- | x == 4 && y == 6 = "body"`
+      | x == 4, y == 6   = "body"
+   
    -- | condition1, condition2 = body
       | x == 4, y == 6   = "body"
 
