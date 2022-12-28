@@ -1,4 +1,4 @@
-module Syntax.Basic.Deriving.Typeclass where
+module Syntax.Basic.Deriving.SupportedTypeClasses where
 
 import Prelude
 
@@ -82,11 +82,13 @@ First, because Int and String
   both have an Eq and Ord instance. If one of these did not,
   then the compiler would not know how to create them.
 
-Second, because we can only derive typeclasses for a few
-  type classes:
-  - Data.Eq (from `purescript-prelude`)
-  - Data.Ord (from `purescript-prelude`)
-  - Data.Functor (from `purescript-prelude`)
+Second, because we can only derive instances for the type classes
+that have special support in the compiler.
+For a complete list of these type classes, see
+https://github.com/purescript/documentation/blob/master/guides/Type-Class-Deriving.md#classes-with-built-in-compiler-support
+
+Some type classes come from different libraries and may entail additional
+requirements for their usage.
 
 (These type classes can also be derived but they use a different syntax):
   - Data.Newtype (from `purescript-newtype`)
