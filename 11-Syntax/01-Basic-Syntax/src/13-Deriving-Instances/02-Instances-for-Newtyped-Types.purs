@@ -9,7 +9,9 @@ import Data.Newtype (class Newtype, over)
 
 -- Original credit: @paf31
 -- Link: https://github.com/paf31/24-days-of-purescript-2016/blob/master/4.markdown
--- Changes made: use meta-language to explain newtype typeclass derivation syntax
+-- Changes made: 
+-- - use meta-language to explain newtype typeclass derivation syntax
+-- - added example of `Box a`
 --
 -- Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
 --   https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US
@@ -22,6 +24,7 @@ newtype EmailAddress1 = EmailAddress1 String
 
 instance Eq EmailAddress1 where
   eq (EmailAddress1 s1) (EmailAddress1 s2) = s1 == s2
+
 -- same for Ord type class
 
 -- same for other newtypes
@@ -40,6 +43,18 @@ newtype EmailAddress2 = EmailAddress2 String
 derive newtype instance Eq EmailAddress2
 derive newtype instance Eq Phone
 derive newtype instance Eq FirstName
+
+-- If we have a type that takes a type paramter (i.e. the `a`)
+data Box a = Box a
+
+derive instance (Eq a) => Eq (Box a)
+
+-- and we newtype that value
+newtype SpecialBox a = SpecialBox (Box a)
+
+-- then we need to add the `Eq a` constraint
+-- before it will compile.
+derive newtype instance (Eq a) => Eq (SpecialBox a)
 
 -- <--- End
 
