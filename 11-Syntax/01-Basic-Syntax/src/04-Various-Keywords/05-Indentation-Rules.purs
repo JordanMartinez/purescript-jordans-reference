@@ -7,15 +7,26 @@ import Prelude
 function_normal :: String -> String
 function_normal a = bodyOfFunction
 
+-- This shows valid and invalid indentations.
+-- PureScript usually indents things by 2 spaces.
 function_body_indented :: String -> String
-function_body_indented a = {- this shows valid and invalid indentation:
+function_body_indented a = {- 
 wrongIndentation -}
+ validButNotConventional <>
   validAndConventional <>
-    validButNotConventional {-
+   validButNotConventional <>
+    validAndConventional {-
       and so forth... -}
+
+-- Same example as above but with only using conventional indentation:
+function_body_indented_conventional :: String -> String
+function_body_indented_conventional a =
+  validAndConventional <>
+    validAndConventional
 
 whereFunction1 :: String -> String
 whereFunction1 a = validFunctionPosition1 <> validFunctionPosition2 <> validValuePosition
+  -- Conventional
   where
   validFunctionPosition1 :: TypeSignature
   validFunctionPosition1 = "a"
@@ -28,6 +39,7 @@ whereFunction1 a = validFunctionPosition1 <> validFunctionPosition2 <> validValu
 
 whereFunction2 :: String -> String
 whereFunction2 a = validFunctionPosition1 <> validFunctionPosition2 <> validValuePosition
+  -- Haskell's convention
   where
     validFunctionPosition1 :: TypeSignature
     validFunctionPosition1 = "a"
