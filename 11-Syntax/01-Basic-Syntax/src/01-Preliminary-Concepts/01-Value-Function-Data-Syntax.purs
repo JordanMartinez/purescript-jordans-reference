@@ -28,14 +28,14 @@ one_arg_function argument = bodyThatReturnsType
 -- Type Signatures while the implementations are used in an entity's
 -- definition
 data Type_Used_In_Functions_Type_Signatures
-  = Type_Implementation1
-  | Type_Implementation2
+  = Constructor1_of_Type
+  | Constructor2_of_Type
 
 example1 :: Type_Used_In_Functions_Type_Signatures
-example1 = Type_Implementation1
+example1 = Constructor1_of_Type
 
 example2 :: Type_Used_In_Functions_Type_Signatures
-example2 = Type_Implementation2
+example2 = Constructor2_of_Type
 
 -- A "box" that can store only Ints
 data Box_That_Stores_Ints = Box Int
