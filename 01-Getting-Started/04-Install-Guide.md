@@ -47,7 +47,7 @@ Unlike the manual install, `nvm` properly handles the npm prefix for you. So, yo
 Once you have installed `npm`, we can use it to install everything in one command:
 
 ```sh
-npm i -g purescript@0.15.4 spago@0.20.9 esbuild@0.15.7
+npm i -g purescript@0.15.7 spago@0.20.9 esbuild@0.15.7
 ```
 
 If you want to install a PureScript formatter, refer to their instructions. The history behind these tools will be covered in the `Build Tools` folder:
@@ -66,7 +66,7 @@ npm i -g purs-backend-es
 The following commands should now work:
 
 ```sh
-purs --version        # 0.15.4
+purs --version        # 0.15.7
 spago --version       # 0.20.9
 esbuild --version     # 0.15.7
 ```
