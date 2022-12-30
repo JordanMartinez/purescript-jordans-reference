@@ -1,5 +1,7 @@
 # Foldable
 
+Note: as of `0.15.6`, a type class instance for `Foldable` can be derived by the compiler.
+
 ## Usage
 
 Plain English names:
