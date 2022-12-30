@@ -52,6 +52,12 @@ npm i -g purescript@0.15.7 spago@0.20.9 esbuild@0.15.7 purs-tidy@0.9.2 purs-back
 ```
 
 
+If you want to produce optimized JavaScript for your production environment (rather than a developer environment), install [`purs-backend-es`](https://github.com/aristanetworks/purescript-backend-optimizer):
+
+```sh
+npm i -g purs-backend-es
+```
+
 ### Versions Used in this Project
 
 The following commands should now work:

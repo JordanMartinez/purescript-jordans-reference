@@ -86,6 +86,7 @@ jobs:
           purs-tidy: "0.9.2"
           psa: "0.8.2"
           spago: "0.20.9"
+          psa: "0.7.2"
 
       - name: Cache PureScript dependencies
         uses: actions/cache@v2

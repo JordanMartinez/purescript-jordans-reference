@@ -78,7 +78,7 @@ instance Bind Maybe where
 someComputation :: Maybe ReturnValue
 someComputation = do
   a <- computation
-  b <- compute1 1
+  b <- compute1 a
   c <- compute2 b
   compute3 c
   where
@@ -168,7 +168,7 @@ instance Bind (Either a) where
 someComputation :: Either ErrorType ReturnValue
 someComputation = do
   a <- computation
-  b <- compute1 1
+  b <- compute1 a
   c <- compute2 b
   compute3 c
 ```
@@ -191,7 +191,7 @@ We use the `List` type below in our examples. However, the `Array` type works ex
 
 ## JavaScript Code
 
-In JavaScript, we would might write this code:
+In JavaScript, we might write this code:
 ```javascript
 let list1 = [1, 2, 3];
 let list2 = [2, 3, 4];
