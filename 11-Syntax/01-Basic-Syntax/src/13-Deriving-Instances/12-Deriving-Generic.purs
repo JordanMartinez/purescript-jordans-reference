@@ -39,58 +39,71 @@ instance Generic_ NoArgs (Constructor "NoArgs" NoArguments) where
   to_ = to
   from_ = from
 
-data Product3 a b c = Product3 a b c
+data Product5 a b c d e = Product5 a b c d e
 
-derive instance Generic (Product3 a b c) _
-instance Generic_ (Product3 a b c)
-  ( Constructor "Product3"
-      ( Product
-          (Argument a)
-          ( Product
-              (Argument b)
-              (Argument c)
-          )
-      )
-  )
+-- Notice how the nested Products produce a linked-list like structure
+-- rather than a tree-like structure.
+derive instance Generic (Product5 a b c d e) _
+instance
+  Generic_ (Product5 a b c d e)
+    ( Constructor "Product5"
+        ( Product
+            (Argument a)
+            ( Product
+                (Argument b)
+                ( Product
+                    (Argument c)
+                    ( Product
+                        (Argument d)
+                        (Argument e)
+                    )
+                )
+            )
+        )
+    )
   where
-    to_ = to
-    from_ = from
+  to_ = to
+  from_ = from
 
-data Sum3 a b c
+data Sum5 a b c d e
   = SumA a
   | SumB b
   | SumC c
+  | SumD d
+  | SumE e
 
-derive instance Generic (Sum3 a b c) _
--- getRep :: forall a b c. ?Help
--- getRep = repOf (Proxy :: Proxy (Sum3 a b c))
-instance Generic_ (Sum3 a b c)
-  ( Sum
-      ( Constructor "SumA"
-          (Argument a)
-      )
-      ( Sum
-          ( Constructor "SumB"
-              (Argument b)
-          )
-          ( Constructor "SumC"
-              (Argument c)
-          )
-      )
-  )
+-- Notice how the nested Sums produce a linked-list like structure
+-- rather than a tree-like structure.
+derive instance Generic (Sum5 a b c d e) _
+instance
+  Generic_ (Sum5 a b c d e)
+    ( Sum
+        (Constructor "SumA" (Argument a))
+        ( Sum
+            (Constructor "SumB" (Argument b))
+            ( Sum
+                (Constructor "SumC" (Argument c))
+                ( Sum
+                    (Constructor "SumD" (Argument d))
+                    (Constructor "SumE" (Argument e))
+                )
+            )
+        )
+    )
   where
-    to_ = to
-    from_ = from
+  to_ = to
+  from_ = from
 
-newtype StartingPoint = StartingPoint (Sum3 NoArgs (Product3 Int Int Int) NoArgs)
+newtype StartingPoint = StartingPoint (Sum5 NoArgs (Product5 Int Int Int Int Int) NoArgs NoArgs NoArgs)
 
 derive instance Generic StartingPoint _
-instance Generic_ StartingPoint
-  ( Constructor "StartingPoint"
-      ( Argument
-          (Sum3 NoArgs (Product3 Int Int Int) NoArgs)
-      )
-  ) 
+instance
+  Generic_ StartingPoint
+    ( Constructor "StartingPoint"
+        ( Argument
+            (Sum5 NoArgs (Product5 Int Int Int Int Int) NoArgs NoArgs NoArgs)
+        )
+    )
   where
-    to_ = to
-    from_ = from
+  to_ = to
+  from_ = from
