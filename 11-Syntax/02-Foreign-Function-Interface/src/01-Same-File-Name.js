@@ -1,11 +1,11 @@
 export const basicValue = 4.0;
 
-export function basicCurriedFunction(number) {
-  return number * 4.0;
-}
-
 export function basicEffect() {
   return 4.0;
+}
+
+export function basicCurriedFunction(number) {
+  return number * 4.0;
 }
 
 export function threeArgCurriedFunction(arg1) {
@@ -23,12 +23,12 @@ export function curriedFunctionProducingEffect(string) {
   };
 }
 
-export function basicUncurriedFunction(fn) {
-  return function(arg1) {
-    return function(arg2) {
-      return fn(arg1)(arg2)();
-    };
-  };
+export function threeArgUncurriedFunction(a, b, c) {
+  return a + b + c;
+}
+
+export function twoArgUncurriedEffectfulFunction(a, b) {
+  return a + b + ((Math.random() * 10) | 0);
 }
 
 var twoArgFunction = function(arg1, arg2) {
