@@ -29,6 +29,23 @@ type ConvertAToString a = (a -> String)
 example :: forall a. a -> ConvertAToString a -> String
 example a convertAToString = convertAToString a
 
+-- There's a difference between these two types
+type ConvertBToString1 b = (b -> String)
+type ConvertBToString2 = forall b. b -> String
+
+bToString1 :: forall b.  b  -> ConvertBToString1 b       -> String
+bToString1 value toString = toString value
+
+bToString2 :: forall b.  b  -> ConvertBToString2         -> String                      {-
+bToString2 :: forall b1. b1 -> (forall b2. b2 -> String) -> String                      -}
+bToString2 b1 b2ToString = 
+  """
+  Whenever a type alias is used, the alias is replaced with its
+  right-hand side. Thus, using `b2ToString b1` here to try
+  to produce a `String` value would result in a compiler error
+  because the type for `b1` is different than `b2`.
+  """
+
 -- Type aliases also have kind signatures. The above examples have
 -- implicit kind signatures. The below example has an explicit one:
 data Pair a b = Pair a b

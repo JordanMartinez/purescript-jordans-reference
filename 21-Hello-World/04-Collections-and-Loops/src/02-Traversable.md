@@ -1,5 +1,7 @@
 # Traversable
 
+Note: as of `0.15.6`, a type class instance for `Traversable` can be derived by the compiler.
+
 ## Usage
 
 [The answer is always traverse](https://twitter.com/blouerat/status/867278331779198976)

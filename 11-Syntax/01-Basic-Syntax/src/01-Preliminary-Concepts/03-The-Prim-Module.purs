@@ -59,6 +59,7 @@ exampleTrue = true
 
 exampleFalse :: Boolean
 exampleFalse = false
+
 {-
 Note: The Boolean data type is used via true/false literal values instead of
 True/False constructors as one might expect, especially those coming from Haskell

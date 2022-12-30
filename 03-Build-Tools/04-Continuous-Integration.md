@@ -25,13 +25,13 @@ jobs:
 
       - uses: purescript-contrib/setup-purescript@main
         with:
-          purescript: "0.15.4"
-          purs-tidy: "0.8.2"
-          psa: "0.7.2"
+          purescript: "0.15.7"
+          purs-tidy: "0.9.2"
+          psa: "0.8.2"
 
       - uses: actions/setup-node@v
         with:
-          node-version: "14"
+          node-version: "16"
 
       - name: Install dependencies
         run: |
@@ -82,8 +82,9 @@ jobs:
 
       - uses: purescript-contrib/setup-purescript@main
         with:
-          purescript: "0.15.4"
-          purs-tidy: "0.8.2"
+          purescript: "0.15.7"
+          purs-tidy: "0.9.2"
+          psa: "0.8.2"
           spago: "0.20.9"
           psa: "0.7.2"
 
@@ -98,7 +99,7 @@ jobs:
       - name: Set up Node toolchain
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
 
       - name: Cache NPM dependencies
         uses: actions/cache@v2

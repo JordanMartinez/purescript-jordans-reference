@@ -68,12 +68,14 @@ TypeScript seems to address this type safety issue. Just consider its name! Howe
 - [TypeScript vs PureScript: Not All Compilers Are Created Equal](https://blog.logrocket.com/typescript-vs-purescript-not-all-compilers-are-created-equal-c16dadaa7d3e)
 - [JavaScript, TypeScript, and PureScript](https://www.youtube.com/watch?v=JTEfpNtEoSA) or "Why TypeScript only 'pretends' to have types."
 - [Various examples comparing PureScript and TypeScript](https://discourse.purescript.org/t/type-system-showdown-purescript-and-typescript/2084)
+- [Experience Report: PureScript+Halogen > TypeScript+React](https://web.archive.org/web/20221026181022/https://twitter.com/christopherdone/status/1572329195858018307)
+- [A Guide on Migrating from TypeScript to PureScript](https://github.com/xc-jp/blog-posts/blob/master/_posts/2021-10-07-PureScript-React.md)
 
-#### PureScript vs Elm
+#### PureScript vs Elm / Gren
 
-Since Elm is founded on the similar philosophical foundations as PureScript, one can use Elm and gain many of the same benefits as PureScript due to its type safety. However, there is a ceiling on the abstractions one can express in Elm. PureScript's ceiling is much higher than Elm's because it has type classes.
+[Elm](https://elm-lang.org/) is a language founded on the similar philosophical foundations as PureScript. [Gren](https://gren-lang.org/) is a fork of Elm by the community. Whichever one is used, one can gain many of the same benefits as PureScript due to its type safety. However, there is a ceiling on the abstractions one can express. PureScript's ceiling is much higher than Elm's because it has type classes.
 
-Elm
+Elm/Gren
 - ... sacrifices the following features ...
     - type classes, which
         - reduce boilerplate code since the compiler can write code for you
@@ -81,7 +83,7 @@ Elm
 - ... to gain the following ...
     - clear actionable error messages because there are less ambiguous cases to deal with in the type system
 
-Elm and PureScript can both be used to build a complex website. However, one will need to write more lines of code in Elm than they would in PureScript.
+Elm, Gren, and PureScript can both be used to build a complex website. However, one will need to write more lines of code in Elm or Gren than they would in PureScript.
 
 #### PureScript vs OCaml / Reason
 

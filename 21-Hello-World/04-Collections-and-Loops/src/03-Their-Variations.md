@@ -21,3 +21,5 @@ The same as their base type classes, but the `f` type must always have at least 
 The same as their base type classes, but as though it was `f (Tuple a b)` rather than `f a`:
 - [`Bifoldable`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Bifoldable)
 - [`Bitraversable`](https://pursuit.purescript.org/packages/purescript-foldable-traversable/docs/Data.Bitraversable)
+
+Note: as of `0.15.7`, a type class instance for `BiFoldable` and `BiTraversable` can be derived by the compiler.

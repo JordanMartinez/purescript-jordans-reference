@@ -39,11 +39,11 @@ In general, there are five things you can do in the REPL:
 
 Sometimes, the REPL will output errors. These errors may not be immediately understandable for new learners, so the table below will help you understand them and know what to do.
 
-| The Error | Its Meaning | What to do |
-| - | - | - |
-| "No type class instance was found for `Data.Show.Show [Type]`" | An expression cannot be turned into a `String`. For example, a function's implementation (`(\x -> x + 1)`) cannot be turned into a `String` whereas a value (`5`) or expression (`10 + 10`) can be (`5` and `20`, respectively). | If it's possible for you to define one, define an instance of the `Show` type class. If not, then ignore it and move on.
-| "Multiple value declarations exist for [binding]." | You defined the binding twice, which you cannot do | See [the Reload command section](#reload) for what your options are |
-| "Unknown operator (+)" | The `+` function was not imported because the `Prelude` module was imported | Import the Prelude module by typing `import Prelude` followed by pressing Enter. |
+| The Error                                                      | Its Meaning                                                                                                                                                                                                                      | What to do                                                                                                               |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| "No type class instance was found for `Data.Show.Show [Type]`" | An expression cannot be turned into a `String`. For example, a function's implementation (`(\x -> x + 1)`) cannot be turned into a `String` whereas a value (`5`) or expression (`10 + 10`) can be (`5` and `20`, respectively). | If it's possible for you to define one, define an instance of the `Show` type class. If not, then ignore it and move on. |
+| "Multiple value declarations exist for [binding]."             | You defined the binding twice, which you cannot do                                                                                                                                                                               | See [the Reload command section](#reload) for what your options are                                                      |
+| "Unknown operator (+)"                                         | The `+` function was not imported because the `Prelude` module was imported                                                                                                                                                      | Import the Prelude module by typing `import Prelude` followed by pressing Enter.                                         |
 
 ## A Quick Overview of Some of the REPL Commands
 
@@ -214,3 +214,8 @@ Type :? for help
 
 Unexpected or mismatched indentation at line 3, column 1
 ```
+
+## Other Gotchas
+
+- `do notation` (covered later) is not supported in the REPL
+- The REPL works by converting the PureScript code into a new program and running it on Node each time. Thus, using a monad like `Effect` and `let x = unsafePerformEffect (randomInt 1 10)` will not store a random number in the variable `x` that stays the same after that point. Rather, `x` will have a new number each time one inputs a new expression and runs it by pressing ENTER.

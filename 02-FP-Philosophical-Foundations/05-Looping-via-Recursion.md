@@ -139,7 +139,7 @@ Just 1
 
 ## Other Loops
 
-The following Purescript examples are very _crude_ ways of mimicking the following loops. More appropriate examples would require explaining and using type classes like `Foldable` and `Monad` (intermediate FP concepts). Thus, take these examples with a grain of salt.
+The following Purescript examples are very _crude_ ways of mimicking the following loops. More appropriate examples would require explaining and using type classes like `Foldable`, `Unfoldable`, and `Monad` (intermediate FP concepts). Thus, take these examples with a grain of salt.
 
 ### While
 

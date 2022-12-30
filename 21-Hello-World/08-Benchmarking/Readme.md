@@ -4,11 +4,12 @@ Purescript has a few benchmarking libraries:
 
 | Name | Status | Comments |
 | - | - | - |
-| [purescript-benchotron](https://pursuit.purescript.org/packages/purescript-benchotron/) | Up-to-date | Uses QuickCheck<br>Output results only in Node<br>Results are viewable only via graphs |
+| [purescript-benchotron (my fork)](https://github.com/JordanMartinez/purescript-benchotron) | Up-to-date | Uses QuickCheck<br>Output results only in Node<br>Results are viewable only via graphs |
+| [purescript-benchotron (original)](https://pursuit.purescript.org/packages/purescript-benchotron/) | Up-to-date | Uses QuickCheck<br>Output results only in Node<br>Results are viewable only via graphs |
 | [purescript-minibench](https://pursuit.purescript.org/packages/purescript-minibench/2.0.0/docs/Performance.Minibench) | Up-to-date | Provides quick estimates but not very accurate benchmarks
 | [purescript-benchmark](https://pursuit.purescript.org/packages/purescript-benchmark/0.1.0) | Outdated (PS `0.11.7`) | Doesn't require QuickCheck<br>Outputs results in Node and Browser<br>Output is full ASCII table with percentage values
 
-In this folder, we'll be covering `benchotron` because it works for `0.12.x` and has finer accuracy than `minibench` and includes graphs.
+In this folder, we'll be covering `benchotron` because it works for `0.15.x` and has finer accuracy than `minibench` and includes graphs.
 
 This benchotron graph...
 
@@ -46,5 +47,5 @@ You can now use `benchotron` via spago.
 spago run -m Benchmarking.Syntax.Benchotron
 ```
 2. It will output a file in the freshly-created `tmp` directory
-3. Upload the outputted file to [this link](http://harry.garrood.me/purescript-benchotron-svg-renderer/)
+3. Upload the outputted file to the [Benchotron SVG Renderer](https://jordanmartinez.github.io/purescript-benchotron-svg-renderer/)
 4. Download the graph as an SVG or PNG

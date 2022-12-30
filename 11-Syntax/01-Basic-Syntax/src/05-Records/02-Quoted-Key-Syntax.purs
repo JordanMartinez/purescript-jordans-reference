@@ -12,8 +12,11 @@ creation = { "key" : "value" }
 getValue :: String
 getValue = creation."key"
 
-emojiKey :: String
-emojiKey = { "😆" : "value" }."😆"
+emojiKeyValue :: { "😆" :: String }
+emojiKeyValue = { "😆" : "value" }
+
+emojiKeyAccessed :: String
+emojiKeyAccessed = { "😆" : "value" }."😆"
 
 asianLanguageKey :: String
 asianLanguageKey = { "日本語" : "Japanese" }."日本語"

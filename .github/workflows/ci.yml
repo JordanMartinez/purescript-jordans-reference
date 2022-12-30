@@ -15,7 +15,7 @@ jobs:
       - name: Set up PureScript toolchain
         uses: purescript-contrib/setup-purescript@main
         with:
-          purescript: "0.15.4"
+          purescript: "0.15.7"
 
       - name: Cache PureScript dependencies
         uses: actions/cache@v2
@@ -40,7 +40,7 @@ jobs:
       - name: Set up Node toolchain
         uses: actions/setup-node@v2
         with:
-          node-version: "14"
+          node-version: "16"
 
       - name: Install dependencies
         run: |
