@@ -67,9 +67,9 @@ In some cases, one will need to write more complex code to get the desired perfo
 ```javascript
 // findFirst
 var findFirst = (array, condition) => {
-  var length = list.length();
+  var length = array.length();
   for (var i = 0; i < length; i++) {
-      var value = list[i]
+      var value = array[i]
       if (condition(value)) {
         return value;
       }
