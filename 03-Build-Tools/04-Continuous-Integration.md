@@ -118,11 +118,11 @@ jobs:
       # Note: `purs-args` actually forwards these args to `psa`
       - name: Build the project
         run: |
-          spago build --purs-args "--censor-lib --strict"
+          npx spago build --purs-args "--censor-lib --strict"
 
       - name: Run tests
         run: |
-          spago test
+          npx spago test
 
       - name: Check Formatting
         if: runner.os == 'Linux'
