@@ -22,6 +22,10 @@ If you're coming to PureScript with a Haskell background, be sure to consult the
 - [Introduction to Purescript for Haskell Developers](http://code.adriansieber.com/adrian/adriansieber-com/src/branch/master/posts/_2018-11-01_introduction_to_purescript_for_haskell_developers/main_light.pdf) (pdf)
 - [The Purescript Documentation Repo's "Differences from Haskell" page](https://github.com/purescript/documentation/blob/master/language/Differences-from-Haskell.md)
 
+## Differences From Elm
+
+If you're coming to PureScript with an Elm background, [PureScript for Elm developers](https://github.com/laurentpayot/purescript-for-elm-developers#readme) is a gentle introduction to the PureScript concepts.
+
 ## Use GitHub Search to Find Things Search Engines (i.e. Google) Don't
 
 At various times, you may try to use something like Google to find documentation / examples and little will appear in the search results.
