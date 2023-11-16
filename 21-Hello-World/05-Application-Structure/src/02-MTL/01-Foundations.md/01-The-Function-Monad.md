@@ -363,7 +363,7 @@ class Functor ((->) inputType) where
          (originalOutputType -> newOutputType) ->
          (inputType -> originalOutputType) -> (inputType -> newOutputType)
   map originalToNew f = (\input ->
-    let originalOutput = f argument
+    let originalOutput = f input
     in originalToNew originalOutput)
 
 class (Functor ((->) inputType)) <= Apply ((->) inputType) where
