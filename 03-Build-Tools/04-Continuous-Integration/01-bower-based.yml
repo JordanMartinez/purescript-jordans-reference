@@ -1,0 +1,61 @@
+name: CI
+
+# Run CI when a PR is opened against the branch `main`
+# and when one pushes a commit to `main`.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Run CI on all 3 latest OSes
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node toolchain
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+
+      - name: Cache NPM dependencies
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Setup PureScript tooling
+        run:
+          npm i -g purescript@latest purs-tidy@latest purescript-psa@latest bower
+
+      - name: Install dependencies
+        run: |
+          npm install
+          bower install --production
+
+      # Compile the library/project
+      #   censor-lib: ignore warnings emitted by dependencies
+      #   strict: convert warnings into errors
+      - name: Build source
+        run: |
+          pulp build -- --censor-lib --strict
+
+      - name: Run tests
+        run: |
+          bower install
+          pulp test
+
+      - name: Check Formatting
+        run: |
+          purs-tidy check src test

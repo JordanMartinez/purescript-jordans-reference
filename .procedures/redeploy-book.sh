@@ -8,7 +8,7 @@
 # - `../purescript-jordans-reference-site/src/Summary-header.md` file exists
 
 # Regenerate `mdbook`'s source content
-node .procedures/mdbook-toc.js -r "." -o "../purescript-jordans-reference-site/src" -s "Summary-header.md" -t ".ci,.git,.github,.procedures,.travis,output,book,mdbook"
+node .procedures/mdbook-toc.js -r "." -o "../purescript-jordans-reference-site/src" -s "Summary-header.md" -t ".ci,.git,.github,.procedures,.travis,output,book,mdbook,old-changelogs"
 
 cd ../purescript-jordans-reference-site
 
