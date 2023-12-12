@@ -35,7 +35,7 @@ unit = Unit
 type PendingComputation a = (Unit -> a)
 
 -- | A data structure that stores a pending computation.
-data Effect a = Box (PendingComputation a -> a)
+data Effect a = Box (PendingComputation a)
 
 -- | This unwraps the data structure to get the
 -- | pending computation, uses it to compute a value,
