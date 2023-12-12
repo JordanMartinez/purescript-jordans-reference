@@ -65,6 +65,7 @@ One of the main issues with JavaScript is a poor type system. Many errors aren't
 
 TypeScript seems to address this type safety issue. Just consider its name! However, a few people who are using PureScript now have said this about TypeScript: "You might as well be writing Javascript." TypeScript does not provide any real guarantees; it only pretends. PureScript does provide such guarantees.
 
+- [`fp-ts`'s Migration guide from PureScript to TypeScript](https://gcanti.github.io/fp-ts/guides/purescript.html). This is helpful for seeing 1) how much more TypeScript code it takes to implement the same feature in PureScript, and 2) how the resulting syntax IMO is of lesser quality and clarity than the corresponding PureScript code is.
 - [TypeScript vs PureScript: Not All Compilers Are Created Equal](https://blog.logrocket.com/typescript-vs-purescript-not-all-compilers-are-created-equal-c16dadaa7d3e)
 - [JavaScript, TypeScript, and PureScript](https://www.youtube.com/watch?v=JTEfpNtEoSA) or "Why TypeScript only 'pretends' to have types."
 - [Various examples comparing PureScript and TypeScript](https://discourse.purescript.org/t/type-system-showdown-purescript-and-typescript/2084)
