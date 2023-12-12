@@ -1,0 +1,1 @@
+* Fix erroneous Effect example

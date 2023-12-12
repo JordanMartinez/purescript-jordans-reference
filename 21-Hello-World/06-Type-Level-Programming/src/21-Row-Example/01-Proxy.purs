@@ -1,4 +1,4 @@
-module TLP.RowExample where
+module TLP.RowExample.Proxy where
 
 import Prelude
 import Effect (Effect)

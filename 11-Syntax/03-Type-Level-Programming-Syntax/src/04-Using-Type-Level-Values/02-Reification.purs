@@ -39,6 +39,8 @@ data YesNoKind
 foreign import data YesK :: YesNoKind
 foreign import data NoK  :: YesNoKind
 
+-- PureScript <0.15.13 Approach: use Proxy arguments
+
 data Proxy :: forall k. k -> Type
 data Proxy kind = Proxy
 
@@ -62,12 +64,38 @@ instance IsYesNoKind NoK where
 -- the corresponding type-level value as its only argument
 -- (where we do type-level programming):
 
-reifyYesNo :: forall returnType
-            . YesNo
-            -> (forall b. IsYesNoKind b => Proxy b -> returnType)
-            -> returnType
+reifyYesNo 
+  :: forall returnType
+   . YesNo
+  -> (forall b. IsYesNoKind b => Proxy b -> returnType)
+  -> returnType
 reifyYesNo Yes function = function yesK
 reifyYesNo No  function = function noK
+
+
+
+-- PureScript >=0.15.13 Approach: use Visible Type Applications
+
+class IsYesNoKindVta :: YesNoKind -> Constraint
+class IsYesNoKindVta a where
+  reflectYesNoVta :: YesNo
+
+instance IsYesNoKindVta YesK where
+  reflectYesNoVta = Yes
+
+instance IsYesNoKindVta NoK where
+  reflectYesNoVta  = No
+
+-- We can reify a YesNo by defining a callback function that 
+-- has the corresponding type-level value type-applied
+
+reifyYesNoVta
+  :: forall returnType
+  . YesNo
+  -> (forall @b. IsYesNoKindVta b => returnType)
+  -> returnType
+reifyYesNoVta Yes function = function @YesK
+reifyYesNoVta No  function = function @NoK
 
 -- necessary for not getting errors while trying the functions in the REPL
 
