@@ -39,6 +39,8 @@ For more details, see these links:
 
 ## What is Property Testing and Why It Succeeds
 
+See [Testing the Hard Stuff and Staying Sane](https://www.youtube.com/watch?v=V8v-1PnFisU), a talk from one of the guys who wrote QuickCheck, a Haskell library used to do property testing.
+
 Property-testing verifies that a function (e.g. `reverse`) that receives **any** value of some data type (e.g. `String`) will output an expected value of the same/different data type; the expected value is calculated using the given input.
 
 One might immediately think of this code before realizing that it doesn't work:
@@ -86,6 +88,11 @@ Usually, people who have never heard of property testing will think it is a "sil
 Still, before deciding that one must use unit tests, consider using state machine testing:
 - [Intro to state machine testing](http://qfpl.io/posts/intro-to-state-machine-testing-1/)
 - (haskell library) [An in-depth look at quickcheck-state-machine](http://www.well-typed.com/blog/2019/01/qsm-in-depth/)
+
+## Other Property Testing Links
+
+- [`falsify`](https://well-typed.com/blog/2023/04/falsify/) - a Haskell library that has not been ported to PureScript but has some interesting ideas
+- [How to Specify It! A Guide to Writing Properties of Pure Functions](https://research.chalmers.se/publication/517894/file/517894_Fulltext.pdf)
 
 ## Conclusion
 
