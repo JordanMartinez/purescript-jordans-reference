@@ -210,7 +210,7 @@ instance (Monad m) => Monad (StateT state monad)
 ### MonadState
 
 ```haskell
-instance (Monad m) => Monad (StateT state monad) where
+instance (Monad monad) => MonadState state (StateT state monad) where
   state :: forall value. (state -> Tuple value state) -> StateT state monad value
   state f = StateT (\s -> pure $ f s)
 ```
