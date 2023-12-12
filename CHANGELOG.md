@@ -42,6 +42,8 @@ New features:
 
   Reading through each is needed to get the full picture of VTAs.
 
+* Link to 'PureScript for Elm Developers' (#618 by @laurentpayot)
+
 Bugfixes:
 
 * Fix erroneous Effect example (#619 by @JordanMartinez)
@@ -49,6 +51,12 @@ Bugfixes:
 * Fix instantiation of `StateT`'s `MonadState` example (#619 by @JordanMartinez)
 
 * Miscellaneous tweaks to build tool history (#619 by @JordanMartinez)
+
+* Fix Pursuit operator search (#615 by @MarkFarmiloe)
+
+* Fix Function Monad typo (#613 by @kettron)
+
+* Fix 'for ... break if' typo (#605 by @sorenhoyer)
 
 Internal:
 
