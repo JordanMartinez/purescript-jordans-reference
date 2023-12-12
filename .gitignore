@@ -29,4 +29,4 @@
 
 # Ignore mdbook related files
 /mdbook/code/
-.procedures/mdbook-toc.js
+.procedures/mdbook-toc.mjs
