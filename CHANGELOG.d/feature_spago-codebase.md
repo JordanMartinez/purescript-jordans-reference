@@ -1,0 +1,1 @@
+* Adds a table clarifying the difference `spago` Haskell and PureScript codebases
