@@ -1,0 +1,1 @@
+* Add link to GADTs: Defeating Return Type Polymorphism
