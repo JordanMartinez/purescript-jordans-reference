@@ -1,1 +1,0 @@
-* Link to `fp-ts`' migration guide from PS to TS

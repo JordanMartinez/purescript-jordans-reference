@@ -1,1 +1,0 @@
-* Link to `falsify` and other property-testing-related links
