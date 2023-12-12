@@ -15,6 +15,8 @@ type Value_Level_Type = String
 data KindName
 foreign import data Value :: KindName
 
+-- PureScript <0.15.13 Approach: use Proxy arguments
+
 data Proxy :: forall k. k -> Type
 data Proxy kind = Proxy
 
@@ -43,3 +45,32 @@ reifyKindName :: forall r
           -> (forall a. IsKindName a => Proxy a -> r)
           -> r
 reifyKindName _valueLevel function = function inst
+
+
+
+-- PureScript >=0.15.13 Approach: use Visible Type Applications
+
+-- Note: below we will add the 'Vta'
+-- suffix so as not to clash names with the previous class
+
+-- The class name is usually "Is[KindName]".
+class IsKindNameVta :: KindName -> Constraint
+class IsKindNameVta a where
+  -- and the reflect function is usually "reflect[KindName]"
+  reflectKindNameVta :: Value_Level_Type
+
+instance IsKindNameVta Value where
+  reflectKindNameVta = "value-level value"
+
+-- NANS
+class IsKindNameVta a <= ConstrainedToKindNameVta a
+
+-- NANS
+instance ConstrainedToKindNameVta Value
+
+-- Usually reify[KindName]
+reifyKindNameVta :: forall r
+           . Value_Level_Type
+          -> (forall @a. IsKindNameVta a => r)
+          -> r
+reifyKindNameVta _valueLevel function = function @Value

@@ -35,7 +35,7 @@ elemAtIndex 3 (IndexedArray 3 [0, 1]) -- compiler error!
 elemAtIndex 0 (IndexedArray Empty []) -- compiler error!
 ```
 
-This is exactly what the library [Vec](https://pursuit.purescript.org/packages/purescript-sized-vectors/3.1.0/docs/Data.Vec#t:Vec) does.
+This is exactly what the library [sized-vectors](https://pursuit.purescript.org/packages/purescript-sized-vectors/3.1.0/docs/Data.Vec#t:Vec) does.
 
 ## Issues with Type-Level Programming
 
@@ -49,7 +49,10 @@ Consider purchasing the `Thinking with Types` book mentioned in `ROOT_FOLDER/Syn
 ## Compilation Instructions
 
 ```bash
-spago run -m TLP.SymbolExample
-spago run -m TLP.IntegerExample
-spago run -m TLP.RowExample
+spago run -m TLP.SymbolExample.Proxy
+spago run -m TLP.SymbolExample.VTAs
+spago run -m TLP.IntegerExample.Proxy
+spago run -m TLP.IntegerExample.VTAs
+spago run -m TLP.RowExample.Proxy
+spago run -m TLP.RowExample.VTAs
 ```

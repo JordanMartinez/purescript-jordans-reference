@@ -1,4 +1,4 @@
-module TLP.IntegerExample where
+module TLP.IntegerExample.Proxy where
 
 import Prelude
 import Data.Reflectable (class Reflectable, reflectType)

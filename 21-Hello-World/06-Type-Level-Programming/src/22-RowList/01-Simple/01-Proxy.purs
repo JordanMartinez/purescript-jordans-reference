@@ -1,4 +1,5 @@
-module TLP.RowList.Simple where
+-- This is the same file as the next one but specified to use Proxy arguments.
+module TLP.RowList.Simple.Proxy where
 
 import Prelude
 

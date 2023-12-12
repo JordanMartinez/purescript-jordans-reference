@@ -1,4 +1,5 @@
-module TLP.SymbolExample where
+-- This file uses Proxy arguments in its examples
+module TLP.SymbolExample.Proxy where
 
 import Prelude
 import Data.Tuple(Tuple(..))
